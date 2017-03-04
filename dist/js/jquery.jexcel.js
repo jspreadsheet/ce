@@ -1212,7 +1212,7 @@ var methods = {
                 // Native functions
                 if (options.columns[position[0]].type == 'checkbox') {
                     // Get checkbox value
-                    value = $(cell).find('input').is(':checked') ? 1 : 0;
+                    value = $(cell).find('input').is(':checked') ? '1' : '0';
                 } else if (options.columns[position[0]].type == 'dropdown' || options.columns[position[0]].type == 'autocomplete' || options.columns[position[0]].type == 'calendar') {
                     // Get value
                     value = $(cell).find('input').val();
@@ -2240,6 +2240,8 @@ var methods = {
         // Hidden column
         if (options.columns[i].type == 'hidden') {
             $(td).css('display', 'none');
+        } else {
+            $(td).html('<input type="checkbox">');
         }
 
         // Set column value
