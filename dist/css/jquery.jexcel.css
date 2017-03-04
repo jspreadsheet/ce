@@ -138,16 +138,6 @@
     background-color:transparent;
 }
 
-.jexcel > thead > tr > td > select, .jexcel > thead > tr > td > input
-{
-    border:0px;
-    outline:0px solid transparent;
-    width:100%;
-    margin:0px;
-    padding:0px;
-    background-color:transparent;
-}
-
 .jexcel, .jexcel td, .jexcel_corner {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
