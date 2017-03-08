@@ -272,9 +272,10 @@ var methods = {
                 return false;
             });
 
-            // Corner persistence
+            // Corner persistence and other helpers
             $.fn.jexcel.selectedCorner = false;
             $.fn.jexcel.selectedHeader = null;
+            $.fn.jexcel.resizeColumn = null;
 
             // Global mouse click down controles
             $(document).on('mousedown', function (e) {
@@ -316,12 +317,28 @@ var methods = {
                                     $.fn.jexcel.selectedHeader = $(e.target);
                                 }
 
-                                 // Get cell objects 
-                                var o1 = $('#' + $.fn.jexcel.current).find('#' + o[1] + '-0');
-                                var o2 = $('#' + $.fn.jexcel.current).find('#' + d[1] + '-' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1));
+                                // Update cursor
+                                if ($(e.target).outerWidth() - e.offsetX < 5) {
+                                    // Resize helper
+                                    $.fn.jexcel.resizeColumn = {
+                                        mousePosition: e.pageX,
+                                        column:o[1],
+                                        width:parseInt($(e.target).css('width')),
+                                    }
+                                    // Border indication
+                                    $(table).parent().find('.c' + o[1]).addClass('resizing');
 
-                                // Update selection
-                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+                                    // Remove selected cells
+                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection');
+                                    $('.jexcel_corner').css('left', '-200px');
+                                } else {
+                                    // Get cell objects 
+                                    var o1 = $('#' + $.fn.jexcel.current).find('#' + o[1] + '-0');
+                                    var o2 = $('#' + $.fn.jexcel.current).find('#' + d[1] + '-' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1));
+
+                                    // Update selection
+                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+                                }
                             }
                         } else {
                             $.fn.jexcel.selectedHeader = false;
@@ -389,9 +406,17 @@ var methods = {
             });
 
             // Global mouse click up controles 
-            $(document).mouseup(function (o) {
+            $(document).on('mouseup', function (o) {
                 // Cancel any corner selection
                 $.fn.jexcel.selectedCorner = false;
+
+                // Cancel resizing
+                if ($.fn.jexcel.resizeColumn) {
+                    // Remove resizing border indication
+                    $('#' + $.fn.jexcel.current).find('tbody td').removeClass('resizing');
+                    // Reset resizing helper
+                    $.fn.jexcel.resizeColumn = null;
+                }
 
                 // Data to be copied
                 var selection = $('#' + $.fn.jexcel.current).find('tbody td.selection');
@@ -465,62 +490,86 @@ var methods = {
                 }
             });
 
-            $(document).on('mouseover', function (e) {
-                // Get jexcel table
-                var table = $(e.target).closest('.jexcel');
+            $(document).on('mousemove', function (e) {
+                // Resizing is ongoing
+                if ($.fn.jexcel.resizeColumn) {
+                   var width = e.pageX - $.fn.jexcel.resizeColumn.mousePosition;
 
-                // If the user is in the current table
-                if ($.fn.jexcel.current == $(table).parent().prop('id')) {
+                   if ($.fn.jexcel.resizeColumn.width + width > 0) {
+                       $('#' + $.fn.jexcel.current).jexcel('setWidth', $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width + width);
+                   }
+                } else {
                     // Header found
                     if ($(e.target).parent().parent().is('thead')) {
-                        if ($.fn.jexcel.selectedHeader) {
-                            // Updade selection
-                            if (e.buttons) {
-                                var o = $($.fn.jexcel.selectedHeader).prop('id');
-                                var d = $(e.target).prop('id');
-                                if (o && d) {
-                                    o = o.split('-');
-                                    d = d.split('-');
-                                    // Get cell objects 
-                                    var o1 = $('#' + $.fn.jexcel.current).find('#' + o[1] + '-0');
-                                    var o2 = $('#' + $.fn.jexcel.current).find('#' + d[1] + '-' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1));
-                                    // Update selection
-                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
-                                }
-                            }
+                        // Update cursor
+                        if ($(e.target).outerWidth() - e.offsetX < 5) {
+                            $(e.target).css('cursor', 'col-resize');
+                        } else {
+                            $(e.target).css('cursor', '');
                         }
                     }
+                }
+            });
 
-                    // Body found
-                    if ($(e.target).parent().parent().is('tbody')) {
-                        // Update row label selection
-                        if ($(e.target).is('.label')) {
-                            if ($.fn.jexcel.selectedRow) {
+            $(document).on('mouseover', function (e) {
+                // No resizing is ongoing
+                if (! $.fn.jexcel.resizeColumn) {
+                    // Get jexcel table
+                    var table = $(e.target).closest('.jexcel');
+
+                    // If the user is in the current table
+                    if ($.fn.jexcel.current == $(table).parent().prop('id')) {
+                        // Header found
+                        if ($(e.target).parent().parent().is('thead')) {
+                            if ($.fn.jexcel.selectedHeader) {
                                 // Updade selection
                                 if (e.buttons) {
-                                    var o = $($.fn.jexcel.selectedRow).prop('id');
+                                    var o = $($.fn.jexcel.selectedHeader).prop('id');
                                     var d = $(e.target).prop('id');
                                     if (o && d) {
                                         o = o.split('-');
                                         d = d.split('-');
                                         // Get cell objects 
-                                        var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
-                                        var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-'  + d[1]);
+                                        var o1 = $('#' + $.fn.jexcel.current).find('#' + o[1] + '-0');
+                                        var o2 = $('#' + $.fn.jexcel.current).find('#' + d[1] + '-' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1));
                                         // Update selection
                                         $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
                                     }
                                 }
                             }
-                        } else {
-                            if ($.fn.jexcel.selectedCell) {
-                                if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                    if ($.fn.jexcel.selectedCorner == true) {
-                                        // Copy option
-                                        $('#' + $.fn.jexcel.current).jexcel('updateCornerSelection', $(e.target));
-                                    } else {
-                                        // Updade selection
-                                        if (e.buttons) {
-                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                        }
+
+                        // Body found
+                        if ($(e.target).parent().parent().is('tbody')) {
+                            // Update row label selection
+                            if ($(e.target).is('.label')) {
+                                if ($.fn.jexcel.selectedRow) {
+                                    // Updade selection
+                                    if (e.buttons) {
+                                        var o = $($.fn.jexcel.selectedRow).prop('id');
+                                        var d = $(e.target).prop('id');
+                                        if (o && d) {
+                                            o = o.split('-');
+                                            d = d.split('-');
+                                            // Get cell objects 
+                                            var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
+                                            var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-'  + d[1]);
+                                            // Update selection
+                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+                                        }
+                                    }
+                                }
+                            } else {
+                                if ($.fn.jexcel.selectedCell) {
+                                    if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                        if ($.fn.jexcel.selectedCorner == true) {
+                                            // Copy option
+                                            $('#' + $.fn.jexcel.current).jexcel('updateCornerSelection', $(e.target));
+                                        } else {
+                                            // Updade selection
+                                            if (e.buttons) {
+                                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                                            }
                                         }
                                     }
                                 }
@@ -652,6 +701,8 @@ var methods = {
                         } else if (e.which == 46) {
                             // Delete (erase cell in case no edition is running)
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                $('#' + $.fn.jexcel.current).jexcel('startNewHistoryRecord');
+                                $('#' + $.fn.jexcel.current).jexcel('storeCellChange', $('#' + $.fn.jexcel.current).find('.highlight'), '');
                                 $('#' + $.fn.jexcel.current).jexcel('setValue', $('#' + $.fn.jexcel.current).find('.highlight'), '');
                             }
                         } else {
@@ -1368,40 +1419,44 @@ var methods = {
         // Update selected column
         $(header).removeClass('selected');
         $(cells).removeClass('selected');
-        $(o).addClass('selected');
 
-        // Define coordinates
-        o = $(o).prop('id').split('-');
-        d = $(d).prop('id').split('-');
+        // Origin & Destination
+        if (o && d) {
+            $(o).addClass('selected');
 
-        if (parseInt(o[0]) < parseInt(d[0])) {
-            px = parseInt(o[0]);
-            ux = parseInt(d[0]);
-        } else {
-            px = parseInt(d[0]);
-            ux = parseInt(o[0]);
-        }
+            // Define coordinates
+            o = $(o).prop('id').split('-');
+            d = $(d).prop('id').split('-');
 
-        if (parseInt(o[1]) < parseInt(d[1])) {
-            py = parseInt(o[1]);
-            uy = parseInt(d[1]);
-        } else {
-            py = parseInt(d[1]);
-            uy = parseInt(o[1]);
-        }
+            if (parseInt(o[0]) < parseInt(d[0])) {
+                px = parseInt(o[0]);
+                ux = parseInt(d[0]);
+            } else {
+                px = parseInt(d[0]);
+                ux = parseInt(o[0]);
+            }
 
-        // Redefining styles
-        for (i = px; i <= ux; i++) {
-            for (j = py; j <= uy; j++) {
-                $(this).find('#' + i + '-' + j).addClass('highlight');
-                $(this).find('#' + px + '-' + j).addClass('highlight-left');
-                $(this).find('#' + ux + '-' + j).addClass('highlight-right');
-                $(this).find('#' + i + '-' + py).addClass('highlight-top');
-                $(this).find('#' + i + '-' + uy).addClass('highlight-bottom');
+            if (parseInt(o[1]) < parseInt(d[1])) {
+                py = parseInt(o[1]);
+                uy = parseInt(d[1]);
+            } else {
+                py = parseInt(d[1]);
+                uy = parseInt(o[1]);
+            }
 
-                // Row and column headers
-                $(main).find('#col-' + i).addClass('selected');
-                $(main).find('#row-' + j).addClass('selected');
+            // Redefining styles
+            for (i = px; i <= ux; i++) {
+                for (j = py; j <= uy; j++) {
+                    $(this).find('#' + i + '-' + j).addClass('highlight');
+                    $(this).find('#' + px + '-' + j).addClass('highlight-left');
+                    $(this).find('#' + ux + '-' + j).addClass('highlight-right');
+                    $(this).find('#' + i + '-' + py).addClass('highlight-top');
+                    $(this).find('#' + i + '-' + uy).addClass('highlight-bottom');
+
+                    // Row and column headers
+                    $(main).find('#col-' + i).addClass('selected');
+                    $(main).find('#row-' + j).addClass('selected');
+                }
             }
         }
 
@@ -1834,6 +1889,12 @@ var methods = {
      */
     setWidth : function (column, width) {
         if (width > 0) {
+            // In case the column is an object
+            if (typeof(column) == 'object') {
+                column = $(column).prop('id').split('-');
+                column = column[0];
+            }
+
             var col = $(this).find('thead #col-' + column);
             if (col.length) {
                 $(col).prop('width', width);
@@ -1847,6 +1908,12 @@ var methods = {
      * @return width - current column width
      */
     getWidth : function (column) {
+        // In case the column is an object
+        if (typeof(column) == 'object') {
+            column = $(column).prop('id').split('-');
+            column = column[0];
+        }
+
         var col = $(this).find('thead #col-' + column);
 
         if (col.length) {
@@ -2232,6 +2299,8 @@ var methods = {
         $(td).prop('width', width);
         $(td).prop('align', align);
         $(td).prop('id', i + '-' +j);
+        $(td).addClass('c' + i);
+        $(td).addClass('r' + j);
 
         // Readonly
         if (options.columns[i].readOnly == true) {
