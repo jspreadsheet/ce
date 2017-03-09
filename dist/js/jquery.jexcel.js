@@ -206,10 +206,10 @@ var methods = {
         var tbody = document.createElement('tbody');
 
         // Header
-        $(thead).prop('class', 'label');
+        $(thead).prop('class', 'jexcel_label');
 
         // Create headers
-        var tr = '<td width="30" class="label"></td>';
+        var tr = '<td width="30" class="jexcel_label"></td>';
 
         for (i = 0; i < options.colHeaders.length; i++) {
             // Default header cell properties
@@ -347,7 +347,7 @@ var methods = {
                         // Body found
                         if ($(e.target).parent().parent().is('tbody')) {
                             // Update row label selection
-                            if ($(e.target).is('.label')) {
+                            if ($(e.target).is('.jexcel_label')) {
                                 var o = $(e.target).prop('id').split('-');
 
                                 if ($.fn.jexcel.selectedRow && (e.shiftKey || e.ctrlKey)) {
@@ -542,7 +542,7 @@ var methods = {
                         // Body found
                         if ($(e.target).parent().parent().is('tbody')) {
                             // Update row label selection
-                            if ($(e.target).is('.label')) {
+                            if ($(e.target).is('.jexcel_label')) {
                                 if ($.fn.jexcel.selectedRow) {
                                     // Updade selection
                                     if (e.buttons) {
@@ -618,7 +618,7 @@ var methods = {
                             // Left arrow
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                 if (e.ctrlKey) {
-                                    cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.label').first();
+                                    cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.jexcel_label').first();
                                 } else {
                                     cell = $($.fn.jexcel.selectedCell).prev();
                                 }
@@ -722,7 +722,7 @@ var methods = {
                             } else if (! e.shiftKey && e.ctrlKey) {
                                 if (e.which == 65) {
                                     // Ctrl + A
-                                    t = $(this).find('.jexcel tbody td').not('.label');
+                                    t = $(this).find('.jexcel tbody td').not('.jexcel_label');
                                     o = $(t).first();
                                     t = $(t).last();
                                     $('#' + $.fn.jexcel.current).jexcel('updateSelection', o, t);
@@ -830,7 +830,7 @@ var methods = {
             // New line of data to be append in the table
             tr = document.createElement('tr');
             // Index column
-            $(tr).append('<td id="row-' + j + '" class="label">' + parseInt(j + 1) + '</td>'); 
+            $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>'); 
             // Data columns
             for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
                 // New column of data to be append in the line
@@ -875,7 +875,7 @@ var methods = {
         // Go through all cells
         if (typeof(options) == 'object') {
             $.fn.jexcel.defaults[id].updateSettingsOptions = options;
-            var cells = $(this).find('.jexcel tbody td').not('.label');
+            var cells = $(this).find('.jexcel tbody td').not('.jexcel_label');
             if (typeof(options.cells) == 'function') {
                 $.each(cells, function (k, v) {
                     id = $(v).prop('id').split('-');
@@ -1805,7 +1805,7 @@ var methods = {
             var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '">' + header + '</td>';
 
             // Add element to the table
-            var tr = $(this).find('thead.label tr')[0];
+            var tr = $(this).find('thead.jexcel_label tr')[0];
             $(tr).append(td);
 
             // Add columns to the content rows
@@ -1845,7 +1845,7 @@ var methods = {
         // Adding lines
         for (row = 0; row < numLines; row++) {
             // New row
-            var tr = '<td id="row-' + j + '" class="label">' + (j + 1) + '</td>';
+            var tr = '<td id="row-' + j + '" class="jexcel_label">' + (j + 1) + '</td>';
 
             // New data
             $.fn.jexcel.defaults[id].data[j] = [];
@@ -2065,7 +2065,7 @@ var methods = {
         var columns = $.fn.jexcel.defaults[id].dynamicColumns;
 
         // Define global variables
-        var varibles = $(this).find('.jexcel tbody td').not('.label');
+        var varibles = $(this).find('.jexcel tbody td').not('.jexcel_label');
         $.each(varibles, function (k, v) {
             i = $(main).jexcel('getColumnNameFromId', $(v).prop('id'));
             v = $(main).jexcel('getValue', $(v));
