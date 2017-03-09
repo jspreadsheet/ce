@@ -118,7 +118,8 @@
     border: 2px solid rgb(255, 255, 255);
     top:-200px;
     left:-200px;
-    cursor:crosshair
+    cursor:crosshair;
+    box-sizing: initial;
 }
 .jexcel .editor
 {
@@ -231,4 +232,10 @@
     position:absolute;
     margin-left:4px;
     margin-top:8px;
+}
+
+.jexcel .resizing
+{
+    border-right-style:dotted !important;
+    border-right-color:red !important;
 }
