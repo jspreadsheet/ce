@@ -1186,6 +1186,9 @@ var methods = {
                 }
             }
 
+            // Save history for undo/redo
+            $(this).jexcel('storeCellChange', cell, value, $.fn.jexcel.edition);
+
             // Get value from column and set the default
             $.fn.jexcel.defaults[id].data[position[1]][position[0]] = $(this).jexcel('getValue', $(cell));
 
@@ -1196,9 +1199,6 @@ var methods = {
 
             // After changes
             $(this).jexcel('afterChange');
-
-            // Save history for undo/redo
-            $(this).jexcel('storeCellChange', cell, value, $.fn.jexcel.edition);
 
             // Sparerows and sparecols configuration
             if (options.minSpareCols > 0) {
@@ -1683,18 +1683,17 @@ var methods = {
         var main = $(this);
 
         // Copy data
-        main.jexcel('copy', true);
+        $(this).jexcel('copy', true);
         var cells = $(this).find('.highlight');
 
         // Start a new history record
-        main.jexcel('startNewHistoryRecord');
-        $.each(cells, function (index, cell) {
-            // Store history for undo/redo
-            main.jexcel('storeCellChange', $(cell), '')
-        });
+        $(this).jexcel('startNewHistoryRecord');
+
+        // Store cells
+        $(this).jexcel('storeCellChange', cells, '')
 
         // Remove current data
-        main.jexcel('setValue', cells, '');
+        $(this).jexcel('setValue', cells, '');
     },
 
     /**
@@ -1844,38 +1843,22 @@ var methods = {
 
         // Adding lines
         for (row = 0; row < numLines; row++) {
-            // New row
-            var tr = '<td id="row-' + j + '" class="jexcel_label">' + (j + 1) + '</td>';
-
+            // New line of data to be append in the table
+            tr = document.createElement('tr');
+            // Index column
+            $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
             // New data
             $.fn.jexcel.defaults[id].data[j] = [];
 
             for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
                 // New Data
                 $.fn.jexcel.defaults[id].data[j][i] = '';
-
-                // Aligment
-                align = $.fn.jexcel.defaults[id].colAlignments[i] || 'left';
-
-                // Hidden column
-                if ($.fn.jexcel.defaults[id].columns[i].type == 'hidden') {
-                    tr += '<td id="' + i + '-' + j + '" style="display:none;"></td>';
-                } else {
-                    // Native options
-                    if ($.fn.jexcel.defaults[id].columns[i].type == 'checkbox') {
-                        contentCell = '<input type="checkbox">';
-                    } else if ($.fn.jexcel.defaults[id].columns[i].type == 'dropdown' || $.fn.jexcel.defaults[id].columns[i].type == 'autocomplete' || $.fn.jexcel.defaults[id].columns[i].type == 'calendar') {
-                        contentCell = '<input type="hidden" value="">';
-                    } else {
-                        contentCell = '';
-                    }
-
-                    tr += '<td id="' + i + '-' + j + '" align="' + align +'">' + contentCell + '</td>';
-                }
+                // New column of data to be append in the line
+                td = $(this).jexcel('createCell', i, j);
+                // Add column to the row
+                $(tr).append(td);
             }
-
-            tr = '<tr>' + tr + '</tr>';
-
+            // Add row to the table body
             $(this).find('tbody').append(tr);
 
             j++;
@@ -2234,17 +2217,23 @@ var methods = {
      * @param string oldValue old cell vaule [optional]
      */
     storeCellChange : function(cell, newValue, oldValue) {
+        // Get instance
+        var main = $(this);
+
+        // Get table id
         var id = $(this).prop('id');
 
-        if (oldValue == undefined) {
-            oldValue = $(this).jexcel('getValue', cell);
-        }
-
         // Store the cell change details
-        $.fn.jexcel.defaults[id].history[$.fn.jexcel.defaults[id].historyIndex].cellChanges.push({
-            cell: cell,
-            newValue: newValue,
-            oldValue: oldValue
+        $.each(cell, function (k, v) {
+            if (! oldValue) {
+                oldValue = $(main).jexcel('getValue', v);
+            }
+
+            $.fn.jexcel.defaults[id].history[$.fn.jexcel.defaults[id].historyIndex].cellChanges.push({
+                cell: $(v),
+                newValue: newValue,
+                oldValue: oldValue
+            });
         });
     },
 
@@ -2309,7 +2298,7 @@ var methods = {
             if (options.columns[i].readOnly == true) {
                 $(td).html('<input type="checkbox" disabled="disabled">');
             } else {
-                $(td).html('<input type="checkbox">');
+                $(td).html('<input type="checkbox" onclick="$(this).parents(\'.jexcel\').parent().jexcel(\'setValue\', $(this).parent(), $(this).prop(\'checked\') ? 1 : 0)">');
             }
         }
 
