@@ -93,11 +93,12 @@ var methods = {
                 if (! options.columns[i].options) {
                     $.fn.jexcel.defaults[id].columns[i].options = [];
                 }
-                // Align
+                if (! options.columns[i].editor) {
+                    options.columns[i].editor = null;
+                }
                 if (! options.colAlignments[i]) {
                     options.colAlignments[i] = 'center';
                 }
-                // Align
                 if (! options.colWidths[i]) {
                     options.colWidths[i] = '50';
                 }
@@ -701,8 +702,6 @@ var methods = {
                         } else if (e.which == 46) {
                             // Delete (erase cell in case no edition is running)
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                $('#' + $.fn.jexcel.current).jexcel('startNewHistoryRecord');
-                                $('#' + $.fn.jexcel.current).jexcel('storeCellChange', $('#' + $.fn.jexcel.current).find('.highlight'), '');
                                 $('#' + $.fn.jexcel.current).jexcel('setValue', $('#' + $.fn.jexcel.current).find('.highlight'), '');
                             }
                         } else {
@@ -1291,7 +1290,7 @@ var methods = {
      * @param object value value
      * @return void
      */
-    setValue : function(cell, value, ignoreEvents) {
+    setValue : function(cell, value, ignoreEvents, groupedChanged) {
         // If is a string get the cell object
         if (typeof(cell) !== 'object') {
             // Convert in case name is excel liked ex. A10, BB92
@@ -1311,6 +1310,13 @@ var methods = {
             // Global options
             var options = $.fn.jexcel.defaults[id];
 
+            // Starting tracking changes
+            if (! ignoreEvents) {
+                if (! groupedChanged) {
+                    $(main).jexcel('startNewHistoryRecord');
+                }
+            }
+
             // Go throw all cells
             $.each(cell, function(k, v) {
                 // Cell identification
@@ -1318,6 +1324,8 @@ var methods = {
 
                 // Before Change
                 if (! ignoreEvents) {
+                    $(main).jexcel('storeCellChange', $(v), value);
+
                     if (typeof(options.columns[position[0]].onbeforechange) == 'function') {
                         options.columns[position[0]].onbeforechange($(this), $(v));
                     }
@@ -1686,12 +1694,6 @@ var methods = {
         $(this).jexcel('copy', true);
         var cells = $(this).find('.highlight');
 
-        // Start a new history record
-        $(this).jexcel('startNewHistoryRecord');
-
-        // Store cells
-        $(this).jexcel('storeCellChange', cells, '')
-
         // Remove current data
         $(this).jexcel('setValue', cells, '');
     },
@@ -1740,8 +1742,7 @@ var methods = {
     
                     // If cell exists
                     if ($(cell).length > 0) {
-                        $(this).jexcel('storeCellChange', $(cell), row[i]);
-                        $(this).jexcel('setValue', $(cell), row[i]);
+                        $(this).jexcel('setValue', $(cell), row[i], false, true);
                     }
                 }
             }
@@ -1995,8 +1996,7 @@ var methods = {
 
                 // Update non-readonly
                 if (! $(cell).hasClass('readonly')) {
-                    $(this).jexcel('storeCellChange', cell, data[posy][posx]);
-                    $(this).jexcel('setValue', cell, data[posy][posx]);
+                    $(this).jexcel('setValue', cell, data[posy][posx], false, true);
                 }
                 posx++;
             }
@@ -2246,7 +2246,7 @@ var methods = {
         if ($.fn.jexcel.defaults[id].historyIndex >= 0) {
             var historyRecord = $.fn.jexcel.defaults[id].history[$.fn.jexcel.defaults[id].historyIndex--];
             for (var i = 0; i < historyRecord.cellChanges.length; i++) {
-                $(this).jexcel('setValue', historyRecord.cellChanges[i].cell, historyRecord.cellChanges[i].oldValue);
+                $(this).jexcel('setValue', $(historyRecord.cellChanges[i].cell), historyRecord.cellChanges[i].oldValue, true);
             }
 
             $(this).jexcel('updateSelection', historyRecord.firstSelected, historyRecord.lastSelected);
@@ -2262,7 +2262,7 @@ var methods = {
         if ($.fn.jexcel.defaults[id].historyIndex < $.fn.jexcel.defaults[id].history.length - 1) {
             var historyRecord = $.fn.jexcel.defaults[id].history[++$.fn.jexcel.defaults[id].historyIndex];
             for (var i = 0; i < historyRecord.cellChanges.length; i++) {
-                $(this).jexcel('setValue', historyRecord.cellChanges[i].cell, historyRecord.cellChanges[i].newValue);
+                $(this).jexcel('setValue', $(historyRecord.cellChanges[i].cell), historyRecord.cellChanges[i].newValue, true);
             }
 
             $(this).jexcel('updateSelection', historyRecord.firstSelected, historyRecord.lastSelected);
@@ -2298,7 +2298,7 @@ var methods = {
             if (options.columns[i].readOnly == true) {
                 $(td).html('<input type="checkbox" disabled="disabled">');
             } else {
-                $(td).html('<input type="checkbox" onclick="$(this).parents(\'.jexcel\').parent().jexcel(\'setValue\', $(this).parent(), $(this).prop(\'checked\') ? 1 : 0)">');
+                $(td).html('<input type="checkbox" onclick="var instance = $(this).parents(\'.jexcel\').parent(); $(instance).jexcel(\'setValue\', $(this).parent(), $(this).prop(\'checked\') ? 1 : 0)">');
             }
         }
 
