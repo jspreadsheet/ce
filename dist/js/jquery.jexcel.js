@@ -1326,7 +1326,7 @@ var methods = {
                 if (options.columns[position[0]].editor) {
                     // Custom editor
                     options.columns[position[0]].editor.setValue(v, value);
-                } else if (options.columns[position[0]].readOnly == true) {
+                } else if ($(v).hasClass('readonly') == true) {
                     // Do nothing
                     value = null;
                 } else {
@@ -2302,19 +2302,24 @@ var methods = {
         $(td).addClass('c' + i);
         $(td).addClass('r' + j);
 
-        // Readonly
-        if (options.columns[i].readOnly == true) {
-            $(td).prop('readonly', 'readonly');
-        }
         // Hidden column
         if (options.columns[i].type == 'hidden') {
             $(td).css('display', 'none');
-        } else {
-            $(td).html('<input type="checkbox">');
+        } else if (options.columns[i].type == 'checkbox') {
+            if (options.columns[i].readOnly == true) {
+                $(td).html('<input type="checkbox" disabled="disabled">');
+            } else {
+                $(td).html('<input type="checkbox">');
+            }
         }
 
         // Set column value
         $(this).jexcel('setValue', $(td), '' + options.data[j][i], true);
+
+        // Readonly
+        if (options.columns[i].readOnly == true) {
+            $(td).addClass('readonly', 'readonly');
+        }
 
         return $(td);
     },
