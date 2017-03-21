@@ -278,8 +278,39 @@ var methods = {
             $.fn.jexcel.selectedHeader = null;
             $.fn.jexcel.resizeColumn = null;
 
+            // Jexcel context menu
+            $(document).on("contextmenu", function (e) {
+                // Check if the click was in an jexcel element
+                var table = $(e.target).parent().parent().parent();
+
+                // Table found
+                if ($(table).is('.jexcel')) {
+                    
+                    // Header found
+                    if ($(e.target).parent().parent().is('thead')) {
+                        var o = $(e.target).prop('id');
+                        if (o) {
+                            o = o.split('-');
+                            // Avoid the real one
+                            e.preventDefault();
+
+                            // Show jexcel context menu
+                            $(".jexcel_contextmenu").css({ display:'block', top: event.pageY + "px", left: event.pageX + "px" });
+                        }
+                    }
+                }
+            });
+
+            $(document).on(' mousewheel', function (e) {
+                // Hide context menu
+                $(".jexcel_contextmenu").css('display', 'none');
+            });
+
             // Global mouse click down controles
             $(document).on('mousedown', function (e) {
+                // Hide context menu
+                $(".jexcel_contextmenu").css('display', 'none');
+
                 // Click on corner icon
                 if (e.target.id == 'corner') {
                     $.fn.jexcel.selectedCorner = true;
@@ -319,7 +350,7 @@ var methods = {
                                 }
 
                                 // Update cursor
-                                if ($(e.target).outerWidth() - e.offsetX < 5) {
+                                if ($(e.target).outerWidth() - e.offsetX < 8) {
                                     // Resize helper
                                     $.fn.jexcel.resizeColumn = {
                                         mousePosition: e.pageX,
@@ -503,7 +534,7 @@ var methods = {
                     // Header found
                     if ($(e.target).parent().parent().is('thead')) {
                         // Update cursor
-                        if ($(e.target).outerWidth() - e.offsetX < 5) {
+                        if ($(e.target).outerWidth() - e.offsetX < 8) {
                             $(e.target).css('cursor', 'col-resize');
                         } else {
                             $(e.target).css('cursor', '');
@@ -929,7 +960,11 @@ var methods = {
                     $(cell).addClass('edition');
 
                     // Create dropdown
-                    var source = options.columns[position[0]].source;
+                    if (options.columns[position[0]].filter) {
+                        var source = options.columns[position[0]].filter($(this), position[0], position[1]);
+                    } else {
+                        var source = options.columns[position[0]].source;
+                    }
 
                     var html = '<select>';
                     for (i = 0; i < source.length; i++) {
