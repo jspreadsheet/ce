@@ -494,6 +494,19 @@ var methods = {
                     // Remove selection
                     $(selection).removeClass('selection selection-left selection-right selection-top selection-bottom');
                 }
+
+                selection = $('#' + $.fn.jexcel.current).find('tbody td.highlight');
+
+                if ($(selection).length > 0) {
+                    // First and last cells
+                    o = $(selection[0]);
+                    d = $(selection[selection.length - 1]);
+
+                    // Events
+                    if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
+                        $.fn.jexcel.defaults[id].onselection($('#' + $.fn.jexcel.current), o, d);
+                    }
+                }
             });
 
             // Double click
@@ -1466,9 +1479,12 @@ var methods = {
      * @param object d cell destination
      * @return void
      */
-    updateSelection : function(o, d) {
+    updateSelection : function(o, d, ignoreEvents) {
         // Main table
         var main = $(this);
+
+        // Id
+        var id = $(this).prop('id');
 
         // Cells
         var cells = $(this).find('tbody td');
@@ -1522,6 +1538,13 @@ var methods = {
                     $(main).find('#col-' + i).addClass('selected');
                     $(main).find('#row-' + j).addClass('selected');
                 }
+            }
+        }
+
+        // Events
+        if (! ignoreEvents) {
+            if (typeof($.fn.jexcel.defaults[id].oncellselection) == 'function') {
+                $.fn.jexcel.defaults[id].oncellselection($('#' + $.fn.jexcel.current), o, d);
             }
         }
 
