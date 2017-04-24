@@ -395,7 +395,7 @@ var methods = {
                                     var o2 = $('#' + $.fn.jexcel.current).find('#' + d[1] + '-' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1));
 
                                     // Update selection
-                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2, false, 1);
                                 }
                             }
                         } else {
@@ -635,28 +635,12 @@ var methods = {
                 }
             });
 
-            // Copy data from the table in excel format
-            $(document).on('copy', function(e) {
-                if ($.fn.jexcel.current) {
-                    // Copy data
-                    $('#' + $.fn.jexcel.current).jexcel('copy', true);
-                }
-            });
-
-            // Cut data from the table in excel format
-            $(document).on('cut', function() {
-                if ($.fn.jexcel.current) {
-                    // Cut data
-                    $('#' + $.fn.jexcel.current).jexcel('cut');
-                }
-            });
-
-            // Paste data from excel format to the table
-            $(document).on('paste', function(e) {
-                if ($.fn.jexcel.current) {
+            $(document).on('paste', function (e) {
+                if (e.originalEvent) {
                     $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, e.originalEvent.clipboardData.getData('text'));
+                    e.preventDefault();
                 }
-            });
+            })
 
             // Keyboard controls
             var keyBoardCell = null;
@@ -799,6 +783,20 @@ var methods = {
                                         $('#' + $.fn.jexcel.current).jexcel('undo');
                                     }
                                     e.preventDefault();
+                                } else if (e.which == 67) {
+                                    // Ctrl + C
+                                    $('#' + $.fn.jexcel.current).jexcel('copy', true);
+                                    e.preventDefault();
+                                } else if (e.which == 88) {
+                                    // Ctrl + X
+                                    $('#' + $.fn.jexcel.current).jexcel('cut');
+                                    e.preventDefault();
+                                } else if (e.which == 86) {
+                                    // Ctrl + V
+                                    if (window.clipboardData) {
+                                        $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, window.clipboardData.getData('Text'));
+                                        e.preventDefault();
+                                    }
                                 }
                             }
                         }
@@ -1479,7 +1477,7 @@ var methods = {
      * @param object d cell destination
      * @return void
      */
-    updateSelection : function(o, d, ignoreEvents) {
+    updateSelection : function(o, d, ignoreEvents, origin) {
         // Main table
         var main = $(this);
 
@@ -1544,7 +1542,7 @@ var methods = {
         // Events
         if (! ignoreEvents) {
             if (typeof($.fn.jexcel.defaults[id].oncellselection) == 'function') {
-                $.fn.jexcel.defaults[id].oncellselection($('#' + $.fn.jexcel.current), o, d);
+                $.fn.jexcel.defaults[id].oncellselection($('#' + $.fn.jexcel.current), o, d, origin);
             }
         }
 
@@ -1789,7 +1787,7 @@ var methods = {
         var id = $(this).prop('id');
 
         // Data
-        data = data.split("\r\n");
+        data = data.split("\n");
 
         // Initial position
         var position = $(cell).prop('id');
