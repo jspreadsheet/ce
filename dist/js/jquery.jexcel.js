@@ -34,7 +34,7 @@ var methods = {
             columns:[],
             minSpareRows:0,
             minSpareCols:0,
-            minDimentions:[0,0],
+            minDimensions:[0,0],
             contextMenu:null,
             about:'jExcel Spreadsheet\\nVersion 1.0.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://www.bossanova.uk/jexcel'
         };
@@ -79,8 +79,8 @@ var methods = {
             }
 
             // Minimal dimensions
-            if ($.fn.jexcel.defaults[id].minDimentions[0] > size) {
-                size = $.fn.jexcel.defaults[id].minDimentions[0];
+            if ($.fn.jexcel.defaults[id].minDimensions[0] > size) {
+                size = $.fn.jexcel.defaults[id].minDimensions[0];
             }
 
             // Preparations
@@ -877,8 +877,8 @@ var methods = {
         // Adjust minimal dimensions
         var size_i = $.fn.jexcel.defaults[id].colHeaders.length;
         var size_j = $.fn.jexcel.defaults[id].data.length;
-        var min_i = $.fn.jexcel.defaults[id].minDimentions[0];
-        var min_j = $.fn.jexcel.defaults[id].minDimentions[1];
+        var min_i = $.fn.jexcel.defaults[id].minDimensions[0];
+        var min_j = $.fn.jexcel.defaults[id].minDimensions[1];
         var max_i = min_i > size_i ? min_i : size_i;
         var max_j = min_j > size_j ? min_j : size_j;
 
