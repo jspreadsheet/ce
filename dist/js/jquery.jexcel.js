@@ -34,6 +34,7 @@ var methods = {
             columns:[],
             minSpareRows:0,
             minSpareCols:0,
+            minDimentions:[0,0],
             contextMenu:null,
             about:'jExcel Spreadsheet\\nVersion 1.0.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://www.bossanova.uk/jexcel'
         };
@@ -75,6 +76,11 @@ var methods = {
             size = options.colHeaders.length;
             if (options.data[0].length > size) {
                 size = options.data[0].length;
+            }
+
+            // Minimal dimensions
+            if ($.fn.jexcel.defaults[id].minDimentions[0] > size) {
+                size = $.fn.jexcel.defaults[id].minDimentions[0];
             }
 
             // Preparations
@@ -866,6 +872,26 @@ var methods = {
             }
 
             $.fn.jexcel.defaults[id].data = data;
+        }
+
+        // Adjust minimal dimensions
+        var size_i = $.fn.jexcel.defaults[id].colHeaders.length;
+        var size_j = $.fn.jexcel.defaults[id].data.length;
+        var min_i = $.fn.jexcel.defaults[id].minDimentions[0];
+        var min_j = $.fn.jexcel.defaults[id].minDimentions[1];
+        var max_i = min_i > size_i ? min_i : size_i;
+        var max_j = min_j > size_j ? min_j : size_j;
+
+        for (j = 0; j < max_j; j++) {
+            for (i = 0; i < max_i; i++) {
+                if ($.fn.jexcel.defaults[id].data[j] == undefined) {
+                    $.fn.jexcel.defaults[id].data[j] = [];
+                }
+
+                if ($.fn.jexcel.defaults[id].data[j][i] == undefined) {
+                    $.fn.jexcel.defaults[id].data[j][i] = '';
+                }
+            }
         }
 
         // Dynamic columns
