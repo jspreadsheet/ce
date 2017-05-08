@@ -668,8 +668,8 @@ var methods = {
                                 } else {
                                     cell = $($.fn.jexcel.selectedCell).prev();
                                 }
+                                e.preventDefault();
                             }
-                            e.preventDefault();
                         } else if (e.which == 39) {
                             // Right arrow
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
@@ -678,8 +678,8 @@ var methods = {
                                 } else {
                                     cell = $($.fn.jexcel.selectedCell).next();
                                 }
+                                e.preventDefault();
                             }
-                            e.preventDefault();
                         } else if (e.which == 38) {
                             // Top arrow
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
@@ -688,8 +688,8 @@ var methods = {
                                 } else {
                                     cell = $($.fn.jexcel.selectedCell).parent().prev().find('#' + columnId[0] + '-' + (columnId[1] - 1));
                                 }
+                                e.preventDefault();
                             }
-                            e.preventDefault();
                         } else if (e.which == 40) {
                             // Bottom arrow
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
@@ -698,8 +698,8 @@ var methods = {
                                 } else {
                                     cell = $($.fn.jexcel.selectedCell).parent().next().find('#' + columnId[0] + '-' + (parseInt(columnId[1]) + 1));
                                 }
+                                e.preventDefault();
                             }
-                            e.preventDefault();
                         } else if (e.which == 27) {
                             // Escape
                             if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
