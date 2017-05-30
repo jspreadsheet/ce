@@ -141,6 +141,7 @@
 }
 .jexcel > tbody > tr > td > select
 {
+    
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -148,6 +149,17 @@
     background-position-x: 100%;
     background-position-y: 40%;
     background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
+}
+
+.jexcel > tbody > tr > td:besfore
+{
+    content:'-';
+    float:right;
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 40%;
+    width:16px;
+    bsackground-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
 }
 
 .jexcel, .jexcel td, .jexcel_corner {
@@ -299,4 +311,23 @@
 {
     border: 1px solid #e9e9e9;
     border-bottom: 0;
+}
+
+.jexcel .jexcel_arrow
+{
+    float:right;
+    position:relative;
+    top:7px;
+    left:-15px;
+}
+
+.jexcel #jexcel_arrow
+{
+    width: 0; 
+    height:0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #aaa;
+    position:absolute;
+    cursor:pointer;
 }

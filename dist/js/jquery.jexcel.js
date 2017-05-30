@@ -477,56 +477,67 @@ var methods = {
             });
 
             // Global mouse click up controles 
-            $(document).on('mouseup', function (o) {
-                // Hide context menu
-                $("#jexcel_contextmenu").css('display', 'none');
+            $(document).on('mouseup', function (e) {
+                if (e.target.id == 'jexcel_arrow') {
+                    if (! $.fn.jexcel.current) {
+                        $.fn.jexcel.current = $(e.target).parents('.jexcel').parent().prop('id');
+                    }
+                    $.fn.jexcel.selectedCell = $(e.target).parent().parent();
+                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $.fn.jexcel.selectedCell);
 
-                // Cancel any corner selection
-                $.fn.jexcel.selectedCorner = false;
+                    // Open editor
+                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell);
+                } else {
+                    // Hide context menu
+                    $("#jexcel_contextmenu").css('display', 'none');
+    
+                    // Cancel any corner selection
+                    $.fn.jexcel.selectedCorner = false;
+    
+                    // Cancel resizing
+                    if ($.fn.jexcel.resizeColumn) {
+                        // Remove resizing border indication
+                        $('#' + $.fn.jexcel.current).find('thead td').removeClass('resizing');
+                        $('#' + $.fn.jexcel.current).find('tbody td').removeClass('resizing');
+                        // Reset resizing helper
+                        $.fn.jexcel.resizeColumn = null;
+                    }
 
-                // Cancel resizing
-                if ($.fn.jexcel.resizeColumn) {
-                    // Remove resizing border indication
-                    $('#' + $.fn.jexcel.current).find('thead td').removeClass('resizing');
-                    $('#' + $.fn.jexcel.current).find('tbody td').removeClass('resizing');
-                    // Reset resizing helper
-                    $.fn.jexcel.resizeColumn = null;
-                }
+                    // Data to be copied
+                    var selection = $('#' + $.fn.jexcel.current).find('tbody td.selection');
 
-                // Data to be copied
-                var selection = $('#' + $.fn.jexcel.current).find('tbody td.selection');
+                    if ($(selection).length > 0) {
+                        // First and last cells
+                        var o = $(selection[0]).prop('id').split('-');
+                        var d = $(selection[selection.length - 1]).prop('id').split('-');
 
-                if ($(selection).length > 0) {
-                    // First and last cells
-                    var o = $(selection[0]).prop('id').split('-');
-                    var d = $(selection[selection.length - 1]).prop('id').split('-');
+                        // Copy data
+                        $('#' + $.fn.jexcel.current).jexcel('copyData', o, d);
 
-                    // Copy data
-                    $('#' + $.fn.jexcel.current).jexcel('copyData', o, d);
+                        // Remove selection
+                        $(selection).removeClass('selection selection-left selection-right selection-top selection-bottom');
+                    }
 
-                    // Remove selection
-                    $(selection).removeClass('selection selection-left selection-right selection-top selection-bottom');
-                }
+                    selection = $('#' + $.fn.jexcel.current).find('tbody td.highlight');
 
-                selection = $('#' + $.fn.jexcel.current).find('tbody td.highlight');
+                    if ($(selection).length > 0) {
+                        // First and last cells
+                        o = $(selection[0]);
+                        d = $(selection[selection.length - 1]);
 
-                if ($(selection).length > 0) {
-                    // First and last cells
-                    o = $(selection[0]);
-                    d = $(selection[selection.length - 1]);
-
-                    // Events
-                    if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
-                        $.fn.jexcel.defaults[id].onselection($('#' + $.fn.jexcel.current), o, d);
+                        // Events
+                        if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
+                            $.fn.jexcel.defaults[id].onselection($('#' + $.fn.jexcel.current), o, d);
+                        }
                     }
                 }
             });
 
             // Double click
             $(document).on('dblclick', function (e) {
-                if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
-                    // Jexcel is selected
-                    if ($.fn.jexcel.current) {
+                // Jexcel is selected
+                if ($.fn.jexcel.current) {
+                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                         // Corner action
                         if (e.target.id == 'corner') {
                             var selection = $('#' + $.fn.jexcel.current).find('tbody td.highlight');
@@ -545,41 +556,44 @@ var methods = {
 
                         // Open editor action
                         if ($(e.target).is('.highlight')) {
+                            console.log($(e.target));
                             $('#' + $.fn.jexcel.current).jexcel('openEditor', $(e.target));
                         }
                     }
-                }
 
-                if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnSorting == true) {
-                    // Header found
-                    if ($(e.target).parent().parent().is('thead')) {
-                        var o = $(e.target).prop('id');
-                        if (o) {
-                            o = $(e.target).prop('id').split('-');
-                            // Update order
-                            $('#' + $.fn.jexcel.current).jexcel('orderBy', o[1]);
+                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnSorting == true) {
+                        // Header found
+                        if ($(e.target).parent().parent().is('thead')) {
+                            var o = $(e.target).prop('id');
+                            if (o) {
+                                o = $(e.target).prop('id').split('-');
+                                // Update order
+                                $('#' + $.fn.jexcel.current).jexcel('orderBy', o[1]);
+                            }
                         }
                     }
                 }
             });
 
             $(document).on('mousemove', function (e) {
-                if ($.fn.jexcel.defaults[$.fn.jexcel.current].manualColumnResize == true) {
-                    // Resizing is ongoing
-                    if ($.fn.jexcel.resizeColumn) {
-                       var width = e.pageX - $.fn.jexcel.resizeColumn.mousePosition;
-
-                       if ($.fn.jexcel.resizeColumn.width + width > 0) {
-                           $('#' + $.fn.jexcel.current).jexcel('setWidth', $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width + width);
-                       }
-                    } else {
-                        // Header found
-                        if ($(e.target).parent().parent().is('thead')) {
-                            // Update cursor
-                            if ($(e.target).outerWidth() - e.offsetX < 8) {
-                                $(e.target).css('cursor', 'col-resize');
-                            } else {
-                                $(e.target).css('cursor', '');
+                if ($.fn.jexcel.current) {
+                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].manualColumnResize == true) {
+                        // Resizing is ongoing
+                        if ($.fn.jexcel.resizeColumn) {
+                           var width = e.pageX - $.fn.jexcel.resizeColumn.mousePosition;
+    
+                           if ($.fn.jexcel.resizeColumn.width + width > 0) {
+                               $('#' + $.fn.jexcel.current).jexcel('setWidth', $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width + width);
+                           }
+                        } else {
+                            // Header found
+                            if ($(e.target).parent().parent().is('thead')) {
+                                // Update cursor
+                                if ($(e.target).outerWidth() - e.offsetX < 8) {
+                                    $(e.target).css('cursor', 'col-resize');
+                                } else {
+                                    $(e.target).css('cursor', '');
+                                }
                             }
                         }
                     }
@@ -1266,7 +1280,10 @@ var methods = {
                     var value = $(cell).find('select').val();
                     var text = $(cell).find('select').find('option:selected').text();
                     // Set value
-                    $(cell).html('<input type="hidden" value="' + value + '">' + text);
+                    if (! text) {
+                        text = '&nbsp';
+                    }
+                    $(cell).html('<input type="hidden" value="' + value + '">' + text + '<span class="jexcel_arrow"><span id="jexcel_arrow"></span></span>');
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // Set value
                     var obj = $(cell).find('li');
@@ -1477,8 +1494,10 @@ var methods = {
                                 value = null;
                             }
                         }
-
-                        $(v).html('<input type="hidden" value="' +  key + '">' + val);
+                        if (! val) {
+                            val = '&nbsp';
+                        }
+                        $(v).html('<input type="hidden" value="' +  key + '">' + val + '<span class="jexcel_arrow"><span id="jexcel_arrow"></span></span>');
                     } else if (options.columns[position[0]].type == 'calendar') {
                         val = '';
                         if (value != 'undefined') {
