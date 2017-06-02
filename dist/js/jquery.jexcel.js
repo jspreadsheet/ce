@@ -12,7 +12,6 @@
  * Custom renderer
  * big data (partial table loading)
  * Pagination
- * Context menu
  */
 
 (function( $ ){
@@ -39,7 +38,7 @@ var methods = {
             columnSorting:true,
             manualColumnResize:true,
             editable:true,
-            about:'jExcel Spreadsheet\\nVersion 1.0.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://www.bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.1.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
 
         // Configuration holder
@@ -179,6 +178,18 @@ var methods = {
                     }
                 });
             }
+        } else if (options.url) {
+            // Load json external file
+            $.ajax({
+                url: options.url,
+                dataType:'json',
+                success: function (result) {
+                    // Data
+                    options.data = (result.data) ? result.data : result;
+                     // Prepare table
+                    prepareTable();
+                }
+            });
         } else {
             // Prepare table
             prepareTable();
