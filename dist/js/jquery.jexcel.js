@@ -1,16 +1,15 @@
 /**
- * (c) 2013 Jexcel Plugin v1.0.2 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.2.1 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
  * @description: Create light embedded spreadsheets on your webpages
  * 
  * ROADMAP:
- * Multiple tabs
+ * Online collaboration
  * Merged cells
- * Drag and drop rows and columns
  * Custom renderer
- * big data (partial table loading)
+ * Big data (partial table loading)
  * Pagination
  */
 
@@ -36,13 +35,22 @@ var methods = {
             minDimensions:[0,0],
             contextMenu:null,
             columnSorting:true,
-            manualColumnResize:true,
+            columnResize:true,
+            rowDrag:true,
             editable:true,
-            about:'jExcel Spreadsheet\\nVersion 1.1.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.2.1\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
 
         // Configuration holder
         var options =  $.extend(defaults, options);
+
+        // Compatibility
+        if (options.manualColumnResize != undefined) {
+            options.columnResize = options.manualColumnResize;
+        }
+        if (options.manualRowMove != undefined) {
+            options.rowDrag = options.manualRowMove;
+        }
 
         // Id
         var id = $(this).prop('id');
@@ -398,7 +406,7 @@ var methods = {
 
                                 // Update cursor
                                 if ($(e.target).outerWidth() - e.offsetX < 8) {
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].manualColumnResize == true) {
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnResize == true) {
                                         // Resize helper
                                         $.fn.jexcel.resizeColumn = {
                                             mousePosition: e.pageX,
@@ -430,23 +438,38 @@ var methods = {
                         if ($(e.target).parent().parent().is('tbody')) {
                             // Update row label selection
                             if ($(e.target).is('.jexcel_label')) {
-                                var o = $(e.target).prop('id').split('-');
-
-                                if ($.fn.jexcel.selectedRow && (e.shiftKey || e.ctrlKey)) {
-                                    // Updade selection multi columns
-                                    var d = $($.fn.jexcel.selectedRow).prop('id').split('-');
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {
+                                    // Reset selection
+                                    $('#' + $.fn.jexcel.current).find('td').removeClass('selected highlight highlight-top highlight-left highlight-right highlight-bottom');
+                                    // Hide corner
+                                    $(corner).css('top', '-200px');
+                                    $(corner).css('left', '-200px');
+                                    // Reset controls
+                                    $.fn.jexcel.selectedRow = null;
+                                    // Mark which row we are dragging
+                                    $.fn.jexcel.dragRowFrom = $(e.target).prop('id');
+                                    $.fn.jexcel.dragRowOver = $(e.target).prop('id');
+                                    // Visual row we are dragging
+                                    $(e.target).parent().find('td').css('background-color', 'rgba(0,0,0,0.1)');
                                 } else {
-                                    // Update selection single column
-                                    var d = $(e.target).prop('id').split('-');
-                                    // Keep track of which header was selected first
-                                    $.fn.jexcel.selectedRow = $(e.target);
+                                    var o = $(e.target).prop('id').split('-');
+
+                                    if ($.fn.jexcel.selectedRow && (e.shiftKey || e.ctrlKey)) {
+                                        // Updade selection multi columns
+                                        var d = $($.fn.jexcel.selectedRow).prop('id').split('-');
+                                    } else {
+                                        // Update selection single column
+                                        var d = $(e.target).prop('id').split('-');
+                                        // Keep track of which header was selected first
+                                        $.fn.jexcel.selectedRow = $(e.target);
+                                    }
+
+                                    // Get cell objects 
+                                    var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
+                                    var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-' + d[1]);
+
+                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
                                 }
-
-                                // Get cell objects 
-                                var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
-                                var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-' + d[1]);
-
-                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
                             } else {
                                 // Update cell selection
                                 if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
@@ -501,10 +524,10 @@ var methods = {
                 } else {
                     // Hide context menu
                     $("#jexcel_contextmenu").css('display', 'none');
-    
+
                     // Cancel any corner selection
                     $.fn.jexcel.selectedCorner = false;
-    
+
                     // Cancel resizing
                     if ($.fn.jexcel.resizeColumn) {
                         // Remove resizing border indication
@@ -542,6 +565,29 @@ var methods = {
                         }
                     }
                 }
+
+                // Execute the final move
+                if ($.fn.jexcel.dragRowFrom) {
+                    if ($.fn.jexcel.dragRowFrom != $.fn.jexcel.dragRowOver) {
+                        // Get ids
+                        o = $.fn.jexcel.dragRowFrom.split('-');
+                        d = $.fn.jexcel.dragRowOver.split('-');
+                        // Change data order
+                        t = $.fn.jexcel.defaults[$.fn.jexcel.current].data[d[1]];
+                        $.fn.jexcel.defaults[$.fn.jexcel.current].data[d[1]] = $.fn.jexcel.defaults[$.fn.jexcel.current].data[o[1]];
+                        $.fn.jexcel.defaults[$.fn.jexcel.current].data[o[1]] = t;
+                        // Reset data in a new order
+                        $('#' + $.fn.jexcel.current).jexcel('setData', $.fn.jexcel.defaults[$.fn.jexcel.current].data);
+                    }
+
+                    // Remove style
+                    $('#' + $.fn.jexcel.dragRowFrom).css('cursor', '');
+                    $('#' + $.fn.jexcel.dragRowOver).css('cursor', '');
+                    $('#' + $.fn.jexcel.dragRowOver).parent().find('td').css('background-color', '');
+                }
+
+                $.fn.jexcel.dragRowFrom = null;
+                $.fn.jexcel.dragRowOver = null;
             });
 
             // Double click
@@ -567,7 +613,6 @@ var methods = {
 
                         // Open editor action
                         if ($(e.target).is('.highlight')) {
-                            console.log($(e.target));
                             $('#' + $.fn.jexcel.current).jexcel('openEditor', $(e.target));
                         }
                     }
@@ -588,11 +633,11 @@ var methods = {
 
             $(document).on('mousemove', function (e) {
                 if ($.fn.jexcel.current) {
-                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].manualColumnResize == true) {
+                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnResize == true) {
                         // Resizing is ongoing
                         if ($.fn.jexcel.resizeColumn) {
                            var width = e.pageX - $.fn.jexcel.resizeColumn.mousePosition;
-    
+
                            if ($.fn.jexcel.resizeColumn.width + width > 0) {
                                $('#' + $.fn.jexcel.current).jexcel('setWidth', $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width + width);
                            }
@@ -600,8 +645,22 @@ var methods = {
                             // Header found
                             if ($(e.target).parent().parent().is('thead')) {
                                 // Update cursor
-                                if ($(e.target).outerWidth() - e.offsetX < 8) {
+                                if ($(e.target).outerWidth() - e.offsetX < 8 && $(e.target).prop('id') != '') {
                                     $(e.target).css('cursor', 'col-resize');
+                                } else {
+                                    $(e.target).css('cursor', '');
+                                }
+                            }
+                        }
+                    }
+
+                    // Body found
+                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true) {
+                        if ($(e.target).parent().parent().is('tbody')) {
+                            // Update row label selection
+                            if ($(e.target).is('.jexcel_label')) {
+                                if ($(e.target).outerWidth() - e.offsetX < 8) {
+                                    $(e.target).css('cursor', 'all-scroll');
                                 } else {
                                     $(e.target).css('cursor', '');
                                 }
@@ -658,6 +717,13 @@ var methods = {
                                             $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
                                         }
                                     }
+                                } else if ($.fn.jexcel.dragRowFrom) {
+                                    // Remove previous row visual background
+                                    $('#' + $.fn.jexcel.dragRowOver).parent().find('td').css('background-color', '');
+                                    // Add new row visual background
+                                    $(e.target).parent().find('td').css('background-color', 'rgba(0,0,0,0.1)');
+                                    // Keep over reference
+                                    $.fn.jexcel.dragRowOver = $(e.target).prop('id');
                                 }
                             } else {
                                 if ($.fn.jexcel.selectedCell) {
@@ -1502,9 +1568,10 @@ var methods = {
                                 key = value;
                                 val = combo[value];
                             } else {
-                                value = null;
+                                val = null;
                             }
                         }
+
                         if (! val) {
                             val = '&nbsp';
                         }
@@ -1869,6 +1936,7 @@ var methods = {
         var id = $(this).prop('id');
 
         // Data
+        data = data.replace(/(\r)/gm, '');
         data = data.split("\n");
 
         // Initial position

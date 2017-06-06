@@ -28,8 +28,8 @@
 
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-<script src="http://cdn.bossanova.uk/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="http://cdn.bossanova.uk/css/jquery.jexcel.css" type="text/css" />
+<script src="../dist/js/jquery.jexcel.js"></script>
+<link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
 
 </head>
 <body>
@@ -108,7 +108,7 @@ dropdown = function(instance, cell, c, r, source) {
 $('#my').jexcel({
     data:data,
     colHeaders: ['Model','Color', 'Buy'],
-    colWidths: [ 300, 80, 100 ],
+    colWidths: [ 300, 100, 100 ],
     columns: [
         { type: 'dropdown', source:[
             {'id':'1', 'name':'Fruits'},
