@@ -28,8 +28,8 @@
 
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-<script src="http://cdn.bossanova.uk/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="http://cdn.bossanova.uk/css/jquery.jexcel.css" type="text/css" />
+<script src="../dist/js/jquery.jexcel.js"></script>
+<link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
 
 </head>
 <body>
@@ -66,7 +66,7 @@
                         <li><a href="/jexcel/multiple-spreadsheets-in-the-same-page">Multiple spreadsheets in the same page</a></li>
                         <li><a href="/jexcel/integrating-a-third-party-plugin-into-your-spreadsheet">Integrating a third party plugin&nbsp;into jExcel</a></li>
                         <li><a href="/jexcel/currency-and-masking-numbers">Currency and masking numbers</a></li>
-                        <li><a href="/jexcel/working-with-dropdowns">Working with dropdowns</a></li>
+                        <li><a href="dropdowns.html">Advanced use of dropdowns</a></li>
                         <li><a href="/jexcel/tracking-changes-on-the-spreadsheet">Handling events</a></li>
                         <li><a href="/jexcel/including-formulas-on-your-spreadsheet">Including formulas on your spreadsheet</a></li>
                         <li><a href="/jexcel/remote-updates">Remote updates</a></li>
@@ -108,7 +108,7 @@ dropdown = function(instance, cell, c, r, source) {
 $('#my').jexcel({
     data:data,
     colHeaders: ['Model','Color', 'Buy'],
-    colWidths: [ 300, 80, 100 ],
+    colWidths: [ 300, 100, 100 ],
     columns: [
         { type: 'dropdown', source:[
             {'id':'1', 'name':'Fruits'},
