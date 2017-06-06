@@ -1,4 +1,4 @@
-# [![Build Status](http://www.bossanova.uk/templates/default/img/logo-jexcel.png)](https://bossanova.uk/jexcel)
+# [![Build Status](http://www.bossanova.uk/templates/default/img/logo-jexcel.png)](http://www.bossanova.uk/jexcel)
 
 [**jExcel**](http://bossanova.uk/jexcel) is is a very light jquery plugin to embed a spreadsheet, compatible with Excel, in your browser. You can load data straight to a jExcel table from a JS array, json or even a CSV file. You can copy and paste from or to Excel straight to a jExcel table. You can easily integrate jExcel with other third party jquery plugin to create your own custom columns, custom editors, and much more. jExcel has a plenty of nice features such as key-value dropdown, CSV loading/exporting, multiple spreadsheets and much more. We have a large roadmap ahead and we are constantly improving, so don't forget to send us your ideas.
 
@@ -12,7 +12,7 @@
 
 ## Official Installation
 
-- [Download ZIP](http://www.bossanova.uk/jexcel.zip)
+- [Download ZIP](https://github.com/paulhodel/jexcel/archive/master.zip)
 
 ### Basic demo
 
@@ -54,11 +54,11 @@ $('#mytable').jexcel({ data:data, colWidths: [ 300, 80, 100 ] });
 - [Remote updates](http://www.bossanova.uk/jexcel/remote-updates)
 
 ## Official website
-- [jExcel Official](http://bossanova.uk/jexcel)
+- [jExcel Official](http://www.bossanova.uk/jexcel)
 
 ## Screenshot
 <p align="center">
-<img src="http://bossanova.uk/templates/default/img/jexcel.png" align="center" alt="jExel Screenshot"/>
+<img src="http://bossanova.uk/templates/default/img/jexcel.png" align="center" alt="jExcel Spreadsheet"/>
 </p>
 
 ## Community
@@ -69,10 +69,9 @@ We are working hard to create a better plugin, but jExcel is under development. 
 
 - Merged cells
 - Multiple tabs
-- Drag and drop rows and columns
+- Drag columns
 - Big data (partial table loading)
 - Pagination
-- Context menu
 - Online work collaboration
 
 More suggestions are welcome. Please send your comments in our Github page.
