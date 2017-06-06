@@ -317,17 +317,17 @@
 {
     float:right;
     position:relative;
-    top:7px;
-    left:-15px;
+    top:8px;
+    left:-13px;
 }
 
 .jexcel #jexcel_arrow
 {
     width: 0; 
     height:0; 
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #aaa;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #bbb;
     position:absolute;
     cursor:pointer;
 }
