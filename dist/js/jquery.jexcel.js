@@ -446,6 +446,8 @@ var methods = {
                                     $(corner).css('left', '-200px');
                                     // Reset controls
                                     $.fn.jexcel.selectedRow = null;
+                                    $.fn.jexcel.selectedCell = null;
+                                    $.fn.jexcel.selectedHeader = null;
                                     // Mark which row we are dragging
                                     $.fn.jexcel.dragRowFrom = $(e.target).prop('id');
                                     $.fn.jexcel.dragRowOver = $(e.target).prop('id');
@@ -502,8 +504,8 @@ var methods = {
 
                             // Reset controls
                             $.fn.jexcel.current = null;
-                            $.fn.jexcel.selectedCell = null;
                             $.fn.jexcel.selectedRow = null;
+                            $.fn.jexcel.selectedCell = null;
                             $.fn.jexcel.selectedHeader = null;
                         }
                     }
@@ -573,9 +575,7 @@ var methods = {
                         o = $.fn.jexcel.dragRowFrom.split('-');
                         d = $.fn.jexcel.dragRowOver.split('-');
                         // Change data order
-                        t = $.fn.jexcel.defaults[$.fn.jexcel.current].data[d[1]];
-                        $.fn.jexcel.defaults[$.fn.jexcel.current].data[d[1]] = $.fn.jexcel.defaults[$.fn.jexcel.current].data[o[1]];
-                        $.fn.jexcel.defaults[$.fn.jexcel.current].data[o[1]] = t;
+                        $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(d[1], 0, $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(o[1], 1)[0]);
                         // Reset data in a new order
                         $('#' + $.fn.jexcel.current).jexcel('setData', $.fn.jexcel.defaults[$.fn.jexcel.current].data);
                     }
@@ -667,6 +667,15 @@ var methods = {
                             }
                         }
                     }
+                } else {
+                    
+                }
+
+                // Keeping visual indication
+                if ($.fn.jexcel.dragRowFrom) {
+                    $('body').css('cursor', 'all-scroll');
+                } else {
+                    $('body').css('cursor', '');
                 }
             });
 
