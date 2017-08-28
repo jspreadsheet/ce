@@ -868,7 +868,13 @@ var methods = {
                                 }
                             }
                         } else {
-                            if (! e.shiftKey && ! e.ctrlKey) {
+                            if (e.metaKey && ! e.shiftKey && ! e.ctrlKey) {
+                                if (e.which == 67) {
+                                    // Command + C, Mac
+                                    $('#' + $.fn.jexcel.current).jexcel('copy', true);
+                                    e.preventDefault();
+                                }
+                            } else if (! e.shiftKey && ! e.ctrlKey) {
                                 if ($.fn.jexcel.selectedCell) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                                         // If is not readonly
