@@ -1,6 +1,6 @@
 {
     "name": "jexcel",
-    "title": "jExcel Spreadsheets",
+    "title": "jExcel Spreadsheet",
     "description": "jQuery plugin for embed a excel-like spreadsheet in your apps or website.",
     "keywords": [
         "spreadsheet",
@@ -28,7 +28,7 @@
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel",
-    "download": "http://bossanova.uk/jexcel.zip",
+    "download": "https://github.com/paulhodel/jexcel/archive/master.zip",
     "dependencies": {
         "jquery": ">=1.5"
     }
