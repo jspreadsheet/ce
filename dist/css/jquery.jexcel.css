@@ -331,3 +331,8 @@
     position:absolute;
     cursor:pointer;
 }
+.jexcel_thead_clone
+{
+    position:fixed;
+    top:0px;
+}

@@ -1,12 +1,13 @@
 {
-    "name": "jExcel Spreadsheet",
+    "name": "jexcel",
+    "title": "jExcel Spreadsheet",
     "description": "jQuery plugin for embed a excel-like spreadsheet in your apps or website.",
     "repository": {
         "type": "git",
         "url": "https://github.com/paulhodel/jexcel.git"
     },
     "author": {
-        "name": "Paul Hodel <paulhodel@gmail.com>",
+        "name": "Paul Hodel <paul.hodel@gmail.com>",
         "url": "https://www.linkedin.com/in/paulhodel"
     },
     "maintainers": [
@@ -23,15 +24,16 @@
         }
     ],
     "keywords": [
+        "jquery-plugin",
         "spreadsheet",
-	      "tables",
+	    "tables",
         "table",
         "excel",
         "grid",
         "grid-editor",
         "data-table",
         "data-grid",
-        "data-spreadsheet",
+        "data-spreadsheet"
     ],
     "version": "1.0.1",
     "bugs": "https://github.com/paulhodel/jexcel/issues",
