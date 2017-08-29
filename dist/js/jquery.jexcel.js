@@ -38,6 +38,8 @@ var methods = {
             columnResize:true,
             rowDrag:true,
             editable:true,
+            allowInsertRow:true,
+            allowInsertColumn:true,
             about:'jExcel Spreadsheet\\nVersion 1.2.1\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
 
@@ -327,19 +329,25 @@ var methods = {
                             contextMenuContent = options.contextMenu(o[0], o[1]);
                         } else {
                             if ($(e.target).parent().parent().is('thead')) {
-                                contextMenuContent =
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Order ascending <span></span></a>" +
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Order descending <span></span></a><hr>" +
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>" +
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>" +
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>" +
-                                    "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Order ascending <span></span></a>";
+                                contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Order descending <span></span></a><hr>";
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                }
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
+                                }
+                                contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
                             } else if ($(e.target).parent().parent().is('tbody')) {
-                                contextMenuContent =
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>" +
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>" +
-                                    "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>" +
-                                    "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                }
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
+                                }
+                                contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
                             }
                         }
 
@@ -833,9 +841,11 @@ var methods = {
                                 }
                             }
                             // If not edition check if the selected cell is in the last row
-                            if (columnId[1] == $.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1) {
-                                // New record in case selectedCell in the last row
-                                $('#' + $.fn.jexcel.current).jexcel('insertRow');
+                            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
+                                if (columnId[1] == $.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1) {
+                                    // New record in case selectedCell in the last row
+                                    $('#' + $.fn.jexcel.current).jexcel('insertRow');
+                                }
                             }
                             // Go to the next line
                             cell = $($.fn.jexcel.selectedCell).parent().next().find('#' + columnId[0] + '-' + (parseInt(columnId[1]) + 1));
@@ -851,9 +861,11 @@ var methods = {
                                 }
                             }
                             // Tab key - Get the id of the selected cell
-                            if (columnId[0] == $.fn.jexcel.defaults[$.fn.jexcel.current].data[0].length - 1) {
-                                // New record in case selectedCell in the last column
-                                $('#' + $.fn.jexcel.current).jexcel('insertColumn');
+                            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
+                                if (columnId[0] == $.fn.jexcel.defaults[$.fn.jexcel.current].data[0].length - 1) {
+                                    // New record in case selectedCell in the last column
+                                    $('#' + $.fn.jexcel.current).jexcel('insertColumn');
+                                }
                             }
                             // Highlight new column
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
@@ -868,7 +880,13 @@ var methods = {
                                 }
                             }
                         } else {
-                            if (! e.shiftKey && ! e.ctrlKey) {
+                            if (e.metaKey && ! e.shiftKey && ! e.ctrlKey) {
+                                if (e.which == 67) {
+                                    // Command + C, Mac
+                                    $('#' + $.fn.jexcel.current).jexcel('copy', true);
+                                    e.preventDefault();
+                                }
+                            } else if (! e.shiftKey && ! e.ctrlKey) {
                                 if ($.fn.jexcel.selectedCell) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                                         // If is not readonly
@@ -2015,46 +2033,49 @@ var methods = {
         // Get the main object configuration
         var options = $.fn.jexcel.defaults[id];
 
-        // Current column number
-        var num = options.colHeaders.length;
+        // Configuration
+        if (options.allowInsertColumn == true) {
+            // Current column number
+            var num = options.colHeaders.length;
 
-        // Create columns
-        for (i = num; i < (num + numColumns); i++) {
-            // Adding the column properties to the main property holder
-            options.colHeaders[i] = properties.header || $.fn.jexcel('getColumnName', i);
-            options.colWidths[i] = properties.width;
-            options.colAlignments[i] = properties.align;
-            options.columns[i] = properties.column;
+            // Create columns
+            for (i = num; i < (num + numColumns); i++) {
+                // Adding the column properties to the main property holder
+                options.colHeaders[i] = properties.header || $.fn.jexcel('getColumnName', i);
+                options.colWidths[i] = properties.width;
+                options.colAlignments[i] = properties.align;
+                options.columns[i] = properties.column;
 
-            if (! options.columns[i].source) {
-                $.fn.jexcel.defaults[id].columns[i].source = [];
+                if (! options.columns[i].source) {
+                    $.fn.jexcel.defaults[id].columns[i].source = [];
+                }
+                if (! options.columns[i].options) {
+                    $.fn.jexcel.defaults[id].columns[i].options = [];
+                }
+
+                // Default header cell properties
+                width = options.colWidths[i];
+                align = options.colAlignments[i];
+                header = options.colHeaders[i];
+
+                // Create header html
+                var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '">' + header + '</td>';
+
+                // Add element to the table
+                var tr = $(this).find('thead.jexcel_label tr')[0];
+                $(tr).append(td);
+
+                // Add columns to the content rows
+                tr = $(this).find('table > tbody > tr');
+                $.each(tr, function (k, v) {
+                    // Update data array
+                    options.data[k][i] = '';
+                    // HTML cell
+                    td = $(main).jexcel('createCell', i, k);
+                    // Append cell to the tbody
+                    $(v).append(td);
+                });
             }
-            if (! options.columns[i].options) {
-                $.fn.jexcel.defaults[id].columns[i].options = [];
-            }
-
-            // Default header cell properties
-            width = options.colWidths[i];
-            align = options.colAlignments[i];
-            header = options.colHeaders[i];
-
-            // Create header html
-            var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '">' + header + '</td>';
-
-            // Add element to the table
-            var tr = $(this).find('thead.jexcel_label tr')[0];
-            $(tr).append(td);
-
-            // Add columns to the content rows
-            tr = $(this).find('table > tbody > tr');
-            $.each(tr, function (k, v) {
-                // Update data array
-                options.data[k][i] = '';
-                // HTML cell
-                td = $(main).jexcel('createCell', i, k);
-                // Append cell to the tbody
-                $(v).append(td);
-            });
         }
     },
 
@@ -2071,35 +2092,38 @@ var methods = {
         // Main configuration
         var options = $.fn.jexcel.defaults[id];
 
-        // Num lines
-        if (! numLines) {
-            // Add one line is the default
-            numLines = 1;
-        } 
+        // Configuration
+        if (options.allowInsertRow == true) {
+            // Num lines
+            if (! numLines) {
+                // Add one line is the default
+                numLines = 1;
+            } 
 
-        j = parseInt($.fn.jexcel.defaults[id].data.length);
+            j = parseInt($.fn.jexcel.defaults[id].data.length);
 
-        // Adding lines
-        for (row = 0; row < numLines; row++) {
-            // New line of data to be append in the table
-            tr = document.createElement('tr');
-            // Index column
-            $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
-            // New data
-            $.fn.jexcel.defaults[id].data[j] = [];
+            // Adding lines
+            for (row = 0; row < numLines; row++) {
+                // New line of data to be append in the table
+                tr = document.createElement('tr');
+                // Index column
+                $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
+                // New data
+                $.fn.jexcel.defaults[id].data[j] = [];
 
-            for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
-                // New Data
-                $.fn.jexcel.defaults[id].data[j][i] = '';
-                // New column of data to be append in the line
-                td = $(this).jexcel('createCell', i, j);
-                // Add column to the row
-                $(tr).append(td);
+                for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
+                    // New Data
+                    $.fn.jexcel.defaults[id].data[j][i] = '';
+                    // New column of data to be append in the line
+                    td = $(this).jexcel('createCell', i, j);
+                    // Add column to the row
+                    $(tr).append(td);
+                }
+                // Add row to the table body
+                $(this).find('tbody').append(tr);
+    
+                j++;
             }
-            // Add row to the table body
-            $(this).find('tbody').append(tr);
-
-            j++;
         }
     },
 
