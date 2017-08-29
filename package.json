@@ -39,7 +39,7 @@
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel",
-    "download": "http://bossanova.uk/jexcel.zip",
+    "download": "https://github.com/paulhodel/jexcel/archive/master.zip",
     "dependencies": {
         "jquery": ">=1.5"
     }
