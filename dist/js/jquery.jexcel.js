@@ -1423,8 +1423,8 @@ var methods = {
         // Get cell properties
         if (save == true) {
             // Before change
-            if (typeof(options.columns[position[0]].onbeforechange) == 'function') {
-                options.columns[position[0]].onbeforechange($(this), $(cell));
+            if (typeof(options.onbeforechange) == 'function') {
+                options.onbeforechange($(this), $(cell));
             }
 
             // If custom editor
@@ -1605,8 +1605,8 @@ var methods = {
 
                 // Before Change
                 if (! ignoreEvents) {
-                    if (typeof(options.columns[position[0]].onbeforechange) == 'function') {
-                        options.columns[position[0]].onbeforechange($(this), $(v));
+                    if (typeof(options.onbeforechange) == 'function') {
+                        options.onbeforechange($(this), $(v));
                     }
                 }
 
@@ -2163,6 +2163,11 @@ var methods = {
 
         // Configuration
         if (options.allowInsertRow == true) {
+            // Before change
+            if (typeof(options.onbeforechange) == 'function') {
+                options.onbeforechange($(this));
+            }
+
             // Num lines
             if (! numLines) {
                 // Add one line is the default
@@ -2193,6 +2198,19 @@ var methods = {
     
                 j++;
             }
+
+            // Change
+            if (typeof(options.onchange) == 'function') {
+                options.onchange($(this));
+            }
+
+            // Delete
+            if (typeof(options.oninsertrow) == 'function') {
+                options.oninsertrow($(this));
+            }
+
+            // After changes
+            $(this).jexcel('afterChange');
         }
     },
 
@@ -2211,6 +2229,11 @@ var methods = {
 
         // Global Configuration
         if (options.allowDeleteRow == true) {
+            // Before change
+            if (typeof(options.onbeforechange) == 'function') {
+                options.onbeforechange($(this));
+            }
+
             // Id
             var id = $(this).prop('id');
 
@@ -2220,6 +2243,19 @@ var methods = {
                 // Update table
                 $(this).jexcel('setData', $.fn.jexcel.defaults[id].data);
             }
+
+            // Change
+            if (typeof(options.onchange) == 'function') {
+                options.onchange($(this));
+            }
+
+            // Delete
+            if (typeof(options.ondeleterow) == 'function') {
+                options.ondeleterow($(this));
+            }
+
+            // After changes
+            $(this).jexcel('afterChange');
         }
     },
 
