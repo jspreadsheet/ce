@@ -1658,7 +1658,7 @@ var methods = {
                     } else if (options.columns[position[0]].type == 'calendar') {
                         val = '';
                         if (value != 'undefined') {
-                            val = $.fn.jcalendar('label', value);
+                            val = $.fn.jcalendar('label', value, options.columns[position[0]].options.format);
                         } else {
                             val = '';
                         }
