@@ -1133,6 +1133,9 @@ var methods = {
         if (typeof($.fn.jexcel.defaults[id].onload) == 'function') {
             $.fn.jexcel.defaults[id].onload($(this));
         }
+        
+        // UpdateSettings
+        $(this).jexcel('updateSettings');
     },
 
     /**
