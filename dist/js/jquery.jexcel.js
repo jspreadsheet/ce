@@ -787,8 +787,7 @@ var methods = {
                             var tclone = $('#' + $.fn.jexcel.current + ' thead').clone();
                             $(tclone).addClass('jexcel_thead_clone');
                             $(tclone).css('display', 'none');
-                            $(tclone).css('width', $('#' + $.fn.jexcel.current + ' thead').css('width'));
-                            $(tclone).css('left', $('#' + $.fn.jexcel.current + ' thead').css('left'));
+                            $(tclone).css('left', $('#' + $.fn.jexcel.current).css('left'));
                             $('#' + $.fn.jexcel.current + ' thead').after(tclone);
                         }
 
@@ -1853,8 +1852,8 @@ var methods = {
             corner = $(cells).last();
 
             // Get the position of the corner helper
-            var t = parseInt($(corner).offset().top) + $(corner).height() + 5;
-            var l = parseInt($(corner).offset().left) + $(corner).width() + 5;
+            var t = parseInt($(corner).offset().top) + $(corner).parent().outerHeight() - 4;
+            var l = parseInt($(corner).offset().left) + $(corner).outerWidth() - 5;
 
             // Place the corner in the correct place
             $('.jexcel_corner').css('top', t);
