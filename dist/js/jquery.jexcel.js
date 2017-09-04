@@ -304,6 +304,11 @@ var methods = {
             $('body').append(contextMenu);
             $('body').append(ads);
 
+            // Unselectable properties
+            $(corner).prop('unselectable', 'yes');
+            $(corner).prop('onselectstart', 'return false');
+            $(corner).prop('draggable', 'false');
+
             // Prevent dragging on the corner object
             $(corner).on('dragstart', function () {
                 return false;
@@ -340,7 +345,7 @@ var methods = {
                                     contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
                                 }
                                 if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
-                                    //contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">Delete this row<span></span></a><hr>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">Delete this column<span></span></a><hr>";
                                 }
                                 contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
                                 contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
@@ -379,7 +384,7 @@ var methods = {
             });
 
             // Global mouse click down controles
-            $(document).on('mousedown', function (e) {
+            $(document).on('mousedown touchstart', function (e) {
                 // Click on corner icon
                 if (e.target.id == 'corner') {
                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
@@ -607,7 +612,7 @@ var methods = {
             });
 
             // Double click
-            $(document).on('dblclick', function (e) {
+            $(document).on('dblclick touchend', function (e) {
                 // Jexcel is selected
                 if ($.fn.jexcel.current) {
                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
@@ -683,6 +688,9 @@ var methods = {
                             }
                         }
                     }
+
+                    // Prevent page selection
+                    e.preventDefault();
                 } else {
                     
                 }
@@ -2270,7 +2278,7 @@ var methods = {
      */
     deleteColumn : function(columnNumber) {
         // Id
-        /*var id = $(this).prop('id');
+        var id = $(this).prop('id');
 
         // Main configuration
         var options = $.fn.jexcel.defaults[id];
@@ -2294,9 +2302,14 @@ var methods = {
                 }
 
                 // Update table
+                $(this).find('.c' + parseInt(columnNumber)).remove();
+                $(this).find('#col-' + parseInt(columnNumber)).remove();
+
+                // Update data
+                $(this).jexcel('resetHeaders');
                 $(this).jexcel('setData', options.data);
             }
-        }*/
+        }
     },
 
     /**
@@ -2350,6 +2363,39 @@ var methods = {
                 $(col).html(title);
             }
         }
+    },
+
+    /**
+     * Reset the headers
+     */
+    resetHeaders : function () {
+        // Id
+        var id = $(this).prop('id');
+
+        // Options
+        var options = $.fn.jexcel.defaults[id];
+
+        // Create headers
+        var tr = '<td width="30" class="jexcel_label"></td>';
+
+        for (i = 0; i < options.colHeaders.length; i++) {
+            // Default header cell properties
+            width = options.colWidths[i];
+            align = options.colAlignments[i];
+            header = options.colHeaders[i];
+
+            // Column type hidden
+            if (options.columns[i].type == 'hidden') {
+                // TODO: when it is first check the whole selection not include
+                tr += '<td id="col-' + i + '" style="display:none;">' + options.colHeaders[i] + '</td>';
+            } else {
+                // Other column types
+                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'">' + header + '</td>';
+            }
+        }
+
+        // Append content
+        $(this).find('thead.jexcel_label').html('<tr>' + tr + '</tr>');
     },
 
     /**
