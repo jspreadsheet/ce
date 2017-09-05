@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.2.1 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.2.4 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -42,7 +42,7 @@ var methods = {
             allowInsertColumn:true,
             allowDeleteRow:true,
             allowDeleteColumn:true,
-            about:'jExcel Spreadsheet\\nVersion 1.2.1\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.2.4\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
 
         // Configuration holder
