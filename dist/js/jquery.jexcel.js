@@ -2366,6 +2366,18 @@ var methods = {
     },
 
     /**
+     * Get the column title
+     * @param column - column number (first column is: 0)
+     * @param title - new column title
+     */
+    getHeader : function (column) {
+        var col = $(this).find('thead #col-' + column).html();
+        if (col.length) {
+            return $(col).html();
+        }
+    },
+    
+    /**
      * Set the column title
      * @param column - column number (first column is: 0)
      * @param title - new column title

@@ -123,6 +123,16 @@ $('#my').jexcel({
         { type: 'checkbox' },
     ]
 });
+
+//Set readonly a specific column
+$('#my').jexcel('updateSettings', {
+    cells: function (cell, col, row) {
+        // If the column is number 4 or 5
+        if (row == 2 && col == 2) {
+            $(cell).addClass('readonly');
+        }
+    }
+});
 </script>
 
 
