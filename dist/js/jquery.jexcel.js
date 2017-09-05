@@ -136,6 +136,9 @@ var methods = {
                             success: function (result) {
                                 // Create the dynamic sources
                                 $.fn.jexcel.defaults[id].columns[this.index].source = result;
+                            },
+                            error: function (result) {
+                                console.error('It was not possible to load the url: ' + this.url);
                             }
                         }));
                     }
@@ -573,18 +576,18 @@ var methods = {
 
                         // Remove selection
                         $(selection).removeClass('selection selection-left selection-right selection-top selection-bottom');
-                    }
-
-                    selection = $('#' + $.fn.jexcel.current).find('tbody td.highlight');
-
-                    if ($(selection).length > 0) {
-                        // First and last cells
-                        o = $(selection[0]);
-                        d = $(selection[selection.length - 1]);
-
-                        // Events
-                        if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
-                            $.fn.jexcel.defaults[id].onselection($('#' + $.fn.jexcel.current), o, d);
+                    } else {
+                        selection = $('#' + $.fn.jexcel.current).find('tbody td.highlight');
+    
+                        if ($(selection).length > 0) {
+                            // First and last cells
+                            o = $(selection[0]);
+                            d = $(selection[selection.length - 1]);
+    
+                            // Events
+                            if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
+                                $.fn.jexcel.defaults[id].onselection($('#' + $.fn.jexcel.current), o, d);
+                            }
                         }
                     }
                 }
@@ -690,7 +693,9 @@ var methods = {
                     }
 
                     // Prevent page selection
-                    e.preventDefault();
+                    if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                        e.preventDefault();
+                    }
                 } else {
                     
                 }
@@ -954,8 +959,8 @@ var methods = {
                                         if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type != 'readonly') {
                                             // Start edition in case a valid character. 
                                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                                // TODO: check the sample characters able to start a edition
-                                                if (/[a-zA-Z0-9]/.test(String.fromCharCode(e.keyCode))) {
+                                                // Characters able to start a edition
+                                                if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105)) {
                                                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
                                                 }
                                             }
@@ -1279,6 +1284,37 @@ var methods = {
                     $(editor).jcalendar(options.columns[position[0]].options);
                     $(editor).jcalendar('open', value);
                 } else if (options.columns[position[0]].type == 'autocomplete') {
+                    // List result
+                    showResult = function(data, str) {
+                        // Create options
+                        $.each(data, function(k, v) {
+                            if (typeof(v) == 'object') {
+                                name = v.name;
+                                id = v.id;
+                            } else {
+                                name = v;
+                                id = v;
+                            }
+
+                            if (name.toLowerCase().indexOf(str.toLowerCase()) != -1) {
+                                li = document.createElement('li');
+                                $(li).prop('id', id)
+                                $(li).html(name);
+                                $(li).mousedown(function (e) {
+                                    // TODO: avoid other selection in this handler.
+                                    $(cell).html(this);
+                                    $(main).jexcel('closeEditor', $(cell), true);
+                                });
+                                $(result).append(li);
+                            }
+                        });
+
+                        if (! $(result).html()) {
+                            $(result).html('<div style="padding:6px;">No result found</div>');
+                        }
+                        $(result).css('display', '');
+                    }
+
                     // Keep the current value
                     $(cell).addClass('edition');
 
@@ -1295,7 +1331,7 @@ var methods = {
                     var result = document.createElement('div');
                     $(result).prop('class', 'results');
                     if (html) {
-                       $(result).html('<li id="' + value + '">' + html + '</li>');
+                        showResult(options.columns[position[0]].source, html.trim());
                     } else {
                        $(result).css('display', 'none');
                     }
@@ -1315,37 +1351,6 @@ var methods = {
                         timeout = setTimeout(function () { 
                             // Object
                             $(result).html('');
-                            // List result
-                            showResult = function(data, str) {
-                                // Create options
-                                $.each(data, function(k, v) {
-                                    if (typeof(v) == 'object') {
-                                        name = v.name;
-                                        id = v.id;
-                                    } else {
-                                        name = v;
-                                        id = v;
-                                    }
-
-                                    if (name.toLowerCase().indexOf(str.toLowerCase()) != -1) {
-                                        li = document.createElement('li');
-                                        $(li).prop('id', id)
-                                        $(li).html(name);
-                                        $(li).mousedown(function (e) {
-                                            // TODO: avoid other selection in this handler.
-                                            $(cell).html(this);
-                                            $(main).jexcel('closeEditor', $(cell), true);
-                                        });
-                                        $(result).append(li);
-                                    }
-                                });
-
-                                if (! $(result).html()) {
-                                    $(result).html('<div style="padding:6px;">No result found</div>');
-                                }
-                                $(result).css('display', '');
-                            }
-
                             // Search
                             if (options.columns[position[0]].url) {
                                 $.getJSON (options.columns[position[0]].url + '?q=' + str + '&r=' + $(main).jexcel('getRowData', position[1]), function (data) {
@@ -1361,7 +1366,7 @@ var methods = {
 
                     // Current value
                     $(editor).focus();
-                    $(editor).val('');
+                    $(editor).val(html);
 
                     // Close editor handler
                     $(editor).blur(function () {
@@ -1460,9 +1465,9 @@ var methods = {
                     if (obj.length > 0) {
                         var value = $(cell).find('li').prop('id');
                         var text = $(cell).find('li').html();
-                        $(cell).html('<input type="hidden" value="' + value + '">' + text);
+                        $(cell).html('<input type="hidden" value="' + value + '">' + text + '<span class="jexcel_arrow"><span id="jexcel_arrow"></span></span>');
                     } else {
-                        $(cell).html('');
+                        $(cell).html('<input type="hidden" value="">&nbsp<span class="jexcel_arrow"><span id="jexcel_arrow"></span></span>');
                     }
                 } else if (options.columns[position[0]].type == 'calendar') {
                     var value = $(cell).find('.jcalendar_value').val();
@@ -2484,7 +2489,7 @@ var methods = {
                     });
 
                     // Set data
-                    $(this).jexcel('setValue', cell, data[posy][posx], false);
+                    $(this).jexcel('setValue', cell, data[posy][posx], true);
                 }
                 posx++;
             }
@@ -2495,6 +2500,8 @@ var methods = {
         if (records.length > 0) {
             $(this).jexcel('setHistory', records);
         }
+
+        $(this).jexcel('afterChange');
     },
 
     /**
@@ -2783,6 +2790,8 @@ var methods = {
 
             $(this).jexcel('updateSelection', historyRecord.firstSelected, historyRecord.lastSelected);
         }
+
+        $(this).jexcel('afterChange');
     },
 
     /**
@@ -2799,6 +2808,8 @@ var methods = {
 
             $(this).jexcel('updateSelection', historyRecord.firstSelected, historyRecord.lastSelected);
         }
+
+        $(this).jexcel('afterChange');
     },
 
     /**
