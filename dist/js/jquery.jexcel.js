@@ -1509,20 +1509,11 @@ var methods = {
                 options.onchange($(this), $(cell), value);
             }
 
+            // Spare check
+            $(this).jexcel('spareCheck');
+
             // After changes
             $(this).jexcel('afterChange');
-
-            // Sparerows and sparecols configuration
-            if (options.minSpareCols > 0) {
-                if (position[0] == $.fn.jexcel.defaults[id].data[0].length - 1) {
-                    $('#' + $.fn.jexcel.current).jexcel('insertColumn', options.minSpareCols);
-                }
-            }
-            if (options.minSpareRows > 0) {
-                if (position[1] == $.fn.jexcel.defaults[id].data.length - 1) {
-                    $('#' + $.fn.jexcel.current).jexcel('insertRow', options.minSpareRows);
-                }
-            }
         } else {
             if (options.columns[position[0]].type == 'calendar') {
                 // Do nothing - calendar will be closed without keeping the current value
@@ -1708,8 +1699,12 @@ var methods = {
                 }
             });
 
-            // After changes
+            // Events
             if (! ignoreEvents) {
+                // Spare check
+                $(this).jexcel('spareCheck');
+
+                // After change
                 $(this).jexcel('afterChange');
             }
 
@@ -2253,33 +2248,38 @@ var methods = {
 
         // Global Configuration
         if (options.allowDeleteRow == true) {
-            // Before change
-            if (typeof(options.onbeforechange) == 'function') {
-                options.onbeforechange($(this));
+            // Can't remove the last row
+            if (options.data.length > 1) {
+                // Before change
+                if (typeof(options.onbeforechange) == 'function') {
+                    options.onbeforechange($(this));
+                }
+
+                if (parseInt(lineNumber) > -1) {
+                    // Remove from source
+                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), 1);
+                    // Update table
+                    $(this).jexcel('setData', $.fn.jexcel.defaults[id].data);
+                }
+
+                // Change
+                if (typeof(options.onchange) == 'function') {
+                    options.onchange($(this));
+                }
+
+                // Delete
+                if (typeof(options.ondeleterow) == 'function') {
+                    options.ondeleterow($(this));
+                }
+
+                // Spare check
+                $(this).jexcel('spareCheck');
+
+                // After changes
+                $(this).jexcel('afterChange');
+            } else {
+                console.error('It is not possible to delete the last row');
             }
-
-            // Id
-            var id = $(this).prop('id');
-
-            if (parseInt(lineNumber) > -1) {
-                // Remove from source
-                $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), 1);
-                // Update table
-                $(this).jexcel('setData', $.fn.jexcel.defaults[id].data);
-            }
-
-            // Change
-            if (typeof(options.onchange) == 'function') {
-                options.onchange($(this));
-            }
-
-            // Delete
-            if (typeof(options.ondeleterow) == 'function') {
-                options.ondeleterow($(this));
-            }
-
-            // After changes
-            $(this).jexcel('afterChange');
         }
     },
 
@@ -2299,29 +2299,52 @@ var methods = {
 
         // Global Configuration
         if (options.allowDeleteColumn == true) {
-            // Id
-            var id = $(this).prop('id');
-
-            if (parseInt(columnNumber) > -1) {
-                // Default headers
-                options.columns.splice(parseInt(columnNumber), 1);
-                options.colHeaders.splice(parseInt(columnNumber), 1);
-                options.colAlignments.splice(parseInt(columnNumber), 1);
-                options.colWidths.splice(parseInt(columnNumber), 1);
-
-                // Delete data from source
-                for (j = 0; j < $.fn.jexcel.defaults[id].data.length; j++) {
-                    // Remove column from each line
-                    options.data[j].splice(parseInt(columnNumber), 1);
+            // Can't remove the last column
+            if (options.data[0].length > 1) {
+                // Before change
+                if (typeof(options.onbeforechange) == 'function') {
+                    options.onbeforechange($(this));
                 }
 
-                // Update table
-                $(this).find('.c' + parseInt(columnNumber)).remove();
-                $(this).find('#col-' + parseInt(columnNumber)).remove();
+                if (parseInt(columnNumber) > -1) {
+                    // Default headers
+                    options.columns.splice(parseInt(columnNumber), 1);
+                    options.colHeaders.splice(parseInt(columnNumber), 1);
+                    options.colAlignments.splice(parseInt(columnNumber), 1);
+                    options.colWidths.splice(parseInt(columnNumber), 1);
 
-                // Update data
-                $(this).jexcel('resetHeaders');
-                $(this).jexcel('setData', options.data);
+                    // Delete data from source
+                    for (j = 0; j < $.fn.jexcel.defaults[id].data.length; j++) {
+                        // Remove column from each line
+                        options.data[j].splice(parseInt(columnNumber), 1);
+                    }
+
+                    // Update table
+                    $(this).find('.c' + parseInt(columnNumber)).remove();
+                    $(this).find('#col-' + parseInt(columnNumber)).remove();
+
+                    // Update data
+                    $(this).jexcel('resetHeaders');
+                    $(this).jexcel('setData', options.data);
+                }
+
+                // Change
+                if (typeof(options.onchange) == 'function') {
+                    options.onchange($(this));
+                }
+
+                // Delete
+                if (typeof(options.ondeletecolumn) == 'function') {
+                    options.ondeletecolumn($(this));
+                }
+
+                // Spare check
+                $(this).jexcel('spareCheck');
+    
+                // After changes
+                $(this).jexcel('afterChange');
+            } else {
+                console.error('It is not possible to delete the last column');
             }
         }
     },
@@ -2875,6 +2898,62 @@ var methods = {
         }
 
         return $(td);
+    },
+
+    /**
+     * Check for spare cols and rows
+     */
+    spareCheck : function() {
+        // Id
+        var id = $(this).prop('id');
+        var test = false;
+
+        // Sparerows and sparecols configuration
+        if ($.fn.jexcel.defaults[id].minSpareCols > 0) {
+            // Configuration to check the spare cells
+            lastCol = ($.fn.jexcel.defaults[id].data[0]) ? $.fn.jexcel.defaults[id].data[0].length : 0;
+            lastRow = $.fn.jexcel.defaults[id].data.length;
+            checkPoint = lastCol - $.fn.jexcel.defaults[id].minSpareCols;
+            if (checkPoint < 0) {
+                checkPoint = 0;
+            }
+            // Check for non-black within the expected spare cells
+            test = false;
+            for (rowNumber = 0; rowNumber < lastRow; rowNumber++) {
+                for (colNumber = checkPoint; colNumber < lastCol; colNumber++) {
+                    if ($.fn.jexcel.defaults[id].data[rowNumber][colNumber]) {
+                        test = true;
+                    }
+                }
+            }
+            // Spare is populated add new spare to keep it align with the configuration
+            if (test) {
+                $(this).jexcel('insertColumn', $.fn.jexcel.defaults[id].minSpareCols);
+            }
+        }
+
+        if ($.fn.jexcel.defaults[id].minSpareRows > 0) {
+            // Configuration to check the spare cells
+            lastCol = ($.fn.jexcel.defaults[id].data[0]) ? $.fn.jexcel.defaults[id].data[0].length : 0;
+            lastRow = $.fn.jexcel.defaults[id].data.length;
+            checkPoint = lastRow - $.fn.jexcel.defaults[id].minSpareRows;
+            if (checkPoint < 0) {
+                checkPoint = 0;
+            }
+            // Check for non-black within the expected spare cells
+            test = false;
+            for (rowNumber = checkPoint; rowNumber < lastRow; rowNumber++) {
+                for (colNumber = 0; colNumber < lastCol; colNumber++) {
+                    if ($.fn.jexcel.defaults[id].data[rowNumber][colNumber]) {
+                        test = true;
+                    }
+                }
+            }
+            // Spare is populated add new spare to keep it align with the configuration
+            if (test) {
+                $(this).jexcel('insertRow', $.fn.jexcel.defaults[id].minSpareCols);
+            }
+        }
     },
 
     /**
