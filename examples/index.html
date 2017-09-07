@@ -109,6 +109,8 @@ $('#my').jexcel({
     data:data,
     colHeaders: ['Description','Model','Color', 'Buy'],
     colWidths: [ 200, 300, 100, 100 ],
+    minSpareRows:1,
+    minSpareCols:1,
     columns: [
         { type: 'text' },
         { type: 'dropdown', source:[
