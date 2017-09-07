@@ -423,7 +423,6 @@ var methods = {
 
                     // Table found
                     if ($(table).is('.jexcel')) {
-
                         // Get id
                         var current = $(table).parent().prop('id');
 
@@ -624,7 +623,7 @@ var methods = {
                     // Remove style
                     $('#' + $.fn.jexcel.dragRowFrom).css('cursor', '');
                     $('#' + $.fn.jexcel.dragRowOver).css('cursor', '');
-                    $('#' + $.fn.jexcel.dragRowOver).parent().find('td').css('background-color', '');
+                    $('#' + $.fn.jexcel.current + ' #' + $.fn.jexcel.dragRowOver).parent().find('td').css('background-color', '');
                 }
 
                 $.fn.jexcel.dragRowFrom = null;
@@ -713,8 +712,6 @@ var methods = {
                     if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                         e.preventDefault();
                     }
-                } else {
-                    
                 }
 
                 // Keeping visual indication
@@ -774,7 +771,7 @@ var methods = {
                                     }
                                 } else if ($.fn.jexcel.dragRowFrom) {
                                     // Remove previous row visual background
-                                    $('#' + $.fn.jexcel.dragRowOver).parent().find('td').css('background-color', '');
+                                    $('#' + $.fn.jexcel.current + ' #' + $.fn.jexcel.dragRowOver).parent().find('td').css('background-color', '');
                                     // Add new row visual background
                                     $(e.target).parent().find('td').css('background-color', 'rgba(0,0,0,0.1)');
                                     // Keep over reference
@@ -1646,7 +1643,7 @@ var methods = {
         // Update cells
         $.each(cells, function (k, v) {
             // Update 
-            $(main).jexcel('updateCell', v);
+            $(main).jexcel('updateCell', v, true);
         });
     },
 
@@ -1676,7 +1673,7 @@ var methods = {
             }
 
             // Update 
-            $(main).jexcel('updateCell', v);
+            $(main).jexcel('updateCell', v, false);
 
             // Change
             if (typeof(options.onchange) == 'function') {
@@ -1699,7 +1696,7 @@ var methods = {
      * @param object cell
      * @return void
      */
-    updateCell : function(v) {
+    updateCell : function(v, force) {
         // Id
         var id = $(this).prop('id');
 
@@ -1716,7 +1713,7 @@ var methods = {
         if (options.columns[position[0]].editor) {
             // Custom editor
             options.columns[position[0]].editor.setValue($(v.cell), value);
-        } else if ($(v.cell).hasClass('readonly') == true) {
+        } else if ($(v.cell).hasClass('readonly') == true && force == false) {
             // Do nothing
             value = null;
         } else {
