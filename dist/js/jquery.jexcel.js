@@ -1710,7 +1710,7 @@ var methods = {
         var position = $(v.cell).prop('id').split('-');
 
         // Value
-        value = v.newValue;
+        value = '' + v.newValue;
 
         // Changing value depending on the column type
         if (options.columns[position[0]].editor) {
