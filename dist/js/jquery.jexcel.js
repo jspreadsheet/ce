@@ -1814,8 +1814,8 @@ var methods = {
         if (o && d) {
             // Events
             if (! ignoreEvents) {
-                if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
-                    $.fn.jexcel.defaults[id].onselection($(this), o, d, origin);
+                if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onselection) == 'function') {
+                    $.fn.jexcel.defaults[$.fn.jexcel.current].onselection($(this), o, d, origin);
                 }
             }
 
