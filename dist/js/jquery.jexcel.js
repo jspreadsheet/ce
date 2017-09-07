@@ -1447,18 +1447,10 @@ var methods = {
 
         // Get cell properties
         if (save == true) {
-            // Before change
-            if (typeof(options.onbeforechange) == 'function') {
-                options.onbeforechange($(this), $(cell));
-            }
-
             // If custom editor
             if (options.columns[position[0]].editor) {
                 // Custom editor
-                options.columns[position[0]].editor.closeEditor(cell, save);
-
-                // Get value
-                value = $(this).jexcel('getValue', $(cell));
+                value = options.columns[position[0]].editor.closeEditor(cell, save);
             } else {
                 // Native functions
                 if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'hidden') {
