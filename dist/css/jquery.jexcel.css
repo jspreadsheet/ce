@@ -129,7 +129,7 @@
     text-align:left;
 }
 
-.jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input
+.jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input, .jexcel > tbody > tr > td > textarea
 {
     border:0px;
     border-radius:0px;
@@ -138,6 +138,11 @@
     margin:0px;
     padding:0px;
     background-color:transparent;
+}
+
+.jexcel > tbody > tr > td > textarea
+{
+    resize: none;
 }
 
 .jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input[type=checkbox]

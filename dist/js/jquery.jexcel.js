@@ -839,11 +839,13 @@ var methods = {
 
             // IE Compatibility
             $(document).on('paste', function (e) {
-                if (e.originalEvent) {
-                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
-                        $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, e.originalEvent.clipboardData.getData('text'));
+                if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                    if (e.originalEvent) {
+                        if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
+                            $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, e.originalEvent.clipboardData.getData('text'));
+                        }
+                        e.preventDefault();
                     }
-                    e.preventDefault();
                 }
             });
 
@@ -957,10 +959,12 @@ var methods = {
                             }
                         } else {
                             if (e.metaKey && ! e.shiftKey && ! e.ctrlKey) {
-                                if (e.which == 67) {
-                                    // Command + C, Mac
-                                    $('#' + $.fn.jexcel.current).jexcel('copy', true);
-                                    e.preventDefault();
+                                if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                    if (e.which == 67) {
+                                        // Command + C, Mac
+                                        $('#' + $.fn.jexcel.current).jexcel('copy', true);
+                                        e.preventDefault();
+                                    }
                                 }
                             } else if (! e.shiftKey && ! e.ctrlKey) {
                                 if ($.fn.jexcel.selectedCell) {
@@ -978,50 +982,52 @@ var methods = {
                                     }
                                 }
                             } else if (! e.shiftKey && e.ctrlKey) {
-                                if (e.which == 65) {
-                                    // Ctrl + A
-                                    t = $(this).find('.jexcel tbody td').not('.jexcel_label');
-                                    o = $(t).first();
-                                    t = $(t).last();
-                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', o, t);
-                                    // Prevent page selection
-                                    e.preventDefault();
-                                } else if (e.which == 83) {
-                                    // Ctrl + S
-                                    $('#' + $.fn.jexcel.current).jexcel('download');
-                                    // Prevent page selection
-                                    e.preventDefault();
-                                } else if (e.which == 89) {
-                                    // Ctrl + Y
-                                    if (!$($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                        $('#' + $.fn.jexcel.current).jexcel('redo');
-                                    }
-                                    e.preventDefault();
-                                } else if (e.which == 90) {
-                                    // Ctrl + Z
-                                    if (!$($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                        $('#' + $.fn.jexcel.current).jexcel('undo');
-                                    }
-                                    e.preventDefault();
-                                } else if (e.which == 67) {
-                                    // Ctrl + C
-                                    $('#' + $.fn.jexcel.current).jexcel('copy', true);
-                                    e.preventDefault();
-                                } else if (e.which == 88) {
-                                    // Ctrl + X
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
-                                        $('#' + $.fn.jexcel.current).jexcel('cut');
-                                    } else {
-                                        $('#' + $.fn.jexcel.current).jexcel('copy', true);
-                                    }
-                                    e.preventDefault();
-                                } else if (e.which == 86) {
-                                    // Ctrl + V
-                                    if (window.clipboardData) {
-                                        if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
-                                            $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, window.clipboardData.getData('Text'));
+                                if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                    if (e.which == 65) {
+                                        // Ctrl + A
+                                        t = $(this).find('.jexcel tbody td').not('.jexcel_label');
+                                        o = $(t).first();
+                                        t = $(t).last();
+                                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', o, t);
+                                        // Prevent page selection
+                                        e.preventDefault();
+                                    } else if (e.which == 83) {
+                                        // Ctrl + S
+                                        $('#' + $.fn.jexcel.current).jexcel('download');
+                                        // Prevent page selection
+                                        e.preventDefault();
+                                    } else if (e.which == 89) {
+                                        // Ctrl + Y
+                                        if (!$($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                            $('#' + $.fn.jexcel.current).jexcel('redo');
                                         }
                                         e.preventDefault();
+                                    } else if (e.which == 90) {
+                                        // Ctrl + Z
+                                        if (!$($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                            $('#' + $.fn.jexcel.current).jexcel('undo');
+                                        }
+                                        e.preventDefault();
+                                    } else if (e.which == 67) {
+                                        // Ctrl + C
+                                        $('#' + $.fn.jexcel.current).jexcel('copy', true);
+                                        e.preventDefault();
+                                    } else if (e.which == 88) {
+                                        // Ctrl + X
+                                        if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
+                                            $('#' + $.fn.jexcel.current).jexcel('cut');
+                                        } else {
+                                            $('#' + $.fn.jexcel.current).jexcel('copy', true);
+                                        }
+                                        e.preventDefault();
+                                    } else if (e.which == 86) {
+                                        // Ctrl + V
+                                        if (window.clipboardData) {
+                                            if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
+                                                $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, window.clipboardData.getData('Text'));
+                                            }
+                                            e.preventDefault();
+                                        }
                                     }
                                 }
                             }
@@ -1407,7 +1413,11 @@ var methods = {
                     // Keep the current value
                     $(cell).addClass('edition');
 
-                    var input = $(cell).find('input');
+                    if (options.columns[position[0]].wordWrap == true) {
+                        var input = $(cell).find('textarea');
+                    } else {
+                        var input = $(cell).find('input');
+                    }
 
                     // Get content
                     if ($(input).length) {
@@ -1417,9 +1427,14 @@ var methods = {
                     }
 
                     // Basic editor
-                    var editor = document.createElement('input');
+                    if (options.columns[position[0]].wordWrap == true) {
+                        var editor = document.createElement('textarea');
+                    } else {
+                        var editor = document.createElement('input');
+                    }
                     $(editor).prop('class', 'editor');
                     $(editor).css('width', $(cell).width());
+                    $(editor).css('height', $(cell).height());
                     $(cell).html(editor);
 
                     // Bind mask
@@ -1921,8 +1936,6 @@ var methods = {
                 $(this).find('#' + ux + '-' + j).addClass('selection-right');
             }
         }
-
-        //$(this).jexcel('updateCornerPosition');
     },
 
     /**
@@ -2072,7 +2085,10 @@ var methods = {
 
         return str;
     },
-
+    
+    /**
+     * jExcel cut method
+     */ 
     cut : function () {
         var main = $(this);
 
@@ -2085,7 +2101,7 @@ var methods = {
     },
 
     /**
-     * Paste method TODO: if the clipboard is larger than the table create automatically columns/rows?
+     * jExcel paste method
      * 
      * @param integer row number
      * @return string value
@@ -2094,9 +2110,8 @@ var methods = {
         // Id
         var id = $(this).prop('id');
 
-        // Data
-        data = data.replace(/(\r)/gm, '');
-        data = data.split("\n");
+        // Parse paste
+        data = $(this).jexcel('parseCSV', data, "\t")
 
         // Initial position
         var position = $(cell).prop('id');
@@ -2111,7 +2126,7 @@ var methods = {
             }
             // Automatic adding new columns when the copied data is larger then the table
             if (data[0]) {
-                row = data[0].split("\t");
+                row = data[0];
                 if (x + row.length > $.fn.jexcel.defaults[id].data[y].length) {
                     $(this).jexcel('insertColumn', x + row.length - $.fn.jexcel.defaults[id].data[y].length);
                 }
@@ -2123,7 +2138,7 @@ var methods = {
             // Go through the columns to get the data
             for (j = 0; j < data.length; j++) {
                 // Explode column values
-                row = data[j].split("\t");
+                row = data[j];
                 for (i = 0; i < row.length; i++) {
                     // Get cell
                     cell = $(this).find('#' + (parseInt(i) + parseInt(x))  + '-' + (parseInt(j) + parseInt(y)));
@@ -2146,6 +2161,54 @@ var methods = {
                 $(this).jexcel('updateCells', records);
             }
         }
+
+        // Update position
+        $(this).jexcel('updateCornerPosition');
+    },
+
+    /**
+     * Based on script by Ben Nadel
+     */
+    parseCSV : function(CSV_string, delimiter)
+    {
+        // user-supplied delimeter or default comma
+        delimiter = (delimiter || ","); 
+        // regular expression to parse the CSV values.
+        var pattern = new RegExp(
+          ( // Delimiters:
+            "(\\" + delimiter + "|\\r?\\n|\\r|^)" +
+            // Quoted fields.
+            "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+            // Standard fields.
+            "([^\"\\" + delimiter + "\\r\\n]*))"
+          ), "gi"
+        );
+
+        var rows = [[]];  // array to hold our data. First row is column headers.
+        // array to hold our individual pattern matching groups:
+        var matches = false; // false if we don't find any matches
+        // Loop until we no longer find a regular expression match
+        while (matches = pattern.exec( CSV_string )) {
+            var matched_delimiter = matches[1]; // Get the matched delimiter
+            // Check if the delimiter has a length (and is not the start of string)
+            // and if it matches field delimiter. If not, it is a row delimiter.
+            if (matched_delimiter.length && matched_delimiter !== delimiter) {
+              // Since this is a new row of data, add an empty row to the array.
+              rows.push( [] );
+            }
+            var matched_value;
+            // Once we have eliminated the delimiter, check to see what kind of value was captured (quoted or unquoted):
+            if (matches[2]) { // found quoted value. unescape any double quotes.
+                matched_value = matches[2].replace(new RegExp( "\"\"", "g" ), "\"");
+            } else {
+                // found a non-quoted value
+                matched_value = matches[3];
+            }
+            // Now that we have our value string, let's add it to the data array.
+            rows[rows.length - 1].push(matched_value);
+        }
+
+        return rows; // Return the parsed data Array
     },
 
     /**
@@ -2906,6 +2969,11 @@ var methods = {
         // Readonly
         if (options.columns[i].readOnly == true) {
             $(td).addClass('readonly', 'readonly');
+        }
+
+        // Wrap option
+        if (options.columns[i].wordWrap == true) {
+            $(td).css('white-space', 'pre');
         }
 
         return $(td);
