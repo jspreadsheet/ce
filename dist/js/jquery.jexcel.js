@@ -58,6 +58,8 @@ var methods = {
             allowDeleteRow:true,
             // Allow column delete
             allowDeleteColumn:true,
+            // Global wrap
+            wordWrap:false,
             // About message
             about:'jExcel Spreadsheet\\nVersion 1.3.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
@@ -581,15 +583,15 @@ var methods = {
 
                     // Update cell size
                     if ($.fn.jexcel.resizeColumn) {
+                        // On resize
+                        if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onresize) == 'function') {
+                            $.fn.jexcel.defaults[$.fn.jexcel.current].onresize($(this), $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width);
+                        }
                         // Remove resizing border indication
                         $('#' + $.fn.jexcel.current).find('thead td').removeClass('resizing');
                         $('#' + $.fn.jexcel.current).find('tbody td').removeClass('resizing');
                         // Reset resizing helper
                         $.fn.jexcel.resizeColumn = null;
-                        // On resize
-                        if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onresize) == 'function') {
-                            $.fn.jexcel.defaults[$.fn.jexcel.current].onresize($(this), $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width);
-                        }
                     }
 
                     // Data to be copied
@@ -618,6 +620,10 @@ var methods = {
                         $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(d[1], 0, $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(o[1], 1)[0]);
                         // Reset data in a new order, ignore spare
                         $('#' + $.fn.jexcel.current).jexcel('setData', null, true);
+                        // On move
+                        if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onmoverow) == 'function') {
+                            $.fn.jexcel.defaults[$.fn.jexcel.current].onmoverow($(this), $.fn.jexcel.dragRowFrom, $.fn.jexcel.dragRowOver);
+                        }
                     }
 
                     // Remove style
@@ -1413,7 +1419,7 @@ var methods = {
                     // Keep the current value
                     $(cell).addClass('edition');
 
-                    if (options.columns[position[0]].wordWrap == true) {
+                    if (options.wordWrap == true || options.columns[position[0]].wordWrap == true) {
                         var input = $(cell).find('textarea');
                     } else {
                         var input = $(cell).find('input');
@@ -1427,7 +1433,7 @@ var methods = {
                     }
 
                     // Basic editor
-                    if (options.columns[position[0]].wordWrap == true) {
+                    if (options.wordWrap == true || options.columns[position[0]].wordWrap == true) {
                         var editor = document.createElement('textarea');
                     } else {
                         var editor = document.createElement('input');
@@ -1530,6 +1536,21 @@ var methods = {
                 $.fn.jexcel.edition = null;
             }
         }
+    },
+
+    /**
+     * Get the cell object
+     * 
+     * @param object cell
+     * @return string value
+     */
+    getCell : function(cell) {
+        // Convert in case name is excel liked ex. A10, BB92
+        cell = $(this).jexcel('getIdFromColumnName', cell);
+        // Get object based on a string ex. 12-1, 13-3
+        cell = $(this).find('[id=' + cell +']');
+
+        return cell;
     },
 
     /**
@@ -1826,8 +1847,10 @@ var methods = {
         if (o && d) {
             // Events
             if (! ignoreEvents) {
-                if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onselection) == 'function') {
-                    $.fn.jexcel.defaults[$.fn.jexcel.current].onselection($(this), o, d, origin);
+                if ($.fn.jexcel.defaults[id].onselection) {
+                    if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
+                        $.fn.jexcel.defaults[id].onselection($(this), o, d, origin);
+                    }
                 }
             }
 
@@ -2515,7 +2538,7 @@ var methods = {
      * @param title - new column title
      */
     getHeader : function (column) {
-        var col = $(this).find('thead #col-' + column).html();
+        var col = $(this).find('thead #col-' + column);
         if (col.length) {
             return $(col).html();
         }
@@ -2972,7 +2995,7 @@ var methods = {
         }
 
         // Wrap option
-        if (options.columns[i].wordWrap == true) {
+        if (options.wordWrap == true || options.columns[i].wordWrap == true) {
             $(td).css('white-space', 'pre');
         }
 
