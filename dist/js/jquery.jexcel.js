@@ -1362,7 +1362,7 @@ var methods = {
                     $(cell).addClass('edition');
 
                     // Get content
-                    var html = $(cell).text();
+                    var html = $(cell).text().trim();
                     var value = $(cell).find('input').val();
 
                     // Basic editor
@@ -1373,11 +1373,8 @@ var methods = {
                     // Results
                     var result = document.createElement('div');
                     $(result).prop('class', 'results');
-                    if (html) {
-                        showResult(options.columns[position[0]].source, html.trim());
-                    } else {
-                       $(result).css('display', 'none');
-                    }
+                    $(result).css('width', $(cell).outerWidth());
+                    showResult(options.columns[position[0]].source, html.trim());
 
                     // Search
                     var timeout = null;
@@ -1973,7 +1970,7 @@ var methods = {
 
             // Get the position of the corner helper
             var t = parseInt($(corner).offset().top) + $(corner).parent().outerHeight() - 4;
-            var l = parseInt($(corner).offset().left) + $(corner).outerWidth() - 5;
+            var l = parseInt($(corner).offset().left) + $(corner).outerWidth() - 4;
 
             // Place the corner in the correct place
             $('.jexcel_corner').css('top', t);
@@ -2082,7 +2079,7 @@ var methods = {
                     }
                     // Get value
                     val = $(this).jexcel('getValue', $(cell));
-                    if (val.match(/,/g)) {
+                    if (val.match(/,/g) || val.match(/\n/)) {
                         val = '"' + val + '"'; 
                     }
                     row += val;
@@ -2184,9 +2181,6 @@ var methods = {
                 $(this).jexcel('updateCells', records);
             }
         }
-
-        // Update position
-        $(this).jexcel('updateCornerPosition');
     },
 
     /**
@@ -2629,6 +2623,9 @@ var methods = {
             // Spare check
             $(this).jexcel('spareCheck');
         }
+
+        // Update position
+        $(this).jexcel('updateCornerPosition');
 
         // Update settings
         $(this).jexcel('updateSettings');
