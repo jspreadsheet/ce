@@ -21,6 +21,7 @@
 <meta property="og:image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 
 <link rel="icon" href="http://bossanova.uk/templates/default/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Roboto|Dosis">
@@ -81,33 +82,213 @@
 
             <div id='content'>
 
-<div class='title'>jExcel examples</div>
+<div class='title'>Handling events</div>
 
-<p>This examples shows the usage with various column types such as text, dropdown, autocomplete, checkbox and date.</p><br>
+<p>Tracking changes on your spreadsheet.</p>
 
-<div id="my"></div>
+<div id='mytable'></div>
+
+<br><a href='https://jsfiddle.net/paulhodel/0dyms2b9/' alt='Working example on how to handle events on jExcel' target='jsfiddle'>See this example on jsFiddle</a><br><br>
+
+<div>
+    <button onclick="$('#log').html('')">Clear</button><br>
+    <p>Log:</p>
+    <div id='log' style='background-color:#c7eaff; border-radius:10px; color:#000; padding:20px'></div>
+</div>
 
 <script>
+var change = function(instance, cell, value) {
+    var cellName = $(instance).jexcel('getColumnNameFromId', $(cell).prop('id'));
+    $('#log').append('New change on cell ' + cellName + ' to: ' + value + '<br>');
+}
+
+var beforeChange = function(instance, cell, value) {
+    var cellName = $(instance).jexcel('getColumnNameFromId', $(cell).prop('id'));
+    $('#log').append('The cell ' + cellName + ' will be changed<br>');
+}
+
+var insertedRow = function(instance) {
+    $('#log').append('Row added<br>');
+}
+
+var insertedColumn = function(instance) {
+    $('#log').append('Column added<br>');
+}
+
+var deletedRow = function(instance) {
+    $('#log').append('Row deleted<br>');
+}
+
+var deletedColumn = function(instance) {
+    $('#log').append('Column deleted<br>');
+}
+
+var sort = function(instance, cellNum, order) {
+    var order = (order) ? 'desc' : 'asc';
+    $('#log').append('The column  ' + cellNum + ' sorted by ' + order + '<br>');
+}
+
+var resize = function(instance, cell, width) {
+    $('#log').append('The column  ' + cell + ' resized to width ' + width + ' px<br>');
+}
+
+var selectionActive = function(instance, firstColumn, lastColumn) {
+    var cellName1 = $(instance).jexcel('getColumnNameFromId', $(firstColumn).prop('id'));
+    var cellName2 = $(instance).jexcel('getColumnNameFromId', $(lastColumn).prop('id'));
+    $('#log').append('The selection from ' + cellName1 + ' to ' + cellName2 + '<br>');
+}
+
+var loaded = function(instance) {
+    $('#log').append('New data is loaded<br>');
+}
+
+var moverow = function(instance, rowFrom, rowTo) {
+    $('#log').append('The row ' + rowFrom + ' was move to the position of ' + rowTo + ' <br>');
+}
+
+var blur = function(instance) {
+    $('#log').append('The table ' + $(instance).prop('id') + ' was blur<br>');
+}
+
+var focus = function(instance) {
+    $('#log').append('The table ' + $(instance).prop('id') + ' was focus<br>');
+}
+
 data = [
-    ['Brazil', 'Classe A', 'Cheese', 1, '2017-01-12'],
-    ['US', 'Classe B', 'Apples', 1, '2017-01-12'],
-    ['UK', 'Classe A', 'Carrots', 1, '2017-01-12'],
-    ['CA', 'Classe C', 'Oranges', 0, '2017-01-12'],
+    ['Mazda', 2001, 2000, '2006-01-01'],
+    ['Pegeout', 2010, 5000, '2005-01-01'],
+    ['Honda Fit', 2009, 3000, '2004-01-01'],
+    ['Honda CRV', 2010, 6000, '2003-01-01'],
 ];
 
-$('#my').jexcel({
+$('#mytable').jexcel({
     data:data,
-    colHeaders:  [ 'Country', 'Description', 'Type', 'Stock', 'Next purchase' ],
-    colWidths: [ 300, 80, 100, 60, 120 ],
+    colHeaders: ['Description','Year','Price', 'Buy'],
+    colWidths: [ 300, 80, 100, 100 ],
     columns: [
         { type: 'text' },
         { type: 'text' },
-        { type: 'dropdown', source:[ {'id':'1', 'name':'Fruits'}, {'id':'2', 'name':'Legumes'}, {'id':'3', 'name':'General Food'} ] },
-        { type: 'checkbox' },
-        { type: 'calendar' },
-    ]
+        { type: 'text' },
+        { type: 'text' },
+    ],
+    onchange: change,
+    onbeforechange: beforeChange,
+    oninsertrow: insertedRow,
+    oninsertcolumn: insertedColumn,
+    ondeleterow: deletedRow,
+    ondeletecolumn: deletedColumn,
+    onselection: selectionActive,
+    onsort: sort,
+    onresize: resize,
+    onmoverow: moverow,
+    onload: loaded,
+    onblur: blur,
+    onfocus: focus,
 });
 </script>
+
+<br><br>
+
+<h2>Advanced Example</h2>
+
+<p>Update the chart on every change in your spreadsheet, using the onchange handler</p>
+
+<div id="container"></div>
+
+<br>
+
+<div id="my"></div>
+
+
+<script>
+var data = [
+    ['Tokyo', 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+    ['New York', -0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5],
+    ['Berlin', -0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0],
+    ['London', 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8],
+];
+
+var update = function (obj, cel, val) {
+    // Get the cell position x, y
+    var id = $(cel).prop('id').split('-');
+    // If the related series does not exists create a new one
+    if (! chart.series[id[1]]) {
+        // Create a new series row
+        var row = [];
+        for (i = 1; i < data[id[1]].length; i++) {
+            row.push(parseFloat(data[id[1]][i]));
+        }
+        // Append new series to the chart
+        chart.addSeries({ name:data[id[1]][0], data:row });
+    } else {
+        // Update the value from the chart
+        chart.series[id[1]].data[id[0]-1].update({y:parseFloat(val)});
+    }
+}
+
+$('#my').jexcel({
+    data:data,
+    onchange:update,
+    colHeaders: [ 'Country' ],
+    colWidths: [ 300 ],
+    columns: [
+        { type: 'text', readOnly: true }
+    ]
+});
+
+// Kepp it global
+var chart = null;
+
+$(function () {
+    chart = Highcharts.chart('container', {
+        title: {
+            text: 'Monthly Average Temperature',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com',
+            x: -20
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Temperature (°C)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        }, {
+            name: 'New York',
+            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+        }, {
+            name: 'Berlin',
+            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+        }, {
+            name: 'London',
+            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+        }]
+    });
+});
+</script>
+
 
 
             </div>

@@ -129,7 +129,7 @@
     text-align:left;
 }
 
-.jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input
+.jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input, .jexcel > tbody > tr > td > textarea
 {
     border:0px;
     border-radius:0px;
@@ -138,6 +138,11 @@
     margin:0px;
     padding:0px;
     background-color:transparent;
+}
+
+.jexcel > tbody > tr > td > textarea
+{
+    resize: none;
 }
 
 .jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input[type=checkbox]
@@ -194,14 +199,16 @@
 .jexcel .results
 {
     position:absolute;
-    min-height:30px;
-    max-height:200px;
+    min-height:200px;
+    max-height:300px;
     width:220px;
     background-color:#fff;
     overflow-y:scroll;
     z-index:99;
     text-align:left;
     border:1px solid #ccc;
+    margin-top:7px;
+    margin-left:-4px;
 }
 .jexcel .results li
 {
@@ -211,7 +218,8 @@
 }
 .jexcel .results li:hover
 {
-    background-color:#eee;
+    background-color:#1e90ff;
+    color:#ffffff;
 }
 .jexcel .dragline
 {

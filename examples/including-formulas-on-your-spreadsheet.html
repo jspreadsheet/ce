@@ -30,6 +30,8 @@
 
 <script src="../dist/js/jquery.jexcel.js"></script>
 <script src="../dist/js/jquery.jcalendar.js"></script>
+<script src="../dist/js/excel-formula.min.js"></script>
+
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
 
@@ -81,31 +83,27 @@
 
             <div id='content'>
 
-<div class='title'>jExcel examples</div>
+<div class='title'>Including formulas on your spreadsheet</div>
 
-<p>This examples shows the usage with various column types such as text, dropdown, autocomplete, checkbox and date.</p><br>
+<p>Despite the fact you can use basic formulas or write your own methods, <b>the use of calculations is experimental</b>, and consequently you have available a very limited options in the current jExcel version.</p><br>
 
 <div id="my"></div>
 
+
 <script>
-data = [
-    ['Brazil', 'Classe A', 'Cheese', 1, '2017-01-12'],
-    ['US', 'Classe B', 'Apples', 1, '2017-01-12'],
-    ['UK', 'Classe A', 'Carrots', 1, '2017-01-12'],
-    ['CA', 'Classe C', 'Oranges', 0, '2017-01-12'],
-];
+var data = [
+    ['Furnace',1,10000],
+    ['Tower',2,6000],
+    ['Drum',3,5000],
+    ['Pump',4,4000],
+    ['Total','=SUM(B1:B4)','=(C1+C2+C3+C4)']
+]
 
 $('#my').jexcel({
     data:data,
-    colHeaders:  [ 'Country', 'Description', 'Type', 'Stock', 'Next purchase' ],
-    colWidths: [ 300, 80, 100, 60, 120 ],
-    columns: [
-        { type: 'text' },
-        { type: 'text' },
-        { type: 'dropdown', source:[ {'id':'1', 'name':'Fruits'}, {'id':'2', 'name':'Legumes'}, {'id':'3', 'name':'General Food'} ] },
-        { type: 'checkbox' },
-        { type: 'calendar' },
-    ]
+    colHeaders: ['Equipment','Quantity', 'Price'],
+    colWidths: [ 400, 100, 200 ],
+    colWidths: [300, 150, 150, 150, 150],
 });
 </script>
 
