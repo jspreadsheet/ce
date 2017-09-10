@@ -21,6 +21,7 @@
 <meta property="og:image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
 
 <link rel="icon" href="http://bossanova.uk/templates/default/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Roboto|Dosis">
@@ -81,30 +82,19 @@
 
             <div id='content'>
 
-<div class='title'>jExcel examples</div>
-
-<p>This examples shows the usage with various column types such as text, dropdown, autocomplete, checkbox and date.</p><br>
+<div class='title'>Text wrapping</div>
+<p>The jExcel default configuration is not wrap the text. But, you can change this behavior by using the wordWrap option.
+When true, jExcel will keep any new line resizing the height of the related cell.</p>
 
 <div id="my"></div>
 
 <script>
-data = [
-    ['Brazil', 'Classe A', 'Cheese', 1, '2017-01-12'],
-    ['US', 'Classe B', 'Apples', 1, '2017-01-12'],
-    ['UK', 'Classe A', 'Carrots', 1, '2017-01-12'],
-    ['CA', 'Classe C', 'Oranges', 0, '2017-01-12'],
-];
-
 $('#my').jexcel({
-    data:data,
-    colHeaders:  [ 'Country', 'Description', 'Type', 'Stock', 'Next purchase' ],
-    colWidths: [ 300, 80, 100, 60, 120 ],
+    csv:'http://cdn.bossanova.uk/demo/demo1.csv',
+    csvHeaders:true,
+    colWidths: [70, 200, 300],
     columns: [
-        { type: 'text' },
-        { type: 'text' },
-        { type: 'dropdown', source:[ {'id':'1', 'name':'Fruits'}, {'id':'2', 'name':'Legumes'}, {'id':'3', 'name':'General Food'} ] },
-        { type: 'checkbox' },
-        { type: 'calendar' },
+        { type:'text', wordWrap:true }
     ]
 });
 </script>

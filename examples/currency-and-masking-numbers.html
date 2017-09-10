@@ -21,6 +21,7 @@
 <meta property="og:image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.3/jquery.mask.min.js"></script>
 
 <link rel="icon" href="http://bossanova.uk/templates/default/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Roboto|Dosis">
@@ -81,31 +82,45 @@
 
             <div id='content'>
 
-<div class='title'>jExcel examples</div>
+<div class='title'>Currency and masking numbers</div>
 
-<p>This examples shows the usage with various column types such as text, dropdown, autocomplete, checkbox and date.</p><br>
+<p>How to work with numbers and currencies, and how to create live settings update on the spreadsheet based on column values.</p>
 
 <div id="my"></div>
 
 <script>
 data = [
-    ['Brazil', 'Classe A', 'Cheese', 1, '2017-01-12'],
-    ['US', 'Classe B', 'Apples', 1, '2017-01-12'],
-    ['UK', 'Classe A', 'Carrots', 1, '2017-01-12'],
-    ['CA', 'Classe C', 'Oranges', 0, '2017-01-12'],
+    ['3D Systems ', 'DDD', 15.08, 15.1, 0.01, 0.07],
+    ['3M', 'MMM', 178.34, 178.65, 0.49, 0.28],
+    ['58.com', 'ADR WUBA', 30.01, 29.1, -0.76, -2.55],
+    ['500.com', 'ADR WBAI', 13.48, 13.56, 0.1, 0.74],
 ];
 
 $('#my').jexcel({
     data:data,
-    colHeaders:  [ 'Country', 'Description', 'Type', 'Stock', 'Next purchase' ],
-    colWidths: [ 300, 80, 100, 60, 120 ],
+    colHeaders: ['Name', 'Symbol', 'Open', 'Close', '% Net', '% Change'],
+    colWidths: [ 300, 80, 100, 100, 100, 100 ],
     columns: [
-        { type: 'text' },
-        { type: 'text' },
-        { type: 'dropdown', source:[ {'id':'1', 'name':'Fruits'}, {'id':'2', 'name':'Legumes'}, {'id':'3', 'name':'General Food'} ] },
-        { type: 'checkbox' },
-        { type: 'calendar' },
-    ]
+              { type: 'text' },
+              { type: 'text' },
+              { type: 'text', mask:'#.###.00', options:{ reverse: true } },
+              { type: 'text', mask:'#.###.00', options:{ reverse: true } },
+              { type: 'text' },
+              { type: 'text' },
+              ]
+});
+
+$('#my').jexcel('updateSettings', {
+    cells: function (cell, col, row) {
+        if (col == 4 || col == 5) {
+            val = $('#my').jexcel('getValue', $(cell));
+            if (val < 0) {
+                $(cell).css('color', '#ff0000');
+            } else {
+                $(cell).css('color', '#249D7F');
+            }
+        }
+    }
 });
 </script>
 

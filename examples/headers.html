@@ -81,32 +81,45 @@
 
             <div id='content'>
 
-<div class='title'>jExcel examples</div>
+<div class='title'>Headers</div>
 
-<p>This examples shows the usage with various column types such as text, dropdown, autocomplete, checkbox and date.</p><br>
+<p>Adding a nested header on jExcel.</p>
+
+<br>
 
 <div id="my"></div>
 
 <script>
 data = [
-    ['Brazil', 'Classe A', 'Cheese', 1, '2017-01-12'],
-    ['US', 'Classe B', 'Apples', 1, '2017-01-12'],
-    ['UK', 'Classe A', 'Carrots', 1, '2017-01-12'],
-    ['CA', 'Classe C', 'Oranges', 0, '2017-01-12'],
+    ['BR', 'Cheese', 1],
+    ['CA', 'Apples', 0],
+    ['US', 'Carrots', 1],
+    ['GB', 'Oranges', 0],
 ];
 
 $('#my').jexcel({
     data:data,
-    colHeaders:  [ 'Country', 'Description', 'Type', 'Stock', 'Next purchase' ],
-    colWidths: [ 300, 80, 100, 60, 120 ],
+    colHeaders: ['Country', 'Food', 'Stock'],
+    colWidths: [ 300, 100, 100 ],
     columns: [
         { type: 'text' },
-        { type: 'text' },
-        { type: 'dropdown', source:[ {'id':'1', 'name':'Fruits'}, {'id':'2', 'name':'Legumes'}, {'id':'3', 'name':'General Food'} ] },
+        { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
         { type: 'checkbox' },
-        { type: 'calendar' },
     ]
 });
+
+// Keep a small delay
+setTimeout(function () {
+    var html = '<thead class="jexcel_label">'+
+        '<tr>'+
+        '<td class="jexcel_label" width="30"></td>'+
+        '<td colspan="2" width="400" align="center">Group 1</td>'+
+        '<td width="200" align="center">Group 2</td>'+
+        '</tr>'+
+        '</thead>';
+
+    $('#my').find('thead').before(html);
+}, 500);
 </script>
 
 

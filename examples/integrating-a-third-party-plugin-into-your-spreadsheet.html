@@ -33,6 +33,9 @@
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css" type="text/css" />
+
 </head>
 <body>
 
@@ -81,30 +84,65 @@
 
             <div id='content'>
 
-<div class='title'>jExcel examples</div>
+<div class='title'>Integrating a third party plugin into your spreadsheet</div>
 
-<p>This examples shows the usage with various column types such as text, dropdown, autocomplete, checkbox and date.</p><br>
+<p>This particular example shows how to create a custom colorpicker column type using <a href="https://bgrins.github.io/spectrum/">Spectrum Plugin</a>.</p>
 
 <div id="my"></div>
 
+<p><a href='https://jsfiddle.net/paulhodel/rp0876b1/' alt='Integrating a third party plugin on your jExcel table to create a custom column'>See this example on jsFiddle</a></p>
+ 
 <script>
+var spectrumEditor = {
+    // Methods
+    closeEditor : function(cell, save) {
+        // Get value
+        var value = $(cell).find('.editor').spectrum('get').toHexString();
+
+        // Set visual value
+        $(cell).html(value);
+        $(cell).css('color', value);
+
+        // Close edition
+        $(cell).removeClass('edition');
+    },
+    openEditor : function(cell) {
+        var main = this;
+        // Get current content
+        var html = $(cell).html();
+
+        // Basic editor
+        var editor = document.createElement('div');
+        $(cell).html(editor);
+        $(editor).prop('class', 'editor');
+        $(editor).spectrum({ color:html, preferredFormat:'hex', hide: function(color) {
+            main.closeEditor($(cell), true);
+        }});
+        $(editor).spectrum('show');
+    },
+    getValue : function(cell) {
+        return $(cell).html();
+    },
+    setValue : function(cell, value) {
+        $(cell).html(value);
+        $(cell).css('color', value);
+        return true;
+    }
+}
+
 data = [
-    ['Brazil', 'Classe A', 'Cheese', 1, '2017-01-12'],
-    ['US', 'Classe B', 'Apples', 1, '2017-01-12'],
-    ['UK', 'Classe A', 'Carrots', 1, '2017-01-12'],
-    ['CA', 'Classe C', 'Oranges', 0, '2017-01-12'],
+    ['Google', '#542727'],
+    ['Yahoo', '#724f4f'],
+    ['Bing', '#b43131'],
 ];
 
 $('#my').jexcel({
     data:data,
-    colHeaders:  [ 'Country', 'Description', 'Type', 'Stock', 'Next purchase' ],
-    colWidths: [ 300, 80, 100, 60, 120 ],
+    colHeaders: [ 'Name', 'Custom color' ],
+    colWidths: [ 300, 200 ],
     columns: [
         { type: 'text' },
-        { type: 'text' },
-        { type: 'dropdown', source:[ {'id':'1', 'name':'Fruits'}, {'id':'2', 'name':'Legumes'}, {'id':'3', 'name':'General Food'} ] },
-        { type: 'checkbox' },
-        { type: 'calendar' },
+        { type: 'text', editor:spectrumEditor },
     ]
 });
 </script>

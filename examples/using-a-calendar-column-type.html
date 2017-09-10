@@ -81,30 +81,29 @@
 
             <div id='content'>
 
-<div class='title'>jExcel examples</div>
 
-<p>This examples shows the usage with various column types such as text, dropdown, autocomplete, checkbox and date.</p><br>
+<div class='title'>Calendar column type</div>
+<p>The example below shows how to use and customize a special calendar column type.</p>
 
 <div id="my"></div>
 
 <script>
 data = [
-    ['Brazil', 'Classe A', 'Cheese', 1, '2017-01-12'],
-    ['US', 'Classe B', 'Apples', 1, '2017-01-12'],
-    ['UK', 'Classe A', 'Carrots', 1, '2017-01-12'],
-    ['CA', 'Classe C', 'Oranges', 0, '2017-01-12'],
+    ['Mazda', 2001, 2000, '2016-12-01'],
+    ['Pegeout', 2010, 5000, '2016-12-02'],
+    ['Honda Fit', 2009, 3000, '2016-12-03'],
+    ['Honda CRV', 2010, 6000, '2016-12-04'],
 ];
 
 $('#my').jexcel({
     data:data,
-    colHeaders:  [ 'Country', 'Description', 'Type', 'Stock', 'Next purchase' ],
-    colWidths: [ 300, 80, 100, 60, 120 ],
+    colHeaders: ['Model', 'Date', 'Price', 'Date'],
+    colWidths: [ 300, 80, 100, 100 ],
     columns: [
         { type: 'text' },
         { type: 'text' },
-        { type: 'dropdown', source:[ {'id':'1', 'name':'Fruits'}, {'id':'2', 'name':'Legumes'}, {'id':'3', 'name':'General Food'} ] },
-        { type: 'checkbox' },
-        { type: 'calendar' },
+        { type: 'text' },
+        { type: 'calendar', options: { format:'DD/MM/YYYY' } },
     ]
 });
 </script>
