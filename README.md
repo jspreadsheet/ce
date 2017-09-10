@@ -63,7 +63,7 @@ $('#mytable').jexcel({ data:data, colWidths: [ 300, 80, 100 ] });
 
 ## Screenshot
 <p align="center">
-<img src="http://bossanova.uk/templates/default/img/jexcel.png" align="center" alt="jExcel - The javascript spreadsheet"/>
+<img src="http://bossanova.uk/templates/default/img/jexcel.gif" align="center" alt="jExcel - The javascript spreadsheet"/>
 </p>
 
 ## Community
