@@ -42,23 +42,28 @@ $('#mytable').jexcel({ data:data, colWidths: [ 300, 80, 100 ] });
 ```
 
 ## Examples
-- [Creating a table from an external CSV file](http://www.bossanova.uk/jexcel/creating-a-table-from-an-external-csv-file)
-- [Calendar column type](http://www.bossanova.uk/jexcel/using-a-calendar-column-type)
-- [Sorting by column](http://www.bossanova.uk/jexcel/reorder)
-- [Multiple spreadsheets in the same page](http://www.bossanova.uk/jexcel/multiple-spreadsheets-in-the-same-page)
-- [Integrating a third party plugin into jExcel](http://www.bossanova.uk/jexcel/integrating-a-third-party-plugin-into-your-spreadsheet)
-- [Currency and masking numbers](http://www.bossanova.uk/jexcel/currency-and-masking-numbers)
-- [Working with dropdowns](http://www.bossanova.uk/jexcel/working-with-dropdowns)
-- [Handling events](http://www.bossanova.uk/jexcel/tracking-changes-on-the-spreadsheet)
-- [Including formulas on your spreadsheet](http://www.bossanova.uk/jexcel/including-formulas-on-your-spreadsheet)
-- [Remote updates](http://www.bossanova.uk/jexcel/remote-updates)
+
+
+
+
+
+- [Creating a table from an external CSV file](http://www.bossanova.uk/jexcel/examples/creating-a-table-from-an-external-csv-file)
+- [Calendar column type](http://www.bossanova.uk/jexcel/examples/using-a-calendar-column-type)
+- [Sorting by column](http://www.bossanova.uk/jexcel/examples/reorder)
+- [Multiple spreadsheets in the same page](http://www.bossanova.uk/jexcel/examples/multiple-spreadsheets-in-the-same-page)
+- [Integrating a third party plugin into jExcel](http://www.bossanova.uk/jexcel/examples/integrating-a-third-party-plugin-into-your-spreadsheet)
+- [Currency and masking numbers](http://www.bossanova.uk/jexcel/examples/currency-and-masking-numbers)
+- [Working with dropdowns](http://www.bossanova.uk/jexcel/examples/working-with-dropdowns)
+- [Handling events](http://www.bossanova.uk/jexcel/examples/tracking-changes-on-the-spreadsheet)
+- [Including formulas on your spreadsheet](http://www.bossanova.uk/jexcel/examples/including-formulas-on-your-spreadsheet)
+- [Remote updates](http://www.bossanova.uk/jexcel/examples/remote-updates)
 
 ## Official website
-- [jExcel Official](http://www.bossanova.uk/jexcel)
+- [jExcel Official](http://bossanova.uk/jexcel)
 
 ## Screenshot
 <p align="center">
-<img src="http://bossanova.uk/templates/default/img/jexcel.png" align="center" alt="jExcel Spreadsheet"/>
+<img src="http://bossanova.uk/templates/default/img/jexcel.png" align="center" alt="jExcel - The javascript spreadsheet"/>
 </p>
 
 ## Community
