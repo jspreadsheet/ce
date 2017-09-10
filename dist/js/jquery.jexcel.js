@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.3.2 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.3.3 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -61,7 +61,7 @@ var methods = {
             // Global wrap
             wordWrap:false,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.3.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
 
         // Configuration holder
@@ -431,7 +431,7 @@ var methods = {
                         // Remove selection from any other jexcel if applicable
                         if ($.fn.jexcel.current) {
                             if ($.fn.jexcel.current != current) {
-                                $('#' + $.fn.jexcel.current).find('td').removeClass('selected highlight highlight-top highlight-left highlight-right highlight-bottom');
+                                $('#' + $.fn.jexcel.current).jexcel('updateSelection');
                             }
                         }
 
@@ -489,9 +489,8 @@ var methods = {
                             if ($(e.target).is('.jexcel_label')) {
                                 if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {
                                     // Reset selection
-                                    $('#' + $.fn.jexcel.current).find('td').removeClass('selected highlight highlight-top highlight-left highlight-right highlight-bottom');
+                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection');
                                     // Hide corner
-                                    $(corner).css('top', '-200px');
                                     $(corner).css('left', '-200px');
                                     // Reset controls
                                     $.fn.jexcel.selectedRow = null;
@@ -544,11 +543,10 @@ var methods = {
                         if (! $(e.target).parents('.jexcel').length) {
                             // Remove selection from any other jexcel if applicable
                             if ($.fn.jexcel.current) {
-                                $('#' + $.fn.jexcel.current).find('td').removeClass('selected highlight highlight-top highlight-left highlight-right highlight-bottom');
+                                $('#' + $.fn.jexcel.current).jexcel('updateSelection');
                             }
 
                             // Hide corner
-                            $(corner).css('top', '-200px');
                             $(corner).css('left', '-200px');
 
                             // Reset controls
@@ -1829,6 +1827,10 @@ var methods = {
         var cells = $(this).find('tbody td');
         var header = $(this).find('thead td');
 
+        // Keep previous selection status
+        var previousStatus = ($(this).find('.highlight').length > 0) ? true : false;
+        var currentStatus = false;
+
         // Remove highlight
         $(cells).removeClass('highlight');
         $(cells).removeClass('highlight-left');
@@ -1842,35 +1844,26 @@ var methods = {
 
         // Origin & Destination
         if (o && d) {
-            // Events
-            if (! ignoreEvents) {
-                if ($.fn.jexcel.defaults[id].onselection) {
-                    if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
-                        $.fn.jexcel.defaults[id].onselection($(this), o, d, origin);
-                    }
-                }
-            }
-
             $(o).addClass('selected');
 
             // Define coordinates
-            o = $(o).prop('id').split('-');
-            d = $(d).prop('id').split('-');
+            or = $(o).prop('id').split('-');
+            de = $(d).prop('id').split('-');
 
-            if (parseInt(o[0]) < parseInt(d[0])) {
-                px = parseInt(o[0]);
-                ux = parseInt(d[0]);
+            if (parseInt(or[0]) < parseInt(de[0])) {
+                px = parseInt(or[0]);
+                ux = parseInt(de[0]);
             } else {
-                px = parseInt(d[0]);
-                ux = parseInt(o[0]);
+                px = parseInt(de[0]);
+                ux = parseInt(or[0]);
             }
 
-            if (parseInt(o[1]) < parseInt(d[1])) {
-                py = parseInt(o[1]);
-                uy = parseInt(d[1]);
+            if (parseInt(or[1]) < parseInt(de[1])) {
+                py = parseInt(or[1]);
+                uy = parseInt(de[1]);
             } else {
-                py = parseInt(d[1]);
-                uy = parseInt(o[1]);
+                py = parseInt(de[1]);
+                uy = parseInt(or[1]);
             }
 
             // Redefining styles
@@ -1885,6 +1878,38 @@ var methods = {
                     // Row and column headers
                     $(main).find('#col-' + i).addClass('selected');
                     $(main).find('#row-' + j).addClass('selected');
+                }
+            }
+
+            // Get current selection status
+            var currentStatus = true;
+        }
+
+        if (! ignoreEvents) {
+            if ($.fn.jexcel.defaults[id].onblur) {
+                if (typeof($.fn.jexcel.defaults[id].onblur) == 'function') {
+                    if (previousStatus == true && currentStatus == false) {
+                        $.fn.jexcel.defaults[id].onblur($(this));
+                    }
+                }
+            }
+
+            if ($.fn.jexcel.defaults[id].onfocus) {
+                if (typeof($.fn.jexcel.defaults[id].onfocus) == 'function') {
+                    if (previousStatus == false && currentStatus == true) {
+                        $.fn.jexcel.defaults[id].onfocus($(this));
+                    }
+                }
+            }
+
+            if (currentStatus == true) {
+                // Events
+                if (! ignoreEvents) {
+                    if ($.fn.jexcel.defaults[id].onselection) {
+                        if (typeof($.fn.jexcel.defaults[id].onselection) == 'function') {
+                            $.fn.jexcel.defaults[id].onselection($(this), o, d, origin);
+                        }
+                    }
                 }
             }
         }
@@ -2695,7 +2720,7 @@ var methods = {
     orderBy :  function(column, order) {
         if (column >= 0) {
             // Identify thead container
-            var c = $(this).find('thead').first();
+            var c = $(this).find('#col-' + column).parent();
 
             // No order specified then toggle order
             if (! (order == '0' || order == '1')) {
