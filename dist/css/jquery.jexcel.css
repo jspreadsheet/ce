@@ -216,7 +216,7 @@
     padding:6px;
     cursor:pointer;
 }
-.jexcel .results li:hover
+.jexcel .results li:hover, .jexcel .results li.selected
 {
     background-color:#1e90ff;
     color:#ffffff;

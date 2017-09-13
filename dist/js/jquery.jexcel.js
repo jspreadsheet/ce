@@ -376,7 +376,9 @@ var methods = {
                                         contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">Delete this column<span></span></a><hr>";
                                     }
                                     contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
-                                    contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                    if (options.about) {
+                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                    }
                                 } else if ($(e.target).parent().parent().is('tbody')) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
                                         contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
@@ -388,7 +390,9 @@ var methods = {
                                         contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteRow'," + o[1] + ")\">Delete this row<span></span></a><hr>";
                                     }
                                     contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
-                                    contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                    if (options.about) {
+                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                    }
                                 }
                             }
 
@@ -1342,8 +1346,8 @@ var methods = {
                                 $(li).prop('id', id)
                                 $(li).html(name);
                                 $(li).mousedown(function (e) {
-                                    // TODO: avoid other selection in this handler.
-                                    $(cell).html(this);
+                                    $(this).parent().removeClass('selected');
+                                    $(this).addClass('selected');
                                     $(main).jexcel('closeEditor', $(cell), true);
                                 });
                                 $(result).append(li);
@@ -1368,37 +1372,68 @@ var methods = {
                     $(editor).prop('class', 'editor');
                     $(editor).css('width', $(cell).width());
 
+                    // Create dropdown
+                    if (typeof(options.columns[position[0]].filter) == 'function') {
+                        var source = options.columns[position[0]].filter($(this), $(cell), position[0], position[1], options.columns[position[0]].source);
+                    } else {
+                        var source = options.columns[position[0]].source;
+                    }
+
                     // Results
                     var result = document.createElement('div');
                     $(result).prop('class', 'results');
                     $(result).css('width', $(cell).outerWidth());
-                    showResult(options.columns[position[0]].source, html.trim());
+                    showResult(source, html.trim());
 
                     // Search
                     var timeout = null;
-                    $(editor).on('keyup', function () {
-                        // String
-                        var str = $(this).val();
+                    $(editor).on('keyup', function (e) {
+                        if (e.which == 38) {
+                            // Top arrow
+                            var resultOption = $(result).find('li.selected');
 
-                        // Timeout
-                        if (timeout) {
-                            clearTimeout(timeout)
-                        }
-
-                        // Delay search
-                        timeout = setTimeout(function () { 
-                            // Object
-                            $(result).html('');
-                            // Search
-                            if (options.columns[position[0]].url) {
-                                $.getJSON (options.columns[position[0]].url + '?q=' + str + '&r=' + $(main).jexcel('getRowData', position[1]), function (data) {
-                                    showResult(data, str);
-                                });
-                            } else if (options.columns[position[0]].source) {
-                                showResult(options.columns[position[0]].source, str);
+                            if ($(resultOption).length) {
+                                $(resultOption).removeClass('selected');
+                                $(resultOption).prev().addClass('selected');
+                                $(result).scrollTop($(result).scrollTop() - 26);
                             }
-                        }, 500);
+                        } else if (e.which == 40) {
+                            // Bottom arrow
+                            var resultOption = $(result).find('li.selected');
+
+                            if ($(resultOption).length) {
+                                $(resultOption).removeClass('selected');
+                                $(resultOption).next().addClass('selected');
+                                $(result).scrollTop($(result).scrollTop() + 26);
+                            } else {
+                                resultOption = $(result).find('li');
+                                $(resultOption[0]).addClass('selected');
+                            }
+                        } else {
+                            // String
+                            var str = $(this).val();
+
+                            // Timeout
+                            if (timeout) {
+                                clearTimeout(timeout)
+                            }
+
+                            // Delay search
+                            timeout = setTimeout(function () { 
+                                // Object
+                                $(result).html('');
+                                // Search
+                                if (options.columns[position[0]].url) {
+                                    $.getJSON (options.columns[position[0]].url + '?q=' + str + '&r=' + $(main).jexcel('getRowData', position[1]), function (data) {
+                                        showResult(data, str);
+                                    });
+                                } else if (source) {
+                                    showResult(source, str);
+                                }
+                            }, 500);
+                        }
                     });
+
                     $(cell).html(editor);
                     $(cell).append(result);
 
@@ -1497,9 +1532,9 @@ var methods = {
                     var value = $(cell).find('select').val();
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // Set value
-                    var obj = $(cell).find('li');
+                    var obj = $(cell).find('li.selected');
                     if (obj.length > 0) {
-                        var value = $(cell).find('li').prop('id');
+                        var value = $(obj).prop('id');
                     } else {
                         var value = '';
                     }
@@ -1700,7 +1735,7 @@ var methods = {
         $.each(cells, function (k, v) {
             // Before Change
             if (typeof(options.onbeforechange) == 'function') {
-                options.onbeforechange($(this), $(v.cell), v.oldValue);
+                options.onbeforechange($(this), $(v.cell), v.oldValue, v.newValue);
             }
 
             // Update 
@@ -2260,7 +2295,7 @@ var methods = {
      * @param  int numColumns - number of columns to be created
      * @return void
      */
-    insertColumn : function (numColumns, properties, position) {
+    insertColumn : function (numColumns, properties, position, ignoreEvents) {
         var main = $(this);
 
         // Id
@@ -2342,8 +2377,10 @@ var methods = {
             $(this).jexcel('loadCells', records, true);
 
             // Insert row
-            if (typeof(options.oninsertcolumn) == 'function') {
-                options.oninsertcolumn($(this));
+            if (! ignoreEvents) {
+                if (typeof(options.oninsertcolumn) == 'function') {
+                    options.oninsertcolumn($(this));
+                }
             }
 
             // After changes
@@ -2357,7 +2394,7 @@ var methods = {
      * @param object numLines - how many lines to be included
      * @return void
      */
-    insertRow : function(numLines, position) {
+    insertRow : function(numLines, position, ignoreEvents) {
         // Id
         var id = $(this).prop('id');
 
@@ -2413,8 +2450,10 @@ var methods = {
             $(this).jexcel('loadCells', records, true);
 
             // Insert row
-            if (typeof(options.oninsertrow) == 'function') {
-                options.oninsertrow($(this));
+            if (! ignoreEvents) {
+                if (typeof(options.oninsertrow) == 'function') {
+                    options.oninsertrow($(this));
+                }
             }
 
             // After changes
