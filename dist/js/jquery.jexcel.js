@@ -3146,7 +3146,7 @@ var methods = {
         if (t) {
             var code = 0;
             for (var i = 0; i < t[0].length; i++) {
-                code += parseInt(t[0].charCodeAt(i) - 65);
+                code += parseInt(t[0].charCodeAt(i) - 65) + (i * 26);
             }
             id = code + '-' + (parseInt(/[0-9]+$/.exec(id)) - 1);
         }
