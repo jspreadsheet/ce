@@ -52,8 +52,12 @@ var methods = {
             editable:true,
             // Allow new rows
             allowInsertRow:true,
+            // Allow new rows
+            allowManualInsertRow:true,
             // Allow new columns
             allowInsertColumn:true,
+            // Allow new rows
+            allowManualInsertColumn:true,
             // Allow row delete
             allowDeleteRow:true,
             // Allow column delete
@@ -926,10 +930,12 @@ var methods = {
                                 }
                             }
                             // If not edition check if the selected cell is in the last row
-                            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                                if (columnId[1] == $.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1) {
-                                    // New record in case selectedCell in the last row
-                                    $('#' + $.fn.jexcel.current).jexcel('insertRow');
+                            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true ) {
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowManualInsertRow == true) {
+                                    if (columnId[1] == $.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1) {
+                                        // New record in case selectedCell in the last row
+                                        $('#' + $.fn.jexcel.current).jexcel('insertRow');
+                                    }
                                 }
                             }
                             // Go to the next line
@@ -947,9 +953,11 @@ var methods = {
                             }
                             // Tab key - Get the id of the selected cell
                             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                if (columnId[0] == $.fn.jexcel.defaults[$.fn.jexcel.current].data[0].length - 1) {
-                                    // New record in case selectedCell in the last column
-                                    $('#' + $.fn.jexcel.current).jexcel('insertColumn');
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowManualInsertColumn == true) {
+                                    if (columnId[0] == $.fn.jexcel.defaults[$.fn.jexcel.current].data[0].length - 1) {
+                                        // New record in case selectedCell in the last column
+                                        $('#' + $.fn.jexcel.current).jexcel('insertColumn');
+                                    }
                                 }
                             }
                             // Highlight new column
