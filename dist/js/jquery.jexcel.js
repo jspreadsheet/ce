@@ -2801,10 +2801,21 @@ var methods = {
 
             Array.prototype.sortBy = function(p, o) {
                 return this.slice(0).sort(function(a, b) {
+                  var valueA = a[p];
+                  var valueB = b[p];
+
+                  switch (options.columns[p].type)
+                  {
+                    case 'numeric':
+                      valueA = Number(valueA);
+                      valueB = Number(valueB);
+                      break;
+                  }
+
                   if (! o) {
-                      return (a[p] > b[p]) ? 1 : (a[p] < b[p]) ? -1 : 0;
+                      return (valueA > valueB) ? 1 : (valueA < valueB) ? -1 : 0;
                   } else {
-                      return (a[p] > b[p]) ? -1 : (a[p] < b[p]) ? 1 : 0;
+                      return (valueA > valueB) ? -1 : (valueA < valueB) ? 1 : 0;
                   }
                 });
             }
