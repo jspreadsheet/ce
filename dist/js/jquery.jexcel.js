@@ -1754,7 +1754,7 @@ var methods = {
 
             // Change
             if (typeof(options.onchange) == 'function') {
-                options.onchange($(this), $(v.cell), v.newValue);
+                options.onchange(main, $(this), $(v.cell), v.newValue);
             }
         });
 
