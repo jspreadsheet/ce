@@ -1432,7 +1432,7 @@ var methods = {
                                 $(result).html('');
                                 // Search
                                 if (options.columns[position[0]].url) {
-                                    $.getJSON (options.columns[position[0]].url + '?q=' + str + '&r=' + $(main).jexcel('getRowData', position[1]), function (data) {
+                                    $.getJSON (options.columns[position[0]].url + '?q=' + str + '&r=' + $(main).jexcel('getRowData', position[1]).join(','), function (data) {
                                         showResult(data, str);
                                     });
                                 } else if (source) {
@@ -1564,7 +1564,10 @@ var methods = {
                 oldValue: $.fn.jexcel.editionValue
             }]);
         } else {
-            if (options.columns[position[0]].type == 'calendar') {
+            if (options.columns[position[0]].editor) {
+                // Custom editor
+                options.columns[position[0]].editor.closeEditor(cell, save);
+            } else if (options.columns[position[0]].type == 'calendar') {
                 // Do nothing - calendar will be closed without keeping the current value
             } else {
                 // Restore value
@@ -2057,16 +2060,16 @@ var methods = {
        row = $(this).find('#row-' + row).parent().find('td').not(':first');
 
        // String
-       var str = '';
+       var arr = [];
 
        // Search all tds in a row
        if (row.length > 0) {
           for (i = 0; i < row.length; i++) {
-             str += $(this).jexcel('getValue', $(row)[i]) + ',';
+             arr.push($(this).jexcel('getValue', $(row)[i]));
           }
        }
 
-       return str;
+       return arr;
     },
 
     /**
@@ -3077,6 +3080,11 @@ var methods = {
         // Wrap option
         if (options.wordWrap == true || options.columns[i].wordWrap == true) {
             $(td).css('white-space', 'pre');
+        }
+
+        // Add custom css class to column
+        if(options.columns[i].cssClass) {
+            $(td).addClass(options.columns[i].cssClass);
         }
 
         return $(td);
