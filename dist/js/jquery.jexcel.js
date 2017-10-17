@@ -64,8 +64,6 @@ var methods = {
             allowDeleteColumn:true,
             // Global wrap
             wordWrap:false,
-            // Whether to generate first index column or use user provided
-            customIdColumn: false,
             // About message
             about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
@@ -302,7 +300,8 @@ var methods = {
 
         // Main object
         $(this).html(table);
-        // Add the corner square and textarea one time only
+
+        // Add the corner square and textarea one time onlly
         if (! $('.jexcel_corner').length) {
             // Corner one for all sheets in a page
             var corner = document.createElement('div');
@@ -1107,7 +1106,6 @@ var methods = {
     setData : function(data, ignoreSpare) {
         // Id
         var id = $(this).prop('id');
-        var options = $.fn.jexcel.defaults[id];
 
         // Update data
         if (data) {
@@ -1159,8 +1157,7 @@ var methods = {
             // New line of data to be append in the table
             tr = document.createElement('tr');
             // Index column
-            if (options.customIdColumn == false)
-               $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>'); 
+            $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>'); 
             // Data columns
             for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
                 // New column of data to be append in the line
@@ -2432,10 +2429,8 @@ var methods = {
             for (row = 0; row < numLines; row++) {
                 // New line of data to be append in the table
                 tr = document.createElement('tr');
-                
-               // Index column 
-               $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
-                  
+                // Index column
+                $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
                 // New data
                 $.fn.jexcel.defaults[id].data[j] = [];
 
