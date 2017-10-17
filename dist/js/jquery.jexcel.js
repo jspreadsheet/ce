@@ -2434,8 +2434,7 @@ var methods = {
                 tr = document.createElement('tr');
                 
                // Index column 
-               if (options.customIdColumn == false) 
-                  $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
+               $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
                   
                 // New data
                 $.fn.jexcel.defaults[id].data[j] = [];
