@@ -536,7 +536,7 @@ var methods = {
                                     $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
 
                                     // Selected cell will be the first in the row
-                                    $.fn.jexcel.selectedCell = $(o1);
+                                    $.fn.jexcel.selectedCell = $(o2);
                                 }
                             } else {
                                 // Update cell selection
@@ -982,9 +982,21 @@ var methods = {
                                     if ($.fn.jexcel.selectedRow) {
                                         if (confirm('Are you sure to delete the selected rows?')) {
                                             var rows = $('#' + $.fn.jexcel.current).find('tbody').find('.jexcel_label.selected');
-                                            $(rows).each(function(k, v) {
-                                                $('#' + $.fn.jexcel.current).jexcel('deleteRow', $(v).prop('id').split('-')[1]);
-                                            });
+                                            $('#' + $.fn.jexcel.current).jexcel('deleteRow', $(rows[0]).prop('id').split('-')[1], rows.length);
+
+                                            // Reset selection
+                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection');
+                                            // Hide corner
+                                            $(corner).css('left', '-200px');
+                                            // Reset controls
+                                            $.fn.jexcel.selectedRow = null;
+                                            $.fn.jexcel.selectedCell = null;
+                                            $.fn.jexcel.selectedHeader = null;
+                                        }
+                                    } else if ($.fn.jexcel.selectedHeader) {
+                                        if (confirm('Are you sure to delete the selected columns?')) {
+                                            var columns = $('#' + $.fn.jexcel.current).find('thead.jexcel_label').find('.selected');
+                                            $('#' + $.fn.jexcel.current).jexcel('deleteColumn', $(columns).prop('id').split('-')[1], columns.length);
 
                                             // Reset selection
                                             $('#' + $.fn.jexcel.current).jexcel('updateSelection');
@@ -2526,11 +2538,16 @@ var methods = {
      * Delete a row by number
      * 
      * @param integer lineNumber - line show be excluded
+     * @param integer numOfRows - number of lines
      * @return void
      */
-    deleteRow : function(lineNumber) {
+    deleteRow : function(lineNumber, numOfRows) {
         // Id
         var id = $(this).prop('id');
+
+        if (! parseInt(numOfRows)) {
+            numOfRows = 1;
+        }
 
         // Main configuration
         var options = $.fn.jexcel.defaults[id];
@@ -2541,7 +2558,7 @@ var methods = {
             if (options.data.length > 1) {
                 if (parseInt(lineNumber) > -1) {
                     // Remove from source
-                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), 1);
+                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
                     // Update table
                     $(this).jexcel('setData');
                 }
@@ -2566,9 +2583,13 @@ var methods = {
      * @param integer columnNumber - column show be excluded
      * @return void
      */
-    deleteColumn : function(columnNumber) {
+    deleteColumn : function(columnNumber, numberOfColumns) {
         // Id
         var id = $(this).prop('id');
+
+        if (! parseInt(numberOfColumns)) {
+            numberOfColumns = 1;
+        }
 
         // Main configuration
         var options = $.fn.jexcel.defaults[id];
@@ -2579,15 +2600,15 @@ var methods = {
             if (options.data[0].length > 1) {
                 if (parseInt(columnNumber) > -1) {
                     // Default headers
-                    options.columns.splice(parseInt(columnNumber), 1);
-                    options.colHeaders.splice(parseInt(columnNumber), 1);
-                    options.colAlignments.splice(parseInt(columnNumber), 1);
-                    options.colWidths.splice(parseInt(columnNumber), 1);
+                    options.columns.splice(parseInt(columnNumber), numberOfColumns);
+                    options.colHeaders.splice(parseInt(columnNumber), numberOfColumns);
+                    options.colAlignments.splice(parseInt(columnNumber), numberOfColumns);
+                    options.colWidths.splice(parseInt(columnNumber), numberOfColumns);
 
                     // Delete data from source
                     for (j = 0; j < $.fn.jexcel.defaults[id].data.length; j++) {
                         // Remove column from each line
-                        options.data[j].splice(parseInt(columnNumber), 1);
+                        options.data[j].splice(parseInt(columnNumber), numberOfColumns);
                     }
 
                     // Update table
