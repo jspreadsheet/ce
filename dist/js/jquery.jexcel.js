@@ -271,6 +271,7 @@ var methods = {
             // Default header cell properties
             width = options.colWidths[i];
             align = options.colAlignments[i];
+            align = 'center';
             header = options.colHeaders[i];
 
             // Column type hidden
@@ -522,7 +523,7 @@ var methods = {
                                         $.fn.jexcel.selectedRow = $(e.target);
                                     }
 
-                                    // Get cell objects 
+                                    // Get cell objects
                                     var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
                                     var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-' + d[1]);
 
@@ -990,7 +991,7 @@ var methods = {
                                             // Start edition in case a valid character. 
                                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                                 // Characters able to start a edition
-                                                if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                                                if ((e.keyCode == 113) || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105)) {
                                                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
                                                 }
                                             }
@@ -1001,9 +1002,11 @@ var methods = {
                                 if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                     if (e.which == 65) {
                                         // Ctrl + A
-                                        t = $(this).find('.jexcel tbody td').not('.jexcel_label');
-                                        o = $(t).first();
-                                        t = $(t).last();
+                                        // Get cell objects 
+                                        var o1 = parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1);
+                                        var o2 = parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1);
+                                        var o = $('#' + $.fn.jexcel.current).find('#0-0');
+                                        var t = $('#' + $.fn.jexcel.current).find('#' + o1 + '-' + o2);
                                         $('#' + $.fn.jexcel.current).jexcel('updateSelection', o, t);
                                         // Prevent page selection
                                         e.preventDefault();
@@ -1490,6 +1493,16 @@ var methods = {
                         }
                     }
 
+                    // Bind numeric format
+                    if (options.columns[position[0]].type == 'numeric') {
+                        $(editor).on('keyup', function() {
+                            var test = $(this).val().match(/\d+/);
+                            if (test != $(this).val()) {
+                                $(this).val(test);
+                            }
+                        });
+                    }
+
                     // Current value
                     $(editor).focus();
                     if (! empty) {
@@ -1839,6 +1852,9 @@ var methods = {
                 }
                 $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
             } else {
+                // Value
+                val = value;
+
                 if (value) {
                     if (value.substr(0,1) == '=') {
                         if ($.fn.jexcel.defaults[id].dynamicColumns.indexOf($(v.cell).prop('id')) == -1) {
@@ -1847,7 +1863,7 @@ var methods = {
                     }
                 }
 
-                $(v.cell).html(value);
+                $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
             }
         }
 
@@ -1958,6 +1974,13 @@ var methods = {
                     }
                 }
             }
+        }
+
+        // Keep real selection : different from visual selection
+        if (o && d) {
+            $.fn.jexcel.selection = [o, d];
+        } else {
+            $.fn.jexcel.selection = null;
         }
 
         // Find corner cell
@@ -2868,7 +2891,7 @@ var methods = {
             } else {
                 window[i] = v;
             }
-        })
+        });
 
         if (typeof excelFormulaUtilities == 'object') {
             // Process columns
@@ -2888,6 +2911,10 @@ var methods = {
                             // Update cell content
                             $(main).find('#' + column).html(value);
                         } else {
+                            // Update variables
+                            i = $(main).jexcel('getColumnNameFromId', column);
+                            window[i] = value;
+                            // Remove any error class
                             $(main).find('#' + column).removeClass('error');
                             value = '<input type="hidden" value="' + formula + '">' + value;
                             // Update cell content

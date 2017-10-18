@@ -87,7 +87,7 @@
 
 <br>
 
-<div id="my"></div>
+<div id="my" style="width:100%"></div>
 
 
 <script>
@@ -344,10 +344,22 @@ countries = [
     {"name": "Zimbabwe", "id": "ZW"}
 ];
 
+onload = function (instance) {
+    // Get last header
+    var lastColumn = $(instance).find('thead td').last();
+    // Get actual table width
+    var mainTable = $(instance).find('.jexcel');
+    // New last header column width
+    var width = parseInt($(lastColumn).prop('width')) + parseInt($(instance).width() - $(mainTable).width());
+    // Update width
+    $(lastColumn).prop('width', width);
+}
+
 $('#my').jexcel({
     data:data,
     colHeaders: ['Country', 'Food', 'Stock'],
-    colWidths: [ 300, 100, 100 ],
+    colWidths: [ 300, 100, 200 ],
+    onload:onload,
     columns: [
         { type: 'autocomplete', source:countries },
         { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
