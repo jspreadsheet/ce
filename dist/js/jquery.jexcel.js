@@ -460,6 +460,7 @@ var methods = {
                                     var d = $(e.target).prop('id').split('-');
                                     // Keep track of which header was selected first
                                     $.fn.jexcel.selectedHeader = $(e.target);
+                                    $.fn.jexcel.selectedRow = null;
                                 }
 
                                 // Update cursor
@@ -486,6 +487,9 @@ var methods = {
 
                                     // Update selection
                                     $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2, false, 1);
+
+                                    // Selected cell will be the first in the row
+                                    $.fn.jexcel.selectedCell = $(o1);
                                 }
                             }
                         } else {
@@ -521,13 +525,18 @@ var methods = {
                                         var d = $(e.target).prop('id').split('-');
                                         // Keep track of which header was selected first
                                         $.fn.jexcel.selectedRow = $(e.target);
+                                        $.fn.jexcel.selectedHeader = null;
                                     }
 
                                     // Get cell objects
                                     var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
                                     var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-' + d[1]);
 
+                                    // Update selection 
                                     $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+
+                                    // Selected cell will be the first in the row
+                                    $.fn.jexcel.selectedCell = $(o1);
                                 }
                             } else {
                                 // Update cell selection
@@ -970,8 +979,26 @@ var methods = {
                             // Delete (erase cell in case no edition is running)
                             if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                                 if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                    // Change value
-                                    $('#' + $.fn.jexcel.current).jexcel('setValue', $('#' + $.fn.jexcel.current).find('.highlight'), '');
+                                    if ($.fn.jexcel.selectedRow) {
+                                        if (confirm('Are you sure to delete the selected rows?')) {
+                                            var rows = $('#' + $.fn.jexcel.current).find('tbody').find('.jexcel_label.selected');
+                                            $(rows).each(function(k, v) {
+                                                $('#' + $.fn.jexcel.current).jexcel('deleteRow', $(v).prop('id').split('-')[1]);
+                                            });
+
+                                            // Reset selection
+                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection');
+                                            // Hide corner
+                                            $(corner).css('left', '-200px');
+                                            // Reset controls
+                                            $.fn.jexcel.selectedRow = null;
+                                            $.fn.jexcel.selectedCell = null;
+                                            $.fn.jexcel.selectedHeader = null;
+                                        }
+                                    } else {
+                                        // Change value
+                                        $('#' + $.fn.jexcel.current).jexcel('setValue', $('#' + $.fn.jexcel.current).find('.highlight'), '');
+                                    }
                                 }
                             }
                         } else {
