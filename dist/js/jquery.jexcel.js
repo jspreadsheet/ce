@@ -991,7 +991,7 @@ var methods = {
                                             // Start edition in case a valid character. 
                                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                                 // Characters able to start a edition
-                                                if ((e.keyCode == 113) || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                                                if ((e.keyCode == 113) || (e.keyCode == 190) || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105)) {
                                                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
                                                 }
                                             }
