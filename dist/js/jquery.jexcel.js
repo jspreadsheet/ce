@@ -30,6 +30,8 @@ var methods = {
             colHeaders:[],
             // Column width sizes
             colWidths:[],
+            // Column width that is used by default
+            defaultColWidth: 50,
             // Column alignment
             colAlignments:[],
             // Column types and configurations
@@ -145,7 +147,7 @@ var methods = {
                     options.colAlignments[i] = 'center';
                 }
                 if (! options.colWidths[i]) {
-                    options.colWidths[i] = '50';
+                    options.colWidths[i] = options.defaultColWidth;
                 }
 
                 // Pre-load initial source for json autocomplete
