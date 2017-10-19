@@ -1383,6 +1383,8 @@ var methods = {
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // List result
                     showResult = function(data, str) {
+                        // Reset data
+                        $(result).html('');
                         // Create options
                         $.each(data, function(k, v) {
                             if (typeof(v) == 'object') {
@@ -1472,8 +1474,6 @@ var methods = {
 
                             // Delay search
                             timeout = setTimeout(function () { 
-                                // Object
-                                $(result).html('');
                                 // Search
                                 if (options.columns[position[0]].url) {
                                     $.getJSON (options.columns[position[0]].url + '?q=' + str + '&r=' + $(main).jexcel('getRowData', position[1]).join(','), function (data) {
