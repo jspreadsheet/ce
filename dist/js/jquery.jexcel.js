@@ -1030,8 +1030,10 @@ var methods = {
                                             // Start edition in case a valid character. 
                                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                                 // Characters able to start a edition
-                                                if ((e.keyCode == 110 || e.keyCode == 113 || e.keyCode == 190) || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+                                                if ((e.keyCode == 110 || e.keyCode == 190) || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105)) {
                                                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
+                                                } else if (e.keyCode == 113) {
+                                                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), false);
                                                 }
                                             }
                                         }
@@ -1532,16 +1534,6 @@ var methods = {
                         }
                     }
 
-                    // Bind numeric format
-                    if (options.columns[position[0]].type == 'numeric') {
-                        $(editor).on('keyup', function() {
-                            var test = $(this).val().match(/\d+/);
-                            if (test != $(this).val()) {
-                                $(this).val(test);
-                            }
-                        });
-                    }
-
                     // Current value
                     $(editor).focus();
                     if (! empty) {
@@ -1600,6 +1592,11 @@ var methods = {
                     }
                 } else if (options.columns[position[0]].type == 'calendar') {
                     var value = $(cell).find('.jcalendar_value').val();
+                } else if (options.columns[position[0]].type == 'numeric') {
+                    var value = $(cell).find('.editor').val();
+                    if (value.substr(0,1) != '=') {
+                        var value = value.match(/\d+/) || 0;
+                    }
                 } else {
                     // Get content
                     var value = $(cell).find('.editor').val();
@@ -1890,7 +1887,7 @@ var methods = {
                     val = '';
                 }
                 $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
-            } else {
+            } else if (options.columns[position[0]].type == 'numeric') {
                 // Value
                 val = value;
 
@@ -1903,6 +1900,19 @@ var methods = {
                 }
 
                 $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
+            } else {
+                // Value
+                val = value;
+
+                if (value) {
+                    if (value.substr(0,1) == '=') {
+                        if ($.fn.jexcel.defaults[id].dynamicColumns.indexOf($(v.cell).prop('id')) == -1) {
+                            $.fn.jexcel.defaults[id].dynamicColumns.push($(v.cell).prop('id'));
+                        }
+                    }
+                }
+
+                $(v.cell).html(value);
             }
         }
 
