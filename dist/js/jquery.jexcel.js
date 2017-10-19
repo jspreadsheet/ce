@@ -550,7 +550,9 @@ var methods = {
                         }
                     } else {
                         // Check if the object is in the jexcel domain
-                        if (! $(e.target).parents('.jexcel').length) {
+                        // Ignore the clicks on the scrollbar
+                        if (! $(e.target).parents('.jexcel').length
+                           && e.target != $('html').get(0)) {
                             // Remove selection from any other jexcel if applicable
                             if ($.fn.jexcel.current) {
                                 $('#' + $.fn.jexcel.current).jexcel('updateSelection');
