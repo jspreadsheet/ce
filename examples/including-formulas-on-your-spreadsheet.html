@@ -35,6 +35,8 @@
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
 </head>
 <body>
 
@@ -92,18 +94,34 @@
 
 <script>
 var data = [
-    ['Furnace',1,10000],
-    ['Tower',2,6000],
-    ['Drum',3,5000],
-    ['Pump',4,4000],
-    ['Total','=SUM(B1:B4)','=(C1+C2+C3+C4)']
+    ['Furnace',1,10000,'=B1*C1'],
+    ['Tower',2,6000,'=B2*C2'],
+    ['Drum',3,5000,'=B3*C3'],
+    ['Pump',4,4000,'=B4*C4'],
+    ['Total','=SUM(B1:B4)','=(C1+C2+C3+C4)','=SUM(D1:D4)']
 ]
 
 $('#my').jexcel({
     data:data,
-    colHeaders: ['Equipment','Quantity', 'Price'],
+    columns: [
+        { type:'text' },
+        { type:'numeric' },
+        { type:'numeric' },
+        { type:'numeric' },
+    ],
+    colHeaders: ['Equipment','Quantity', 'Price', 'Total'],
     colWidths: [ 400, 100, 200 ],
     colWidths: [300, 150, 150, 150, 150],
+});
+
+$('#my').jexcel('updateSettings', {
+    cells: function (cell, col, row) {
+        if (col > 0) {
+            value = $('#my').jexcel('getValue', $(cell));
+            val = numeral($(cell).text()).format('0,0');
+            $(cell).html('<input type="hidden" value="' + value + '">' + val);
+        }
+    }
 });
 </script>
 
