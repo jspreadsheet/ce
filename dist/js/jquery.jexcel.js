@@ -508,14 +508,7 @@ var methods = {
                             // Update row label selection
                             if ($(e.target).is('.jexcel_label')) {
                                 if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {
-                                    // Reset selection
-                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection');
-                                    // Hide corner
-                                    $(corner).css('left', '-200px');
-                                    // Reset controls
-                                    $.fn.jexcel.selectedRow = null;
-                                    $.fn.jexcel.selectedCell = null;
-                                    $.fn.jexcel.selectedHeader = null;
+                                    $('#' + $.fn.jexcel.current).jexcel('unSelect');
                                     // Mark which row we are dragging
                                     $.fn.jexcel.dragRowFrom = $(e.target).prop('id');
                                     $.fn.jexcel.dragRowOver = $(e.target).prop('id');
@@ -565,20 +558,8 @@ var methods = {
                         }
                     } else {
                         // Check if the object is in the jexcel domain
-                        if (! $(e.target).parents('.jexcel').length) {
-                            // Remove selection from any other jexcel if applicable
-                            if ($.fn.jexcel.current) {
-                                $('#' + $.fn.jexcel.current).jexcel('updateSelection');
-                            }
-
-                            // Hide corner
-                            $(corner).css('left', '-200px');
-
-                            // Reset controls
-                            $.fn.jexcel.current = null;
-                            $.fn.jexcel.selectedRow = null;
-                            $.fn.jexcel.selectedCell = null;
-                            $.fn.jexcel.selectedHeader = null;
+                        if (! $(e.target).parents('.jexcel').length  && e.target != $('html').get(0)) {
+                            $('#' + $.fn.jexcel.current).jexcel('unSelect');
                         }
                     }
                 }
@@ -991,28 +972,14 @@ var methods = {
                                             var rows = $('#' + $.fn.jexcel.current).find('tbody').find('.jexcel_label.selected');
                                             $('#' + $.fn.jexcel.current).jexcel('deleteRow', $(rows[0]).prop('id').split('-')[1], rows.length);
 
-                                            // Reset selection
-                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection');
-                                            // Hide corner
-                                            $(corner).css('left', '-200px');
-                                            // Reset controls
-                                            $.fn.jexcel.selectedRow = null;
-                                            $.fn.jexcel.selectedCell = null;
-                                            $.fn.jexcel.selectedHeader = null;
+                                             $('#' + $.fn.jexcel.current).jexcel('unSelect');
                                         }
                                     } else if ($.fn.jexcel.selectedHeader) {
                                         if (confirm('Are you sure to delete the selected columns?')) {
                                             var columns = $('#' + $.fn.jexcel.current).find('thead.jexcel_label').find('.selected');
                                             $('#' + $.fn.jexcel.current).jexcel('deleteColumn', $(columns).prop('id').split('-')[1], columns.length);
 
-                                            // Reset selection
-                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection');
-                                            // Hide corner
-                                            $(corner).css('left', '-200px');
-                                            // Reset controls
-                                            $.fn.jexcel.selectedRow = null;
-                                            $.fn.jexcel.selectedCell = null;
-                                            $.fn.jexcel.selectedHeader = null;
+                                             $('#' + $.fn.jexcel.current).jexcel('unSelect');
                                         }
                                     } else {
                                         // Change value
@@ -3182,6 +3149,23 @@ var methods = {
         return $(td);
     },
 
+    // Remove the selection from the cell
+    unSelect : function(){
+      // Remove selection from any other jexcel if applicable
+      if ($.fn.jexcel.current) {
+        $('#' + $.fn.jexcel.current).jexcel('updateSelection');
+      }
+
+      // Hide corner
+      $('.jexcel_corner').css('left', '-200px');
+
+      // Reset controls
+      $.fn.jexcel.current = null;
+      $.fn.jexcel.selectedRow = null;
+      $.fn.jexcel.selectedCell = null;
+      $.fn.jexcel.selectedHeader = null;
+    },
+    
     /**
      * Check for spare cols and rows
      */
