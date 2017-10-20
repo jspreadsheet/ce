@@ -284,10 +284,10 @@ var methods = {
             // Column type hidden
             if (options.columns[i].type == 'hidden') {
                 // TODO: when it is first check the whole selection not include
-                tr += '<td id="col-' + i + '" style="display:none;">' + options.colHeaders[i] + '</td>';
+                tr += '<td id="col-' + i + '" style="display:none;" title="'+header+'">' + header + '</td>';
             } else {
                 // Other column types
-                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'">' + header + '</td>';
+                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" title="'+header+'">' + header + '</td>';
             }
         }
 
