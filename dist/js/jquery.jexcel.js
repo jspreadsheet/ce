@@ -256,7 +256,7 @@ var methods = {
         $(table).prop('cellpadding', '0');
         $(table).prop('cellspacing', '0');
         // Add id of the table if defined
-        if (options.tableId != null)         
+        if (options.tableId)         
             $(table).prop('id', options.tableId)
 
         // Unselectable properties
