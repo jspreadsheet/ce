@@ -66,6 +66,8 @@ var methods = {
             allowDeleteColumn:true,
             // Global wrap
             wordWrap:false,
+            // ID of the table
+            tableId: null,
             // About message
             about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
@@ -253,6 +255,9 @@ var methods = {
         $(table).prop('class', 'jexcel bossanova-ui');
         $(table).prop('cellpadding', '0');
         $(table).prop('cellspacing', '0');
+        // Add id of the table if defined
+        if (options.tableId != null)         
+            $(table).prop('id', options.tableId)
 
         // Unselectable properties
         $(table).prop('unselectable', 'yes');
