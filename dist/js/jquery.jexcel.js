@@ -225,7 +225,7 @@ var methods = {
                 dataType:'json',
                 success: function (result) {
                     // Data
-                    options.data = (result.data) ? result.data : result;
+                    options.data = $.parseJSON((result.data) ? result.data : result);
                      // Prepare table
                     prepareTable();
                 }
@@ -3290,3 +3290,6 @@ $.fn.jexcel = function( method ) {
 };
 
 })( jQuery );
+
+
+
