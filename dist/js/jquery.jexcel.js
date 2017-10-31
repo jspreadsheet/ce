@@ -3281,6 +3281,13 @@ var methods = {
         return $.fn.jexcel('getColumnName', name[0])  + (parseInt(name[1]) + 1);
     },
     
+    /**
+     *  get column field name for updating the data
+     *  
+     *  @param string cellId
+     *  @return string fieldName
+     */
+    
     getFieldNameFromId : function(cellId){
     	var columnIndex = cellId.split('-')[0];
 
@@ -3289,6 +3296,18 @@ var methods = {
             return $(col).attr('fieldName');
         }
         return undefined;
+    },
+    
+    /**
+     * get sibling cell value - could be useful for storing extra info
+     * 
+     * @param string CellId
+     * @param int siblingIndex
+     * $return string cellValue
+     */
+    getSiblingCellValue : function(cellId,siblingIndex){
+    	cellId = siblingIndex+'-'+cellId.split('-')[1];
+    	return $(this).jexcel('getValue', cellId);
     }
 };
 
