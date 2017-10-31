@@ -11,7 +11,7 @@
     border-collapse:separate;
     table-layout:fixed;
     white-space: nowrap;
-    width:0px;
+    width:100%;/*0px;*/
     empty-cells:show;
     border-top:1px transparent;
     border-left:1px transparent;

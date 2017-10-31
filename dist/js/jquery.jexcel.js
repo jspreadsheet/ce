@@ -67,7 +67,7 @@ var methods = {
             // Global wrap
             wordWrap:false,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel\\nEdited By: Mohamed Alsayed'
         };
 
         // Configuration holder
@@ -274,15 +274,16 @@ var methods = {
             width = options.colWidths[i];
             align = options.colAlignments[i];
             align = 'center';
-            header = options.colHeaders[i];
-
+            header = options.colHeaders[i].headerName || options.colHeaders[i];
+            fieldName = options.colHeaders[i].fieldName;
+            
             // Column type hidden
             if (options.columns[i].type == 'hidden') {
                 // TODO: when it is first check the whole selection not include
-                tr += '<td id="col-' + i + '" style="display:none;">' + options.colHeaders[i] + '</td>';
+                tr += '<td id="col-' + i + '" style="display:none;" fieldName="'+fieldName+'">' + header + '</td>';
             } else {
                 // Other column types
-                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'">' + header + '</td>';
+                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" fieldName="'+fieldName+'">' + header + '</td>';
             }
         }
 
@@ -2428,10 +2429,11 @@ var methods = {
                 // Default header cell properties
                 width = options.colWidths[i];
                 align = options.colAlignments[i];
-                header = options.colHeaders[i];
-
+                header = options.colHeaders[i].headerName || options.colHeaders[i];
+                fieldName = options.colHeaders[i].fieldName;
+                
                 // Create header html
-                var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '">' + header + '</td>';
+                var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '" fieldName="'+fieldName+'">' + header + '</td>';
 
                 // Add element to the table
                 var tr = $(this).find('thead.jexcel_label tr')[0];
@@ -2727,15 +2729,16 @@ var methods = {
             // Default header cell properties
             width = options.colWidths[i];
             align = options.colAlignments[i];
-            header = options.colHeaders[i];
-
+            header = options.colHeaders[i].headerName || options.colHeaders[i];
+            fieldName = options.colHeaders[i].fieldName;
+            
             // Column type hidden
             if (options.columns[i].type == 'hidden') {
                 // TODO: when it is first check the whole selection not include
-                tr += '<td id="col-' + i + '" style="display:none;">' + options.colHeaders[i] + '</td>';
+                tr += '<td id="col-' + i + '" style="display:none;" fieldName="'+fieldName+'">' + header + '</td>';
             } else {
                 // Other column types
-                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'">' + header + '</td>';
+                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" fieldName="'+fieldName+'">' + header + '</td>';
             }
         }
 
@@ -3276,6 +3279,16 @@ var methods = {
     getColumnNameFromId : function (cellId) {
         var name = cellId.split('-');
         return $.fn.jexcel('getColumnName', name[0])  + (parseInt(name[1]) + 1);
+    },
+    
+    getFieldNameFromId : function(cellId){
+    	var columnIndex = cellId.split('-')[0];
+
+    	var col = $(this).find('thead #col-' + columnIndex);
+        if (col.length) {
+            return $(col).attr('fieldName');
+        }
+        return undefined;
     }
 };
 
