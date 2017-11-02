@@ -2592,10 +2592,12 @@ var methods = {
             		 * execute before deletion
             		 * 
             		 * @param array rowdata
-            		 * @param int	rownumber
+            		 * @param jqueryObject	row element
             		 * @param obj	flag to proceed (pass by object sharing)
             		 */
-                    options.onbeforedeleterow($(this).jexcel('getRowData',lineNumber),parseInt(lineNumber),action);
+            		for(var i=lineNumber;i<(parseInt(lineNumber)+numOfRows);i++)
+            			options.onbeforedeleterow($(this).jexcel('getRowData',i),$('#row-'+i).parent('tr'),action);
+            		
                 }
             	
             	// decision to delete may change before the action
