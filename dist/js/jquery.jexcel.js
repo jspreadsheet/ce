@@ -66,10 +66,23 @@ var methods = {
             allowDeleteColumn:true,
             // Global wrap
             wordWrap:false,
+            // i18n
+            i18n: {
+            	deleteRow: "Delete this row",
+            	insertRow: "Insert a new row",
+            	insertColumn: "Insert a new column",
+            	about: "About",
+            	saveAs: "Save as...",
+            	deleteColumn: "Delete this column",
+            	orderAsc: "Order ascending",
+            	orderDesc: "Order Descending"
+        	},
             // About message
             about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel\\nEdited By: Mohamed Alsayed'
         };
 
+        if(options.i18n)
+        	options.i18n = $.extend(defaults.i18n,options.i18n);
         // Configuration holder
         var options =  $.extend(defaults, options);
 
@@ -372,34 +385,34 @@ var methods = {
                                 contextMenuContent = options.contextMenu(o[0], o[1]);
                             } else {
                                 if ($(e.target).parent().parent().is('thead')) {
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Order ascending <span></span></a>";
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Order descending <span></span></a><hr>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">"+options.i18n.orderAsc+"<span></span></a>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">"+options.i18n.orderDesc+"<span></span></a><hr>";
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">"+options.i18n.insertColumn+"<span></span></a>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">"+options.i18n.deleteColumn+"<span></span></a><hr>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">Delete this column<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">"+options.i18n.deleteColumn+"<span></span></a><hr>";
                                     }
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">"+options.i18n.saveAs+"<span>Ctrl + S</span></a>";
                                     if (options.about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">"+options.i18n.about+"<span></span></a>";
                                     }
                                 } else if ($(e.target).parent().parent().is('tbody')) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">"+options.i18n.insertColumn+"<span></span></a>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">"+options.i18n.insertRow+"<span></span></a><hr>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteRow'," + o[1] + ")\">Delete this row<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteRow'," + o[1] + ")\">"+options.i18n.deleteRow+"<span></span></a><hr>";
                                     }
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">"+options.i18n.saveAs+"<span>Ctrl + S</span></a>";
                                     if (options.about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">"+options.i18n.about+"<span></span></a>";
                                     }
                                 }
                             }
@@ -2572,25 +2585,36 @@ var methods = {
             // Can't remove the last row
             if (options.data.length > 1) {
             	
+            	var action = {proceed: true};
             	//before delete event
             	if (typeof(options.onbeforedeleterow) == 'function') {
-                    options.onbeforedeleterow($(this).jexcel('getRowData',lineNumber));
+            		/**
+            		 * execute before deletion
+            		 * 
+            		 * @param array rowdata
+            		 * @param int	rownumber
+            		 * @param obj	flag to proceed (pass by object sharing)
+            		 */
+                    options.onbeforedeleterow($(this).jexcel('getRowData',lineNumber),parseInt(lineNumber),action);
                 }
             	
-                if (parseInt(lineNumber) > -1) {
-                    // Remove from source
-                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
-                    // Update table
-                    $(this).jexcel('setData');
-                }
-
-                // Delete
-                if (typeof(options.ondeleterow) == 'function') {
-                    options.ondeleterow($(this));
-                }
-
-                // After changes
-                $(this).jexcel('afterChange');
+            	// decision to delete may change before the action
+            	if(action.proceed){
+	                if (parseInt(lineNumber) > -1) {
+	                    // Remove from source
+	                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
+	                    // Update table
+	                    $(this).jexcel('setData');
+	                }
+	
+	                // Delete
+	                if (typeof(options.ondeleterow) == 'function') {
+	                    options.ondeleterow($(this));
+	                }
+	
+	                // After changes
+	                $(this).jexcel('afterChange');
+            	}
             } else {
                 console.error('It is not possible to delete the last row');
             }
