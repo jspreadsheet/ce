@@ -2568,8 +2568,15 @@ var methods = {
 
         // Global Configuration
         if (options.allowDeleteRow == true) {
+        	
             // Can't remove the last row
             if (options.data.length > 1) {
+            	
+            	//before delete event
+            	if (typeof(options.onbeforedeleterow) == 'function') {
+                    options.onbeforedeleterow($(this).jexcel('getRowData',lineNumber));
+                }
+            	
                 if (parseInt(lineNumber) > -1) {
                     // Remove from source
                     $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
