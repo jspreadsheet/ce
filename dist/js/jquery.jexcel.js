@@ -3080,7 +3080,7 @@ var methods = {
 
         // Download elment
         var pom = document.createElement('a');
-        var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+        var blob = new Blob(['\ufeff' +data], {type: 'text/csv;charset=utf-8;'});
         var url = URL.createObjectURL(blob);
         pom.href = url;
         pom.setAttribute('download', 'jexcelTable.csv');
