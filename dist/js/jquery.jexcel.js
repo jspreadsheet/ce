@@ -64,6 +64,8 @@ var methods = {
             allowDeleteRow:true,
             // Allow column delete
             allowDeleteColumn:true,
+            // custom row action injection
+            allowCustomRowAction: false,
             // Global wrap
             wordWrap:false,
             // i18n
@@ -75,7 +77,8 @@ var methods = {
             	saveAs: "Save as...",
             	deleteColumn: "Delete this column",
             	orderAsc: "Order ascending",
-            	orderDesc: "Order Descending"
+            	orderDesc: "Order Descending",
+            	customRowAction: "Custom Action"
         	},
             // About message
             about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel\\nEdited By: Mohamed Alsayed'
@@ -409,6 +412,9 @@ var methods = {
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
                                         contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteRow'," + o[1] + ")\">"+options.i18n.deleteRow+"<span></span></a><hr>";
+                                    }
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowCustomRowAction == true) {
+                                    	contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('customRowAction'," + o[1] + ")\">"+options.i18n.customRowAction+"<span></span></a><hr>";
                                     }
                                     contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">"+options.i18n.saveAs+"<span>Ctrl + S</span></a>";
                                     if (options.about) {
@@ -3341,6 +3347,21 @@ var methods = {
     getSiblingCellValue : function(cellId,siblingIndex){
     	cellId = siblingIndex+'-'+cellId.split('-')[1];
     	return $(this).jexcel('getValue', cellId);
+    },
+    
+    /**
+     * execute injected action on row
+     * 
+     * @param int lineNumber
+     * 
+     */
+    customRowAction: function(lineNumber){
+        var id = $(this).prop('id');
+        var options = $.fn.jexcel.defaults[id];
+        
+    	if (typeof(options.customRowAction) == 'function') {
+            options.customRowAction(lineNumber);
+        }
     }
 };
 
