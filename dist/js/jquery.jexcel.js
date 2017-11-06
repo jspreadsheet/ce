@@ -1024,7 +1024,7 @@ var methods = {
                                         e.preventDefault();
                                     }
                                 }
-                            } else if (! e.shiftKey && ! e.ctrlKey) {
+                            } else if (! e.ctrlKey) {
                                 if ($.fn.jexcel.selectedCell) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                                         // If is not readonly
