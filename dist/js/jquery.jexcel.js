@@ -1797,7 +1797,7 @@ var methods = {
         $.each(cells, function (k, v) {
             // Before Change
             if (typeof(options.onbeforechange) == 'function') {
-                options.onbeforechange($(this), $(v.cell), v.oldValue, v.newValue);
+                options.onbeforechange(main, $(v.cell), v.oldValue, v.newValue);
             }
 
             // Update 
@@ -1805,7 +1805,7 @@ var methods = {
 
             // Change
             if (typeof(options.onchange) == 'function') {
-                options.onchange(main, $(v.cell), v.newValue);
+                options.onchange(main, $(v.cell), v.newValue, v.oldValue);
             }
         });
 
@@ -3290,6 +3290,3 @@ $.fn.jexcel = function( method ) {
 };
 
 })( jQuery );
-
-
-
