@@ -1819,13 +1819,12 @@ var methods = {
             if (typeof(options.onbeforechange) == 'function') {
                 options.onbeforechange($(this), $(v.cell), v.oldValue, v.newValue);
             }
-
             // Update 
             $(main).jexcel('updateCell', v, false);
 
             // Change
             if (typeof(options.onchange) == 'function') {
-                options.onchange(main, $(v.cell), v.newValue);
+                options.onchange(main, $(v.cell), v.newValue, v.oldValue);
             }
         });
 
@@ -2618,6 +2617,54 @@ var methods = {
 	                // Delete
 	                if (typeof(options.ondeleterow) == 'function') {
 	                    options.ondeleterow($(this));
+	                }
+	
+	                // After changes
+	                $(this).jexcel('afterChange');
+            	}
+            } else {
+                console.error('It is not possible to delete the last row');
+            }
+        }
+    },
+    
+    /**
+     * filter out unspcified rows
+     * 
+     * @param array rowIndexes (indexes of rows to keep)
+     */
+    filterRows : function(rowIndexes) {
+        // Id
+        var id = $(this).prop('id');
+
+        if (!Array.isArray(rowIndexes)) {
+        	rowIndexes = [];
+        }
+        // Main configuration
+        var options = $.fn.jexcel.defaults[id];
+
+        // Global Configuration
+        if (options.allowDeleteRow == true) {
+        	
+            // Can't remove the last row
+            if (options.data.length > 1) {
+            	
+            	var action = {proceed: true};
+            	
+            	// decision to delete may change before the action
+            	if(action.proceed){
+	                if (rowIndexes.length > 0) {
+	                    // Remove from source
+	                	$.fn.jexcel.defaults[id].data = $.fn.jexcel.defaults[id].data.filter(function(v,i){
+									                    	return rowIndexes.indexOf(i)>-1;
+									                    });
+	                    // Update table
+	                    $(this).jexcel('setData');
+	                }
+	
+	                // on filter event
+	                if (typeof(options.onFilterRows) == 'function') {
+	                    options.onFilterRows($(this));
 	                }
 	
 	                // After changes
