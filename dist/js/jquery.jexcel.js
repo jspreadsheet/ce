@@ -1382,6 +1382,66 @@ var methods = {
                     // Current value
                     $(editor).jcalendar(options.columns[position[0]].options);
                     $(editor).jcalendar('open', value);
+                } else if (options.columns[position[0]].type == 'multiple') {
+                    // List result
+                    showResult = function(data, str) {
+                        // Reset data
+                        $(result).html('');
+                        // Create options
+                        $.each(data, function(k, v) {
+                            if (typeof(v) == 'object') {
+                                name = v.name;
+                                id = v.id;
+                            } else {
+                                name = v;
+                                id = v;
+                            }
+
+                            if (name.toLowerCase().indexOf(str.toLowerCase()) != -1) {
+                                li = document.createElement('li');
+                                $(li).prop('id', id)
+                                $(li).html('<input type="checkbox"> ' + name);
+                                $(li).mousedown(function (e) {
+                                    $(this).parent().removeClass('selected');
+                                    $(this).addClass('selected');
+                                    //  $(main).jexcel('closeEditor', $(cell), true);
+                                });
+                                $(result).append(li);
+                            }
+                        });
+
+                        if (! $(result).html()) {
+                            $(result).html('<div style="padding:6px;">No result found</div>');
+                        }
+                        $(result).css('display', '');
+                    }
+
+                    // Keep the current value
+                    $(cell).addClass('edition');
+
+                    // Get content
+                    var html = $(cell).text().trim();
+                    var value = $(cell).find('input').val();
+
+                    var source = options.columns[position[0]].source;
+
+                    // Results
+                    var result = document.createElement('div');
+                    $(result).prop('class', 'results');
+                    $(result).prop('tabindex', position[0]);
+                    $(result).css('width', $(cell).outerWidth());
+                    showResult(source, '');
+                    $(cell).html(result);
+                    $(result).focus();
+
+                    // Current value
+
+                    //$(editor).val(html);
+
+                    // Close editor handler
+                    $(result).blur(function () {
+                        $(main).jexcel('closeEditor', $(cell), false);
+                    });
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // List result
                     showResult = function(data, str) {
