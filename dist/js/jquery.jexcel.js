@@ -64,12 +64,28 @@ var methods = {
             allowDeleteRow:true,
             // Allow column delete
             allowDeleteColumn:true,
+            // custom row action injection
+            allowCustomRowAction: false,
             // Global wrap
             wordWrap:false,
+            // i18n
+            i18n: {
+            	deleteRow: "Delete this row",
+            	insertRow: "Insert a new row",
+            	insertColumn: "Insert a new column",
+            	about: "About",
+            	saveAs: "Save as...",
+            	deleteColumn: "Delete this column",
+            	orderAsc: "Order ascending",
+            	orderDesc: "Order Descending",
+            	customRowAction: "Custom Action"
+        	},
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel\\nEdited By: Mohamed Alsayed'
         };
 
+        if(options.i18n)
+        	options.i18n = $.extend(defaults.i18n,options.i18n);
         // Configuration holder
         var options =  $.extend(defaults, options);
 
@@ -274,15 +290,16 @@ var methods = {
             width = options.colWidths[i];
             align = options.colAlignments[i];
             align = 'center';
-            header = options.colHeaders[i];
-
+            header = options.colHeaders[i].headerName || options.colHeaders[i];
+            fieldName = options.colHeaders[i].fieldName;
+            
             // Column type hidden
             if (options.columns[i].type == 'hidden') {
                 // TODO: when it is first check the whole selection not include
-                tr += '<td id="col-' + i + '" style="display:none;">' + options.colHeaders[i] + '</td>';
+                tr += '<td id="col-' + i + '" style="display:none;" fieldName="'+fieldName+'">' + header + '</td>';
             } else {
                 // Other column types
-                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'">' + header + '</td>';
+                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" fieldName="'+fieldName+'">' + header + '</td>';
             }
         }
 
@@ -371,34 +388,37 @@ var methods = {
                                 contextMenuContent = options.contextMenu(o[0], o[1]);
                             } else {
                                 if ($(e.target).parent().parent().is('thead')) {
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Order ascending <span></span></a>";
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Order descending <span></span></a><hr>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">"+options.i18n.orderAsc+"<span></span></a>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">"+options.i18n.orderDesc+"<span></span></a><hr>";
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">"+options.i18n.insertColumn+"<span></span></a>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">"+options.i18n.deleteColumn+"<span></span></a><hr>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">Delete this column<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">"+options.i18n.deleteColumn+"<span></span></a><hr>";
                                     }
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">"+options.i18n.saveAs+"<span>Ctrl + S</span></a>";
                                     if (options.about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">"+options.i18n.about+"<span></span></a>";
                                     }
                                 } else if ($(e.target).parent().parent().is('tbody')) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">"+options.i18n.insertColumn+"<span></span></a>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">"+options.i18n.insertRow+"<span></span></a><hr>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
-                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteRow'," + o[1] + ")\">Delete this row<span></span></a><hr>";
+                                        contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('deleteRow'," + o[1] + ")\">"+options.i18n.deleteRow+"<span></span></a><hr>";
                                     }
-                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowCustomRowAction == true) {
+                                    	contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('customRowAction'," + o[1] + ")\">"+options.i18n.customRowAction+"<span></span></a><hr>";
+                                    }
+                                    contextMenuContent += "<a onclick=\"$('#" + $.fn.jexcel.current + "').jexcel('download')\">"+options.i18n.saveAs+"<span>Ctrl + S</span></a>";
                                     if (options.about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">"+options.i18n.about+"<span></span></a>";
                                     }
                                 }
                             }
@@ -1859,7 +1879,6 @@ var methods = {
             if (typeof(options.onbeforechange) == 'function') {
                 options.onbeforechange(main, $(v.cell), v.oldValue, v.newValue);
             }
-
             // Update 
             $(main).jexcel('updateCell', v, false);
 
@@ -2488,10 +2507,11 @@ var methods = {
                 // Default header cell properties
                 width = options.colWidths[i];
                 align = options.colAlignments[i];
-                header = options.colHeaders[i];
-
+                header = options.colHeaders[i].headerName || options.colHeaders[i];
+                fieldName = options.colHeaders[i].fieldName;
+                
                 // Create header html
-                var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '">' + header + '</td>';
+                var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '" fieldName="'+fieldName+'">' + header + '</td>';
 
                 // Add element to the table
                 var tr = $(this).find('thead.jexcel_label tr')[0];
@@ -2626,22 +2646,90 @@ var methods = {
 
         // Global Configuration
         if (options.allowDeleteRow == true) {
+        	
             // Can't remove the last row
             if (options.data.length > 1) {
-                if (parseInt(lineNumber) > -1) {
-                    // Remove from source
-                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
-                    // Update table
-                    $(this).jexcel('setData');
+            	
+            	var action = {proceed: true};
+            	//before delete event
+            	if (typeof(options.onbeforedeleterow) == 'function') {
+            		/**
+            		 * execute before deletion
+            		 * 
+            		 * @param array rowdata
+            		 * @param jqueryObject	row element
+            		 * @param obj	flag to proceed (pass by object sharing)
+            		 */
+            		for(var i=lineNumber;i<(parseInt(lineNumber)+numOfRows);i++)
+            			options.onbeforedeleterow($(this).jexcel('getRowData',i),$('#row-'+i).parent('tr'),action);
+            		
                 }
+            	
+            	// decision to delete may change before the action
+            	if(action.proceed){
+	                if (parseInt(lineNumber) > -1) {
+	                    // Remove from source
+	                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
+	                    // Update table
+	                    $(this).jexcel('setData');
+	                }
+	
+	                // Delete
+	                if (typeof(options.ondeleterow) == 'function') {
+	                    options.ondeleterow($(this));
+	                }
+	
+	                // After changes
+	                $(this).jexcel('afterChange');
+            	}
+            } else {
+                console.error('It is not possible to delete the last row');
+            }
+        }
+    },
+    
+    /**
+     * filter out unspcified rows
+     * 
+     * @param array rowIndexes (indexes of rows to keep)
+     */
+    filterRows : function(rowIndexes) {
+        // Id
+        var id = $(this).prop('id');
 
-                // Delete
-                if (typeof(options.ondeleterow) == 'function') {
-                    options.ondeleterow($(this));
-                }
+        if (!Array.isArray(rowIndexes)) {
+        	rowIndexes = [];
+        }
+        // Main configuration
+        var options = $.fn.jexcel.defaults[id];
 
-                // After changes
-                $(this).jexcel('afterChange');
+        // Global Configuration
+        if (options.allowDeleteRow == true) {
+        	
+            // Can't remove the last row
+            if (options.data.length > 1) {
+            	
+            	var action = {proceed: true};
+            	
+            	// decision to delete may change before the action
+            	if(action.proceed){
+	                if (rowIndexes.length > 0) {
+	                    // Remove from source
+	                	$.fn.jexcel.defaults[id].data = $.fn.jexcel.defaults[id].data.filter(function(v,i){
+									                    	return rowIndexes.indexOf(i)>-1;
+									                    });
+	                    // Update table
+	                    $(this).jexcel('setData');
+	                }
+	
+	                // on filter event
+	                if (typeof(options.onFilterRows) == 'function') {
+	                    options.onFilterRows($(this));
+	                }
+	
+	                // After changes
+	                $(this).jexcel('afterChange');
+            	}
             } else {
                 console.error('It is not possible to delete the last row');
             }
@@ -2787,15 +2875,16 @@ var methods = {
             // Default header cell properties
             width = options.colWidths[i];
             align = options.colAlignments[i];
-            header = options.colHeaders[i];
-
+            header = options.colHeaders[i].headerName || options.colHeaders[i];
+            fieldName = options.colHeaders[i].fieldName;
+            
             // Column type hidden
             if (options.columns[i].type == 'hidden') {
                 // TODO: when it is first check the whole selection not include
-                tr += '<td id="col-' + i + '" style="display:none;">' + options.colHeaders[i] + '</td>';
+                tr += '<td id="col-' + i + '" style="display:none;" fieldName="'+fieldName+'">' + header + '</td>';
             } else {
                 // Other column types
-                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'">' + header + '</td>';
+                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" fieldName="'+fieldName+'">' + header + '</td>';
             }
         }
 
@@ -3106,7 +3195,7 @@ var methods = {
 
         // Download elment
         var pom = document.createElement('a');
-        var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+        var blob = new Blob(['\ufeff' +data], {type: 'text/csv;charset=utf-8;'});
         var url = URL.createObjectURL(blob);
         pom.href = url;
         pom.setAttribute('download', 'jexcelTable.csv');
@@ -3336,6 +3425,50 @@ var methods = {
     getColumnNameFromId : function (cellId) {
         var name = cellId.split('-');
         return $.fn.jexcel('getColumnName', name[0])  + (parseInt(name[1]) + 1);
+    },
+    
+    /**
+     *  get column field name for updating the data
+     *  
+     *  @param string cellId
+     *  @return string fieldName
+     */
+    
+    getFieldNameFromId : function(cellId){
+    	var columnIndex = cellId.split('-')[0];
+
+    	var col = $(this).find('thead #col-' + columnIndex);
+        if (col.length) {
+            return $(col).attr('fieldName');
+        }
+        return undefined;
+    },
+    
+    /**
+     * get sibling cell value - could be useful for storing extra info
+     * 
+     * @param string CellId
+     * @param int siblingIndex
+     * $return string cellValue
+     */
+    getSiblingCellValue : function(cellId,siblingIndex){
+    	cellId = siblingIndex+'-'+cellId.split('-')[1];
+    	return $(this).jexcel('getValue', cellId);
+    },
+    
+    /**
+     * execute injected action on row
+     * 
+     * @param int lineNumber
+     * 
+     */
+    customRowAction: function(lineNumber){
+        var id = $(this).prop('id');
+        var options = $.fn.jexcel.defaults[id];
+        
+    	if (typeof(options.customRowAction) == 'function') {
+            options.customRowAction(lineNumber);
+        }
     }
 };
 
