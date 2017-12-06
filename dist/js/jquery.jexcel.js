@@ -1635,7 +1635,7 @@ var methods = {
                 } else if (options.columns[position[0]].type == 'numeric') {
                     var value = $(cell).find('.editor').val();
                     if (value.substr(0,1) != '=') {
-                        var value = value.match(/\d+/) || 0;
+                        var value = Number(value) || 0;
                     }
                 } else {
                     // Get content
@@ -2984,8 +2984,10 @@ var methods = {
         $.each(variables, function (k, v) {
             i = $(main).jexcel('getColumnNameFromId', $(v).prop('id'));
             v = $(main).jexcel('getValue', $(v));
-            if (v == parseInt(v)) {
-                window[i] = parseInt(v);
+            console.log(v);
+            console.log(Number(v));
+            if (v == Number(v)) {
+                window[i] = Number(v);
             } else {
                 window[i] = v;
             }

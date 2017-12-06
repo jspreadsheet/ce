@@ -118,7 +118,7 @@ $('#my').jexcel('updateSettings', {
     cells: function (cell, col, row) {
         if (col > 0) {
             value = $('#my').jexcel('getValue', $(cell));
-            val = numeral($(cell).text()).format('0,0');
+            val = numeral($(cell).text()).format('0,0.00');
             $(cell).html('<input type="hidden" value="' + value + '">' + val);
         }
     }
