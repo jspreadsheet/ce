@@ -1,4 +1,6 @@
-# [(https://bossanova.uk/templates/default/img/logo-jexcel.png)](https://bossanova.uk/jexcel)
+<p>
+<a href="https://bossanova.uk/jexcel"><img src="https://bossanova.uk/templates/default/img/jexcel.gif" align="center" alt="jExcel | The javascript spreadsheet"/></a>
+</p>
 
 [**jExcel**](http://bossanova.uk/jexcel) is is a very light jquery plugin to embed a spreadsheet, compatible with Excel, in your browser. You can load data straight to a jExcel table from a JS array, json or even a CSV file. You can copy and paste from or to Excel straight to a jExcel table. You can easily integrate jExcel with other third party jquery plugin to create your own custom columns, custom editors, and much more. jExcel has a plenty of nice features such as key-value dropdown, CSV loading/exporting, multiple spreadsheets and much more. We have a large roadmap ahead and we are constantly improving, so don't forget to send us your ideas.
 
@@ -63,7 +65,7 @@ $('#mytable').jexcel({ data:data, colWidths: [ 300, 80, 100 ] });
 
 ## Screenshot
 <p align="center">
-<img src="http://bossanova.uk/templates/default/img/jexcel.gif" align="center" alt="jExcel - The javascript spreadsheet"/>
+<img src="http://bossanova.uk/templates/default/img/jexcel.gif" align="center" alt="jExcel | The javascript spreadsheet"/>
 </p>
 
 ## Community
