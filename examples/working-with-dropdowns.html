@@ -21,6 +21,7 @@
 <meta property="og:image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.jquery.js"></script>
 
 <link rel="icon" href="http://bossanova.uk/templates/default/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|Roboto|Dosis">
@@ -28,10 +29,15 @@
 
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.min.css" type="text/css" />
+
 <script src="../dist/js/jquery.jexcel.js"></script>
 <script src="../dist/js/jquery.jcalendar.js"></script>
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
+
+
+
 
 </head>
 <body>
@@ -137,7 +143,68 @@ $('#my').jexcel({
 });
 </script>
 
+<br>
 
+<h2>Multiple select dropdown</h2>
+
+<p>jExcel is very flexible working with third party plugins. You can create the following structure to create rich and custom column types.</p>
+
+
+<div id="my1"></div>
+
+<script>
+var choiserEditor = {
+        // Methods
+        closeEditor : function(cell, save) {
+            // Get value
+            var value = $(cell).find('.editor').spectrum('get').toHexString();
+
+            // Set visual value
+            $(cell).html(value);
+            $(cell).css('color', value);
+
+            // Close edition
+            $(cell).removeClass('edition');
+        },
+        openEditor : function(cell) {
+            var main = this;
+            // Get current content
+            var html = $(cell).html();
+
+            // Basic editor
+            var editor = document.createElement('select');
+            $(editor).html('<option>asdfasdf</option><option>qwqwer</option>');
+            $(editor).prop('class', 'editor');
+            $(cell).html(editor);
+            $(editor).chosen();
+        },
+        getValue : function(cell) {
+            return $(cell).html();
+        },
+        setValue : function(cell, value) {
+            $(cell).html(value);
+            $(cell).css('color', value);
+            return true;
+        }
+    }
+    
+data = [
+    [3, '1 2 3'],
+    [1, '1'],
+    [2, '1 3'],
+    [1, '2 4'],
+];
+
+$('#my1').jexcel({
+    data:data,
+    colHeaders: ['Country', 'Foods'],
+    colWidths: [ 200, 600 ],
+    columns: [
+        { type: 'dropdown', source: [ {'id':'1', 'name':'Canada'}, {'id':'2', 'name':'United States'}, {'id':'3', 'name':'Brazil'}, ] },
+        { type: 'multiple', source: [ {'id':'1', 'name':'Carrots'}, {'id':'2', 'name':'Cheese'}, {'id':'3', 'name':'Eggs'}, {'id':'4', 'name':'Meat'} ] },
+    ]
+});
+</script>
             </div>
         </div>
     </div>

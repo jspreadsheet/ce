@@ -344,7 +344,7 @@ countries = [
     {"name": "Zimbabwe", "id": "ZW"}
 ];
 
-onload = function (instance) {
+onload1 = function (instance) {
     // Get last header
     var lastColumn = $(instance).find('thead td').last();
     // Get actual table width
@@ -359,7 +359,7 @@ $('#my').jexcel({
     data:data,
     colHeaders: ['Country', 'Food', 'Stock'],
     colWidths: [ 300, 100, 200 ],
-    onload:onload,
+    onload:onload1,
     columns: [
         { type: 'autocomplete', source:countries },
         { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
