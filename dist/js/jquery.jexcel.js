@@ -1636,7 +1636,8 @@ var methods = {
                 } else if (options.columns[position[0]].type == 'numeric') {
                     var value = $(cell).find('.editor').val();
                     if (value.substr(0,1) != '=') {
-                        var value = Number(value) || 0;
+                        var default_value = value === '' && options.columns[position[0]].allowEmpty ? '' : 0,
+                            value = Number(value) || default_value;
                     }
                 } else {
                     // Get content
