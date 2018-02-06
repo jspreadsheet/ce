@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.3.3 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.3.5 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -69,7 +69,7 @@ var methods = {
             // ID of the table
             tableId:null,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.3.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.3.5\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
         };
 
         // Configuration holder
@@ -264,7 +264,7 @@ var methods = {
         // Unselectable properties
         $(table).prop('unselectable', 'yes');
         $(table).prop('onselectstart', 'return false');
-        $(table).prop('draggable', 'false');
+        //$(table).prop('draggable', 'false');
 
         // Create header and body tags
         var thead = document.createElement('thead');
@@ -704,7 +704,9 @@ var methods = {
                                 if ($(e.target).outerWidth() - e.offsetX < 8 && $(e.target).prop('id') != '') {
                                     $(e.target).css('cursor', 'col-resize');
                                 } else {
-                                    $(e.target).css('cursor', '');
+                                    if ($(e.target).css('cursor') == 'col-resize') {
+                                        $(e.target).css('cursor', '');
+                                    }
                                 }
                             }
                         }
@@ -718,15 +720,12 @@ var methods = {
                                 if ($(e.target).outerWidth() - e.offsetX < 8) {
                                     $(e.target).css('cursor', 'all-scroll');
                                 } else {
-                                    $(e.target).css('cursor', '');
+                                    if ($(e.target).css('cursor') == 'all-scroll') {
+                                        $(e.target).css('cursor', '');
+                                    }
                                 }
                             }
                         }
-                    }
-
-                    // Prevent page selection
-                    if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                        e.preventDefault();
                     }
                 }
 
@@ -734,7 +733,9 @@ var methods = {
                 if ($.fn.jexcel.dragRowFrom) {
                     $('body').css('cursor', 'all-scroll');
                 } else {
-                    $('body').css('cursor', '');
+                    if ($('body').css('cursor') == 'all-scroll') {
+                        $('body').css('cursor', '');
+                    }
                 }
             });
 
@@ -1635,7 +1636,8 @@ var methods = {
                 } else if (options.columns[position[0]].type == 'numeric') {
                     var value = $(cell).find('.editor').val();
                     if (value.substr(0,1) != '=') {
-                        var value = Number(value) || 0;
+                        var default_value = value === '' && options.columns[position[0]].allowEmpty ? '' : 0,
+                            value = Number(value) || default_value;
                     }
                 } else {
                     // Get content
