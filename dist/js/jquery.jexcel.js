@@ -145,6 +145,9 @@ var methods = {
                 if (! options.columns[i].editor) {
                     options.columns[i].editor = null;
                 }
+                if (! options.columns[i].allowEmpty) {
+                    options.columns[i].allowEmpty = false;
+                }
                 if (! options.colAlignments[i]) {
                     options.colAlignments[i] = 'center';
                 }
@@ -1636,8 +1639,11 @@ var methods = {
                 } else if (options.columns[position[0]].type == 'numeric') {
                     var value = $(cell).find('.editor').val();
                     if (value.substr(0,1) != '=') {
-                        var default_value = value === '' && options.columns[position[0]].allowEmpty ? '' : 0,
-                            value = Number(value) || default_value;
+                        if (value == '' && options.columns[position[0]].allowEmpty) {
+                            value = '';
+                        } else {
+                            value = Number(value) || 0;
+                        }
                     }
                 } else {
                     // Get content
@@ -2567,7 +2573,7 @@ var methods = {
                 }
                 // Add row to the table body
                 $(this).find('tbody').append(tr);
-    
+
                 j++;
             }
 
