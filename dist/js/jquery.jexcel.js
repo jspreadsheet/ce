@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.3.5 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.3.6 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -68,8 +68,10 @@ var methods = {
             wordWrap:false,
             // ID of the table
             tableId:null,
+            // Filename
+            csvFileName:'jexcel',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.3.5\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: http://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.3.6\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Configuration holder
@@ -2234,6 +2236,74 @@ var methods = {
     },
 
     /**
+     * Get a row data by row number
+     * 
+     * @param integer rowNumber
+     * @return array
+     */
+    getRowData : function(rowNumber) {
+        // Main instance
+        var main = $(this);
+        // Data to be returned
+        var dataset = [];
+        // Row number
+        if (! parseInt(rowNumber)) {
+            rowNumber = 0;
+        } else if (rowNumber == -1) {
+            // Id
+            var id = $(this).prop('id');
+            // Get the main object configuration
+            var options = $.fn.jexcel.defaults[id];
+            // Last row
+            rowNumber = options.data.length - 1;
+        }
+
+        // Selected row
+        var cells = $(this).find('tbody .r' + rowNumber);
+
+        // Go through the columns to get the data
+        $.each(cells, function(k, v) {
+            dataset.push($(main).jexcel('getValue', $(v)));
+        });
+
+        return dataset;
+    },
+
+    /**
+     * Get a column data by column number
+     * 
+     * @param integer columnNumber
+     * @return array
+     */
+    getColumnData : function(columnNumber) {
+        // Main instance
+        var main = $(this);
+        // Data to be returned
+        var dataset = [];
+        // Row number
+        if (! parseInt(columnNumber)) {
+            columnNumber = 0;
+        } else if (columnNumber == -1) {
+            // Id
+            var id = $(this).prop('id');
+            // Get the main object configuration
+            var options = $.fn.jexcel.defaults[id];
+            // Last column
+            columnNumber = options.columns.length - 1;
+        }
+
+        // Selected row
+        var cells = $(this).find('tbody .c' + columnNumber);
+
+        // Go through the columns to get the data
+        $.each(cells, function(k, v) {
+            dataset.push($(main).jexcel('getValue', $(v)));
+        });
+
+        return dataset;
+    },
+
+    /**
      * Copy method
      * 
      * @param bool highlighted - Get only highlighted cells
@@ -2593,6 +2663,64 @@ var methods = {
     },
 
     /**
+     * Append a new row
+     * 
+     * @param object numLines - how many lines to be included
+     * @return void
+     */
+    appendRow : function(rowData, ignoreEvents) {
+        // Id
+        var id = $(this).prop('id');
+
+        // Main configuration
+        var options = $.fn.jexcel.defaults[id];
+
+        // Records
+        var records = [];
+
+        // Configuration
+        if (options.allowInsertRow == true) {
+            j = parseInt($.fn.jexcel.defaults[id].data.length);
+            // New line of data to be append in the table
+            tr = document.createElement('tr');
+            // Index column
+            $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
+            // New data
+            $.fn.jexcel.defaults[id].data[j] = [];
+
+            for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
+                // New column of data to be append in the line
+                td = $(this).jexcel('createCell', i, j);
+
+                // Add column to the row
+                $(tr).append(td);
+
+                // Cell data
+                records.push({
+                    cell: $(td),
+                    newValue: rowData[i],
+                    oldValue: '',
+                });
+            }
+            // Add row to the table body
+            $(this).find('tbody').append(tr);
+
+            // Update cells
+            $(this).jexcel('loadCells', records, true);
+
+            // Insert row
+            if (! ignoreEvents) {
+                if (typeof(options.oninsertrow) == 'function') {
+                    options.oninsertrow($(this));
+                }
+            }
+
+            // After changes
+            $(this).jexcel('afterChange');
+        }
+    },
+
+    /**
      * Delete a row by number
      * 
      * @param integer lineNumber - line show be excluded
@@ -2602,6 +2730,13 @@ var methods = {
     deleteRow : function(lineNumber, numOfRows) {
         // Id
         var id = $(this).prop('id');
+
+        if (! lineNumber) {
+            var number = $(this).jexcel('getSelectedRows');
+
+            lineNumber = number[0];
+            numOfRows = number.length;
+        }
 
         if (! parseInt(numOfRows)) {
             numOfRows = 1;
@@ -2619,15 +2754,15 @@ var methods = {
                     $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
                     // Update table
                     $(this).jexcel('setData');
-                }
 
-                // Delete
-                if (typeof(options.ondeleterow) == 'function') {
-                    options.ondeleterow($(this));
-                }
+                    // Delete
+                    if (typeof(options.ondeleterow) == 'function') {
+                        options.ondeleterow($(this));
+                    }
 
-                // After changes
-                $(this).jexcel('afterChange');
+                    // After changes
+                    $(this).jexcel('afterChange');
+                }
             } else {
                 console.error('It is not possible to delete the last row');
             }
@@ -2971,21 +3106,11 @@ var methods = {
      * Apply formula to all columns in the table
      */
     formula : function() {
-        // Keep instannce of this object
+        // Keep instance of the object
         var main = $(this);
 
         // Id
         var id = $(this).prop('id');
-
-        // Custom formulas
-        if ($.fn.jexcel.defaults[id].formulas) {
-            var formulas = $.fn.jexcel.defaults[id].formulas;
-            // Set instance
-            $.fn.jexcel.defaults[id].formulas.instance = this;
-        }
-
-        // Dynamic columns
-        var columns = $.fn.jexcel.defaults[id].dynamicColumns;
 
         // Define global variables
         var variables = $(this).find('.jexcel tbody td').not('.jexcel_label');
@@ -3000,31 +3125,47 @@ var methods = {
         });
 
         if (typeof excelFormulaUtilities == 'object') {
-            // Process columns
-            $.each(columns, function (k, column) {
-                // Get value from the column
-                formula = $(main).jexcel('getValue', column);
-                // Column value is a formula
-                if (formula) {
-                    if (formula.substr(0,1) == '=') {
-                        // Convert formula to javascript
-                        value = excelFormulaUtilities.formula2JavaScript(formula);
-                        value = eval(value);
-                        // Set value
-                        if (value === null || isNaN(value)) {
-                            $(main).find('#' + column).addClass('error');
-                            value = '<input type="hidden" value="' + formula + '">#ERROR';
-                            // Update cell content
-                            $(main).find('#' + column).html(value);
+            formulaTest = false;
+
+            // Dynamic columns
+            processFormula = function() {
+                formulaTest = false;
+                // Dynamic columns
+                var columns = $.fn.jexcel.defaults[id].dynamicColumns;
+
+                // Process columns
+                $.each(columns, function (k, column) {
+                    // Get value from the column
+                    formula = $(main).jexcel('getValue', column);
+                    // Column value is a formula
+                    if (formula) {
+                        if (formula.substr(0,1) == '=') {
+                            // Convert formula to javascript
+                            value = excelFormulaUtilities.formula2JavaScript(formula);
+                            value = eval(value);
+                            // Set value
+                            if (value === null || isNaN(value)) {
+                                $(main).find('#' + column).addClass('error');
+                                value = '<input type="hidden" value="' + formula + '">#ERROR';
+                                // Update cell content
+                                $(main).find('#' + column).html(value);
+                                // Error
+                                formulaTest = true;
+                            } else {
+                                // Update variables
+                                i = $(main).jexcel('getColumnNameFromId', column);
+                                window[i] = value;
+                                // Remove any error class
+                                $(main).find('#' + column).removeClass('error');
+                                value = '<input type="hidden" value="' + formula + '">' + value;
+                                // Update cell content
+                                $(main).find('#' + column).html(value);
+                            }
                         } else {
-                            // Update variables
-                            i = $(main).jexcel('getColumnNameFromId', column);
-                            window[i] = value;
-                            // Remove any error class
+                            // Remove any existing calculation error
                             $(main).find('#' + column).removeClass('error');
-                            value = '<input type="hidden" value="' + formula + '">' + value;
-                            // Update cell content
-                            $(main).find('#' + column).html(value);
+                            // No longer dynamic
+                            columns.splice(k, 1);
                         }
                     } else {
                         // Remove any existing calculation error
@@ -3032,13 +3173,19 @@ var methods = {
                         // No longer dynamic
                         columns.splice(k, 1);
                     }
-                } else {
-                    // Remove any existing calculation error
-                    $(main).find('#' + column).removeClass('error');
-                    // No longer dynamic
-                    columns.splice(k, 1);
+                });
+            }
+            // Recursive processing :: TODO: Create a better solution
+            processFormula();
+            if (formulaTest) {
+                processFormula();
+                if (formulaTest) {
+                    processFormula();
+                    if (formulaTest) {
+                        processFormula();
+                    }
                 }
-            });
+            }
         } else {
             console.error('excelFormulaUtilities lib not included');
         }
@@ -3095,7 +3242,7 @@ var methods = {
         var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
         var url = URL.createObjectURL(blob);
         pom.href = url;
-        pom.setAttribute('download', 'jexcelTable.csv');
+        pom.setAttribute('download', options.csvFileName + '.csv');
         pom.click();
     },
 
@@ -3338,6 +3485,27 @@ var methods = {
     getColumnNameFromId : function (cellId) {
         var name = cellId.split('-');
         return $.fn.jexcel('getColumnName', name[0])  + (parseInt(name[1]) + 1);
+    },
+
+    /**
+     * Get seleted rows numbers
+     * 
+     * @return array
+     */
+    getSelectedRows : function () {
+        var rows = [];
+        // Get all selected rows
+        var selectedRows = $(this).find('tbody > tr > td.jexcel_label.selected');
+
+        // Return array with all selected rows
+        $.each(selectedRows, function(k, v) {
+            id = $(v).prop('id').split('-');
+            if (id[0] == 'row') {
+                rows.push(id[1]);
+            }
+        });
+
+        return rows;
     }
 };
 
