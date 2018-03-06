@@ -861,6 +861,9 @@ var methods = {
 
             // IE Compatibility
             $(document).on('paste', function (e) {
+                if ($.fn.jexcel.selectedCell === null) {
+                    return;
+                }
                 if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                     if (e.originalEvent) {
                         if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
