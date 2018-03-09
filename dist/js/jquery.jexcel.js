@@ -95,8 +95,9 @@ var methods = {
         prepareTable = function () {
             // Register options
             if (! $.fn.jexcel.defaults) {
-                $.fn.jexcel.defaults = new Array();
+                $.fn.jexcel.defaults = [];
             }
+
             $.fn.jexcel.defaults[id] = options;
 
             // Create history track array
@@ -250,13 +251,13 @@ var methods = {
      */
     createTable : function() {
         // Id
-        var id = $(this).prop('id');
+        id = $(this).prop('id');
 
         // Var options
-        var options = $.fn.jexcel.defaults[id];
+        options = $.fn.jexcel.defaults[id];
 
         // Create main table object
-        var table = document.createElement('table');
+        table = document.createElement('table');
         $(table).prop('class', 'jexcel bossanova-ui');
         $(table).prop('cellpadding', '0');
         $(table).prop('cellspacing', '0');
@@ -272,14 +273,14 @@ var methods = {
         //$(table).prop('draggable', 'false');
 
         // Create header and body tags
-        var thead = document.createElement('thead');
-        var tbody = document.createElement('tbody');
+        thead = document.createElement('thead');
+        tbody = document.createElement('tbody');
 
         // Header
         $(thead).prop('class', 'jexcel_label');
 
         // Create headers
-        var tr = '<td width="30" class="jexcel_label"></td>';
+        tr = '<td width="30" class="jexcel_label"></td>';
 
         for (i = 0; i < options.colHeaders.length; i++) {
             // Default header cell properties
@@ -308,34 +309,30 @@ var methods = {
         $(table).append(thead);
         $(table).append(tbody);
 
-        // Prevent dragging
-        $(table).on('dragstart', function () {
-            return false;
-        });
-
         // Main object
         $(this).html(table);
 
         // Add the corner square and textarea one time onlly
         if (! $('.jexcel_corner').length) {
             // Corner one for all sheets in a page
-            var corner = document.createElement('div');
+            corner = document.createElement('div');
             $(corner).prop('class', 'jexcel_corner');
-            $(corner).prop('id', 'corner');
+            $(corner).prop('id', 'jexcel_corner');
 
             // Hidden textarea copy and paste helper
-            var textarea = document.createElement('textarea');
+            textarea = document.createElement('textarea');
             $(textarea).prop('class', 'jexcel_textarea');
-            $(textarea).prop('id', 'textarea');
+            $(textarea).prop('id', 'jexcel_textarea');
 
             // Contextmenu container
-            var contextMenu = document.createElement('div');
+            contextMenu = document.createElement('div');
             $(contextMenu).css('display', 'none');
             $(contextMenu).prop('class', 'jexcel_contextmenu');
             $(contextMenu).prop('id', 'jexcel_contextmenu');
 
             // Powered by
-            var ads = document.createElement('div');
+            ads = document.createElement('div');
+            $(ads).prop('id', 'jexcel_about');
             $(ads).css('display', 'none');
             $(ads).html('<a href="http://github.com/paulhodel/jexcel">jExcel Spreadsheet</a>');
 
@@ -351,17 +348,21 @@ var methods = {
             $(corner).prop('draggable', 'false');
 
             // Prevent dragging on the corner object
-            $(corner).on('dragstart', function () {
-                return false;
-            });
+            $.fn.jexcel.dragStartControls = function (e) {
+                if ($(e.target).parents('.jexcel').length) {
+                    return false;
+                }
+            }
+
+            $(document).on('dragstart', $.fn.jexcel.dragStartControls);
 
             // Corner persistence and other helpers
             $.fn.jexcel.selectedCorner = false;
             $.fn.jexcel.selectedHeader = null;
             $.fn.jexcel.resizeColumn = null;
 
-            // Jexcel context menu
-            $(document).on("contextmenu", function (e) {
+            // Context menu
+            $.fn.jexcel.contextMenuControls = function (e) {
                 // Hide jExcel context menu if is open
                 if ($("#jexcel_contextmenu").css('display') == 'block') {
                     $("#jexcel_contextmenu").css('display', 'none')
@@ -428,17 +429,22 @@ var methods = {
                         }
                     }
                 }
-            });
+            }
 
-            $(document).on('mousewheel', function (e) {
+            $(document).on("contextmenu", $.fn.jexcel.contextMenuControls);
+
+            // Mouse wheel
+            $.fn.jexcel.mouseWheelControls = function (e) {
                 // Hide context menu
                 $(".jexcel_contextmenu").css('display', 'none');
-            });
+            }
+
+            $(document).on('mousewheel', $.fn.jexcel.mouseWheelControls);
 
             // Global mouse click down controles
-            $(document).on('mousedown touchstart', function (e) {
+            $.fn.jexcel.mouseDownControls = function (e) {
                 // Click on corner icon
-                if (e.target.id == 'corner') {
+                if (e.target.id == 'jexcel_corner') {
                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                         $.fn.jexcel.selectedCorner = true;
                     }
@@ -569,15 +575,17 @@ var methods = {
                         if (! $(e.target).parents('.jexcel').length) {
                             // Keep selection if main scrollbar is selected
                             if (e.target != $('html').get(0)) {
-	                            $('#' + $.fn.jexcel.current).jexcel('resetSelection');
-	                        }
+                                $('#' + $.fn.jexcel.current).jexcel('resetSelection');
+                            }
                         }
                     }
                 }
-            });
+            }
+
+            $(document).on('mousedown touchstart', $.fn.jexcel.mouseDownControls);
 
             // Global mouse click up controles 
-            $(document).on('mouseup', function (e) {
+            $.fn.jexcel.mouseUpControls = function (e) {
                 if (e.target.id == 'jexcel_arrow') {
                     if (! $.fn.jexcel.current) {
                         $.fn.jexcel.current = $(e.target).parents('.jexcel').parent().prop('id');
@@ -649,15 +657,17 @@ var methods = {
 
                 $.fn.jexcel.dragRowFrom = null;
                 $.fn.jexcel.dragRowOver = null;
-            });
+            }
+
+            $(document).on('mouseup', $.fn.jexcel.mouseUpControls);
 
             // Double click
-            $(document).on('dblclick touchend', function (e) {
+            $.fn.jexcel.doubleClickControls = function (e) {
                 // Jexcel is selected
                 if ($.fn.jexcel.current) {
                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                         // Corner action
-                        if (e.target.id == 'corner') {
+                        if (e.target.id == 'jexcel_corner') {
                             var selection = $('#' + $.fn.jexcel.current).find('tbody td.highlight');
                             // Any selected cells
                             if (typeof(selection) == 'object') {
@@ -690,9 +700,12 @@ var methods = {
                         }
                     }
                 }
-            });
+            }
 
-            $(document).on('mousemove', function (e) {
+            $(document).on('dblclick touchend', $.fn.jexcel.doubleClickControls);
+
+            // Mouse move controls
+            $.fn.jexcel.mouseMoveControls = function (e) {
                 if ($.fn.jexcel.current) {
                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnResize == true) {
                         // Resizing is ongoing
@@ -742,9 +755,12 @@ var methods = {
                         $('body').css('cursor', '');
                     }
                 }
-            });
+            }
 
-            $(document).on('mouseover', function (e) {
+            $(document).on('mousemove', $.fn.jexcel.mouseMoveControls);
+
+            // Mouse over controls
+            $.fn.jexcel.mouseOverControls = function (e) {
                 // No resizing is ongoing
                 if (! $.fn.jexcel.resizeColumn) {
                     // Get jexcel table
@@ -817,8 +833,10 @@ var methods = {
                         }
                     }
                 }
-            });
-            
+            }
+
+            $(document).on('mouseover', $.fn.jexcel.mouseOverControls);
+
             // Fixed headers
             /*$(document).bind("scroll", function() {
                 if ($.fn.jexcel.current) {
@@ -859,8 +877,8 @@ var methods = {
                 }
             });*/
 
-            // IE Compatibility
-            $(document).on('paste', function (e) {
+            // Paste Controls - IE Compatibility
+            $.fn.jexcel.pasteControls = function (e) {
                 if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                     if (e.originalEvent) {
                         if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
@@ -869,12 +887,15 @@ var methods = {
                         e.preventDefault();
                     }
                 }
-            });
+            }
+
+            $(document).on('paste', $.fn.jexcel.pasteControls);
 
             // Keyboard controls
             var keyBoardCell = null;
 
-            $(document).keydown(function(e) {
+            // Key down controls
+            $.fn.jexcel.keyDownControls = function(e) {
                 if ($.fn.jexcel.current) {
                     // Support variables
                     var cell = null;
@@ -885,6 +906,12 @@ var methods = {
                         // Which key
                         if (e.which == 37) {
                             // Left arrow
+                            if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'text' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'numeric') {
+                                    $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                }
+                            }
+
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                 if (e.ctrlKey) {
                                     cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.jexcel_label').first();
@@ -895,6 +922,12 @@ var methods = {
                             }
                         } else if (e.which == 39) {
                             // Right arrow
+                            if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'text' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'numeric') {
+                                    $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                }
+                            }
+
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                 if (e.ctrlKey) {
                                     cell = $($.fn.jexcel.selectedCell).parent().find('td').last();
@@ -905,6 +938,12 @@ var methods = {
                             }
                         } else if (e.which == 38) {
                             // Top arrow
+                            if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'text' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'numeric') {
+                                    $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                }
+                            }
+
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                 if (e.ctrlKey) {
                                     cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').first().find('#' + columnId[0] + '-' + 0);
@@ -915,6 +954,12 @@ var methods = {
                             }
                         } else if (e.which == 40) {
                             // Bottom arrow
+                            if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'text' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'numeric') {
+                                    $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                }
+                            }
+
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                 if (e.ctrlKey) {
                                     cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').last().find('#' + columnId[0] + '-' + ($.fn.jexcel.defaults[$.fn.jexcel.current].data.length - 1));
@@ -1120,7 +1165,9 @@ var methods = {
                         }
                     }
                 }
-            });
+            }
+
+            $(document).on('keydown', $.fn.jexcel.keyDownControls);
         }
 
         // Load data
@@ -1386,7 +1433,7 @@ var methods = {
                                 $(li).prop('id', id)
                                 $(li).html('<input type="checkbox"> ' + name);
                                 $(li).mousedown(function (e) {
-                                    $(this).parent().removeClass('selected');
+                                    $(this).parent().find('li').removeClass('selected');
                                     $(this).addClass('selected');
                                     //  $(main).jexcel('closeEditor', $(cell), true);
                                 });
@@ -1427,6 +1474,10 @@ var methods = {
                         $(main).jexcel('closeEditor', $(cell), false);
                     });
                 } else if (options.columns[position[0]].type == 'autocomplete') {
+                    // Get content
+                    var html = $(cell).text().trim();
+                    var value = $(cell).find('input').val();
+
                     // List result
                     showResult = function(data, str) {
                         // Reset data
@@ -1446,10 +1497,14 @@ var methods = {
                                 $(li).prop('id', id)
                                 $(li).html(name);
                                 $(li).mousedown(function (e) {
-                                    $(this).parent().removeClass('selected');
+                                    $(this).parent().find('li').removeClass('selected');
                                     $(this).addClass('selected');
                                     $(main).jexcel('closeEditor', $(cell), true);
                                 });
+                                // Default selected
+                                if (id == value) {
+                                    $(li).addClass('selected');
+                                }
                                 $(result).append(li);
                             }
                         });
@@ -1457,15 +1512,12 @@ var methods = {
                         if (! $(result).html()) {
                             $(result).html('<div style="padding:6px;">No result found</div>');
                         }
+
                         $(result).css('display', '');
                     }
 
                     // Keep the current value
                     $(cell).addClass('edition');
-
-                    // Get content
-                    var html = $(cell).text().trim();
-                    var value = $(cell).find('input').val();
 
                     // Basic editor
                     var editor = document.createElement('input');
@@ -2186,8 +2238,8 @@ var methods = {
 
        // Search all tds in a row
        if (row.length > 0) {
-          for (i = 0; i < row.length; i++) {
-             arr.push($(this).jexcel('getValue', $(row)[i]));
+          for (var getRowI = 0; getRowI < row.length; getRowI++) {
+             arr.push($(this).jexcel('getValue', $(row)[getRowI]));
           }
        }
 
@@ -2680,17 +2732,17 @@ var methods = {
 
         // Configuration
         if (options.allowInsertRow == true) {
-            j = parseInt($.fn.jexcel.defaults[id].data.length);
+            var rowNumber = parseInt($.fn.jexcel.defaults[id].data.length);
             // New line of data to be append in the table
             tr = document.createElement('tr');
             // Index column
-            $(tr).append('<td id="row-' + j + '" class="jexcel_label">' + parseInt(j + 1) + '</td>');
+            $(tr).append('<td id="row-' + rowNumber + '" class="jexcel_label">' + parseInt(rowNumber + 1) + '</td>');
             // New data
-            $.fn.jexcel.defaults[id].data[j] = [];
+            $.fn.jexcel.defaults[id].data[rowNumber] = [];
 
-            for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
+            for (columnNumber = 0; columnNumber < $.fn.jexcel.defaults[id].colHeaders.length; columnNumber++) {
                 // New column of data to be append in the line
-                td = $(this).jexcel('createCell', i, j);
+                td = $(this).jexcel('createCell', columnNumber, rowNumber);
 
                 // Add column to the row
                 $(tr).append(td);
@@ -2698,7 +2750,7 @@ var methods = {
                 // Cell data
                 records.push({
                     cell: $(td),
-                    newValue: rowData[i],
+                    newValue: rowData[columnNumber],
                     oldValue: '',
                 });
             }
@@ -2875,6 +2927,26 @@ var methods = {
         if (col.length) {
             return $(col).html();
         }
+    },
+
+    /**
+     * Get the column title
+     * @param column - column number (first column is: 0)
+     * @param title - new column title
+     */
+    getHeaders : function (convertToText) {
+        var col = $(this).find('thead td').not('.jexcel_label');
+
+        var txt = [];
+        $.each(col, function(k, v) {
+            txt.push($(v).text());
+        });
+
+        if (convertToText == true) {
+            txt = txt.join(',');
+        }
+
+        return txt;
     },
 
     /**
@@ -3506,7 +3578,44 @@ var methods = {
         });
 
         return rows;
-    }
+    },
+
+    /**
+     * Destroy
+     * 
+     * @return array
+     */
+    destroy : function () {
+        var id = $(this).prop('id');
+
+        if ($.fn.jexcel.defaults[id]) {
+            // Delete source
+            delete $.fn.jexcel.defaults[id];
+
+            // Remove HTML elements
+            $(this).html('');
+
+            // Remove HTML controls
+            $('.jexcel_corner').remove();
+            $('.jexcel_textarea').remove();
+            $('.jexcel_contextmenu').remove();
+            $('.jexcel_about').remove();
+        }
+
+        // If no other spreadsheet in the screen :: remove all elements
+        if (! Object.keys($.fn.jexcel.defaults).length) {
+            $(document).off('dragstart', $.fn.jexcel.dragStartControls);
+            $(document).off("contextmenu", $.fn.jexcel.contextMenuControls);
+            $(document).off('mousewheel', $.fn.jexcel.mouseWheelControls);
+            $(document).off('mousedown touchstart', $.fn.jexcel.mouseDownControls);
+            $(document).off('mouseup', $.fn.jexcel.mouseUpControls);
+            $(document).off('dblclick touchend', $.fn.jexcel.doubleClickControls);
+            $(document).off('mousemove', $.fn.jexcel.mouseMoveControls);
+            $(document).off('mouseover', $.fn.jexcel.mouseOverControls);
+            $(document).off('paste', $.fn.jexcel.pasteControls);
+            $(document).off('keydown', $.fn.jexcel.keyDownControls);
+        }
+    } 
 };
 
 $.fn.jexcel = function( method ) {
