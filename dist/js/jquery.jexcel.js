@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.4 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.4.0 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -71,7 +71,7 @@ var methods = {
             // Filename
             csvFileName:'jexcel',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.4\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.4.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Configuration holder
@@ -333,6 +333,7 @@ var methods = {
             // Powered by
             ads = document.createElement('div');
             $(ads).prop('id', 'jexcel_about');
+            $(ads).prop('class', 'jexcel_about');
             $(ads).css('display', 'none');
             $(ads).html('<a href="http://github.com/paulhodel/jexcel">jExcel Spreadsheet</a>');
 
