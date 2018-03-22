@@ -889,12 +889,14 @@ var methods = {
 
             // Paste Controls - IE Compatibility
             $.fn.jexcel.pasteControls = function (e) {
-                if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                    if (e.originalEvent) {
-                        if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
-                            $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, e.originalEvent.clipboardData.getData('text'));
+                if ($.fn.jexcel.selectedCell) {
+                    if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                        if (e.originalEvent) {
+                            if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
+                                $('#' + $.fn.jexcel.current).jexcel('paste', $.fn.jexcel.selectedCell, e.originalEvent.clipboardData.getData('text'));
+                            }
+                            e.preventDefault();
                         }
-                        e.preventDefault();
                     }
                 }
             }
@@ -1934,6 +1936,9 @@ var methods = {
             if (typeof(options.onbeforechange) == 'function') {
                 options.onbeforechange(main, $(v.cell), v.oldValue, v.newValue);
             }
+
+            // Force
+            force = force ? true : false;
 
             // Update 
             $(main).jexcel('updateCell', v, force);
