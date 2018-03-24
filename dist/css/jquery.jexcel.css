@@ -53,15 +53,12 @@
     overflow:hidden;
     white-space: nowrap;
 }
-.jexcel > td.selected
-{
-    background-color:#fff;
-}
+
 .jexcel > tbody > tr > td.readonly
 {
     color:rgba(0,0,0,0.3)
 }
-.jexcel > tbody > tr > td.selected:first-child
+.jexcel > tbody > tr.selected > td:first-child
 {
     background-color:#dcdcdc;
 }
