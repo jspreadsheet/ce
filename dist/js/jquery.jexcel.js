@@ -29,18 +29,18 @@ var methods = {
     init : function( options ) {
         // Loading default configuration
         var defaults = {
-            // Column header titles
-            colHeaders:[],
-            // Colum header classes
-            colHeaderClasses:[],
-            // Column width sizes
-            colWidths:[],
-            // Column width that is used by default
-            defaultColWidth:50,
-            // Column alignment
-            colAlignments:[],
             // Column types and configurations
             columns:[],
+            // Column header titles
+            colHeaders:[],
+            // Column width sizes
+            colWidths:[],
+            // Column alignment
+            colAlignments:[],
+            // Colum header classes
+            colHeaderClasses:[],
+            // Column width that is used by default
+            defaultColWidth:50,
             // Minimal number of blank rows in the end
             minSpareRows:0,
             // Minimal number of blank cols in the end
@@ -142,7 +142,7 @@ var methods = {
             for (i = 0; i < size; i++) {
                 // Default headers
                 if (! options.colHeaders[i]) {
-                    options.colHeaders[i] = $.fn.jexcel('getColumnName', i);
+                    options.colHeaders[i] = '';
                 }
                 // Default column description
                 if (! options.columns[i]) {
@@ -162,11 +162,14 @@ var methods = {
                 if (! options.columns[i].allowEmpty) {
                     options.columns[i].allowEmpty = false;
                 }
+                if (! options.colWidths[i]) {
+                    options.colWidths[i] = options.defaultColWidth || '50';
+                }
                 if (! options.colAlignments[i]) {
                     options.colAlignments[i] = 'center';
                 }
-                if (! options.colWidths[i]) {
-                    options.colWidths[i] = options.defaultColWidth || '50';
+                if (! options.colHeaderClasses[i]) {
+                    options.colHeaderClasses[i] = '';
                 }
 
                 // Pre-load initial source for json autocomplete
@@ -293,21 +296,24 @@ var methods = {
         // Create headers
         var tr = '<td width="30" class="jexcel_label"></td>';
 
-        for (i = 0; i < options.colHeaders.length; i++) {
-            // Default header cell properties
+        // TODO: When the first or last column is hidden
+        for (var i = 0; i < options.colHeaders.length; i++) {
+
             var width = options.colWidths[i];
             var align = options.colAlignments[i] || 'center';
-            var header = options.colHeaders[i];
-            var headerClass = options.colHeaderClasses[i] || '';
+            var className = options.colHeaderClasses[i] || '';
 
-            // Column type hidden
-            if (options.columns[i].type == 'hidden') {
-                // TODO: when it is first check the whole selection not include
-                tr += '<td id="col-' + i + '" style="display:none;" title="' + header + '" class=" ' + headerClass + '">' + header + '</td>';
-            } else {
-                // Other column types
-                tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" title="' + header + '" class=" ' + headerClass + '">' + header + '</td>';
-            }
+            // Display
+            var display = (options.columns[i].type == 'hidden') ? ' display:none' : '';
+
+            // Default header cell properties
+            var title = options.colHeaders[i];
+
+            // Header
+            var header = title || $.fn.jexcel('getColumnName', i);
+
+            // Create HTML row
+            tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" title="' + title + '" class=" ' + className + '"' + display + '>' + header + '</td>';
         }
 
         // Populate header
@@ -1289,6 +1295,8 @@ var methods = {
 
                 // Cell data
                 records.push({
+                    col:i,
+                    row:j,
                     cell: $(td),
                     newValue: $.fn.jexcel.defaults[id].data[j][i],
                     oldValue: '',
@@ -1299,21 +1307,15 @@ var methods = {
             $(tbody).append(tr);
         }
 
-        // Update values
+        // Update all records
         $(this).jexcel('loadCells', records);
-
-        // After changes
-        $.fn.jexcel.ignoreEvents = true;
-        $(this).jexcel('afterChange');
-        $.fn.jexcel.ignoreEvents = false;
-
-        // Update position
-        $(this).jexcel('updateCornerPosition');
 
         // New data available
         if (data) {
-            if (typeof($.fn.jexcel.defaults[id].onload) == 'function') {
-                $.fn.jexcel.defaults[id].onload($(this));
+            if ($.fn.jexcel.ignoreEvents != true) {
+                if (typeof($.fn.jexcel.defaults[id].onload) == 'function') {
+                    $.fn.jexcel.defaults[id].onload($(this));
+                }
             }
         }
     },
@@ -1424,7 +1426,7 @@ var methods = {
                     $(editor).blur(function () {
                         $(main).jexcel('closeEditor', $(this).parent(), true);
                     });
-                    
+
                     $(editor).focus();
                     if (value) {
                         $(editor).val(value);
@@ -1748,6 +1750,8 @@ var methods = {
 
             // Update cell
             $(this).jexcel('updateCells', [{
+                col: position[0],
+                row: position[1],
                 cell: $(cell),
                 newValue: value,
                 oldValue: $.fn.jexcel.editionValue
@@ -1794,10 +1798,8 @@ var methods = {
 
         // If is a string get the cell object
         if (typeof(cell) != 'object') {
-            // Convert in case name is excel liked ex. A10, BB92
-            cell = $(this).jexcel('getIdFromColumnName', cell);
-            // Get object based on a string ex. 12-1, 13-3
-            cell = $(this).find('[id=' + cell +']');
+            // Get cell excel like A11, B99, etc
+            cell = $(this).jexcel('getCell', cell);
         }
 
         // If column exists
@@ -1848,12 +1850,15 @@ var methods = {
      * @return void
      */
     setValue : function(cell, value, force) {
-        // If is a string get the cell object
-        if (typeof(cell) !== 'object') {
-            // Convert in case name is excel liked ex. A10, BB92
-            cell = $(this).jexcel('getIdFromColumnName', cell);
-            // Get object based on a string ex. 12-1, 13-3
-            cell = $(this).find('[id=' + cell +']');
+        // Check request type, object or column name
+        if (typeof(cell) == 'object') {
+            // Get cell identication
+            var cellName = $(cell).prop('id');
+        } else {
+            // Get cell identification
+            var cellName = $(this).jexcel('getIdFromColumnName', cell);
+            // Get cell object based on excel names A1, A2, etc...
+            cell = $(this).jexcel('getCell', cell);
         }
 
         // If column exists
@@ -1864,23 +1869,25 @@ var methods = {
             // Main object
             var main = $(this);
 
-            // Global options
-            var options = $.fn.jexcel.defaults[id];
-
             // Records to be updated
             var records = [];
+
+            // Cell position
+            var position = cellName.split('-');
 
             // Go throw all cells
             $.each(cell, function(k, v) {
                 // Update cell
                 records.push({
+                    col: position[0],
+                    row: position[1],
                     cell: $(v),
                     newValue: value,
-                    oldValue: $(main).jexcel('getValue', $(v)),
+                    oldValue: $.fn.jexcel.defaults[id].data[position[1]][position[0]],
                 });
             });
 
-            // Force
+            // Force change for readonly columns
             force = force ? true : false;
 
             // Update cells
@@ -1893,27 +1900,28 @@ var methods = {
     },
 
     /**
-     * Load cell content
+     * Update cells with no history and events
      * 
      * @param object destination cells
+     * @param bool ignoreHistory - keep cell change out of the undo/redo history
      * @return void
      */
     loadCells : function(cells)
     {
-        // Id
-        var id = $(this).prop('id');
+        // Update values
+        var ignoreEvents = $.fn.jexcel.ignoreEvents ? true : false;
+        var ignoreHistory = $.fn.jexcel.ignoreHistory ? true : false;
 
-        // Main object
-        var main = $(this);
+        // Disabled events and history
+        $.fn.jexcel.ignoreEvents = true;
+        $.fn.jexcel.ignoreHistory = true;
 
-        // Global options
-        var options = $.fn.jexcel.defaults[id];
+        // Update all records
+        $(this).jexcel('updateCells', cells);
 
-        // Update cells
-        $.each(cells, function (k, v) {
-            // Update 
-            $(main).jexcel('updateCell', v, true);
-        });
+        // Restore events and history flag
+        $.fn.jexcel.ignoreEvents = ignoreEvents;
+        $.fn.jexcel.ignoreHistory = ignoreHistory;
     },
 
     /**
@@ -1936,6 +1944,9 @@ var methods = {
 
         // Update cells
         $.each(cells, function (k, v) {
+            // Get cell
+            v.cell = $(main).find('#' + v.col + '-' + v.row);
+
             // Before Change
             if ($.fn.jexcel.ignoreEvents != true) {
                 if (typeof(options.onbeforechange) == 'function') {
@@ -2135,8 +2146,8 @@ var methods = {
                     $(this).find('#' + i + '-' + uy).addClass('highlight-bottom');
 
                     // Row and column headers
-                    $(main).find('#col-' + i).addClass('selected');
-                    $(main).find('#row-' + j).addClass('selected');
+                    $(this).find('#col-' + i).addClass('selected');
+                    $(this).find('#row-' + j).addClass('selected');
                 }
             }
 
@@ -2182,7 +2193,9 @@ var methods = {
         $(this).jexcel('updateCornerPosition');
     },
 
-    // Remove the selection from the cell
+    /**
+     * Reset all selection from the current table
+     */
     resetSelection : function() {
         // Remove selection from any other jexcel if applicable
         if ($.fn.jexcel.current) {
@@ -2198,7 +2211,11 @@ var methods = {
         $.fn.jexcel.selectedHeader = null;
     },
 
-    // Get the selected cells
+    /**
+     * Get the selection parameters
+     * 
+     * @return array [first cell, last cell]
+     */
     getSelection : function() {
         // Return selection
         if ($.fn.jexcel.current) {
@@ -2206,14 +2223,22 @@ var methods = {
         }
     },
 
-    // Get the main selected cell
+    /**
+     * Current the selected cursor cell
+     * 
+     * @return object cell
+     */
     getCellCursor : function() {
         if ($.fn.jexcel.current) {
             return $.fn.jexcel.selectedCell;
         }
     },
 
-    // Get the selected cells
+    /**
+     * Get all the selected cells in the current table
+     * 
+     * @return object cells
+     */ 
     getSelectedCells : function() {
         // Get selected cells
         if ($.fn.jexcel.current) {
@@ -2311,29 +2336,6 @@ var methods = {
     },
 
     /**
-     * Get the data from a row
-     * 
-     * @param integer row number
-     * @return string value
-     */
-    getRowData : function(row) {
-       // Get row
-       var row = $(this).find('#row-' + row).find('td');
-
-       // String
-       var arr = [];
-
-       // Search all tds in a row
-       if (row.length > 0) {
-           for (var i = 0; i < row.length; i++) {
-               arr.push($(this).jexcel('getValue', $(row)[i]));
-           }
-       }
-
-       return arr;
-    },
-
-    /**
      * Get the whole table data
      * 
      * @param integer row number
@@ -2385,6 +2387,7 @@ var methods = {
         var main = $(this);
         // Data to be returned
         var dataset = [];
+
         // Row number
         if (! parseInt(rowNumber)) {
             rowNumber = 0;
@@ -2419,6 +2422,7 @@ var methods = {
         var main = $(this);
         // Data to be returned
         var dataset = [];
+
         // Row number
         if (! parseInt(columnNumber)) {
             columnNumber = 0;
@@ -2505,19 +2509,38 @@ var methods = {
 
         return str;
     },
-    
+
     /**
      * jExcel cut method
      */ 
     cut : function () {
-        var main = $(this);
-
-        // Copy data
-        $(this).jexcel('copy', true);
+        // Reset cells
         var cells = $(this).find('.highlight');
 
-        // Remove current data
-        $(this).jexcel('setValue', cells, '');
+        // If cell exists
+        if ($(cells).length > 0) {
+            var records = [];
+            // Save current cell to the history
+            $.each(cells, function(k, v) {
+                // Get cell information
+                var position = $(v).prop('id').split('-');
+
+                // Keep history
+                records.push({
+                    col: position[0],
+                    row: position[1],
+                    cell: $(v),
+                    newValue: '',
+                    oldValue: $.fn.jexcel.defaults[id].data[position[1]][position[0]],
+                });
+            });
+
+            // Copy data
+            $(this).jexcel('copy', true);
+
+            // Reset cells
+            $(this).jexcel('updateCells', records);
+        }
     },
 
     /**
@@ -2531,10 +2554,11 @@ var methods = {
         var id = $(this).prop('id');
 
         // Parse paste
-        data = $(this).jexcel('parseCSV', data, "\t")
+        var data = $(this).jexcel('parseCSV', data, "\t")
 
         // Initial position
         var position = $(cell).prop('id');
+
         if (position) {
             position = position.split('-');
             var x = parseInt(position[0]);
@@ -2567,9 +2591,11 @@ var methods = {
                     if ($(cell).length > 0) {
                         // Keep cells history
                         records.push({
+                            col: (parseInt(i) + parseInt(x)),
+                            row: (parseInt(j) + parseInt(y)),
                             cell: $(cell),
                             newValue: row[i],
-                            oldValue: $(this).jexcel('getValue', $(cell)),
+                            oldValue: $.fn.jexcel.defaults[id].data[(parseInt(j) + parseInt(y))][(parseInt(i) + parseInt(x))],
                         });
                     }
                 }
@@ -2631,100 +2657,165 @@ var methods = {
     /**
      * Insert a new column
      * 
+     * @param  mixed - num of columns to be added or data to be added in one single column
      * @param  object properties - column properties
      * @param  int numColumns - number of columns to be created
      * @return void
      */
-    insertColumn : function (numColumns, properties, position) {
-        var main = $(this);
-
+    insertColumn : function (mixed, properties, columnNumber) {
         // Id
         var id = $(this).prop('id');
-
-        // Number of columns to be created
-        if (! numColumns) {
-            numColumns = 1;
-        }
-
-        // Minimal default properties
-        var defaults = {
-            column: { type:'text' },
-            width:'50',
-            align:'center'
-        };
-        properties = $.extend(defaults, properties);
 
         // Get the main object configuration
         var options = $.fn.jexcel.defaults[id];
 
-        // Records
-        var records = [];
-
         // Configuration
         if (options.allowInsertColumn == true) {
+            // Records
+            var records = [];
+
+            // Data to be insert
+            var data = [];
+
+            // The insert could be lead by number of rows or the array of data
+            if (mixed > 0) {
+                numOfColumns = mixed;
+            } else {
+                numOfColumns = 1;
+
+                if (mixed) {
+                    data = mixed;
+                }
+            }
+
             // Current column number
-            var num = options.colHeaders.length;
+            var lastColumn = options.colHeaders.length;
 
-            // Create columns
-            for (i = num; i < (num + numColumns); i++) {
+            // Where?
+            if (columnNumber == undefined) {
+                // Default is the end of the table
+                columnNumber = parseInt(lastColumn);
+            } else {
+                // The new position can be higher the size of the table
+                if (columnNumber > parseInt(lastColumn)) {
+                    columnNumber = parseInt(lastColumn);
+                }
+            }
+
+            // Minimal default properties
+            var defaults = {
+                header: '',
+                column: { type:'text' },
+                width: '50',
+                align: 'center',
+                className: '',
+            };
+
+            var properties = $.extend(defaults, properties);
+
+            // Keep current configuration
+            var currentColumns = options.columns.splice(columnNumber);
+            var currentColWidths = options.colWidths.splice(columnNumber);
+            var currentColHeaders = options.colHeaders.splice(columnNumber);
+            var currentColAlignments = options.colAlignments.splice(columnNumber);
+            var currentColHeaderClasses = options.colHeaderClasses.splice(columnNumber);
+
+            // Adding headers and configuration
+            for (var col = columnNumber; col < (numOfColumns + columnNumber); col++) {
                 // Adding the column properties to the main property holder
-                options.colHeaders[i] = properties.header || $.fn.jexcel('getColumnName', i);
-                options.colWidths[i] = properties.width;
-                options.colAlignments[i] = properties.align;
-                options.columns[i] = properties.column;
+                options.columns[col] = properties.column;
+                options.colWidths[col] = properties.width;
+                options.colHeaders[col] = properties.header;
+                options.colAlignments[col] = properties.align;
+                options.colHeaderClasses[col] = properties.className;
 
-                if (! options.columns[i].source) {
-                    $.fn.jexcel.defaults[id].columns[i].source = [];
+                if (! options.columns[col].source) {
+                    $.fn.jexcel.defaults[id].columns[col].source = [];
                 }
-                if (! options.columns[i].options) {
-                    $.fn.jexcel.defaults[id].columns[i].options = [];
+                if (! options.columns[col].options) {
+                    $.fn.jexcel.defaults[id].columns[col].options = [];
                 }
 
-                // Default header cell properties
-                width = options.colWidths[i];
-                align = options.colAlignments[i];
-                header = options.colHeaders[i];
+                // Display
+                var display = (options.columns[col].type == 'hidden') ? ' display:none' : '';
 
-                // Create header html
-                var td =  '<td id="col-' + i + '" width="' + width + '" align="' + align + '">' + header + '</td>';
+                // Title
+                var title = options.colHeaders[col];
 
-                // Add element to the table
-                var tr = $(this).find('thead.jexcel_label tr')[0];
-                $(tr).append(td);
+                // Header
+                var header = title ? title : $.fn.jexcel('getColumnName', col);
 
-                // Add columns to the content rows
-                tr = $(this).find('table > tbody > tr');
-                $.each(tr, function (k, v) {
-                    // Update data array
-                    options.data[k][i] = '';
+                // Create HTML row
+                var td = '<td width="' + options.colWidths[col] + '" align="' + options.colAlignments[col] + '" title="' + title + '" class="' + options.colHeaderClasses[col] + '"' + display + '>' + header + '</td>';
 
-                    // HTML cell
-                    td = $(main).jexcel('createCell', i, k);
+                // Add row to the table body
+                if (col == 0) {
+                    $(this).find('thead').find('#col-0').before(td);
+                } else {
+                    $(this).find('thead').find('#col-' + (col-1)).after(td);
+                }
+            }
 
-                    // Append cell to the tbody
-                    $(v).append(td);
+            Array.prototype.push.apply(options.columns, currentColumns);
+            Array.prototype.push.apply(options.colWidths, currentColWidths);
+            Array.prototype.push.apply(options.colHeaders, currentColHeaders);
+            Array.prototype.push.apply(options.colAlignments, currentColAlignments);
+            Array.prototype.push.apply(options.colHeaderClasses, currentColHeaderClasses);
+
+            // Adding columns in each row
+            for (var row = 0; row < options.data.length; row++) {
+                // Keep the current data
+                var currentData = $.fn.jexcel.defaults[id].data[row].splice(columnNumber);
+
+                // Adding columns
+                for (var col = columnNumber; col < (numOfColumns + columnNumber); col++) {
+                    // New Data
+                    $.fn.jexcel.defaults[id].data[row][col] = data[col] ? data[col] : '';
+
+                    // New column of data to be append in the line
+                    td = $(this).jexcel('createCell', col, row);
+
+                    // Add column to the row
+                    if (col == 0) {
+                        $(this).find('tbody').find('#row-' + row).find('.c0').before(td);
+                    } else {
+                        $(this).find('tbody').find('#row-' + row).find('.c' + (col-1)).after(td);
+                    }
 
                     // Cell data
                     records.push({
+                        col: col,
+                        row: row,
                         cell: $(td),
-                        newValue: '',
+                        newValue: $.fn.jexcel.defaults[id].data[row][col],
                         oldValue: '',
                     });
-                });
+                }
+
+                // Copy the data back to the main data
+                Array.prototype.push.apply($.fn.jexcel.defaults[id].data[row], currentData);
             }
 
-            // Update cells
-            $(this).jexcel('loadCells', records, true);
+            // Remove table references
+            $(this).jexcel('updateTableReferences');
 
-            // Insert row
+            // Update cells
+            $(this).jexcel('loadCells', records);
+
+            // Keeping history of changes
+            $(this).jexcel('setHistory', records, {
+                type:'insertColumn',
+                mixed: mixed,
+                properties: properties,
+                columnNumber: columnNumber,
+            });
+
+            // Events
             if ($.fn.jexcel.ignoreEvents != true) {
                 if (typeof(options.oninsertcolumn) == 'function') {
                     options.oninsertcolumn($(this));
                 }
             }
-
-            // After changes
-            $(this).jexcel('afterChange');
         }
     },
 
@@ -2732,9 +2823,10 @@ var methods = {
      * Insert a new row
      * 
      * @param mixed - number of blank lines to be insert or a single array with the data of the new row
+     * @param rowNumber
      * @return void
      */
-    insertRow : function(mixed, position) {
+    insertRow : function(mixed, rowNumber) {
         // Id
         var id = $(this).prop('id');
 
@@ -2751,9 +2843,9 @@ var methods = {
 
             // The insert could be lead by number of rows or the array of data
             if (mixed > 0) {
-                numLines = mixed;
+                var numOfRows = mixed;
             } else {
-                numLines = 1;
+                var numOfRows = 1;
 
                 if (mixed) {
                     data = mixed;
@@ -2761,30 +2853,26 @@ var methods = {
             }
 
             // Where?
-            if (position == undefined) {
+            if (rowNumber == undefined) {
                 // Default is the end of the table
-                position = parseInt($.fn.jexcel.defaults[id].data.length);
+                rowNumber = parseInt($.fn.jexcel.defaults[id].data.length);
             } else {
                 // The new position can be higher the size of the table
-                if (position > parseInt($.fn.jexcel.defaults[id].data.length)) {
-                    position = parseInt($.fn.jexcel.defaults[id].data.length);
+                if (rowNumber > parseInt($.fn.jexcel.defaults[id].data.length)) {
+                    rowNumber = parseInt($.fn.jexcel.defaults[id].data.length);
                 }
             }
 
-            // Remove table references
-            $(this).jexcel('removeTableReferences');
-
             // Keep the current data
-            var currentData = $.fn.jexcel.defaults[id].data.splice(position);
+            var currentData = $.fn.jexcel.defaults[id].data.splice(rowNumber);
 
             // Adding lines
-            for (var row = position; row < (numLines + position); row++) {
+            for (var row = rowNumber; row < (numOfRows + rowNumber); row++) {
                 // New line of data to be append in the table
                 tr = document.createElement('tr');
-                $(tr).prop('id',  'row-' + row);
 
                 // Index column
-                $(tr).append('<td class="jexcel_label">' + (parseInt(row) + 1) + '</td>');
+                $(tr).append('<td class="jexcel_label"></td>');
 
                 // New row
                 $.fn.jexcel.defaults[id].data[row] = [];
@@ -2802,6 +2890,8 @@ var methods = {
 
                     // Cell data
                     records.push({
+                        col: col,
+                        row: row,
                         cell: $(td),
                         newValue: $.fn.jexcel.defaults[id].data[row][col],
                         oldValue: '',
@@ -2817,39 +2907,135 @@ var methods = {
             }
 
             // Copy the data back to the main data
-            if (currentData) {
-                Array.prototype.push.apply($.fn.jexcel.defaults[id].data, currentData);
-            }
+            Array.prototype.push.apply($.fn.jexcel.defaults[id].data, currentData);
 
             // Remove table references
             $(this).jexcel('updateTableReferences');
 
             // Update cells
-            $(this).jexcel('loadCells', records, true);
+            $(this).jexcel('loadCells', records);
 
-            // Insert row
+            // Keeping history of changes
+            $(this).jexcel('setHistory', records, {
+                type:'insertRow',
+                mixed: mixed,
+                rowNumber: rowNumber,
+            });
+
+            // Insert events
             if ($.fn.jexcel.ignoreEvents != true) {
                 if (typeof(options.oninsertrow) == 'function') {
                     options.oninsertrow($(this));
                 }
             }
+        }
+    },
 
-            // After changes
-            $(this).jexcel('afterChange');
+    /**
+     * Delete a column by number
+     * 
+     * @param integer columnNumber - column show be excluded
+     * @return void
+     */
+    deleteColumn : function(columnNumber, numberOfColumns) {
+        // Id
+        var id = $(this).prop('id');
 
-            // Keeping history of changes
-            $(this).jexcel('setHistory', records, { type:'insertRow', position: position, length: numLines, mixed: mixed });
+        // Main configuration
+        var options = $.fn.jexcel.defaults[id];
+
+        // Global Configuration
+        if (options.allowDeleteColumn == true) {
+            // Keep history
+            var records = [];
+
+            // Delete column definitions
+            if (columnNumber == undefined) {
+                var number = $(this).jexcel('getSelectedColumns');
+
+                columnNumber = parseInt(number[0]);
+                numOfColumns = parseInt(number.length);
+            }
+
+            if (! parseInt(numberOfColumns)) {
+                numberOfColumns = 1;
+            }
+
+            // Can't remove the last column
+            if (options.data[0].length > 1) {
+                if (parseInt(columnNumber) > -1) {
+                    // Default headers
+                    options.columns.splice(parseInt(columnNumber), numberOfColumns);
+                    options.colHeaders.splice(parseInt(columnNumber), numberOfColumns);
+                    options.colWidths.splice(parseInt(columnNumber), numberOfColumns);
+                    options.colAlignments.splice(parseInt(columnNumber), numberOfColumns);
+                    options.colHeaderClasses.splice(parseInt(columnNumber), numberOfColumns);
+
+                    // Delete data from source
+                    for (var row = 0; row < $.fn.jexcel.defaults[id].data.length; row++) {
+                        // Keep columns data
+                        for (var col = 0; col < $.fn.jexcel.defaults[id].data[row].length; col++) {
+                            records[row][col] = $.fn.jexcel.defaults[id].data[row][col];
+                        }
+                        // Remove column from each line
+                        options.data[row].splice(parseInt(columnNumber), parseInt(numberOfColumns));
+                    }
+
+                    // Remove visual columns
+                    $(this).find('.c' + parseInt(columnNumber)).remove();
+                    $(this).find('#col-' + parseInt(columnNumber)).remove();
+
+                    // Current column
+                    var currentColumn = $(this).jexcel('col');
+
+                    // Is removed?
+                    var isColumnRemoved = (currentColumn > columnNumber && currentColumn < (columnNumber + numberOfColumns)) ? true : false;
+
+                    // Update table references
+                    $(this).jexcel('updateTableReferences');
+
+                    // Select first row any of the selected rows were excluded
+                    if (isColumnRemoved) {
+                        // Get cell objects 
+                        var o1 = $('#' + $.fn.jexcel.current).find('#0-0');
+                        var o2 = $('#' + $.fn.jexcel.current).find('#0-0');
+
+                        // Update selection
+                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+
+                        // Select cursor
+                        $.fn.jexcel.selectedCell = $(o1);
+                    }
+                }
+
+                // Keeping history of changes
+                $(this).jexcel('setHistory', null, {
+                    type:'deleteColumn',
+                    columnNumber:columnNumber,
+                    numberOfColumns:numberOfColumns,
+                    columnData:records
+                });
+
+                // Delete
+                if ($.fn.jexcel.ignoreEvents != true) {
+                    if (typeof(options.ondeletecolumn) == 'function') {
+                        options.ondeletecolumn($(this));
+                    }
+                }
+            } else {
+                console.error('It is not possible to delete the last column');
+            }
         }
     },
 
     /**
      * Delete a row by number
      * 
-     * @param integer lineNumber - line show be excluded
+     * @param integer rowNumber - row number show be excluded
      * @param integer numOfRows - number of lines
      * @return void
      */
-    deleteRow : function(lineNumber, numOfRows) {
+    deleteRow : function(rowNumber, numOfRows) {
         // Id
         var id = $(this).prop('id');
 
@@ -2858,11 +3044,14 @@ var methods = {
 
         // Global Configuration
         if (options.allowDeleteRow == true) {
+            // Keep history
+            var records = [];
+
             // Delete row definitions
-            if (lineNumber == undefined) {
+            if (rowNumber == undefined) {
                 var number = $(this).jexcel('getSelectedRows');
 
-                lineNumber = parseInt(number[0]);
+                rowNumber = parseInt(number[0]);
                 numOfRows = parseInt(number.length);
             }
 
@@ -2872,97 +3061,63 @@ var methods = {
 
             // Can't remove the last row
             if (options.data.length > 1) {
-                if (parseInt(lineNumber) > -1) {
-                    // Remove from source
-                    $.fn.jexcel.defaults[id].data.splice(parseInt(lineNumber), numOfRows);
+                if (parseInt(rowNumber) > -1) {
+                    // Current row
+                    var currentRow = $(this).jexcel('row');
 
-                    // Remove table references
-                    $(this).jexcel('removeTableReferences');
+                    // Test
+                    var isRowRemoved = false;
 
-                    // Remove visual rows
-                    for (var row = lineNumber; row < lineNumber + numOfRows; row++) {
+                    // Remove rows
+                    for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                        // Keep row data
+                        records[row] = $.fn.jexcel.defaults[id].data[row];
+
+                        // Remove visualy
                         $(this).find('#row-' + row).remove();
+
+                        // The current row was excluded
+                        if (row == currentRow) {
+                            isRowRemoved = true;
+                        }
                     }
+
+                    // Remove from source
+                    $.fn.jexcel.defaults[id].data.splice(parseInt(rowNumber), numOfRows);
 
                     // Remove table references
                     $(this).jexcel('updateTableReferences');
 
-                    // Delete
+                    // Select first row any of the selected rows were excluded
+                    if (isRowRemoved) {
+                        // Get cell objects 
+                        var o1 = $('#' + $.fn.jexcel.current).find('#0-0');
+                        var o2 = $('#' + $.fn.jexcel.current).find('#0-0');
+
+                        // Update selection
+                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+
+                        // Select cursor
+                        $.fn.jexcel.selectedCell = $(o1);
+                    }
+
+                    // Keeping history of changes
+                    $(this).jexcel('setHistory', null, {
+                        type:'deleteRow',
+                        rowNumber: rowNumber,
+                        numOfRows: numOfRows,
+                        rowData: records
+                    });
+
+                    // Delete events
                     if ($.fn.jexcel.ignoreEvents != true) {
                         if (typeof(options.ondeleterow) == 'function') {
                             options.ondeleterow($(this));
                         }
                     }
-
-                    // After changes
-                    $(this).jexcel('afterChange');
                 }
             } else {
                 console.error('It is not possible to delete the last row');
-            }
-
-            // Remove selection
-            $('#' + $.fn.jexcel.current).jexcel('resetSelection');
-        }
-    },
-
-    /**
-     * Delete a column by number
-     * 
-     * @TODO: need to recreate the headers
-     * @param integer columnNumber - column show be excluded
-     * @return void
-     */
-    deleteColumn : function(columnNumber, numberOfColumns) {
-        // Id
-        var id = $(this).prop('id');
-
-        if (! parseInt(numberOfColumns)) {
-            numberOfColumns = 1;
-        }
-
-        // Main configuration
-        var options = $.fn.jexcel.defaults[id];
-
-        // Global Configuration
-        if (options.allowDeleteColumn == true) {
-            // Can't remove the last column
-            if (options.data[0].length > 1) {
-                if (parseInt(columnNumber) > -1) {
-                    // Default headers
-                    options.columns.splice(parseInt(columnNumber), numberOfColumns);
-                    options.colHeaders.splice(parseInt(columnNumber), numberOfColumns);
-                    options.colAlignments.splice(parseInt(columnNumber), numberOfColumns);
-                    options.colWidths.splice(parseInt(columnNumber), numberOfColumns);
-
-                    // Delete data from source
-                    for (j = 0; j < $.fn.jexcel.defaults[id].data.length; j++) {
-                        // Remove column from each line
-                        options.data[j].splice(parseInt(columnNumber), numberOfColumns);
-                    }
-
-                    // Remove table references
-                    $(this).jexcel('removeTableReferences');
-
-                     // Update table
-                    $(this).find('.c' + parseInt(columnNumber)).remove();
-                    $(this).find('#col-' + parseInt(columnNumber)).remove();
-
-                    // Remove table references
-                    $(this).jexcel('updateTableReferences');
-                }
-
-                // Delete
-                if ($.fn.jexcel.ignoreEvents != true) {
-                    if (typeof(options.ondeletecolumn) == 'function') {
-                        options.ondeletecolumn($(this));
-                    }
-                }
-
-                // After changes
-                $(this).jexcel('afterChange');
-            } else {
-                console.error('It is not possible to delete the last column');
             }
         }
     },
@@ -3142,9 +3297,11 @@ var methods = {
                 if ($(cell).length && ! $(cell).hasClass('readonly')) {
                     // Keep cells history
                     records.push({
+                        col: i,
+                        row: j,
                         cell: $(cell),
                         newValue: data[posy][posx],
-                        oldValue: $(this).jexcel('getValue', $(cell)),
+                        oldValue: $.fn.jexcel.defaults[$.fn.jexcel.current].data[j][i],
                     });
                 }
                 posx++;
@@ -3220,7 +3377,7 @@ var methods = {
             // Reorder
             options.data = options.data.sortBy(column, order);
 
-            // Reset data
+            // TODO: Reset data
             $(this).jexcel('setData', null, true);
 
             // On sort event
@@ -3395,15 +3552,17 @@ var methods = {
             // Slice the array to discard undone changes
             var history = ($.fn.jexcel.defaults[id].history = $.fn.jexcel.defaults[id].history.slice(0, index + 1));
 
-            // Create history slot
-            history[index] = {
-                firstSelected: changes[0].cell,
-                lastSelected: changes[changes.length - 1].cell,
-                cellChanges: changes,
-            };
-
             if (action) {
-                history[index].action = action;
+                history[index] = {
+                    action:action
+                }
+            } else {
+                // Create history slot
+                history[index] = {
+                    firstSelected: changes[0].cell,
+                    lastSelected: changes[changes.length - 1].cell,
+                    cellChanges: changes,
+                };
             }
         }
     },
@@ -3414,6 +3573,13 @@ var methods = {
     undo : function () {
         var id = $(this).prop('id');
 
+        // Ignore events and history
+        var ignoreEvents = $.fn.jexcel.ignoreEvents ? true : false;
+        var ignoreHistory = $.fn.jexcel.ignoreHistory ? true : false;
+
+        $.fn.jexcel.ignoreEvents = true;
+        $.fn.jexcel.ignoreHistory = true;
+
         // Records
         var records = [];
 
@@ -3423,37 +3589,36 @@ var methods = {
             var historyRecord = $.fn.jexcel.defaults[id].history[$.fn.jexcel.defaults[id].historyIndex--];
 
             if (historyRecord.action) {
+                // Remove the inserted row
                 if (historyRecord.action.type == 'insertRow') {
-                    // Remove data
-                    $.fn.jexcel.defaults[id].data.splice(historyRecord.action.position, historyRecord.action.length);
+                    var rowNumber = historyRecord.action.rowNumber;
+                    var numOfRows = historyRecord.action.mixed > 0 ? historyRecord.action.mixed : 1;
 
-                    // Test row removed
-                    var isRowRemoved = false;
+                    $(this).jexcel('deleteRow', rowNumber, numOfRows);
 
-                    // Current row
-                    var currentRow = $(this).jexcel('row');
+                // Create the deleted row back
+                } else if (historyRecord.action.type == 'deleteRow') {
+                    var rowNumber = historyRecord.action.rowNumber;
+                    var numOfRows = historyRecord.action.numOfRows;
 
-                    // Remove table references
-                    $(this).jexcel('removeTableReferences');
-
-                    // Remove visual
-                    for (var i = historyRecord.action.position; i < historyRecord.action.position + historyRecord.action.length; i++) {
-                        $(this).find('tbody > tr#row-' + i).remove();
-
-                        if (i == currentRow) {
-                            isRowRemoved = true;
-                        }
+                    for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                        $(this).jexcel('insertRow', historyRecord.action.rowData[row], row);
                     }
 
-                    // Remove table references
-                    $(this).jexcel('updateTableReferences');
+                // Remove the inserted column
+                } else if (historyRecord.action.type == 'insertColumn') {
+                    var columnNumber = historyRecord.action.columnNumber;
+                    var numOfColumns = historyRecord.action.mixed > 0 ? historyRecord.action.mixed : 1;
 
-                    // Other changes
-                    $(this).jexcel('afterChange');
+                    $(this).jexcel('deleteColumn', columnNumber, numOfColumns);
 
-                    // Removed selection if row is deleted
-                    if (isRowRemoved) {
-                        $(this).jexcel('resetSelection');
+                // Create the deleted column back
+                } else if (historyRecord.action.type == 'deleteColumn') {
+                    var columnNumber = historyRecord.action.columnNumber;
+                    var numOfColumns = historyRecord.action.numOfColumns;
+    
+                    for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                        $(this).jexcel('insertRow', historyRecord.action.rowData[row], row);
                     }
                 }
             } else {
@@ -3461,25 +3626,28 @@ var methods = {
                 for (var i = 0; i < historyRecord.cellChanges.length; i++) {
                     // Keep cells history
                     records.push({
-                        cell: $(historyRecord.cellChanges[i].cell),
+                        col: historyRecord.cellChanges[i].col,
+                        row: historyRecord.cellChanges[i].row,
+                        cell: historyRecord.cellChanges[i].cell,
                         newValue: historyRecord.cellChanges[i].oldValue,
                         oldValue: historyRecord.cellChanges[i].newValue,
                     });
                 }
 
-                // Update cells
-                $(this).jexcel('loadCells', records);
+                // Select cell
+                $.fn.jexcel.selectedCell = historyRecord.firstSelected;
 
                 // Update selection
                 $(this).jexcel('updateSelection', historyRecord.firstSelected, historyRecord.lastSelected);
 
-                // Select cell
-                $.fn.jexcel.selectedCell = historyRecord.firstSelected;
-
-                // Other changes
-                $(this).jexcel('afterChange');
+                // Update cells
+                $(this).jexcel('updateCells', records);
             }
         }
+
+        // TODO - verify afterChange neeeds
+        $.fn.jexcel.ignoreEvents = ignoreEvents;
+        $.fn.jexcel.ignoreHistory = ignoreHistory;
     },
 
     /**
@@ -3488,31 +3656,59 @@ var methods = {
     redo : function () {
         var id = $(this).prop('id');
 
+        var ignoreEvents = $.fn.jexcel.ignoreEvents ? true : false;
+        var ignoreHistory = $.fn.jexcel.ignoreHistory ? true : false;
+
+        $.fn.jexcel.ignoreEvents = true;
+        $.fn.jexcel.ignoreHistory = true;
+
         if ($.fn.jexcel.defaults[id].historyIndex < $.fn.jexcel.defaults[id].history.length - 1) {
             // History
             var historyRecord = $.fn.jexcel.defaults[id].history[++$.fn.jexcel.defaults[id].historyIndex];
 
             if (historyRecord.action) {
+                // Insert row
                 if (historyRecord.action.type == 'insertRow') {
                     // Add the row back
-                    $.fn.jexcel.ignoreHistory = true;
-                    $(this).jexcel('insertRow', historyRecord.action.mixed, historyRecord.action.position);
-                    $.fn.jexcel.ignoreHistory = false;
+                    $(this).jexcel('insertRow', historyRecord.action.mixed, historyRecord.action.rowNumber);
+                    // Other changes
+                    $(this).jexcel('afterChange');
+
+                // Delete row
+                } else if (historyRecord.action.type == 'deleteRow') {
+                    // Add the row back
+                    $(this).jexcel('deleteRow', historyRecord.action.rowNumber, historyRecord.action.numOfRows);
+                    // Other changes
+                    $(this).jexcel('afterChange');
+
+                // Insert column
+                } else if (historyRecord.action.type == 'insertColumn') {
+                    // Add the row back
+                    $(this).jexcel('insertColumn', historyRecord.action.mixed, historyRecord.action.properties, historyRecord.action.columnNumber);
+                    // Other changes
+                    $(this).jexcel('afterChange');
+
+                // Delete column
+                } else if (historyRecord.action.type == 'deleteColumn') {
+                    // Add the row back
+                    $(this).jexcel('deleteColumn', historyRecord.action.columnNumber, historyRecord.action.numOfColumns);
+                    // Other changes
+                    $(this).jexcel('afterChange');
                 }
             } else {
-                // Update cells
-                $(this).jexcel('loadCells', historyRecord.cellChanges);
+                // Select cell
+                $.fn.jexcel.selectedCell = historyRecord.firstSelected;
 
                 // Update selection
                 $(this).jexcel('updateSelection', historyRecord.firstSelected, historyRecord.lastSelected);
 
-                // Select cell
-                $.fn.jexcel.selectedCell = historyRecord.firstSelected;
+                // Update cells
+                $(this).jexcel('updateCells', historyRecord.cellChanges);
             }
-
-            // Other changes
-            $(this).jexcel('afterChange');
         }
+
+        $.fn.jexcel.ignoreEvents = ignoreEvents;
+        $.fn.jexcel.ignoreHistory = ignoreHistory;
     },
 
     /**
@@ -3690,6 +3886,24 @@ var methods = {
     },
 
     /**
+     * Get seleted rows numbers
+     * 
+     * @return array
+     */
+    getSelectedColumns : function() {
+        var cols = [];
+        // Get all selected rows
+        var selectedColumns = $(this).find('thead > td.selected');
+
+        // Return array with all selected rows
+        $.each(selectedColumns, function(k, v) {
+            cols.push($(v).prop('id').replace('col-', ''));
+        });
+
+        return cols;
+    },
+
+    /**
      * Get column number by class identification
      * 
      * @return array
@@ -3717,9 +3931,11 @@ var methods = {
         if (! cell) {
             cell = $.fn.jexcel.selectedCell;
         }
+
         var data = false;
+
         // Get object identification
-        if ($(cell)) {
+        if ($(cell).length) {
             data = $(cell).prop('id').split('-');
             data = data[1];
         }
@@ -3738,7 +3954,7 @@ var methods = {
 
         var data = false;
         // Get object identification
-        if ($(cell)) {
+        if ($(cell).length) {
             data = $(cell).prop('id').split('-');
             data = data[0];
         }
@@ -3747,29 +3963,31 @@ var methods = {
     },
 
     /**
-    * Remove cell references
-    * 
-    * @return void
-    */
-    removeTableReferences : function()
-    {
-        // Find rows
-        var table = $(this).find('tbody > tr');
+     * Get events flag
+     */
+    getEventsFlag : function(val) {
+        return $.fn.jexcel.ignoreEvents ? true : false;
+    },
 
-        // Update all rows
-        $.each(table, function(k, v) {
-            // Find columns
-            var columns = $(v).find('td');
+    /**
+     * Set events flag
+     */
+    setEventsFlag : function(val) {
+        $.fn.jexcel.ignoreEvents = val ? true : false;
+    },
 
-            // Update all internal columns references
-            $.each(columns, function(k1, v1) {
-                // Remove column reference
-                if (k1 > 0) {
-                    $(v1).removeClass('c' + (k1 - 1));
-                    $(v1).removeClass('r' + k);
-                }
-            });
-        });
+    /**
+     * Get history flag
+     */
+    getHistoryFlag : function(val) {
+        return $.fn.jexcel.ignoreHistory ? true : false;
+    },
+
+    /**
+     * Set history flag
+     */
+    setHistoryFlag : function(val) {
+        $.fn.jexcel.ignoreHistory = val ? true : false;
     },
 
     /**
@@ -3792,6 +4010,12 @@ var methods = {
 
             // Update all internal columns references
             $.each(columns, function(k1, v1) {
+                // Remove current references
+                var coord = $(v1).prop('id').split('-');
+                $(v1).removeClass('c' + coord[0]);
+                $(v1).removeClass('r' + coord[1]);
+
+                // Create new references
                 if (k1 == 0) {
                     $(v1).html(parseInt(k) + 1);
                 } else {
@@ -3802,6 +4026,29 @@ var methods = {
                 }
             });
         });
+
+        // Find cols
+        var headers = $(this).find('thead > tr > td');
+
+        // Update all headers
+        $.each(headers, function(k, v) {
+            if (k > 0) {
+                // Update row reference
+                $(v).prop('id', 'col-' + (k - 1));
+
+                // Update header
+                if (! $(v).prop('title')) {
+                    // Get letter
+                    var header = $.fn.jexcel('getColumnName', k - 1)
+
+                    // Update header
+                    $(v).html(header)
+                }
+            }
+        });
+
+        // Update
+        $(this).jexcel('afterChange');
     },
 
     /**
