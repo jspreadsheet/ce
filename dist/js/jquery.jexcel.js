@@ -1265,7 +1265,7 @@ var methods = {
         }
 
         // Dynamic columns
-        $.fn.jexcel.defaults[id].dynamicColumns = [];
+        $.fn.jexcel.defaults[id].formula = [];
 
         // Data container
         var tbody = $(this).find('tbody');
@@ -1309,6 +1309,9 @@ var methods = {
 
         // Update all records
         $(this).jexcel('loadCells', records);
+
+        // Update all cells with formulas
+        $(this).jexcel('updateAllCellsWithFormulas');
 
         // New data available
         if (data) {
@@ -1945,7 +1948,7 @@ var methods = {
         // Update cells
         $.each(cells, function (k, v) {
             // Get cell
-            v.cell = $(main).find('#' + v.col + '-' + v.row);
+            v.cell = $(main).find('#' + v.col + '-' + v.row); // TODO: check if v.cell is necessary
 
             // Before Change
             if ($.fn.jexcel.ignoreEvents != true) {
@@ -1989,7 +1992,7 @@ var methods = {
         var options = $.fn.jexcel.defaults[id];
 
         // Cell identification
-        var position = $(v.cell).prop('id').split('-');
+        var position = [v.col, v.row];
 
         // Value
         value = '' + v.newValue;
@@ -2047,37 +2050,46 @@ var methods = {
                     val = '';
                 }
                 $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
-            } else if (options.columns[position[0]].type == 'numeric') {
-                // Value
-                val = value;
-
-                if (value) {
-                    if (value.substr(0,1) == '=') {
-                        if ($.fn.jexcel.defaults[id].dynamicColumns.indexOf($(v.cell).prop('id')) == -1) {
-                            $.fn.jexcel.defaults[id].dynamicColumns.push($(v.cell).prop('id'));
-                        }
-                    }
-                }
-
-                $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
             } else {
-                // Value
-                val = value;
+                val = value ? value : '';
 
-                if (value) {
-                    if (value.substr(0,1) == '=') {
-                        if ($.fn.jexcel.defaults[id].dynamicColumns.indexOf($(v.cell).prop('id')) == -1) {
-                            $.fn.jexcel.defaults[id].dynamicColumns.push($(v.cell).prop('id'));
-                        }
+                // Is this value a formula
+                if (value.substr(0,1) == '=') {
+                    $(this).jexcel('updateFormulas', v);
+
+                    $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
+                } else {
+                    // This is not a formula
+                    if (options.columns[position[0]].type == 'numeric') {
+                        $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
+                    } else {
+                        $(v.cell).html(val);
                     }
                 }
-
-                $(v.cell).html(value);
             }
         }
 
         // Get value from column and set the default
         $.fn.jexcel.defaults[id].data[position[1]][position[0]] = value;
+
+        // Global variables
+        var i = $.fn.jexcel('getColumnName', v.col)  + (parseInt(v.row) + 1);
+
+        if (value == Number(value)) {
+            window[i] = Number(value);
+        } else {
+            window[i] = value;
+        }
+
+        if ($.fn.jexcel.ignoreEvents != true) {
+            // Update related cells
+            $(this).jexcel('formula', v.col + '-' + v.row);
+
+            // Update own cell
+            if (value.substr(0,1) == '=') {
+                $(this).jexcel('executeFormula', v.col + '-' + v.row);
+            }
+        }
     },
 
     /**
@@ -2247,10 +2259,9 @@ var methods = {
     },
 
     /**
-     * Update the cells move data TODO: copy multi columns - TODO!
+     * Update the cells move data
      *
-     * @param object o cell origin
-     * @param object d cell destination
+     * @param object o cell current
      * @return void
      */
     updateCornerSelection : function(current) {
@@ -2702,16 +2713,43 @@ var methods = {
                 }
             }
 
-            // Minimal default properties
-            var defaults = {
-                header: '',
-                column: { type:'text' },
-                width: '50',
-                align: 'center',
-                className: '',
-            };
+            // Create default properties
+            if (! properties) {
+                properties = [];
+            }
+            if (! properties.columns) {
+                properties.columns = [];
+            }
+            if (! properties.colWidths) {
+                properties.colWidths = [];
+            }
+            if (! properties.colHeaders) {
+                properties.colHeaders = [];
+            }
+            if (! properties.colAlignments) {
+                properties.colAlignments = [];
+            }
+            if (! properties.colHeaderClasses) {
+                properties.colHeaderClasses = [];
+            }
 
-            var properties = $.extend(defaults, properties);
+            for (var i = 0; i < numOfColumns; i++) {
+                if (! properties.columns[i]) {
+                    properties.columns[i] = { type:'text' };
+                }
+                if (! properties.colWidths[i]) {
+                    properties.colWidths[i] = '50';
+                }
+                if (! properties.colHeaders[i]) {
+                    properties.colHeaders[i] = '';
+                }
+                if (! properties.colAlignments[i]) {
+                    properties.colAlignments[i] = 'center';
+                }
+                if (! properties.colHeaderClasses[i]) {
+                    properties.colHeaderClasses[i] = '';
+                }
+            }
 
             // Keep current configuration
             var currentColumns = options.columns.splice(columnNumber);
@@ -2721,13 +2759,15 @@ var methods = {
             var currentColHeaderClasses = options.colHeaderClasses.splice(columnNumber);
 
             // Adding headers and configuration
+            i = 0;
+
             for (var col = columnNumber; col < (numOfColumns + columnNumber); col++) {
                 // Adding the column properties to the main property holder
-                options.columns[col] = properties.column;
-                options.colWidths[col] = properties.width;
-                options.colHeaders[col] = properties.header;
-                options.colAlignments[col] = properties.align;
-                options.colHeaderClasses[col] = properties.className;
+                options.columns[col] = properties.columns[i];
+                options.colWidths[col] = properties.colWidths[i];
+                options.colHeaders[col] = properties.colHeaders[i];
+                options.colAlignments[col] = properties.colAlignments[i];
+                options.colHeaderClasses[col] = properties.colHeaderClasses[i];
 
                 if (! options.columns[col].source) {
                     $.fn.jexcel.defaults[id].columns[col].source = [];
@@ -2754,6 +2794,8 @@ var methods = {
                 } else {
                     $(this).find('thead').find('#col-' + (col-1)).after(td);
                 }
+
+                i++;
             }
 
             Array.prototype.push.apply(options.columns, currentColumns);
@@ -2767,10 +2809,9 @@ var methods = {
                 // Keep the current data
                 var currentData = $.fn.jexcel.defaults[id].data[row].splice(columnNumber);
 
-                // Adding columns
                 for (var col = columnNumber; col < (numOfColumns + columnNumber); col++) {
                     // New Data
-                    $.fn.jexcel.defaults[id].data[row][col] = data[col] ? data[col] : '';
+                    $.fn.jexcel.defaults[id].data[row][col] = data[row] ? data[row] : '';
 
                     // New column of data to be append in the line
                     td = $(this).jexcel('createCell', col, row);
@@ -2797,7 +2838,7 @@ var methods = {
             }
 
             // Remove table references
-            $(this).jexcel('updateTableReferences');
+            $(this).jexcel('updateTableReferences', columnNumber, 0);
 
             // Update cells
             $(this).jexcel('loadCells', records);
@@ -2937,7 +2978,7 @@ var methods = {
      * @param integer columnNumber - column show be excluded
      * @return void
      */
-    deleteColumn : function(columnNumber, numberOfColumns) {
+    deleteColumn : function(columnNumber, numOfColumns) {
         // Id
         var id = $(this).prop('id');
 
@@ -2957,39 +2998,48 @@ var methods = {
                 numOfColumns = parseInt(number.length);
             }
 
-            if (! parseInt(numberOfColumns)) {
-                numberOfColumns = 1;
+            if (numOfColumns != parseInt(numOfColumns)) {
+                numOfColumns = 1;
+            }
+
+            if (columnNumber != parseInt(columnNumber)) {
+                columnNumber = 1;
             }
 
             // Can't remove the last column
             if (options.data[0].length > 1) {
                 if (parseInt(columnNumber) > -1) {
-                    // Default headers
-                    options.columns.splice(parseInt(columnNumber), numberOfColumns);
-                    options.colHeaders.splice(parseInt(columnNumber), numberOfColumns);
-                    options.colWidths.splice(parseInt(columnNumber), numberOfColumns);
-                    options.colAlignments.splice(parseInt(columnNumber), numberOfColumns);
-                    options.colHeaderClasses.splice(parseInt(columnNumber), numberOfColumns);
+                    // Delete the column properties
+                    var columns = options.columns.splice(columnNumber, numOfColumns);
+                    var colHeaders = options.colHeaders.splice(columnNumber, numOfColumns);
+                    var colWidths = options.colWidths.splice(columnNumber, numOfColumns);
+                    var colAlignments = options.colAlignments.splice(columnNumber, numOfColumns);
+                    var colHeaderClasses = options.colHeaderClasses.splice(columnNumber, numOfColumns);
 
                     // Delete data from source
                     for (var row = 0; row < $.fn.jexcel.defaults[id].data.length; row++) {
                         // Keep columns data
-                        for (var col = 0; col < $.fn.jexcel.defaults[id].data[row].length; col++) {
-                            records[row][col] = $.fn.jexcel.defaults[id].data[row][col];
+                        data = options.data[row].splice(columnNumber, numOfColumns);
+
+                        for (var col = 0; col < numOfColumns; col++) {
+                            if (! records[col]) {
+                                records[col] = [];
+                            }
+                            records[col].push(data[col]);
                         }
-                        // Remove column from each line
-                        options.data[row].splice(parseInt(columnNumber), parseInt(numberOfColumns));
                     }
 
                     // Remove visual columns
-                    $(this).find('.c' + parseInt(columnNumber)).remove();
-                    $(this).find('#col-' + parseInt(columnNumber)).remove();
+                    for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                        $(this).find('thead #col-' + col).remove();
+                        $(this).find('tbody .c' + col).remove();
+                    }
 
                     // Current column
                     var currentColumn = $(this).jexcel('col');
 
                     // Is removed?
-                    var isColumnRemoved = (currentColumn > columnNumber && currentColumn < (columnNumber + numberOfColumns)) ? true : false;
+                    var isColumnRemoved = (currentColumn >= columnNumber && currentColumn <= (columnNumber + numOfColumns)) ? true : false;
 
                     // Update table references
                     $(this).jexcel('updateTableReferences');
@@ -2997,11 +3047,11 @@ var methods = {
                     // Select first row any of the selected rows were excluded
                     if (isColumnRemoved) {
                         // Get cell objects 
-                        var o1 = $('#' + $.fn.jexcel.current).find('#0-0');
-                        var o2 = $('#' + $.fn.jexcel.current).find('#0-0');
+                        var o1 = $(this).find('#0-0');
+                        var o2 = $(this).find('#0-0');
 
                         // Update selection
-                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+                        $(this).jexcel('updateSelection', o1, o2);
 
                         // Select cursor
                         $.fn.jexcel.selectedCell = $(o1);
@@ -3012,8 +3062,15 @@ var methods = {
                 $(this).jexcel('setHistory', null, {
                     type:'deleteColumn',
                     columnNumber:columnNumber,
-                    numberOfColumns:numberOfColumns,
-                    columnData:records
+                    numOfColumns:numOfColumns,
+                    columnData:records,
+                    columnProperties: {
+                        columns:columns,
+                        colHeaders:colHeaders,
+                        colWidths:colWidths,
+                        colAlignments:colAlignments,
+                        colHeaderClasses:colHeaderClasses,
+                    }
                 });
 
                 // Delete
@@ -3231,11 +3288,6 @@ var methods = {
         // Id
         var id = $(this).prop('id');
 
-        // Dynamic updates
-        if ($.fn.jexcel.defaults[id].dynamicColumns.length > 0) {
-            $(this).jexcel('formula');
-        }
-
         if (! ignoreSpare) {
             // Spare check
             $(this).jexcel('spareCheck');
@@ -3355,22 +3407,21 @@ var methods = {
 
             Array.prototype.sortBy = function(p, o) {
                 return this.slice(0).sort(function(a, b) {
-                  var valueA = a[p];
-                  var valueB = b[p];
+                    var valueA = a[p];
+                    var valueB = b[p];
 
-                  switch (options.columns[p].type)
-                  {
-                    case 'numeric':
-                      valueA = Number(valueA);
-                      valueB = Number(valueB);
-                      break;
-                  }
+                    switch (options.columns[p].type) {
+                        case 'numeric':
+                          valueA = Number(valueA);
+                          valueB = Number(valueB);
+                          break;
+                    }
 
-                  if (! o) {
-                      return (valueA > valueB) ? 1 : (valueA < valueB) ? -1 : 0;
-                  } else {
-                      return (valueA > valueB) ? -1 : (valueA < valueB) ? 1 : 0;
-                  }
+                    if (! o) {
+                        return (valueA > valueB) ? 1 : (valueA < valueB) ? -1 : 0;
+                    } else {
+                        return (valueA > valueB) ? -1 : (valueA < valueB) ? 1 : 0;
+                    }
                 });
             }
 
@@ -3392,87 +3443,147 @@ var methods = {
     },
 
     /**
+     * Update formula chain
+     */
+    updateFormulas : function(v) {
+        if (typeof excelFormulaUtilities == 'object') {
+            // Main
+            var main = $(this);
+
+            // Id
+            var id = $(this).prop('id');
+
+            // Column
+            var columnId = v.col + '-' + v.row;
+
+            // Create chain
+            var regex = /([A-Z]+[0-9]+)*/g;
+
+            // Formula
+            var formula = excelFormulaUtilities.formula2JavaScript(v.newValue);
+
+            // Elements
+            var elements = formula.match(regex);
+
+            $.each(elements, function(k, element) {
+                if (element) {
+                    // Get coords reference
+                    elementId = $(main).jexcel('getIdFromColumnName', element);
+                    if (! $.fn.jexcel.defaults[id].formula[elementId]) {
+                        $.fn.jexcel.defaults[id].formula[elementId] = [];
+                    }
+
+                    if (elementId == columnId) {
+                        console.error('Self reference error: ' + element);
+                    } else {
+                        $.fn.jexcel.defaults[id].formula[elementId].push(columnId);
+                    }
+                }
+            });
+        }
+    },
+
+    /**
      * Apply formula to all columns in the table
      */
-    formula : function() {
-        // Keep instance of the object
-        var main = $(this);
+    formula : function(column) {
+        if (typeof excelFormulaUtilities == 'object') {
+            // Id
+            var id = $(this).prop('id');
 
+            // Main
+            var main = $(this);
+
+            // Any error
+            var error = false;
+
+            // Get all formulas in the chain
+            if ($.fn.jexcel.defaults[id].formula[column]) {
+                // Go through all cells from the chain
+                $.each($.fn.jexcel.defaults[id].formula[column], function(k, v) {
+                    // Cell identification
+                    var cellId = v.split('-');
+
+                    // Get formula
+                    var formula = $.fn.jexcel.defaults[id].data[cellId[1]][cellId[0]];
+
+                    // Check if still a formula
+                    if (formula.substr(0,1) != '=') {
+                        // Remove any existing calculation error
+                        $(main).find('#' + v).removeClass('error');
+                        // Remove this column from the formula chain
+                        $.fn.jexcel.defaults[id].formula[v].splice(k, 1);
+                    } else {
+                        $(main).jexcel('executeFormula', v);
+                    }
+
+                    // Recursive formula
+                    $(main).jexcel('formula', v);
+                });
+            }
+        } else {
+            console.error('excelFormulaUtilities lib not included');
+        }
+    },
+
+    /**
+     * Run the formula for one cell
+     */
+    executeFormula : function (cellId) {
         // Id
         var id = $(this).prop('id');
 
-        // Define global variables
-        var variables = $(this).find('.jexcel tbody td').not('.jexcel_label');
-        $.each(variables, function (k, v) {
-            i = $(main).jexcel('getColumnNameFromId', $(v).prop('id'));
-            v = $(main).jexcel('getValue', $(v));
-            if (v == Number(v)) {
-                window[i] = Number(v);
-            } else {
-                window[i] = v;
-            }
-        });
+        // Object
+        var cell = $(this).find('#' + cellId);
 
+        // Cell identification
+        var cellId = cellId.split('-');
+
+        // Get formula
+        var formula = $.fn.jexcel.defaults[id].data[cellId[1]][cellId[0]];
+
+        // Convert formula to javascript
+        var value = eval(excelFormulaUtilities.formula2JavaScript(formula));
+
+        // Set value
+        if (value === null || value == undefined || (''+value) == 'NaN') {
+            // New cell value
+            value = '<input type="hidden" value="' + formula + '">#ERROR';
+            // Add class error to the cell
+            $(cell).addClass('error');
+            // Update cell content
+            $(cell).html(value);
+        } else {
+            // Update variables
+            var letter = $.fn.jexcel('getColumnName', cellId[0])  + (parseInt(cellId[1]) + 1);
+            // Update global variable
+            window[letter] = value;
+            // New cell value
+            value = '<input type="hidden" value="' + formula + '">' + value;
+            // Remove any error class
+            $(cell).removeClass('error');
+            // Update cell content
+            $(cell).html(value);
+        }
+    },
+
+    /**
+     * Update all cells with formulas
+     * 
+     * @return void
+     */
+    updateAllCellsWithFormulas : function() {
         if (typeof excelFormulaUtilities == 'object') {
-            formulaTest = false;
+            // Id
+            var id = $(this).prop('id');
 
-            // Dynamic columns
-            processFormula = function() {
-                formulaTest = false;
-                // Dynamic columns
-                var columns = $.fn.jexcel.defaults[id].dynamicColumns;
+            // Columns
+            var columnIds = Object.keys($.fn.jexcel.defaults[id].formula);
 
-                // Process columns
-                $.each(columns, function (k, column) {
-                    // Get value from the column
-                    formula = $(main).jexcel('getValue', column);
-                    // Column value is a formula
-                    if (formula) {
-                        if (formula.substr(0,1) == '=') {
-                            // Convert formula to javascript
-                            value = excelFormulaUtilities.formula2JavaScript(formula);
-                            value = eval(value);
-                            // Set value
-                            if (value === null || isNaN(value)) {
-                                $(main).find('#' + column).addClass('error');
-                                value = '<input type="hidden" value="' + formula + '">#ERROR';
-                                // Update cell content
-                                $(main).find('#' + column).html(value);
-                                // Error
-                                formulaTest = true;
-                            } else {
-                                // Update variables
-                                i = $(main).jexcel('getColumnNameFromId', column);
-                                window[i] = value;
-                                // Remove any error class
-                                $(main).find('#' + column).removeClass('error');
-                                value = '<input type="hidden" value="' + formula + '">' + value;
-                                // Update cell content
-                                $(main).find('#' + column).html(value);
-                            }
-                        } else {
-                            // Remove any existing calculation error
-                            $(main).find('#' + column).removeClass('error');
-                            // No longer dynamic
-                            columns.splice(k, 1);
-                        }
-                    } else {
-                        // Remove any existing calculation error
-                        $(main).find('#' + column).removeClass('error');
-                        // No longer dynamic
-                        columns.splice(k, 1);
-                    }
-                });
-            }
-            // Recursive processing :: TODO: Create a better solution
-            processFormula();
-            if (formulaTest) {
-                processFormula();
-                if (formulaTest) {
-                    processFormula();
-                    if (formulaTest) {
-                        processFormula();
-                    }
+            // Get all formulas in the chain
+            if (columnIds.length > 0) {
+                for (var i = 0; i < columnIds.length; i++) {
+                    $(this).jexcel('formula', columnIds[i]);
                 }
             }
         } else {
@@ -3616,9 +3727,19 @@ var methods = {
                 } else if (historyRecord.action.type == 'deleteColumn') {
                     var columnNumber = historyRecord.action.columnNumber;
                     var numOfColumns = historyRecord.action.numOfColumns;
-    
-                    for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
-                        $(this).jexcel('insertRow', historyRecord.action.rowData[row], row);
+                    var columnProperties = historyRecord.action.columnProperties;
+
+                    var columnIndex = 0;
+                    for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                        $(this).jexcel('insertColumn',
+                            historyRecord.action.columnData[columnIndex], {
+                                columns: [columnProperties.columns[columnIndex]],
+                                colHeaders: [columnProperties.colHeaders[columnIndex]],
+                                colWidths: [columnProperties.colWidths[columnIndex]],
+                                colAlignments: [columnProperties.colAlignments[columnIndex]],
+                                colHeaderClasses: [columnProperties.colHeaderClasses[columnIndex]],
+                            }, col );
+                        columnIndex++;
                     }
                 }
             } else {
@@ -3648,6 +3769,8 @@ var methods = {
         // TODO - verify afterChange neeeds
         $.fn.jexcel.ignoreEvents = ignoreEvents;
         $.fn.jexcel.ignoreHistory = ignoreHistory;
+
+        $(this).jexcel('updateAllCellsWithFormulas');
     },
 
     /**
@@ -3709,6 +3832,8 @@ var methods = {
 
         $.fn.jexcel.ignoreEvents = ignoreEvents;
         $.fn.jexcel.ignoreHistory = ignoreHistory;
+
+        $(this).jexcel('updateAllCellsWithFormulas');
     },
 
     /**
@@ -3781,8 +3906,8 @@ var methods = {
             }
             // Check for non-black within the expected spare cells
             test = false;
-            for (rowNumber = 0; rowNumber < lastRow; rowNumber++) {
-                for (colNumber = checkPoint; colNumber < lastCol; colNumber++) {
+            for (var rowNumber = 0; rowNumber < lastRow; rowNumber++) {
+                for (var colNumber = checkPoint; colNumber < lastCol; colNumber++) {
                     if ($.fn.jexcel.defaults[id].data[rowNumber][colNumber]) {
                         test = true;
                     }
@@ -3790,9 +3915,7 @@ var methods = {
             }
             // Spare is populated add new spare to keep it align with the configuration
             if (test) {
-                $.fn.jexcel.ignoreEvents = true;
                 $(this).jexcel('insertColumn', $.fn.jexcel.defaults[id].minSpareCols);
-                $.fn.jexcel.ignoreEvents = false;
             }
         }
 
@@ -3806,8 +3929,8 @@ var methods = {
             }
             // Check for non-black within the expected spare cells
             test = false;
-            for (rowNumber = checkPoint; rowNumber < lastRow; rowNumber++) {
-                for (colNumber = 0; colNumber < lastCol; colNumber++) {
+            for (var rowNumber = checkPoint; rowNumber < lastRow; rowNumber++) {
+                for (var colNumber = 0; colNumber < lastCol; colNumber++) {
                     if ($.fn.jexcel.defaults[id].data[rowNumber][colNumber]) {
                         test = true;
                     }
@@ -3815,9 +3938,7 @@ var methods = {
             }
             // Spare is populated add new spare to keep it align with the configuration
             if (test) {
-                $.fn.jexcel.ignoreEvents = true;
                 $(this).jexcel('insertRow', $.fn.jexcel.defaults[id].minSpareCols);
-                $.fn.jexcel.ignoreEvents = false;
             }
         }
     },
@@ -3995,36 +4116,49 @@ var methods = {
      * 
      * @return void
      */
-    updateTableReferences : function()
-    {
+    updateTableReferences : function(referenceCol, referenceRow) {
+        // References
+        if (! referenceCol) {
+            referenceCol = 0;
+        }
+        if (! referenceRow) {
+            referenceRow = 0;
+        }
+
         // Find rows
-        var table = $(this).find('tbody > tr');
+        var rows = $(this).find('tbody > tr');
 
         // Update all rows
-        $.each(table, function(k, v) {
-            // Update row reference
-            $(v).prop('id', 'row-' + k);
+        $.each(rows, function(k, v) {
+            if (k >= referenceRow) {
+                // Update row reference
+                $(v).prop('id', 'row-' + k);
 
-            // Find columns
-            var columns = $(v).find('td');
+                // Find columns
+                var columns = $(v).find('td');
 
-            // Update all internal columns references
-            $.each(columns, function(k1, v1) {
-                // Remove current references
-                var coord = $(v1).prop('id').split('-');
-                $(v1).removeClass('c' + coord[0]);
-                $(v1).removeClass('r' + coord[1]);
+                // Update all internal columns references
+                $.each(columns, function(k1, v1) {
+                    // Create new references
+                    if (k1 == 0) {
+                        $(v1).html(parseInt(k) + 1);
+                    } else {
+                        if (k1 >= referenceCol) {
+                            // Remove current references
+                            var coord = $(v1).prop('id').split('-');
+                            $(v1).removeClass('c' + coord[0]);
+                            $(v1).removeClass('r' + coord[1]);
 
-                // Create new references
-                if (k1 == 0) {
-                    $(v1).html(parseInt(k) + 1);
-                } else {
-                    // Update column reference
-                    $(v1).prop('id', (k1 - 1) + '-' + k);
-                    $(v1).addClass('c' + (k1 - 1));
-                    $(v1).addClass('r' + k);
-                }
-            });
+                            // Update column reference
+                            $(v1).prop('id', (k1 - 1) + '-' + k);
+                            $(v1).addClass('c' + (k1 - 1));
+                            $(v1).addClass('r' + k);
+                        }
+                    }
+
+                    // Update formulas
+                });
+            }
         });
 
         // Find cols
@@ -4032,7 +4166,7 @@ var methods = {
 
         // Update all headers
         $.each(headers, function(k, v) {
-            if (k > 0) {
+            if (k > 0 && k >= referenceCol) {
                 // Update row reference
                 $(v).prop('id', 'col-' + (k - 1));
 
