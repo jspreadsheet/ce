@@ -668,7 +668,7 @@ var methods = {
                         // Change data order
                         $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(d[1], 0, $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(o[1], 1)[0]);
                         // Reset data in a new order, ignore spare
-                        $('#' + $.fn.jexcel.current).jexcel('setData', null, true);
+                        $('#' + $.fn.jexcel.current).jexcel('updateTableReference', 0, d[1]);
                         // On move
                         if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onmoverow) == 'function') {
                             $.fn.jexcel.defaults[$.fn.jexcel.current].onmoverow($(this), $.fn.jexcel.dragRowFrom, $.fn.jexcel.dragRowOver);
@@ -3042,7 +3042,7 @@ var methods = {
                     var isColumnRemoved = (currentColumn >= columnNumber && currentColumn <= (columnNumber + numOfColumns)) ? true : false;
 
                     // Update table references
-                    $(this).jexcel('updateTableReferences');
+                    $(this).jexcel('updateTableReferences', columnNumber, 0);
 
                     // Select first row any of the selected rows were excluded
                     if (isColumnRemoved) {
@@ -3143,7 +3143,7 @@ var methods = {
                     $.fn.jexcel.defaults[id].data.splice(parseInt(rowNumber), numOfRows);
 
                     // Remove table references
-                    $(this).jexcel('updateTableReferences');
+                    $(this).jexcel('updateTableReferences', 0, rowNumber);
 
                     // Select first row any of the selected rows were excluded
                     if (isRowRemoved) {
@@ -3944,51 +3944,6 @@ var methods = {
     },
 
     /**
-     * Get header letter when no name is specified
-     */
-    getColumnName : function(i) {
-        var letter = '';
-        if (i > 701) {
-            letter += String.fromCharCode(64 + parseInt(i / 676));
-            letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
-        } else if (i > 25) {
-            letter += String.fromCharCode(64 + parseInt(i / 26));
-        }
-        letter += String.fromCharCode(65 + (i % 26));
-
-        return letter;
-    },
-
-    /**
-     * Convert excel like column to jexcel id
-     * 
-     * @param string id
-     * @return string id
-     */
-    getIdFromColumnName : function (id) {
-        var t = /^[a-zA-Z]+/.exec(id);
-        if (t) {
-            var code = 0;
-            for (var i = 0; i < t[0].length; i++) {
-                code += parseInt(t[0].charCodeAt(i) - 65) + (i * 26);
-            }
-            id = code + '-' + (parseInt(/[0-9]+$/.exec(id)) - 1);
-        }
-        return id;
-    },
-
-    /**
-     * Convert jexcel id to excel like column name
-     * 
-     * @param string id
-     * @return string id
-     */
-    getColumnNameFromId : function (cellId) {
-        var name = cellId.split('-');
-        return $.fn.jexcel('getColumnName', name[0])  + (parseInt(name[1]) + 1);
-    },
-
-    /**
      * Get seleted rows numbers
      * 
      * @return array
@@ -4117,6 +4072,9 @@ var methods = {
      * @return void
      */
     updateTableReferences : function(referenceCol, referenceRow) {
+        // Get object identification
+        var id = $(this).prop('id');
+
         // References
         if (! referenceCol) {
             referenceCol = 0;
@@ -4146,43 +4104,233 @@ var methods = {
                         if (k1 >= referenceCol) {
                             // Remove current references
                             var coord = $(v1).prop('id').split('-');
-                            $(v1).removeClass('c' + coord[0]);
-                            $(v1).removeClass('r' + coord[1]);
 
                             // Update column reference
                             $(v1).prop('id', (k1 - 1) + '-' + k);
-                            $(v1).addClass('c' + (k1 - 1));
+
+                            // Update row
+                            $(v1).removeClass('r' + coord[1]);
                             $(v1).addClass('r' + k);
+
+                            // Update col
+                            $(v1).removeClass('c' + coord[0]);
+                            $(v1).addClass('c' + (k1 - 1));
+
+                            // Formula?
+                            var val = $.fn.jexcel.defaults[id].data[k][k1 - 1];
+
+                            if (val.substr(0, 1) == '=') {
+                                // Update formula references
+                                if (coord[0] != k1 - 1) {
+                                    // Update formulas
+                                    val = $.fn.jexcel('shiftFormulaByColumn', val, k1 - 1 - coord[0]);
+
+                                    // Update value on the cell
+                                    $.fn.jexcel.defaults[id].data[k][k1 - 1] = val;
+                                    $(v1).find('input').val(val);
+                                }
+
+                                if (coord[1] != k) {
+                                    // Update formulas
+                                    val = $.fn.jexcel('shiftFormulaByRow', val, k - coord[1]);
+
+                                    // Update value on the cell
+                                    $.fn.jexcel.defaults[id].data[k][k1 - 1] = val;
+                                    $(v1).find('input').val(val);
+                                }
+                            }
+
+                            // Update global values TODO : update formula chain!
+                            var letter = $.fn.jexcel('getColumnNameFromId', [k1 - 1, k]);
+                            window[letter] = val;
                         }
                     }
-
-                    // Update formulas
                 });
             }
         });
 
         // Find cols
-        var headers = $(this).find('thead > tr > td');
+        if (referenceCol > -1) {
+            var headers = $(this).find('thead > tr > td');
 
-        // Update all headers
-        $.each(headers, function(k, v) {
-            if (k > 0 && k >= referenceCol) {
-                // Update row reference
-                $(v).prop('id', 'col-' + (k - 1));
-
-                // Update header
-                if (! $(v).prop('title')) {
-                    // Get letter
-                    var header = $.fn.jexcel('getColumnName', k - 1)
+            // Update all headers
+            $.each(headers, function(k, v) {
+               if (k > 0 && k >= referenceCol) {
+                   // Update row reference
+                   $(v).prop('id', 'col-' + (k - 1));
 
                     // Update header
-                    $(v).html(header)
+                    if (! $(v).prop('title')) {
+                        // Get letter
+                        var header = $.fn.jexcel('getColumnName', k - 1);
+
+                        // Update header
+                        $(v).html(header)
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // Update
         $(this).jexcel('afterChange');
+    },
+
+    /**
+     * Get letter based on a number
+     * @param integer i
+     * @return string letter
+     */
+    getColumnName : function(i) {
+        var letter = '';
+        if (i > 701) {
+            letter += String.fromCharCode(64 + parseInt(i / 676));
+            letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
+        } else if (i > 25) {
+            letter += String.fromCharCode(64 + parseInt(i / 26));
+        }
+        letter += String.fromCharCode(65 + (i % 26));
+
+        return letter;
+    },
+
+    /**
+     * Convert excel like column to jexcel id
+     * 
+     * @param string id
+     * @return string id
+     */
+    getIdFromColumnName : function (id, arr) {
+        // Get the letters
+        var t = /^[a-zA-Z]+/.exec(id);
+
+        if (t) {
+            // Base 26 calculation
+            var code = 0;
+            for (var i = 0; i < t[0].length; i++) {
+                code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+            }
+            code--;
+            // Make sure jexcel starts on zero
+            if (code < 0) {
+                code = 0;
+            }
+
+            // Number
+            var number = parseInt(/[0-9]+$/.exec(id));
+            if (number > 0) {
+                number--;
+            }
+
+            if (arr == true) {
+                id = [ code, number ];
+            } else {
+                id = code + '-' + number;
+            }
+        }
+
+        return id;
+    },
+
+    /**
+     * Convert jexcel id to excel like column name
+     * 
+     * @param string id
+     * @return string id
+     */
+    getColumnNameFromId : function (cellId) {
+        if (! Array.isArray(cellId)) {
+            cellId = cellId.split('-');
+        }
+        return $.fn.jexcel('getColumnName', cellId[0])  + (parseInt(cellId[1]) + 1);
+    },
+
+    /**
+     * Shift letters in an excel formula
+     * 
+     * @param string value
+     * @param integer number of shifts
+     */
+    shiftFormulaByColumn : function(value, index = 1) {
+        // Create chain
+        var regex = /([A-Z]+[0-9]+)*/g;
+
+        // Formula
+        var formula = excelFormulaUtilities.formula2JavaScript(value);
+
+        // Elements
+        var elements = formula.match(regex).filter(function(n) { return n != '' }).sort(function(a, b) {
+            a = $.fn.jexcel('getIdFromColumnName', a, true);
+            b = $.fn.jexcel('getIdFromColumnName', b, true);
+
+            if (index > 0) {
+                return (b[0] - a[0]);
+            } else {
+                return (a[0] - b[0]);
+            }
+        });
+
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i]) {
+                // Get excel-like variable
+                var f = $.fn.jexcel('getIdFromColumnName', elements[i], true);
+                // New letter
+                var letter = f[0] + index;
+                if (letter < 0) {
+                    letter = 0;
+                }
+                // Get jexcel variable
+                var t = $.fn.jexcel('getColumnName', letter);
+                // Shift element from the formula
+                value = value.replace(new RegExp(elements[i], "g"), t + (f[1] + 1));
+            }
+        }
+
+        return value;
+    },
+
+    /**
+     * Shift numbers in an excel formula
+     * 
+     * @param string value
+     * @param integer number of shifts
+     */
+    shiftFormulaByRow : function(value, index = 1) {
+        // Create chain
+        var regex = /([A-Z]+[0-9]+)*/g;
+
+        // Formula
+        var formula = excelFormulaUtilities.formula2JavaScript(value);
+
+        // Elements
+        var elements = formula.match(regex).filter(function(n) { return n != '' }).sort(function(a, b) {
+            a = $.fn.jexcel('getIdFromColumnName', a, true);
+            b = $.fn.jexcel('getIdFromColumnName', b, true);
+
+            if (index > 0) {
+                return (b[1] - a[1]);
+            } else {
+                return (a[1] - b[1]);
+            }
+        });
+
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i]) {
+                // Get excel-like variable
+                var f = $.fn.jexcel('getIdFromColumnName', elements[i], true);
+                // Get jexcel variable
+                var t = '' + $.fn.jexcel('getColumnName', f[0]);
+                // New number
+                var number = f[1] + 1 + index;
+                // New number can't be lower than 1
+                if (number < 1) {
+                    number = 1;
+                }
+                // Shift element from the formula
+                value = value.replace(new RegExp(elements[i], "g"), t + number);
+            }
+        }
+
+        return value;
     },
 
     /**
