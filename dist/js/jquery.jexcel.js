@@ -662,7 +662,7 @@ var methods = {
                     }
                 }
 
-                // Execute the final move
+                // Execute the final move TODO - finish this...
                 if ($.fn.jexcel.dragRowFrom) {
                     if ($.fn.jexcel.dragRowFrom != $.fn.jexcel.dragRowOver) {
                         // Get ids
@@ -670,9 +670,12 @@ var methods = {
                         d = $.fn.jexcel.dragRowOver.split('-');
                         // Change data order
                         $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(d[1], 0, $.fn.jexcel.defaults[$.fn.jexcel.current].data.splice(o[1], 1)[0]);
-                        // Reset data in a new order, ignore spare
-                        $('#' + $.fn.jexcel.current).jexcel('updateTableReference', 0, d[1]);
-                        // On move
+                        // Move visual row
+                        var movedRow = $('#' + $.fn.jexcel.current).find('#' + $.fn.jexcel.dragRowFrom).clone();
+                        $('#' + $.fn.jexcel.current).find('#' + $.fn.jexcel.dragRowOver).after(movedRow);
+                        $('#' + $.fn.jexcel.current).find('#' + $.fn.jexcel.dragRowFrom).remove();
+                        $('#' + $.fn.jexcel.current).jexcel('updateTableReferences', 0, 0);
+                        // TODO: On move - documentation - move column
                         if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onmoverow) == 'function') {
                             $.fn.jexcel.defaults[$.fn.jexcel.current].onmoverow($(this), $.fn.jexcel.dragRowFrom, $.fn.jexcel.dragRowOver);
                         }
@@ -1311,7 +1314,7 @@ var methods = {
         }
 
         // Update all records
-        $(this).jexcel('loadCells', records);
+        $(this).jexcel('loadCells', records, true);
 
         // Update all cells with formulas
         $(this).jexcel('updateAllCellsWithFormulas');
@@ -1912,7 +1915,7 @@ var methods = {
      * @param bool ignoreHistory - keep cell change out of the undo/redo history
      * @return void
      */
-    loadCells : function(cells)
+    loadCells : function(cells, force)
     {
         // Update values
         var ignoreEvents = $.fn.jexcel.ignoreEvents ? true : false;
@@ -1923,7 +1926,7 @@ var methods = {
         $.fn.jexcel.ignoreHistory = true;
 
         // Update all records
-        $(this).jexcel('updateCells', cells);
+        $(this).jexcel('updateCells', cells, force);
 
         // Restore events and history flag
         $.fn.jexcel.ignoreEvents = ignoreEvents;
@@ -2089,9 +2092,11 @@ var methods = {
             if (value.substr(0,1) == '=') {
                 $(this).jexcel('executeFormula', v.col + '-' + v.row);
             }
-            
+
             // Update related cells
-            $(this).jexcel('formula', v.col + '-' + v.row);
+            if (Object.keys($.fn.jexcel.defaults[id].formula).length) {
+                $(this).jexcel('formula', v.col + '-' + v.row);
+            }
         }
     },
 
@@ -3509,8 +3514,7 @@ var methods = {
                         // Remove any existing calculation error
                         $(main).find('#' + v).removeClass('error');
                         // Remove this column from the formula chain
-                        $.fn.jexcel.defaults[id].formula[v].splice(k, 1);
-                        console.log($.fn.jexcel.defaults[id].formula[v]);
+                        $.fn.jexcel.defaults[id].formula[column].splice(k, 1);
                     } else {
                         $(main).jexcel('executeFormula', v);
                     }
@@ -3525,7 +3529,7 @@ var methods = {
     },
 
     /**
-     * Run the formula for one cell
+     * Run the formula for one given cell
      */
     executeFormula : function (cellId) {
         // Id
@@ -3584,8 +3588,6 @@ var methods = {
                     $(this).jexcel('formula', columnIds[i]);
                 }
             }
-        } else {
-            console.error('excelFormulaUtilities lib not included');
         }
     },
 
