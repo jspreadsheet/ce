@@ -8,15 +8,12 @@
  
 .jexcel
 {
-    border-collapse:separate;
+    border-collapse:collapse;
     table-layout:fixed;
     white-space: nowrap;
     width:0px;
     empty-cells:show;
-    border-top:1px transparent;
-    border-left:1px transparent;
-    border-right:1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
+    border:1px solid #cccccc;
     background-clip:padding-box;
     background-color:#fff;
 }
@@ -46,10 +43,7 @@
 }
 .jexcel > thead > tr > td, .jexcel > tbody > tr > td
 {
-    border-top:1px solid #cccccc;
-    border-left:1px solid #cccccc;
-    border-right:1px solid transparent;
-    border-bottom:1px solid transparent;
+    border:1px solid #cccccc;
     overflow:hidden;
     white-space: nowrap;
 }
