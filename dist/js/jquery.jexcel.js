@@ -4352,7 +4352,12 @@ var methods = {
      * @param string value
      * @param integer number of shifts
      */
-    shiftFormulaByColumn : function(value, index = 1) {
+    shiftFormulaByColumn : function(value, index) {
+        // Default
+        if (! index) {
+            index = 1;
+        }
+
         // Create chain
         var regex = /([A-Z]+[0-9]+)*/g;
 
@@ -4396,7 +4401,12 @@ var methods = {
      * @param string value
      * @param integer number of shifts
      */
-    shiftFormulaByRow : function(value, index = 1) {
+    shiftFormulaByRow : function(value, index) {
+        // Default
+        if (! index) {
+            index = 1;
+        }
+
         // Create chain
         var regex = /([A-Z]+[0-9]+)*/g;
 
