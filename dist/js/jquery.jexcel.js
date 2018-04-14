@@ -1330,24 +1330,34 @@ var methods = {
      * @return void
      */
     updateSettings : function(options) {
+        var main = $(this);
+
         // Id
         var id = $(this).prop('id');
 
         // Keep options
-        if (! options) {
+        if (options) {
+            $.fn.jexcel.defaults[id].updateSettingsOptions = options;
+        } else {
             if ($.fn.jexcel.defaults[id].updateSettingsOptions) {
                 options = $.fn.jexcel.defaults[id].updateSettingsOptions;
             }
         }
 
         // Go through all cells
-        if (typeof(options) == 'object') {
-            $.fn.jexcel.defaults[id].updateSettingsOptions = options;
+        if (options) {
+            // Get all cells form 
             var cells = $(this).find('.jexcel tbody td').not('.jexcel_label');
+            // Existing methods
             if (typeof(options.cells) == 'function') {
                 $.each(cells, function (k, v) {
-                    id = $(v).prop('id').split('-');
-                    options.cells($(v), id[0], id[1]);
+                    var coords = $(v).prop('id').split('-');
+                    options.cells($(v), coords[0], coords[1]);
+                });
+            } else if (typeof(options.table) == 'function') {
+                $.each(cells, function (k, v) {
+                    var coords = $(v).prop('id').split('-');
+                    options.table($(main), $(v), coords[0], coords[1], $.fn.jexcel.defaults[id].data[coords[1]][coords[0]], $.fn.jexcel('getColumnNameFromId', [coords[0], coords[1]]));
                 });
             }
         }
@@ -3217,7 +3227,7 @@ var methods = {
             }
 
             // Can't delete more than the limit of the table
-            if (numOfRows > options.data.length - numOfRows) {
+            if (numOfRows > options.data.length - rowNumber) {
                 numOfRows = options.data.length - numOfRows;
             }
 
