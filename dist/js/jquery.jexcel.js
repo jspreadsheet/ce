@@ -9,6 +9,10 @@
  * Online collaboration
  * Merged cells
  * Big data (partial table loading)
+ * Toolbar with undo, redo, colors, etc
+ * Themes
+ * Statusbar with pre calculation options
+ * disable close editor with navigation arrows
  * 
  */
 
