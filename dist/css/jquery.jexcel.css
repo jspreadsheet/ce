@@ -41,7 +41,7 @@
 .jexcel > tbody > tr > td:first-child
 {
     background-color:#f3f3f3;
-    width:20px;
+    width:30px;
     text-align:center;
 }
 .jexcel > thead > tr > td, .jexcel > tbody > tr > td
@@ -342,14 +342,25 @@
     position:absolute;
     cursor:pointer;
 }
-.jexcel_thead_clone
-{
-    position:fixed;
-    top:0px;
-    z-index:1;
-}
 
 .jexcel_thead_clone td
 {
     border-bottom:1px solid #cccccc !important;
+}
+
+.jexcel > tbody::-webkit-scrollbar
+{
+    width:6px;
+}
+.jexcel > tbody::-webkit-scrollbar-track
+{
+    background: #f1f1f1;
+}
+.jexcel > tbody::-webkit-scrollbar-thumb
+{
+    background: #888; 
+}
+.jexcel > tbody::-webkit-scrollbar-thumb:hover
+{
+    background: #555; 
 }

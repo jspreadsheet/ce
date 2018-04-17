@@ -93,8 +93,13 @@
 
 
 <script>
+function custom(cell)
+{
+    alert(cell);
+}
+
 var data = [
-    ['Furnace',1,10000,'=B1*C1'],
+    ['=IF(C1 < 10000, true, false)',1,10000,'=B1*C1'],
     ['Tower',2,6000,'=B2*C2'],
     ['Drum',3,5000,'=B3*C3'],
     ['Pump',4,4000,'=B4*C4'],

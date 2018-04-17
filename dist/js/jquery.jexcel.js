@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.5.0 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.5.1 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -11,8 +11,8 @@
  * Big data (partial table loading)
  * Toolbar with undo, redo, colors, etc
  * Themes
- * Statusbar with pre calculation options
- * disable close editor with navigation arrows
+ * Status bar with pre calculation options
+ * Disable close editor with navigation arrows
  * 
  */
 
@@ -77,6 +77,10 @@ var methods = {
             csvFileName:'jexcel',
             // Disable corner selection
             selectionCopy:true,
+            // Allow Overflow
+            tableOverflow:false,
+            // Allow Overflow
+            tableHeight:'300px',
             // About message
             about:'jExcel Spreadsheet\\nVersion 1.5.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
@@ -649,8 +653,17 @@ var methods = {
                             $.fn.jexcel.defaults[$.fn.jexcel.current].onresize($(this), $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width);
                         }
                         // Remove resizing border indication
-                        $('#' + $.fn.jexcel.current).find('thead td').removeClass('resizing');
-                        $('#' + $.fn.jexcel.current).find('tbody td').removeClass('resizing');
+                        var changedHeader = $('#' + $.fn.jexcel.current).find('#col-' + $.fn.jexcel.resizeColumn.column);
+                        var changedColumns = $('#' + $.fn.jexcel.current).find('.c' + $.fn.jexcel.resizeColumn.column);
+
+                        // Update cells
+                        $(changedHeader).removeClass('resizing');
+                        $(changedColumns).removeClass('resizing');
+                        $(changedColumns).prop('width', $(changedHeader).prop('width'));
+
+                        // Update tbody width
+                        $('#' + $.fn.jexcel.current).find('tbody').css('width', parseInt($('#' + $.fn.jexcel.current).find('thead').css('width')) + 10 + 'px');
+
                         // Reset resizing helper
                         $.fn.jexcel.resizeColumn = null;
                     }
@@ -867,46 +880,6 @@ var methods = {
 
             $(document).on('mouseover', $.fn.jexcel.mouseOverControls);
 
-            // Fixed headers
-            /*$(document).bind("scroll", function() {
-                if ($.fn.jexcel.current) {
-                    // Positions
-                    var offset = $(this).scrollTop();
-                    var tableOffset = $('#' + $.fn.jexcel.current).position().top;
-                    var tableHeight = $('#' + $.fn.jexcel.current).height();
-
-                    // New cloned thead
-                    var theadClose = $('#' + $.fn.jexcel.current + ' thead.jexcel_thead_clone');
-
-                    if (offset < tableOffset + tableHeight) {
-                        // Cloned headers
-                        if ($(theadClose).length == 0) {
-                            var tclone = $('#' + $.fn.jexcel.current + ' thead').clone();
-                            $(tclone).addClass('jexcel_thead_clone');
-                            $(tclone).css('display', 'none');
-                            $(tclone).css('left', $('#' + $.fn.jexcel.current).css('left'));
-                            $('#' + $.fn.jexcel.current + ' thead').after(tclone);
-                        }
-
-                        if (offset >= tableOffset && $(theadClose).css('display') == 'none') {
-                            if ($(theadClose).css('display') == 'none') {
-                                $(theadClose).css('display', '');
-                            }
-                            if ($(theadClose).css('width') < $('#' + $.fn.jexcel.current + ' thead').css('width')) {
-                                $(theadClose).css('width', $('#' + $.fn.jexcel.current + ' thead').width());
-                            }
-                        } else if (offset < tableOffset) {
-                            $(theadClose).remove();
-                        }
-                    } else {
-                        // Remove in case exists
-                        if ($(theadClose).length) {
-                            $(theadClose).remove();
-                        }
-                    }
-                }
-            });*/
-
             // Paste Controls - IE Compatibility
             $.fn.jexcel.pasteControls = function (e) {
                 if ($.fn.jexcel.selectedCell) {
@@ -922,9 +895,6 @@ var methods = {
             }
 
             $(document).on('paste', $.fn.jexcel.pasteControls);
-
-            // Keyboard controls
-            var keyBoardCell = null;
 
             // Key down controls
             $.fn.jexcel.keyDownControls = function(e) {
@@ -948,7 +918,7 @@ var methods = {
                                 if (e.ctrlKey) {
                                     cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.jexcel_label').first();
                                 } else {
-                                    if ($($.fn.jexcel.current).jexcel('col') > 0) {
+                                    if ($.fn.jexcel('col') > 0) {
                                         cell = $($.fn.jexcel.selectedCell).prev();
                                     }
                                 }
@@ -1008,7 +978,11 @@ var methods = {
                                 $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
                             }
 
-                            cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.jexcel_label').first();
+                            if (e.shiftKey && e.ctrlKey) {
+                                cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').first().find('td').not('.jexcel_label').first();
+                            } else {
+                                cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.jexcel_label').first();
+                            }
                             e.preventDefault();
                         } else if (e.which == 35) {
                             // End
@@ -1016,7 +990,11 @@ var methods = {
                                 $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
                             }
 
-                            cell = $($.fn.jexcel.selectedCell).parent().find('td').last();
+                            if (e.shiftKey && e.ctrlKey) {
+                                cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').last().find('td').last();
+                            } else {
+                                cell = $($.fn.jexcel.selectedCell).parent().find('td').last();
+                            }
                             e.preventDefault();
                         } else if (e.which == 27) {
                             // Escape
@@ -1068,7 +1046,9 @@ var methods = {
                             // Highlight new column
                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                if (e.shiftKey) {
-                                   cell = $($.fn.jexcel.selectedCell).prev();
+                                   if ($.fn.jexcel('col') > 0) {
+                                       cell = $($.fn.jexcel.selectedCell).prev();
+                                   }
                                } else {
                                    cell = $($.fn.jexcel.selectedCell).next();
                                }
@@ -1086,8 +1066,7 @@ var methods = {
                                     } else if ($.fn.jexcel.selectedHeader) {
                                         if (confirm('Are you sure to delete the selected columns?')) {
                                             var columns = $('#' + $.fn.jexcel.current).find('thead.jexcel_label').find('.selected');
-                                            $('#' + $.fn.jexcel.current).jexcel('deleteColumn', $(columns).prop('id').split('-')[1], columns.length);
-                                            $('#' + $.fn.jexcel.current).jexcel('resetSelection');
+                                            $('#' + $.fn.jexcel.current).jexcel('deleteColumn', parseInt($(columns[0]).prop('id').split('-')[1]), parseInt(columns.length));
                                         }
                                     } else {
                                         // Change value
@@ -1178,40 +1157,32 @@ var methods = {
                         // Arrows control
                         if (cell) {
                             // Control selected cell
-                            if ($(cell).length > 0 && $(cell).prop('id').substr(0,3) != 'row') {
+                            if ($(cell).length > 0) {
                                 // In case of a multiple cell selection
                                 if (e.shiftKey && e.which != 9) {
                                     // Keep first selected cell
-                                    if (! keyBoardCell) {
-                                        keyBoardCell = $.fn.jexcel.selectedCell;
+                                    if (! $.fn.jexcel.referenceCell) {
+                                        $.fn.jexcel.referenceCell = $.fn.jexcel.selectedCell;
                                     }
 
                                     // Origin cell
-                                    o = keyBoardCell;
-                                } else if (e.ctrlKey) {
-                                    // Remove previous cell
-                                    keyBoardCell = null;
-
-                                    o = cell;
+                                    var o = $.fn.jexcel.referenceCell;
                                 } else {
                                     // Remove previous cell
-                                    keyBoardCell = null;
+                                    $.fn.jexcel.referenceCell = null;
 
                                     // Origin cell
-                                    o = cell;
+                                    var o = cell;
                                 }
 
                                 // Target cell
-                                t = cell;
+                                var d = cell;
 
                                 // Current cell
-                                $.fn.jexcel.selectedCell = cell;
-
-                                // Focus
-                                $(cell).focus();
+                                $.fn.jexcel.selectedCell = d;
 
                                 // Update selection
-                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', o, t);
+                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', o, d);
                             }
                         }
                     }
@@ -1220,6 +1191,10 @@ var methods = {
 
             $(document).on('keydown', $.fn.jexcel.keyDownControls);
         }
+
+        $(this).find('tbody').scroll(function() {
+            $(this).jexcel('updateCornerPosition');
+        });
 
         // Load data
         $(this).jexcel('setData', $.fn.jexcel.defaults[id].data);
@@ -1271,11 +1246,25 @@ var methods = {
         // Dynamic columns
         $.fn.jexcel.defaults[id].formula = [];
 
+        // Header container
+        var thead = $(this).find('thead');
+
         // Data container
         var tbody = $(this).find('tbody');
 
         // Reset data
         $(tbody).html('');
+
+        // Scrolls
+        if ($.fn.jexcel.defaults[id].tableOverflow == true) {
+            $(tbody).css('display', 'block');
+            $(tbody).css('overflow', 'auto');
+            $(tbody).css('height', 'auto');
+            $(tbody).css('max-height', $.fn.jexcel.defaults[id].tableHeight);
+        }
+
+        // Tbody width
+        $(tbody).css('width', parseInt($(thead).css('width')) + 10 + 'px');
 
         // Records
         var records = [];
@@ -1879,10 +1868,7 @@ var methods = {
      */
     setValue : function(cell, value, force) {
         // Check request type, object or column name
-        if (typeof(cell) == 'object') {
-            // Get cell identication
-            var cellName = $(cell).prop('id');
-        } else {
+        if (typeof(cell) != 'object') {
             // Get cell identification
             var cellName = $(this).jexcel('getIdFromColumnName', cell);
             // Get cell object based on excel names A1, A2, etc...
@@ -1900,11 +1886,11 @@ var methods = {
             // Records to be updated
             var records = [];
 
-            // Cell position
-            var position = cellName.split('-');
-
             // Go throw all cells
             $.each(cell, function(k, v) {
+                // Cell position
+                var position = $(v).prop('id').split('-');
+
                 // Update cell
                 records.push({
                     col: position[0],
@@ -2131,9 +2117,6 @@ var methods = {
 
         // Id
         var id = $(this).prop('id');
-
-        // Cursor
-        $.fn.jexcel.selectedCell = $(o);
 
         // Cells
         var rows = $(this).find('tbody tr');
@@ -2372,6 +2355,26 @@ var methods = {
             // Place the corner in the correct place
             $('.jexcel_corner').css('top', t);
             $('.jexcel_corner').css('left', l);
+
+            // Hide the corner in case is out of the range
+            var docViewTop = $(this).position().top;
+            var docViewBottom = docViewTop + $(this).height();
+
+            var elemTop = t;
+            var elemBottom = t;
+
+            if (!((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
+                /*var scrollElement = $(this).find('tbody');
+                // Hide
+                if (elemBottom <= docViewBottom) {
+                    $(scrollElement).scrollTop($(scrollElement).scrollTop() + ($(cells).last().position().top - docViewTop) - $(cells).last().height() - 10);
+                } else {
+                    $(scrollElement).scrollTop(parseInt($(scrollElement).scrollTop()) + $(cells).last().height() + 10);
+                }
+                */
+                $('.jexcel_corner').css('top', -200);
+                $('.jexcel_corner').css('left', -200);
+            }
         }
     },
 
@@ -4235,6 +4238,9 @@ var methods = {
                 }
             }
         }
+
+        // Update tbody width
+        $(this).find('tbody').css('width', parseInt($(this).find('thead').css('width')) + 8 + 'px');
 
         // Update
         $(this).jexcel('updateAllCellsWithFormulas');

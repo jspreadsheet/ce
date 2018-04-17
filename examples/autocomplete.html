@@ -31,7 +31,10 @@
 <script src="../dist/js/jquery.jexcel.js"></script>
 <script src="../dist/js/jquery.jcalendar.js"></script>
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
+<link rel="stylesheet" href="../dist/css/jquery.jexcel.green.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
+
+<script src="../dist/js/excel-formula.min.js"></script>
 
 </head>
 <body>
@@ -92,10 +95,10 @@
 
 <script>
 data = [
-    ['BR', 'Cheese', 1],
-    ['CA', 'Apples', 0],
-    ['US', 'Carrots', 1],
-    ['GB', 'Oranges', 0],
+    ['BR', 'Cheese', 1, 'BR'],
+    ['CA', 'Apples', 0, ''],
+    ['US', 'Carrots', 1, ''],
+    ['GB', 'Oranges', 0, ''],
 ];
 
 countries = [
@@ -358,17 +361,18 @@ onload1 = function (instance) {
 $('#my').jexcel({
     data:data,
     colHeaders: ['Country', 'Food', 'Stock'],
+    colHeaderClasses: [ 'a1', 'b2', 'c3' ],
+    colAlignments:[ 'left', 'left', 'left', 'left' ],
     colWidths: [ 300, 100, 200 ],
     onload:onload1,
     columns: [
         { type: 'autocomplete', source:countries },
         { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
         { type: 'checkbox' },
+        { type: 'text', readOnly:true },
     ]
 });
 </script>
-
-
             </div>
         </div>
     </div>
