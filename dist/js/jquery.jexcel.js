@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.5.0 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.5.1 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
