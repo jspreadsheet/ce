@@ -13,7 +13,7 @@
  * Themes
  * Status bar with pre calculation options
  * Disable close editor with navigation arrows
- * 
+ * Add onresize on the history
  */
 
 (function( $ ){
@@ -648,21 +648,25 @@ var methods = {
 
                     // Update cell size
                     if ($.fn.jexcel.resizeColumn) {
-                        // On resize
-                        if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onresize) == 'function') {
-                            $.fn.jexcel.defaults[$.fn.jexcel.current].onresize($(this), $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width);
-                        }
-                        // Remove resizing border indication
+                        // Columns to be updated
                         var changedHeader = $('#' + $.fn.jexcel.current).find('#col-' + $.fn.jexcel.resizeColumn.column);
                         var changedColumns = $('#' + $.fn.jexcel.current).find('.c' + $.fn.jexcel.resizeColumn.column);
+
+                        // New width
+                        var newWidth = parseInt($(changedHeader).prop('width'));
+
+                        // On resize
+                        if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onresize) == 'function') {
+                            $.fn.jexcel.defaults[$.fn.jexcel.current].onresize($(this), $.fn.jexcel.resizeColumn.column, newWidth, $.fn.jexcel.resizeColumn.width);
+                        }
 
                         // Update cells
                         $(changedHeader).removeClass('resizing');
                         $(changedColumns).removeClass('resizing');
-                        $(changedColumns).prop('width', $(changedHeader).prop('width'));
+                        $(changedColumns).prop('width', newWidth + 'px'); 
 
-                        // Update tbody width
-                        $('#' + $.fn.jexcel.current).find('tbody').css('width', parseInt($('#' + $.fn.jexcel.current).find('thead').css('width')) + 10 + 'px');
+                        // Update container
+                        $.fn.jexcel.defaults[$.fn.jexcel.current].colWidths[$.fn.jexcel.resizeColumn.column] = newWidth;
 
                         // Reset resizing helper
                         $.fn.jexcel.resizeColumn = null;
@@ -1258,13 +1262,10 @@ var methods = {
         // Scrolls
         if ($.fn.jexcel.defaults[id].tableOverflow == true) {
             $(tbody).css('display', 'block');
-            $(tbody).css('overflow', 'auto');
+            $(tbody).css('overflow-y', 'scroll');
             $(tbody).css('height', 'auto');
             $(tbody).css('max-height', $.fn.jexcel.defaults[id].tableHeight);
         }
-
-        // Tbody width
-        $(tbody).css('width', parseInt($(thead).css('width')) + 10 + 'px');
 
         // Records
         var records = [];
@@ -1426,6 +1427,9 @@ var methods = {
 
                     // Editor configuration
                     var editor = $(cell).find('select');
+                    $(editor).css('width', $(cell).width());
+                    $(editor).css('height', $(cell).height());
+
                     $(editor).change(function () {
                         $(main).jexcel('closeEditor', $(this).parent(), true);
                     });
@@ -1568,6 +1572,7 @@ var methods = {
                     var editor = document.createElement('input');
                     $(editor).prop('class', 'editor');
                     $(editor).css('width', $(cell).width());
+                    $(editor).css('height', $(cell).height());
 
                     // Create dropdown
                     if (typeof(options.columns[position[0]].filter) == 'function') {
@@ -2164,9 +2169,13 @@ var methods = {
             for (i = px; i <= ux; i++) {
                 for (j = py; j <= uy; j++) {
                     $(this).find('#' + i + '-' + j).addClass('highlight');
-                    $(this).find('#' + px + '-' + j).addClass('highlight-left');
+                    $(this).find('#' + px + '-' + j).prev().addClass('highlight-right');
                     $(this).find('#' + ux + '-' + j).addClass('highlight-right');
-                    $(this).find('#' + i + '-' + py).addClass('highlight-top');
+                    if (py == 0) {
+                        $(this).find('#' + i + '-' + py).addClass('highlight-top');
+                    } else {
+                        $(this).find('#' + i + '-' + (py - 1)).addClass('highlight-bottom');
+                    }
                     $(this).find('#' + i + '-' + uy).addClass('highlight-bottom');
 
                     // Row and column headers
@@ -4238,9 +4247,6 @@ var methods = {
                 }
             }
         }
-
-        // Update tbody width
-        $(this).find('tbody').css('width', parseInt($(this).find('thead').css('width')) + 8 + 'px');
 
         // Update
         $(this).jexcel('updateAllCellsWithFormulas');

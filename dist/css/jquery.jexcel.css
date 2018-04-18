@@ -11,27 +11,33 @@
     border-collapse:separate;
     table-layout:fixed;
     white-space: nowrap;
-    width:0px;
     empty-cells:show;
     border-top:1px transparent;
-    border-left:1px transparent;
-    border-right:1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
+    border-left:1px solid #cccccc;
+    border-right:1px solid transparent;
+    border-bottom:1px solid transparent;
     background-clip:padding-box;
     background-color:#fff;
+    box-sizing:border-box;
 }
-.jexcel > thead
+@media all and (-ms-high-contrast:none)
 {
-    background-color:#f3f3f3;
+    .jexcel
+    {
+        width:0px;
+    }
 }
-.jexcel > thead > tr > td
+@media screen\9
 {
-    padding:4px;
-    cursor:pointer;
+    .jexcel
+    {
+        width:0px;
+    }
 }
-.jexcel > tbody > tr > td
+
+.jexcel > thead > tr, .jexcel > tbody > tr
 {
-    padding:4px;
+    display:flex;
 }
 .jexcel > tbody > td.edition
 {
@@ -44,16 +50,26 @@
     width:30px;
     text-align:center;
 }
-.jexcel > thead > tr > td, .jexcel > tbody > tr > td
+.jexcel > thead > tr > td 
 {
+    border-left:1px solid transparent;
+    border-right:1px solid #cccccc;
     border-top:1px solid #cccccc;
-    border-left:1px solid #cccccc;
-    border-right:1px solid transparent;
-    border-bottom:1px solid transparent;
+    border-bottom:1px solid #cccccc;
+    background-color:#f3f3f3;
+    padding:4px;
+    cursor:pointer;
+}
+.jexcel > tbody > tr > td
+{
+    border-left:1px solid transparent;
+    border-right:1px solid #cccccc;
+    border-top:1px solid transparent;
+    border-bottom:1px solid #cccccc;
+    padding:4px;
     overflow:hidden;
     white-space: nowrap;
 }
-
 .jexcel > tbody > tr > td.readonly
 {
     color:rgba(0,0,0,0.3)
@@ -124,6 +140,7 @@
     overflow:hidden;
     white-space: nowrap;
     text-align:left;
+    padding:0px;
 }
 
 .jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input, .jexcel > tbody > tr > td > textarea
@@ -142,9 +159,10 @@
     resize: none;
 }
 
-.jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input[type=checkbox]
+.jexcel > tbody > tr > td > input[type=checkbox]
 {
     width:20px;
+    margin-top:2px;
 }
 
 .jexcel > tbody > tr > td > select
@@ -156,7 +174,6 @@
     background-position-x: 100%;
     background-position-y: 40%;
     background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
-    width:100%;
 }
 
 .jexcel > tbody > tr > td:besfore
@@ -204,8 +221,8 @@
     z-index:99;
     text-align:left;
     border:1px solid #ccc;
-    margin-top:7px;
-    margin-left:-4px;
+    margin-top:8px;
+    margin-left:-5px;
 }
 .jexcel .results li
 {
@@ -342,23 +359,22 @@
     position:absolute;
     cursor:pointer;
 }
-
-.jexcel_thead_clone td
+.jexcel > tbody
 {
-    border-bottom:1px solid #cccccc !important;
+    padding-right:3px;
 }
-
 .jexcel > tbody::-webkit-scrollbar
 {
+    margin-left:6px;
     width:6px;
 }
 .jexcel > tbody::-webkit-scrollbar-track
 {
-    background: #f1f1f1;
+    background: #f3f3f3;
 }
 .jexcel > tbody::-webkit-scrollbar-thumb
 {
-    background: #888; 
+    background: #888;
 }
 .jexcel > tbody::-webkit-scrollbar-thumb:hover
 {
