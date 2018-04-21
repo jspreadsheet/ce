@@ -71,6 +71,8 @@ var methods = {
             allowDeleteColumn:true,
             // Global wrap
             wordWrap:false,
+            // Global type wrap
+            wordWrapType:null,
             // ID of the table
             tableId:null,
             // Filename
@@ -1649,7 +1651,7 @@ var methods = {
                     // Keep the current value
                     $(cell).addClass('edition');
 
-                    if (options.wordWrap == true || options.columns[position[0]].wordWrap == true) {
+                    if (options.wordWrap == true || options.columns[position[0]].wordWrap == true || options.wordWrapType == true || options.columns[position[0]].wordWrapType == true) {
                         var input = $(cell).find('textarea');
                     } else {
                         var input = $(cell).find('input');
@@ -1663,7 +1665,7 @@ var methods = {
                     }
 
                     // Basic editor
-                    if (options.wordWrap == true || options.columns[position[0]].wordWrap == true) {
+                    if (options.wordWrap == true || options.columns[position[0]].wordWrap == true || options.wordWrapType == true || options.columns[position[0]].wordWrapType == true) {
                         var editor = document.createElement('textarea');
                     } else {
                         var editor = document.createElement('input');
@@ -3999,7 +4001,15 @@ var methods = {
         }
 
         // Wrap option
-        if (options.wordWrap == true || options.columns[i].wordWrap == true) {
+        if (options.wordWrapType || options.columns[i].wordWrapType) {
+            var wrapType = ['normal', 'nowrap', 'pre', 'pre-line', 'pre-wrap', 'initial', 'inherit'];
+            var wrapParam = options.wordWrapType || options.columns[i].wordWrapType;
+            if (wrapType.includes(wrapParam)) {
+                $(td).css('white-space', wrapParam);
+            } else {
+                console.error("wordWrapType " + wrapParam + " isn't correct");
+            }
+        } else if (options.wordWrap == true || options.columns[i].wordWrap == true) {
             $(td).css('white-space', 'pre');
         }
 

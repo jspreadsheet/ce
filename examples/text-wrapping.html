@@ -85,18 +85,41 @@
 <div class='title'>Text wrapping</div>
 <p>The jExcel default configuration is not wrap the text. But, you can change this behavior by using the wordWrap option.
 When true, jExcel will keep any new line resizing the height of the related cell.</p>
+<p><strong>wordWrap: true</strong> Equals css: white-space: pre;</p>
+<p><strong>wordWrapType: 'normal'</strong> Support all types of white-space style.</p>
+<p>To see all white-space style https://developer.mozilla.org/en-US/docs/Web/CSS/white-space</p>
 
 <div id="my"></div>
 
+
+    <div id="my"></div>
+
 <script>
+var data = [
+    ['Spyro Trilogy Reignited (PS4)', '29.99', 'Edition: Standard Edition\nSpyro`s back and he`s all scaled up!\nThe original roast master is back! Same sick burns, same smoldering attitude, now all scaled up in stunning HD. Spyro is bringing the heat like never before in the SpyroTM Reignited Trilogy game collection\nAll 3 original Spyro games fully remastered in HD\nIncludes Spyro the Dragon, Spyro 2: Ripto`s Rage! and Spyro: Year of the Dragon\n\n100+ levels, remastered with breathtaking graphical updates and improved gameplay controls'],
+    ['Call of Duty: Black Ops 4 (PS4)', '49.99', 'Forget what you know\nTune in to the call of duty: Black ops four community reveal event: May 17, 2018'],
+];
+
 $('#my').jexcel({
-    csv:'http://cdn.bossanova.uk/demo/demo1.csv',
-    csvHeaders:true,
-    colWidths: [70, 200, 300],
+    data:data,
+    colHeaders: [ 'Game', 'Price', 'Description' ],
+    colWidths: [100, 100, 300],
+    colAlignments: [ 'center', 'center', 'left' ],
     columns: [
-        { type:'text', wordWrap:true }
+        { type:'text', wordWrap:true  },
+        { type:'text' },
+        { type:'text', wordWrapType:'normal' },
     ]
 });
+
+// $('#my').jexcel({
+//     csv:'http://cdn.bossanova.uk/demo/demo1.csv',
+//     csvHeaders:true,
+//     colWidths: [70, 200, 300],
+//     columns: [
+//         { type:'text', wordWrap:true }
+//     ]
+// });
 </script>
 
 
