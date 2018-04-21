@@ -76,7 +76,9 @@ var methods = {
             // Filename
             csvFileName:'jexcel',
             // Disable corner selection
-            selectionCopy:true,
+            selectionCopy:true,            
+            // Table width 100%. WARNING: it doesn't work with tableOverflow: true!
+            tableWidth100:false,
             // Allow Overflow
             tableOverflow:false,
             // Allow Overflow
@@ -1258,6 +1260,11 @@ var methods = {
 
         // Reset data
         $(tbody).html('');
+
+        // Table width 100%
+        if ($.fn.jexcel.defaults[id].tableWidth100 == true && $.fn.jexcel.defaults[id].tableOverflow == false) {
+            $(this).addClass('jexcel_width100');
+        }
 
         // Scrolls
         if ($.fn.jexcel.defaults[id].tableOverflow == true) {

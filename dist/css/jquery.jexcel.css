@@ -380,3 +380,17 @@
 {
     background: #555; 
 }
+/****
+    This class are adding from js for create width 100% for table
+****/
+.jexcel_width100 {
+    display: block;
+    min-width: 100%;
+}
+.jexcel_width100 table {
+    min-width: 100%;
+}
+.jexcel_width100 .jexcel > thead > tr, .jexcel > tbody > tr {
+    display: table-row;
+    width: 100%;
+}
