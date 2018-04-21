@@ -380,3 +380,23 @@
 {
     background: #555; 
 }
+
+/****
+    Themes for a table
+****/
+:root {
+    /* Default style */
+    --header-bg-color: #f3f3f3;
+    --header-text-color: inherit;
+    --even-line-bg-color: transparent;
+}
+
+.jexcel.jexcel-themes > thead > tr > td {
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+}
+
+.jexcel.jexcel-themes > tbody > tr:nth-child(even) {
+    background-color: var(--even-line-bg-color);
+}
+

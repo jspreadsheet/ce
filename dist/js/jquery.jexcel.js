@@ -81,6 +81,12 @@ var methods = {
             tableOverflow:false,
             // Allow Overflow
             tableHeight:'300px',
+            // Add theme table header background color
+            themeHeaderBgColor: null,
+            // Add theme table header text color
+            themeHeaderTextColor: null,
+            // Add theme even lines background color
+            themeEvenLineBgColor: null,            
             // About message
             about:'jExcel Spreadsheet\\nVersion 1.5.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
@@ -289,6 +295,26 @@ var methods = {
         // Add id of the table if defined
         if (options.tableId) {
             $(table).prop('id', options.tableId);
+        }
+
+        if(options.themeHeaderBgColor || options.themeHeaderTextColor || options.themeEvenLineBgColor){
+            $(table).addClass('jexcel-themes');
+
+            var css = "#" + id + " .jexcel.jexcel-themes { ";
+            if(options.themeHeaderBgColor){
+                css += "--header-bg-color: " + options.themeHeaderBgColor + ";";
+            }
+            if(options.themeHeaderTextColor){
+                css += "--header-text-color: " + options.themeHeaderTextColor + ";";
+            }
+            if(options.themeHeaderTextColor){
+                css += "--even-line-bg-color: " + options.themeEvenLineBgColor + ";";
+            }
+            css += "}";
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.appendChild(document.createTextNode(css));
+            $('head').append(style);
         }
 
         // Unselectable properties
