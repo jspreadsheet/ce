@@ -314,7 +314,7 @@ var methods = {
             var className = options.colHeaderClasses[i] || '';
 
             // Display
-            var display = (options.columns[i].type == 'hidden') ? ' display:none' : '';
+            var display = (options.columns[i].type == 'hidden') ? ' style="display:none"' : '';
 
             // Default header cell properties
             var title = options.colHeaders[i];
@@ -2835,7 +2835,7 @@ var methods = {
                     // Adding the header
                     var title = options.colHeaders[col];
                     var header = title ? title : $.fn.jexcel('getColumnName', col);
-                    var display = (options.columns[col].type == 'hidden') ? ' display:none' : '';
+                    var display = (options.columns[col].type == 'hidden') ? ' style="display:none"' : '';
                     td = '<td width="' + options.colWidths[col] + '" align="' + options.colAlignments[col] + '" title="' + title + '" class="' + options.colHeaderClasses[col] + '"' + display + '>' + header + '</td>';
                     $(referenceHeader).after(td);
                 }
@@ -2876,7 +2876,7 @@ var methods = {
                     // Adding the header
                     var title = options.colHeaders[col];
                     var header = title ? title : $.fn.jexcel('getColumnName', col);
-                    var display = (options.columns[col].type == 'hidden') ? ' display:none' : '';
+                    var display = (options.columns[col].type == 'hidden') ? ' style="display:none"' : '';
                     td = '<td width="' + options.colWidths[col] + '" align="' + options.colAlignments[col] + '" title="' + title + '" class="' + options.colHeaderClasses[col] + '"' + display + '>' + header + '</td>';
                     $(referenceHeader).before(td);
                 }
