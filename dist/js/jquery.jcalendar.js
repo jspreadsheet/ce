@@ -25,16 +25,17 @@
         // months: array of string so can be translated
         // weekdays: array of string so can be translated
 
-        var defaults = {    format:'DD/MM/YYYY',
-                            readonly:0,
-                            today:0,
-                            time:0,
-                            clear:1,
-                            mask:1,
-                            months:['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                            weekdays:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-                            weekdays_short:['S', 'M', 'T', 'W', 'T', 'F', 'S']
-                        };
+        var defaults = {
+            format:'DD/MM/YYYY',
+            readonly:0,
+            today:0,
+            time:0,
+            clear:1,
+            mask:1,
+            months:['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            weekdays:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+            weekdays_short:['S', 'M', 'T', 'W', 'T', 'F', 'S']
+        };
 
         // Default container
         if (! $.fn.jcalendar.defaults) {
@@ -313,8 +314,7 @@
 
         // Place the corner in the correct place
         $(table).css('display', 'block');
-        $(table).css('top', t);
-        $(table).css('left', l);
+        $(table).offset({ top: t, left: l });
 
         // Setting values in the table based on the current date in the main object
 
@@ -334,10 +334,15 @@
             $(table).find('.jcalendar_month').val(v1[1]);
             $(table).find('.jcalendar_year').val(v1[0]);
 
-            if (value[1]) v2 = value[1].split(':');
-
-            if (v2[0] != '') $(table).find('.jcalendar_hour').val(v2[0]);
-            if (v2[1] != '') $(table).find('.jcalendar_min').val(v2[1]);
+            if (value[1]) {
+                v2 = value[1].split(':');
+            }
+            if (v2[0] != '') {
+                $(table).find('.jcalendar_hour').val(v2[0]);
+            }
+            if (v2[1] != '') {
+                $(table).find('.jcalendar_min').val(v2[1]);
+            }
 
             // Update datepicker headers
             var months = $.fn.jcalendar.defaults[id].months;
@@ -396,7 +401,7 @@
 
         // Hide the calendar table
         //$('.jcalendar').css('display', 'none');
-        $('.jcalendar').fadeOut('fast');
+        $('.jcalendar').fadeOut('slow');
 
         // On close
         if (typeof(options.onclose) == 'function') {

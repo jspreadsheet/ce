@@ -14,6 +14,7 @@
  * Status bar with pre calculation options
  * Disable close editor with navigation arrows
  * Add onresize on the history
+ * Create option for navigation Home, End, arrows on edition...
  */
 
 (function( $ ){
@@ -82,7 +83,7 @@ var methods = {
             // Allow Overflow
             tableHeight:'300px',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.5.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.5.1\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -303,8 +304,24 @@ var methods = {
         // Header
         $(thead).prop('class', 'jexcel_label');
 
+        // Row
+        var tr = '';
+
+        // Create nested headers
+        if (options.nestedHeaders && options.nestedHeaders.length > 0) {
+            for (var i = 0; i < options.nestedHeaders.length; i++) {
+                tr = '<td width="30" class="jexcel_label"></td>';
+
+                for (var j = 0; j < options.nestedHeaders[i].length; j++) {
+                    tr += '<td colspan="' + options.nestedHeaders[i][j].colspan + '" width="' + options.nestedHeaders[i][j].width + '">' + options.nestedHeaders[i][j].title + '</td>';
+                }
+
+                $(thead).append('<tr>' + tr + '</tr>'); 
+            }
+        }
+
         // Create headers
-        var tr = '<td width="30" class="jexcel_label"></td>';
+        tr = '<td width="30" class="jexcel_label"></td>';
 
         // TODO: When the first or last column is hidden
         for (var i = 0; i < options.colHeaders.length; i++) {
@@ -327,7 +344,7 @@ var methods = {
         }
 
         // Populate header
-        $(thead).html('<tr>' + tr + '</tr>'); 
+        $(thead).append('<tr>' + tr + '</tr>'); 
 
         // TODO: filter row
         // <tr><td></td><td><input type="text"></td></tr>
@@ -978,28 +995,24 @@ var methods = {
                             }
                         } else if (e.which == 36) {
                             // Home
-                            if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                            if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                if (e.shiftKey && e.ctrlKey) {
+                                    cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').first().find('td').not('.jexcel_label').first();
+                                } else {
+                                    cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.jexcel_label').first();
+                                }
+                                e.preventDefault();
                             }
-
-                            if (e.shiftKey && e.ctrlKey) {
-                                cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').first().find('td').not('.jexcel_label').first();
-                            } else {
-                                cell = $($.fn.jexcel.selectedCell).parent().find('td').not('.jexcel_label').first();
-                            }
-                            e.preventDefault();
                         } else if (e.which == 35) {
                             // End
-                            if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                            if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                if (e.shiftKey && e.ctrlKey) {
+                                    cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').last().find('td').last();
+                                } else {
+                                    cell = $($.fn.jexcel.selectedCell).parent().find('td').last();
+                                }
+                                e.preventDefault();
                             }
-
-                            if (e.shiftKey && e.ctrlKey) {
-                                cell = $($.fn.jexcel.selectedCell).parent().parent().find('tr').last().find('td').last();
-                            } else {
-                                cell = $($.fn.jexcel.selectedCell).parent().find('td').last();
-                            }
-                            e.preventDefault();
                         } else if (e.which == 27) {
                             // Escape
                             if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
@@ -1011,7 +1024,7 @@ var methods = {
                             if ($($.fn.jexcel.selectedCell).hasClass('edition')) {
                                 // Exit saving data
                                 if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'calendar') {
-                                    $('#' + $.fn.jexcel.current).find('editor').jcalendar('close', 1)
+                                    $('#' + $.fn.jexcel.current).find('editor').jcalendar('close', 1);
                                 } else {
                                     $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
                                 }
@@ -1451,10 +1464,10 @@ var methods = {
                     var editor = document.createElement('input');
                     $(editor).prop('class', 'editor');
                     $(editor).css('width', $(cell).width());
+                    $(editor).css('height', $(cell).height());
                     $(editor).val($(cell).text());
                     $(cell).html(editor);
-                    $(cell).find('');
-                    $(cell).focus();
+                    $(editor).focus();
 
                     options.columns[position[0]].options.onclose = function () {
                         $(main).jexcel('closeEditor', $(cell), true);
@@ -4216,7 +4229,7 @@ var methods = {
 
         // Find cols
         if (referenceCol > -1) {
-            var headers = $(this).find('thead > tr > td');
+            var headers = $(this).find('thead').find('tr').last().find('td');
 
             // Update all headers
             $.each(headers, function(k, v) {

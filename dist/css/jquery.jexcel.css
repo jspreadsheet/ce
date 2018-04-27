@@ -12,7 +12,6 @@
     table-layout:fixed;
     white-space: nowrap;
     empty-cells:show;
-    border-top:1px transparent;
     border-left:1px solid #cccccc;
     border-right:1px solid transparent;
     border-bottom:1px solid transparent;
@@ -34,10 +33,13 @@
         width:0px;
     }
 }
-
 .jexcel > thead > tr, .jexcel > tbody > tr
 {
     display:flex;
+}
+.jexcel > thead > tr:first-child > td
+{
+    border-top:1px solid #cccccc;
 }
 .jexcel > tbody > td.edition
 {
@@ -54,11 +56,12 @@
 {
     border-left:1px solid transparent;
     border-right:1px solid #cccccc;
-    border-top:1px solid #cccccc;
+    border-top:1px solid transparent;
     border-bottom:1px solid #cccccc;
     background-color:#f3f3f3;
     padding:4px;
     cursor:pointer;
+    box-sizing: border-box;
 }
 .jexcel > tbody > tr > td
 {
@@ -69,6 +72,7 @@
     padding:4px;
     overflow:hidden;
     white-space: nowrap;
+    box-sizing: border-box;
 }
 .jexcel > tbody > tr > td.readonly
 {
