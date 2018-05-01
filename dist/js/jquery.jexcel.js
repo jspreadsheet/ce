@@ -308,17 +308,39 @@ var methods = {
         var tr = '';
 
         // Create nested headers
-        if (options.nestedHeaders && options.nestedHeaders.length > 0) {
-            for (var i = 0; i < options.nestedHeaders.length; i++) {
+        /*if (options.nestedHeaders && options.nestedHeaders.length > 0) {
+            // Flexible way to handle nestedheaders
+            if (! options.nestedHeaders[0].length) {
                 tr = '<td width="30" class="jexcel_label"></td>';
 
-                for (var j = 0; j < options.nestedHeaders[i].length; j++) {
-                    tr += '<td colspan="' + options.nestedHeaders[i][j].colspan + '" width="' + options.nestedHeaders[i][j].width + '">' + options.nestedHeaders[i][j].title + '</td>';
+                for (var i = 0; i < options.nestedHeaders.length; i++) {
+                    var h = options.nestedHeaders[i].colspan > 0 ? options.nestedHeaders[i].colspan : 1;
+                    var c = '';
+                    for (var x = 0; x < h; x++) {
+                        c += 'h' + (x + i) + ' ';
+                    }
+                    tr += '<td class="'+ c +'" colspan="' + options.nestedHeaders[i].colspan + '" width="' + options.nestedHeaders[i].width + '" align="' + options.nestedHeaders[i].align + '">' + options.nestedHeaders[i].title + '</td>';
                 }
 
                 $(thead).append('<tr>' + tr + '</tr>'); 
+            } else {
+                for (var i = 0; i < options.nestedHeaders.length; i++) {
+                    tr = '<td width="30" class="jexcel_label"></td>';
+
+                    for (var j = 0; j < options.nestedHeaders[i].length; j++) {
+                        var h = options.nestedHeaders[i][j].colspan > 0 ? options.nestedHeaders[i][j].colspan : 1;
+                        var c = '';
+                        for (var x = 0; x < h; x++) {
+                            c += 'h' + (x + j) + ' ';
+                        }
+
+                        tr += '<td class="'+ c +'" colspan="' + options.nestedHeaders[i][j].colspan + '" width="' + options.nestedHeaders[i][j].width + '" align="' + options.nestedHeaders[i].align + '">' + options.nestedHeaders[i][j].title + '</td>';
+                    }
+
+                    $(thead).append('<tr>' + tr + '</tr>'); 
+                }
             }
-        }
+        }*/
 
         // Create headers
         tr = '<td width="30" class="jexcel_label"></td>';
@@ -666,8 +688,9 @@ var methods = {
                     // Update cell size
                     if ($.fn.jexcel.resizeColumn) {
                         // Columns to be updated
-                        var changedHeader = $('#' + $.fn.jexcel.current).find('#col-' + $.fn.jexcel.resizeColumn.column);
-                        var changedColumns = $('#' + $.fn.jexcel.current).find('.c' + $.fn.jexcel.resizeColumn.column);
+                        var changedHeader = $('#' + $.fn.jexcel.current + ' thead').find('#col-' + $.fn.jexcel.resizeColumn.column);
+                        var nestedHeaders = $('#' + $.fn.jexcel.current + ' thead').find('.h' + $.fn.jexcel.resizeColumn.column);
+                        var changedColumns = $('#' + $.fn.jexcel.current + ' tbody').find('.c' + $.fn.jexcel.resizeColumn.column);
 
                         // New width
                         var newWidth = parseInt($(changedHeader).prop('width'));
@@ -681,6 +704,15 @@ var methods = {
                         $(changedHeader).removeClass('resizing');
                         $(changedColumns).removeClass('resizing');
                         $(changedColumns).prop('width', newWidth + 'px'); 
+
+                        console.log(nestedHeaders);
+                        // Update any nested cells
+                        if ($(nestedHeaders).length > 0) {
+                            
+                            $.each(nestedHeaders, function(k, v) {
+                                $(v).prop('width', $(v).prop('width') + ($.fn.jexcel.resizeColumn.width - newWidth));
+                            });
+                        }
 
                         // Update container
                         $.fn.jexcel.defaults[$.fn.jexcel.current].colWidths[$.fn.jexcel.resizeColumn.column] = newWidth;
@@ -2178,23 +2210,45 @@ var methods = {
                 var uy = parseInt(or[1]);
             }
 
+            // Limits
+            var borderLeft = null;
+            var borderRight = null;
+            var borderTop = py;
+            var borderBottom = uy;
+
             // Redefining styles
-            for (i = px; i <= ux; i++) {
-                for (j = py; j <= uy; j++) {
+            for (var i = px; i <= ux; i++) {
+                for (var j = py; j <= uy; j++) {
+                    // Select markers
                     $(this).find('#' + i + '-' + j).addClass('highlight');
-                    $(this).find('#' + px + '-' + j).prev().addClass('highlight-right');
-                    $(this).find('#' + ux + '-' + j).addClass('highlight-right');
-                    if (py == 0) {
-                        $(this).find('#' + i + '-' + py).addClass('highlight-top');
-                    } else {
-                        $(this).find('#' + i + '-' + (py - 1)).addClass('highlight-bottom');
-                    }
-                    $(this).find('#' + i + '-' + uy).addClass('highlight-bottom');
 
                     // Row and column headers
                     $(this).find('#col-' + i).addClass('selected');
                     $(this).find('#row-' + j).addClass('selected');
                 }
+
+                // Right limits
+                if ($.fn.jexcel.defaults[id].columns[i].type != 'hidden') {
+                    if (borderLeft == null) {
+                        borderLeft = i;
+                    }
+                    borderRight = i;
+                }
+            }
+
+            // Create borders
+            for (var i = borderLeft; i <= borderRight; i++) {
+                // Top border
+                $(this).find('#' + i + '-' + borderTop).addClass('highlight-top');
+                // Bottom border
+                $(this).find('#' + i + '-' + borderBottom).addClass('highlight-bottom');
+            }
+
+            for (var j = borderTop; j <= borderBottom; j++) {
+                // Left border
+                $(this).find('#' + borderLeft + '-' + j).addClass('highlight-left');
+                // Right border
+                $(this).find('#' + borderRight + '-' + j).addClass('highlight-right');
             }
 
             // Get current selection status
