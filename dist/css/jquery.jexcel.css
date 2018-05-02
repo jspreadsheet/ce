@@ -69,6 +69,10 @@
     white-space: nowrap;
     box-sizing: border-box;
 }
+.jexcel > tbody > tr > td > img
+{
+    display: block;
+}
 .jexcel > tbody > tr > td.readonly
 {
     color:rgba(0,0,0,0.3)
