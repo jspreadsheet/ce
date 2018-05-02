@@ -69,12 +69,47 @@
             var calendar_content = document.createElement('tbody');
             $(calendar).append(calendar_content);
 
+            var calendar_footer = document.createElement('tfoot');
+            $(calendar).append(calendar_footer);
+
             // Calendar
             var data = new Date();
             month = parseInt(data.getMonth()) + 1;
 
             // Month and year html
             $(calendar_header).html('<tr align="center"><td></td><td align="right" class="jcalendar_prev"><div class="jcalendar_left"></div></td><td colspan="3"><input type="hidden" class="jcalendar_day" value="'+data.getDate()+'"> <span class="jcalendar_month_label">' + options.months[ data.getMonth() ] +'</span><input type="hidden" class="jcalendar_month" value="' + month +'"> <span class="jcalendar_year_label"> ' + data.getFullYear() + '</span> <input type="hidden" class="jcalendar_year" value="' + data.getFullYear() + '"></td><td align="left" class="jcalendar_next"><div class="jcalendar_right"></div></td><td class="jcalendar_close">x</td></tr>');
+
+            // Footer controls
+            $(calendar_footer).html('<tr><td colspan="7"></td></tr>')
+
+            // HTML elements for hour and minutes
+            var element = '';
+            var select = '';
+
+            for (var i = 0; i < 24; i++) {
+                element = '' + i;
+                if (element.length == 1) {
+                    element = '0' + element;
+                }
+                select += '<option value="' + element + '">' + element + '</option>';
+            }
+
+            $(calendar_footer).find('td').append('<select class="jcalendar_hour">' + select + '</select>')
+
+            for (i = 0; i < 60; i++) {
+                element = '' + i;
+                if (element.length == 1) {
+                    element = '0' + element;
+                }
+                select += '<option value="' + element + '">' + element + '</option>';
+            }
+
+            $(calendar_footer).find('td').append('<select class="jcalendar_min">' + select + '</select>')
+            $(calendar_footer).find('td').append('<div class="jcalendar_confirm">Ok</div>');
+
+            if (options.clear) {
+                $(calendar_footer).find('td').append('<div class="jcalendar_reset">clear</div>');
+            }
 
             // Create calendar table picker
             $(div).html("");
@@ -142,20 +177,19 @@
                 }
             }
 
-            // Click handling
-            $(document).on('mousedown', function (e) {
-                $.fn.jcalendar.onclick(e);
-            });
+            $(document).on('mousedown', $.fn.jcalendar.onclick);
 
             // Click handling
-            $(document).on('keydown', function (e) {
+            $.fn.jcalendar.keydown = function (e) {
                 if (e.which == 27) {
                     // Scape pressed, close any calendar
                     if ($.fn.jcalendar.current) {
                         $($.fn.jcalendar.current).jcalendar('close', 0);
                     }
                 }
-            });
+            }
+
+            $(document).on('keydown', $.fn.jcalendar.keydown);
         }
     },
 
@@ -189,68 +223,117 @@
         if (options.readonly == 1) {
             $(obj).prop('readonly', 'readonly');
         } else {
-            if (options.mask == 1 && $.fn.masked) {
-                var mask = options.format.replace('24', '').replace(/\w{1}/g, '0');
-                var placeHolder = options.format.replace('24', '').replace(/\w{1}/g, '_');
-                $(obj).mask(mask, { placeholder:placeHolder });
+            var mask = options.format.replace('24', '').replace(/\w{1}/g, '0');
+            var placeHolder = options.format.replace('24', '').replace(/\w{1}/g, '_');
+            //$(obj).mask(mask, { placeholder:placeHolder });
 
-                // Copy the visual data to the calendar element in the final format
-                $(obj).keyup(function () {
+            $(obj).on('keydown', function (e) {
+                e = e || window.event;
+                var code = e.charCode || e.keyCode;
+
+                // Ignore some of the keys to format
+                if (code == 13 || code == 32 || code == 8 || code == 37 || code == 39) {
+                } else {
+                    // Get the cursor position
+                    var start = this.selectionStart;
+
+                    // Variables to help the mask
+                    var repos = false;
+                    var position = 0;
+
+                    // Visual data
                     var v1 = $(this).val();
+                    v1 = v1.substr(0,start);
+                    v1 = v1.replace(/[^0-9]/g,'');
                     var v2 = options.format.replace(/[0-9]/g,'');
+                    var v3 = '';
+                    j = 0;
 
-                    var test = 1;
-                    // Get year
-                    var y = v2.search("YYYY");
-                    y = v1.substr(y,4).replace('_', '');
-                    if (y.length != 4) test = 0;
-                    // Get month
-                    var m = v2.search("MM");
-                    m = v1.substr(m,2).replace('_', '');
-                    if (m.length != 2 || m == 0 || m > 12) test = 0;
-                    // Get day
-                    var d = v2.search("DD");
-                    d = v1.substr(d,2).replace('_', '');
-                    if (d.length != 2 || d == 0 || d > 31) test = 0;
-
-                    // Get hour
-                    var h = v2.search("HH");
-                    if (h > 0) {
-                        h = v1.substr(h,2).replace('_', '');
-                        if (h.length != 2 || h > 23) test = 0;
-                    } else {
-                        h = '00';
-                    }
-                    // Get minutes
-                    var i = v2.search("MI");
-                    if (i > 0) {
-                        i = v1.substr(i,2).replace('_', '');
-                        if (i.length != 2 || i > 60) test = 0;
-                    } else {
-                        i = '00';
-                    }
-                    // Get seconds
-                    var s = v2.search("SS");
-                    if (s > 0) {
-                        s = v1.substr(s,2).replace('_', '');
-                        if (s.length != 2 || s > 60) test = 0;
-                    } else {
-                        s = '00';
-                    }
-
-                    if (test == 1) {
-                        // Update source
-                        var data = y + '-' + m + '-' + d + ' ' + h + ':' +  i + ':' + s;
-                        $(options.source).val(data);
-                        // Update
-                        $(this).jcalendar('open');
-                        // Onchange
-                        if (typeof(options.onchange) == 'function') {
-                            options.onchange($(obj), data);
+                    // Format the values following the format rules
+                    for (i = 0; i < v2.length; i++) {
+                        if (v2[i].match(/[a-zA-Z]/)) {
+                            if (v1[j]) {
+                                v3 += v1[j];
+                                j++;
+                                position = i;
+                            } else {
+                                if (repos == false) {
+                                    repos = true;
+                                    position = i;
+                                } else {
+                                    v3 += '_';
+                                }
+                            }
+                        } else {
+                            v3 += v2[i];
                         }
                     }
-                });
-            }
+
+                    // Set the value in the input again with corrections
+                    $(this).val(v3);
+
+                    // Set the cursor position
+                    if (start < position - 1) position = start;
+                    this.setSelectionRange(position, position);
+                }
+            });
+
+            // Copy the visual data to the calendar element in the final format
+            $(obj).on('keyup', function () {
+                var v1 = $(this).val();
+                var v2 = options.format.replace(/[0-9]/g,'');
+
+                var test = 1;
+                // Get year
+                var y = v2.search("YYYY");
+                y = v1.substr(y,4).replace('_', '');
+                if (y.length != 4) test = 0;
+                // Get month
+                var m = v2.search("MM");
+                m = v1.substr(m,2).replace('_', '');
+                if (m.length != 2 || m == 0 || m > 12) test = 0;
+                // Get day
+                var d = v2.search("DD");
+                d = v1.substr(d,2).replace('_', '');
+                if (d.length != 2 || d == 0 || d > 31) test = 0;
+
+                // Get hour
+                var h = v2.search("HH");
+                if (h > 0) {
+                    h = v1.substr(h,2).replace('_', '');
+                    if (h.length != 2 || h > 23) test = 0;
+                } else {
+                    h = '00';
+                }
+                // Get minutes
+                var i = v2.search("MI");
+                if (i > 0) {
+                    i = v1.substr(i,2).replace('_', '');
+                    if (i.length != 2 || i > 60) test = 0;
+                } else {
+                    i = '00';
+                }
+                // Get seconds
+                var s = v2.search("SS");
+                if (s > 0) {
+                    s = v1.substr(s,2).replace('_', '');
+                    if (s.length != 2 || s > 60) test = 0;
+                } else {
+                    s = '00';
+                }
+
+                if (test == 1) {
+                    // Update source
+                    var data = y + '-' + m + '-' + d + ' ' + h + ':' +  i + ':' + s;
+                    $(options.source).val(data);
+                    // Update
+                    $(this).jcalendar('open');
+                    // Onchange
+                    if (typeof(options.onchange) == 'function') {
+                        options.onchange($(obj), data);
+                    }
+                }
+            });
         }
 
         // Container
@@ -334,9 +417,6 @@
             $(table).find('.jcalendar_month').val(v1[1]);
             $(table).find('.jcalendar_year').val(v1[0]);
 
-            if (value[1]) {
-                v2 = value[1].split(':');
-            }
             if (v2[0] != '') {
                 $(table).find('.jcalendar_hour').val(v2[0]);
             }
@@ -350,7 +430,7 @@
             $(table).find('.jcalendar_year_label').html(v1[0]);
         }
 
-        $(this).jcalendar('days');
+        $(this).jcalendar('days', value);
     },
 
     /**
@@ -400,14 +480,13 @@
         }
 
         // Hide the calendar table
-        //$('.jcalendar').css('display', 'none');
-        $('.jcalendar').fadeOut('slow');
+        $('.jcalendar').fadeOut('slow', function () {
+        });
 
-        // On close
         if (typeof(options.onclose) == 'function') {
             options.onclose($.fn.jcalendar.current);
         }
-
+        
         // Reference
         $.fn.jcalendar.current = null;
     },
@@ -538,16 +617,22 @@
         }
 
         if (value) {
-            d = value;
+            var d = value;
             d = d.split(' ');
 
-            var m = '';
             var h = '';
+            var m = '';
+            var s = '';
 
             if (d[1]) {
                 h = d[1].split(':');
                 m = h[1];
+                s = h[2];
                 h = h[0];
+            } else {
+                h = '00';
+                m = '00';
+                s = '00';
             }
 
             d = d[0].split('-');
@@ -560,7 +645,7 @@
             value = value.replace('DD', d[2]);
             value = value.replace('MM', d[1]);
             value = value.replace('YYYY', d[0]);
-            //value = value.replace('YY', d[2].substring(2,4));
+            value = value.replace('YY', d[2].substring(2,4));
 
             if (h) {
                 value = value.replace('HH24', h);
@@ -568,12 +653,15 @@
 
             if ($(this).find(".calendar_hour").val() > 12) {
                 value = value.replace('HH12', h - 12);
+                value = value.replace('HH', h);
             } else {
                 value = value.replace('HH12', h);
+                value = value.replace('HH', h);
             }
     
             value = value.replace('MI', m);
-            value = value.replace('SS', 0);
+            value = value.replace('MM', m);
+            value = value.replace('SS', s);
         }
 
         return value;
@@ -647,9 +735,6 @@
         // Loading month labels
         var weekdays = $.fn.jcalendar.defaults[id].weekdays_short;
 
-        // Loading time option
-        var time = $.fn.jcalendar.defaults[id].time;
-
         // Variables
         var i = 0;
         var d = 0;
@@ -684,34 +769,6 @@
 
         calendar = new Date(year, month-1, 0, hour, min);
         fd = calendar.getDay() + 1;
-
-        // HTML elements for hour and minutes
-        var hora = '';
-        var horas = '';
-        var hour_selected = '';
-
-        for (i = 0; i < 24; i++) {
-            hour_selected = '';
-            if (i == parseInt(calendar.getHours())) hour_selected = ' selected';
-            hora = '' + i;
-            if (hora.length == 1) hora = '0' + hora;
-            horas += '<option value="'+hora+'" ' + hour_selected + '>' + hora + '</option>';
-        }
-
-        var min = '';
-        var mins = '';
-
-        for (i = 0; i < 60; i++) {
-            min_selected = '';
-            if (i == parseInt(calendar.getMinutes())) {
-                min_selected = ' selected';
-            }
-            min = '' + i;
-            if (min.length == 1) {
-                min = '0' + min;
-            }
-            mins += '<option value="'+min+'" ' + min_selected + '>' + min + '</option>';
-        }
 
         // HTML headers
         var calendar_table = '<tr align="center" id="jcalendar_weekdays">';
@@ -773,29 +830,17 @@
             calendar_table += '<td style="'+calendar_day_style+'" class="setDay">'+calendar_day+'</td>';
         }
 
-        // Table footer
-        calendar_table += '<tr><td colspan="7" style="padding:6px;"> ';
-
-        // Showing the timepicker
-        if (time == 1) {
-            calendar_table += '<select class="jcalendar_hour">'+horas+'</select> <select class="jcalendar_min">'+mins+'</select> ';
-        } else {
-            calendar_table += '<select class="jcalendar_hour" style="display:none">'+horas+'</select> <select class="jcalendar_min" style="display:none">'+mins+'</select> ';
-        }
-
-        // Button OK
-        calendar_table += '<div class="jcalendar_confirm">Ok</div>';
-
-        // Show clear button
-        if (clear) {
-            calendar_table += '<div class="jcalendar_reset">clear</div>';
-        }
-
-        // Close table
-        calendar_table += '</td></tr>';
-
         // Appeding HTML to the element table
         $('.jcalendar').find('tbody').html(calendar_table);
+
+        // Show time controls
+        if ($.fn.jcalendar.defaults[id].time) {
+            $('.jcalendar').find('.jcalendar_hour').show();
+            $('.jcalendar').find('.jcalendar_min').show();
+        } else {
+            $('.jcalendar').find('.jcalendar_hour').hide();
+            $('.jcalendar').find('.jcalendar_min').hide();
+        }
     },
 
     /**

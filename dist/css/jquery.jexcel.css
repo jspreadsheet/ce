@@ -38,11 +38,16 @@
     display:flex;
     border-left:1px solid #ccc;
 }
-.jexcel > thead > tr:first-child > td
+.jexcel > tbody
 {
-    border-top:1px solid #cccccc;
+    padding-right:3px;
+    padding-bottom:1px;
 }
-.jexcel > tbody > td.edition
+.jexcel > tbody > tr:first-child
+{
+    border-top:1px solid #ccc;
+}
+.jexcel > tbody > tr > td.edition
 {
     padding:0px;
     padding-left:4px;
@@ -52,17 +57,6 @@
     background-color:#f3f3f3;
     width:30px;
     text-align:center;
-}
-.jexcel > thead > tr > td 
-{
-    border-left:1px solid transparent;
-    border-right:1px solid #cccccc;
-    border-top:1px solid transparent;
-    border-bottom:1px solid #cccccc;
-    background-color:#f3f3f3;
-    padding:4px;
-    cursor:pointer;
-    box-sizing: border-box;
 }
 .jexcel > tbody > tr > td
 {
@@ -83,10 +77,26 @@
 {
     background-color:#dcdcdc;
 }
+.jexcel > thead > tr:first-child > td
+{
+    border-top:1px solid #cccccc;
+}
+.jexcel > thead > tr > td 
+{
+    border-left:1px solid transparent;
+    border-right:1px solid #cccccc;
+    border-top:1px solid transparent;
+    border-bottom:1px solid transparent;
+    background-color:#f3f3f3;
+    padding:4px;
+    cursor:pointer;
+    box-sizing: border-box;
+}
 .jexcel > thead > tr > td.selected
 {
     background-color:#dcdcdc;
 }
+
 .jexcel .highlight
 {
     background-color:rgba(0,0,0,0.05);
@@ -377,11 +387,8 @@
     position:absolute;
     cursor:pointer;
 }
-.jexcel > tbody
-{
-    padding-right:3px;
-    padding-bottom:1px;
-}
+
+
 .jexcel > tbody::-webkit-scrollbar
 {
     margin-left:6px;

@@ -12,20 +12,16 @@
     left:-200px;
     top:-200px;
     z-index:999;
+    box-sizing:border-box;
 }
 
 .jcalendar_container
 {
-    width:240px;
     -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
     -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
 }
 
-.jcalendar td
-{
-    font-size:12px;
-}
 .jcalendar thead td
 {
     padding:12px;
@@ -40,17 +36,22 @@
 
 .jcalendar thead span
 {
-    font-size:12px;
     cursor:pointer;
 }
 
 .jcalendar tbody td
 {
+    box-sizing:border-box;
     cursor:pointer;
     padding:10px;
     background-color:#fff;
-    font-size:9px !important;
     color:#000;
+    font-size:0.6em;
+}
+
+.jcalendar tfoot td
+{
+    padding:10px;
 }
 
 #jcalendar_weekdays td
@@ -139,19 +140,20 @@
 {
     width:50px;
     display:inline-block;
-    font-size:1.4em;
     border:1px solid #ddd;
     border-radius:4px;
+    padding:4px;
+    text-align:center;
 }
-
+.jcalendar_min
+{
+    margin-left:2px;
+    margin-right:10px;
+}
 .jcalendar_confirm
 {
-    width:70px !important;
-    text-align:center;
     background-color:#eee;
-    text-transform:uppercase;
 }
-
 .jcalendar_centralized
 {
     top:0px;
@@ -163,7 +165,6 @@
 
 .jcalendar_centralized .jcalendar_container
 {
-    width:300px;
     position:absolute;
     z-index:999;
     left:50%;

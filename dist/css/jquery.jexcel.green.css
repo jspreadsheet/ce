@@ -5,46 +5,37 @@
  * @author: Paul Hodel <paul.hodel@gmail.com>
  * @description: Web spreadsheet
  */
- 
-.jexcel > thead > tr > td
-{
-    border-right:1px solid #d4d4d4;
-    border-bottom:1px solid #d4d4d4;
+
+:root {
+    --border-color:#217346;
 }
-.jexcel > tbody > tr > td
+
+.jexcel .highlight-top
 {
-    border-right:1px solid #d4d4d4;
-    border-bottom:1px solid #d4d4d4;
+    border-top:1px solid var(--border-color);;
 }
 .jexcel .highlight-left
 {
-    border-left:1px solid #217346;
+    border-left:1px solid var(--border-color);;
 }
 .jexcel .highlight-right
 {
-    border-right:1px solid #217346;
-}
-.jexcel .highlight-top
-{
-    border-top:1px solid #217346;
+    border-right:1px solid var(--border-color);;
+    box-shadow: 1px 0px #ccc;
+    -webkit-box-shadow: 1px 0px #ccc;
+    -moz-box-shadow: 1px 0px #ccc;
 }
 .jexcel .highlight-bottom
 {
-    border-bottom:1px solid #217346;
+    border-bottom:1px solid var(--border-color);;
+    box-shadow: 0px 1px #ccc;
+    -webkit-box-shadow: 0px 1px #ccc;
+    -moz-box-shadow: 0px 1px #ccc;
 }
-.jexcel .selection-left
+.jexcel .highlight-bottom.highlight-right
 {
-    border-left:1px solid #217346;
-}
-.jexcel .selection-right
-{
-    border-right:1px solid #217346;
-}
-.jexcel .selection-top
-{
-    border-top:1px solid #217346;
-}
-.jexcel .selection-bottom
-{
-    border-bottom:1px solid #217346;
+    border-bottom:1px solid var(--border-color);;
+    box-shadow: 1px 1px #ccc;
+    -webkit-box-shadow: 1px 1px #ccc;
+    -moz-box-shadow: 1px 1px #ccc;
 }
