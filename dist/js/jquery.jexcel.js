@@ -705,7 +705,6 @@ var methods = {
                         $(changedColumns).removeClass('resizing');
                         $(changedColumns).prop('width', newWidth + 'px'); 
 
-                        console.log(nestedHeaders);
                         // Update any nested cells
                         if ($(nestedHeaders).length > 0) {
                             
@@ -2720,6 +2719,9 @@ var methods = {
                 }
             }
 
+            // Select the new cells
+            $(this).jexcel('updateSelection', records[0].cell, records[records.length-1].cell);
+
             // Save history
             if (records.length > 0) {
                 // Update new values
@@ -2733,6 +2735,9 @@ var methods = {
      */
     parseCSV : function(CSV_string, delimiter)
     {
+        // Remove last line break
+        CSV_string = CSV_string.replace(/\r?\n$|\r$|\n$/g, " ");
+
         // user-supplied delimeter or default comma
         delimiter = (delimiter || ","); 
         // regular expression to parse the CSV values.
@@ -2765,6 +2770,7 @@ var methods = {
                 // found a non-quoted value
                 matched_value = matches[3];
             }
+
             // Now that we have our value string, let's add it to the data array.
             rows[rows.length - 1].push(matched_value);
         }
