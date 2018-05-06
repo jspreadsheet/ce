@@ -3369,7 +3369,7 @@ var methods = {
                     // Delete events
                     if ($.fn.jexcel.ignoreEvents != true) {
                         if (typeof(options.ondeleterow) == 'function') {
-                            options.ondeleterow($(this));
+                            options.ondeleterow($(this), rowNumber, numOfRows, records);
                         }
                     }
                 }
