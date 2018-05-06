@@ -3262,7 +3262,7 @@ var methods = {
                 // Delete
                 if ($.fn.jexcel.ignoreEvents != true) {
                     if (typeof(options.ondeletecolumn) == 'function') {
-                        options.ondeletecolumn($(this));
+                        options.ondeletecolumn($(this), columnNumber, numOfColumns, records);
                     }
                 }
             } else {
