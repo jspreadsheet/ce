@@ -2432,7 +2432,7 @@ var methods = {
             $('.jexcel_corner').css('left', l);
 
             // Hide the corner in case is out of the range
-            var docViewTop = $(this).position().top;
+            var docViewTop = $(this).offset().top;
             var docViewBottom = docViewTop + $(this).height();
 
             var elemTop = t;
