@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.5.3 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.5.2 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -83,7 +83,7 @@ var methods = {
             // Allow Overflow
             tableHeight:'300px',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.5.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.5.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
