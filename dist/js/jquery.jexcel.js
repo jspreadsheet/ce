@@ -108,6 +108,20 @@ var methods = {
 
             // Configuration container
             $.fn.jexcel.defaults = [];
+
+            // Formula element factory
+            $.fn.jexcel.factory = function(k, v) {
+                this.k = k;
+                this.v = v;
+            }
+
+            $.fn.jexcel.factory.prototype.toString = function() {
+                if ($.fn.jexcel.current) {
+                    return $.fn.jexcel.defaults[$.fn.jexcel.current].values[this.k];
+                } else {
+                    return this.v;
+                }
+            }
         }
 
         // Global configuration
@@ -1294,6 +1308,9 @@ var methods = {
         // Dynamic columns
         $.fn.jexcel.defaults[id].formula = [];
 
+        // Values
+        $.fn.jexcel.defaults[id].values = [];
+
         // Header container
         var thead = $(this).find('thead');
 
@@ -2134,11 +2151,15 @@ var methods = {
             var i = $.fn.jexcel('getColumnName', v.col)  + (parseInt(v.row) + 1);
 
             if (value == Number(value)) {
-                window[i] = Number(value);
+                $.fn.jexcel.defaults[id].values[i] = Number(value);
             } else {
-                window[i] = value;
+                $.fn.jexcel.defaults[id].values[i] = value;
             }
 
+            // Local spreasheet values
+            window[i] = new $.fn.jexcel.factory(i, $.fn.jexcel.defaults[id].values[i]);
+
+            // Events
             if ($.fn.jexcel.ignoreEvents != true) {
                 // Update own cell
                 if (value.substr(0,1) == '=') {
@@ -3756,7 +3777,13 @@ var methods = {
             // Update variables
             var letter = $.fn.jexcel('getColumnName', cellId[0])  + (parseInt(cellId[1]) + 1);
             // Update global variable
-            window[letter] = value;
+            if (value == Number(value)) {
+                $.fn.jexcel.defaults[id].values[letter] = Number(value);
+            } else {
+                $.fn.jexcel.defaults[id].values[letter] = value;
+            }
+            // Update window
+            window[letter] = new $.fn.jexcel.factory(letter, $.fn.jexcel.defaults[id].values[letter]);
             // New cell value
             value = '<input type="hidden" value="' + formula + '">' + value;
             // Remove any error class
@@ -4277,10 +4304,12 @@ var methods = {
                             var letter = $.fn.jexcel('getColumnNameFromId', [k1 - 1, k]);
 
                             if (val == Number(val)) {
-                                window[letter] = Number(val);
+                                $.fn.jexcel.defaults[id].values[letter] = Number(val);
                             } else {
-                                window[letter] = val;
+                                $.fn.jexcel.defaults[id].values[letter] = val;
                             }
+
+                            window[letter] = new $.fn.jexcel.factory(letter, $.fn.jexcel.defaults[id].values[letter]);
                         }
                     }
                 });
@@ -4636,6 +4665,7 @@ var methods = {
 
         // If no other spreadsheet in the screen :: remove all elements
         if (! Object.keys($.fn.jexcel.defaults).length) {
+            // Unbind events
             $(document).off('dragstart', $.fn.jexcel.dragStartControls);
             $(document).off("contextmenu", $.fn.jexcel.contextMenuControls);
             $(document).off('mousewheel', $.fn.jexcel.mouseWheelControls);
@@ -4646,6 +4676,22 @@ var methods = {
             $(document).off('mouseover', $.fn.jexcel.mouseOverControls);
             $(document).off('paste', $.fn.jexcel.pasteControls);
             $(document).off('keydown', $.fn.jexcel.keyDownControls);
+
+            // Remove other objects
+            $.fn.jexcel.factory = null;
+            $.fn.jexcel.selectedCorner = null;
+            $.fn.jexcel.selectedHeader = null;
+            $.fn.jexcel.resizeColumn = null;
+            $.fn.jexcel.dragStartControls = null;
+            $.fn.jexcel.contextMenuControls = null;
+            $.fn.jexcel.mouseWheelControls = null;
+            $.fn.jexcel.mouseDownControls = null;
+            $.fn.jexcel.mouseUpControls = null;
+            $.fn.jexcel.doubleClickControls = null;
+            $.fn.jexcel.mouseMoveControls = null;
+            $.fn.jexcel.mouseOverControls = null;
+            $.fn.jexcel.pasteControls = null;
+            $.fn.jexcel.keyDownControls = null;
         }
     } 
 };
@@ -4659,5 +4705,7 @@ $.fn.jexcel = function( method ) {
         $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
     }
 };
+
+//$.fn.jexcel.setElement.prototype.toString = function() { return test[this.value]; }
 
 })( jQuery );
