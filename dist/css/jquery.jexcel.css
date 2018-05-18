@@ -25,12 +25,27 @@
     {
         width:0px;
     }
+    .jexcel > thead > tr, .jexcel > tbody > tr
+    {
+        display:table-row !important;
+    }
 }
 @media screen\9
 {
     .jexcel
     {
         width:0px;
+    }
+    .jexcel > thead > tr, .jexcel > tbody > tr
+    {
+        display:table-row !important;
+    }
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
+{
+    .jexcel > thead > tr, .jexcel > tbody > tr
+    {
+        display:table-row !important;
     }
 }
 .jexcel > thead > tr, .jexcel > tbody > tr
