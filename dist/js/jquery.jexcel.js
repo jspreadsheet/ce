@@ -3862,12 +3862,14 @@ var methods = {
         data += $(this).jexcel('copy', false, ',', true);
 
         // Download elment
-        var pom = document.createElement('a');
-        var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
-        var url = URL.createObjectURL(blob);
-        pom.href = url;
-        pom.setAttribute('download', options.csvFileName + '.csv');
-        pom.click();
+        var a = $('<a>');
+        a.attr('download', options.csvFileName + '.csv');
+        a.attr('href', 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(data));
+        a.attr('target', '_blank');
+        a.hide();
+        $('body').append(a);
+        a[0].click();
+        a.remove();
     },
 
     /**
