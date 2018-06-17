@@ -367,6 +367,77 @@
     },
 
     /**
+     * 
+     */
+    fromFormatted : function (date, format) {
+        var v1 = date;
+        var v2 = format.replace(/[0-9]/g,'');
+
+        var test = 1;
+
+        // Get year
+        var y = v2.search("YYYY");
+        y = v1.substr(y,4);
+        if (parseInt(y) != y) {
+            test = 0;
+        }
+
+        // Get month
+        var m = v2.search("MM");
+        m = v1.substr(m,2);
+        if (parseInt(m) != m || d > 12) {
+            test = 0;
+        }
+
+        // Get day
+        var d = v2.search("DD");
+        d = v1.substr(d,2);
+        if (parseInt(d) != d  || d > 31) {
+            test = 0;
+        }
+
+        // Get hour
+        var h = v2.search("HH");
+        if (h) {
+            h = v1.substr(h,2);
+            if (! parseInt(h) || h > 23) {
+                h = '00';
+            }
+        } else {
+            h = '00';
+        }
+        
+        // Get minutes
+        var i = v2.search("MI");
+        if (i) {
+            i = v1.substr(i,2);
+            if (! parseInt(i) || i > 60) {
+                i = '00';
+            }
+        } else {
+            i = '00';
+        }
+
+        // Get seconds
+        var s = v2.search("SS");
+        if (s) {
+            s = v1.substr(s,2);
+            if (! parseInt(s) || s > 60) {
+                s = '00';
+            }
+        } else {
+            s = '00';
+        }
+
+        if (test == 1) {
+            // Update source
+            var data = y + '-' + m + '-' + d + ' ' + h + ':' +  i + ':' + s;
+
+            return data;
+        }
+    },
+
+    /**
      * Open the calendar picker
      * @return void
      */

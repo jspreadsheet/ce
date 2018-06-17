@@ -2120,6 +2120,12 @@ var methods = {
                 } else if (options.columns[position[0]].type == 'calendar') {
                     val = '';
                     if (value != 'undefined') {
+                        // Formated?
+                        date = $.fn.jcalendar('fromFormatted', value, options.columns[position[0]].options.format);
+                        if (date) {
+                            value = date;
+                        }
+
                         val = $.fn.jcalendar('label', value, options.columns[position[0]].options.format);
                     } else {
                         val = '';
@@ -3763,7 +3769,11 @@ var methods = {
         var formula = $.fn.jexcel.defaults[id].data[cellId[1]][cellId[0]];
 
         // Convert formula to javascript
-        var value = eval(excelFormulaUtilities.formula2JavaScript(formula));
+        try {
+            var value = eval(excelFormulaUtilities.formula2JavaScript(formula));
+        } catch (e) {
+            var value = null;
+        }
 
         // Set value
         if (value === null || value == undefined || (''+value) == 'NaN') {
@@ -3861,7 +3871,7 @@ var methods = {
         // Get data
         data += $(this).jexcel('copy', false, ',', true);
 
-        // Download elment
+        // Download element
         var pom = document.createElement('a');
         var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
         var url = URL.createObjectURL(blob);
