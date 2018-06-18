@@ -472,8 +472,8 @@ var methods = {
                             o = o.split('-');
                             contextMenuContent = '';
                             // Custom context menu
-                            if (typeof(options.contextMenu) == 'function') {
-                                contextMenuContent = options.contextMenu(o[0], o[1]);
+                            if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].contextMenu) == 'function') {
+                                contextMenuContent = $.fn.jexcel.defaults[$.fn.jexcel.current].contextMenu(o[0], o[1]);
                             } else {
                                 // Default context menu for the columns
                                 if ($(e.target).parent().parent().is('thead')) {
@@ -486,8 +486,8 @@ var methods = {
                                         contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteColumn'," + o[1] + ")\">Delete this column<span></span></a>";
                                     }
                                     contextMenuContent += "<hr><a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
-                                    if (options.about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
+                                        contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
                                     }
                                 } else if ($(e.target).parent().parent().is('tbody')) {
                                     // Default context menu for the rows
@@ -501,8 +501,8 @@ var methods = {
                                         contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow'," + o[1] + ")\">Delete this row<span></span></a><hr>";
                                     }
                                     contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
-                                    if (options.about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + options.about + "')\">About<span></span></a>";
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
+                                        contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
                                     }
                                 }
                             }
