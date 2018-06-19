@@ -16,7 +16,7 @@
      * @return void
      */
 
-    init : function( options ) { 
+    init : function( options ) {
 
         // Default options
         // format: calendar format
@@ -367,7 +367,7 @@
     },
 
     /**
-     * 
+     *
      */
     fromFormatted : function (date, format) {
         var v1 = date;
@@ -406,7 +406,7 @@
         } else {
             h = '00';
         }
-        
+
         // Get minutes
         var i = v2.search("MI");
         if (i) {
@@ -557,7 +557,7 @@
         if (typeof(options.onclose) == 'function') {
             options.onclose($.fn.jcalendar.current);
         }
-        
+
         // Reference
         $.fn.jcalendar.current = null;
     },
@@ -706,17 +706,33 @@
                 s = '00';
             }
 
-            d = d[0].split('-');
+            // from normalized dates in date picker and numbers getting 2018-01-02 8:8:8 style formatting
+            // splitting off time is easy with a space split - see above
+            // separator: - or / is easy to detect
+            var sep = (~d[0].indexOf('-')) ? '-' : '/';
+            d = d[0].split(sep);
 
-            var calendar = new Date(d[0], d[1]-1, d[2]);
+            // check if first chunk is 4 digits or 2 to see if in yyyy-dd-hh format or dd/mm/yyyy format
+            if ([d[0].length] < 3) {
+              _y = "20" + d[2];
+              _m = d[1];
+              _d = d[0];
+            } else {
+              _y = d[0];
+              _m = d[1];
+              _d = d[2];
+            }
+
+
+            var calendar = new Date(_y, _m-1, _d);
             var weekday = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 
             value = format;
             value = value.replace('WD', weekday[calendar.getDay()]);
-            value = value.replace('DD', d[2]);
-            value = value.replace('MM', d[1]);
-            value = value.replace('YYYY', d[0]);
-            value = value.replace('YY', d[2].substring(2,4));
+            value = value.replace('DD', _d);
+            value = value.replace('MM', _m);
+            value = value.replace('YYYY', _y);
+            value = value.replace('YY', _y.substring(2,4));
 
             if (h) {
                 value = value.replace('HH24', h);
@@ -729,7 +745,7 @@
                 value = value.replace('HH12', h);
                 value = value.replace('HH', h);
             }
-    
+
             value = value.replace('MI', m);
             value = value.replace('MM', m);
             value = value.replace('SS', s);
@@ -919,7 +935,7 @@
      * @return void
      */
 
-    months : function( ) { 
+    months : function( ) {
         // Object id
         var id = $($.fn.jcalendar.current).prop('id');
 
@@ -947,7 +963,7 @@
      * @return void
      */
 
-    years : function( ) { 
+    years : function( ) {
         // Get current selected year
         var year = $('.jcalendar').find('.jcalendar_year').val();
 
@@ -983,7 +999,7 @@ $.fn.jcalendar = function( method ) {
         return methods.init.apply( this, arguments );
     } else {
         $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
-    }  
+    }
 };
 
 })( jQuery );
