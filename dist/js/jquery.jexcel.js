@@ -30,6 +30,8 @@ var methods = {
     init : function( options ) {
         // Loading default configuration
         var defaults = {
+            // Additional domain classes
+            domainClasses: [],
             // Column types and configurations
             columns:[],
             // Column header titles
@@ -99,6 +101,9 @@ var methods = {
         if (options.manualRowMove != undefined) {
             options.rowDrag = options.manualRowMove;
         }
+
+        options.domainClasses.push('.jexcel');
+        options.domainClasses = options.domainClasses.join(', ');
 
         // Register options
         if (! $.fn.jexcel.defaults) {
@@ -667,7 +672,7 @@ var methods = {
                         }
                     } else {
                         // Check if the object is in the jexcel domain
-                        if (! $(e.target).parents('.jexcel').length) {
+                        if (! $(e.target).parents($.fn.jexcel.defaults[$.fn.jexcel.current].domainClasses)) {
                             // Keep selection if main scrollbar is selected
                             if (e.target != $('html').get(0)) {
                                 $('#' + $.fn.jexcel.current).jexcel('resetSelection');
