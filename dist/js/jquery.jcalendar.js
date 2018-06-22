@@ -385,7 +385,7 @@
         h = "00";
         i = "00";
         s = "00";
-        test = 1;
+        test = 2;
 
       } else {
 
@@ -445,8 +445,6 @@
 
       }
 
-      console.log(test, date, format);
-
       if (test > 0) {
 
         if (test == 1) {
@@ -454,7 +452,7 @@
           var data = y + '-' + m + '-' + d + ' ' + h + ':' + i + ':' + s;
         } else {
           // update source from excel paste hack
-          var data = y + '-' + m + '-' + d;  
+          var data = y + '-' + m + '-' + d;
         }
 
         return data;
