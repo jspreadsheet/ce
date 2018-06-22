@@ -3866,6 +3866,8 @@ var methods = {
         // Get headers if applicable
         if (options.csvHeaders == true) {
             data = options.colHeaders.join() + "\n";
+        } else if (Object.prototype.toString.call(options.csvHeaders) === '[object Array]') {
+            data = options.csvHeaders.join() + "\n";
         }
 
         // Get data
