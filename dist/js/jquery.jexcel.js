@@ -672,7 +672,7 @@ var methods = {
                         }
                     } else {
                         // Check if the object is in the jexcel domain
-                        if (! $(e.target).parents($.fn.jexcel.defaults[$.fn.jexcel.current].domainClasses)) {
+                        if (! $(e.target).parents($.fn.jexcel.defaults[$.fn.jexcel.current].domainClasses).length) {
                             // Keep selection if main scrollbar is selected
                             if (e.target != $('html').get(0)) {
                                 $('#' + $.fn.jexcel.current).jexcel('resetSelection');
