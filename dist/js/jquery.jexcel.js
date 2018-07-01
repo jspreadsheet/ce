@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.5.4 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.5.5 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -15,6 +15,7 @@
  * Disable close editor with navigation arrows
  * Add onresize on the history
  * Create option for navigation Home, End, arrows on edition...
+ * Skip hidden cells options?
  */
 
 (function( $ ){
@@ -83,7 +84,7 @@ var methods = {
             // Allow Overflow
             tableHeight:'300px',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.5.4\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.5.5\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -2628,7 +2629,9 @@ var methods = {
                     }
                     // Get value
                     val = $(this).jexcel('getValue', $(cell));
-                    if (val.match(/,/g) || val.match(/\n/)) {
+                    if (val.match(/,/g) || val.match(/\n/) || val.match(/\"/)) {
+                        // Scape double quotes
+                        val = val.replace(new RegExp('"', 'g'), '""');
                         val = '"' + val + '"'; 
                     }
                     row += val;
@@ -2698,8 +2701,13 @@ var methods = {
         // Id
         var id = $(this).prop('id');
 
+        // Paste filter
+        if (typeof($.fn.jexcel.defaults[id].onbeforepaste) == 'function') {
+            data = $.fn.jexcel.defaults[id].onbeforepaste(data);
+        }
+
         // Parse paste
-        var data = $(this).jexcel('parseCSV', data, "\t")
+        data = $(this).jexcel('parseCSV', data, "\t")
 
         // Initial position
         var position = $(cell).prop('id');
@@ -2753,6 +2761,11 @@ var methods = {
             if (records.length > 0) {
                 // Update new values
                 $(this).jexcel('updateCells', records);
+
+                // Paste event
+                if (typeof($.fn.jexcel.defaults[id].onpaste) == 'function') {
+                    data = $.fn.jexcel.defaults[id].onpaste(records);
+                }
             }
         }
     },
@@ -2766,7 +2779,7 @@ var methods = {
         CSV_string = CSV_string.replace(/\r?\n$|\r$|\n$/g, " ");
 
         // user-supplied delimeter or default comma
-        delimiter = (delimiter || ","); 
+        delimiter = (delimiter || ",");
         // regular expression to parse the CSV values.
         var pattern = new RegExp(
           ( // Delimiters:
