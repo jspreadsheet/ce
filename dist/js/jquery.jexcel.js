@@ -4701,6 +4701,8 @@ var methods = {
             $(document).off('keydown', $.fn.jexcel.keyDownControls);
 
             // Remove other objects
+            $.fn.jexcel.defaults = null;
+            $.fn.jexcel.current = null;
             $.fn.jexcel.factory = null;
             $.fn.jexcel.selectedCorner = null;
             $.fn.jexcel.selectedHeader = null;
