@@ -4112,7 +4112,7 @@ var methods = {
             if (options.columns[i].readOnly == true) {
                 $(td).html('<input type="checkbox" disabled="disabled">');
             } else {
-                $(td).html('<input type="checkbox" onclick="var value = this.checked; var instance = $(this).parents(\'.jexcel\').parent(); $(instance).jexcel(\'setValue\', $(this).parent(), value);" value="false">');
+                $(td).html('<input type="checkbox" onclick="var value = this.checked; var instance = jQuery(this).parents(\'.jexcel\').parent(); $(instance).jexcel(\'setValue\', $(this).parent(), value);" value="false">');
             }
         }
 
