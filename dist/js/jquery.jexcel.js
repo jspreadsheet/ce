@@ -1905,7 +1905,7 @@ var methods = {
                 // Native functions
                 if (options.columns[position[0]].type == 'checkbox') {
                     // Get checkbox value
-                    value = $(cell).find('input').val() == 'true' ? 1 : 0;
+                    value = $(cell).find('input').val() == 'true' ? '1' : '0';
                 } else if (options.columns[position[0]].type == 'dropdown' || options.columns[position[0]].type == 'autocomplete' || options.columns[position[0]].type == 'calendar') {
                     // Get value
                     value = $(cell).find('input').val();
@@ -2629,7 +2629,7 @@ var methods = {
                     }
                     // Get value
                     val = $(this).jexcel('getValue', $(cell));
-                    if (val.match(/,/g) || val.match(/\n/) || val.match(/\"/)) {
+                    if (val.match && (val.match(/,/g) || val.match(/\n/) || val.match(/\"/))) {
                         // Scape double quotes
                         val = val.replace(new RegExp('"', 'g'), '""');
                         val = '"' + val + '"'; 
