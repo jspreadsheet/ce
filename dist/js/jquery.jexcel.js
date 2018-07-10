@@ -2776,7 +2776,7 @@ var methods = {
     parseCSV : function(CSV_string, delimiter)
     {
         // Remove last line break
-        CSV_string = CSV_string.replace(/\r?\n$|\r$|\n$/g, " ");
+        CSV_string = CSV_string.replace(/\r?\n$|\r$|\n$/g, "");
 
         // user-supplied delimeter or default comma
         delimiter = (delimiter || ",");
