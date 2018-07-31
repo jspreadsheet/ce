@@ -4684,6 +4684,11 @@ var methods = {
             $('.jexcel_textarea').remove();
             $('.jexcel_contextmenu').remove();
             $('.jexcel_about').remove();
+
+            // Remove selection
+            if ($.fn.jexcel.current == id) {
+                $.fn.jexcel.current = null;
+            }
         }
 
         // If no other spreadsheet in the screen :: remove all elements
