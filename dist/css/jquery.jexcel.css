@@ -333,6 +333,9 @@
     color: #555;
     font-family: sans-serif;
     font-size: 11px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
     -webkit-transition: opacity .5s ease-in-out;
     -moz-transition: opacity .5s ease-in-out;
     -ms-transition: opacity .5s ease-in-out;
@@ -354,6 +357,7 @@
     padding: 6px 8px 6px 30px;
     width: 250px;
     position: relative;
+    cursor: default;
 }
 
 .jexcel_contextmenu a span
