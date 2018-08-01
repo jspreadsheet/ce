@@ -43,10 +43,6 @@ $('#mytable').jexcel({ data:data, colWidths: [ 300, 80, 100 ] });
 
 ## Examples
 
-
-
-
-
 - [Creating a table from an external CSV file](https://bossanova.uk/jexcel/examples/creating-a-table-from-an-external-csv-file)
 - [Calendar column type](https://bossanova.uk/jexcel/examples/using-a-calendar-column-type)
 - [Sorting by column](https://bossanova.uk/jexcel/examples/reorder)
