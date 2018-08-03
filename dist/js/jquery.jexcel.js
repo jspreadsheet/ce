@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.5.5 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.5.6 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -84,7 +84,7 @@ var methods = {
             // Allow Overflow
             tableHeight:'300px',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.5.5\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.5.6\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -722,7 +722,6 @@ var methods = {
 
                         // Update any nested cells
                         if ($(nestedHeaders).length > 0) {
-                            
                             $.each(nestedHeaders, function(k, v) {
                                 $(v).prop('width', $(v).prop('width') + ($.fn.jexcel.resizeColumn.width - newWidth));
                             });
@@ -1154,7 +1153,16 @@ var methods = {
                                             // Start edition in case a valid character.
                                             if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                                 // Characters able to start a edition
-                                                if (e.keyCode == 110 || e.keyCode == 32 || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 186 && e.keyCode <= 190)) {
+                                                if (e.keyCode == 32) {
+                                                    // Space
+                                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'checkbox') {
+                                                        var checkboxCurrentVal = $('#' + $.fn.jexcel.current).jexcel('getValue', $.fn.jexcel.selectedCell);
+                                                        $('#' + $.fn.jexcel.current).jexcel('setValue', $.fn.jexcel.selectedCell, checkboxCurrentVal == 1 ? false : true);
+                                                        e.preventDefault();
+                                                    } else {
+                                                        $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
+                                                    }
+                                                } else if (e.keyCode == 110 || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 186 && e.keyCode <= 190)) {
                                                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
                                                 } else if (e.keyCode == 113) {
                                                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), false);
@@ -1456,7 +1464,10 @@ var methods = {
             } else {
                 // Native functions
                 if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'hidden') {
-                    // Do nothing for checkboxes or hidden columns
+                    // Get value
+                    var value = $(this).jexcel('getValue', $(cell)) == 1 ? false : true;
+                    // Update value
+                    $(this).jexcel('setValue', $(cell), value);
                 } else if (options.columns[position[0]].type == 'dropdown') {
                     // Keep the current value
                     $(cell).addClass('edition');
@@ -4112,7 +4123,7 @@ var methods = {
             if (options.columns[i].readOnly == true) {
                 $(td).html('<input type="checkbox" disabled="disabled">');
             } else {
-                $(td).html('<input type="checkbox" onclick="var value = this.checked; var instance = jQuery(this).parents(\'.jexcel\').parent(); $(instance).jexcel(\'setValue\', $(this).parent(), value);" value="false">');
+                $(td).html('<input type="checkbox" onclick="var value = this.checked; var instance = jQuery(this).parents(\'.jexcel\').parent(); $(instance).jexcel(\'setValue\', $(this).parent(), value); $(this).parent().mousedown();" value="false">');
             }
         }
 
