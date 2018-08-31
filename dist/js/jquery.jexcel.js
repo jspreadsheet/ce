@@ -93,6 +93,9 @@ var methods = {
         // Configuration holder
         var options =  $.extend(defaults, options);
 
+        // Save the div that will hold the grid
+        options.div = this;
+
         // Compatibility
         if (options.manualColumnResize != undefined) {
             options.columnResize = options.manualColumnResize;
@@ -276,11 +279,11 @@ var methods = {
             // Waiting all external data is loaded
             $.when.apply(this, results).done(function() {
                 // Create the table
-                $('#' + id).jexcel('createTable');
+                $($.fn.jexcel.defaults[id].div).jexcel('createTable');
             });
         } else {
             // No external data to be loaded, just created the table
-            $('#' + id).jexcel('createTable');
+            $($.fn.jexcel.defaults[id].div).jexcel('createTable');
         }
     },
 
