@@ -708,31 +708,35 @@
 
             d = d[0].split('-');
 
-            var calendar = new Date(d[0], d[1]-1, d[2]);
-            var weekday = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+            if (d[0] && d[1] && d[2] && d[0] > 0 && d[1] > 0 && d[1] < 13 && d[2] > 0 && d[2] < 32) {
+                var calendar = new Date(d[0], d[1]-1, d[2]);
+                var weekday = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 
-            value = format;
-            value = value.replace('WD', weekday[calendar.getDay()]);
-            value = value.replace('DD', d[2]);
-            value = value.replace('MM', d[1]);
-            value = value.replace('YYYY', d[0]);
-            value = value.replace('YY', d[2].substring(2,4));
+                value = format;
+                value = value.replace('WD', weekday[calendar.getDay()]);
+                value = value.replace('DD', d[2]);
+                value = value.replace('MM', d[1]);
+                value = value.replace('YYYY', d[0]);
+                value = value.replace('YY', d[2].substring(2,4));
 
-            if (h) {
-                value = value.replace('HH24', h);
-            }
+                if (h) {
+                    value = value.replace('HH24', h);
+                }
 
-            if ($(this).find(".calendar_hour").val() > 12) {
-                value = value.replace('HH12', h - 12);
-                value = value.replace('HH', h);
+                if ($(this).find(".calendar_hour").val() > 12) {
+                    value = value.replace('HH12', h - 12);
+                    value = value.replace('HH', h);
+                } else {
+                    value = value.replace('HH12', h);
+                    value = value.replace('HH', h);
+                }
+
+                value = value.replace('MI', m);
+                value = value.replace('MM', m);
+                value = value.replace('SS', s);
             } else {
-                value = value.replace('HH12', h);
-                value = value.replace('HH', h);
+                value = '';
             }
-    
-            value = value.replace('MI', m);
-            value = value.replace('MM', m);
-            value = value.replace('SS', s);
         }
 
         return value;

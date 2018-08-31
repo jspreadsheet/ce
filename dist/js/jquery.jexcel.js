@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.5.6 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.5.7 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -84,7 +84,7 @@ var methods = {
             // Allow Overflow
             tableHeight:'300px',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.5.6\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.5.7\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -310,9 +310,10 @@ var methods = {
         // Unselectable properties
         $(table).prop('unselectable', 'yes');
         $(table).prop('onselectstart', 'return false');
-        // $(table).prop('draggable', 'false');
+        //$(table).prop('draggable', 'false');
 
         // Create header and body tags
+        var colgroup = document.createElement('colgroup');
         var thead = document.createElement('thead');
         var tbody = document.createElement('tbody');
 
@@ -321,7 +322,7 @@ var methods = {
 
         // Row
         var tr = '';
-
+        var cg = '';
         // Create nested headers
         /*if (options.nestedHeaders && options.nestedHeaders.length > 0) {
             // Flexible way to handle nestedheaders
@@ -359,6 +360,7 @@ var methods = {
 
         // Create headers
         tr = '<td width="30" class="jexcel_label"></td>';
+        cg = '<col width="30">';
 
         // TODO: When the first or last column is hidden
         for (var i = 0; i < options.colHeaders.length; i++) {
@@ -378,7 +380,13 @@ var methods = {
 
             // Create HTML row
             tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" title="' + title + '" class=" ' + className + '"' + display + '>' + header + '</td>';
+
+            // Colgroup
+            cg += '<col width="' + width + '">';
         }
+
+        // Colgroup
+        $(colgroup).html(cg);
 
         // Populate header
         $(thead).append('<tr>' + tr + '</tr>'); 
@@ -387,6 +395,7 @@ var methods = {
         // <tr><td></td><td><input type="text"></td></tr>
 
         // Append content
+        //$(table).append(colgroup);
         $(table).append(thead);
         $(table).append(tbody);
 
@@ -430,18 +439,18 @@ var methods = {
             $('body').append(ads);
 
             // Unselectable properties
-            $(corner).prop('unselectable', 'yes');
+            $(corner).prop('unselectable', 'on');
             $(corner).prop('onselectstart', 'return false');
-            $(corner).prop('draggable', 'false');
+            //$(corner).prop('draggable', 'false');
 
             // Prevent dragging on the corner object
             $.fn.jexcel.dragStartControls = function (e) {
-                if ($(e.target).parents('.jexcel').length) {
-                    return false;
+                if ($(e.target).prop('id') == 'jexcel_corner') {
+                   // return false;
                 }
             }
 
-            $(document).on('dragstart', $.fn.jexcel.dragStartControls);
+            //$(document).on('dragstart', $.fn.jexcel.dragStartControls);
 
             // Corner persistence and other helpers
             $.fn.jexcel.selectedCorner = false;
@@ -2142,6 +2151,11 @@ var methods = {
                     } else {
                         val = '';
                     }
+
+                    if (! val) {
+                        value = '';
+                    }
+
                     $(v.cell).html('<input type="hidden" value="' + value + '">' + val);
                 } else {
                     val = value ? value : '';
