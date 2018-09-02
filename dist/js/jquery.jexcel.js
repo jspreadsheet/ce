@@ -950,6 +950,15 @@ var methods = {
                                         }
                                     }
                                 }
+
+                                // On mouse over event for cells
+                                if ($.fn.jexcel.ignoreEvents != true) {
+                                    if ($.fn.jexcel.defaults[id].onmouseover) {
+                                        if (typeof($.fn.jexcel.defaults[id].onmouseover) == 'function') {
+                                            $.fn.jexcel.defaults[id].onmouseover($('#' + $.fn.jexcel.current), $(e.target));
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
