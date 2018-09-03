@@ -21,8 +21,8 @@ It is very easy to use jExcel, first you should make you have include the jquery
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/css/jquery.jexcel.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.7/js/jquery.jexcel.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.7/css/jquery.jexcel.css" type="text/css" />
 ```
 
 You should initiate your table based on a div container, such as:

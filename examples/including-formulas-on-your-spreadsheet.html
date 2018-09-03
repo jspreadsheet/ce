@@ -91,20 +91,27 @@
 
 <div id="my"></div>
 
+<br><br>
+
+<div id="my1"></div>
 
 <script>
-function custom(cell)
-{
-    alert(cell);
-}
 
 var data = [
-    ['=IF(C1 < 10000, true, false)',1,10000,'=B1*C1'],
-    ['Tower',2,6000,'=B2*C2'],
-    ['Drum',3,5000,'=B3*C3'],
-    ['Pump',4,4000,'=B4*C4'],
+    ['aa',1,10000,'=B1+C1'],
+    ['bbb',2,6000,'=B2+C2'],
+    ['ccc',3,5000,'=B3+C3'],
+    ['ddd',4,4000,'=B4+C4'],
     ['Total','=SUM(B1:B4)','=(C1+C2+C3+C4)','=SUM(D1:D4)']
-]
+];
+
+var data1 = [
+    ['aa',1,10000,'=B1*C1'],
+    ['bbb',2,6000,'=B2*C2'],
+    ['ccc',3,5000,'=B3*C3'],
+    ['ddd',4,4000,'=B4*C4'],
+    ['Total','=SUM(B1:B4)','=(C1+C2+C3+C4)','=SUM(D1:D4)']
+];
 
 $('#my').jexcel({
     data:data,
@@ -119,14 +126,17 @@ $('#my').jexcel({
     colWidths: [300, 150, 150, 150, 150],
 });
 
-$('#my').jexcel('updateSettings', {
-    cells: function (cell, col, row) {
-        if (col > 0) {
-            value = $('#my').jexcel('getValue', $(cell));
-            val = numeral($(cell).text()).format('0,0.00');
-            $(cell).html('<input type="hidden" value="' + value + '">' + val);
-        }
-    }
+$('#my1').jexcel({
+    data:data1,
+    columns: [
+        { type:'text' },
+        { type:'numeric' },
+        { type:'numeric' },
+        { type:'numeric' },
+    ],
+    colHeaders: ['Equipment','Quantity', 'Price', 'Total'],
+    colWidths: [ 400, 100, 200 ],
+    colWidths: [300, 150, 150, 150, 150],
 });
 </script>
 

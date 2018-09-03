@@ -92,10 +92,16 @@ var data1 = $.fn.jexcel('helper', { action:'createEmptyData', cols:8, rows:4 });
 var data2 = $.fn.jexcel('helper', { action:'createEmptyData', cols:8, rows:4 });
 
 $('#my1').jexcel({
-    data:data1
+    data:data1,
+    contextMenu:function() {
+        console.log(1);
+    }
 });
 $('#my2').jexcel({
-    data:data2
+    data:data2,
+    contextMenu:function() {
+        console.log(2);
+    }
 });
 </script>
 

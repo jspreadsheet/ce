@@ -31,10 +31,10 @@
 <script src="../dist/js/jquery.jexcel.js"></script>
 <script src="../dist/js/jquery.jcalendar.js"></script>
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
-<link rel="stylesheet" href="../dist/css/jquery.jexcel.green.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
 
 <script src="../dist/js/excel-formula.min.js"></script>
+<script src="../dist/js/jexcel.js"></script>
 
 </head>
 <body>
@@ -90,8 +90,12 @@
 
 <br>
 
+
+<div style='position:absolute;'>
+
 <div id="my" style="width:100%"></div>
 
+</div>
 
 <script>
 data = [
@@ -347,31 +351,33 @@ countries = [
     {"name": "Zimbabwe", "id": "ZW"}
 ];
 
-onload1 = function (instance) {
-    // Get last header
-    var lastColumn = $(instance).find('thead td').last();
-    // Get actual table width
-    var mainTable = $(instance).find('.jexcel');
-    // New last header column width
-    var width = parseInt($(lastColumn).prop('width')) + parseInt($(instance).width() - $(mainTable).width());
-    // Update width
-    $(lastColumn).prop('width', width);
-}
-
 $('#my').jexcel({
     data:data,
+    nestedHeaders: [
+        [
+            { title: 'All', colspan: 3, width:600 },
+        ],
+        [
+            { title: 'Region', colspan: 2, width:400 },
+            { title: 'Status', colspan: 1, width:200 }
+        ],
+    ],
     colHeaders: ['Country', 'Food', 'Stock'],
-    colHeaderClasses: [ 'a1', 'b2', 'c3' ],
-    colAlignments:[ 'left', 'left', 'left', 'left' ],
     colWidths: [ 300, 100, 200 ],
-    onload:onload1,
     columns: [
-        { type: 'autocomplete', source:countries },
+        { type: 'hidden', source:countries },
         { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
         { type: 'checkbox' },
         { type: 'text', readOnly:true },
-    ]
+    ],
+    tableOverflow:true,
+    tableHeight:100,
+    onmouseover:function(x, y) {
+        console.log(x);
+        console.log(y);
+    }
 });
+
 </script>
             </div>
         </div>
