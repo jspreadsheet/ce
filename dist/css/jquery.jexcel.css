@@ -193,6 +193,7 @@
 .jexcel > tbody > tr > td > textarea
 {
     resize: none;
+    padding-top:6px !important;
 }
 
 .jexcel > tbody > tr > td > input[type=checkbox]
