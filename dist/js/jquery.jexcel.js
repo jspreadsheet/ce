@@ -419,20 +419,20 @@ var methods = {
 
             // Hidden textarea copy and paste helper
             var textarea = document.createElement('textarea');
-            $(textarea).prop('class', 'jexcel_textarea jexcel');
+            $(textarea).prop('class', 'jexcel_textarea');
             $(textarea).prop('id', 'jexcel_textarea');
 
             // Contextmenu container
             var contextMenu = document.createElement('div');
             $(contextMenu).css('display', 'none');
-            $(contextMenu).prop('class', 'jexcel_contextmenu jexcel');
+            $(contextMenu).prop('class', 'jexcel_contextmenu');
             $(contextMenu).prop('id', 'jexcel_contextmenu');
 
             // Powered by
             var ads = document.createElement('div');
             $(ads).css('display', 'none');
             $(ads).prop('id', 'jexcel_about');
-            $(ads).prop('class', 'jexcel_about jexcel');
+            $(ads).prop('class', 'jexcel_about');
             $(ads).html('<a href="http://github.com/paulhodel/jexcel">jExcel Spreadsheet</a>');
 
             // Append elements
@@ -683,7 +683,7 @@ var methods = {
                             }
                         } else {
                             // Check if the object is in the jexcel domain
-                            if (! $(e.target).parents('.jexcel').length) {
+                            if (! $(e.target).parents('.jexcel, .jexcel_contextmenu').length) {
                                 // Keep selection if main scrollbar is selected
                                 if (e.target != $('html').get(0)) {
                                     $('#' + $.fn.jexcel.current).jexcel('resetSelection');
