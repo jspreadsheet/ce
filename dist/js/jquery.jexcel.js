@@ -2833,6 +2833,7 @@ var methods = {
         );
 
         var rows = [[]];  // array to hold our data. First row is column headers.
+	var newRow = true;
         // array to hold our individual pattern matching groups:
         var matches = false; // false if we don't find any matches
         // Loop until we no longer find a regular expression match
@@ -2843,9 +2844,10 @@ var methods = {
 		if (matched_delimiter !== delimiter) {
 			// Since this is a new row of data, add an empty row to the array.
 			rows.push( [] );
-	        }else // if first comes delimiter, means first copied cell was empty
+			newRow = true;
+	        }else if(newRow) // if first comes delimiter, means first copied cell was empty
 			rows[rows.length - 1].push('');
-
+	    newRow = false;
             var matched_value;
             // Once we have eliminated the delimiter, check to see what kind of value was captured (quoted or unquoted):
             if (matches[2]) { // found quoted value. unescape any double quotes.
