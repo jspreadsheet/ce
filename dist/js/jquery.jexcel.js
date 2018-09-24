@@ -661,7 +661,7 @@ var methods = {
                                         $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
 
                                         // Selected cell will be the first in the row
-                                        $.fn.jexcel.selectedCell = $(o2);
+                                        $.fn.jexcel.selectedCell = $(o1);
                                     }
                                 } else {
                                     // Update cell selection
@@ -2839,10 +2839,13 @@ var methods = {
         while (matches = pattern.exec( CSV_string )) {
             var matched_delimiter = matches[1]; // Get the matched delimiter
             // Check if the delimiter has a length (and is not the start of string) and if it matches field delimiter. If not, it is a row delimiter.
-            if (matched_delimiter.length && matched_delimiter !== delimiter) {
-              // Since this is a new row of data, add an empty row to the array.
-              rows.push( [] );
-            }
+	   if (matched_delimiter.length)
+		if (matched_delimiter !== delimiter) {
+			// Since this is a new row of data, add an empty row to the array.
+			rows.push( [] );
+	        }else // if first comes delimiter, means first copied cell was empty
+			rows[rows.length - 1].push('');
+
             var matched_value;
             // Once we have eliminated the delimiter, check to see what kind of value was captured (quoted or unquoted):
             if (matches[2]) { // found quoted value. unescape any double quotes.
