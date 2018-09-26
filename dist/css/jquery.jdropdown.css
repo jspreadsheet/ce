@@ -1,0 +1,76 @@
+/**
+ * (c) 2013 jDropdown
+ * http://www.github.com/paulhodel/jdropdown
+ *
+ * @author: Paul Hodel <paul.hodel@gmail.com>
+ * @description: Custom dropdowns
+ */
+
+.jdropdown
+{
+    display:inline;
+    cursor:pointer;
+}
+
+.jdropdown-header
+{
+    border:1px solid #ccc;
+    padding:4px;
+    padding-left:8px;
+    padding-right:16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 40%;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
+    width:inherit;
+    text-overflow: ellipsis;
+    display:block;
+    cursor:pointer;
+}
+.jdropdown-content
+{
+    min-width:inherit;
+    min-height:10px;
+    border:1px solid #8fb1e3;
+    margin:0px;
+    display:none;
+    background-color:#fff;
+    box-sizing:border-box;
+}
+.jdropdown-focus .jdropdown-content
+{
+    position:absolute;
+    display:inline-block;
+    max-height:200px;
+    overflow-y:scroll;
+    z-index:1000;
+}
+.jdropdown-focus .jdropdown-header
+{
+    outline:auto 5px -webkit-focus-ring-color;
+}
+.jdropdown-item
+{
+    padding:4px;
+    padding-left:8px;
+    white-space: nowrap;
+}
+.jdropdown-item:hover
+{
+    background-color:#1f93ff;
+    color:#fff;
+}
+.jdropdown-item.jdropdown-selected
+{
+    background-color:#1f93ff;
+    color:#fff;
+}
+.jdropdown-item.jdropdown-selected:after
+{
+    font-family:'Material Icons';
+    content:'check';
+    float:right;
+}
