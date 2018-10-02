@@ -5,46 +5,33 @@
  * @author: Paul Hodel <paul.hodel@gmail.com>
  * @description: Web spreadsheet
  */
- 
+
 .jexcel
+{
+}
+.jexcel > div
+{
+    display:inline-block;
+    padding-right:2px;
+}
+.jexcel > div.jexcel-content
+{
+    padding-bottom:2px;
+}
+.jexcel > div > table
 {
     border-collapse:separate;
     table-layout:fixed;
     white-space: nowrap;
     empty-cells:show;
-    border-top:1px solid transparent;
+    border-top:0px solid transparent;
     border-left:1px solid #ccc;
     border-right:1px solid transparent;
-    border-bottom:1px solid transparent;
-    background-clip:padding-box;
+    border-bottom:0px solid transparent;
     background-color:#fff;
+    width:0;
 }
-@media all and (-ms-high-contrast:none)
-{
-    .jexcel
-    {
-        width:0px;
-    }
-}
-@media screen\9
-{
-    .jexcel
-    {
-        width:0px;
-    }
-}
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
-{
-    .jexcel
-    {
-        width:0px;
-    }
-}
-.jexcel > thead > tr, .jexcel > tbody > tr
-{
-    display:flex;
-}
-.jexcel > thead > tr > td 
+.jexcel > div >  table > thead > tr > td 
 {
     border-left:1px solid transparent;
     border-right:1px solid #ccc;
@@ -56,28 +43,42 @@
     overflow:hidden;
     box-sizing: border-box;
 }
-.jexcel > thead > tr > td.selected
+.jexcel > div > table > thead > tr.jexcel-filter > td
+{
+    padding:0px;
+    background-color:#fff;
+}
+.jexcel > div > table > thead > tr.jexcel-filter > td:first-child
+{
+    background-color:#f3f3f3;
+}
+.jexcel > div > table > thead > tr.jexcel-filter > td > input
+{
+    border:0px;
+    width:100%;
+    outline:none;
+}
+.jexcel > div > table > thead > tr > td.selected
 {
     background-color:#dcdcdc;
 }
 
-.jexcel > tbody
+.jexcel > div > table > tbody
 {
     padding-right:3px;
     padding-bottom:1px;
 }
-.jexcel > tbody > tr > td.edition
+.jexcel > div > table > tbody > tr > td.edition
 {
     padding:0px;
-    padding-left:4px;
 }
-.jexcel > tbody > tr > td:first-child
+.jexcel > div > table > tbody > tr > td:first-child
 {
     background-color:#f3f3f3;
     width:30px;
     text-align:center;
 }
-.jexcel > tbody > tr > td
+.jexcel > div > table > tbody > tr > td
 {
     border-left:1px solid transparent;
     border-right:1px solid #ccc;
@@ -88,22 +89,60 @@
     white-space: nowrap;
     box-sizing: border-box;
 }
-.jexcel > tbody > tr:first-child > td
+.jexcel > div > table > tbody > tr:first-child > td
 {
     border-top:1px solid #ccc;
 }
-.jexcel > tbody > tr > td > img
+.jexcel > div > table > tbody > tr > td > img
 {
     display: block;
 }
-.jexcel > tbody > tr > td.readonly
+.jexcel > div > table > tbody > tr > td.readonly
 {
     color:rgba(0,0,0,0.3)
 }
-.jexcel > tbody > tr.selected > td:first-child
+.jexcel > div > table > tbody > tr.selected > td:first-child
 {
     background-color:#dcdcdc;
 }
+.jexcel > div > table > tbody > tr > td > select,
+.jexcel > div > table > tbody > tr > td > input,
+.jexcel > div > table > tbody > tr > td > textarea
+{
+    border:0px;
+    border-radius:0px;
+    outline:0px;
+    width:100%;
+    margin:0px;
+    padding:0px;
+    background-color:transparent;
+}
+
+.jexcel > div > table > tbody > tr > td > textarea
+{
+    resize: none;
+    padding-top:6px !important;
+}
+
+.jexcel > div > table > tbody > tr > td > input[type=checkbox]
+{
+    width:12px;
+    margin-top:2px;
+}
+
+.jexcel > div > table > tbody > tr > td > select
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 40%;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
+}
+
+
+
 .jexcel .highlight
 {
     background-color:rgba(0,0,0,0.05);
@@ -163,7 +202,7 @@
     background-color: rgb(0, 0, 0);
     height: 5px;
     width: 5px;
-    border: 2px solid rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
     top:-200px;
     left:-200px;
     cursor:crosshair;
@@ -177,40 +216,7 @@
     white-space: nowrap;
     text-align:left;
     padding:0px;
-}
-
-.jexcel > tbody > tr > td > select, .jexcel > tbody > tr > td > input, .jexcel > tbody > tr > td > textarea
-{
-    border:0px;
-    border-radius:0px;
-    outline:0px;
-    width:100%;
-    margin:0px;
-    padding:0px;
-    background-color:transparent;
-}
-
-.jexcel > tbody > tr > td > textarea
-{
-    resize: none;
-    padding-top:6px !important;
-}
-
-.jexcel > tbody > tr > td > input[type=checkbox]
-{
-    width:12px;
-    margin-top:2px;
-}
-
-.jexcel > tbody > tr > td > select
-{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-repeat: no-repeat;
-    background-position-x: 100%;
-    background-position-y: 40%;
-    background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
+    padding-left:4px;
 }
 
 .jexcel, .jexcel td, .jexcel_corner {
@@ -385,21 +391,28 @@
     cursor:pointer;
 }
 
-
-.jexcel > tbody::-webkit-scrollbar
+.jexcel::-webkit-scrollbar, .jexcel > div::-webkit-scrollbar
 {
     margin-left:6px;
     width:6px;
+    height:6px;
 }
-.jexcel > tbody::-webkit-scrollbar-track
+.jexcel::-webkit-scrollbar-track, .jexcel > div::-webkit-scrollbar-track
 {
     background: #f3f3f3;
 }
-.jexcel > tbody::-webkit-scrollbar-thumb
+.jexcel::-webkit-scrollbar-thumb, .jexcel > div::-webkit-scrollbar-thumb
 {
     background: #888;
 }
-.jexcel > tbody::-webkit-scrollbar-thumb:hover
+.jexcel::-webkit-scrollbar-thumb:hover, .jexcel > div::-webkit-scrollbar-thumb:hover
 {
     background: #555; 
+}
+
+
+.jexcel .jdropdown-header
+{
+    border:0px;
+    outline:none !important;
 }
