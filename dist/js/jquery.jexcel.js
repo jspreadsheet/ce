@@ -2477,7 +2477,7 @@ var methods = {
             }
         }
     },
-
+    
     /**
      * Update corner position
      *
@@ -2500,8 +2500,8 @@ var methods = {
             $('.jexcel_corner').css('top', t);
             $('.jexcel_corner').css('left', l);
 
-            // Hide the corner in case is out of the range
-            if (!corner.visibleInScroll().isVisible) {
+            // Hide the corner in case is out of the visual range)
+            if (!corner.visibleInScroll().isContained) {
                 $('.jexcel_corner').css('top', -200);
                 $('.jexcel_corner').css('left', -200);
             }
