@@ -4,7 +4,7 @@
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
  * @description: Create light embedded spreadsheets on your webpages
- * 
+ *
  * ROADMAP:
  * Online collaboration
  * Merged cells
@@ -24,7 +24,7 @@ var methods = {
 
     /**
      * Innitialization, configuration and loading
-     * 
+     *
      * @param {Object} options configuration
      * @return void
      */
@@ -170,7 +170,7 @@ var methods = {
 
                         // Data
                         $.fn.jexcel.defaults[this.id].data = data;
- 
+
                         // Prepare table
                         $.fn.jexcel('prepareTable', this.id);
                     }
@@ -289,7 +289,7 @@ var methods = {
 
     /**
      * Create the table
-     * 
+     *
      * @return void
      */
     createTable : function() {
@@ -341,7 +341,7 @@ var methods = {
                     tr += '<td class="'+ c +'" colspan="' + options.nestedHeaders[i].colspan + '" width="' + options.nestedHeaders[i].width + '" align="' + options.nestedHeaders[i].align + '">' + options.nestedHeaders[i].title + '</td>';
                 }
 
-                $(thead).append('<tr>' + tr + '</tr>'); 
+                $(thead).append('<tr>' + tr + '</tr>');
             } else {
                 for (var i = 0; i < options.nestedHeaders.length; i++) {
                     tr = '<td width="30" class="jexcel_label"></td>';
@@ -356,7 +356,7 @@ var methods = {
                         tr += '<td class="'+ c +'" colspan="' + options.nestedHeaders[i][j].colspan + '" width="' + options.nestedHeaders[i][j].width + '" align="' + options.nestedHeaders[i].align + '">' + options.nestedHeaders[i][j].title + '</td>';
                     }
 
-                    $(thead).append('<tr>' + tr + '</tr>'); 
+                    $(thead).append('<tr>' + tr + '</tr>');
                 }
             }
         }*/
@@ -392,7 +392,7 @@ var methods = {
         $(colgroup).html(cg);
 
         // Populate header
-        $(thead).append('<tr>' + tr + '</tr>'); 
+        $(thead).append('<tr>' + tr + '</tr>');
 
         // TODO: filter row
         // <tr><td></td><td><input type="text"></td></tr>
@@ -734,7 +734,7 @@ var methods = {
                         // Update cells
                         $(changedHeader).removeClass('resizing');
                         $(changedColumns).removeClass('resizing');
-                        $(changedColumns).prop('width', newWidth + 'px'); 
+                        $(changedColumns).prop('width', newWidth + 'px');
 
                         // Update any nested cells
                         if ($(nestedHeaders).length > 0) {
@@ -1298,7 +1298,7 @@ var methods = {
 
     /**
      * Set data
-     * 
+     *
      * @param array data In case no data is sent, default is reloaded
      * @return void
      */
@@ -1372,7 +1372,7 @@ var methods = {
             $(tr).prop('id', 'row-' + parseInt(j));
 
             // Index column
-            $(tr).append('<td class="jexcel_label">' + parseInt(j + 1) + '</td>'); 
+            $(tr).append('<td class="jexcel_label">' + parseInt(j + 1) + '</td>');
 
             // Data columns
             for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
@@ -1414,7 +1414,7 @@ var methods = {
 
     /**
      * Update table settings helper. Update cells after loading
-     * 
+     *
      * @param methods
      * @return void
      */
@@ -1435,7 +1435,7 @@ var methods = {
 
         // Go through all cells
         if (options) {
-            // Get all cells form 
+            // Get all cells form
             var cells = $(this).find('.jexcel tbody td').not('.jexcel_label');
             // Existing methods
             if (typeof(options.cells) == 'function') {
@@ -1454,7 +1454,7 @@ var methods = {
 
     /**
      * Open the editor
-     * 
+     *
      * @param object cell
      * @return void
      */
@@ -1719,7 +1719,7 @@ var methods = {
                             }
 
                             // Delay search
-                            timeout = setTimeout(function () { 
+                            timeout = setTimeout(function () {
                                 // Search
                                 if (options.columns[position[0]].url) {
                                     $.getJSON (options.columns[position[0]].url + '?q=' + str + '&r=' + $(main).jexcel('getRowData', position[1]).join(','), function (data) {
@@ -1797,7 +1797,7 @@ var methods = {
 
     /**
      * Close the editor and save the information
-     * 
+     *
      * @param object cell
      * @param boolean save
      * @return void
@@ -1894,7 +1894,7 @@ var methods = {
 
     /**
      * Get the cell object
-     * 
+     *
      * @param object cell
      * @return string value
      */
@@ -1909,7 +1909,7 @@ var methods = {
 
     /**
      * Get the value from a cell
-     * 
+     *
      * @param object cell
      * @return string value
      */
@@ -1951,7 +1951,7 @@ var methods = {
                     // Get default value
                     value = $(cell).find('input');
                     if ($(value).length) {
-                        value = $(value).val(); 
+                        value = $(value).val();
                     } else {
                         value = $(cell).html();
                     }
@@ -1964,7 +1964,7 @@ var methods = {
 
     /**
      * Set a cell value
-     * 
+     *
      * @param object cell destination cell
      * @param object value value
      * @return void
@@ -2018,7 +2018,7 @@ var methods = {
 
     /**
      * Update cells with no history and events
-     * 
+     *
      * @param object destination cells
      * @param bool ignoreHistory - keep cell change out of the undo/redo history
      * @return void
@@ -2042,7 +2042,7 @@ var methods = {
 
     /**
      * Update cells content
-     * 
+     *
      * @param object destination cells
      * @param bool ignoreHistory - keep cell change out of the undo/redo history
      * @return void
@@ -2092,7 +2092,7 @@ var methods = {
 
     /**
      * Update cell content
-     * 
+     *
      * @param object cell
      * @return void
      */
@@ -2224,7 +2224,7 @@ var methods = {
 
     /**
      * Update the cells selection
-     * 
+     *
      * @param object o cell origin
      * @param object d cell destination
      * @return void
@@ -2381,7 +2381,7 @@ var methods = {
 
     /**
      * Get the selection parameters
-     * 
+     *
      * @return array [first cell, last cell]
      */
     getSelection : function() {
@@ -2393,7 +2393,7 @@ var methods = {
 
     /**
      * Current the selected cursor cell
-     * 
+     *
      * @return object cell
      */
     getCellCursor : function() {
@@ -2404,9 +2404,9 @@ var methods = {
 
     /**
      * Get all the selected cells in the current table
-     * 
+     *
      * @return object cells
-     */ 
+     */
     getSelectedCells : function() {
         // Get selected cells
         if ($.fn.jexcel.current) {
@@ -2416,7 +2416,7 @@ var methods = {
 
     /**
      * Update the cells move data
-     * 
+     *
      * @param object o cell current
      * @return void
      */
@@ -2480,7 +2480,7 @@ var methods = {
 
     /**
      * Update corner position
-     * 
+     *
      * @return void
      */
     updateCornerPosition : function() {
@@ -2488,7 +2488,7 @@ var methods = {
         var cells = $(this).find('.highlight');
 
         // If any selected cells
-        if ($(cells).length) { 
+        if ($(cells).length) {
             // Get last cell
             var corner = $(cells).last();
 
@@ -2501,21 +2501,7 @@ var methods = {
             $('.jexcel_corner').css('left', l);
 
             // Hide the corner in case is out of the range
-            var docViewTop = $(this).offset().top;
-            var docViewBottom = docViewTop + $(this).height();
-
-            var elemTop = t;
-            var elemBottom = t;
-
-            if (!((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
-                /*var scrollElement = $(this).find('tbody');
-                // Hide
-                if (elemBottom <= docViewBottom) {
-                    $(scrollElement).scrollTop($(scrollElement).scrollTop() + ($(cells).last().position().top - docViewTop) - $(cells).last().height() - 10);
-                } else {
-                    $(scrollElement).scrollTop(parseInt($(scrollElement).scrollTop()) + $(cells).last().height() + 10);
-                }
-                */
+            if (corner.visibleInScroll().isVisible) {
                 $('.jexcel_corner').css('top', -200);
                 $('.jexcel_corner').css('left', -200);
             }
@@ -2524,7 +2510,7 @@ var methods = {
 
     /**
      * Get the whole table data
-     * 
+     *
      * @param integer row number
      * @return string value
      */
@@ -2565,7 +2551,7 @@ var methods = {
 
     /**
      * Get a row data by row number
-     * 
+     *
      * @param integer rowNumber
      * @return array
      */
@@ -2600,7 +2586,7 @@ var methods = {
 
     /**
      * Get a column data by column number
-     * 
+     *
      * @param integer columnNumber
      * @return array
      */
@@ -2635,7 +2621,7 @@ var methods = {
 
     /**
      * Copy method
-     * 
+     *
      * @param bool highlighted - Get only highlighted cells
      * @param delimiter - \t default to keep compatibility with excel
      * @return string value
@@ -2673,7 +2659,7 @@ var methods = {
                     if (val.match && (val.match(/,/g) || val.match(/\n/) || val.match(/\"/))) {
                         // Scape double quotes
                         val = val.replace(new RegExp('"', 'g'), '""');
-                        val = '"' + val + '"'; 
+                        val = '"' + val + '"';
                     }
                     row += val;
                     pc = true;
@@ -2701,7 +2687,7 @@ var methods = {
 
     /**
      * jExcel cut method
-     */ 
+     */
     cut : function () {
         // Reset cells
         var cells = $(this).find('.highlight');
@@ -2734,7 +2720,7 @@ var methods = {
 
     /**
      * jExcel paste method
-     * 
+     *
      * @param integer row number
      * @return string value
      */
@@ -2771,7 +2757,7 @@ var methods = {
             }
 
             // Records
-            var records = []; 
+            var records = [];
 
             // Go through the columns to get the data
             for (j = 0; j < data.length; j++) {
@@ -2861,7 +2847,7 @@ var methods = {
 
     /**
      * Insert a new column
-     * 
+     *
      * @param  mixed - num of columns to be added or data to be added in one single column
      * @param  object properties - column properties
      * @param  int numColumns - number of columns to be created
@@ -3094,7 +3080,7 @@ var methods = {
 
     /**
      * Insert a new row
-     * 
+     *
      * @param mixed - number of blank lines to be insert or a single array with the data of the new row
      * @param rowNumber
      * @return void
@@ -3229,7 +3215,7 @@ var methods = {
 
     /**
      * Delete a column by number
-     * 
+     *
      * @param integer columnNumber - column show be excluded
      * @return void
      */
@@ -3354,7 +3340,7 @@ var methods = {
 
     /**
      * Delete a row by number
-     * 
+     *
      * @param integer rowNumber - row number show be excluded
      * @param integer numOfRows - number of lines
      * @return void
@@ -3382,7 +3368,7 @@ var methods = {
                     rowNumber = parseInt(number[0]);
                     numOfRows = parseInt(number.length);
                 }
-                
+
                 rowNumber = parseInt(number[0]);
                 numOfRows = parseInt(number.length);
             }
@@ -3462,7 +3448,7 @@ var methods = {
 
     /**
      * Set the column width
-     * 
+     *
      * @param column - column number (first column is: 0)
      * @param width - new column width
      */
@@ -3483,7 +3469,7 @@ var methods = {
 
     /**
      * Get the column width
-     * 
+     *
      * @param column - column number (first column is: 0)
      * @return width - current column width
      */
@@ -3503,7 +3489,7 @@ var methods = {
 
     /**
      * Get the column title
-     * 
+     *
      * @param column -  column number (first column is: 0)
      * @param title - new column title
      */
@@ -3516,7 +3502,7 @@ var methods = {
 
     /**
      * Get the column title
-     * 
+     *
      * @param column - column number (first column is: 0)
      * @param title - new column title
      */
@@ -3537,7 +3523,7 @@ var methods = {
 
     /**
      * Set the column title
-     * 
+     *
      * @param column - column number (first column is: 0)
      * @param title - new column title
      */
@@ -3607,7 +3593,7 @@ var methods = {
         var uy = parseInt(d[1]);
 
         // Records
-        var records = []; 
+        var records = [];
 
         // Copy data procedure
         var posx = 0;
@@ -3859,7 +3845,7 @@ var methods = {
 
     /**
      * Update all cells with formulas
-     * 
+     *
      * @return void
      */
     updateAllCellsWithFormulas : function() {
@@ -3881,7 +3867,7 @@ var methods = {
 
     /**
      * Multi-utility helper
-     * 
+     *
      * @param object options { action: METHOD_NAME }
      * @return mixed
      */
@@ -3906,7 +3892,7 @@ var methods = {
 
     /**
      * Download CSV table
-     * 
+     *
      * @return null
      */
     download : function () {
@@ -3936,7 +3922,7 @@ var methods = {
 
     /**
      * Initializes a new history record for undo/redo
-     * 
+     *
      * @return null
      */
     setHistory : function(changes, action) {
@@ -4233,7 +4219,7 @@ var methods = {
 
     /**
      * Get seleted rows numbers
-     * 
+     *
      * @return array
      */
     getSelectedRows : function() {
@@ -4251,7 +4237,7 @@ var methods = {
 
     /**
      * Get seleted rows numbers
-     * 
+     *
      * @return array
      */
     getSelectedColumns : function() {
@@ -4269,7 +4255,7 @@ var methods = {
 
     /**
      * Get column number by class identification
-     * 
+     *
      * @return array
      */
     getHeaderNumber : function(className) {
@@ -4289,7 +4275,7 @@ var methods = {
 
     /**
      * Update cell references
-     * 
+     *
      * @return void
      */
     updateTableReferences : function(referenceCol, referenceRow) {
@@ -4421,7 +4407,7 @@ var methods = {
 
     /**
      * Move row
-     * 
+     *
      * @return void
      */
     moveRow : function(o, d) {
@@ -4462,7 +4448,7 @@ var methods = {
 
     /**
      * TODO: Move column
-     * 
+     *
      * @return void
      */
     moveColumn : function() {
@@ -4470,7 +4456,7 @@ var methods = {
 
     /**
      * Get letter based on a number
-     * 
+     *
      * @param integer i
      * @return string letter
      */
@@ -4489,7 +4475,7 @@ var methods = {
 
     /**
      * Convert excel like column to jexcel id
-     * 
+     *
      * @param string id
      * @return string id
      */
@@ -4527,7 +4513,7 @@ var methods = {
 
     /**
      * Convert jexcel id to excel like column name
-     * 
+     *
      * @param string id
      * @return string id
      */
@@ -4540,7 +4526,7 @@ var methods = {
 
     /**
      * Shift letters in an excel formula
-     * 
+     *
      * @param string value
      * @param integer number of shifts
      */
@@ -4589,7 +4575,7 @@ var methods = {
 
     /**
      * Shift numbers in an excel formula
-     * 
+     *
      * @param string value
      * @param integer number of shifts
      */
@@ -4707,7 +4693,7 @@ var methods = {
 
     /**
      * Destroy
-     * 
+     *
      * @return array
      */
     destroy : function () {
@@ -4764,7 +4750,7 @@ var methods = {
             $.fn.jexcel.pasteControls = null;
             $.fn.jexcel.keyDownControls = null;
         }
-    } 
+    }
 };
 
 $.fn.jexcel = function( method ) {
@@ -4780,3 +4766,72 @@ $.fn.jexcel = function( method ) {
 //$.fn.jexcel.setElement.prototype.toString = function() { return test[this.value]; }
 
 })( jQuery );
+
+
+
+// helper functions for checking if element is visible
+
+// credit to https://github.com/customd/jquery-visible/issues/11#issuecomment-284028951
+jQuery.fn.visibleInScroll = function (goDeep) {
+  var parent = $(this[0]).scrollParent()[0],
+      elRect = this[0].getBoundingClientRect(),
+      rects = [ parent.getBoundingClientRect() ];
+  elRect = {
+    left: elRect.left,
+    top: elRect.top,
+    right: elRect.right,
+    bottom: elRect.bottom,
+    width: elRect.width,
+    height: elRect.height,
+    visibleWidth: elRect.width,
+    visibleHeight: elRect.height,
+    isVisible: true,
+    isContained: true
+  };
+  var elWidth = elRect.width,
+    elHeight = elRect.height;
+  if (parent === this[0].ownerDocument) {
+    return elRect;
+  }
+
+  while (parent !== this[0].ownerDocument && parent !== null) {
+    if (parent.scrollWidth > parent.clientWidth || parent.scrollHeight > parent.clientHeight) {
+      rects.push(parent.getBoundingClientRect());
+    }
+    if (rects.length && goDeep) { break; }
+    parent = $(parent).scrollParent()[0];
+  }
+  if (!goDeep) {
+    rects.length = 1;
+  }
+  for (var i = 0; i < rects.length; i += 1) {
+    var rect = rects[i];
+    elRect.left = Math.max(elRect.left, rect.left);
+    elRect.top = Math.max(elRect.top, rect.top);
+    elRect.right = Math.min(elRect.right, rect.right);
+    elRect.bottom = Math.min(elRect.bottom, rect.bottom);
+  }
+  elRect.visibleWidth = Math.max(0, elRect.right - elRect.left);
+  elRect.visibleHeight = elRect.visibleWidth && Math.max(0, elRect.bottom - elRect.top);
+  if (!elRect.visibleHeight) { elRect.visibleWidth = 0; }
+  elRect.isVisible = elRect.visibleWidth > 0 && elRect.visibleHeight > 0;
+  elRect.isContained = elRect.visibleWidth === elRect.width && elRect.visibleHeight === elRect.height;
+  return elRect;
+};
+
+// standalone jqueryUI scrollParent
+jQuery.fn.scrollParent = function() {
+  var overflowRegex = /(auto|scroll)/,
+  position = this.css( "position" ),
+  excludeStaticParent = position === "absolute",
+  scrollParent = this.parents().filter( function() {
+    var parent = $( this );
+    if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
+      return false;
+    }
+    var overflowState = parent.css(["overflow", "overflowX", "overflowY"]);
+    return (overflowRegex).test( overflowState.overflow + overflowState.overflowX + overflowState.overflowY );
+  }).eq( 0 );
+
+  return position === "fixed" || !scrollParent.length ? $( this[ 0 ].ownerDocument || document ) : scrollParent;
+};
