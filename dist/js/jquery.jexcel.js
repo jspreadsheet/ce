@@ -2501,7 +2501,7 @@ var methods = {
             $('.jexcel_corner').css('left', l);
 
             // Hide the corner in case is out of the range
-            if (corner.visibleInScroll().isVisible) {
+            if (!corner.visibleInScroll().isVisible) {
                 $('.jexcel_corner').css('top', -200);
                 $('.jexcel_corner').css('left', -200);
             }
