@@ -12,12 +12,17 @@
 .jexcel > div
 {
     display:inline-block;
-    padding-right:2px;
 }
 .jexcel > div.jexcel-content
 {
+    padding-right:2px;
     padding-bottom:2px;
 }
+.jexcel > div.jexcel-header
+{
+    padding-right:2px;
+}
+
 .jexcel > div > table
 {
     border-collapse:separate;
@@ -125,6 +130,11 @@
 }
 
 .jexcel > div > table > tbody > tr > td > input[type=checkbox]
+{
+    width:12px;
+    margin-top:2px;
+}
+.jexcel > div > table > tbody > tr > td > input[type=radio]
 {
     width:12px;
     margin-top:2px;
@@ -389,25 +399,6 @@
     border-top: 4px solid #bbb;
     position:absolute;
     cursor:pointer;
-}
-
-.jexcel::-webkit-scrollbar, .jexcel > div::-webkit-scrollbar
-{
-    margin-left:6px;
-    width:6px;
-    height:6px;
-}
-.jexcel::-webkit-scrollbar-track, .jexcel > div::-webkit-scrollbar-track
-{
-    background: #f3f3f3;
-}
-.jexcel::-webkit-scrollbar-thumb, .jexcel > div::-webkit-scrollbar-thumb
-{
-    background: #888;
-}
-.jexcel::-webkit-scrollbar-thumb:hover, .jexcel > div::-webkit-scrollbar-thumb:hover
-{
-    background: #555; 
 }
 
 

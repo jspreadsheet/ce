@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    
 <br><br><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -10,16 +21,16 @@
 <script>
 data = [
     {"name": "Afghanistan", "id": "AF", "group":"Arabic"},
-    {"name": "Åland Islands", "id": "AX"},
+    {"name": "Ã…land Islands", "id": "AX"},
     {"name": "Albania", "id": "AL"},
     {"name": "Algeria", "id": "DZ"},
     {"name": "American Samoa", "id": "AS"},
-    {"name": "AndorrA", "id": "AD"},
+    {"name": "Andorra", "id": "AD"},
     {"name": "Angola", "id": "AO"},
     {"name": "Anguilla", "id": "AI"},
     {"name": "Antarctica", "id": "AQ"},
     {"name": "Antigua and Barbuda", "id": "AG"},
-    {"name": "Argentina", "id": "AR"},
+    {"name": "Argentina", "id": "AR", "group":"South America"},
     {"name": "Armenia", "id": "AM"},
     {"name": "Aruba", "id": "AW"},
     {"name": "Australia", "id": "AU"},
@@ -39,7 +50,7 @@ data = [
     {"name": "Bosnia and Herzegovina", "id": "BA"},
     {"name": "Botswana", "id": "BW"},
     {"name": "Bouvet Island", "id": "BV"},
-    {"name": "Brazil", "id": "BR", "group":"America"},
+    {"name": "Brazil", "id": "BR", "group":"South America"},
     {"name": "British Indian Ocean Territory", "id": "IO"},
     {"name": "Brunei Darussalam", "id": "BN"},
     {"name": "Bulgaria", "id": "BG"},
@@ -257,6 +268,16 @@ data = [
 $('#my').jdropdown({
     data:data,
     multiple:true,
+    width:200,
+    autocomplete:false,
 });
 
 </script>
+
+<style>
+body{
+    padding:0px;
+    margin:0px;
+    font-family:-apple-system,SF UI Text,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+</style>

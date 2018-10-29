@@ -29,12 +29,13 @@
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
 <script src="../dist/js/jquery.jexcel.js"></script>
+<script src="../dist/js/jquery.jdropdown.js"></script>
 <script src="../dist/js/jquery.jcalendar.js"></script>
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
+<link rel="stylesheet" href="../dist/css/jquery.jdropdown.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
 
 <script src="../dist/js/excel-formula.min.js"></script>
-<script src="../dist/js/jexcel.js"></script>
 
 </head>
 <body>
@@ -99,10 +100,10 @@
 
 <script>
 data = [
-    ['BR', 'Cheese', 1, 'BR'],
+    ['BR', 'Cheese', 0, 'BR'],
     ['CA', 'Apples', 0, ''],
-    ['US', 'Carrots', 1, ''],
-    ['GB', 'Oranges', 0, ''],
+    ['US', 'Carrots', 0, ''],
+    ['GB', 'Oranges', 1, ''],
 ];
 
 countries = [
@@ -362,20 +363,14 @@ $('#my').jexcel({
             { title: 'Status', colspan: 1, width:200 }
         ],
     ],
-    colHeaders: ['Country', 'Food', 'Stock'],
+    colHeaders: ['Country', 'Food', 'Stock', 'Which Row?'],
     colWidths: [ 300, 100, 200 ],
     columns: [
-        { type: 'hidden', source:countries },
+        { type: 'dropdown', source:countries },
         { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
         { type: 'checkbox' },
-        { type: 'text', readOnly:true },
-    ],
-    tableOverflow:true,
-    tableHeight:100,
-    onmouseover:function(x, y) {
-        console.log(x);
-        console.log(y);
-    }
+        { type: 'text' },
+    ]
 });
 
 </script>

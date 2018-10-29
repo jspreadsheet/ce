@@ -408,14 +408,20 @@ var methods = {
         // Table overflow controls
         if ($.fn.jexcel.defaults[id].tableOverflow == true) {
             if ($.fn.jexcel.defaults[id].tableWidth) {
-                $(this).css('overflow-x', 'auto');
-                $(this).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
                 $(tableHeaderContainer).css('overflow-x', 'hidden');
+                $(tableHeaderContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
+                $(tableContentContainer).css('overflow-x', 'scroll');
+                $(tableContentContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
             }
 
             if ($.fn.jexcel.defaults[id].tableHeight) {
                 $(tableContentContainer).css('overflow-y', 'scroll');
                 $(tableContentContainer).css('max-height', $.fn.jexcel.defaults[id].tableHeight);
+
+                // Adjust Header
+                if ($.fn.jexcel.defaults[id].tableWidth) {
+                    $(tableHeaderContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth - 17);
+                }
             }
         }
 
@@ -1171,7 +1177,7 @@ var methods = {
                                                 // Characters able to start a edition
                                                 if (e.keyCode == 32) {
                                                     // Space
-                                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'checkbox') {
+                                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'checkbox' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'radio') {
                                                         var checkboxCurrentVal = $('#' + $.fn.jexcel.current).jexcel('getValue', $.fn.jexcel.selectedCell);
                                                         $('#' + $.fn.jexcel.current).jexcel('setValue', $.fn.jexcel.selectedCell, checkboxCurrentVal == 1 ? false : true);
                                                         e.preventDefault();
@@ -1281,6 +1287,7 @@ var methods = {
 
         $(this).children('.jexcel-content').on('scroll', function() {
             $(this).jexcel('updateCornerPosition');
+            $(tableHeaderContainer).scrollLeft($(this).scrollLeft());
         });
 
         // Load data
@@ -1441,7 +1448,7 @@ var methods = {
      * @param object cell
      * @return void
      */
-    openEditor : function(cell, empty) {
+    openEditor : function(cell, empty, e) {
         // Id
         var id = $(this).prop('id');
 
@@ -1471,7 +1478,7 @@ var methods = {
                 options.columns[position[0]].editor.openEditor(cell);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'hidden') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio' || options.columns[position[0]].type == 'hidden') {
                     // Get value
                     var value = $(this).jexcel('getValue', $(cell)) == 1 ? false : true;
                     // Update value
@@ -1491,13 +1498,24 @@ var methods = {
                     }
 
                     if ($.fn.jdropdown) {
+                        // Create dropdown
                         var html = document.createElement('div');
                         $(html).jdropdown({
                             data: source,
                             multiple: options.columns[position[0]].multiple ? true : false,
                             autocomplete: options.columns[position[0]].autocomplete ? true : false,
                             width:'100%',
+                            height:'100%',
+                            opened:true,
+                            onchange:function() {
+                                $(main).jexcel('closeEditor', $(cell), true);
+                            },
+                            onblur:function() {
+                                $(main).jexcel('closeEditor', $(cell), true);
+                            }
                         });
+                        // Set value
+                        $(html).jdropdown('setValue', value.split(';'));
                     } else {
                         var html = '<select>';
                         for (i = 0; i < source.length; i++) {
@@ -1511,29 +1529,31 @@ var methods = {
                             html += '<option value="' + k + '">' + v + '</option>';
                         }
                         html += '</select>';
+
+                        // Editor configuration
+                        var editor = $(cell).find('select');
+                        $(editor).css('width', $(cell).width());
+                        $(editor).css('height', $(cell).height());
+
+                        // Blur
+                        $(editor).blur(function () {
+                            $(main).jexcel('closeEditor', $(this).parent(), true);
+                        });
+                        // On change
+                        $(editor).change(function () {
+                            $(main).jexcel('closeEditor', $(this).parent(), true);
+                        });
+                        // Focus
+                        $(editor).focus();
+
+                        // Set value
+                        if (value) {
+                            $(editor).val(value);
+                        }
                     }
-
-
 
                     // Open editor
                     $(cell).html(html);
-
-                    // Editor configuration
-                    var editor = $(cell).find('select');
-                    $(editor).css('width', $(cell).width());
-                    $(editor).css('height', $(cell).height());
-
-                    $(editor).change(function () {
-                        $(main).jexcel('closeEditor', $(this).parent(), true);
-                    });
-                    $(editor).blur(function () {
-                        $(main).jexcel('closeEditor', $(this).parent(), true);
-                    });
-
-                    $(editor).focus();
-                    if (value) {
-                        $(editor).val(value);
-                    }
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // Get content
                     var html = $(cell).text().trim();
@@ -1659,10 +1679,8 @@ var methods = {
                     });
                 } else if (options.columns[position[0]].type == 'calendar') {
                     $(cell).addClass('edition');
-
-                    // Get content
+                    // Get current value
                     var value = $(cell).find('input').val();
-
                     // Basic editor
                     var editor = document.createElement('input');
                     $(editor).prop('class', 'editor');
@@ -1759,11 +1777,15 @@ var methods = {
                 value = options.columns[position[0]].editor.closeEditor(cell, save);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'hidden') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio' || options.columns[position[0]].type == 'hidden') {
                     // Do nothing
                 } else if (options.columns[position[0]].type == 'dropdown') {
                     // Get value
-                    var value = $(cell).find('select').val();
+                    if ($.fn.jdropdown) {
+                        var value = $(cell).find('.jdropdown').jdropdown('getValue');
+                    } else {
+                        var value = $(cell).find('select').val();
+                    }
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // Set value
                     var obj = $(cell).find('li.selected');
@@ -1875,9 +1897,9 @@ var methods = {
                 value = options.columns[position[0]].editor.getValue(cell);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio') {
                     // Get checkbox value
-                    value = $(cell).find('input').val() == 'true' ? '1' : '0';
+                    value = $(cell).find('input').is(':checked') == true ? '1' : '0';
                 } else if (options.columns[position[0]].type == 'dropdown' || options.columns[position[0]].type == 'autocomplete' || options.columns[position[0]].type == 'calendar') {
                     // Get value
                     value = $(cell).find('input').val();
@@ -2054,13 +2076,11 @@ var methods = {
                 options.columns[position[0]].editor.setValue($(v.cell), value);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio') {
                     if (value == 1 || value == true || value == 'true') {
                         $(v.cell).find('input').prop('checked', true);
-                        $(v.cell).find('input').prop('value', true);
                     } else {
                         $(v.cell).find('input').prop('checked', false);
-                        $(v.cell).find('input').prop('value', false);
                     }
                 } else if (options.columns[position[0]].type == 'dropdown' || options.columns[position[0]].type == 'autocomplete') {
                     // Dropdown and autocompletes
@@ -2439,22 +2459,24 @@ var methods = {
             // Hide the corner in case is out of the range
             var docViewTop = $(this).offset().top;
             var docViewBottom = docViewTop + $(this).height();
-
             var elemTop = t;
             var elemBottom = t;
 
-            if (!((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
-                /*var scrollElement = $(this).find('tbody');
-                // Hide
-                if (elemBottom <= docViewBottom) {
-                    $(scrollElement).scrollTop($(scrollElement).scrollTop() + ($(cells).last().position().top - docViewTop) - $(cells).last().height() - 10);
-                } else {
-                    $(scrollElement).scrollTop(parseInt($(scrollElement).scrollTop()) + $(cells).last().height() + 10);
-                }
-                */
+            if (! ((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
                 $('.jexcel_corner').css('top', -200);
                 $('.jexcel_corner').css('left', -200);
             }
+
+            var docViewLeft = $(this).offset().left;
+            var docViewRight = docViewLeft + $(this).width();
+            var elemLeft = l;
+            var elemRight = l;
+
+            if (! ((elemRight <= docViewRight) && (elemLeft >= docViewLeft))) {
+                $('.jexcel_corner').css('top', -200);
+                $('.jexcel_corner').css('left', -200);
+            }
+
         }
     },
 
@@ -3629,14 +3651,12 @@ var methods = {
 
             Array.prototype.sortBy = function(p, o) {
                 return this.slice(0).sort(function(a, b) {
-                    var valueA = a[p];
-                    var valueB = b[p];
-
-                    switch (options.columns[p].type) {
-                        case 'numeric':
-                          valueA = Number(valueA);
-                          valueB = Number(valueB);
-                          break;
+                    if (Number(a[p]) == a[p] && Number(b[p]) == b[p]) {
+                        var valueA = Number(a[p]);
+                        var valueB = Number(b[p]);
+                    } else {
+                        var valueA = a[p].toLowerCase();
+                        var valueB = b[p].toLowerCase();
                     }
 
                     if (! o) {
@@ -4089,7 +4109,13 @@ var methods = {
             if (options.columns[i].readOnly == true) {
                 $(td).html('<input type="checkbox" disabled="disabled">');
             } else {
-                $(td).html('<input type="checkbox" onclick="var value = this.checked; var instance = jQuery(this).parents(\'.jexcel\').parent(); $(instance).jexcel(\'setValue\', $(this).parent(), value); $(this).parent().mousedown();" value="false">');
+                $(td).html('<input type="checkbox">');
+            }
+        } else if (options.columns[i].type == 'radio') {
+            if (options.columns[i].readOnly == true) {
+                $(td).html('<input type="radio" name="c' + i + '" disabled="disabled">');
+            } else {
+                $(td).html('<input type="radio" name="c' + i + '">');
             }
         }
 
@@ -4318,13 +4344,13 @@ var methods = {
 
         // Find cols
         if (referenceCol > -1) {
-            var headers = $(this).find('thead').find('tr').last().find('td');
+            var headers = $(this).find('thead').find('tr').eq(-2).find('td');
 
             // Update all headers
             $.each(headers, function(k, v) {
-               if (k > 0 && k >= referenceCol) {
-                   // Update row reference
-                   $(v).prop('id', 'col-' + (k - 1));
+                if (k > 0 && k >= referenceCol) {
+                    // Update row reference
+                    $(v).prop('id', 'col-' + (k - 1));
 
                     // Update header
                     if (! $(v).prop('title')) {
