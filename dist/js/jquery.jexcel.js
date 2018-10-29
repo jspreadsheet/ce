@@ -84,7 +84,9 @@ var methods = {
             // Allow Overflow
             tableHeight:'300px',
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.5.7\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.5.7\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel',
+            //enable/disable Context SaveAs
+            showSaveAsInContextMenus: true
         };
 
         // Id
@@ -489,37 +491,44 @@ var methods = {
                                 contextMenuContent = $.fn.jexcel.defaults[$.fn.jexcel.current].contextMenu(o[0], o[1]);
                             } else {
                                 // Default context menu for the columns
+                                //*** BEGIN CSP FIX **//
+
                                 if ($(e.target).parent().parent().is('thead')) {
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Order ascending <span></span></a>";
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Order descending <span></span></a><hr>";
+                                    contextMenuContent += "<a id='jexcel_ctxmnu_asc_" + $.fn.jexcel.current + "'>Order ascending <span></span></a>";
+                                    contextMenuContent += "<a id='jexcel_ctxmnu_dsc_" + $.fn.jexcel.current + "'>Order descending <span></span></a><hr>";
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                        contextMenuContent += "<a id='jexcel_ctxmnu_ins_" + $.fn.jexcel.current + "'>Insert a new column<span></span></a>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteColumn')\">Delete this column<span></span></a>";
+                                        contextMenuContent += "<a id='jexcel_ctxmnu_del_" + $.fn.jexcel.current + "'>Delete this column<span></span></a>";
                                     }
-                                    contextMenuContent += "<hr><a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].showSaveAsInContextMenus == true) {
+                                        contextMenuContent += "<hr><a id='jexcel_ctxmnu_save_" + $.fn.jexcel.current + "' >Save as...<span>Ctrl + S</span></a>";
+                                    }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
+                                        contextMenuContent += "<a id='jexcel_ctxmnu_abt_" + $.fn.jexcel.current + "'>About<span></span></a>";
                                     }
                                 } else if ($(e.target).parent().parent().is('tbody')) {
                                     // Default context menu for the rows
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
+                                        contextMenuContent += "<a id='jexcel_ctxmnu_ins_" + $.fn.jexcel.current + "'>Insert a new column<span></span></a>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
+                                        contextMenuContent += "<a id='jexcel_ctxmnu_insRow_" + $.fn.jexcel.current + "'>Insert a new row<span></span></a><hr>";
                                     }
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow')\">Delete this row<span></span></a><hr>";
+                                        contextMenuContent += "<a id='jexcel_ctxmnu_delRow_" + $.fn.jexcel.current + "'>Delete this row<span></span></a><hr>";
                                     }
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].showSaveAsInContextMenus == true) {
+                                        contextMenuContent += "<hr><a id='jexcel_ctxmnu_save_" + $.fn.jexcel.current + "'>Save as...<span>Ctrl + S</span></a>";
+                                    }
+                                    contextMenuContent += "<a id='jexcel_ctxmnu_save_" + $.fn.jexcel.current + "'>Copy...<span>Ctrl + C</span></a>";
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
+                                        contextMenuContent += "<a id='jexcel_ctxmnu_abt_" + $.fn.jexcel.current + "'>About<span></span></a>";
                                     }
                                 }
+
+                                //*** SPC END SPC FIX **//
                             }
 
                             if (contextMenuContent) {
@@ -532,6 +541,72 @@ var methods = {
                                     top: e.pageY + 'px',
                                     left: e.pageX + 'px'
                                 });
+
+                                /*************************
+                                 *  BEGIN CSP FIX
+                                 *  Dynamically
+                                 *  Hook up ctx menu in a CSP safe way, removing the CSP warning in chrome.
+                                 *  Issue #256.
+                                 *  *********************/
+
+                                    if ($(e.target).parent().parent().is('thead')) {
+                                        //Header CTX
+                                        $('#jexcel_ctxmnu_asc_' + $.fn.jexcel.current).on('click', function (evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('orderBy', o[1], 0);
+                                        });
+
+                                        $('#jexcel_ctxmnu_dsc_' + $.fn.jexcel.current).on('click', function (evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('orderBy', o[1], 1);
+                                        });
+                                        //insert column
+                                        $('#jexcel_ctxmnu_ins_' + $.fn.jexcel.current).on('click', function (evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('insertColumn', 1,{});
+                                        });
+
+                                        //delete column
+                                        $('#jexcel_ctxmnu_del_' + $.fn.jexcel.current).on('click', function (evt) {
+                                            jQuery('#' + $.fn.jexcel.current).jexcel('deleteColumn',o[1]);
+                                        });
+
+                                        //save as
+                                        $('#jexcel_ctxmnu_save_' + $.fn.jexcel.current).on('click', function(evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('download');
+                                        });
+
+                                        $('#jexcel_ctxmnu_abt_' + $.fn.jexcel.current).on('click', function(evt) {
+                                            alert($.fn.jexcel.defaults[$.fn.jexcel.current].about);
+                                        });
+
+                                    } else {
+                                        //body CTX
+                                        $('#jexcel_ctxmnu_asc_' + $.fn.jexcel.current).on('click', function (evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('orderBy', o[1], 0);
+                                        });
+
+                                        $('#jexcel_ctxmnu_insRow_' + $.fn.jexcel.current).on('click', function (evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('insertRow', 1,parseInt(o[1]) + 1);
+                                        });
+
+                                        $('#jexcel_ctxmnu_delRow_' + $.fn.jexcel.current).on('click', function (evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('deleteRow', o[1]);
+                                        });
+
+                                        //save as
+                                        $('#jexcel_ctxmnu_save_' + $.fn.jexcel.current).on('click', function(evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('download');
+                                        });
+
+                                        $('#jexcel_ctxmnu_abt_' + $.fn.jexcel.current).on('click', function(evt) {
+                                            alert($.fn.jexcel.defaults[$.fn.jexcel.current].about);
+                                        });
+
+                                        //copy
+                                        $('#jexcel_ctxmnu_copy_' + $.fn.jexcel.current).on('click', function(evt) {
+                                            $('#' + $.fn.jexcel.current).jexcel('copy', true);
+                                        });
+
+                                    }
+
 
                                 // Avoid the real one
                                 e.preventDefault();
