@@ -9,10 +9,9 @@
 .jcalendar
 {
     position:absolute;
-    left:-200px;
-    top:-200px;
     z-index:999;
     box-sizing:border-box;
+    display:none;
 }
 
 .jcalendar_container
@@ -20,18 +19,7 @@
     -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
     -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
-}
-
-.jcalendar thead td
-{
-    padding:12px;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#258dc8+0,258dc8+100;Blue+Flat+%231 */
-    background: rgb(37,141,200); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(37,141,200,1) 0%, rgba(37,141,200,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(37,141,200,1) 0%,rgba(37,141,200,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(37,141,200,1) 0%,rgba(37,141,200,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258dc8', endColorstr='#258dc8',GradientType=0 ); /* IE6-9 */
-    color:#fff;
+    background-color:#fff;
 }
 
 .jcalendar thead span
@@ -44,9 +32,7 @@
     box-sizing:border-box;
     cursor:pointer;
     padding:10px;
-    background-color:#fff;
-    color:#000;
-    font-size:0.6em;
+    font-size:0.9em;
 }
 
 .jcalendar tfoot td
@@ -57,7 +43,7 @@
 #jcalendar_weekdays td
 {
     font-weight:550;
-    background-color:#f8f8f8;
+    background-color:#fcfcfc;
     padding:14px;
 }
 
@@ -67,14 +53,9 @@
     margin-left:20px;
 }
 
-.jcalendar_close
-{
-    cursor:pointer;
-}
-
 .jcalendar_months td, .jcalendar_years td
 {
-    height:30px;
+    height:24px;
 } 
 
 .jcalendar table
@@ -83,57 +64,56 @@
     background-color:#fff;
 }
 
-.jcalendar_icon
-{
-    border:0px;
-    padding:0px;
-    margin:0px;
-    background-image:url('img/calendar.png');
-    width:15px;
-    height:15px;
-    position:relative;
-    top:2px;
-    left:-17px;
-}
 .jcalendar_input
 {
     padding-right:18px;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/><path fill="none" d="M0 0h24v24H0z"/></svg>');
+    background-position:right;
+    background-repeat:no-repeat;
 }
 
 .jcalendar_icon_up
 {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid #fff;
+    width:24px;
+    height:24px;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" fill="#000" /><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-position:right;
+    background-repeat:no-repeat;
 }
 
 .jcalendar_down
 {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #fff;
+    width:24px;
+    height:24px;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="#000" /><path fill="none" d="M0 0h24v24H0V0z"/></svg>');
+    background-position:right;
+    background-repeat:no-repeat;
 }
 
 .jcalendar_left
 {
-    width: 0;
-    height: 0;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-right: 4px solid #fff;
+    width:24px;
+    height:24px;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" fill="#000" /><path fill="none" d="M0 0h24v24H0V0z"/></svg>');
+    background-position:right;
+    background-repeat:no-repeat;
 }
 
 .jcalendar_right
 {
-    width: 0;
-    height: 0;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-left: 4px solid #fff;
+    width:24px;
+    height:24px;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="#000" /><path fill="none" d="M0 0h24v24H0V0z"/></svg>');
+    background-position:right;
+    background-repeat:no-repeat;
+}
+
+.jcalendar_done
+{
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.39);
+    background-color:#fff;
 }
 
 .jcalendar_hour, .jcalendar_min, .jcalendar_confirm
@@ -176,11 +156,35 @@
 
 .jcalendar_reset
 {
-    float:right;
-    padding-right:5px;
+    display:inline;
+    text-align:left;
+    padding-left:20px;
+    width:50%;
+}
+
+.jcalendar_close
+{
+    display:inline;
+    text-align:right;
+    padding-right:20px;
+    width:50%;
 }
 
 .jcalendar_prev, .jcalendar_next
 {
     cursor:pointer;
+}
+
+@media only screen and (max-device-width : 800px)
+{
+    .jcalendar
+    {
+        width:100%;
+        left:0px;
+        bottom:0px;
+    }
+}
+.jcalendar_selected
+{
+    background-color:#eee;
 }

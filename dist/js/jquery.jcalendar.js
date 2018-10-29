@@ -58,6 +58,9 @@
             var modal = document.createElement('div');
             $(modal).addClass('jcalendar_container');
 
+            // Controls
+            $(modal).append('<div class="controls"><div class="jcalendar_reset">RESET</div><div class="jcalendar_close">DONE</div></div>');
+
             var calendar = document.createElement('table');
             $(calendar).attr('cellpadding', '0');
             $(calendar).attr('cellspacing', '0');
@@ -77,10 +80,10 @@
             month = parseInt(data.getMonth()) + 1;
 
             // Month and year html
-            $(calendar_header).html('<tr align="center"><td></td><td align="right" class="jcalendar_prev"><div class="jcalendar_left"></div></td><td colspan="3"><input type="hidden" class="jcalendar_day" value="'+data.getDate()+'"> <span class="jcalendar_month_label">' + options.months[ data.getMonth() ] +'</span><input type="hidden" class="jcalendar_month" value="' + month +'"> <span class="jcalendar_year_label"> ' + data.getFullYear() + '</span> <input type="hidden" class="jcalendar_year" value="' + data.getFullYear() + '"></td><td align="left" class="jcalendar_next"><div class="jcalendar_right"></div></td><td class="jcalendar_close">x</td></tr>');
+            $(calendar_header).append('<tr style="background:#f8f8f8;height:60px;" align="center"><td></td><td align="right" class="jcalendar_prev"><div class="jcalendar_left"></div></td><td colspan="3"><input type="hidden" class="jcalendar_day" value="'+data.getDate()+'"> <span class="jcalendar_month_label">' + options.months[ data.getMonth() ] +'</span><input type="hidden" class="jcalendar_month" value="' + month +'"> <span class="jcalendar_year_label"> ' + data.getFullYear() + '</span> <input type="hidden" class="jcalendar_year" value="' + data.getFullYear() + '"></td><td align="left" class="jcalendar_next"><div class="jcalendar_right"></div></td><td><div class="jcalendar_close"></div></td></tr>');
 
             // Footer controls
-            $(calendar_footer).html('<tr><td colspan="7"></td></tr>')
+            $(calendar_footer).html('<tr><td colspan="7"></td></tr>');
 
             // HTML elements for hour and minutes
             var element = '';
@@ -106,10 +109,6 @@
 
             $(calendar_footer).find('td').append('<select class="jcalendar_min">' + select + '</select>')
             $(calendar_footer).find('td').append('<div class="jcalendar_confirm">Ok</div>');
-
-            if (options.clear) {
-                $(calendar_footer).find('td').append('<div class="jcalendar_reset">clear</div>');
-            }
 
             // Create calendar table picker
             $(div).html("");
@@ -462,13 +461,15 @@
         // Get calendar table
         var table = $('.jcalendar');
 
-        // Get the position of the corner helper
-        var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 15;
-        var l = parseInt($(this).offset().left);
-
         // Place the corner in the correct place
         $(table).css('display', 'block');
-        $(table).offset({ top: t, left: l });
+
+        // Get the position of the corner helper
+        if ($(document).width() > 800) {
+            var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 15;
+            var l = parseInt($(this).offset().left);
+            $(table).offset({ top: t, left: l });
+        }
 
         // Setting values in the table based on the current date in the main object
 
@@ -876,11 +877,10 @@
                 calendar_day = '';
             } else {
                 calendar_day = d;
+
                 if (d < 10) {
                     calendar_day = '0' + d;
                 }
-
-                calendar_day = d;
 
                 // Sundays
                 if (!(i % 7)) {
@@ -891,18 +891,17 @@
                 if ((today == 1) && (today_d == d)) {
                     calendar_day_style += 'font-weight:bold;';
                 }
-
-                // Selected day
-                if (calendar_day == day) {
-                    calendar_day_style+= 'background-color:#eee;';
-                }
             }
 
             if ((i > 0) && (!(i % 7))) {
                 calendar_table += '</tr><tr align="center">';
             }
 
-            calendar_table += '<td style="'+calendar_day_style+'" class="setDay">'+calendar_day+'</td>';
+            if (calendar_day > 0 && calendar_day == day) {
+                calendar_table += '<td style="'+calendar_day_style+'" class="setDay jcalendar_selected">'+calendar_day+'</td>';
+            } else {
+                calendar_table += '<td style="'+calendar_day_style+'" class="setDay">'+calendar_day+'</td>';
+            }
         }
 
         // Appeding HTML to the element table
