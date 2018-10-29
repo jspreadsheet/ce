@@ -3481,7 +3481,8 @@ var methods = {
                     var isRowRemoved = false;
 
                     // Remove rows
-                    for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                    // data typing causing loop to to far... convertRowNumber to an int to solve test incase it is accidently passed as string.
+                    for (var row = parseInt(rowNumber); row < parseInt(rowNumber) + numOfRows; row++) {
                         // Keep row data
                         records[row] = $.fn.jexcel.defaults[id].data[row];
 
