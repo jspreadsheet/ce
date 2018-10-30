@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.5.7 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v1.6.0 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -73,8 +73,6 @@ var methods = {
             allowDeleteColumn:true,
             // Global wrap
             wordWrap:false,
-            // ID of the table
-            tableId:null,
             // Filename
             csvFileName:'jexcel',
             // Disable corner selection
@@ -82,9 +80,9 @@ var methods = {
             // Allow Overflow
             tableOverflow:false,
             // Allow Overflow
-            tableHeight:'300px',
+            tableHeight:200,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.5.7\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 1.6.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -299,20 +297,18 @@ var methods = {
         // Var options
         var options = $.fn.jexcel.defaults[id];
 
+        // Element
+        $(this).prop('class', 'jexcel bossanova-ui');
+
         // Create main table object
-        var table = document.createElement('table');
-        $(table).prop('class', 'jexcel bossanova-ui');
-        $(table).prop('cellpadding', '0');
-        $(table).prop('cellspacing', '0');
+        var tableHeaderContainer = document.createElement('div');
+        $(tableHeaderContainer).prop('class', 'jexcel-header');
 
-        // Add id of the table if defined
-        if (options.tableId) {
-            $(table).prop('id', options.tableId);
-        }
-
-        // Unselectable properties
-        $(table).prop('unselectable', 'yes');
-        $(table).prop('onselectstart', 'return false');
+        var tableHeader = document.createElement('table');
+        $(tableHeader).prop('cellpadding', '0');
+        $(tableHeader).prop('cellspacing', '0');
+        $(tableHeader).prop('unselectable', 'yes');
+        $(tableHeader).prop('onselectstart', 'return false');
         //$(table).prop('draggable', 'false');
 
         // Create header and body tags
@@ -324,6 +320,7 @@ var methods = {
         $(thead).prop('class', 'jexcel_label');
 
         // Row
+        var fc = '';
         var tr = '';
         var cg = '';
         // Create nested headers
@@ -367,7 +364,7 @@ var methods = {
 
         // TODO: When the first or last column is hidden
         for (var i = 0; i < options.colHeaders.length; i++) {
-
+            // Column properties
             var width = options.colWidths[i];
             var align = options.colAlignments[i] || 'center';
             var className = options.colHeaderClasses[i] || '';
@@ -384,26 +381,54 @@ var methods = {
             // Create HTML row
             tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" title="' + title + '" class=" ' + className + '"' + display + '>' + header + '</td>';
 
-            // Colgroup
-            cg += '<col width="' + width + '">';
+            // Filter columns
+            fc += '<td><input placeholder="Search:"></td>';
         }
-
-        // Colgroup
-        $(colgroup).html(cg);
 
         // Populate header
         $(thead).append('<tr>' + tr + '</tr>'); 
-
-        // TODO: filter row
-        // <tr><td></td><td><input type="text"></td></tr>
-
+        // Filter rows
+        $(thead).append('<tr class="jexcel-filter" style="display:none"><td></td>' + fc + '</tr>'); 
         // Append content
-        //$(table).append(colgroup);
-        $(table).append(thead);
-        $(table).append(tbody);
+        $(tableHeader).append(thead);
+        $(tableHeaderContainer).html(tableHeader);
+
+        // Create main table object
+        var tableContentContainer = document.createElement('div');
+        $(tableContentContainer).prop('class', 'jexcel-content');
+
+        var tableContent = document.createElement('table');
+        $(tableContent).prop('cellpadding', '0');
+        $(tableContent).prop('cellspacing', '0');
+        $(tableContent).prop('unselectable', 'yes');
+        $(tableContent).prop('onselectstart', 'return false');
+        $(tableContent).append(tbody);
+        $(tableContentContainer).html(tableContent);
+
+        // Table overflow controls
+        if ($.fn.jexcel.defaults[id].tableOverflow == true) {
+            if ($.fn.jexcel.defaults[id].tableWidth) {
+                $(tableHeaderContainer).css('overflow-x', 'hidden');
+                $(tableHeaderContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
+                $(tableContentContainer).css('overflow-x', 'scroll');
+                $(tableContentContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
+            }
+
+            if ($.fn.jexcel.defaults[id].tableHeight) {
+                $(tableContentContainer).css('overflow-y', 'scroll');
+                $(tableContentContainer).css('max-height', $.fn.jexcel.defaults[id].tableHeight);
+
+                // Adjust Header
+                if ($.fn.jexcel.defaults[id].tableWidth) {
+                    $(tableHeaderContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth - 17);
+                }
+            }
+        }
 
         // Main object
-        $(this).html(table);
+        $(this).html(tableHeaderContainer);
+        $(this).append('<br>');
+        $(this).append(tableContentContainer);
 
         // Add the corner square and textarea one time onlly
         if (! $('.jexcel_corner').length) {
@@ -469,16 +494,17 @@ var methods = {
 
                 if ($.fn.jexcel.current) {
                     // Check if the click was in an jexcel element
-                    var table = $(e.target).parent().parent().parent();
+                    var isJexcel = $(e.target).parents('.jexcel').length ? true : false;
 
                     // Table found
-                    if ($(table).is('.jexcel')) {
-
+                    if (isJexcel) {
                         // The id is depending on header and body
                         if ($(e.target).parent().parent().is('thead')) {
                             var o = $(e.target).prop('id');
+                            var h = true;
                         } else {
                             var o = $(e.target).parent().prop('id');
+                            var h = false;
                         }
 
                         if (o) {
@@ -489,39 +515,10 @@ var methods = {
                                 contextMenuContent = $.fn.jexcel.defaults[$.fn.jexcel.current].contextMenu(o[0], o[1]);
                             } else {
                                 // Default context menu for the columns
-                                if ($(e.target).parent().parent().is('thead')) {
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 0)\">Order ascending <span></span></a>";
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + o[1] + ", 1)\">Order descending <span></span></a><hr>";
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
-                                    }
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteColumn')\">Delete this column<span></span></a>";
-                                    }
-                                    contextMenuContent += "<hr><a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
-                                    }
-                                } else if ($(e.target).parent().parent().is('tbody')) {
-                                    // Default context menu for the rows
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + o[1] + ")\">Insert a new column<span></span></a>";
-                                    }
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + o[1] + ")\">Insert a new row<span></span></a><hr>";
-                                    }
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
-                                        contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow')\">Delete this row<span></span></a><hr>";
-                                    }
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
-                                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
-                                        contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
-                                    }
-                                }
+                                contextMenuContent = $.fn.jexcel('contextMenu', o[0], o[1]);
                             }
 
+                            // Show context menu
                             if (contextMenuContent) {
                                 // Contextmenu content
                                 $("#jexcel_contextmenu").html(contextMenuContent);
@@ -561,12 +558,12 @@ var methods = {
                         }
                     } else {
                         // Check if the click was in an jexcel element
-                        var table = $(e.target).parent().parent().parent();
+                        var jexcelTable = $(e.target).parents('.jexcel');
 
                         // Table found
-                        if ($(table).is('.jexcel')) {
+                        if ($(jexcelTable).length > 0) {
                             // Get id
-                            var current = $(table).parent().prop('id');
+                            var current = $(jexcelTable).prop('id');
 
                             // Remove selection from any other jexcel if applicable
                             if ($.fn.jexcel.current) {
@@ -604,8 +601,8 @@ var methods = {
                                                 width:parseInt($(e.target).css('width')),
                                             }
                                             // Border indication
-                                            $(table).parent().find('.c' + o[1]).addClass('resizing');
-                                            $(table).parent().find('#col-' + o[1]).addClass('resizing');
+                                            $('#' + $.fn.jexcel.current + ' .c' + o[1]).addClass('resizing');
+                                            $('#' + $.fn.jexcel.current + ' #col-' + o[1]).addClass('resizing');
 
                                             // Remove selected cells
                                             $('#' + $.fn.jexcel.current).jexcel('updateSelection');
@@ -892,7 +889,7 @@ var methods = {
                     var table = $(e.target).closest('.jexcel');
 
                     // If the user is in the current table
-                    if ($.fn.jexcel.current == $(table).parent().prop('id')) {
+                    if ($.fn.jexcel.current == $(table).prop('id')) {
                         // Header found
                         if ($(e.target).parent().parent().is('thead')) {
                             if ($.fn.jexcel.selectedHeader) {
@@ -1180,7 +1177,7 @@ var methods = {
                                                 // Characters able to start a edition
                                                 if (e.keyCode == 32) {
                                                     // Space
-                                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'checkbox') {
+                                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'checkbox' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'radio') {
                                                         var checkboxCurrentVal = $('#' + $.fn.jexcel.current).jexcel('getValue', $.fn.jexcel.selectedCell);
                                                         $('#' + $.fn.jexcel.current).jexcel('setValue', $.fn.jexcel.selectedCell, checkboxCurrentVal == 1 ? false : true);
                                                         e.preventDefault();
@@ -1288,8 +1285,9 @@ var methods = {
             $(document).on('keydown', $.fn.jexcel.keyDownControls);
         }
 
-        $(this).find('tbody').on('scroll', function() {
+        $(this).children('.jexcel-content').on('scroll', function() {
             $(this).jexcel('updateCornerPosition');
+            $(tableHeaderContainer).scrollLeft($(this).scrollLeft());
         });
 
         // Load data
@@ -1353,14 +1351,6 @@ var methods = {
 
         // Reset data
         $(tbody).html('');
-
-        // Scrolls
-        if ($.fn.jexcel.defaults[id].tableOverflow == true) {
-            $(tbody).css('display', 'block');
-            $(tbody).css('overflow-y', 'scroll');
-            $(tbody).css('height', 'auto');
-            $(tbody).css('max-height', $.fn.jexcel.defaults[id].tableHeight);
-        }
 
         // Records
         var records = [];
@@ -1458,7 +1448,7 @@ var methods = {
      * @param object cell
      * @return void
      */
-    openEditor : function(cell, empty) {
+    openEditor : function(cell, empty, e) {
         // Id
         var id = $(this).prop('id');
 
@@ -1488,7 +1478,7 @@ var methods = {
                 options.columns[position[0]].editor.openEditor(cell);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'hidden') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio' || options.columns[position[0]].type == 'hidden') {
                     // Get value
                     var value = $(this).jexcel('getValue', $(cell)) == 1 ? false : true;
                     // Update value
@@ -1497,6 +1487,9 @@ var methods = {
                     // Keep the current value
                     $(cell).addClass('edition');
 
+                    // Get current value
+                    var value = $(cell).find('input').val();
+
                     // Create dropdown
                     if (typeof(options.columns[position[0]].filter) == 'function') {
                         var source = options.columns[position[0]].filter($(this), $(cell), position[0], position[1], options.columns[position[0]].source);
@@ -1504,122 +1497,63 @@ var methods = {
                         var source = options.columns[position[0]].source;
                     }
 
-                    var html = '<select>';
-                    for (i = 0; i < source.length; i++) {
-                        if (typeof(source[i]) == 'object') {
-                            k = source[i].id;
-                            v = source[i].name;
-                        } else {
-                            k = source[i];
-                            v = source[i];
+                    if ($.fn.jdropdown) {
+                        // Create dropdown
+                        var html = document.createElement('div');
+                        $(html).jdropdown({
+                            data: source,
+                            multiple: options.columns[position[0]].multiple ? true : false,
+                            autocomplete: options.columns[position[0]].autocomplete ? true : false,
+                            width:'100%',
+                            height:'100%',
+                            opened:true,
+                            onchange:function() {
+                                $(main).jexcel('closeEditor', $(cell), true);
+                            },
+                            onblur:function() {
+                                $(main).jexcel('closeEditor', $(cell), true);
+                            }
+                        });
+                        // Set value
+                        $(html).jdropdown('setValue', value.split(';'));
+                    } else {
+                        var html = '<select>';
+                        for (i = 0; i < source.length; i++) {
+                            if (typeof(source[i]) == 'object') {
+                                k = source[i].id;
+                                v = source[i].name;
+                            } else {
+                                k = source[i];
+                                v = source[i];
+                            }
+                            html += '<option value="' + k + '">' + v + '</option>';
                         }
-                        html += '<option value="' + k + '">' + v + '</option>';
-                    }
-                    html += '</select>';
+                        html += '</select>';
 
-                    // Get current value
-                    var value = $(cell).find('input').val();
+                        // Editor configuration
+                        var editor = $(cell).find('select');
+                        $(editor).css('width', $(cell).width());
+                        $(editor).css('height', $(cell).height());
+
+                        // Blur
+                        $(editor).blur(function () {
+                            $(main).jexcel('closeEditor', $(this).parent(), true);
+                        });
+                        // On change
+                        $(editor).change(function () {
+                            $(main).jexcel('closeEditor', $(this).parent(), true);
+                        });
+                        // Focus
+                        $(editor).focus();
+
+                        // Set value
+                        if (value) {
+                            $(editor).val(value);
+                        }
+                    }
 
                     // Open editor
                     $(cell).html(html);
-
-                    // Editor configuration
-                    var editor = $(cell).find('select');
-                    $(editor).css('width', $(cell).width());
-                    $(editor).css('height', $(cell).height());
-
-                    $(editor).change(function () {
-                        $(main).jexcel('closeEditor', $(this).parent(), true);
-                    });
-                    $(editor).blur(function () {
-                        $(main).jexcel('closeEditor', $(this).parent(), true);
-                    });
-
-                    $(editor).focus();
-                    if (value) {
-                        $(editor).val(value);
-                    }
-                } else if (options.columns[position[0]].type == 'calendar') {
-                    $(cell).addClass('edition');
-
-                    // Get content
-                    var value = $(cell).find('input').val();
-
-                    // Basic editor
-                    var editor = document.createElement('input');
-                    $(editor).prop('class', 'editor');
-                    $(editor).css('width', $(cell).width());
-                    $(editor).css('height', $(cell).height());
-                    $(editor).val($(cell).text());
-                    $(cell).html(editor);
-                    $(editor).focus();
-
-                    options.columns[position[0]].options.onclose = function () {
-                        $(main).jexcel('closeEditor', $(cell), true);
-                    }
-
-                    // Current value
-                    $(editor).jcalendar(options.columns[position[0]].options);
-                    $(editor).jcalendar('open', value);
-                } else if (options.columns[position[0]].type == 'multiple') {
-                    // List result
-                    showResult = function(data, str) {
-                        // Reset data
-                        $(result).html('');
-                        // Create options
-                        $.each(data, function(k, v) {
-                            if (typeof(v) == 'object') {
-                                name = v.name;
-                                id = v.id;
-                            } else {
-                                name = v;
-                                id = v;
-                            }
-
-                            if (name.toLowerCase().indexOf(str.toLowerCase()) != -1) {
-                                li = document.createElement('li');
-                                $(li).prop('id', id)
-                                $(li).html('<input type="checkbox"> ' + name);
-                                $(li).mousedown(function (e) {
-                                    $(this).parent().find('li').removeClass('selected');
-                                    $(this).addClass('selected');
-                                    // $(main).jexcel('closeEditor', $(cell), true);
-                                });
-                                $(result).append(li);
-                            }
-                        });
-
-                        if (! $(result).html()) {
-                            $(result).html('<div style="padding:6px;">No result found</div>');
-                        }
-                        $(result).css('display', '');
-                    }
-
-                    // Keep the current value
-                    $(cell).addClass('edition');
-
-                    // Get content
-                    var html = $(cell).text().trim();
-                    var value = $(cell).find('input').val();
-
-                    var source = options.columns[position[0]].source;
-
-                    // Results
-                    var result = document.createElement('div');
-                    $(result).prop('class', 'results');
-                    $(result).prop('tabindex', position[0]);
-                    $(result).css('width', $(cell).outerWidth());
-                    showResult(source, '');
-                    $(cell).html(result);
-                    $(result).focus();
-
-                    // Current value
-                    // $(editor).val(html);
-
-                    // Close editor handler
-                    $(result).blur(function () {
-                        $(main).jexcel('closeEditor', $(cell), false);
-                    });
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // Get content
                     var html = $(cell).text().trim();
@@ -1743,6 +1677,26 @@ var methods = {
                     $(editor).blur(function () {
                         $(main).jexcel('closeEditor', $(cell), false);
                     });
+                } else if (options.columns[position[0]].type == 'calendar') {
+                    $(cell).addClass('edition');
+                    // Get current value
+                    var value = $(cell).find('input').val();
+                    // Basic editor
+                    var editor = document.createElement('input');
+                    $(editor).prop('class', 'editor');
+                    $(editor).css('width', $(cell).width());
+                    $(editor).css('height', $(cell).height());
+                    $(editor).val($(cell).text());
+                    $(cell).html(editor);
+                    $(editor).focus();
+
+                    options.columns[position[0]].options.onclose = function () {
+                        $(main).jexcel('closeEditor', $(cell), true);
+                    }
+
+                    // Current value
+                    $(editor).jcalendar(options.columns[position[0]].options);
+                    $(editor).jcalendar('open', value);
                 } else {
                     // Keep the current value
                     $(cell).addClass('edition');
@@ -1823,11 +1777,15 @@ var methods = {
                 value = options.columns[position[0]].editor.closeEditor(cell, save);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'hidden') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio' || options.columns[position[0]].type == 'hidden') {
                     // Do nothing
                 } else if (options.columns[position[0]].type == 'dropdown') {
                     // Get value
-                    var value = $(cell).find('select').val();
+                    if ($.fn.jdropdown) {
+                        var value = $(cell).find('.jdropdown').jdropdown('getValue');
+                    } else {
+                        var value = $(cell).find('select').val();
+                    }
                 } else if (options.columns[position[0]].type == 'autocomplete') {
                     // Set value
                     var obj = $(cell).find('li.selected');
@@ -1939,9 +1897,9 @@ var methods = {
                 value = options.columns[position[0]].editor.getValue(cell);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio') {
                     // Get checkbox value
-                    value = $(cell).find('input').val() == 'true' ? '1' : '0';
+                    value = $(cell).find('input').is(':checked') == true ? '1' : '0';
                 } else if (options.columns[position[0]].type == 'dropdown' || options.columns[position[0]].type == 'autocomplete' || options.columns[position[0]].type == 'calendar') {
                     // Get value
                     value = $(cell).find('input').val();
@@ -2118,13 +2076,11 @@ var methods = {
                 options.columns[position[0]].editor.setValue($(v.cell), value);
             } else {
                 // Native functions
-                if (options.columns[position[0]].type == 'checkbox') {
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio') {
                     if (value == 1 || value == true || value == 'true') {
                         $(v.cell).find('input').prop('checked', true);
-                        $(v.cell).find('input').prop('value', true);
                     } else {
                         $(v.cell).find('input').prop('checked', false);
-                        $(v.cell).find('input').prop('value', false);
                     }
                 } else if (options.columns[position[0]].type == 'dropdown' || options.columns[position[0]].type == 'autocomplete') {
                     // Dropdown and autocompletes
@@ -2503,22 +2459,24 @@ var methods = {
             // Hide the corner in case is out of the range
             var docViewTop = $(this).offset().top;
             var docViewBottom = docViewTop + $(this).height();
-
             var elemTop = t;
             var elemBottom = t;
 
-            if (!((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
-                /*var scrollElement = $(this).find('tbody');
-                // Hide
-                if (elemBottom <= docViewBottom) {
-                    $(scrollElement).scrollTop($(scrollElement).scrollTop() + ($(cells).last().position().top - docViewTop) - $(cells).last().height() - 10);
-                } else {
-                    $(scrollElement).scrollTop(parseInt($(scrollElement).scrollTop()) + $(cells).last().height() + 10);
-                }
-                */
+            if (! ((elemBottom <= docViewBottom) && (elemTop >= docViewTop))) {
                 $('.jexcel_corner').css('top', -200);
                 $('.jexcel_corner').css('left', -200);
             }
+
+            var docViewLeft = $(this).offset().left;
+            var docViewRight = docViewLeft + $(this).width();
+            var elemLeft = l;
+            var elemRight = l;
+
+            if (! ((elemRight <= docViewRight) && (elemLeft >= docViewLeft))) {
+                $('.jexcel_corner').css('top', -200);
+                $('.jexcel_corner').css('left', -200);
+            }
+
         }
     },
 
@@ -3693,14 +3651,12 @@ var methods = {
 
             Array.prototype.sortBy = function(p, o) {
                 return this.slice(0).sort(function(a, b) {
-                    var valueA = a[p];
-                    var valueB = b[p];
-
-                    switch (options.columns[p].type) {
-                        case 'numeric':
-                          valueA = Number(valueA);
-                          valueB = Number(valueB);
-                          break;
+                    if (Number(a[p]) == a[p] && Number(b[p]) == b[p]) {
+                        var valueA = Number(a[p]);
+                        var valueB = Number(b[p]);
+                    } else {
+                        var valueA = a[p].toLowerCase();
+                        var valueB = b[p].toLowerCase();
                     }
 
                     if (! o) {
@@ -4153,7 +4109,13 @@ var methods = {
             if (options.columns[i].readOnly == true) {
                 $(td).html('<input type="checkbox" disabled="disabled">');
             } else {
-                $(td).html('<input type="checkbox" onclick="var value = this.checked; var instance = jQuery(this).parents(\'.jexcel\').parent(); $(instance).jexcel(\'setValue\', $(this).parent(), value); $(this).parent().mousedown();" value="false">');
+                $(td).html('<input type="checkbox">');
+            }
+        } else if (options.columns[i].type == 'radio') {
+            if (options.columns[i].readOnly == true) {
+                $(td).html('<input type="radio" name="c' + i + '" disabled="disabled">');
+            } else {
+                $(td).html('<input type="radio" name="c' + i + '">');
             }
         }
 
@@ -4382,13 +4344,13 @@ var methods = {
 
         // Find cols
         if (referenceCol > -1) {
-            var headers = $(this).find('thead').find('tr').last().find('td');
+            var headers = $(this).find('thead').find('tr').eq(-2).find('td');
 
             // Update all headers
             $.each(headers, function(k, v) {
-               if (k > 0 && k >= referenceCol) {
-                   // Update row reference
-                   $(v).prop('id', 'col-' + (k - 1));
+                if (k > 0 && k >= referenceCol) {
+                    // Update row reference
+                    $(v).prop('id', 'col-' + (k - 1));
 
                     // Update header
                     if (! $(v).prop('title')) {
@@ -4703,6 +4665,61 @@ var methods = {
      */
     setHistoryFlag : function(val) {
         $.fn.jexcel.ignoreHistory = val ? true : false;
+    },
+
+    /**
+     * Show filter
+     */
+    showFilter : function() {
+        $(this).find('.jexcel-filter').css('display', '');
+    },
+
+    /**
+     * Hide filter
+     */
+    hideFilter : function() {
+        $(this).find('.jexcel-filter').css('display', 'none');
+    },
+
+    /**
+     * Default context menu
+     */
+    contextMenu : function(type, number) {
+        var contextMenuContent = '';
+
+        if (type == 'col') {
+            contextMenuContent += "<a onclick=\"\"> <span></span></a>";
+            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 1)\">Order descending <span></span></a><hr>";
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + number + ")\">Insert a new column<span></span></a>";
+            }
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteColumn')\">Delete this column<span></span></a>";
+            }
+            contextMenuContent += "<hr><a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
+            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
+                contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
+            }
+        } else {
+            // Default context menu for the rows
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + number + ")\">Insert a new column<span></span></a>";
+            }
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + number + ")\">Insert a new row<span></span></a><hr>";
+            }
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow')\">Delete this row<span></span></a><hr>";
+            }
+            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
+            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
+                contextMenuContent += "<a onclick=\"alert('" + $.fn.jexcel.defaults[$.fn.jexcel.current].about + "')\">About<span></span></a>";
+            }
+        }
+
+        return contextMenuContent;
     },
 
     /**
