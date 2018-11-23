@@ -2563,6 +2563,16 @@ var methods = {
        return dataset;
     },
 
+
+    /**
+     * Get number of rows
+     * 
+     * 
+     * @return integer
+     */
+     getRowCount: function(){
+     	return $(this).find('table.bossanova-ui tbody tr').length();
+     },
     /**
      * Get a row data by row number
      * 
