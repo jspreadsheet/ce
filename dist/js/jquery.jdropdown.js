@@ -205,19 +205,50 @@
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-group-name')) {
-                        if ($.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple == true) {
-                            var items = $(e.target).parent().find('.jdropdown-item');
-                            $.each(items, function(k, v) {
-                                if ($(v).is(':visible')) {
-                                    $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(v).data('index'));
-                                }
-                            });
+                        if ($.fn.jdropdown.current) {
+                            if ($.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple == true) {
+                                var items = $(e.target).parent().find('.jdropdown-item');
+                                $.each(items, function(k, v) {
+                                    if ($(v).is(':visible')) {
+                                        $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(v).data('index'));
+                                    }
+                                });
+                            }
                         }
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-item')) {
-                        // Select item
-                        $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(e.target).data('index'));
+                        if ($.fn.jdropdown.current) {
+                            // Select item
+                            $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(e.target).data('index'));
+                        } else {
+                            var index = $(e.target).data('index');
+                            var dropdown = $(e.target).parents('.jdropdown').prop('id');
+                            // List
+                            if ($.fn.jdropdown.configuration[dropdown].type == 'list') {
+                                var dropDownOptions = $(this).find('.jdropdown-item');
+                                if (! $.fn.jdropdown.configuration[dropdown].multiple) {
+                                    // Update selected item
+                                    $(dropDownOptions).removeClass('jdropdown-selected');
+                                    $(dropDownOptions[index]).addClass('jdropdown-selected');
+                                    // Cursor
+                                    $(dropDownOptions).removeClass('jdropdown-cursor');
+                                    $(dropDownOptions[index]).addClass('jdropdown-cursor');
+                                } else {
+                                    // Toggle option
+                                    if ($(dropDownOptions[index]).hasClass('jdropdown-selected')) {
+                                        $(dropDownOptions[index]).removeClass('jdropdown-selected');
+                                        $(dropDownOptions[index]).removeClass('jdropdown-cursor');
+                                    } else {
+                                        $(dropDownOptions[index]).addClass('jdropdown-selected');
+                                        $(dropDownOptions).removeClass('jdropdown-cursor');
+                                        $(dropDownOptions[index]).addClass('jdropdown-cursor');
+                                    }
+                                    // Update cursor position
+                                    $.fn.jdropdown.currentIndex = index;
+                                }
+                            }
+                        }
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-image')) {
@@ -412,7 +443,7 @@
             // Get all options
             var dropDownOptions = $(this).find('.jdropdown-item');
             // Focus behaviour
-            if (! $.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple == true) {
+            if (! $.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple) {
                 // Update selected item
                 $(dropDownOptions).removeClass('jdropdown-selected');
                 $(dropDownOptions[index]).addClass('jdropdown-selected');
