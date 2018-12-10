@@ -4145,6 +4145,14 @@ var methods = {
         var id = $(this).prop('id');
         var test = false;
 
+        // Update values
+        var ignoreEvents = $.fn.jexcel.ignoreEvents ? true : false;
+        var ignoreHistory = $.fn.jexcel.ignoreHistory ? true : false;
+
+        // Disabled events and history
+        $.fn.jexcel.ignoreEvents = true;
+        $.fn.jexcel.ignoreHistory = true;
+
         // Sparerows and sparecols configuration
         if ($.fn.jexcel.defaults[id].minSpareCols > 0) {
             // Configuration to check the spare cells
@@ -4191,6 +4199,10 @@ var methods = {
                 $(this).jexcel('insertRow', $.fn.jexcel.defaults[id].minSpareCols);
             }
         }
+
+        // Restore events and history flag
+        $.fn.jexcel.ignoreEvents = ignoreEvents;
+        $.fn.jexcel.ignoreHistory = ignoreHistory;
     },
 
     /**
