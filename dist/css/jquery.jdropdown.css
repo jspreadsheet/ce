@@ -41,7 +41,7 @@
     width:100%;
     appearance: none;
     background-repeat: no-repeat;
-    background-position:top 50% right 10px;
+    background-position:top 50% right 5px;
     background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
     text-overflow: ellipsis;
     cursor:pointer;
@@ -96,6 +96,7 @@
     text-overflow: ellipsis;
     overflow-x:hidden;
 }
+
 /** Default visual **/
 
 .jdropdown-default .jdropdown-header
@@ -179,6 +180,24 @@
     border-bottom:1px solid #e6e6e8;
     padding-top:10px;
     padding-bottom:10px;
+    box-sizing: border-box;
+}
+
+.jdropdown-picker.jdropdown-focus
+{
+    position:absolute;
+    top:0px;
+    left:0px;
+    min-width:100%;
+    min-height:100%;
+    background-color:rgba(0,0,0,0.5);
+    border:0px;
+    padding:0px;
+}
+
+.jdropdown-picker.jdropdown-focus .jdropdown-header
+{
+    display:none;
 }
 
 .jdropdown-picker .jdropdown-header
@@ -189,6 +208,8 @@
     outline:none;
     text-transform:uppercase;
     font-size:1em;
+    padding-right:24px;
+    background-position:top 50% right 5px;
 }
 
 .jdropdown-picker .jdropdown-container
@@ -197,19 +218,18 @@
     bottom:0px;
     left:0px;
     z-index:1000;
-    border-top:1px solid #e6e6e8;
     border-bottom:1px solid #e6e6e8;
     width:100%;
     background-color:#fff;
+    box-sizing: border-box;
 }
 
 .jdropdown-picker .jdropdown-close
 {
-    box-shadow: 0px -1px 5px rgba(0,0,0,.2);
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-    background-color:#aaa;
-    color:#fff;
+    -webkit-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+    -moz-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+    box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+    background-color:#fff;
     display:block;
 }
 
@@ -217,6 +237,8 @@
 {
     overflow-y:scroll;
     height:215px;
+    background-color:#fafafa;
+    border-top:1px solid #e6e6e8;
 }
 
 .jdropdown-picker .jdropdown-group-name
@@ -279,6 +301,8 @@
     left:0px;
     min-height:100%;
     background-color:#fafafa;
+    padding:0px;
+    padding-top:40px;
 }
 
 .jdropdown-searchbar.jdropdown-focus .jdropdown-container-header
@@ -286,6 +310,10 @@
     padding:10px;
     background-color:#fff;
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
 }
 
 .jdropdown-searchbar.jdropdown-focus .jdropdown-header
@@ -302,6 +330,11 @@
     display:block;
 }
 
+.jdropdown-searchbar.jdropdown-focus .jdropdown-container
+{
+    margin-top:55px;
+}
+
 .jdropdown-searchbar .jdropdown-header
 {
     border:0px;
@@ -315,7 +348,7 @@
 
 .jdropdown-searchbar .jdropdown-close
 {
-    position:absolute;
+    position:fixed;
     top:0px;
     right:0px;
 }
@@ -327,7 +360,8 @@
 
 .jdropdown-searchbar .jdropdown-group
 {
-    margin-bottom:10px;
+    margin-top:5px;
+    margin-bottom:5px;
     background-color:#fff;
 }
 
@@ -336,6 +370,7 @@
     border-top: 1px solid #e6e6e8;
     border-bottom: 1px solid #e6e6e8;
     padding:10px;
+    font-weight:bold;
 }
 
 .jdropdown-searchbar .jdropdown-item
@@ -406,6 +441,7 @@
     padding-top:10px;
     padding-bottom:10px;
     border-bottom: 1px solid #e6e6e8;
+    padding-left:10px;
     padding-right:40px;
     background-color:#fff;
 }
@@ -414,5 +450,5 @@
 {
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTkgMTYuMTdMNC44MyAxMmwtMS40MiAxLjQxTDkgMTkgMjEgN2wtMS40MS0xLjQxeiIgZmlsbD0iIzAwN2FmZiIvPjwvc3ZnPg==');
     background-repeat:no-repeat;
-    background-position:top 50% right 15px;
+    background-position:top 50% right 10px;
 }

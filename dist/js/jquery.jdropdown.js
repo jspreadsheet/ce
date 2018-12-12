@@ -1,6 +1,6 @@
 /**
- * (c) 2013 jDropdown
- * https://github.com/paulhodel/jdropdown
+ * (c) 2013 jDropdown (jTools v1.1)
+ * https://github.com/paulhodel/jtools
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
  * @description: Custom dropdown
@@ -10,7 +10,7 @@
 
     var methods = {
 
-        init : function(options) { 
+        init : function(options) {
 
             var defaults = {
                  data: [],
@@ -21,7 +21,11 @@
                  opened:false,
                  onchange:null,
                  onblur:null,
+                 value:null,
             };
+
+            // Remove any content from the original element
+            $(this).html('');
 
             // Main form HTML container element : track all form elements inside
             var main = $(this);
@@ -41,8 +45,32 @@
             // Save configuration
             $.fn.jdropdown.configuration[id] = options;
 
-            // Remove any content
-            $(this).html('');
+            if (options.url) {
+                $.ajax({
+                    url: options.url,
+                    type: 'GET',
+                    dataType:'json',
+                    success: function(data) {
+                        $.fn.jdropdown.configuration[id].data = data;
+                        // Create element
+                        $(main).jdropdown('create');
+                    }
+                });
+            } else {
+                // Create element
+                $(this).jdropdown('create');
+            }
+        },
+
+        create : function() {
+            // Main element
+            var main = $(this);
+
+            // Main object
+            var id = $(this).prop('id');
+
+            // Save configuration
+            var options = $.fn.jdropdown.configuration[id];
 
             // Properties
             $(this).addClass('jdropdown');
@@ -101,6 +129,17 @@
             // Append options
             var groups = {};
             $.each($.fn.jdropdown.configuration[id].data, function(k, v) {
+                // Compatibility
+                if (typeof(v) != 'object') {
+                    var value = v;
+                    v = {}
+                    v.id = value;
+                    v.name = value;
+
+                    // Fix array
+                    $.fn.jdropdown.configuration[id].data[k] = v;
+                }
+
                 // Create item
                 var item = document.createElement('div');
                 $(item).prop('class', 'jdropdown-item');
@@ -160,13 +199,19 @@
             $(container).append(content);
             $(this).append(container);
 
-            if (options.opened == true) {
-                $(this).addClass('jdropdown-focus');
+            // Values
+            if (options.value) {
+                $(this).jdropdown('setValue', options.value);
             }
 
             // Fix width - Workaround important to get the correct width
-            setTimeout(function() { 
+            setTimeout(function() {
+                // Width fix
                 $(container).css('min-width', $(header).outerWidth());
+                // Open 
+                if (options.opened == true) {
+                    $(main).jdropdown('open');
+                }
             }, 0);
 
             // Handlers
@@ -205,19 +250,50 @@
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-group-name')) {
-                        if ($.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple == true) {
-                            var items = $(e.target).parent().find('.jdropdown-item');
-                            $.each(items, function(k, v) {
-                                if ($(v).is(':visible')) {
-                                    $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(v).data('index'));
-                                }
-                            });
+                        if ($.fn.jdropdown.current) {
+                            if ($.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple == true) {
+                                var items = $(e.target).parent().find('.jdropdown-item');
+                                $.each(items, function(k, v) {
+                                    if ($(v).is(':visible')) {
+                                        $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(v).data('index'));
+                                    }
+                                });
+                            }
                         }
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-item')) {
-                        // Select item
-                        $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(e.target).data('index'));
+                        if ($.fn.jdropdown.current) {
+                            // Select item
+                            $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(e.target).data('index'));
+                        } else {
+                            var index = $(e.target).data('index');
+                            var dropdown = $(e.target).parents('.jdropdown').prop('id');
+                            // List
+                            if ($.fn.jdropdown.configuration[dropdown].type == 'list') {
+                                var dropDownOptions = $(this).find('.jdropdown-item');
+                                if (! $.fn.jdropdown.configuration[dropdown].multiple) {
+                                    // Update selected item
+                                    $(dropDownOptions).removeClass('jdropdown-selected');
+                                    $(dropDownOptions[index]).addClass('jdropdown-selected');
+                                    // Cursor
+                                    $(dropDownOptions).removeClass('jdropdown-cursor');
+                                    $(dropDownOptions[index]).addClass('jdropdown-cursor');
+                                } else {
+                                    // Toggle option
+                                    if ($(dropDownOptions[index]).hasClass('jdropdown-selected')) {
+                                        $(dropDownOptions[index]).removeClass('jdropdown-selected');
+                                        $(dropDownOptions[index]).removeClass('jdropdown-cursor');
+                                    } else {
+                                        $(dropDownOptions[index]).addClass('jdropdown-selected');
+                                        $(dropDownOptions).removeClass('jdropdown-cursor');
+                                        $(dropDownOptions[index]).addClass('jdropdown-cursor');
+                                    }
+                                    // Update cursor position
+                                    $.fn.jdropdown.currentIndex = index;
+                                }
+                            }
+                        }
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-image')) {
@@ -269,6 +345,9 @@
                             } else if (e.which == 35) {
                                 $('#' + $.fn.jdropdown.current).jdropdown('updateCursorPosition', 'last');
                             }
+
+                            e.stopPropagation();
+                            e.preventDefault();
                         }
                     }
                 }
@@ -404,15 +483,12 @@
          * Select an item
          */
         selectIndex : function(index) {
-            // Events
-            if (typeof($.fn.jdropdown.configuration[$.fn.jdropdown.current].onchange) == 'function') {
-                var value = $('#' + $.fn.jdropdown.current).jdropdown('getValue');
-                $.fn.jdropdown.configuration[$.fn.jdropdown.current].onchange($('#' + $.fn.jdropdown.current), index, value);
-            }
+            // Current dropdown
+            var currentDropdown = $.fn.jdropdown.current;
             // Get all options
             var dropDownOptions = $(this).find('.jdropdown-item');
             // Focus behaviour
-            if (! $.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple == true) {
+            if (! $.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple) {
                 // Update selected item
                 $(dropDownOptions).removeClass('jdropdown-selected');
                 $(dropDownOptions[index]).addClass('jdropdown-selected');
@@ -437,6 +513,13 @@
                 if (! $(this).data('autocomplete')) {
                    $(this).jdropdown('updateLabel');
                 }
+            }
+
+            // Events
+            if (typeof($.fn.jdropdown.configuration[currentDropdown].onchange) == 'function') {
+                var oldValue = $('#' + currentDropdown).jdropdown('getValue');
+                var newValue = $(dropDownOptions[index]).data('value');
+                $.fn.jdropdown.configuration[currentDropdown].onchange($('#' + currentDropdown), index, oldValue, newValue);
             }
         },
 
@@ -471,15 +554,20 @@
          * Update labels
          */
         updateLabel : function() {
+            // Get id
+            var id = $(this).prop('id');
+
             // Update label
             var selectedOptions = $(this).find('.jdropdown-selected');
-
             var label = '';
             $.each(selectedOptions, function(k, v) {
+                var index = $(v).data('index');
                 if (label) {
                     label += '; ';
                 }
-                label += $.fn.jdropdown.configuration[$.fn.jdropdown.current].data[$(v).data('index')].name;
+                if ($.fn.jdropdown.configuration[id].data[index]) {
+                    label += $.fn.jdropdown.configuration[id].data[index].name;
+                }
             });
 
             // Update label
@@ -503,7 +591,7 @@
                         // Redo search
                         $(this).jdropdown('find', null);
                         // Clear search field
-                        $(this).find('.jdropdown-header').val('');
+                        $(this).find('.jdropdown-header').val('').focus();
                     }
                     // Selected
                     var selected = $(this).find('.jdropdown-selected');
