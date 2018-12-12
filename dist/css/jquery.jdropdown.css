@@ -62,7 +62,7 @@
     color:#1f93ff;
     text-transform:uppercase;
     text-align:right;
-    padding:10px;
+    padding:15px;
 }
 
 .jdropdown-content
@@ -226,11 +226,18 @@
 
 .jdropdown-picker .jdropdown-close
 {
+<<<<<<< HEAD
     -webkit-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
     -moz-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
     box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+=======
+    -webkit-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+    -moz-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+    box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+>>>>>>> branch 'dev' of https://github.com/paulhodel/jexcel.git
     background-color:#fff;
     display:block;
+    font-weight:bold;
 }
 
 .jdropdown-picker .jdropdown-content
