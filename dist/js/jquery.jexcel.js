@@ -498,6 +498,7 @@ var methods = {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
                                         contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteColumn')\">Delete this column<span></span></a>";
                                     }
+                                    contextMenuContent += "<a id=\"setHeaderButton\" onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('renameColumn'," + o[1] + ")\">Rename this column</a>";
                                     contextMenuContent += "<hr><a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
                                     contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
@@ -3226,7 +3227,22 @@ var methods = {
             }
         }
     },
-
+    /**
+     * Rename heading of a column
+     * 
+     * @param integer columnNumber - column show be excluded
+     * @return void
+     */
+    renameColumn : function(columnNumber){
+        var title = prompt("New header title");
+        if (title != null) {
+            $(this).find('thead #col-' + columnNumber).html(title);
+            // var chart = $("#container").highcharts();
+            var data = $('#key-chart').jexcel('getHeaders');
+            data.shift();
+            // chart.xAxis[0].setCategories(data);
+        }
+    },
     /**
      * Delete a column by number
      * 
