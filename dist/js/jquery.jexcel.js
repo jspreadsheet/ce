@@ -1090,7 +1090,20 @@ var methods = {
                                 } else if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'dropdown' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'autocomplete') {
                                     // Do nothing
                                 } else {
-                                    $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                    // Alt enter -> do not close editor
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].wordWrap == true && e.altKey) {
+                                        // Add new line to the editor
+                                        var editorTextarea = $($.fn.jexcel.selectedCell).find('.editor');
+                                        var editorValue = $(editorTextarea).val();
+                                        var editorIndexOf = $(editorTextarea).prop('selectionStart');
+                                        editorValue = editorValue.slice(0, editorIndexOf) + "\n" + editorValue.slice(editorIndexOf);
+                                        $(editorTextarea).val(editorValue);
+                                        $(editorTextarea).focus();
+                                        $(editorTextarea).prop('selectionStart', editorIndexOf + 1);
+                                        $(editorTextarea).prop('selectionEnd', editorIndexOf + 1);
+                                    } else {
+                                        $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                    }
                                 }
                             }
 
@@ -4058,7 +4071,7 @@ var methods = {
 
         // Wrap option
         if (options.wordWrap == true || options.columns[i].wordWrap == true) {
-            $(td).css('white-space', 'pre');
+            $(td).css('white-space', 'pre-wrap');
         }
 
         // Add custom css class to column
