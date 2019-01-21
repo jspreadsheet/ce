@@ -33,6 +33,10 @@
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
 <link rel="stylesheet" href="../dist/css/jquery.jcalendar.css" type="text/css" />
 
+<script src="../dist/js/excel-formula.min.js"></script>
+<script src="../dist/js/jexcel.js"></script>
+<script src="../dist/js/jquery.jtemplate.js"></script>
+
 </head>
 <body>
 
@@ -80,23 +84,79 @@
         <div class='column' style='margin-right:60px;min-width:280px;max-width:780px;text-align:justify;'>
 
             <div id='content'>
-
-
-
+                <div id="my"></div>
             </div>
         </div>
     </div>
-
 </div>
 
-<input type='button' onclick='test()'>
+
+<div data-template='posts' class='jtemplate'>
+    <div class='post'>
+        <input type='hidden' value='[post_id]' class='post-node-id'>
+
+        <div class='post-header'>
+            <div class='cell post-photo'><img src='/media/profile/[user_id].jpg' class='post-user'></div>
+            <div class='cell post-details'>
+                <div class='post-name'>[user_name]</div>
+                <div class='post-date'>[post_date]</div>
+            </div>
+            <div class='cell post-action'><i class='material-icons'>expand_more</i></div>
+            <div class='cell right'>
+                <div class='post-controls'>
+                    <i class='material-icons post-button-like [liked]'>thumb_up</i> <div class='post-button-like-total'>[likes]</div>
+                </div>
+            </div>
+        </div>
+
+        <div class='post-image'>[images]</div>
+        <div class='post-text'>[message]</div>
+        <div class='post-files'>[files]</div>
+
+        <div class='separator'></div>
+
+        <div class='post-comments-container'>
+
+            <div class='post-comment-input'>
+                <div class='cell'><img src='/media/profile/[user_id].jpg' class='post-comment-user'></div>
+                <div class='cell' style='width:80%'>
+                    <input type='text' class='post-comment-textarea'>
+                </div>
+                <div class='cell'><i class='material-icons post-comment-button'>done</i></div>
+            </div>
+
+            <br>
+
+            [comments]
+
+        </div>
+    </div>
+</div>
+
+<div data-template='comments' class='jtemplate'>
+    <div class='post-comment'>
+        <div class='cell post-comment-photo'>
+            <img src='/media/profile/[user_id].jpg' class='post-comment-user'>
+        </div>
+        <div class='cell post-comment-header'>
+            <span class='post-comment-name'>[user_name]</span>
+            <span class='post-comment-date'>[date]</span><br>
+            <span>[message]</span>
+        </div>
+        <div class='cell'>
+            <br><i class='material-icons post-button-like-comment'>thumb_up</i>
+        </div>
+    </div>
+</div>
+
+<div id='posts'></div>
 
 <script>
-function test()
-{
-    $('#content').load('select.html');
-}
+var json = [
+    { post_id:1, user_name:'Paul Hodel', user_id:1, images:'', files:'', message:'Viva!', comments: [ { user_id:2, user_name:'Jorge', date:'12/12/2012', message:'Muito bom...'} ] };
+];
 
+$('.posts').jtemplate(json);
 </script>
 </body>
 </html>

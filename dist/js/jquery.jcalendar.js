@@ -1,6 +1,6 @@
 /**
- * (c) 2013 Jcalendar Plugin v1.0.0 > Bossanova UI
- * http://www.github.com/paulhodel/jcalendar
+ * (c) 2013 Jcalendar (jTools v1.1)
+ * http://www.github.com/paulhodel/jtools
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
  * @description: Create light embedded calendar
@@ -34,7 +34,8 @@
             mask:1,
             months:['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             weekdays:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-            weekdays_short:['S', 'M', 'T', 'W', 'T', 'F', 'S']
+            weekdays_short:['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+            placeholder:'DATE',
         };
 
         // Default container
@@ -208,11 +209,15 @@
             $(this).prop('id', id);
         }
 
+        // Save options
+        $.fn.jcalendar.defaults[id] = options;
+
         // Default class
         $(obj).addClass('jcalendar_input');
 
-        // Save options
-        $.fn.jcalendar.defaults[id] = options;
+        if (options.placeholder) {
+            $(obj).prop('placeholder', options.placeholder);
+        }
 
         // Months
         var months = options.months;

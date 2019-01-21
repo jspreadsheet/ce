@@ -91,12 +91,7 @@
 
 <br>
 
-
-<div style='position:absolute;'>
-
-<div id="my" style="width:100%"></div>
-
-</div>
+<div id="my"></div>
 
 <script>
 data = [
@@ -366,7 +361,7 @@ $('#my').jexcel({
     colHeaders: ['Country', 'Food', 'Stock', 'Which Row?'],
     colWidths: [ 300, 100, 200 ],
     columns: [
-        { type: 'dropdown', source:countries },
+        { type: 'dropdown', source:countries, autocomplete:true, multiple:true, },
         { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
         { type: 'checkbox' },
         { type: 'text' },
