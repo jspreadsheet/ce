@@ -187,6 +187,23 @@
     min-width:100%;
     min-height:100%;
     background-color:rgba(0,0,0,0.5);
+    border-top:1px solid #e6e6e8;
+    border-bottom:1px solid #e6e6e8;
+    padding-top:10px;
+    padding-bottom:10px;
+    box-sizing: border-box;
+}
+
+.jdropdown-picker.jdropdown-focus
+{
+    position:absolute;
+    top:0px;
+    left:0px;
+    min-width:100%;
+    min-height:100%;
+    background-color:rgba(0,0,0,0.5);
+    border:0px;
+    padding:0px;
 }
 
 .jdropdown-picker.jdropdown-focus .jdropdown-header
@@ -220,9 +237,21 @@
 
 .jdropdown-picker .jdropdown-close
 {
+<<<<<<< HEAD
     -webkit-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
     -moz-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
     box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+=======
+<<<<<<< HEAD
+    -webkit-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+    -moz-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+    box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+=======
+    -webkit-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+    -moz-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+    box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+>>>>>>> branch 'dev' of https://github.com/paulhodel/jexcel.git
+>>>>>>> branch 'dev' of https://github.com/paulhodel/jexcel.git
     background-color:#fff;
     display:block;
 }

@@ -1850,6 +1850,50 @@ var methods = {
     },
 
     /**
+     * Get the label from a cell
+     * 
+     * @param object cell
+     * @return string value
+     */
+    getText : function(cell) {
+        var value = null;
+
+        // If is a string get the cell object
+        if (typeof(cell) != 'object') {
+            // Get cell excel like A11, B99, etc
+            cell = $(this).jexcel('getCell', cell);
+        }
+
+        // If column exists
+        if ($(cell).length) {
+            // Id
+            var id = $(this).prop('id');
+
+            // Global options
+            var options = $.fn.jexcel.defaults[id];
+
+            // Configuration
+            var position = $(cell).prop('id').split('-');
+
+            // Get value based on the type
+            if (options.columns[position[0]].editor) {
+                // Custom editor
+                value = options.columns[position[0]].editor.getText(cell);
+            } else {
+                // Native functions
+                if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio') {
+                    // Get checkbox value
+                    value = $(cell).find('input').is(':checked') == true ? '1' : '0';
+                } else {
+                    value = $(cell).text();
+                }
+            }
+        }
+
+        return value;
+    },
+
+    /**
      * Update cells with no history and events
      * 
      * @param object destination cells
@@ -4014,7 +4058,7 @@ var methods = {
 
         // Wrap option
         if (options.wordWrap == true || options.columns[i].wordWrap == true) {
-            $(td).css('white-space', 'pre');
+            $(td).css('white-space', 'pre-wrap');
         }
 
         // Add custom css class to column
