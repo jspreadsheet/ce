@@ -580,7 +580,7 @@ var methods = {
                             $.fn.jexcel.current = current;
 
                             // Header found
-                            if ($(e.target).parent().parent().is('thead')) {
+                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-header')) {
                                 var o = $(e.target).prop('id');
                                 if (o) {
                                     o = o.split('-');
@@ -629,7 +629,7 @@ var methods = {
                             }
 
                             // Body found
-                            if ($(e.target).parent().parent().is('tbody')) {
+                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-content')) {
                                 // Update row label selection
                                 if ($(e.target).is('.jexcel_label')) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {

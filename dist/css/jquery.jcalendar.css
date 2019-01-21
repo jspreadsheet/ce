@@ -9,7 +9,7 @@
 .jcalendar
 {
     position:absolute;
-    z-index:999;
+    z-index:1000;
     box-sizing:border-box;
     display:none;
     min-width:280px;
@@ -19,6 +19,25 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.jcalendar_focus
+{
+    display:block;
+}
+
+.jcalendar_backdrop
+{
+    position:fixed;
+    top:0px;
+    left:0px;
+    min-width:100%;
+    min-height:100%;
+    background-color:rgba(0,0,0,0.5);
+    border:0px;
+    padding:0px;
+    z-index:1000;
+    display:none;
 }
 
 .jcalendar_container
@@ -187,6 +206,21 @@
     .jcalendar
     {
         width:100%;
+        min-height:100%;
+        left:0px;
+        top:0px;
+    }
+
+    .jcalendar.jcalendar_focus .jcalendar_backdrop
+    {
+        display:block;
+    }
+
+    .jcalendar .jcalendar_container
+    {
+        width:100%;
+        position:absolute;
+        z-index:2000;
         left:0px;
         bottom:0px;
     }
