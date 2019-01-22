@@ -3237,10 +3237,6 @@ var methods = {
         var title = prompt("New header title");
         if (title != null) {
             $(this).find('thead #col-' + columnNumber).html(title);
-            // var chart = $("#container").highcharts();
-            var data = $('#key-chart').jexcel('getHeaders');
-            data.shift();
-            // chart.xAxis[0].setCategories(data);
         }
     },
     /**
