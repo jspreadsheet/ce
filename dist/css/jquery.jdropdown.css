@@ -62,7 +62,7 @@
     color:#1f93ff;
     text-transform:uppercase;
     text-align:right;
-    padding:10px;
+    padding:15px;
 }
 
 .jdropdown-content
@@ -123,7 +123,7 @@
     box-sizing:border-box;
     min-height:10px;
     max-height:215px;
-    overflow-y:scroll;
+    overflow-y:auto;
 }
 
 .jdropdown-default .jdropdown-item
@@ -149,7 +149,7 @@
 {
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIiAvPjxwYXRoIGQ9Ik05IDE2LjE3TDQuODMgMTJsLTEuNDIgMS40MUw5IDE5IDIxIDdsLTEuNDEtMS40MXoiIGZpbGw9IndoaXRlIiAvPjwvc3ZnPgo=');
     background-repeat:no-repeat;
-    background-position:top 50% right 15px;
+    background-position:top 50% right 5px;
     background-color:#1f93ff;
     color:#fff;
 }
@@ -176,17 +176,6 @@
 .jdropdown-picker
 {
     width:100% !important;
-    box-sizing: border-box;
-}
-
-.jdropdown-picker.jdropdown-focus
-{
-    position:absolute;
-    top:0px;
-    left:0px;
-    min-width:100%;
-    min-height:100%;
-    background-color:rgba(0,0,0,0.5);
     border-top:1px solid #e6e6e8;
     border-bottom:1px solid #e6e6e8;
     padding-top:10px;
@@ -230,28 +219,16 @@
     left:0px;
     z-index:1000;
     border-bottom:1px solid #e6e6e8;
-    width:100vw;
+    width:100%;
     background-color:#fff;
     box-sizing: border-box;
 }
 
 .jdropdown-picker .jdropdown-close
 {
-<<<<<<< HEAD
     -webkit-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
     -moz-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
     box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
-=======
-<<<<<<< HEAD
-    -webkit-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
-    -moz-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
-    box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
-=======
-    -webkit-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
-    -moz-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
-    box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
->>>>>>> branch 'dev' of https://github.com/paulhodel/jexcel.git
->>>>>>> branch 'dev' of https://github.com/paulhodel/jexcel.git
     background-color:#fff;
     display:block;
 }

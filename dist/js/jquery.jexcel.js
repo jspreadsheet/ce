@@ -580,7 +580,7 @@ var methods = {
                             $.fn.jexcel.current = current;
 
                             // Header found
-                            if ($(e.target).parent().parent().is('thead')) {
+                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-header')) {
                                 var o = $(e.target).prop('id');
                                 if (o) {
                                     o = o.split('-');
@@ -629,7 +629,7 @@ var methods = {
                             }
 
                             // Body found
-                            if ($(e.target).parent().parent().is('tbody')) {
+                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-content')) {
                                 // Update row label selection
                                 if ($(e.target).is('.jexcel_label')) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {
@@ -1090,7 +1090,20 @@ var methods = {
                                 } else if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'dropdown' || $.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].type == 'autocomplete') {
                                     // Do nothing
                                 } else {
-                                    $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                    // Alt enter -> do not close editor
+                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].columns[columnId[0]].wordWrap == true && e.altKey) {
+                                        // Add new line to the editor
+                                        var editorTextarea = $($.fn.jexcel.selectedCell).find('.editor');
+                                        var editorValue = $(editorTextarea).val();
+                                        var editorIndexOf = $(editorTextarea).prop('selectionStart');
+                                        editorValue = editorValue.slice(0, editorIndexOf) + "\n" + editorValue.slice(editorIndexOf);
+                                        $(editorTextarea).val(editorValue);
+                                        $(editorTextarea).focus();
+                                        $(editorTextarea).prop('selectionStart', editorIndexOf + 1);
+                                        $(editorTextarea).prop('selectionEnd', editorIndexOf + 1);
+                                    } else {
+                                        $('#' + $.fn.jexcel.current).jexcel('closeEditor', $($.fn.jexcel.selectedCell), true);
+                                    }
                                 }
                             }
 
@@ -1426,7 +1439,7 @@ var methods = {
         // Go through all cells
         if (options) {
             // Get all cells form 
-            var cells = $(this).find('.jexcel tbody td').not('.jexcel_label');
+            var cells = $(this).find('tbody td').not('.jexcel_label');
             // Existing methods
             if (typeof(options.cells) == 'function') {
                 $.each(cells, function (k, v) {

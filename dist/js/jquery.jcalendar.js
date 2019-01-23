@@ -112,6 +112,13 @@
 
             // Create calendar table picker
             $(div).html("");
+
+            // Month and year options
+            var backdrop = document.createElement('div');
+            $(backdrop).addClass('jcalendar_backdrop');
+            $(div).append(backdrop);
+
+            // Append calendar
             $(div).append($(modal));
 
             $(this).before(div);
@@ -444,7 +451,6 @@
      * Open the calendar picker
      * @return void
      */
-
     open : function ( value ) {
         // Object id
         var id = $(this).attr('id');
@@ -465,14 +471,17 @@
         // Get calendar table
         var table = $('.jcalendar');
 
-        // Place the corner in the correct place
-        $(table).css('display', 'block');
+        // Show calendar
+        $(table).addClass('jcalendar_focus');
 
         // Get the position of the corner helper
         if ($(document).width() > 800) {
-            var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 15;
+            var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 2;
             var l = parseInt($(this).offset().left);
             $(table).offset({ top: t, left: l });
+        } else {
+            // Animation
+            $('.jcalendar_container').addClass('slide-bottom-in');
         }
 
         // Setting values in the table based on the current date in the main object
@@ -555,16 +564,16 @@
             }
         }
 
-        // Hide the calendar table
-        $('.jcalendar').fadeOut('slow', function () {
-        });
-
         if (typeof(options.onclose) == 'function') {
             options.onclose($.fn.jcalendar.current);
         }
         
         // Reference
         $.fn.jcalendar.current = null;
+
+        // Animation
+        $('.jcalendar_container').removeClass('slide-bottom-in');
+        $('.jcalendar').removeClass('jcalendar_focus');
     },
 
     /**
@@ -833,10 +842,19 @@
 
         // Setting current values in case of NULLs
         calendar = new Date();
-        if (!year) year = calendar.getFullYear();
-        if (!month) month = parseInt(calendar.getMonth()) + 1;
-        if (!hour) hour = calendar.getHours();
-        if (!min) min = calendar.getMinutes();
+
+        if (! year) {
+            year = calendar.getFullYear();
+        }
+        if (! month) {
+            month = parseInt(calendar.getMonth()) + 1;
+        }
+        if (! hour) {
+            hour = calendar.getHours();
+        }
+        if (! min) {
+            min = calendar.getMinutes();
+        }
 
         // Flag if this is the current month and year
         if ((calendar.getMonth() == month-1) && (calendar.getFullYear() == year)) {
