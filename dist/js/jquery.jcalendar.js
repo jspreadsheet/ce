@@ -125,7 +125,7 @@
         }
 
         // Assembly the calendar
-        $.each ($(this), function (k, v) {
+        $.each($(this), function (k, v) {
             if (! $(this).hasClass('jcalendar_input')) {
                 $(this).jcalendar('create', v, options);
 
@@ -476,7 +476,7 @@
 
         // Get the position of the corner helper
         if ($(document).width() > 800) {
-            var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 2;
+            var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 15;
             var l = parseInt($(this).offset().left);
             $(table).offset({ top: t, left: l });
         } else {
@@ -567,7 +567,7 @@
         if (typeof(options.onclose) == 'function') {
             options.onclose($.fn.jcalendar.current);
         }
-        
+
         // Reference
         $.fn.jcalendar.current = null;
 

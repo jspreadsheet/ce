@@ -98,12 +98,12 @@
 <script>
 
 var data = [
-    ['aa',1,10000,'=B1+C1'],
-    ['bbb',2,6000,'=B2+C2'],
-    ['ccc',3,5000,'=B3+C3'],
-    ['ddd',4,4000,'=B4+C4'],
-    ['Total','=SUM(B1:B4)','=(C1+C2+C3+C4)','=SUM(D1:D4)']
-];
+    [1, 834000,'','','','',''],
+    [2, 834000],
+    [3, 834000],
+    [4, 834000,,'Cap Rates',.06,'7%','8%','9%','10%' ],
+    [5, 834000,,'Value',"=b1*2",'=b2','=e4','=e5',834000/.1],
+    [6, 834000], ];
 
 var data1 = [
     ['aa',1,10000,'=B1*C1'],
@@ -115,15 +115,7 @@ var data1 = [
 
 $('#my').jexcel({
     data:data,
-    columns: [
-        { type:'text' },
-        { type:'numeric' },
-        { type:'numeric' },
-        { type:'numeric' },
-    ],
-    colHeaders: ['Equipment','Quantity', 'Price', 'Total'],
-    colWidths: [ 400, 100, 200 ],
-    colWidths: [300, 150, 150, 150, 150],
+
 });
 
 $('#my1').jexcel({
