@@ -20,6 +20,20 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.jdropdown-backdrop
+{
+    position:fixed;
+    top:0px;
+    left:0px;
+    min-width:100%;
+    min-height:100%;
+    background-color:rgba(0,0,0,0.5);
+    border:0px;
+    padding:0px;
+    z-index:1000;
+    display:none;
+}
+
 .jdropdown-focus .jdropdown-container
 {
     display:block;
@@ -181,6 +195,11 @@
     padding-top:10px;
     padding-bottom:10px;
     box-sizing: border-box;
+}
+
+.jdropdown-picker.jdropdown-focus .jdropdown-backdrop
+{
+    display:block;
 }
 
 .jdropdown-picker.jdropdown-focus

@@ -10,12 +10,14 @@
  * Merged cells
  * Big data (partial table loading)
  * Toolbar with undo, redo, colors, etc
- * Themes
  * Status bar with pre calculation options
  * Disable close editor with navigation arrows
  * Add onresize on the history
- * Create option for navigation Home, End, arrows on edition...
  * Skip hidden cells options?
+ * Filters
+ * Native nested headers
+ * Responsive input/calendar
+ * Native nested headers
  */
 
 (function( $ ){
@@ -427,7 +429,6 @@ var methods = {
 
         // Main object
         $(this).html(tableHeaderContainer);
-        $(this).append('<br>');
         $(this).append(tableContentContainer);
 
         // Add the corner square and textarea one time onlly
@@ -458,7 +459,7 @@ var methods = {
             $(ads).css('display', 'none');
             $(ads).prop('id', 'jexcel_about');
             $(ads).prop('class', 'jexcel_about');
-            $(ads).html('<a href="http://github.com/paulhodel/jexcel">jExcel Spreadsheet</a>');
+            $(ads).html('<a href="https://github.com/paulhodel/jexcel">jExcel Spreadsheet</a>');
 
             // Append elements
             $('body').append(corner);
@@ -1614,7 +1615,7 @@ var methods = {
                     }
                     $(editor).prop('class', 'editor');
                     $(editor).css('width', $(cell).width());
-                    $(editor).css('height', $(cell).height());
+                    $(editor).css('min-height', $(cell).height());
                     $(cell).html(editor);
 
                     // Bind mask
@@ -2437,9 +2438,11 @@ var methods = {
         var px = 0;
         var py = 0;
 
+        var id = $(this).prop('id');
+
         // Column and row length
-        var x = $(this).find('thead tr td').not(':first').length;
-        var y = $(this).find('tbody tr').length;
+        var x = $.fn.jexcel.defaults[id].data[0].length
+        var y = $.fn.jexcel.defaults[id].data.length
 
         // Go through the columns to get the data
         for (j = 0; j < y; j++) {
@@ -3445,11 +3448,14 @@ var methods = {
      * @param title - new column title
      */
     setHeader : function (column, title) {
-        if (title) {
-            var col = $(this).find('thead #col-' + column);
-            if (col.length) {
-                $(col).html(title);
+        var col = $(this).find('thead #col-' + column);
+        if (col.length) {
+            if (! title) {
+                title = prompt('Column name', $(col).text())
             }
+            var colHtml = $(col).html();
+            colHtml = colHtml.replace($(col).text(), title);
+            $(col).html(colHtml);
         }
     },
 
@@ -4639,14 +4645,30 @@ var methods = {
     },
 
     /**
+     * Get number of rows'
+     * 
+     * @return integer
+     */
+     getRowCount: function() {
+         // Get object
+         var id = $(this).prop('id');
+
+         // Change data order
+         return $.fn.jexcel.defaults[id].data.length;
+     },
+
+    /**
      * Default context menu
      */
     contextMenu : function(type, number) {
         var contextMenuContent = '';
 
         if (type == 'col') {
-            contextMenuContent += "<a onclick=\"\"> <span></span></a>";
-            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 1)\">Order descending <span></span></a><hr>";
+            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setHeader', " + number + ")\">Rename this column</a>";
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnSorting == true) {
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 0)\">Order ascending <span></span></a><hr>";
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 1)\">Order descending <span></span></a><hr>";
+            }
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
                 contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + number + ")\">Insert a new column<span></span></a>";
             }

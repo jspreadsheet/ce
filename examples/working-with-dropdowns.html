@@ -1,24 +1,31 @@
 <html>
 <head>
-<title>Jexcel - Javascript spreadsheet</title>
-<meta name='author' content='Paul Hodel'>
-<meta itemprop='keywords' name='keywords' content='Jexcel, jquery, javascript, excel-like, spreadsheet, HTML, jquery plugin, table, grid'>
-<meta itemprop='description' property='og:description' name='description' content='Jexcel is a jquery and javascript plugin you can use to embedded an excel-like spreadsheet in your website and applications.'>
-<meta property='og:title' content='Jexcel - Javascript spreadsheet plugin'>
-<meta name='viewport' id="viewport" content='width=device-width,initial-scale=1,user-scalable=no' />
-<meta name='format-detection' content = "telephone=yes" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<meta name=viewport content="width=device-width, initial-scale=1">
-<meta name="google-site-verification" content="fNDemv4nALjUDIqXc7xPfHDEV24wtpD9xsEKLkTIYSk" />
+    <title>Jexcel - Javascript spreadsheet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
 
-<meta itemprop="name" content="jExcel - the JavaScript plugin to create a excel like embeddable spreadsheet">
-<meta itemprop="image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
-<meta itemprop="url" content="http://bossanova.uk/jexcel">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="jExcel">
-<meta property="og:url" content="http://bossanova.uk/jexcel">
-<meta property="og:locale" content="en_GB">
-<meta property="og:image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
+    <meta name='author' content='Paul Hodel'>
+    <meta itemprop='keywords' name='keywords' content='Jexcel, jquery, javascript, excel-like, spreadsheet, HTML, jquery plugin, table, grid'>
+    <meta itemprop='description' property='og:description' name='description' content='Jexcel is a jquery and javascript plugin you can use to embedded an excel-like spreadsheet in your website and applications.'>
+    <meta property='og:title' content='Jexcel - Javascript spreadsheet plugin'>
+    <meta name='viewport' id="viewport" content='width=device-width,initial-scale=1,user-scalable=no' />
+    <meta name='format-detection' content = "telephone=yes" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="fNDemv4nALjUDIqXc7xPfHDEV24wtpD9xsEKLkTIYSk" />
+    
+    <meta itemprop="name" content="jExcel - the JavaScript plugin to create a excel like embeddable spreadsheet">
+    <meta itemprop="image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
+    <meta itemprop="url" content="http://bossanova.uk/jexcel">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="jExcel">
+    <meta property="og:url" content="http://bossanova.uk/jexcel">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:image" content="http://bossanova.uk/templates/default/img/logo-jexcel.png">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.jquery.js"></script>
@@ -32,6 +39,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.min.css" type="text/css" />
 
 <script src="../dist/js/jquery.jexcel.js"></script>
+<script src="../dist/js/jexcel-formulas.js"></script>
+
 <script src="../dist/js/jquery.jdropdown.js"></script>
 <script src="../dist/js/jquery.jcalendar.js"></script>
 <link rel="stylesheet" href="../dist/css/jquery.jexcel.css" type="text/css" />
@@ -191,7 +200,7 @@ var choiserEditor = {
     }
     
 data = [
-    [3, '1 2 3'],
+    [3, '1;2;3'],
     [1, '1'],
     [2, '1 3'],
     [1, '2 4'],
@@ -202,8 +211,8 @@ $('#my1').jexcel({
     colHeaders: ['Country', 'Foods'],
     colWidths: [ 200, 200 ],
     columns: [
-        { type: 'dropdown', source: [ {'id':'1', 'name':'United States of America'}, {'id':'2', 'name':'United States'}, {'id':'3', 'name':'Brazil'}, ] },
-        { type: 'multiple', source: [ {'id':'1', 'name':'Carrots'}, {'id':'2', 'name':'Cheese'}, {'id':'3', 'name':'Eggs'}, {'id':'4', 'name':'Meat'} ] },
+        { type: 'dropdown', autocomplete:true, source: [ {'id':'1', 'name':'United States of America'}, {'id':'2', 'name':'United States'}, {'id':'3', 'name':'Brazil'}, ] },
+        { type: 'dropdown', multiple:true, source: [ {'id':'1', 'name':'Carrots'}, {'id':'2', 'name':'Cheese'}, {'id':'3', 'name':'Eggs'}, {'id':'4', 'name':'Meat'} ] },
     ]
 });
 </script>

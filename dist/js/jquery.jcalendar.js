@@ -476,7 +476,7 @@
 
         // Get the position of the corner helper
         if ($(document).width() > 800) {
-            var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 15;
+            var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 5;
             var l = parseInt($(this).offset().left);
             $(table).offset({ top: t, left: l });
         } else {
@@ -731,7 +731,7 @@
                 value = value.replace('DD', d[2]);
                 value = value.replace('MM', d[1]);
                 value = value.replace('YYYY', d[0]);
-                value = value.replace('YY', d[2].substring(2,4));
+                value = value.replace('YY', d[0].substring(2,4));
 
                 if (h) {
                     value = value.replace('HH24', h);
