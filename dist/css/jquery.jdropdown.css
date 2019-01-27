@@ -92,6 +92,7 @@
     text-align:left;
     text-overflow: ellipsis;
     overflow-x:hidden;
+    color:#000;
 }
 
 .jdropdown-image

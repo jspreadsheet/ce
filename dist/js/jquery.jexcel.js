@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v1.6.0 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v2.0.0 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -10,14 +10,12 @@
  * Merged cells
  * Big data (partial table loading)
  * Toolbar with undo, redo, colors, etc
- * Status bar with pre calculation options
  * Disable close editor with navigation arrows
  * Add onresize on the history
  * Skip hidden cells options?
  * Filters
- * Native nested headers
- * Responsive input/calendar
- * Native nested headers
+ * Add comments
+ * Image type
  */
 
 (function( $ ){
@@ -73,6 +71,8 @@ var methods = {
             allowDeleteRow:true,
             // Allow column delete
             allowDeleteColumn:true,
+            // Allow cell commments
+            allowComments:true,
             // Global wrap
             wordWrap:false,
             // Filename
@@ -83,8 +83,10 @@ var methods = {
             tableOverflow:false,
             // Allow Overflow
             tableHeight:200,
+            // Toolbar
+            toolbar:null,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 1.6.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 2.0.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -126,6 +128,10 @@ var methods = {
                     return this.v;
                 }
             }
+
+            // Copy helpers
+            $.fn.jexcel.hash = null;
+            $.fn.jexcel.style = null;
         }
 
         // Global configuration
@@ -302,6 +308,19 @@ var methods = {
         // Element
         $(this).prop('class', 'jexcel bossanova-ui');
 
+        // Create toolbar object
+        var toolbarContainer = document.createElement('div');
+        $(toolbarContainer).css('display', 'nonex');
+        $(toolbarContainer).prop('class', 'jexcel-toolbar');
+
+        var x = '<i class="jexcel-toolbar-item material-icons" data-key="text-align" data-value="center">format_align_center</i>';
+        x += '<i class="jexcel-toolbar-item material-icons" data-key="text-align" data-value="left">format_align_right</i>';
+        x += '<i class="jexcel-toolbar-item material-icons" data-key="text-align" data-value="right">format_align_left</i>';
+        x += '<i class="jexcel-toolbar-item material-icons" data-key="font-weight" data-value="bold">bold</i>';
+        x += '<i class="jexcel-toolbar-item material-icons" data-key="text-decoration" data-value="underline">underline</i>';
+
+        $(toolbarContainer).html(x);
+
         // Create main table object
         var tableHeaderContainer = document.createElement('div');
         $(tableHeaderContainer).prop('class', 'jexcel-header');
@@ -314,7 +333,6 @@ var methods = {
         //$(table).prop('draggable', 'false');
 
         // Create header and body tags
-        var colgroup = document.createElement('colgroup');
         var thead = document.createElement('thead');
         var tbody = document.createElement('tbody');
 
@@ -322,54 +340,71 @@ var methods = {
         $(thead).prop('class', 'jexcel_label');
 
         // Row
-        var fc = '';
-        var tr = '';
-        var cg = '';
+        var contentRow = '';
+        var contentNested = '';
+        var contentFilter = '';
+        var contentWidth = '';
+
         // Create nested headers
-        /*if (options.nestedHeaders && options.nestedHeaders.length > 0) {
-            // Flexible way to handle nestedheaders
-            if (! options.nestedHeaders[0].length) {
-                tr = '<td width="30" class="jexcel_label"></td>';
+        if (options.nestedHeaders && options.nestedHeaders.length > 0) {
+            var createNestedHeader = function(nestedInformation) {
+                // Create nested row
+                contentRow = '<td></td>';
 
-                for (var i = 0; i < options.nestedHeaders.length; i++) {
-                    var h = options.nestedHeaders[i].colspan > 0 ? options.nestedHeaders[i].colspan : 1;
-                    var c = '';
-                    for (var x = 0; x < h; x++) {
-                        c += 'h' + (x + i) + ' ';
+                var headerIndex = 0;
+                for (var i = 0; i < nestedInformation.length; i++) {
+                    // Default values
+                    if (! nestedInformation[i].colspan) {
+                        nestedInformation[i].colspan = 1;
                     }
-                    tr += '<td class="'+ c +'" colspan="' + options.nestedHeaders[i].colspan + '" width="' + options.nestedHeaders[i].width + '" align="' + options.nestedHeaders[i].align + '">' + options.nestedHeaders[i].title + '</td>';
-                }
+                    if (! nestedInformation[i].align) {
+                        nestedInformation[i].align = 'center';
+                    }
+                    if (! nestedInformation[i].title) {
+                        nestedInformation[i].title = '';
+                    }
 
-                $(thead).append('<tr>' + tr + '</tr>'); 
-            } else {
-                for (var i = 0; i < options.nestedHeaders.length; i++) {
-                    tr = '<td width="30" class="jexcel_label"></td>';
-
-                    for (var j = 0; j < options.nestedHeaders[i].length; j++) {
-                        var h = options.nestedHeaders[i][j].colspan > 0 ? options.nestedHeaders[i][j].colspan : 1;
-                        var c = '';
-                        for (var x = 0; x < h; x++) {
-                            c += 'h' + (x + j) + ' ';
+                    // Classes container
+                    var headerClasses = '';
+                    // Header classes for this cell
+                    for (var x = 0; x < nestedInformation[i].colspan; x++) {
+                        if (headerClasses) {
+                            headerClasses += ' ';
                         }
-
-                        tr += '<td class="'+ c +'" colspan="' + options.nestedHeaders[i][j].colspan + '" width="' + options.nestedHeaders[i][j].width + '" align="' + options.nestedHeaders[i].align + '">' + options.nestedHeaders[i][j].title + '</td>';
+                        headerClasses += 'h' + headerIndex;
+                        headerIndex++;
                     }
-
-                    $(thead).append('<tr>' + tr + '</tr>'); 
+                    // Created the nested cell
+                    contentRow += '<td class="'+ headerClasses +'" colspan="' + nestedInformation[i].colspan + '" align="' + nestedInformation[i].align + '">' + nestedInformation[i].title + '</td>';
                 }
+
+                return '<tr class="jexcel_nested">' + contentRow + '</tr>';
             }
-        }*/
+
+            // Flexible way to handle nestedheaders
+            if (options.nestedHeaders[0] && options.nestedHeaders[0][0]) {
+                $.each(options.nestedHeaders, function(k, v) {
+                    contentNested += createNestedHeader(v);
+                });
+            } else {
+                contentNested += createNestedHeader(options.nestedHeaders);
+            }
+        }
 
         // Create headers
-        tr = '<td width="30" class="jexcel_label"></td>';
-        cg = '<col width="30">';
+        contentRow = '<td></td>';
 
         // TODO: When the first or last column is hidden
         for (var i = 0; i < options.colHeaders.length; i++) {
             // Column properties
             var width = options.colWidths[i];
             var align = options.colAlignments[i] || 'center';
-            var className = options.colHeaderClasses[i] || '';
+            var className = 'h' + i;
+
+            // Header class
+            if (options.colHeaderClasses[i]) {
+                className += options.colHeaderClasses[i];
+            }
 
             // Display
             var display = (options.columns[i].type == 'hidden') ? ' style="display:none"' : '';
@@ -380,20 +415,25 @@ var methods = {
             // Header
             var header = title || $.fn.jexcel('getColumnName', i);
 
+            // Global column width
+            contentWidth += '<col class="w' + i + '" width="' + width + '">';
+
             // Create HTML row
-            tr += '<td id="col-' + i + '" width="' + width + '" align="' + align +'" title="' + title + '" class=" ' + className + '"' + display + '>' + header + '</td>';
+            contentRow += '<td id="col-' + i + '" align="' + align +'" title="' + title + '" class="' + className + '"' + display + '>' + header + '</td>';
 
             // Filter columns
-            fc += '<td><input placeholder="Search:"></td>';
+            contentFilter += '<td><input placeholder="Search:"></td>';
         }
 
         // Populate header
-        $(thead).append('<tr>' + tr + '</tr>'); 
-        // Filter rows
-        $(thead).append('<tr class="jexcel-filter" style="display:none"><td></td>' + fc + '</tr>'); 
+        $(thead).append('<tr class="jexcel_headers_nested">' + contentNested + '</tr>');
+        $(thead).append('<tr class="jexcel_headers">' + contentRow + '</tr>');
+        $(thead).append('<tr class="jexcel_filter" style="display:none"><td></td>' + contentFilter + '</tr>');
+
         // Append content
+        $(tableHeader).append('<colgroup><col width="30">' + contentWidth + '</colgroup>');
         $(tableHeader).append(thead);
-        $(tableHeaderContainer).html(tableHeader);
+        $(tableHeaderContainer).append(tableHeader);
 
         // Create main table object
         var tableContentContainer = document.createElement('div');
@@ -404,14 +444,13 @@ var methods = {
         $(tableContent).prop('cellspacing', '0');
         $(tableContent).prop('unselectable', 'yes');
         $(tableContent).prop('onselectstart', 'return false');
+        $(tableContent).append('<colgroup><col width="30">' + contentWidth + '</colgroup>');
         $(tableContent).append(tbody);
         $(tableContentContainer).html(tableContent);
 
         // Table overflow controls
         if ($.fn.jexcel.defaults[id].tableOverflow == true) {
             if ($.fn.jexcel.defaults[id].tableWidth) {
-                $(tableHeaderContainer).css('overflow-x', 'hidden');
-                $(tableHeaderContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
                 $(tableContentContainer).css('overflow-x', 'scroll');
                 $(tableContentContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
             }
@@ -422,13 +461,20 @@ var methods = {
 
                 // Adjust Header
                 if ($.fn.jexcel.defaults[id].tableWidth) {
-                    $(tableHeaderContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth - 17);
+                    $(tableHeaderContainer).css('overflow-x', 'hidden');
+                    $(tableHeaderContainer).css('max-width', parseInt($.fn.jexcel.defaults[id].tableWidth) - 17);
+                }
+            } else {
+                if ($.fn.jexcel.defaults[id].tableWidth) {
+                    $(tableHeaderContainer).css('overflow-x', 'hidden');
+                    $(tableHeaderContainer).css('max-width', $.fn.jexcel.defaults[id].tableWidth);
                 }
             }
         }
 
         // Main object
-        $(this).html(tableHeaderContainer);
+        $(this).html(toolbarContainer)
+        $(this).append(tableHeaderContainer);
         $(this).append(tableContentContainer);
 
         // Add the corner square and textarea one time onlly
@@ -503,7 +549,7 @@ var methods = {
                         // Table found
                         if (isJexcel) {
                             // The id is depending on header and body
-                            if ($(e.target).parent().parent().is('thead')) {
+                            if ($(e.target).parent().parent().is('thead.jexcel_label')) {
                                 var o = $(e.target).prop('id');
                                 var h = true;
                             } else {
@@ -581,7 +627,7 @@ var methods = {
                             $.fn.jexcel.current = current;
 
                             // Header found
-                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-header')) {
+                            if ($(e.target).parent().is('.jexcel_headers')) {
                                 var o = $(e.target).prop('id');
                                 if (o) {
                                     o = o.split('-');
@@ -607,7 +653,7 @@ var methods = {
                                             }
                                             // Border indication
                                             $('#' + $.fn.jexcel.current + ' .c' + o[1]).addClass('resizing');
-                                            $('#' + $.fn.jexcel.current + ' #col-' + o[1]).addClass('resizing');
+                                            $('#' + $.fn.jexcel.current + ' .h' + o[1]).addClass('resizing');
 
                                             // Remove selected cells
                                             $('#' + $.fn.jexcel.current).jexcel('updateSelection');
@@ -627,6 +673,36 @@ var methods = {
                                 }
                             } else {
                                 $.fn.jexcel.selectedHeader = false;
+                            }
+
+                            // Nested headers
+                            if ($(e.target).parent().is('.jexcel_nested')) {
+                                // Reference class headers
+                                var ob = $(e.target).prop('class').split(' ');
+                                var st = '';
+
+                                // Get the columns should be included in the search
+                                $.each(ob, function(k, v) {
+                                    if (v.substr(0,1) == 'h') {
+                                        if (st) {
+                                            st += ', ';
+                                        }
+                                        st += '.c' + v.substr(1);
+                                    }
+                                });
+
+                                if (st) {
+                                    // Search all cells in the defined search
+                                    var ob = $('#' + $.fn.jexcel.current).find(st);
+                                    var o1 = $(ob).first();
+                                    var o2 = $(ob).last();
+
+                                    // Update selection
+                                    $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2, 1);
+
+                                    // Selected cell will be the first in the row
+                                    $.fn.jexcel.selectedCell = $(o1);
+                                }
                             }
 
                             // Body found
@@ -703,7 +779,7 @@ var methods = {
 
             $(document).on('touchstart', function(e) {
                 $.fn.jexcel.touchControl = setTimeout(function() {
-                    $('#' + $.fn.jexcel.current).jexcel('openEditor',$.fn.jexcel.selectedCell);
+                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell);
                 }, 1000);
             });
 
@@ -736,32 +812,19 @@ var methods = {
                     // Update cell size
                     if ($.fn.jexcel.resizeColumn) {
                         // Columns to be updated
-                        var changedHeader = $('#' + $.fn.jexcel.current + ' thead').find('#col-' + $.fn.jexcel.resizeColumn.column);
-                        var nestedHeaders = $('#' + $.fn.jexcel.current + ' thead').find('.h' + $.fn.jexcel.resizeColumn.column);
-                        var changedColumns = $('#' + $.fn.jexcel.current + ' tbody').find('.c' + $.fn.jexcel.resizeColumn.column);
+                        $('#' + $.fn.jexcel.current + ' .h' + $.fn.jexcel.resizeColumn.column).removeClass('resizing');
+                        $('#' + $.fn.jexcel.current + ' .c' + $.fn.jexcel.resizeColumn.column).removeClass('resizing');
 
                         // New width
-                        var newWidth = parseInt($(changedHeader).prop('width'));
+                        var newWidth = $('#' + $.fn.jexcel.current + ' .jexcel-header .w'+ $.fn.jexcel.resizeColumn.column).prop('width')
+
+                        // Update width
+                        $('#' + $.fn.jexcel.current).jexcel('setWidth', $.fn.jexcel.resizeColumn.column, newWidth);
 
                         // On resize
                         if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].onresize) == 'function') {
                             $.fn.jexcel.defaults[$.fn.jexcel.current].onresize($(this), $.fn.jexcel.resizeColumn.column, newWidth, $.fn.jexcel.resizeColumn.width);
                         }
-
-                        // Update cells
-                        $(changedHeader).removeClass('resizing');
-                        $(changedColumns).removeClass('resizing');
-                        $(changedColumns).prop('width', newWidth + 'px'); 
-
-                        // Update any nested cells
-                        if ($(nestedHeaders).length > 0) {
-                            $.each(nestedHeaders, function(k, v) {
-                                $(v).prop('width', $(v).prop('width') + ($.fn.jexcel.resizeColumn.width - newWidth));
-                            });
-                        }
-
-                        // Update container
-                        $.fn.jexcel.defaults[$.fn.jexcel.current].colWidths[$.fn.jexcel.resizeColumn.column] = newWidth;
 
                         // Reset resizing helper
                         $.fn.jexcel.resizeColumn = null;
@@ -855,7 +918,8 @@ var methods = {
                            var width = e.pageX - $.fn.jexcel.resizeColumn.mousePosition;
 
                            if ($.fn.jexcel.resizeColumn.width + width > 0) {
-                               $('#' + $.fn.jexcel.current).jexcel('setWidth', $.fn.jexcel.resizeColumn.column, $.fn.jexcel.resizeColumn.width + width);
+                               var tempWidth = $.fn.jexcel.resizeColumn.width + width;
+                               $('#' + $.fn.jexcel.current).find('.jexcel-header col.w' + $.fn.jexcel.resizeColumn.column).prop('width', tempWidth);
                            }
                         } else {
                             // Header found
@@ -1306,6 +1370,16 @@ var methods = {
 
         // Load data
         $(this).jexcel('setData', $.fn.jexcel.defaults[id].data);
+
+        // Load meta
+        if ($.fn.jexcel.defaults[id].style) {
+            $(this).jexcel('setStyle', $.fn.jexcel.defaults[id].style);
+        }
+
+        // Load meta
+        if ($.fn.jexcel.defaults[id].meta) {
+            $(this).jexcel('setMeta', $.fn.jexcel.defaults[id].meta);
+        }
     },
 
     /**
@@ -1730,6 +1804,10 @@ var methods = {
             } else if (options.columns[position[0]].type == 'calendar') {
                 // Do nothing - calendar will be closed without keeping the current value
             } else {
+                if (options.columns[position[0]].type == 'dropdown' || options.columns[position[0]].type == 'autocomplete') {
+                    $(cell).find('.jdropdown').jdropdown('close');
+                }
+
                 // Restore value
                 $(cell).html($.fn.jexcel.edition);
 
@@ -2195,6 +2273,7 @@ var methods = {
                     // Row and column headers
                     $(this).find('#col-' + i).addClass('selected');
                     $(this).find('#row-' + j).addClass('selected');
+                    //$(this).find('.jexcel-header .h' + i).addClass('selected');
                 }
 
                 // Right limits
@@ -2418,11 +2497,10 @@ var methods = {
             var elemLeft = l;
             var elemRight = l;
 
-            if (! ((elemRight <= docViewRight) && (elemLeft >= docViewLeft))) {
+            if (! ((elemRight <= docViewRight - 20) && (elemLeft >= docViewLeft))) {
                 $('.jexcel_corner').css('top', -200);
                 $('.jexcel_corner').css('left', -200);
             }
-
         }
     },
 
@@ -2494,7 +2572,7 @@ var methods = {
         }
 
         // Selected row
-        var cells = $(this).find('tbody .r' + rowNumber);
+        var cells = $(this).find('.jexcel-content .r' + rowNumber);
 
         // Go through the columns to get the data
         $.each(cells, function(k, v) {
@@ -2529,7 +2607,7 @@ var methods = {
         }
 
         // Selected row
-        var cells = $(this).find('tbody .c' + columnNumber);
+        var cells = $(this).find('.jexcel-content .c' + columnNumber);
 
         // Go through the columns to get the data
         $.each(cells, function(k, v) {
@@ -2547,6 +2625,9 @@ var methods = {
      * @return string value
      */
     copy : function(highlighted, delimiter, returnData) {
+        // Id
+        var id = $(this).prop('id');
+
         if (! delimiter) {
             delimiter = "\t";
         }
@@ -2554,12 +2635,14 @@ var methods = {
         var str = '';
         var row = '';
         var val = '';
+        var tmp = '';
+        var style = [];
         var pc = false;
         var pr = false;
 
         // Column and row length
-        var x = $(this).find('thead tr td').not(':first').length;
-        var y = $(this).find('tbody tr').length;
+        var x = $.fn.jexcel.defaults[id].data[0].length
+        var y = $.fn.jexcel.defaults[id].data.length
 
         // Go through the columns to get the data
         for (j = 0; j < y; j++) {
@@ -2583,6 +2666,9 @@ var methods = {
                     }
                     row += val;
                     pc = true;
+                    // Get style
+                    tmp = $(cell).attr('style');
+                    style.push(tmp ? tmp : '');
                 }
             }
             if (row) {
@@ -2602,6 +2688,11 @@ var methods = {
             document.execCommand("copy");
         }
 
+        // Keep non visible information
+        $.fn.jexcel.hash = $(this).jexcel('hash', str); 
+        $.fn.jexcel.style = style;
+
+        console.log(style);
         return str;
     },
 
@@ -2653,8 +2744,12 @@ var methods = {
             data = $.fn.jexcel.defaults[id].onbeforepaste(data);
         }
 
+        // Possible style
+        var hash = $(this).jexcel('hash', data);
+        var style = (hash == $.fn.jexcel.hash) ? $.fn.jexcel.style : null;
+
         // Parse paste
-        data = $(this).jexcel('parseCSV', data, "\t")
+        data = $(this).jexcel('parseCSV', data, "\t");
 
         // Initial position
         var position = $(cell).prop('id');
@@ -2679,6 +2774,9 @@ var methods = {
             // Records
             var records = []; 
 
+            // Index
+            var styleIndex = 0;
+
             // Go through the columns to get the data
             for (j = 0; j < data.length; j++) {
                 // Explode column values
@@ -2698,6 +2796,13 @@ var methods = {
                             oldValue: $.fn.jexcel.defaults[id].data[(parseInt(j) + parseInt(y))][(parseInt(i) + parseInt(x))],
                         });
                     }
+
+                    // Style
+                    if (style) {
+                        $(cell).attr('style', style[styleIndex]);
+                    }
+
+                    styleIndex++;
                 }
             }
 
@@ -2888,15 +2993,22 @@ var methods = {
 
             // Visual reference
             if (direction == 1) {
-                var referenceHeader = $(this).find('thead').find('#col-' + (columnNumber - 1));
+                var referenceHeader = $(this).find('.jexcel-header #col-' + (columnNumber - 1));
+
+                // Add width control
+                var referenceWidthHeader = $(this).find('.jexcel-header .w' + (columnNumber - 1));
+                var referenceWidthContent = $(this).find('.jexcel-content .w' + (columnNumber - 1));
 
                 // Adding visual headers
                 for (var col = (numOfColumns + columnNumber - 1); col >= columnNumber; col--) {
+                    // Adding width control
+                    $(referenceWidthHeader).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
+                    $(referenceWidthContent).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
                     // Adding the header
                     var title = options.colHeaders[col];
                     var header = title ? title : $.fn.jexcel('getColumnName', col);
                     var display = (options.columns[col].type == 'hidden') ? ' style="display:none"' : '';
-                    td = '<td width="' + options.colWidths[col] + '" align="' + options.colAlignments[col] + '" title="' + title + '" class="' + options.colHeaderClasses[col] + '"' + display + '>' + header + '</td>';
+                    td = '<td align="' + options.colAlignments[col] + '" title="' + title + '" class="' + options.colHeaderClasses[col] + '"' + display + '>' + header + '</td>';
                     $(referenceHeader).after(td);
                 }
 
@@ -2929,15 +3041,22 @@ var methods = {
                     Array.prototype.push.apply($.fn.jexcel.defaults[id].data[row], currentData);
                 }
             } else {
-                var referenceHeader = $(this).find('thead').find('#col-' + columnNumber);
+                var referenceHeader = $(this).find('.jexcel-header #col-' + columnNumber);
+
+                // Add width control
+                var referenceWidthHeader = $(this).find('.jexcel-header .w' + columnNumber);
+                var referenceWidthContent = $(this).find('.jexcel-content .w' + columnNumber);
 
                 // Adding visual headers
                 for (var col = columnNumber; col < numOfColumns + columnNumber; col++) {
+                    // Adding width control
+                    $(referenceWidthHeader).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
+                    $(referenceWidthContent).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
                     // Adding the header
                     var title = options.colHeaders[col];
                     var header = title ? title : $.fn.jexcel('getColumnName', col);
                     var display = (options.columns[col].type == 'hidden') ? ' style="display:none"' : '';
-                    td = '<td width="' + options.colWidths[col] + '" align="' + options.colAlignments[col] + '" title="' + title + '" class="' + options.colHeaderClasses[col] + '"' + display + '>' + header + '</td>';
+                    td = '<td align="' + options.colAlignments[col] + '" title="' + title + '" class="' + options.colHeaderClasses[col] + '"' + display + '>' + header + '</td>';
                     $(referenceHeader).before(td);
                 }
 
@@ -3373,6 +3492,8 @@ var methods = {
      * @param width - new column width
      */
     setWidth : function (column, width) {
+        var id = $(this).prop('id');
+
         if (width > 0) {
             // In case the column is an object
             if (typeof(column) == 'object') {
@@ -3380,10 +3501,13 @@ var methods = {
                 column = column[0];
             }
 
-            var col = $(this).find('thead #col-' + column);
-            if (col.length) {
-                $(col).prop('width', width);
-            }
+            var col = $(this).find('.jexcel-header col.w' + column);
+            $(col).prop('width', width);
+            var col = $(this).find('.jexcel-content col.w' + column);
+            $(col).prop('width', width);
+
+            // Update config container
+            $.fn.jexcel.defaults[id].colWidths[column] = width;
         }
     },
 
@@ -3394,17 +3518,32 @@ var methods = {
      * @return width - current column width
      */
     getWidth : function (column) {
-        // In case the column is an object
-        if (typeof(column) == 'object') {
-            column = $(column).prop('id').split('-');
-            column = column[0];
+        var data = [];
+
+        if (! column) {
+            // Get all headers
+            var column = $(this).find('.jexcel-header .jexcel_headers td');
+            // Push to the data container
+            $.each(column, function(k, v) {
+                if (k > 0) {
+                    data.push($(v).prop('width'));
+                }
+            });
+        } else {
+            // In case the column is an object
+            if (typeof(column) == 'object') {
+                column = $(column).prop('id').split('-');
+                column = column[0];
+            }
+
+            var col = $(this).find('.jexcel-header #col-' + column);
+
+            if (col.length) {
+                data = $(col).prop('width');
+            }
         }
 
-        var col = $(this).find('thead #col-' + column);
-
-        if (col.length) {
-            return $(col).prop('width');
-        }
+        return data;
     },
 
     /**
@@ -4649,13 +4788,154 @@ var methods = {
      * 
      * @return integer
      */
-     getRowCount: function() {
+    getRowCount: function() {
          // Get object
          var id = $(this).prop('id');
 
          // Change data order
          return $.fn.jexcel.defaults[id].data.length;
-     },
+    },
+
+    /**
+     * Get meta information from cell(s)
+     * 
+     * @return integer
+     */
+    getMeta: function(cell, key) {
+        // Cell
+        if (! cell) {
+            // Control vars
+            var data = [];
+
+            var id = $(this).prop('id');
+
+            // Column and row length
+            var x = $.fn.jexcel.defaults[id].data[0].length
+            var y = $.fn.jexcel.defaults[id].data.length
+
+            // Go through the columns to get the data
+            for (j = 0; j < y; j++) {
+                for (i = 0; i < x; i++) {
+                    // Cell
+                    cell = $(this).find('#' + i + '-' + j);
+                    // Value
+                    var v = key ? $(cell).data(key) : $(cell).data();
+
+                    // Any meta data for this column?
+                    if (Object.keys(v).length) {
+                        // Column name
+                        var k = $.fn.jexcel('getColumnName', i)  + (parseInt(j) + 1);
+                        // Value
+                        data[k] = v;
+                    }
+                }
+            }
+
+           return data;
+        } else {
+            cell = $(this).jexcel('getCell', cell);
+
+            return key ? $(cell).data(key) : $(cell).data();
+        }
+    },
+
+    /**
+     * Set meta information to cell(s)
+     * 
+     * @return integer
+     */
+    setMeta: function(o, k, v) {
+        var main = $(this);
+
+        if (k && v) {
+            // Get object from string
+            var cell = $(this).jexcel('getCell', o);
+            // Set data value
+            $(cell).data(k, v);
+        } else {
+            $.each(o, function(k, v) {
+                // Get cell identifier
+                var cell = Object.keys(v)[0];
+                // Get column
+                cell = $(main).jexcel('getCell', cell);
+                // Set the data
+                if (cell) {
+                    $(cell).data(v[Object.keys(v)[0]]);
+                }
+            });
+        }
+    },
+
+    /**
+     * Get style information from cell(s)
+     * 
+     * @return integer
+     */
+    getStyle : function(cell, key) {
+        // Cell
+        if (! cell) {
+            // Control vars
+            var data = {};
+
+            var id = $(this).prop('id');
+
+            // Column and row length
+            var x = $.fn.jexcel.defaults[id].data[0].length
+            var y = $.fn.jexcel.defaults[id].data.length
+
+            // Go through the columns to get the data
+            for (j = 0; j < y; j++) {
+                for (i = 0; i < x; i++) {
+                    // Cell
+                    cell = $(this).find('#' + i + '-' + j);
+                    // Value
+                    var v = key ? $(cell).css(key) : $(cell).attr('style');
+
+                    // Any meta data for this column?
+                    if (v) {
+                        // Column name
+                        var k = $.fn.jexcel('getColumnName', i)  + (parseInt(j) + 1);
+                        // Value
+                        data[k] = v;
+                    }
+                }
+            }
+
+           return data;
+        } else {
+            cell = $(this).jexcel('getCell', cell);
+
+            return key ? $(cell).css(key) : $(cell).attr('style');
+        }
+    },
+
+    /**
+     * Set meta information to cell(s)
+     * 
+     * @return integer
+     */
+    setStyle: function(o, k, v) {
+        var main = $(this);
+
+        if (k && v) {
+            // Get object from string
+            var cell = $(this).jexcel('getCell', o);
+            // Set data value
+            $(cell).css(k, v);
+        } else {
+            $.each(o, function(k, v) {
+                // Get cell identifier
+                var cell = Object.keys(v)[0];
+                // Get column
+                cell = $(main).jexcel('getCell', cell);
+                // Set the data
+                if (cell) {
+                    $(cell).prop('style', v[Object.keys(v)[0]]);
+                }
+            });
+        }
+    },
+
 
     /**
      * Default context menu
@@ -4691,6 +4971,9 @@ var methods = {
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
                 contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow')\">Delete this row<span></span></a><hr>";
             }
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowComments == true) {
+                //contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setMeta', 'comments', prompt('Add comments', ''))\">Add comments<span></span></a><hr>";
+            }
             contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
             contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].about) {
@@ -4699,6 +4982,19 @@ var methods = {
         }
 
         return contextMenuContent;
+    },
+
+    /**
+     * Create hash based on a given string
+     */
+    hash : function(str) {
+        var output = "";
+        for (var i=0; i<str.length; i++) {
+            if (str.charCodeAt(i) > 30 && str.charCodeAt(i) <= 127) {
+                output += str.charAt(i);
+            }
+        }
+        return hash = output.split('').reduce((prevHash, currVal) => ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0);
     },
 
     /**
@@ -4746,6 +5042,8 @@ var methods = {
             $.fn.jexcel.defaults = null;
             $.fn.jexcel.current = null;
             $.fn.jexcel.factory = null;
+            $.fn.jexcel.hash = null;
+            $.fn.jexcel.style = null;
             $.fn.jexcel.selectedCorner = null;
             $.fn.jexcel.selectedHeader = null;
             $.fn.jexcel.resizeColumn = null;
@@ -4773,7 +5071,5 @@ $.fn.jexcel = function( method ) {
         $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
     }
 };
-
-//$.fn.jexcel.setElement.prototype.toString = function() { return test[this.value]; }
 
 })( jQuery );

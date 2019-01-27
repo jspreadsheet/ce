@@ -6,6 +6,19 @@
  * @description: Web spreadsheet
  */
 
+.jexcel
+{
+    display:inline-block;
+}
+.jexcel > div.jexcel-toolbar
+{
+    display:block;
+    background-color:#f3f3f3;
+    border:1px solid #ccc;
+    padding:4px;
+    margin-bottom:4px;
+    margin-right:3px;
+}
 .jexcel > div.jexcel-header
 {
     padding-right:2px;
@@ -16,6 +29,18 @@
     padding-right:2px;
     padding-bottom:2px;
     display:inline-block;
+}
+.jexcel > div.jexcel-toolbar .jexcel-toolbar-item
+{
+    width:24px;
+    height:24px;
+    padding:4px;
+    cursor:pointer;
+    display:inline-block;
+}
+.jexcel > div.jexcel-toolbar .jexcel-toolbar-item:hover
+{
+    background-color:#ddd;
 }
 .jexcel > div > table
 {
@@ -403,6 +428,7 @@
     height:100% !important;
 }
 
+/*
 .jexcel::-webkit-scrollbar, .jexcel > div::-webkit-scrollbar
 {
     margin-left:6px;
@@ -420,4 +446,4 @@
 .jexcel::-webkit-scrollbar-thumb:hover, .jexcel > div::-webkit-scrollbar-thumb:hover
 {
     background: #555; 
-}
+}*/
