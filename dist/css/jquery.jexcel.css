@@ -67,16 +67,16 @@
     overflow:hidden;
     box-sizing: border-box;
 }
-.jexcel > div > table > thead > tr.jexcel-filter > td
+.jexcel > div > table > thead > tr.jexcel_filter > td
 {
     padding:0px;
     background-color:#fff;
 }
-.jexcel > div > table > thead > tr.jexcel-filter > td:first-child
+.jexcel > div > table > thead > tr.jexcel_filter > td:first-child
 {
     background-color:#f3f3f3;
 }
-.jexcel > div > table > thead > tr.jexcel-filter > td > input
+.jexcel > div > table > thead > tr.jexcel_filter > td > input
 {
     border:0px;
     width:100%;

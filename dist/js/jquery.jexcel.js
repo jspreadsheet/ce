@@ -306,7 +306,7 @@ var methods = {
         var options = $.fn.jexcel.defaults[id];
 
         // Element
-        $(this).prop('class', 'jexcel bossanova-ui');
+        $(this).prop('class', 'jexcel');
 
         // Create toolbar object
         var toolbarContainer = document.createElement('div');
@@ -321,9 +321,13 @@ var methods = {
 
         $(toolbarContainer).html(x);
 
-        // Create main table object
+        // Create header container
         var tableHeaderContainer = document.createElement('div');
         $(tableHeaderContainer).prop('class', 'jexcel-header');
+
+        // Create content container
+        var tableContentContainer = document.createElement('div');
+        $(tableContentContainer).prop('class', 'jexcel-content');
 
         var tableHeader = document.createElement('table');
         $(tableHeader).prop('cellpadding', '0');
@@ -422,13 +426,13 @@ var methods = {
             contentRow += '<td id="col-' + i + '" align="' + align +'" title="' + title + '" class="' + className + '"' + display + '>' + header + '</td>';
 
             // Filter columns
-            contentFilter += '<td><input placeholder="Search:"></td>';
+            contentFilter += '<td><input placeholder="Filter:"></td>';
         }
 
         // Populate header
         $(thead).append('<tr class="jexcel_headers_nested">' + contentNested + '</tr>');
         $(thead).append('<tr class="jexcel_headers">' + contentRow + '</tr>');
-        $(thead).append('<tr class="jexcel_filter" style="display:none"><td></td>' + contentFilter + '</tr>');
+        $(thead).append('<tr class="jexcel_filter"><td></td>' + contentFilter + '</tr>');
 
         // Append content
         $(tableHeader).append('<colgroup><col width="30">' + contentWidth + '</colgroup>');
@@ -436,9 +440,6 @@ var methods = {
         $(tableHeaderContainer).append(tableHeader);
 
         // Create main table object
-        var tableContentContainer = document.createElement('div');
-        $(tableContentContainer).prop('class', 'jexcel-content');
-
         var tableContent = document.createElement('table');
         $(tableContent).prop('cellpadding', '0');
         $(tableContent).prop('cellspacing', '0');
@@ -549,7 +550,7 @@ var methods = {
                         // Table found
                         if (isJexcel) {
                             // The id is depending on header and body
-                            if ($(e.target).parent().parent().is('thead.jexcel_label')) {
+                            if ($(e.target).parent().is('.jexcel_headers')) {
                                 var o = $(e.target).prop('id');
                                 var h = true;
                             } else {
@@ -791,13 +792,16 @@ var methods = {
 
             // Global mouse click up controles
             $.fn.jexcel.mouseUpControls = function (e) {
+                // The click in array means open the dropdown
                 if (e.target.id == 'jexcel_arrow') {
+                    // If not current table is selected
                     if (! $.fn.jexcel.current) {
                         $.fn.jexcel.current = $(e.target).parents('.jexcel').parent().prop('id');
                     }
+                    // Mark this cell is the current cell cursor
                     $.fn.jexcel.selectedCell = $(e.target).parent().parent();
+                    // Update selection for this cell
                     $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $.fn.jexcel.selectedCell);
-
                     // Open editor
                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell);
                 } else {
@@ -923,7 +927,7 @@ var methods = {
                            }
                         } else {
                             // Header found
-                            if ($(e.target).parent().parent().is('thead')) {
+                            if ($(e.target).parent().is('.jexcel_headers')) {
                                 // Update cursor
                                 if ($(e.target).outerWidth() - e.offsetX < 8 && $(e.target).prop('id') != '') {
                                     $(e.target).css('cursor', 'col-resize');
@@ -975,7 +979,7 @@ var methods = {
                     // If the user is in the current table
                     if ($.fn.jexcel.current == $(table).prop('id')) {
                         // Header found
-                        if ($(e.target).parent().parent().is('thead')) {
+                        if ($(e.target).parent().is('.jexcel_headers')) {
                             if ($.fn.jexcel.selectedHeader) {
                                 // Updade selection
                                 if (e.buttons) {
