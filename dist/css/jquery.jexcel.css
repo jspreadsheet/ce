@@ -12,7 +12,7 @@
 }
 .jexcel > div.jexcel-toolbar
 {
-    display:block;
+    display:flex;
     background-color:#f3f3f3;
     border:1px solid #ccc;
     padding:4px;
@@ -30,7 +30,7 @@
     padding-bottom:2px;
     display:inline-block;
 }
-.jexcel > div.jexcel-toolbar .jexcel-toolbar-item
+.jexcel > div.jexcel-toolbar i.jexcel-toolbar-item
 {
     width:24px;
     height:24px;
@@ -38,9 +38,15 @@
     cursor:pointer;
     display:inline-block;
 }
-.jexcel > div.jexcel-toolbar .jexcel-toolbar-item:hover
+.jexcel > div.jexcel-toolbar i.jexcel-toolbar-item:hover
 {
     background-color:#ddd;
+}
+.jexcel > div.jexcel-toolbar select.jexcel-toolbar-item
+{
+    margin-left:2px;
+    margin-right:2px;
+    display:inline-block;
 }
 .jexcel > div > table
 {
@@ -428,6 +434,18 @@
     height:100% !important;
 }
 
+.jexcel .jexcel_comments
+{
+    background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAY0lEQVR42o3POwrAIBBFUXeQ/e/KWhG1cQ9+X3xJCBYxemGmOgyMQIxArUAIgBDT6buX0o2tXUCW8429X0BWCtAaIOUCMl4lNgY4jh/ICDlKvfgbjti5C8/h+KTWG/B5cg/2TkJkVKQHBHN2AAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+.jexcel .sp-replacer
+{
+    margin: 2px;
+    border:0px;
+}
 /*
 .jexcel::-webkit-scrollbar, .jexcel > div::-webkit-scrollbar
 {

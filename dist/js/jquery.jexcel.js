@@ -309,17 +309,42 @@ var methods = {
         $(this).prop('class', 'jexcel');
 
         // Create toolbar object
-        var toolbarContainer = document.createElement('div');
-        $(toolbarContainer).css('display', 'nonex');
-        $(toolbarContainer).prop('class', 'jexcel-toolbar');
+        if (options.toolbar && options.toolbar.length) {
+            var toolbarContainer = document.createElement('div');
+            $(toolbarContainer).css('display', 'nonex');
+            $(toolbarContainer).prop('class', 'jexcel-toolbar');
 
-        var x = '<i class="jexcel-toolbar-item material-icons" data-key="text-align" data-value="center">format_align_center</i>';
-        x += '<i class="jexcel-toolbar-item material-icons" data-key="text-align" data-value="left">format_align_right</i>';
-        x += '<i class="jexcel-toolbar-item material-icons" data-key="text-align" data-value="right">format_align_left</i>';
-        x += '<i class="jexcel-toolbar-item material-icons" data-key="font-weight" data-value="bold">bold</i>';
-        x += '<i class="jexcel-toolbar-item material-icons" data-key="text-decoration" data-value="underline">underline</i>';
+            $.each(options.toolbar, function(k, v) {
+                if (v.type == 'i') {
+                    if (typeof(v.v) == 'function') {
+                        var toolbarMethod = 'getFontColor()';
+                    } else {
+                        var toolbarMethod = '$($.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', \'' + v.v + '\')';
+                    }
+                    toolbar = '<i class="jexcel-toolbar-item material-icons" onclick="' + toolbarMethod + '">' + v.content + '</i>';
+                    $(toolbarContainer).append(toolbar);
+                } else if (v.type == 'select') {
+                    var toolbarDropdownOptions = '';
+                    if (typeof(v.v[0]) == 'string') {
+	                    $.each(v.v, function(k1, v1) {
+	                        toolbarDropdownOptions += '<option value="' + v1 + '">' + v1 + '</option>';
+	                    });
+                    }
+                    toolbar = '<select class="jexcel-toolbar-item" onchange="$($.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', this.value)">' + toolbarDropdownOptions + '</select>';
+                    $(toolbarContainer).append(toolbar);
+                } else if (v.type == 'spectrum') {
+                    toolbar = document.createElement('input');
+                    $(toolbarContainer).append(toolbar);
 
-        $(toolbarContainer).html(x);
+                    $(toolbar).spectrum({
+                        showButtons: false,
+                        move: function(color) {
+                            $($.fn.jexcel.current).jexcel('setStyle', $.fn.jexcel('getSelectedCells'), v.k, color.toHexString());
+                        }
+                    });
+                }
+            });
+        }
 
         // Create header container
         var tableHeaderContainer = document.createElement('div');
@@ -432,7 +457,7 @@ var methods = {
         // Populate header
         $(thead).append('<tr class="jexcel_headers_nested">' + contentNested + '</tr>');
         $(thead).append('<tr class="jexcel_headers">' + contentRow + '</tr>');
-        $(thead).append('<tr class="jexcel_filter"><td></td>' + contentFilter + '</tr>');
+        //$(thead).append('<tr class="jexcel_filter"><td></td>' + contentFilter + '</tr>');
 
         // Append content
         $(tableHeader).append('<colgroup><col width="30">' + contentWidth + '</colgroup>');
@@ -1435,9 +1460,6 @@ var methods = {
         // Values
         $.fn.jexcel.defaults[id].values = [];
 
-        // Header container
-        var thead = $(this).find('thead');
-
         // Data container
         var tbody = $(this).find('tbody');
 
@@ -2223,7 +2245,7 @@ var methods = {
         // Cells
         var rows = $(this).find('tbody tr');
         var cells = $(this).find('tbody td');
-        var header = $(this).find('thead td');
+        var header = $(this).find('.jexcel_headers td');
 
         // Keep previous selection status
         var previousStatus = ($(this).find('.highlight').length > 0) ? true : false;
@@ -2478,7 +2500,7 @@ var methods = {
             var corner = $(cells).last();
 
             // Get the position of the corner helper
-            var t = parseInt($(corner).offset().top) + $(corner).parent().outerHeight() - 4;
+            var t = parseInt($(corner).offset().top) + $(corner).parent().outerHeight() - 3;
             var l = parseInt($(corner).offset().left) + $(corner).outerWidth() - 4;
 
             // Place the corner in the correct place
@@ -2501,7 +2523,7 @@ var methods = {
             var elemLeft = l;
             var elemRight = l;
 
-            if (! ((elemRight <= docViewRight - 20) && (elemLeft >= docViewLeft))) {
+            if (! ((elemRight <= docViewRight - 5) && (elemLeft >= docViewLeft))) {
                 $('.jexcel_corner').css('top', -200);
                 $('.jexcel_corner').css('left', -200);
             }
@@ -3557,7 +3579,7 @@ var methods = {
      * @param title - new column title
      */
     getHeader : function (column) {
-        var col = $(this).find('thead #col-' + column);
+        var col = $(this).find('.jexcel_headers #col-' + column);
         if (col.length) {
             return $(col).html();
         }
@@ -3570,11 +3592,13 @@ var methods = {
      * @param title - new column title
      */
     getHeaders : function (convertToText) {
-        var col = $(this).find('thead td').not('.jexcel_label');
+        var col = $(this).find('.jexcel_headers > td');
 
         var txt = [];
         $.each(col, function(k, v) {
-            txt.push($(v).text());
+            if (k > 0) {
+                txt.push($(v).text());
+            }
         });
 
         if (convertToText == true) {
@@ -4325,7 +4349,7 @@ var methods = {
     getSelectedColumns : function() {
         var cols = [];
         // Get all selected rows
-        var selectedColumns = $(this).find('thead > tr > td.selected');
+        var selectedColumns = $(this).find('.jexcel_headers > td.selected');
 
         // Return array with all selected rows
         $.each(selectedColumns, function(k, v) {
@@ -4345,7 +4369,7 @@ var methods = {
 
         if (className) {
             // Get all selected rows
-            var header = $(this).find('thead td.' + className);
+            var header = $(this).find('.jexcel_headers > td.' + className);
 
             if ($(header).length) {
                 number = parseInt($(header).prop('id').replace('col-', ''));
@@ -4788,6 +4812,51 @@ var methods = {
     },
 
     /**
+     * Get cell comments
+     */
+    getComments : function(cell) {
+        if (typeof(cell) == 'string') {
+            var cell = $(this).jexcel('getCell', cell);
+        }
+
+        return $(cell).prop('title');
+    },
+
+    /**
+     * Set cell comments
+     */
+    setComments : function(cell, comments) {
+        if (typeof(cell) == 'string') {
+            var cell = $(this).jexcel('getCell', cell);
+        }
+        $(cell).prop('title', comments);
+
+        if (comments) {
+            $(cell).addClass('jexcel_comments');
+        } else {
+            $(cell).removeClass('jexcel_comments');
+        }
+    },
+
+    /**
+     * Get config information
+     */
+    getConfig : function(k, v) {
+        var id = $(this).prop('id');
+
+        return $.fn.jexcel.defaults[id][k];
+    },
+
+    /**
+     * Set config parameter
+     */
+    setConfig : function(k, v) {
+        var id = $(this).prop('id');
+
+        $.fn.jexcel.defaults[id][k] = v;
+    },
+
+    /**
      * Get number of rows'
      * 
      * @return integer
@@ -4919,13 +4988,25 @@ var methods = {
      * @return integer
      */
     setStyle: function(o, k, v) {
+    	console.log(o);
+    	console.log(k);
+    	console.log(v);
         var main = $(this);
 
         if (k && v) {
             // Get object from string
-            var cell = $(this).jexcel('getCell', o);
+            if (typeof(o) == 'string') {
+                var cell = $(this).jexcel('getCell', o); 
+            } else {
+                var cell = o;
+            }
+
             // Set data value
-            $(cell).css(k, v);
+            if ($(cell).css(k) == v) {
+                $(cell).css(k, '');
+            } else {
+                $(cell).css(k, v);
+            }
         } else {
             $.each(o, function(k, v) {
                 // Get cell identifier
@@ -4939,7 +5020,6 @@ var methods = {
             });
         }
     },
-
 
     /**
      * Default context menu
@@ -4976,7 +5056,12 @@ var methods = {
                 contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow')\">Delete this row<span></span></a><hr>";
             }
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowComments == true) {
-                //contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setMeta', 'comments', prompt('Add comments', ''))\">Add comments<span></span></a><hr>";
+                if (! $($.fn.jexcel.selectedCell).prop('title')) {
+                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setComments', $.fn.jexcel.selectedCell, prompt('Comments', ''));\">Add comments<span></span></a><hr>";
+                } else {
+                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setComments', $.fn.jexcel.selectedCell, prompt('Comments', $($.fn.jexcel.selectedCell).prop('title')));\">Edit comments<span></span></a>";
+                    contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setComments', $.fn.jexcel.selectedCell, '');\">Reset comments<span></span></a><hr>";
+                }
             }
             contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
             contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
