@@ -1,0 +1,16 @@
+version: '2'
+services:
+  web:
+    image: aws
+    ports:
+     - 8003:80
+    volumes:
+     - .:/var/www/html
+    links:
+     - php
+  php:
+    image: php
+    ports:
+     - 9000
+    volumes:
+     - .:/var/www/html

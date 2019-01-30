@@ -152,8 +152,10 @@
 
             // Fix width - Workaround important to get the correct width
             setTimeout(function() {
-                // Width fix
-                $(container).css('min-width', $(header).outerWidth());
+                if (options.type == 'default') {
+	                // Width fix
+	                $(container).css('min-width', $(header).outerWidth());
+                }
                 // Open 
                 if (options.opened == true) {
                     $(main).jdropdown('open');
@@ -196,50 +198,30 @@
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-group-name')) {
-                        if ($.fn.jdropdown.current) {
-                            if ($.fn.jdropdown.configuration[$.fn.jdropdown.current].multiple == true) {
-                                var items = $(e.target).parent().find('.jdropdown-item');
-                                $.each(items, function(k, v) {
-                                    if ($(v).is(':visible')) {
-                                        $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(v).data('index'));
-                                    }
-                                });
+                        var items = $(e.target).parent().find('.jdropdown-item');
+                        $.each(items, function(k, v) {
+                            if ($(v).is(':visible')) {
+                                $.fn.jdropdown('selectItem', $(v));
                             }
+                        });
+                        e.stopPropagation();
+                        e.preventDefault();
+                    } else if ($(e.target).hasClass('jdropdown-group-arrow')) {
+                        if ($(e.target).hasClass('jdropdown-group-arrow-down')) {
+                            $(e.target).removeClass('jdropdown-group-arrow-down');
+                            $(e.target).addClass('jdropdown-group-arrow-up');
+                            $(e.target).parent().next().hide();
+                        } else {
+                            $(e.target).removeClass('jdropdown-group-arrow-up');
+                            $(e.target).addClass('jdropdown-group-arrow-down');
+                            $(e.target).parent().next().show();
                         }
+                    } else if ($(e.target).hasClass('jdropdown-group-itens')) {
+                        // Do nothing
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-item')) {
-                        if ($.fn.jdropdown.current) {
-                            // Select item
-                            $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(e.target).data('index'));
-                        } else {
-                            var index = $(e.target).data('index');
-                            var dropdown = $(e.target).parents('.jdropdown').prop('id');
-                            // List
-                            if ($.fn.jdropdown.configuration[dropdown].type == 'list') {
-                                var dropDownOptions = $(this).find('.jdropdown-item');
-                                if (! $.fn.jdropdown.configuration[dropdown].multiple) {
-                                    // Update selected item
-                                    $(dropDownOptions).removeClass('jdropdown-selected');
-                                    $(dropDownOptions[index]).addClass('jdropdown-selected');
-                                    // Cursor
-                                    $(dropDownOptions).removeClass('jdropdown-cursor');
-                                    $(dropDownOptions[index]).addClass('jdropdown-cursor');
-                                } else {
-                                    // Toggle option
-                                    if ($(dropDownOptions[index]).hasClass('jdropdown-selected')) {
-                                        $(dropDownOptions[index]).removeClass('jdropdown-selected');
-                                        $(dropDownOptions[index]).removeClass('jdropdown-cursor');
-                                    } else {
-                                        $(dropDownOptions[index]).addClass('jdropdown-selected');
-                                        $(dropDownOptions).removeClass('jdropdown-cursor');
-                                        $(dropDownOptions[index]).addClass('jdropdown-cursor');
-                                    }
-                                    // Update cursor position
-                                    $.fn.jdropdown.currentIndex = index;
-                                }
-                            }
-                        }
+                        $.fn.jdropdown('selectItem', $(e.target));
                         e.stopPropagation();
                         e.preventDefault();
                     } else if ($(e.target).hasClass('jdropdown-image')) {
@@ -368,8 +350,7 @@
                 if (v.group) {
                     if (! groups[v.group]) {
                         groups[v.group] = document.createElement('div');
-                        $(groups[v.group]).prop('class', 'jdropdown-group');
-                        $(groups[v.group]).html('<div class="jdropdown-group-name">' + v.group + '</div>');
+                        $(groups[v.group]).prop('class', 'jdropdown-group-itens');
                     }
                     $(groups[v.group]).append(item);
                 } else {
@@ -380,7 +361,11 @@
             // Append groups in case exists
             if ($(groups).length > 0) {
                 $.each(groups, function(k, v) {
-                    $(content).append(v);
+                    var group = document.createElement('div');
+                    $(group).prop('class', 'jdropdown-group');
+                    $(group).html('<div class="jdropdown-group-name">' + k + '<i class="jdropdown-group-arrow jdropdown-group-arrow-down"></i></div>');
+                    $(group).append(v)
+                    $(content).append(group);
                 });
             }
 
@@ -583,6 +568,46 @@
         },
 
         /**
+         * Select an item
+         */
+        selectItem : function(item)
+        {
+            if ($.fn.jdropdown.current) {
+                // Select item
+                $('#' + $.fn.jdropdown.current).jdropdown('selectIndex', $(item).data('index'));
+            } else {
+                var index = $(item).data('index');
+                var dropdown = $(item).parents('.jdropdown');
+                var dropdown_id = $(dropdown).prop('id');
+
+                // List
+                if ($.fn.jdropdown.configuration[dropdown_id].type == 'list') {
+                    var dropDownOptions = $(dropdown).find('.jdropdown-item');
+                    if (! $.fn.jdropdown.configuration[dropdown_id].multiple) {
+                        // Update selected item
+                        $(dropDownOptions).removeClass('jdropdown-selected');
+                        $(dropDownOptions[index]).addClass('jdropdown-selected');
+                        // Cursor
+                        $(dropDownOptions).removeClass('jdropdown-cursor');
+                        $(dropDownOptions[index]).addClass('jdropdown-cursor');
+                    } else {
+                        // Toggle option
+                        if ($(dropDownOptions[index]).hasClass('jdropdown-selected')) {
+                            $(dropDownOptions[index]).removeClass('jdropdown-selected');
+                            $(dropDownOptions[index]).removeClass('jdropdown-cursor');
+                        } else {
+                            $(dropDownOptions[index]).addClass('jdropdown-selected');
+                            $(dropDownOptions).removeClass('jdropdown-cursor');
+                            $(dropDownOptions[index]).addClass('jdropdown-cursor');
+                        }
+                        // Update cursor position
+                        $.fn.jdropdown.currentIndex = index;
+                    }
+                }
+            }
+        },
+
+        /**
          * Autocomplete filter
          */
         find : function(str) {
@@ -601,7 +626,7 @@
             var groups = $(this).find('.jdropdown-group');
 
             $.each(groups, function(k, v) {
-                if ($(v).find('.jdropdown-item:visible').length > 0) {
+                if ($(v).find('.jdropdown-item').filter(function() { return $(this).css("display") != "none" }).length > 0) {
                     $(v).find('.jdropdown-group-name').show();
                 } else {
                     $(v).find('.jdropdown-group-name').hide();

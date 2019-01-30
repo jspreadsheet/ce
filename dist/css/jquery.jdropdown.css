@@ -30,7 +30,7 @@
     background-color:rgba(0,0,0,0.5);
     border:0px;
     padding:0px;
-    z-index:1000;
+    z-index:900;
     display:none;
 }
 
@@ -76,7 +76,7 @@
     color:#1f93ff;
     text-transform:uppercase;
     text-align:right;
-    padding:15px;
+    padding:10px;
 }
 
 .jdropdown-content
@@ -125,7 +125,7 @@
 .jdropdown-default .jdropdown-container
 {
     position:absolute;
-    z-index:1000;
+    z-index:2000;
     background-color:#fff;
 }
 
@@ -203,23 +203,6 @@
     display:block;
 }
 
-.jdropdown-picker.jdropdown-focus
-{
-    position:absolute;
-    top:0px;
-    left:0px;
-    min-width:100%;
-    min-height:100%;
-    background-color:rgba(0,0,0,0.5);
-    border:0px;
-    padding:0px;
-}
-
-.jdropdown-picker.jdropdown-focus .jdropdown-header
-{
-    display:none;
-}
-
 .jdropdown-picker .jdropdown-header
 {
     border:0px;
@@ -234,21 +217,21 @@
 
 .jdropdown-picker .jdropdown-container
 {
-    position:absolute;
+    position:fixed;
     bottom:0px;
     left:0px;
-    z-index:1000;
     border-bottom:1px solid #e6e6e8;
     width:100%;
     background-color:#fff;
     box-sizing: border-box;
+    z-index:2000;
 }
 
 .jdropdown-picker .jdropdown-close
 {
-    -webkit-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
-    -moz-box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
-    box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.39);
+    -webkit-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+    -moz-box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
+    box-shadow: 0px -1px 5px 0px rgba(0,0,0,0.39);
     background-color:#fff;
     display:block;
 }
@@ -316,13 +299,13 @@
 .jdropdown-searchbar.jdropdown-focus
 {
     position:absolute;
-    z-index:1000;
     top:0px;
     left:0px;
     min-height:100%;
     background-color:#fafafa;
     padding:0px;
     padding-top:40px;
+    z-index:2000;
 }
 
 .jdropdown-searchbar.jdropdown-focus .jdropdown-container-header
@@ -350,11 +333,6 @@
     display:block;
 }
 
-.jdropdown-searchbar.jdropdown-focus .jdropdown-container
-{
-    margin-top:55px;
-}
-
 .jdropdown-searchbar .jdropdown-header
 {
     border:0px;
@@ -380,8 +358,8 @@
 
 .jdropdown-searchbar .jdropdown-group
 {
-    margin-top:5px;
-    margin-bottom:5px;
+    margin-top:10px;
+    margin-bottom:10px;
     background-color:#fff;
 }
 
@@ -391,6 +369,24 @@
     border-bottom: 1px solid #e6e6e8;
     padding:10px;
     font-weight:bold;
+}
+
+.jdropdown-searchbar .jdropdown-group-arrow
+{
+    float:right;
+    width:24px;
+    height:24px;
+    background-repeat:no-repeat;
+}
+
+.jdropdown-searchbar .jdropdown-group-arrow-down
+{
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNNy40MSA4LjU5TDEyIDEzLjE3bDQuNTktNC41OEwxOCAxMGwtNiA2LTYtNiAxLjQxLTEuNDF6Ii8+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwVjB6Ii8+PC9zdmc+);
+}
+
+.jdropdown-searchbar .jdropdown-group-arrow-up
+{
+    background-image: url(data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTcuNDEgMTUuNDFMMTIgMTAuODNsNC41OSA0LjU4TDE4IDE0bC02LTYtNiA2eiIvPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=);
 }
 
 .jdropdown-searchbar .jdropdown-item
@@ -426,20 +422,16 @@
 
 .jdropdown-list
 {
-    width:100% !important;
-    border:0px;
-    padding:0px;
+}
+
+.jdropdown-list .jdropdown-container
+{
+    display:block;
 }
 
 .jdropdown-list .jdropdown-header
 {
     display:none;
-}
-
-.jdropdown-list .jdropdown-container
-{
-    min-width:100% !important;
-    display:block;
 }
 
 .jdropdown-list .jdropdown-group
@@ -452,8 +444,7 @@
     border-bottom: 1px solid #e6e6e8;
     padding-top:10px;
     padding-bottom:10px;
-    font-weight:bold;
-    text-align:center;
+    font-weight:bold;;
 }
 
 .jdropdown-list .jdropdown-item
@@ -471,4 +462,19 @@
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTkgMTYuMTdMNC44MyAxMmwtMS40MiAxLjQxTDkgMTkgMjEgN2wtMS40MS0xLjQxeiIgZmlsbD0iIzAwN2FmZiIvPjwvc3ZnPg==');
     background-repeat:no-repeat;
     background-position:top 50% right 10px;
+}
+
+@media only screen and (max-device-width : 800px)
+{
+    .jdropdown-list
+    {
+        width:100% !important;
+        border:0px;
+        padding:0px;
+    }
+
+    .jdropdown-list .jdropdown-container
+    {
+        min-width:100%;
+    }
 }
