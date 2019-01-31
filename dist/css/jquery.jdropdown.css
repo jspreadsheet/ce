@@ -30,7 +30,7 @@
     background-color:rgba(0,0,0,0.5);
     border:0px;
     padding:0px;
-    z-index:900;
+    z-index:1000;
     display:none;
 }
 
@@ -418,7 +418,7 @@
     background-position:top 50% right 15px;
 }
 
-/** Default render for mobile list **/
+/** List render **/
 
 .jdropdown-list
 {
@@ -444,7 +444,7 @@
     border-bottom: 1px solid #e6e6e8;
     padding-top:10px;
     padding-bottom:10px;
-    font-weight:bold;;
+    font-weight:bold;
 }
 
 .jdropdown-list .jdropdown-item

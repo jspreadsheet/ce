@@ -14,7 +14,6 @@
  * Add onresize on the history
  * Skip hidden cells options?
  * Filters
- * Add comments
  * Image type
  */
 
@@ -319,7 +318,7 @@ var methods = {
                     if (typeof(v.v) == 'function') {
                         var toolbarMethod = 'getFontColor()';
                     } else {
-                        var toolbarMethod = '$($.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', \'' + v.v + '\')';
+                        var toolbarMethod = '$(\'#\' + $.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', \'' + v.v + '\')';
                     }
                     toolbar = '<i class="jexcel-toolbar-item material-icons" onclick="' + toolbarMethod + '">' + v.content + '</i>';
                     $(toolbarContainer).append(toolbar);
@@ -330,7 +329,7 @@ var methods = {
 	                        toolbarDropdownOptions += '<option value="' + v1 + '">' + v1 + '</option>';
 	                    });
                     }
-                    toolbar = '<select class="jexcel-toolbar-item" onchange="$($.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', this.value)">' + toolbarDropdownOptions + '</select>';
+                    toolbar = '<select class="jexcel-toolbar-item" onchange="$(\'#\' + $.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', this.value)">' + toolbarDropdownOptions + '</select>';
                     $(toolbarContainer).append(toolbar);
                 } else if (v.type == 'spectrum') {
                     toolbar = document.createElement('input');
@@ -339,7 +338,7 @@ var methods = {
                     $(toolbar).spectrum({
                         showButtons: false,
                         move: function(color) {
-                            $($.fn.jexcel.current).jexcel('setStyle', $.fn.jexcel('getSelectedCells'), v.k, color.toHexString());
+                            $('#' + $.fn.jexcel.current).jexcel('setStyle', $.fn.jexcel('getSelectedCells'), v.k, color.toHexString());
                         }
                     });
                 }
@@ -1400,7 +1399,15 @@ var methods = {
         // Load data
         $(this).jexcel('setData', $.fn.jexcel.defaults[id].data);
 
-        // Load meta
+        // Update values
+        var ignoreEvents = $.fn.jexcel.ignoreEvents ? true : false;
+        var ignoreHistory = $.fn.jexcel.ignoreHistory ? true : false;
+
+        // Disabled events and history
+        $.fn.jexcel.ignoreEvents = true;
+        $.fn.jexcel.ignoreHistory = true;
+
+        // Load style
         if ($.fn.jexcel.defaults[id].style) {
             $(this).jexcel('setStyle', $.fn.jexcel.defaults[id].style);
         }
@@ -1409,6 +1416,10 @@ var methods = {
         if ($.fn.jexcel.defaults[id].meta) {
             $(this).jexcel('setMeta', $.fn.jexcel.defaults[id].meta);
         }
+
+        // Restore events and history flag
+        $.fn.jexcel.ignoreEvents = ignoreEvents;
+        $.fn.jexcel.ignoreHistory = ignoreHistory;
     },
 
     /**
@@ -4103,8 +4114,14 @@ var methods = {
                             }, col );
                         columnIndex++;
                     }
+
+                // Move the row back to the original position
                 } else if (historyRecord.action.type == 'moveRow') {
                     $(this).jexcel('moveRow', historyRecord.action.to, historyRecord.action.fr);
+
+                // Change the CSS back
+                } else if (historyRecord.action.type == 'setStyle') {
+                    $(this).jexcel('setStyle', historyRecord.action.fr);
                 }
             } else {
                 // Redo for changes in cells
@@ -4178,6 +4195,10 @@ var methods = {
                 } else if (historyRecord.action.type == 'moveRow') {
                     // Redo the move
                     $(this).jexcel('moveRow', historyRecord.action.fr, historyRecord.action.to);
+
+                // Redefine style
+                } else if (historyRecord.action.type == 'setStyle') {
+                    $(this).jexcel('setStyle', historyRecord.action.to);
                 }
             } else {
                 // Select cell
@@ -4987,38 +5008,73 @@ var methods = {
      * 
      * @return integer
      */
-    setStyle: function(o, k, v) {
-    	console.log(o);
-    	console.log(k);
-    	console.log(v);
+    setStyle : function(o, k, v) {
         var main = $(this);
+        var styleFrom = [];
+        var styleTo = [];
 
         if (k && v) {
             // Get object from string
             if (typeof(o) == 'string') {
-                var cell = $(this).jexcel('getCell', o); 
-            } else {
-                var cell = o;
+                var o = $(this).jexcel('getCell', o); 
             }
 
-            // Set data value
-            if ($(cell).css(k) == v) {
-                $(cell).css(k, '');
-            } else {
-                $(cell).css(k, v);
-            }
+            $.each(o, function(key, cell) {
+                var cellId = $(cell).prop('id');
+
+                // Current style
+                var obj = [];
+                var sty = $(cell).attr('style');
+                obj[cellId] = '' + (sty ? sty : '');
+                styleFrom.push(obj);
+
+                // Change layout
+                if ($(cell).css(k) == v) {
+                    $(cell).css(k, '');
+                } else {
+                    $(cell).css(k, v);
+                }
+
+                // New style
+                var obj = [];
+                var sty = $(cell).attr('style');
+                obj[cellId] = '' + (sty ? sty : '');
+                styleTo.push(obj);
+
+            });
         } else {
             $.each(o, function(k, v) {
-                // Get cell identifier
-                var cell = Object.keys(v)[0];
                 // Get column
-                cell = $(main).jexcel('getCell', cell);
+                var cell = $(main).jexcel('getCell', Object.keys(v)[0]);
                 // Set the data
                 if (cell) {
-                    $(cell).prop('style', v[Object.keys(v)[0]]);
+                    // Get cell id
+                    var cellId = $(cell).prop('id');
+
+                    // Current style
+                    var obj = [];
+                    var sty = $(cell).attr('style');
+                    obj[cellId] = '' + (sty ? sty : '');
+                    styleFrom.push(obj);
+
+                    // Change layout
+                    $(cell).attr('style', v[Object.keys(v)[0]]);
+
+                    // Current style
+                    var obj = [];
+                    var sty = $(cell).attr('style');
+                    obj[cellId] = '' + (sty ? sty : '');
+                    styleTo.push(obj);
                 }
             });
         }
+
+        // Keeping history of changes
+        $(this).jexcel('setHistory', null, {
+            type:'setStyle',
+            fr: styleFrom,
+            to: styleTo,
+        });
     },
 
     /**
