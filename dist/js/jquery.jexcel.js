@@ -427,7 +427,7 @@ var methods = {
             // Column properties
             var width = options.colWidths[i];
             var align = options.colAlignments[i] || 'center';
-            var className = 'h' + i;
+            var className = '';
 
             // Header class
             if (options.colHeaderClasses[i]) {
@@ -444,7 +444,7 @@ var methods = {
             var header = title || $.fn.jexcel('getColumnName', i);
 
             // Global column width
-            contentWidth += '<col class="w' + i + '" width="' + width + '">';
+            contentWidth += '<col width="' + width + '">';
 
             // Create HTML row
             contentRow += '<td id="col-' + i + '" align="' + align +'" title="' + title + '" class="' + className + '"' + display + '>' + header + '</td>';
@@ -679,6 +679,7 @@ var methods = {
                                             // Border indication
                                             $('#' + $.fn.jexcel.current + ' .c' + o[1]).addClass('resizing');
                                             $('#' + $.fn.jexcel.current + ' .h' + o[1]).addClass('resizing');
+                                            $('#' + $.fn.jexcel.current + ' #col-' + o[1]).addClass('resizing');
 
                                             // Remove selected cells
                                             $('#' + $.fn.jexcel.current).jexcel('updateSelection');
@@ -842,9 +843,10 @@ var methods = {
                         // Columns to be updated
                         $('#' + $.fn.jexcel.current + ' .h' + $.fn.jexcel.resizeColumn.column).removeClass('resizing');
                         $('#' + $.fn.jexcel.current + ' .c' + $.fn.jexcel.resizeColumn.column).removeClass('resizing');
+                        $('#' + $.fn.jexcel.current + ' #col-' + $.fn.jexcel.resizeColumn.column).removeClass('resizing');
 
                         // New width
-                        var newWidth = $('#' + $.fn.jexcel.current + ' .jexcel-header .w'+ $.fn.jexcel.resizeColumn.column).prop('width')
+                        var newWidth = $('#' + $.fn.jexcel.current + ' .jexcel-header col').eq(parseInt($.fn.jexcel.resizeColumn.column) + 1).prop('width');
 
                         // Update width
                         $('#' + $.fn.jexcel.current).jexcel('setWidth', $.fn.jexcel.resizeColumn.column, newWidth);
@@ -947,7 +949,7 @@ var methods = {
 
                            if ($.fn.jexcel.resizeColumn.width + width > 0) {
                                var tempWidth = $.fn.jexcel.resizeColumn.width + width;
-                               $('#' + $.fn.jexcel.current).find('.jexcel-header col.w' + $.fn.jexcel.resizeColumn.column).prop('width', tempWidth);
+                               $('#' + $.fn.jexcel.current).find('.jexcel-header col').eq(parseInt($.fn.jexcel.resizeColumn.column) + 1).prop('width', tempWidth);
                            }
                         } else {
                             // Header found
@@ -1702,6 +1704,10 @@ var methods = {
                     $(editor).jcalendar(options.columns[position[0]].options);
                     $(editor).jcalendar('open', value);
                 } else {
+                    // Get cell proprieties
+                    var editorWidth = $(cell).width();
+                    var editorHeight = $(cell).innerHeight();
+
                     // Keep the current value
                     $(cell).addClass('edition');
 
@@ -1724,9 +1730,10 @@ var methods = {
                     } else {
                         var editor = document.createElement('input');
                     }
+
                     $(editor).prop('class', 'editor');
-                    $(editor).css('width', $(cell).width());
-                    $(editor).css('min-height', $(cell).height());
+                    $(editor).css('width', editorWidth);
+                    $(editor).css('min-height', editorHeight);
                     $(cell).html(editor);
 
                     // Bind mask
@@ -2310,7 +2317,6 @@ var methods = {
                     // Row and column headers
                     $(this).find('#col-' + i).addClass('selected');
                     $(this).find('#row-' + j).addClass('selected');
-                    //$(this).find('.jexcel-header .h' + i).addClass('selected');
                 }
 
                 // Right limits
@@ -2376,7 +2382,9 @@ var methods = {
         }
 
         // Find corner cell
-        $(this).jexcel('updateCornerPosition');
+        setTimeout(function() {
+            $(main).jexcel('updateCornerPosition');
+        }, 0);
     },
 
     /**
@@ -2511,8 +2519,8 @@ var methods = {
             var corner = $(cells).last();
 
             // Get the position of the corner helper
-            var t = parseInt($(corner).offset().top) + $(corner).parent().outerHeight() - 3;
-            var l = parseInt($(corner).offset().left) + $(corner).outerWidth() - 4;
+            var t = parseInt($(corner).offset().top) + $(corner).parent().innerHeight() - 2;
+            var l = parseInt($(corner).offset().left) + $(corner).innerWidth() - 2;
 
             // Place the corner in the correct place
             $('.jexcel_corner').css('top', t);
@@ -2729,7 +2737,6 @@ var methods = {
         $.fn.jexcel.hash = $(this).jexcel('hash', str); 
         $.fn.jexcel.style = style;
 
-        console.log(style);
         return str;
     },
 
@@ -3033,14 +3040,14 @@ var methods = {
                 var referenceHeader = $(this).find('.jexcel-header #col-' + (columnNumber - 1));
 
                 // Add width control
-                var referenceWidthHeader = $(this).find('.jexcel-header .w' + (columnNumber - 1));
-                var referenceWidthContent = $(this).find('.jexcel-content .w' + (columnNumber - 1));
+                var referenceWidthHeader = $(this).find('.jexcel-header > table > colgroup > col').eq(columnNumber);
+                var referenceWidthContent = $(this).find('.jexcel-content > table > colgroup > col').eq(columnNumber);
 
                 // Adding visual headers
                 for (var col = (numOfColumns + columnNumber - 1); col >= columnNumber; col--) {
                     // Adding width control
-                    $(referenceWidthHeader).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
-                    $(referenceWidthContent).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
+                    $(referenceWidthHeader).after('<col width="' + options.colWidths[col] + '">')
+                    $(referenceWidthContent).after('<col width="' + options.colWidths[col] + '">')
                     // Adding the header
                     var title = options.colHeaders[col];
                     var header = title ? title : $.fn.jexcel('getColumnName', col);
@@ -3081,14 +3088,14 @@ var methods = {
                 var referenceHeader = $(this).find('.jexcel-header #col-' + columnNumber);
 
                 // Add width control
-                var referenceWidthHeader = $(this).find('.jexcel-header .w' + columnNumber);
-                var referenceWidthContent = $(this).find('.jexcel-content .w' + columnNumber);
+                var referenceWidthHeader = $(this).find('.jexcel-header > table > colgroup > col').eq(columnNumber + 1);
+                var referenceWidthContent = $(this).find('.jexcel-content > table > colgroup > col').eq(columnNumber + 1);
 
                 // Adding visual headers
                 for (var col = columnNumber; col < numOfColumns + columnNumber; col++) {
                     // Adding width control
-                    $(referenceWidthHeader).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
-                    $(referenceWidthContent).after('<col class="w' + col + '" width="' + options.colWidths[col] + '">')
+                    $(referenceWidthHeader).before('<col width="' + options.colWidths[col] + '">')
+                    $(referenceWidthContent).before('<col width="' + options.colWidths[col] + '">')
                     // Adding the header
                     var title = options.colHeaders[col];
                     var header = title ? title : $.fn.jexcel('getColumnName', col);
@@ -3538,13 +3545,22 @@ var methods = {
                 column = column[0];
             }
 
-            var col = $(this).find('.jexcel-header col.w' + column);
-            $(col).prop('width', width);
-            var col = $(this).find('.jexcel-content col.w' + column);
-            $(col).prop('width', width);
+            var colWidths = $(this).find('.jexcel-header col');
+            $(colWidths[parseInt(column) + 1]).prop('width', width);
+            var colWidths = $(this).find('.jexcel-content col');
+            var currentWidth = $(colWidths[parseInt(column) + 1]).prop('width');
+            $(colWidths[parseInt(column) + 1]).prop('width', width);
 
             // Update config container
             $.fn.jexcel.defaults[id].colWidths[column] = width;
+
+            // Keeping history of changes
+            $(this).jexcel('setHistory', null, {
+                type:'setWidth',
+                column: column,
+                fr: currentWidth,
+                to: width,
+            });
         }
     },
 
@@ -4122,6 +4138,10 @@ var methods = {
                 // Change the CSS back
                 } else if (historyRecord.action.type == 'setStyle') {
                     $(this).jexcel('setStyle', historyRecord.action.fr);
+
+                // Change the width
+                } else if (historyRecord.action.type == 'setWidth') {
+                    $(this).jexcel('setWidth', historyRecord.action.column, historyRecord.action.fr);
                 }
             } else {
                 // Redo for changes in cells
@@ -4199,6 +4219,10 @@ var methods = {
                 // Redefine style
                 } else if (historyRecord.action.type == 'setStyle') {
                     $(this).jexcel('setStyle', historyRecord.action.to);
+
+                // Change the width
+                } else if (historyRecord.action.type == 'setWidth') {
+                    $(this).jexcel('setWidth', historyRecord.action.column, historyRecord.action.to);
                 }
             } else {
                 // Select cell
@@ -4420,8 +4444,31 @@ var methods = {
             referenceRow = 0;
         }
 
+        // Find cols
+        if (referenceCol > -1) {
+            // Get headers cells
+            var headers = $(this).find('.jexcel_headers td');
+
+            // Update all headers
+            $.each(headers, function(k, v) {
+                if (k > 0 && k >= referenceCol) {
+                    // Update row reference
+                    $(v).prop('id', 'col-' + (k - 1));
+
+                    // Update header
+                    if (! $(v).prop('title')) {
+                        // Get letter
+                        var header = $.fn.jexcel('getColumnName', k - 1);
+
+                        // Update header
+                        $(v).html(header)
+                    }
+                }
+            });
+        }
+
         // Find rows
-        var rows = $(this).find('tbody > tr');
+        var rows = $(this).find('.jexcel-content tbody > tr');
 
         // Update all rows
         $.each(rows, function(k, v) {
@@ -4492,28 +4539,6 @@ var methods = {
                 });
             }
         });
-
-        // Find cols
-        if (referenceCol > -1) {
-            var headers = $(this).find('thead').find('tr').eq(-2).find('td');
-
-            // Update all headers
-            $.each(headers, function(k, v) {
-                if (k > 0 && k >= referenceCol) {
-                    // Update row reference
-                    $(v).prop('id', 'col-' + (k - 1));
-
-                    // Update header
-                    if (! $(v).prop('title')) {
-                        // Get letter
-                        var header = $.fn.jexcel('getColumnName', k - 1);
-
-                        // Update header
-                        $(v).html(header)
-                    }
-                }
-            });
-        }
 
         // Rebuild formula chain
         $.fn.jexcel.defaults[id].formula = [];
@@ -4899,7 +4924,7 @@ var methods = {
         // Cell
         if (! cell) {
             // Control vars
-            var data = [];
+            var data = {};
 
             var id = $(this).prop('id');
 
@@ -4911,7 +4936,7 @@ var methods = {
             for (j = 0; j < y; j++) {
                 for (i = 0; i < x; i++) {
                     // Cell
-                    cell = $(this).find('#' + i + '-' + j);
+                    cell = $(this).find('.jexcel-content #' + i + '-' + j);
                     // Value
                     var v = key ? $(cell).data(key) : $(cell).data();
 
@@ -5084,16 +5109,17 @@ var methods = {
         var contextMenuContent = '';
 
         if (type == 'col') {
-            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setHeader', " + number + ")\">Rename this column</a>";
-            if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnSorting == true) {
-                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 0)\">Order ascending <span></span></a><hr>";
-                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 1)\">Order descending <span></span></a><hr>";
-            }
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
                 contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + number + ")\">Insert a new column<span></span></a>";
             }
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
                 contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteColumn')\">Delete this column<span></span></a>";
+            }
+            contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setHeader', " + number + ")\">Rename this column</a>";
+            contextMenuContent += "<hr>";
+            if ($.fn.jexcel.defaults[$.fn.jexcel.current].columnSorting == true) {
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 0)\">Order ascending <span></span></a>";
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('orderBy', " + number + ", 1)\">Order descending <span></span></a>";
             }
             contextMenuContent += "<hr><a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('copy', true)\">Copy...<span>Ctrl + C</span></a>";
             contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('download')\">Save as...<span>Ctrl + S</span></a>";
@@ -5102,15 +5128,13 @@ var methods = {
             }
         } else {
             // Default context menu for the rows
-            if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertColumn == true) {
-                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertColumn', 1, null, " + number + ")\">Insert a new column<span></span></a>";
-            }
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowInsertRow == true) {
-                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + number + ")\">Insert a new row<span></span></a><hr>";
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('insertRow', 1, " + number + ")\">Insert a new row<span></span></a>";
             }
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
-                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow')\">Delete this row<span></span></a><hr>";
+                contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('deleteRow')\">Delete this row<span></span></a>";
             }
+            contextMenuContent += "<hr>";
             if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowComments == true) {
                 if (! $($.fn.jexcel.selectedCell).prop('title')) {
                     contextMenuContent += "<a onclick=\"jQuery('#" + $.fn.jexcel.current + "').jexcel('setComments', $.fn.jexcel.selectedCell, prompt('Comments', ''));\">Add comments<span></span></a><hr>";
