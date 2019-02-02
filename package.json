@@ -35,7 +35,7 @@
         "data-grid",
         "data-spreadsheet"
     ],
-    "version": "1.5.7",
+    "version": "2.0.0",
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel",
