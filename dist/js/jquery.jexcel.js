@@ -805,7 +805,7 @@ var methods = {
 
             $(document).on('touchstart', function(e) {
                 $.fn.jexcel.touchControl = setTimeout(function() {
-                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell);
+                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
                 }, 1000);
             });
 
@@ -828,7 +828,7 @@ var methods = {
                     // Update selection for this cell
                     $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $.fn.jexcel.selectedCell);
                     // Open editor
-                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell);
+                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
                 } else {
                     if (e.which != 3) {
                         // Hide context menu
@@ -919,7 +919,7 @@ var methods = {
 
                         // Open editor action
                         if ($(e.target).is('.highlight')) {
-                            $('#' + $.fn.jexcel.current).jexcel('openEditor', $(e.target));
+                            $('#' + $.fn.jexcel.current).jexcel('openEditor', $(e.target), null, e);
                         }
                     }
 
@@ -1290,12 +1290,12 @@ var methods = {
                                                         $('#' + $.fn.jexcel.current).jexcel('setValue', $.fn.jexcel.selectedCell, checkboxCurrentVal == 1 ? false : true);
                                                         e.preventDefault();
                                                     } else {
-                                                        $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
+                                                        $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true, e);
                                                     }
                                                 } else if (e.keyCode == 110 || (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 186 && e.keyCode <= 190)) {
-                                                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true);
+                                                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), true, e);
                                                 } else if (e.keyCode == 113) {
-                                                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), false);
+                                                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $($.fn.jexcel.selectedCell), false, e);
                                                     e.preventDefault();
                                                 }
                                             }
@@ -1602,7 +1602,7 @@ var methods = {
                 $(cell).addClass('edition');
 
                 // Custom editors
-                options.columns[position[0]].editor.openEditor(cell);
+                options.columns[position[0]].editor.openEditor(cell, empty, e);
             } else {
                 // Native functions
                 if (options.columns[position[0]].type == 'checkbox' || options.columns[position[0]].type == 'radio' || options.columns[position[0]].type == 'hidden') {
