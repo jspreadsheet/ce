@@ -587,10 +587,10 @@ var methods = {
                                 contextMenuContent = '';
                                 // Custom context menu
                                 if (typeof($.fn.jexcel.defaults[$.fn.jexcel.current].contextMenu) == 'function') {
-                                    contextMenuContent = $.fn.jexcel.defaults[$.fn.jexcel.current].contextMenu(o[0], o[1]);
+                                    contextMenuContent = $.fn.jexcel.defaults[$.fn.jexcel.current].contextMenu(o[0], o[1], e);
                                 } else {
                                     // Default context menu for the columns
-                                    contextMenuContent = $.fn.jexcel('contextMenu', o[0], o[1]);
+                                    contextMenuContent = $.fn.jexcel('contextMenu', o[0], o[1], e);
                                 }
 
                                 // Show context menu
@@ -5105,7 +5105,7 @@ var methods = {
     /**
      * Default context menu
      */
-    contextMenu : function(type, number) {
+    contextMenu : function(type, number, e) {
         var contextMenuContent = '';
 
         if (type == 'col') {
