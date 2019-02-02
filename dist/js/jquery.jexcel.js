@@ -4028,11 +4028,13 @@ var methods = {
 
         // Download element
         var pom = document.createElement('a');
-        var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+        var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
         var url = URL.createObjectURL(blob);
         pom.href = url;
         pom.setAttribute('download', options.csvFileName + '.csv');
+        document.body.appendChild(pom);
         pom.click();
+        document.body.removeChild(pom);
     },
 
     /**
