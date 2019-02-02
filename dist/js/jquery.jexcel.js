@@ -5157,13 +5157,18 @@ var methods = {
      * Create hash based on a given string
      */
     hash : function(str) {
-        var output = "";
-        for (var i=0; i<str.length; i++) {
-            if (str.charCodeAt(i) > 30 && str.charCodeAt(i) <= 127) {
-                output += str.charAt(i);
+        var hash = 0, i, chr;
+
+        if (str.length === 0) {
+            return hash;
+        } else {
+            for (i = 0; i < str.length; i++) {
+              chr   = str.charCodeAt(i);
+              hash  = ((hash << 5) - hash) + chr;
+              hash |= 0; // Convert to 32bit integer
             }
         }
-        return hash = output.split('').reduce((prevHash, currVal) => ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0);
+        return hash;
     },
 
     /**
