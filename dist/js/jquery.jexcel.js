@@ -812,8 +812,8 @@ var methods = {
                             $.fn.jexcel.selectedCell = $(e.target);
                             $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
                         }
-                $.fn.jexcel.touchControl = setTimeout(function() {
-                    $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
+                        $.fn.jexcel.touchControl = setTimeout(function() {
+                            $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
                         }, 500);
                     }
                 }
@@ -2529,7 +2529,7 @@ var methods = {
             var corner = $(cells).last();
 
             // Get the position of the corner helper
-            var t = parseInt($(corner).offset().top) + $(corner).parent().innerHeight() - 2;
+            var t = parseInt($(corner).offset().top) + $(corner).parent().innerHeight() - 3;
             var l = parseInt($(corner).offset().left) + $(corner).innerWidth() - 2;
 
             // Place the corner in the correct place
