@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v2.0.0 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v2.0.2 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -85,7 +85,7 @@ var methods = {
             // Toolbar
             toolbar:null,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 2.0.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 2.0.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -804,9 +804,19 @@ var methods = {
             $.fn.jexcel.touchControls = null
 
             $(document).on('touchstart', function(e) {
+                if (! $(e.target).parents('.jexcel, .jexcel_contextmenu').length) {
+                    $('#' + $.fn.jexcel.current).jexcel('resetSelection');
+                } else {
+                    if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                        if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-content')) {
+                            $.fn.jexcel.selectedCell = $(e.target);
+                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                        }
                 $.fn.jexcel.touchControl = setTimeout(function() {
                     $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
-                }, 1000);
+                        }, 500);
+                    }
+                }
             });
 
             $(document).on('touchend touchcancel', function() {
