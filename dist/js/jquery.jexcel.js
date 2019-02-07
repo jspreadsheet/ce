@@ -312,23 +312,36 @@ var methods = {
             $.each(options.toolbar, function(k, v) {
                 if (v.type == 'i') {
                     if (v.method) {
-                        var toolbarMethod = v.method + '($(\'#\' + $.fn.jexcel.current), $.fn.jexcel(\'getSelectedCells\'))';
+                        var toolbarMethod = function() {
+                            v.method($('#' + $.fn.jexcel.current), $.fn.jexcel('getSelectedCells'));
+                        }
                     } else {
-                        var toolbarMethod = '$(\'#\' + $.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', \'' + v.v + '\')';
+                        var toolbarMethod = function() {
+                            $('#' + $.fn.jexcel.current).jexcel('setStyle', $.fn.jexcel('getSelectedCells'), v.k, v.v);
+                        }
                     }
-                    toolbar = '<i class="jexcel-toolbar-item material-icons" onclick="' + toolbarMethod + '">' + v.content + '</i>';
+                    var toolbar = document.createElement('i');
+                    $(toolbar).prop('class', 'jexcel-toolbar-item material-icons');
+                    $(toolbar).on('click', toolbarMethod);
+                    $(toolbar).html(v.content);
                     $(toolbarContainer).append(toolbar);
                 } else if (v.type == 'select') {
-                    var toolbarDropdownOptions = '';
+                    var toolbar = document.createElement('select');
+                    $(toolbar).prop('class', 'jexcel-toolbar-item');
+                    $(toolbar).on('change', function() {
+                        $('#' + $.fn.jexcel.current).jexcel('setStyle', $.fn.jexcel('getSelectedCells'), v.k, this.value);
+                    });
                     if (typeof(v.v[0]) == 'string') {
 	                    $.each(v.v, function(k1, v1) {
-	                        toolbarDropdownOptions += '<option value="' + v1 + '">' + v1 + '</option>';
+	                        var toolbarDropdownOption = document.createElement('option');
+	                        $(toolbarDropdownOption).prop('value', v1);
+	                        $(toolbarDropdownOption).html(v1);
+	                        $(toolbar).append(toolbarDropdownOption);
 	                    });
                     }
-                    toolbar = '<select class="jexcel-toolbar-item" onchange="$(\'#\' + $.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', this.value)">' + toolbarDropdownOptions + '</select>';
                     $(toolbarContainer).append(toolbar);
                 } else if (v.type == 'spectrum') {
-                    toolbar = document.createElement('input');
+                    var toolbar = document.createElement('input');
                     $(toolbarContainer).append(toolbar);
 
                     $(toolbar).spectrum({
