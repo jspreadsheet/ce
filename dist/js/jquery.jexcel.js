@@ -577,6 +577,10 @@ var methods = {
                     }
 
                     if ($.fn.jexcel.current) {
+                        var tableCell = $(e.target).parents().closest('.jx_cell');
+                        if (tableCell.length > 0)
+                            e.target = tableCell[0];
+
                         // Check if the click was in an jexcel element
                         var isJexcel = $(e.target).parents('.jexcel').length ? true : false;
 
@@ -635,7 +639,7 @@ var methods = {
 
             // Global mouse click down controles
             $.fn.jexcel.mouseDownControls = function (e) {
-                if (e.which != 3) {
+                //if (e.which != 3) {
                     // Click on corner icon
                     if (e.target.id == 'jexcel_corner') {
                         if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
@@ -643,6 +647,11 @@ var methods = {
                         }
                     } else {
                         // Check if the click was in an jexcel element
+                        // Replace e.target with actual cell to avoid issues if cell contains html data
+                        var tableCell = $(e.target).parents().closest('.jx_cell');
+                        if (tableCell.length > 0)
+                            e.target = tableCell[0];
+
                         var jexcelTable = $(e.target).parents('.jexcel');
 
                         // Table found
@@ -779,10 +788,18 @@ var methods = {
                                 } else {
                                     // Update cell selection
                                     if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                                        if (! $.fn.jexcel.selectedCell || ! e.shiftKey) {
-                                            $.fn.jexcel.selectedCell = $(e.target);
+                                        if (e.which !== 3) {
+                                            if (!$.fn.jexcel.selectedCell || !e.shiftKey) {
+                                                $.fn.jexcel.selectedCell = $(e.target);
+                                            }
+                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
                                         }
-                                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                                        else {
+                                            // Check if right click and mantain previous selection if the
+                                            // new selected cell is within the selection range
+                                            if ($('#' + $.fn.jexcel.current).jexcel('selectionContainsCell', $(e.target)) === false)
+                                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', $(e.target), $(e.target));
+                                        }
                                     } else {
                                         if ($(e.target) != $.fn.jexcel.selectedCell) {
                                             $.fn.jexcel.selectedCell = $(e.target);
@@ -804,7 +821,7 @@ var methods = {
                             }
                         }
                     }
-                }
+                //}
             }
 
             $(document).on('mousedown', $.fn.jexcel.mouseDownControls);
@@ -919,6 +936,9 @@ var methods = {
 
             // Double click
             $.fn.jexcel.doubleClickControls = function (e) {
+                var tableCell = $(e.target).parents().closest('.jx_cell');
+                if (tableCell.length > 0)
+                    e.target = tableCell[0];
                 // Jexcel is selected
                 if ($.fn.jexcel.current) {
                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
@@ -2462,6 +2482,38 @@ var methods = {
     },
 
     /**
+     * Check if cell is part of the selection range
+     * 
+     * @param object rangeStartCell range start
+     * @param object rangeEndCell range end
+     * @param object cell to verify
+     * @return boolean
+     */
+    selectionContainsCell: function (cell) {
+        var contains_currentCell = false;
+        var cell1, cell2;
+        var currentCell = cell.prop('id').split('-');
+
+        if ($.fn.jexcel.selection) {
+            if ($.fn.jexcel.selection.length > 1) {
+                // Get all coordinates and test if the selected cell is within range
+                cell1 = $.fn.jexcel.selection[0].prop('id').split('-');
+                cell2 = $.fn.jexcel.selection[1].prop('id').split('-');
+                // Check if col range contains selected cell or if row range contains selected cell
+                if ((currentCell[0] >= Math.min(cell1[0], cell2[0]) && currentCell[0] <= Math.max(cell1[0], cell2[0])) &&
+                    (currentCell[1] >= Math.min(cell1[1], cell2[1]) && currentCell[1] <= Math.max(cell1[1], cell2[1])))
+                    contains_currentCell = true;
+            }
+            if ($.fn.jexcel.selection.length === 1) {
+                cell1 = $.fn.jexcel.selection[0].prop('id').split('-');
+                if (cell1 === currentCell)
+                    contains_currentCell = true;
+            }
+        }
+        return contains_currentCell
+    },
+
+    /**
      * Update the cells move data
      * 
      * @param object o cell current
@@ -3247,6 +3299,7 @@ var methods = {
             var createRow = function() {
                 // New line of data to be append in the table
                 var tr = document.createElement('tr');
+                $(tr).prop("id", "row-" + rowNumber); 
 
                 // Index column
                 $(tr).append('<td class="jexcel_label"></td>');
@@ -3296,7 +3349,7 @@ var methods = {
             $(this).jexcel('updateTableReferences');
 
             // Update selection
-            $(this).jexcel('updateSelection', records[0].cell, records[records.length-1].cell);
+            //$(this).jexcel('updateSelection', records[0].cell, records[records.length-1].cell);
 
             // Update cells
             $(this).jexcel('loadCells', records, true);
@@ -4284,7 +4337,8 @@ var methods = {
         td = document.createElement('td');
         $(td).prop('width', width);
         $(td).prop('align', align);
-        $(td).prop('id', i + '-' +j);
+        $(td).prop('id', i + '-' + j);
+        $(td).addClass('jx_cell');
         $(td).addClass('c' + i);
         $(td).addClass('r' + j);
 
@@ -4382,7 +4436,7 @@ var methods = {
             }
             // Spare is populated add new spare to keep it align with the configuration
             if (test) {
-                $(this).jexcel('insertRow', $.fn.jexcel.defaults[id].minSpareCols);
+                $(this).jexcel('insertRow', $.fn.jexcel.defaults[id].minSpareRows);
             }
         }
 
@@ -4491,7 +4545,8 @@ var methods = {
         }
 
         // Find rows
-        var rows = $(this).find('.jexcel-content tbody > tr');
+        //var rows = $(this).find('.jexcel-content tbody > tr');
+        var rows = $(this).find('.jexcel-content tbody tr[id^="row-"]');
 
         // Update all rows
         $.each(rows, function(k, v) {
@@ -4500,7 +4555,7 @@ var methods = {
                 $(v).prop('id', 'row-' + k);
 
                 // Find columns
-                var columns = $(v).find('td');
+                var columns = $(v).children('td');
 
                 // Update all internal columns references
                 $.each(columns, function(k1, v1) {
