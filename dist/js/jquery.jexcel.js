@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v2.0.2 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v2.0.3 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -9,12 +9,8 @@
  * Online collaboration
  * Merged cells
  * Big data (partial table loading)
- * Toolbar with undo, redo, colors, etc
- * Disable close editor with navigation arrows
- * Add onresize on the history
  * Skip hidden cells options?
  * Filters
- * Image type
  */
 
 (function( $ ){
@@ -85,7 +81,7 @@ var methods = {
             // Toolbar
             toolbar:null,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 2.0.2\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 2.0.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -315,24 +311,37 @@ var methods = {
 
             $.each(options.toolbar, function(k, v) {
                 if (v.type == 'i') {
-                    if (typeof(v.v) == 'function') {
-                        var toolbarMethod = 'getFontColor()';
+                    if (v.method) {
+                        var toolbarMethod = function() {
+                            v.method($('#' + $.fn.jexcel.current), $.fn.jexcel('getSelectedCells'));
+                        }
                     } else {
-                        var toolbarMethod = '$(\'#\' + $.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', \'' + v.v + '\')';
+                        var toolbarMethod = function() {
+                            $('#' + $.fn.jexcel.current).jexcel('setStyle', $.fn.jexcel('getSelectedCells'), v.k, v.v);
+                        }
                     }
-                    toolbar = '<i class="jexcel-toolbar-item material-icons" onclick="' + toolbarMethod + '">' + v.content + '</i>';
+                    var toolbar = document.createElement('i');
+                    $(toolbar).prop('class', 'jexcel-toolbar-item material-icons');
+                    $(toolbar).on('click', toolbarMethod);
+                    $(toolbar).html(v.content);
                     $(toolbarContainer).append(toolbar);
                 } else if (v.type == 'select') {
-                    var toolbarDropdownOptions = '';
+                    var toolbar = document.createElement('select');
+                    $(toolbar).prop('class', 'jexcel-toolbar-item');
+                    $(toolbar).on('change', function() {
+                        $('#' + $.fn.jexcel.current).jexcel('setStyle', $.fn.jexcel('getSelectedCells'), v.k, this.value);
+                    });
                     if (typeof(v.v[0]) == 'string') {
 	                    $.each(v.v, function(k1, v1) {
-	                        toolbarDropdownOptions += '<option value="' + v1 + '">' + v1 + '</option>';
+	                        var toolbarDropdownOption = document.createElement('option');
+	                        $(toolbarDropdownOption).prop('value', v1);
+	                        $(toolbarDropdownOption).html(v1);
+	                        $(toolbar).append(toolbarDropdownOption);
 	                    });
                     }
-                    toolbar = '<select class="jexcel-toolbar-item" onchange="$(\'#\' + $.fn.jexcel.current).jexcel(\'setStyle\', $.fn.jexcel(\'getSelectedCells\'), \'' + v.k + '\', this.value)">' + toolbarDropdownOptions + '</select>';
                     $(toolbarContainer).append(toolbar);
                 } else if (v.type == 'spectrum') {
-                    toolbar = document.createElement('input');
+                    var toolbar = document.createElement('input');
                     $(toolbarContainer).append(toolbar);
 
                     $(toolbar).spectrum({
@@ -808,13 +817,15 @@ var methods = {
                     $('#' + $.fn.jexcel.current).jexcel('resetSelection');
                 } else {
                     if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                        if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-content')) {
-                            $.fn.jexcel.selectedCell = $(e.target);
-                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                        if ($.fn.jexcel.current) {
+                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-content')) {
+                                $.fn.jexcel.selectedCell = $(e.target);
+                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                            }
+                            $.fn.jexcel.touchControl = setTimeout(function() {
+                                $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
+                            }, 500);
                         }
-                        $.fn.jexcel.touchControl = setTimeout(function() {
-                            $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
-                        }, 500);
                     }
                 }
             });
@@ -5065,11 +5076,20 @@ var methods = {
                 obj[cellId] = '' + (sty ? sty : '');
                 styleFrom.push(obj);
 
-                // Change layout
-                if ($(cell).css(k) == v) {
-                    $(cell).css(k, '');
+                // Workaround for safari ;(
+                if (k == 'font-weight' && v == 'bold') {
+                    if ($(cell).css(k) == '700' || $(cell).css(k) == 'bold') {
+                        $(cell).css(k, '');
+                    } else {
+                        $(cell).css(k, v);
+                    }
                 } else {
-                    $(cell).css(k, v);
+                    // Change layout
+                    if ($(cell).css(k) == v) {
+                        $(cell).css(k, '');
+                    } else {
+                        $(cell).css(k, v);
+                    }
                 }
 
                 // New style
