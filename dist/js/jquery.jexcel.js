@@ -4048,14 +4048,20 @@ var methods = {
         data += $(this).jexcel('copy', false, ',', true);
 
         // Download element
-        var pom = document.createElement('a');
         var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
-        var url = URL.createObjectURL(blob);
-        pom.href = url;
-        pom.setAttribute('download', options.csvFileName + '.csv');
-        document.body.appendChild(pom);
-        pom.click();
-        document.body.removeChild(pom);
+
+        // IE Compatibility
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(blob, options.csvFileName + '.csv');
+        } else {
+            var pom = document.createElement('a');
+            var url = URL.createObjectURL(blob);
+            pom.href = url;
+            pom.setAttribute('download', options.csvFileName + '.csv');
+            document.body.appendChild(pom);
+            pom.click();
+            document.body.removeChild(pom);
+        }
     },
 
     /**
