@@ -1272,14 +1272,18 @@ var methods = {
                             if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
                                 if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
                                     if ($.fn.jexcel.selectedRow) {
-                                        if (confirm('Are you sure to delete the selected rows?')) {
-                                             $('#' + $.fn.jexcel.current).jexcel('deleteRow');
-                                             $('#' + $.fn.jexcel.current).jexcel('resetSelection');
+                                        if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteRow == true) {
+                                            if (confirm('Are you sure to delete the selected rows?')) {
+                                                 $('#' + $.fn.jexcel.current).jexcel('deleteRow');
+                                                 $('#' + $.fn.jexcel.current).jexcel('resetSelection');
+                                            }
                                         }
                                     } else if ($.fn.jexcel.selectedHeader) {
-                                        if (confirm('Are you sure to delete the selected columns?')) {
-                                            var columns = $('#' + $.fn.jexcel.current).find('thead.jexcel_label').find('.selected');
-                                            $('#' + $.fn.jexcel.current).jexcel('deleteColumn', parseInt($(columns[0]).prop('id').split('-')[1]), parseInt(columns.length));
+                                        if ($.fn.jexcel.defaults[$.fn.jexcel.current].allowDeleteColumn == true) {
+                                            if (confirm('Are you sure to delete the selected columns?')) {
+                                                var columns = $('#' + $.fn.jexcel.current).find('thead.jexcel_label').find('.selected');
+                                                $('#' + $.fn.jexcel.current).jexcel('deleteColumn', parseInt($(columns[0]).prop('id').split('-')[1]), parseInt(columns.length));
+                                            }
                                         }
                                     } else {
                                         // Change value
