@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v2.0.3 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v2.0.4 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -81,7 +81,7 @@ var methods = {
             // Toolbar
             toolbar:null,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 2.0.3\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 2.0.4\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -741,7 +741,8 @@ var methods = {
                             }
 
                             // Body found
-                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-content')) {
+                            if ($(e.target).parents('.jexcel-content').length) {
+                                var target = (e.target.tagName == 'TD') ? e.target : $(e.target).parents('td');
                                 // Update row label selection
                                 if ($(e.target).is('.jexcel_label')) {
                                     if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {
@@ -778,15 +779,15 @@ var methods = {
                                     }
                                 } else {
                                     // Update cell selection
-                                    if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
+                                    if (! $(e.target).parents('.edition').length) {
                                         if (! $.fn.jexcel.selectedCell || ! e.shiftKey) {
-                                            $.fn.jexcel.selectedCell = $(e.target);
+                                            $.fn.jexcel.selectedCell = $(target);
                                         }
-                                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(target));
                                     } else {
-                                        if ($(e.target) != $.fn.jexcel.selectedCell) {
-                                            $.fn.jexcel.selectedCell = $(e.target);
-                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
+                                        if ($(target) != $.fn.jexcel.selectedCell) {
+                                            $.fn.jexcel.selectedCell = $(target);
+                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(target));
                                         }
                                     }
 
@@ -936,11 +937,13 @@ var methods = {
                                 // Do copy
                                 $('#' + $.fn.jexcel.current).jexcel('copyData', o, d);
                             }
-                        }
+                        } else if ($(e.target).parents('.jexcel-content').length) {
+                            var target = (e.target.tagName == 'TD') ? e.target : $(e.target).parents('td');
 
-                        // Open editor action
-                        if ($(e.target).is('.highlight')) {
-                            $('#' + $.fn.jexcel.current).jexcel('openEditor', $(e.target), null, e);
+                            // Open editor action
+                            if ($(target).is('.highlight')) {
+                                $('#' + $.fn.jexcel.current).jexcel('openEditor', $(target), null, e);
+                            }
                         }
                     }
 
@@ -2589,8 +2592,8 @@ var methods = {
         var id = $(this).prop('id');
 
         // Column and row length
-        var x = $.fn.jexcel.defaults[id].data[0].length
-        var y = $.fn.jexcel.defaults[id].data.length
+        var x = $.fn.jexcel.defaults[id].columns.length;
+        var y = $.fn.jexcel.defaults[id].data.length;
 
         // Go through the columns to get the data
         for (j = 0; j < y; j++) {
@@ -2702,31 +2705,25 @@ var methods = {
             delimiter = "\t";
         }
 
-        var str = '';
-        var row = '';
-        var val = '';
-        var tmp = '';
-        var style = [];
-        var pc = false;
-        var pr = false;
-
         // Column and row length
+        var col = [];
+        var row = [];
         var x = $.fn.jexcel.defaults[id].data[0].length
         var y = $.fn.jexcel.defaults[id].data.length
 
+        // Reset container
+        var style = [];
+
         // Go through the columns to get the data
         for (j = 0; j < y; j++) {
-            row = '';
-            pc = false;
+            col = [];
+
             for (i = 0; i < x; i++) {
                 // Get cell
                 cell = $(this).find('#' + i + '-' + j);
 
                 // If cell is highlighted
                 if (! highlighted || $(cell).hasClass('highlight')) {
-                    if (pc) {
-                        row += delimiter;
-                    }
                     // Get value
                     val = $(this).jexcel('getValue', $(cell));
                     if (val.match && (val.match(/,/g) || val.match(/\n/) || val.match(/\"/))) {
@@ -2734,21 +2731,20 @@ var methods = {
                         val = val.replace(new RegExp('"', 'g'), '""');
                         val = '"' + val + '"'; 
                     }
-                    row += val;
-                    pc = true;
+                    col.push(val);
                     // Get style
                     tmp = $(cell).attr('style');
                     style.push(tmp ? tmp : '');
                 }
             }
-            if (row) {
-                if (pr) {
-                    str += "\n";
-                }
-                str += row;
-                pr = true;
+
+            if (col.length) {
+                row.push(col.join(delimiter));
             }
         }
+
+        // Final string
+        var str = row.join("\n");
 
         // Create a hidden textarea to copy the values
         if (! returnData) {
@@ -2919,9 +2915,13 @@ var methods = {
         while (matches = pattern.exec( CSV_string )) {
             var matched_delimiter = matches[1]; // Get the matched delimiter
             // Check if the delimiter has a length (and is not the start of string) and if it matches field delimiter. If not, it is a row delimiter.
-            if (matched_delimiter.length && matched_delimiter !== delimiter) {
+            if (matched_delimiter.length) {
               // Since this is a new row of data, add an empty row to the array.
-              rows.push( [] );
+              if (matched_delimiter !== delimiter) {
+                  rows.push( [] );
+              } else {
+                  rows[rows.length - 1].push('');
+              }
             }
             var matched_value;
             // Once we have eliminated the delimiter, check to see what kind of value was captured (quoted or unquoted):
@@ -3596,17 +3596,12 @@ var methods = {
      * @return width - current column width
      */
     getWidth : function (column) {
-        var data = [];
+        // Id
+        var id = $(this).prop('id');
 
         if (! column) {
             // Get all headers
-            var column = $(this).find('.jexcel-header .jexcel_headers td');
-            // Push to the data container
-            $.each(column, function(k, v) {
-                if (k > 0) {
-                    data.push($(v).prop('width'));
-                }
-            });
+            return $.fn.jexcel.defaults[id].colWidths;
         } else {
             // In case the column is an object
             if (typeof(column) == 'object') {
@@ -3614,14 +3609,8 @@ var methods = {
                 column = column[0];
             }
 
-            var col = $(this).find('.jexcel-header #col-' + column);
-
-            if (col.length) {
-                data = $(col).prop('width');
-            }
+            return $.fn.jexcel.defaults[id].colWidths[column];
         }
-
-        return data;
     },
 
     /**
@@ -4045,7 +4034,7 @@ var methods = {
 
         // Get headers if applicable
         if (options.csvHeaders == true) {
-            data = options.colHeaders.join() + "\n";
+            data = $(this).jexcel('getHeaders', true) + "\n";
         }
 
         // Get data
@@ -5211,6 +5200,74 @@ var methods = {
             }
         }
         return hash;
+    },
+
+    parseTable : function(el, destroy) {
+        if (el.tagName != 'TABLE') {
+            console.log('Element is not a table');
+        } else {
+            var headers = $(el).find('thead tr');
+            headers = $(headers[headers.length - 1]).find('td, th');
+            options = {};
+            options.columns = [];
+            options.colWidths = [];
+            options.colHeaders = [];
+            options.colAligments = [];
+            options.data = [];
+            for (var i = 0; i < headers.length; i++) {
+                options.columns.push({ type:'text' }),
+                options.colWidths.push($(headers[i]).width() + 50),
+                options.colHeaders.push($(headers[i]).text()),
+                options.colAligments.push($(headers[i]).css('text-align'));
+            }
+
+            var content = $(el).find('table > tr, tbody tr');
+            for (var j = 0; j < content.length; j++) {
+                var row = $(content[j]).find('td');
+                options.data[j] = [];
+                for (var i = 0; i < row.length; i++) {
+                    var value = $(row[i]).text();
+                    options.data[j].push(value);
+                }
+            }
+
+            var pattern = [];
+            for (var i = 0; i < options.columns.length; i++) {
+                test = true;
+                testCalendar = true;
+                pattern[i] = [];
+                for (var j = 0; j < options.data.length; j++) {
+                    var value = options.data[j][i];
+                    if (! pattern[i][value]) {
+                        pattern[i][value] = 0;
+                    }
+                    pattern[i][value]++;
+                    if (value.length > 25) {
+                        test = false;
+                    }
+                    if (value.length == 10) {
+                        if (! (value.substr(4,1) == '-' && value.substr(7,1) == '-')) {
+                            testCalendar = false;
+                        }
+                    } else {
+                        testCalendar = false;
+                    }
+                }
+
+                if (testCalendar) {
+                    options.columns[i].type = 'calendar';
+                } else if (test == true && Object.keys(pattern[i]).length <= parseInt(options.data.length * 0.1)) {
+                    options.columns[i].type = 'dropdown';
+                    options.columns[i].source = Object.keys(pattern[i]);
+                }
+            }
+
+            if (destroy) {
+                $(el).remove();
+            }
+
+            return options;
+        }
     },
 
     /**

@@ -101,6 +101,7 @@
 .jexcel > div > table > tbody > tr > td.edition
 {
     padding:0px;
+    overflow:visible;
 }
 .jexcel > div > table > tbody > tr > td:first-child
 {
