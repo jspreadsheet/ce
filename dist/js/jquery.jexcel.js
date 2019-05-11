@@ -2147,6 +2147,9 @@ var methods = {
         // Cell identification
         var position = [v.col, v.row];
 
+        // Remove formula error
+        $(v.cell).removeClass('error');
+
         // Value
         value = '' + v.newValue;
 
@@ -3925,6 +3928,11 @@ var methods = {
      * Run the formula for one given cell
      */
     executeFormula : function (cellId) {
+
+        // Not calculate and not show error if excelFormulaUtilities is not defined
+        if (typeof excelFormulaUtilities !== 'object')
+            return;
+
         // Id
         var id = $(this).prop('id');
 
@@ -3945,7 +3953,7 @@ var methods = {
         }
 
         // Set value
-        if (value === null || value == undefined || (''+value) == 'NaN') {
+        if (value === null || value == undefined || (''+value) == 'NaN' || typeof value === 'function') {
             // New cell value
             value = '<input type="hidden" value="' + formula + '">#ERROR';
             // Add class error to the cell
