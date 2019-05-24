@@ -82,8 +82,9 @@
             } else if (options.type == 'picker') {
                 $(this).addClass('jdropdown-picker');
             } else {
-                if ($(document).width() < 800) {
+                if ($(window).width() < 800) {
                     $(this).addClass('jdropdown-picker');
+                    options.autocomplete = false;
                 } else {
                     $(this).css('width', options.width);
                     $(this).addClass('jdropdown-default');
@@ -246,7 +247,7 @@
                     }
                 }
 
-                $(document).on('click', $.fn.jdropdown.onclick);
+                $(document).on('mousedown', $.fn.jdropdown.onclick);
 
                 // Keydown controls
                 $.fn.jdropdown.onkeydown = function(e) {
@@ -675,12 +676,13 @@
                         // Add focus
                         $(main).addClass('jdropdown-focus');
                         // Animation
-                        if ($(document).width() < 800) {
-                            if ($.fn.jdropdown.configuration[$.fn.jdropdown.current].type == 'picker') {
+                        if ($(window).width() < 800) {
+                            if ($.fn.jdropdown.configuration[$.fn.jdropdown.current].type == null || $.fn.jdropdown.configuration[$.fn.jdropdown.current].type == 'picker') {
                                 // Animation
                                 $(main).find('.jdropdown-container').addClass('slide-bottom-in');
                             }
                         }
+
                         // Filter
                         if ($(main).data('autocomplete') == true) {
                             // Redo search

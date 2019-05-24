@@ -475,7 +475,7 @@
         $(table).addClass('jcalendar_focus');
 
         // Get the position of the corner helper
-        if ($(document).width() > 800) {
+        if ($(window).width() > 800) {
             var t = parseInt($(this).offset().top) + parseInt($(this).height()) + 5;
             var l = parseInt($(this).offset().left);
             $(table).offset({ top: t, left: l });

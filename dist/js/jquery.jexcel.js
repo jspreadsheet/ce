@@ -1,5 +1,5 @@
 /**
- * (c) 2013 Jexcel Plugin v2.0.4 | Bossanova UI
+ * (c) 2013 Jexcel Plugin v2.1.0 | Bossanova UI
  * http://www.github.com/paulhodel/jexcel
  *
  * @author: Paul Hodel <paul.hodel@gmail.com>
@@ -7,10 +7,6 @@
  * 
  * ROADMAP:
  * Online collaboration
- * Merged cells
- * Big data (partial table loading)
- * Skip hidden cells options?
- * Filters
  */
 
 (function( $ ){
@@ -81,7 +77,7 @@ var methods = {
             // Toolbar
             toolbar:null,
             // About message
-            about:'jExcel Spreadsheet\\nVersion 2.0.4\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
+            about:'jExcel Spreadsheet\\nVersion 2.1.0\\nAuthor: Paul Hodel <paul.hodel@gmail.com>\\nWebsite: https://bossanova.uk/jexcel'
         };
 
         // Id
@@ -743,56 +739,72 @@ var methods = {
                             // Body found
                             if ($(e.target).parents('.jexcel-content').length) {
                                 var target = (e.target.tagName == 'TD') ? e.target : $(e.target).parents('td');
-                                // Update row label selection
-                                if ($(e.target).is('.jexcel_label')) {
-                                    if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {
-                                        // Reset selection
-                                        $('#' + $.fn.jexcel.current).jexcel('resetSelection');
-                                        // Mark which row we are dragging
-                                        $.fn.jexcel.dragRowFrom = $(e.target).parent().prop('id');
-                                        $.fn.jexcel.dragRowOver = $(e.target).parent().prop('id');
-                                        // Visual row we are dragging
-                                        $(e.target).parent().find('td').css('background-color', 'rgba(0,0,0,0.1)');
-                                    } else {
-                                        var o = $(e.target).parent().prop('id').split('-');
-
-                                        if ($.fn.jexcel.selectedRow && (e.shiftKey || e.ctrlKey)) {
-                                            // Updade selection multi columns
-                                            var d = $($.fn.jexcel.selectedRow).prop('id').split('-');
+                                if ($(target).length && $(target).prop('id')) {
+                                    // Update row label selection
+                                    if ($(e.target).is('.jexcel_label')) {
+                                        if ($.fn.jexcel.defaults[$.fn.jexcel.current].rowDrag == true && $(e.target).outerWidth() - e.offsetX < 8) {
+                                            // Reset selection
+                                            $('#' + $.fn.jexcel.current).jexcel('resetSelection');
+                                            // Mark which row we are dragging
+                                            $.fn.jexcel.dragRowFrom = $(e.target).parent().prop('id');
+                                            $.fn.jexcel.dragRowOver = $(e.target).parent().prop('id');
+                                            // Visual row we are dragging
+                                            $(e.target).parent().find('td').css('background-color', 'rgba(0,0,0,0.1)');
                                         } else {
-                                            // Update selection single column
-                                            var d = $(e.target).parent().prop('id').split('-');
-                                            // Keep track of which header was selected first
-                                            $.fn.jexcel.selectedRow = $(e.target).parent();
-                                            $.fn.jexcel.selectedHeader = null;
+                                            var o = $(e.target).parent().prop('id').split('-');
+
+                                            if ($.fn.jexcel.selectedRow && (e.shiftKey || e.ctrlKey)) {
+                                                // Updade selection multi columns
+                                                var d = $($.fn.jexcel.selectedRow).prop('id').split('-');
+                                            } else {
+                                                // Update selection single column
+                                                var d = $(e.target).parent().prop('id').split('-');
+                                                // Keep track of which header was selected first
+                                                $.fn.jexcel.selectedRow = $(e.target).parent();
+                                                $.fn.jexcel.selectedHeader = null;
+                                            }
+
+                                            // Get cell objects
+                                            var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
+                                            var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-' + d[1]);
+
+                                            // Update selection
+                                            $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
+
+                                            // Selected cell will be the first in the row
+                                            $.fn.jexcel.selectedCell = $(o2);
                                         }
-
-                                        // Get cell objects
-                                        var o1 = $('#' + $.fn.jexcel.current).find('#0-' + o[1]);
-                                        var o2 = $('#' + $.fn.jexcel.current).find('#' + parseInt($.fn.jexcel.defaults[$.fn.jexcel.current].columns.length - 1) + '-' + d[1]);
-
-                                        // Update selection
-                                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', o1, o2);
-
-                                        // Selected cell will be the first in the row
-                                        $.fn.jexcel.selectedCell = $(o2);
-                                    }
-                                } else {
-                                    // Update cell selection
-                                    if (! $(e.target).parents('.edition').length) {
-                                        if (! $.fn.jexcel.selectedCell || ! e.shiftKey) {
-                                            $.fn.jexcel.selectedCell = $(target);
-                                        }
-                                        $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(target));
                                     } else {
-                                        if ($(target) != $.fn.jexcel.selectedCell) {
-                                            $.fn.jexcel.selectedCell = $(target);
+                                        // Update cell selection
+                                        if (! $(e.target).parents('.edition').length) {
+                                            if (! $.fn.jexcel.selectedCell || ! e.shiftKey) {
+                                                $.fn.jexcel.selectedCell = $(target);
+                                            }
                                             $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(target));
+                                        } else {
+                                            if ($(target) != $.fn.jexcel.selectedCell) {
+                                                $.fn.jexcel.selectedCell = $(target);
+                                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(target));
+                                            }
                                         }
-                                    }
 
-                                    // No full row selected
-                                    $.fn.jexcel.selectedRow = null;
+                                        // Edition 
+                                        $.fn.jexcel.touchControls = setTimeout(function() {
+                                            if ($.fn.jexcel.defaults[$.fn.jexcel.current].editable == true) {
+                                                if ($(e.target).parents('.jexcel-content').length) {
+                                                    var target = (e.target.tagName == 'TD') ? e.target : $(e.target).parents('td');
+
+                                                    // Open editor action
+                                                    if ($(target).is('.highlight')) {
+                                                        $('#' + $.fn.jexcel.current).jexcel('openEditor', $(target), null, e);
+                                                    }
+                                                }
+                                            }
+                                        }, 500);
+
+                                        // No full row selected
+                                        $.fn.jexcel.selectedRow = null;
+                                    }
                                 }
                             }
                         } else {
@@ -808,34 +820,7 @@ var methods = {
                 }
             }
 
-            $(document).on('mousedown', $.fn.jexcel.mouseDownControls);
-
-            // Touch control
-            $.fn.jexcel.touchControls = null
-
-            $(document).on('touchstart', function(e) {
-                if (! $(e.target).parents('.jexcel, .jexcel_contextmenu').length) {
-                    $('#' + $.fn.jexcel.current).jexcel('resetSelection');
-                } else {
-                    if (! $($.fn.jexcel.selectedCell).hasClass('edition')) {
-                        if ($.fn.jexcel.current) {
-                            if ($(e.target).parent().parent().parent().parent().hasClass('jexcel-content')) {
-                                $.fn.jexcel.selectedCell = $(e.target);
-                                $('#' + $.fn.jexcel.current).jexcel('updateSelection', $.fn.jexcel.selectedCell, $(e.target));
-                            }
-                            $.fn.jexcel.touchControl = setTimeout(function() {
-                                $('#' + $.fn.jexcel.current).jexcel('openEditor', $.fn.jexcel.selectedCell, null, e);
-                            }, 500);
-                        }
-                    }
-                }
-            });
-
-            $(document).on('touchend touchcancel', function() {
-                if ($.fn.jexcel.touchControl) {
-                    clearTimeout($.fn.jexcel.touchControl);
-                }
-            });
+            $(document).on('mousedown touchstart', $.fn.jexcel.mouseDownControls);
 
             // Global mouse click up controles
             $.fn.jexcel.mouseUpControls = function (e) {
@@ -914,9 +899,25 @@ var methods = {
 
                 $.fn.jexcel.dragRowFrom = null;
                 $.fn.jexcel.dragRowOver = null;
+
+                // Cancel any timing
+                if ($.fn.jexcel.touchControls) {
+                    clearTimeout($.fn.jexcel.touchControls);
+                }
             }
 
             $(document).on('mouseup', $.fn.jexcel.mouseUpControls);
+
+            // Touch control
+            $.fn.jexcel.touchControls = null
+
+            $.fn.jexcel.touchCancelControls  = function() {
+                if ($.fn.jexcel.touchControls) {
+                    clearTimeout($.fn.jexcel.touchControls);
+                }
+            }
+
+            $(document).on('touchend touchcancel touchmove', $.fn.jexcel.touchCancelControls);
 
             // Double click
             $.fn.jexcel.doubleClickControls = function (e) {
@@ -1014,6 +1015,11 @@ var methods = {
                     if ($('body').css('cursor') == 'all-scroll') {
                         $('body').css('cursor', '');
                     }
+                }
+
+                // Cancel timing for edition
+                if ($.fn.jexcel.touchControls) {
+                    clearTimeout($.fn.jexcel.touchControls);
                 }
             }
 
@@ -2713,15 +2719,16 @@ var methods = {
         var row = [];
         var x = $.fn.jexcel.defaults[id].data[0].length
         var y = $.fn.jexcel.defaults[id].data.length
+        var tmp = '';
 
         // Reset container
         var style = [];
 
         // Go through the columns to get the data
-        for (j = 0; j < y; j++) {
+        for (var j = 0; j < y; j++) {
             col = [];
 
-            for (i = 0; i < x; i++) {
+            for (var i = 0; i < x; i++) {
                 // Get cell
                 cell = $(this).find('#' + i + '-' + j);
 
@@ -2893,53 +2900,44 @@ var methods = {
     /**
      * Based on script by Ben Nadel
      */
-    parseCSV : function(CSV_string, delimiter)
-    {
+    parseCSV : function(str, delimiter) {
         // Remove last line break
-        CSV_string = CSV_string.replace(/\r?\n$|\r$|\n$/g, "");
-
+        str = str.replace(/\r?\n$|\r$|\n$/g, "");
+        // Last caracter is the delimiter
+        if (str.charCodeAt(str.length-1) == 9) {
+            str += "\0";
+        }
         // user-supplied delimeter or default comma
         delimiter = (delimiter || ",");
-        // regular expression to parse the CSV values.
-        var pattern = new RegExp(
-          ( // Delimiters:
-            "(\\" + delimiter + "|\\r?\\n|\\r|^)" +
-            // Quoted fields.
-            "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-            // Standard fields.
-            "([^\"\\" + delimiter + "\\r\\n]*))"
-          ), "gi"
-        );
 
-        var rows = [[]];  // array to hold our data. First row is column headers.
-        // array to hold our individual pattern matching groups:
-        var matches = false; // false if we don't find any matches
-        // Loop until we no longer find a regular expression match
-        while (matches = pattern.exec( CSV_string )) {
-            var matched_delimiter = matches[1]; // Get the matched delimiter
-            // Check if the delimiter has a length (and is not the start of string) and if it matches field delimiter. If not, it is a row delimiter.
-            if (matched_delimiter.length) {
-              // Since this is a new row of data, add an empty row to the array.
-              if (matched_delimiter !== delimiter) {
-                  rows.push( [] );
-              } else {
-                  rows[rows.length - 1].push('');
-              }
-            }
-            var matched_value;
-            // Once we have eliminated the delimiter, check to see what kind of value was captured (quoted or unquoted):
-            if (matches[2]) { // found quoted value. unescape any double quotes.
-                matched_value = matches[2].replace(new RegExp( "\"\"", "g" ), "\"");
-            } else {
-                // found a non-quoted value
-                matched_value = matches[3];
-            }
+        var arr = [];
+        var quote = false;  // true means we're inside a quoted field
+        // iterate over each character, keep track of current row and column (of the returned array)
+        for (var row = 0, col = 0, c = 0; c < str.length; c++) {
+            var cc = str[c], nc = str[c+1];
+            arr[row] = arr[row] || [];
+            arr[row][col] = arr[row][col] || '';
 
-            // Now that we have our value string, let's add it to the data array.
-            rows[rows.length - 1].push(matched_value);
+            // If the current character is a quotation mark, and we're inside a quoted field, and the next character is also a quotation mark, add a quotation mark to the current column and skip the next character
+            if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }  
+
+            // If it's just one quotation mark, begin/end quoted field
+            if (cc == '"') { quote = !quote; continue; }
+
+            // If it's a comma and we're not in a quoted field, move on to the next column
+            if (cc == delimiter && !quote) { ++col; continue; }
+
+            // If it's a newline (CRLF) and we're not in a quoted field, skip the next character and move on to the next row and move to column 0 of that new row
+            if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+
+            // If it's a newline (LF or CR) and we're not in a quoted field, move on to the next row and move to column 0 of that new row
+            if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+            if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+
+            // Otherwise, append the current character to the current column
+            arr[row][col] += cc;
         }
-
-        return rows; // Return the parsed data Array
+        return arr;
     },
 
     /**
@@ -3928,7 +3926,6 @@ var methods = {
      * Run the formula for one given cell
      */
     executeFormula : function (cellId) {
-
         // Not calculate and not show error if excelFormulaUtilities is not defined
         if (typeof excelFormulaUtilities !== 'object')
             return;
