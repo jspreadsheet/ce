@@ -21,7 +21,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ## Installation
 
-% npm install jexcel\
+% npm install jexcel
 
 [Download ZIP](https://github.com/paulhodel/jexcel/archive/master.zip)
 
