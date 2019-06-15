@@ -19,10 +19,11 @@ requirements. It is a complete solution for web data management. Create amazing 
 - Thousands of successfully user cases
 - Speed up your work dealing with difficult data entry in a web-based software
 
-## Official Installation
+## Installation
 
-- % npm install jexcel
-- [Download ZIP](https://github.com/paulhodel/jexcel/archive/master.zip)
+% npm install jexcel\
+
+[Download ZIP](https://github.com/paulhodel/jexcel/archive/master.zip)
 
 ### Basic demo
 
