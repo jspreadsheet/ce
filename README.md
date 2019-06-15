@@ -59,58 +59,58 @@ jexcel(document.getElementById('mytable'), {
 - [React Implementation](https://bossanova.uk/jexcel/examples/creating-a-table-from-an-external-csv-file)\
 A full example on how to integrate jExcel with React
 
-- VUE Implementation
+- [VUE Implementation](https://bossanova.uk/jexcel/v3/examples/vue)\
 A full example on how to integrate jExcel with Vue
 
-- Search and pagination
+- [Search and pagination](https://bossanova.uk/jexcel/v3/examples/datatables)\
 Full spreadsheet example with search and pagination to bring great compatibility for those who love datatables.
 
-- Column types
+- [Column types](https://bossanova.uk/jexcel/v3/examples/column-types)\
 Learn more about the powerful column types. This example brings all native column types and how to create your own custom type.
 
-- Advanced dropdown
+- [Advanced dropdown](https://bossanova.uk/jexcel/v3/examples/dropdown-and-autocomplete)\
 Full examples on how to handle simple, advanced, multiple, autocomplete and conditional dropdowns. Create amazing javascript tables using categories and images in your dropdowns.
 
-- Date and datetime picker
+- [Date and datetime picker](https://bossanova.uk/jexcel/v3/examples/date-and-datetime-picker)\
 Example from basic to advanced calendar usage, date and datetime picker
 
-- Image upload
+- [Image upload](https://bossanova.uk/jexcel/v3/examples/image-upload)\
 This examples shows how to upload images to your spreadsheet
 
-- Programmatically updates
+- [Programmatically updates](https://bossanova.uk/jexcel/v3/examples/programmatically-updates)\
 How to update your spreadsheet and its data by javascript
 
-- Table Style
+- [Table Style](https://bossanova.uk/jexcel/v3/examples/table-style)\
 Bring a very special touch to your applications customizing your javascript spreadsheet.
 
-- Events
+- [Events](https://bossanova.uk/jexcel/v3/examples/events)\
 Learn how to handle events on jExcel
 
-- Importing data
+- [Importing data](https://bossanova.uk/jexcel/v3/examples/import-data)\
 How to import data from an external CSV, json file or XLSX.
 
-- Formulas
+- [Formulas](https://bossanova.uk/jexcel/v3/examples/spreadsheet-formulas)\
 Unleash the power of your tables bringing formulas and custom javascript methods on your jExcel spreadsheet.
 
-- Custom toolbars
+- [Custom toolbars](https://bossanova.uk/jexcel/v3/examples/spreadsheet-toolbars)\
 Full example on how to enable nor customize your javascript spreadsheet toolbar.
 
-- Column comments
+- [Column comments](https://bossanova.uk/jexcel/v3/examples/comments)\
 Allow comments in your table spreadsheet.
 
-- Headers
+- [Headers](https://bossanova.uk/jexcel/v3/examples/headers)\
 Enabled nested headers in your spreadsheet and learn how to set or get header values
 
-- Translations
+- [Translations](https://bossanova.uk/jexcel/v3/examples/translations)\
 How to translate the default messages from jExcel
 
-- Merged cells
+- [Merged cells](https://bossanova.uk/jexcel/v3/examples/merged-cells)\
 Full example on how to handle merge cells in your javascript tables.
 
-- Sorting columns
+- [Sorting columns](https://bossanova.uk/jexcel/v3/examples/sorting)\
 Example how to sort the table by a column via javascript.
 
-- Lazy loading
+- [Lazy loading](https://bossanova.uk/jexcel/v3/examples/lazy-loading)\
 This example brings a very nice feature to deal with large table datasets.
 
 
