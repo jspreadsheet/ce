@@ -1,7 +1,7 @@
 {
     "name": "jexcel",
     "title": "The Javascript Spreadsheet",
-    "description": "jQuery plugin for embed a excel-like spreadsheet in your apps or website.",
+    "description": "jExcel is a lightweight, vanilla javascript plugin to create amazing web-based interactive tables and spreadsheets compatible with Excel, Google Spreadsheets and any other spreadsheet software.",
     "repository": {
         "type": "git",
         "url": "https://github.com/paulhodel/jexcel.git"
@@ -24,7 +24,6 @@
         }
     ],
     "keywords": [
-        "jquery-plugin",
         "spreadsheet",
         "tables",
         "table",
@@ -35,12 +34,9 @@
         "data-grid",
         "data-spreadsheet"
     ],
-    "version": "2.1.0",
+    "version": "3.0.1",
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel",
-    "download": "https://github.com/paulhodel/jexcel/archive/master.zip",
-    "dependencies": {
-        "jquery": "^3.2.1"
-    }
+    "download": "https://github.com/paulhodel/jexcel/archive/master.zip"
 }
