@@ -19,6 +19,12 @@ requirements. It is a complete solution for web data management. Create amazing 
 - Thousands of successfully user cases
 - Speed up your work dealing with difficult data entry in a web-based software
 
+
+## Screenshot
+
+![The javascript spreadsheet](https://bossanova.uk/templates/default/img/jexcel.gif)
+
+
 ## Installation
 
 % npm install jexcel
