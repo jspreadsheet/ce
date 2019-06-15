@@ -56,19 +56,63 @@ jexcel(document.getElementById('mytable'), {
 
 ## Examples
 
-- [Creating a table from an external CSV file](https://bossanova.uk/jexcel/examples/creating-a-table-from-an-external-csv-file)
-- [Calendar column type](https://bossanova.uk/jexcel/examples/using-a-calendar-column-type)
-- [Sorting by column](https://bossanova.uk/jexcel/examples/reorder)
-- [Multiple spreadsheets in the same page](https://bossanova.uk/jexcel/examples/multiple-spreadsheets-in-the-same-page)
-- [Integrating a third party plugin into jExcel](https://bossanova.uk/jexcel/examples/integrating-a-third-party-plugin-into-your-spreadsheet)
-- [Currency and masking numbers](https://bossanova.uk/jexcel/examples/currency-and-masking-numbers)
-- [Working with dropdowns](https://bossanova.uk/jexcel/examples/working-with-dropdowns)
-- [Handling events](https://bossanova.uk/jexcel/examples/tracking-changes-on-the-spreadsheet)
-- [Including formulas on your spreadsheet](http://www.bossanova.uk/jexcel/examples/including-formulas-on-your-spreadsheet)
-- [Remote updates](http://www.bossanova.uk/jexcel/examples/remote-updates)
+- React Implementation(https://bossanova.uk/jexcel/examples/creating-a-table-from-an-external-csv-file)
+A full example on how to integrate jExcel with React
 
+- VUE Implementation
+A full example on how to integrate jExcel with Vue
 
-## History
+- Search and pagination
+Full spreadsheet example with search and pagination to bring great compatibility for those who love datatables.
+
+- Column types
+Learn more about the powerful column types. This example brings all native column types and how to create your own custom type.
+
+- Advanced dropdown
+Full examples on how to handle simple, advanced, multiple, autocomplete and conditional dropdowns. Create amazing javascript tables using categories and images in your dropdowns.
+
+- Date and datetime picker
+Example from basic to advanced calendar usage, date and datetime picker
+
+- Image upload
+This examples shows how to upload images to your spreadsheet
+
+- Programmatically updates
+How to update your spreadsheet and its data by javascript
+
+- Table Style
+Bring a very special touch to your applications customizing your javascript spreadsheet.
+
+- Events
+Learn how to handle events on jExcel
+
+- Importing data
+How to import data from an external CSV, json file or XLSX.
+
+- Formulas
+Unleash the power of your tables bringing formulas and custom javascript methods on your jExcel spreadsheet.
+
+- Custom toolbars
+Full example on how to enable nor customize your javascript spreadsheet toolbar.
+
+- Column comments
+Allow comments in your table spreadsheet.
+
+- Headers
+Enabled nested headers in your spreadsheet and learn how to set or get header values
+
+- Translations
+How to translate the default messages from jExcel
+
+- Merged cells
+Full example on how to handle merge cells in your javascript tables.
+
+- Sorting columns
+Example how to sort the table by a column via javascript.
+
+- Lazy loading
+This example brings a very nice feature to deal with large table datasets.
+
 
 
 ## jExcel History
