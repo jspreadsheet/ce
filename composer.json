@@ -1,7 +1,7 @@
 {
     "name": "paulhodel/jexcel",
     "description": "jExcel - The javascript spreadsheet",
-    "keywords": ["jexcel", "spreadsheet", "jquery spreadsheet", "javascript spreadsheet", "jquery plugins", "jquery plugin", "jquery table", "data table", "data tables"],
+    "keywords": ["jexcel", "javascript spreadsheet", "online spreadsheet", "datatables", "data tables", "tables" ],
     "license": "MIT",
     "type": "project",
     "authors": [{
