@@ -398,7 +398,7 @@ var methods = {
                     }
 
                     // Classes container
-                    var headerClasses = '';
+                    var headerClasses = nestedInformation[i].cssClass || '';
                     // Header classes for this cell
                     for (var x = 0; x < nestedInformation[i].colspan; x++) {
                         if (headerClasses) {
@@ -1523,7 +1523,7 @@ var methods = {
             $(tr).prop('id', 'row-' + parseInt(j));
 
             // Index column
-            $(tr).append('<td class="jexcel_label">' + parseInt(j + 1) + '</td>'); 
+            $(tr).append('<td class="jexcel_label" id="jexcel_label_' + j + '">' + parseInt(j + 1) + '</td>');
 
             // Data columns
             for (i = 0; i < $.fn.jexcel.defaults[id].colHeaders.length; i++) {
@@ -3254,7 +3254,7 @@ var methods = {
                 var tr = document.createElement('tr');
 
                 // Index column
-                $(tr).append('<td class="jexcel_label"></td>');
+                $(tr).append('<td class="jexcel_label" id="jexcel_label_' + row + '"></td>');
 
                 // New row
                 $.fn.jexcel.defaults[id].data[row] = [];
