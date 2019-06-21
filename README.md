@@ -63,7 +63,7 @@ jexcel(document.getElementById('mytable'), {
 
 ## Examples
 
-- [React Implementation](https://bossanova.uk/jexcel/examples/creating-a-table-from-an-external-csv-file)\
+- [React Implementation](https://bossanova.uk/jexcel/v3/examples/react)\
 A full example on how to integrate jExcel with React
 
 - [VUE Implementation](https://bossanova.uk/jexcel/v3/examples/vue)\
