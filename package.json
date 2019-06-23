@@ -35,7 +35,7 @@
         "data-spreadsheet"
     ],
     "main": "dist/jexcel.js",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel",

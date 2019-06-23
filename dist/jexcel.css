@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.0.1
+ * (c) jExcel v3.0.2
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
