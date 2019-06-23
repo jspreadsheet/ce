@@ -1,6 +1,6 @@
 ![The javascript spreadsheet](https://bossanova.uk/templates/default/img/logo-jexcel.png)
 
-[**jExcel**](https://bossanova.uk/jexcel/v3/) jExcel is a lightweight vanilla javascript plugin to create amazing web-based interactive tables and spreadsheets compatible
+[**jExcel**](https://bossanova.uk/jexcel/v3/) is a lightweight vanilla javascript plugin to create amazing web-based interactive tables and spreadsheets compatible
 with Excel or any other spreadsheet software. You can create an online spreadsheet table from a JS array,
 JSON, CSV or XSLX files. You can copy from excel and paste straight to your jExcel spreadsheet and vice versa.
 It is very easy to integrate any third party javascript plugins to create your own custom columns, custom editors, and customize any
@@ -63,7 +63,7 @@ jexcel(document.getElementById('mytable'), {
 
 ## Examples
 
-- [React Implementation](https://bossanova.uk/jexcel/examples/creating-a-table-from-an-external-csv-file)\
+- [React Implementation](https://bossanova.uk/jexcel/v3/examples/react)\
 A full example on how to integrate jExcel with React
 
 - [VUE Implementation](https://bossanova.uk/jexcel/v3/examples/vue)\
