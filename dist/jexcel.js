@@ -152,7 +152,7 @@ var jexcel = (function(el, options) {
 
     // Loading initial configuration from user
     for (var property in defaults) {
-        if (options.hasOwnProperty(property)) {
+        if (options && options.hasOwnProperty(property)) {
             obj.options[property] = options[property];
         } else {
             obj.options[property] = defaults[property];
@@ -679,6 +679,18 @@ var jexcel = (function(el, options) {
      */
     obj.getRowData = function(rowNumber) {
         return obj.options.data[rowNumber];
+    }
+
+    /**
+     * Set a row data by rowNumber
+     */
+    obj.setRowData = function(rowNumber, data) {
+        for (var i = 0; i < obj.headers.length; i++) {
+            // Update cell
+            var columnName = jexcel.getColumnNameFromId([ i, rowNumber ]);
+            // Set value
+            obj.setValue(columnName, data[i]);
+        }
     }
 
     /**
@@ -5268,7 +5280,7 @@ var jexcel = (function(el, options) {
     }
 
     // Context menu
-    if (options.contextMenu != null) {
+    if (options && options.contextMenu != null) {
         obj.options.contextMenu = options.contextMenu;
     } else {
         obj.options.contextMenu = function(el, x, y, e) {
@@ -5467,7 +5479,7 @@ var jexcel = (function(el, options) {
         }
     }
 
-    el.addEventListener("scroll", obj.scrollControls);
+    //el.addEventListener("scroll", obj.scrollControls);
     el.addEventListener("mousewheel", obj.scrollControls);
 
     obj.init();
@@ -12172,4 +12184,6 @@ for (var i = 0; i < Object.keys(jexcel.methods).length; i++) {
     }
 }
 
-module.exports = jexcel;
+if (typeof module === 'object') {
+    module.exports = jexcel;
+}
