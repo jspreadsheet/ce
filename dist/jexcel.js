@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.0.3
+ * (c) jExcel v3.0.5
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -18,6 +18,8 @@ var jexcel = (function(el, options) {
         url:null,
         // Data
         data:[[]],
+        // Copy behavior
+        copyCompatibility:false,
         // Rows and columns definitions
         rows:[],
         columns:[],
@@ -146,7 +148,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel Pro Spreadsheet\nVersion 3.0.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.0.5\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -190,6 +192,7 @@ var jexcel = (function(el, options) {
     obj.selectedContainer = null;
     obj.style = [];
     obj.meta = [];
+    obj.data = null;
 
     // Internal controllers
     obj.cursor = null;
@@ -2347,6 +2350,12 @@ var jexcel = (function(el, options) {
             // Set width
             obj.rows[row].setAttribute('height', height);
 
+            // Keep options updated
+            if (! obj.options.rows[row]) {
+                obj.options.rows[row] = {};
+            }
+            obj.options.rows[row].height = height;
+
             // Keeping history of changes
             obj.setHistory({
                 action:'setHeight',
@@ -2635,6 +2644,16 @@ var jexcel = (function(el, options) {
             newValue: [ comments, author ],
             oldValue: oldValue,
         });
+    }
+
+    /**
+     * Get table config information
+     */
+    obj.getConfig = function() {
+        var options = obj.options;
+        options.style = obj.getStyle;
+
+        return options;
     }
 
     /**
@@ -4721,7 +4740,9 @@ var jexcel = (function(el, options) {
 
         // Controls
         var col = [];
+        var colLabel = [];
         var row = [];
+        var rowLabel = [];
         var x = obj.options.data[0].length
         var y = obj.options.data.length
         var tmp = '';
@@ -4732,18 +4753,28 @@ var jexcel = (function(el, options) {
         // Go through the columns to get the data
         for (var j = 0; j < y; j++) {
             col = [];
+            colLabel = [];
 
             for (var i = 0; i < x; i++) {
                 // If cell is highlighted
                 if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
-                    // Get value
-                    val = obj.options.data[j][i];
-                    if (val.match && (val.match(/,/g) || val.match(/\n/) || val.match(/\"/))) {
-                        // Scape double quotes
-                        val = val.replace(new RegExp('"', 'g'), '""');
-                        val = '"' + val + '"'; 
+                    // Values
+                    var value = obj.options.data[j][i];
+                    if (value.match && (value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
+                        value = value.replace(new RegExp('"', 'g'), '""');
+                        value = '"' + value + '"'; 
                     }
-                    col.push(val);
+                    col.push(value);
+
+                    // Labels
+                    var label = obj.records[j][i].innerHTML;
+                    if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                        // Scape double quotes
+                        label = label.replace(new RegExp('"', 'g'), '""');
+                        label = '"' + label + '"'; 
+                    }
+                    colLabel.push(label);
+
                     // Get style
                     tmp = obj.records[j][i].getAttribute('style');
                     obj.style.push(tmp ? tmp : '');
@@ -4753,22 +4784,32 @@ var jexcel = (function(el, options) {
             if (col.length) {
                 row.push(col.join(delimiter));
             }
+            if (colLabel.length) {
+                rowLabel.push(colLabel.join(delimiter));
+            }
         }
 
         // Final string
         var str = row.join("\n");
+        var strLabel = rowLabel.join("\n");
 
         // Create a hidden textarea to copy the values
         if (! returnData) {
+            if (obj.options.copyCompatibility == true) {
+                obj.textarea.value = strLabel;
+            } else {
             obj.textarea.value = str;
+            }
             obj.textarea.select();
             jexcel.copyControls.enabled = false;
             document.execCommand("copy");
             jexcel.copyControls.enabled = true;
         }
 
+        // Keep data
+        obj.data = str; 
         // Keep non visible information
-        obj.hashString = obj.hash(str); 
+        obj.hashString = obj.hash(obj.textarea.value); 
 
         return str;
     }
@@ -4782,15 +4823,20 @@ var jexcel = (function(el, options) {
     obj.paste = function(x, y, data) {
         // Paste filter
         if (typeof(obj.options.onbeforepaste) == 'function') {
-            data = obj.options.onbeforepaste(data);
+            var data = obj.options.onbeforepaste(data);
         }
 
         // Controls
         var hash = obj.hash(data);
         var style = (hash == obj.hashString) ? obj.style : null;
 
-        // Parse paste
-        data = obj.parseCSV(data, "\t");
+        // Depending on the behavior
+        if (obj.options.copyCompatibility == true && hash == obj.hashString) {
+            var data = obj.data;
+        }
+
+        // Split new line
+        var data = obj.parseCSV(data, "\t");
 
         if (x != null && y != null && data) {
             // Records
