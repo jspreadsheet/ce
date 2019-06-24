@@ -4705,7 +4705,9 @@ var jexcel = (function(el, options) {
         var url = URL.createObjectURL(blob);
         pom.href = url;
         pom.setAttribute('download', obj.options.csvFileName + '.csv');
+        document.body.appendChild(pom);
         pom.click();
+        pom.remove();
     }
 
     /**
