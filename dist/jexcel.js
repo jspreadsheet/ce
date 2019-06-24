@@ -35,6 +35,8 @@ var jexcel = (function(el, options) {
         minSpareCols:0,
         // Minimal table dimensions
         minDimensions:[0,0],
+        // Allow Export
+        allowExport:true,
         // Allow column sorting
         columnSorting:true,
         // Allow column resizing
@@ -4683,31 +4685,24 @@ var jexcel = (function(el, options) {
      * @return null
      */
     obj.download = function() {
-        // Data
-        var data = '';
+        if (obj.options.allowExport == false) {
+            console.error('Export not allowed');
+        } else {
+            // Data
+            var data = '';
+            // Get data
+            data += obj.copy(false, ',', true);
 
-        // Get headers if applicable
-        /*if (obj.options.csvHeaders == true) {
-            var headers = [];
-            for (var i = 0; i < obj.headers.length; i++) {
-                headers.push(obj.headers[i].innerHTML);
-                
-            }
-            data += headers.join(',') + "\r\n";
-        }*/
-
-        // Get data
-        data += obj.copy(false, ',', true);
-
-        // Download element
-        var pom = document.createElement('a');
-        var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
-        var url = URL.createObjectURL(blob);
-        pom.href = url;
-        pom.setAttribute('download', obj.options.csvFileName + '.csv');
-        document.body.appendChild(pom);
-        pom.click();
-        pom.remove();
+            // Download element
+            var pom = document.createElement('a');
+            var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+            var url = URL.createObjectURL(blob);
+            pom.href = url;
+            pom.setAttribute('download', obj.options.csvFileName + '.csv');
+            document.body.appendChild(pom);
+            pom.click();
+            pom.remove();
+        }
     }
 
     /**
