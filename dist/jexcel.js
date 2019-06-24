@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.0.2
+ * (c) jExcel v3.0.3
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -7,7 +7,6 @@
  * 
  * This software is distribute under MIT License
  */
-
 var jexcel = (function(el, options) {
     // Create jexcel object
     var obj = {};
@@ -1342,9 +1341,9 @@ var jexcel = (function(el, options) {
                     const rect = cell.getBoundingClientRect();
                     const rectContent = div.getBoundingClientRect();
                     if (window.innerHeight < rect.bottom + rectContent.height) {
-                        div.style.top = rect.top - (rectContent.height + 2);
+                        div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
                     } else {
-                        div.style.top = rect.top;
+                        div.style.top = (rect.top) + 'px';
                     }
                 } else {
                     // Value
@@ -5317,12 +5316,14 @@ var jexcel = (function(el, options) {
                 }
 
                 // Rename column
-                items.push({
-                    title:obj.options.text.renameThisColumn,
-                    onclick:function() {
-                        obj.setHeader(x);
-                    }
-                });
+                if (obj.options.allowRenameColumn == true) {
+                    items.push({
+                        title:obj.options.text.renameThisColumn,
+                        onclick:function() {
+                            obj.setHeader(x);
+                        }
+                    });
+                }
 
                 // Line
                 items.push({ type:'line' });
@@ -5479,7 +5480,7 @@ var jexcel = (function(el, options) {
         }
     }
 
-    //el.addEventListener("scroll", obj.scrollControls);
+    el.addEventListener("scroll", obj.scrollControls);
     el.addEventListener("mousewheel", obj.scrollControls);
 
     obj.init();
