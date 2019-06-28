@@ -809,7 +809,7 @@ var methods = {
                             }
                         } else {
                             // Check if the object is in the jexcel domain
-                            if (! $(e.target).parents('.jexcel, .jexcel_contextmenu').length) {
+                            if (! $(e.target).parents('.jexcel, .jexcel_contextmenu, .jexcel_external').length) {
                                 // Keep selection if main scrollbar is selected
                                 if (e.target != $('html').get(0)) {
                                     $('#' + $.fn.jexcel.current).jexcel('resetSelection');
