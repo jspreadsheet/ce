@@ -1,7 +1,7 @@
 // Based on sutoiku work (https://github.com/sutoiku)
 
 var error = (function() {
-    exports = {};
+    var exports = {};
 
     exports.nil = new Error('#NULL!');
     exports.div0 = new Error('#DIV/0!');
@@ -17,7 +17,7 @@ var error = (function() {
 })();
 
 var utils = (function() {
-    exports = {};
+    var exports = {};
 
     exports.flattenShallow = function(array) {
         if (!array || !array.reduce) {
@@ -4866,9 +4866,9 @@ jexcel.methods.text = (function() {
         return text.replace(/ +/g, ' ').trim();
     };
 
-    exports.UNICHAR = this.CHAR;
+    exports.UNICHAR = exports.CHAR;
 
-    exports.UNICODE = this.CODE;
+    exports.UNICODE = exports.CODE;
 
     exports.UPPER = function(text) {
         if (typeof text !== 'string') {
