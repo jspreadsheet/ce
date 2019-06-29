@@ -98,6 +98,12 @@
     cursor:col-resize;
 }
 
+.jexcel > thead > tr > td.dragging
+{
+    background-color:#fff;
+    opacity:0.5;
+}
+
 .jexcel > thead > tr > td:first-child:after,
 .jexcel > thead > tr.jexcel_nested > td::before,
 .jexcel > thead > tr.jexcel_nested > td::after
@@ -153,6 +159,12 @@
     top:0px;
     right:0px;
     cursor:move;
+}
+
+.jexcel > tbody > tr.dragging > td
+{
+    background-color:#eee;
+    opacity:0.5;
 }
 
 .jexcel > tbody > tr > td
