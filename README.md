@@ -37,9 +37,9 @@ A basic example to integrate the javascript spreadsheet in your website to creat
 
 ```html
 <script src="https://bossanova.uk/jexcel/v3/jexcel.js"></script>
+<script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
+<link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
 <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
-<script src="https://bossanova.uk/jtools/v2/jexcel.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jtools/v2/jexcel.css" type="text/css" />
 ```
 
 You should initiate your table based on a div container, such as:
@@ -209,4 +209,4 @@ Big improviments are included, such as:
 jExcel is released under the [MIT license]. Copyrights belong to Paul Hodel <paul.hodel@gmail.com>
 
 ## Other tools by the author
-- [Jtools Vanilla Web Components](https://bossanova.uk/jtools)
+- [Jtools Vanilla Web Components](https://bossanova.uk/jsuites)

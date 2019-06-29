@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.2.0
+ * (c) jExcel v3.2.5
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -7,6 +7,14 @@
  * 
  * This software is distribute under MIT License
  */
+
+'use strict';
+
+if (! jSuites && require) {
+    var jSuites = require('jsuites');
+    require('jsuites/dist/jsuites.css');
+}
+
 var jexcel = (function(el, options) {
     // Create jexcel object
     var obj = {};
@@ -6689,7 +6697,7 @@ jexcel.fromSpreadsheet = function(file, __callback) {
 // Based on sutoiku work (https://github.com/sutoiku)
 
 var error = (function() {
-    exports = {};
+    var exports = {};
 
     exports.nil = new Error('#NULL!');
     exports.div0 = new Error('#DIV/0!');
@@ -6705,7 +6713,7 @@ var error = (function() {
 })();
 
 var utils = (function() {
-    exports = {};
+    var exports = {};
 
     exports.flattenShallow = function(array) {
         if (!array || !array.reduce) {
@@ -11554,9 +11562,9 @@ jexcel.methods.text = (function() {
         return text.replace(/ +/g, ' ').trim();
     };
 
-    exports.UNICHAR = this.CHAR;
+    exports.UNICHAR = exports.CHAR;
 
-    exports.UNICODE = this.CODE;
+    exports.UNICODE = exports.CODE;
 
     exports.UPPER = function(text) {
         if (typeof text !== 'string') {
@@ -12234,6 +12242,6 @@ for (var i = 0; i < Object.keys(jexcel.methods).length; i++) {
     }
 }
 
-if (typeof module === 'object') {
+if (typeof exports === 'object' && typeof module !== 'undefined') {
     module.exports = jexcel;
 }
