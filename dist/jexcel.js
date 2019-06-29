@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.0.5
+ * (c) jExcel v3.2.0
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -150,7 +150,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.0.5\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.2.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -431,7 +431,7 @@ var jexcel = (function(el, options) {
         obj.contextMenu.className = 'jexcel_contextmenu';
 
         // Create element
-        jApp.contextmenu(obj.contextMenu, {
+        jSuites.contextmenu(obj.contextMenu, {
             onclick:function() {
                 obj.contextMenu.contextmenu.close(false);
             }
@@ -777,9 +777,9 @@ var jexcel = (function(el, options) {
             obj.options.data[j][i] = element.checked;
         } else if (obj.options.columns[i].type == 'calendar') {
             // Try formatted date
-            var formatted = jApp.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
+            var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
             // Create calendar cell
-            td.innerHTML = jApp.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
+            td.innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
         } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
             // Create dropdown cell
             td.classList.add('dropdown');
@@ -806,7 +806,7 @@ var jexcel = (function(el, options) {
             }
             if (obj.options.columns[i].mask) {
                 var decimal = obj.options.columns[i].decimal || '.'; 
-                value = '' + jApp.mask.run(value, obj.options.columns[i].mask, decimal);
+                value = '' + jSuites.mask.run(value, obj.options.columns[i].mask, decimal);
             }
 
             td.innerHTML = value;
@@ -966,7 +966,7 @@ var jexcel = (function(el, options) {
                      this.color.open();
                  }
                  toolbarItem.innerHTML = toolbar[i].content;
-                 jApp.color(toolbarItem, {
+                 jSuites.color(toolbarItem, {
                      onchange:function(o, v) {
                          var k = o.getAttribute('data-k');
                          obj.setStyle(obj.highlighted, k, v);
@@ -1306,7 +1306,7 @@ var jexcel = (function(el, options) {
                     if (obj.options.columns[x].options && obj.options.columns[x].options.type) {
                         options.type = obj.options.columns[x].options.type;
                     }
-                    jApp.dropdown(editor, options);
+                    jSuites.dropdown(editor, options);
                 } else if (obj.options.columns[x].type == 'calendar' || obj.options.columns[x].type == 'color') {
                     // Value
                     var value = obj.options.data[y][x];
@@ -1323,9 +1323,9 @@ var jexcel = (function(el, options) {
                     }
                     // Current value
                     if (obj.options.columns[x].type == 'color') {
-                        jApp.color(editor, obj.options.columns[x].options);
+                        jSuites.color(editor, obj.options.columns[x].options);
                     } else {
-                        var calendar = jApp.calendar(editor, obj.options.columns[x].options);
+                        var calendar = jSuites.calendar(editor, obj.options.columns[x].options);
                         calendar.setValue(value);
                     }
                     // Focus on editor
@@ -1342,7 +1342,7 @@ var jexcel = (function(el, options) {
                         div.appendChild(img);
                     }
                     editor.appendChild(div);
-                    jApp.image(div);
+                    jSuites.image(div);
                     const rect = cell.getBoundingClientRect();
                     const rectContent = div.getBoundingClientRect();
                     if (window.innerHeight < rect.bottom + rectContent.height) {
@@ -1645,10 +1645,10 @@ var jexcel = (function(el, options) {
                     obj.records[y][x].innerHTML = obj.getDropDownValue(x, value);
                 } else if (obj.options.columns[x].type == 'calendar') {
                     // Update calendar
-                    var formatted = jApp.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                    var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
                     // Update data and cell
                     obj.options.data[y][x] = value;
-                    obj.records[y][x].innerHTML = jApp.calendar.getDateString(formatted ? formatted : value);
+                    obj.records[y][x].innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value);
                 } else if (obj.options.columns[x].type == 'color') {
                     // Update color
                     obj.options.data[y][x] = value;
@@ -1681,7 +1681,7 @@ var jexcel = (function(el, options) {
                     }
                     if (obj.options.columns[x].mask) {
                         var decimal = obj.options.columns[x].decimal || '.'; 
-                        value = '' + jApp.mask.run(value, obj.options.columns[x].mask, decimal);
+                        value = '' + jSuites.mask.run(value, obj.options.columns[x].mask, decimal);
                     }
                     obj.records[y][x].innerHTML = value;
 
@@ -4692,7 +4692,6 @@ var jexcel = (function(el, options) {
             var data = '';
             // Get data
             data += obj.copy(false, ',', true);
-
             // Download element
             var pom = document.createElement('a');
             var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
@@ -4795,7 +4794,7 @@ var jexcel = (function(el, options) {
             if (obj.options.copyCompatibility == true) {
                 obj.textarea.value = strLabel;
             } else {
-            obj.textarea.value = str;
+                obj.textarea.value = str;
             }
             obj.textarea.select();
             jexcel.copyControls.enabled = false;
@@ -5261,9 +5260,15 @@ var jexcel = (function(el, options) {
     obj.init = function() {
         jexcel.current = obj;
 
+        // Build handlers
+        if (typeof(jexcel.build) == 'function') {
+            jexcel.build();
+            jexcel.build = null;
+        }
+
         // Loading
         if (obj.options.loadingSpin == true) {
-            jApp.loading.show();
+            jSuites.loading.show();
         }
 
         // Load the table data based on an CSV file
@@ -5292,7 +5297,7 @@ var jexcel = (function(el, options) {
                         obj.prepareTable();
                         // Hide spin
                         if (obj.options.loadingSpin == true) {
-                            jApp.loading.hide();
+                            jSuites.loading.hide();
                         }
                     });
                 });
@@ -5306,7 +5311,7 @@ var jexcel = (function(el, options) {
                         obj.prepareTable();
                         // Hide spin
                         if (obj.options.loadingSpin == true) {
-                            jApp.loading.hide();
+                            jSuites.loading.hide();
                         }
                     });
                 });
@@ -5559,6 +5564,23 @@ jexcel.destroy = function(element, destroyEventHandlers) {
             jexcel = null;
         }
     }
+}
+
+jexcel.build = function() {
+    document.addEventListener("keydown", jexcel.keyDownControls);
+    document.addEventListener("mouseup", jexcel.mouseUpControls);
+    document.addEventListener("mousedown", jexcel.mouseDownControls);
+    document.addEventListener("mousemove", jexcel.mouseMoveControls);
+    document.addEventListener("mouseover", jexcel.mouseOverControls);
+    document.addEventListener("dblclick", jexcel.doubleClickControls);
+    document.addEventListener("copy", jexcel.copyControls);
+    document.addEventListener("cut", jexcel.cutControls);
+    document.addEventListener("paste", jexcel.pasteControls);
+    document.addEventListener("contextmenu", jexcel.contextMenuControls);
+    document.addEventListener("touchstart", jexcel.touchStartControls);
+    document.addEventListener("touchend", jexcel.touchEndControls);
+    document.addEventListener("touchcancel", jexcel.touchEndControls);
+    document.addEventListener("touchmove", jexcel.touchEndControls);
 }
 
 /**
@@ -6481,22 +6503,6 @@ jexcel.touchEndControls = function(e) {
 }
 
 jexcel.copyControls.enabled = true;
-
-document.addEventListener("keydown", jexcel.keyDownControls);
-document.addEventListener("mouseup", jexcel.mouseUpControls);
-document.addEventListener("mousedown", jexcel.mouseDownControls);
-document.addEventListener("mousemove", jexcel.mouseMoveControls);
-document.addEventListener("mouseover", jexcel.mouseOverControls);
-document.addEventListener("dblclick", jexcel.doubleClickControls);
-document.addEventListener("copy", jexcel.copyControls);
-document.addEventListener("cut", jexcel.cutControls);
-document.addEventListener("paste", jexcel.pasteControls);
-document.addEventListener("contextmenu", jexcel.contextMenuControls);
-document.addEventListener("touchstart", jexcel.touchStartControls);
-document.addEventListener("touchend", jexcel.touchEndControls);
-document.addEventListener("touchcancel", jexcel.touchEndControls);
-document.addEventListener("touchmove", jexcel.touchEndControls);
-
 
 /**
  * Jquery Support
