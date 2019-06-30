@@ -1777,7 +1777,7 @@ var jexcel = (function(el, options) {
                     } else if (data[posy][posx] == undefined) {
                         posx = 0;
                     } else {
-                        value = data[posy][posx];
+                        var value = data[posy][posx];
                     }
 
                     if (value && t0 == t1) {
@@ -4854,6 +4854,7 @@ var jexcel = (function(el, options) {
             // Index
             var colIndex = parseInt(x);
             var rowIndex = parseInt(y);
+            var row = null;
 
             // Go through the columns to get the data
             while (row = data[j]) {
@@ -5259,7 +5260,7 @@ var jexcel = (function(el, options) {
                 output += str.charAt(i);
             }
         }
-        return hash = output.split('').reduce((prevHash, currVal) => ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0);
+        return output.split('').reduce((prevHash, currVal) => ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0);
     }
 
     /**
