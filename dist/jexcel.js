@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.2.5
+ * (c) jExcel v3.2.6
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -10,7 +10,7 @@
 
 'use strict';
 
-if (! jSuites && require) {
+if (! jSuites && typeof(require) === 'function') {
     var jSuites = require('jsuites');
     require('jsuites/dist/jsuites.css');
 }
@@ -158,7 +158,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.2.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.2.6\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
