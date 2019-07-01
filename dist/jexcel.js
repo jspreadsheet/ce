@@ -158,7 +158,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.2.7\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.2.8\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -4631,14 +4631,14 @@ var jexcel = (function(el, options) {
                 var quantyOfPages = Math.ceil(results / obj.options.pagination);
 
                 if (obj.pageNumber < 6) {
-                    startNumber = 1;
-                    finalNumber = quantyOfPages < 10 ? quantyOfPages : 10;
+                    var startNumber = 1;
+                    var finalNumber = quantyOfPages < 10 ? quantyOfPages : 10;
                 } else if (quantyOfPages - obj.pageNumber < 5) {
-                    startNumber = quantyOfPages - 9;
-                    finalNumber = quantyOfPages;
+                    var startNumber = quantyOfPages - 9;
+                    var finalNumber = quantyOfPages;
                 } else {
-                    startNumber = obj.pageNumber - 4;
-                    finalNumber = obj.pageNumber + 5;
+                    var startNumber = obj.pageNumber - 4;
+                    var finalNumber = obj.pageNumber + 5;
                 }
 
                 // First
