@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.2.7
+ * (c) jExcel v3.2.8
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -3203,9 +3203,9 @@ var jexcel = (function(el, options) {
 
             // The insert could be lead by number of rows or the array of data
             if (mixed > 0) {
-                numOfColumns = mixed;
+                var numOfColumns = mixed;
             } else {
-                numOfColumns = 1;
+                var numOfColumns = 1;
 
                 if (mixed) {
                     data = mixed;
