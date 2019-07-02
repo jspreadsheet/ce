@@ -38,7 +38,7 @@
         "jsuites": "^2.1.0"
     },
     "main": "dist/jexcel.js",
-    "version": "3.2.8",
+    "version": "3.2.9",
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel",

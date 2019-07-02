@@ -324,7 +324,7 @@
     left:-2000px;
     cursor:crosshair;
     box-sizing: initial;
-    z-index:1;
+    z-index:1000;
 }
 
 .jexcel .editor
