@@ -130,6 +130,7 @@ var jexcel = (function(el, options) {
             noRecordsFound: 'No records found',
             showingPage: 'Showing page {0} of {1} entries',
             show: 'Show ',
+            search: 'Search',
             entries: ' entries',
             insertANewColumnBefore: 'Insert a new column before',
             insertANewColumnAfter: 'Insert a new column after',
@@ -164,7 +165,7 @@ var jexcel = (function(el, options) {
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            obj.options[property] = options[property];
+            obj.options[property] = (property == 'text') ? Object.assign(defaults[property], options[property]) :  options[property];
         } else {
             obj.options[property] = defaults[property];
         }
@@ -337,7 +338,7 @@ var jexcel = (function(el, options) {
 
         // Search
         var searchContainer = document.createElement('div');
-        var searchText = document.createTextNode('Search: ');
+        var searchText = document.createTextNode((obj.options.text.search) + ': ');
         obj.searchInput = document.createElement('input');
         obj.searchInput.classList.add('jexcel_search');
         searchContainer.appendChild(searchText);
