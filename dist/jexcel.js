@@ -3859,6 +3859,7 @@ var jexcel = (function(el, options) {
         var tokens = expression.match(/([A-Z]+[0-9]+)/g);
 
         if (tokens) {
+            var evalstring = "";
             for (var i = 0; i < tokens.length; i++) {
                 // Keep chain
                 if (! obj.formula[tokens[i]]) {
@@ -3872,7 +3873,7 @@ var jexcel = (function(el, options) {
                 // Do not calculate again
                 if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
                     // Declaretion
-                    eval("var " + tokens[i] + " = null;");
+                    evalstring += "var " + tokens[i] + " = null;";
                     // Coords
                     var position = jexcel.getIdFromColumnName(tokens[i], 1);
                     // Get value
@@ -3900,17 +3901,17 @@ var jexcel = (function(el, options) {
                         // Got a valid number
                         if (number[0] != '' && Number(number[0]) >= 0) {
                             if (! number[1]) {
-                                eval("var " + tokens[i] + " = " + number[0] + ".00;");
+                                evalstring += "var " + tokens[i] + " = " + number[0] + ".00;";
                             } else {
-                                eval("var " + tokens[i] + " = " + number[0] + '.' + number[1] + ";");
+                                evalstring += "var " + tokens[i] + " = " + number[0] + '.' + number[1] + ";";
                             }
                         } else {
                             // Render as string
-                            eval("var " + tokens[i] + " = '" + value + "';");
+                            evalstring += "var " + tokens[i] + " = '" + value + "';";
                         }
                     } else {
                         // Number
-                        eval("var " + tokens[i] + " = " + value + ";");
+                        evalstring += "var " + tokens[i] + " = " + value + ";";
                     }
                 }
             }
@@ -3920,7 +3921,7 @@ var jexcel = (function(el, options) {
 
         // Convert formula to javascript
         try {
-            var res = eval(expression.substr(1));
+            var res = eval(evalstring + expression.substr(1));
         } catch (e) {
             var res = '#ERROR';
         }
