@@ -73,6 +73,8 @@ var jexcel = (function(el, options) {
         allowRenameColumn:true,
         // Allow comments
         allowComments:false,
+        // Allow tab to create new row at end of table
+        allowInsertOnTab:true,
         // Global wrap
         wordWrap:false,
         // CSV source
@@ -5813,16 +5815,34 @@ jexcel.keyDownControls = function(e) {
                 if (e.shiftKey) {
                     jexcel.current.left();
                 } else {
+                    inserted = false;
                     if (jexcel.current.options.allowInsertColumn == true) {
                         if (jexcel.current.options.allowManualInsertColumn == true) {
                             if (jexcel.current.selectedCell[0] == jexcel.current.options.data[0].length - 1) {
                                 // New record in case selectedCell in the last column
                                 jexcel.current.insertColumn();
+								inserted = true;
                             }
                         }
                     }
-
-                    jexcel.current.right();
+					if (inserted == false) {
+						if ((jexcel.current.selectedCell[0] == jexcel.current.options.data[0].length - 1)) { //If last column
+							if (jexcel.current.selectedCell[1] == jexcel.current.options.data.length - 1) { //If last row
+								if (jexcel.current.options.allowInsertOnTab == true) { //Read option allowInsertOnTab to see if we can insert new row as we are at the end now
+									jexcel.current.insertRow();
+									jexcel.current.down();
+									jexcel.current.first();
+								}
+							} else {
+								jexcel.current.down();
+								jexcel.current.first();
+							}
+						} else {
+							jexcel.current.right();
+						}
+					} else {
+						jexcel.current.right();
+					}
                 }
                 e.preventDefault();
             } else {
