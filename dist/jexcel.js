@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.2.9
+ * (c) jExcel v3.3.0
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -159,7 +159,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.2.9\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -1557,7 +1557,7 @@ var jexcel = (function(el, options) {
                     // Update cell
                     var value = ''+obj.options.data[cell[1]][cell[0]];
                     if (value.substr(0,1) == '=') {
-                        records.push(obj.updateCell(cell[0], cell[1], value));
+                        records.push(obj.updateCell(cell[0], cell[1], value, true));
                     } else {
                         // No longer a formula, remove from the chain
                         Object.keys(obj.formula)[i] = null;
@@ -1613,7 +1613,7 @@ var jexcel = (function(el, options) {
      */
     obj.updateCell = function(x, y, value, force) {
         // Changing value depending on the column type
-        if (obj.records[y][x].classList.contains('readonly') == true && force == false) {
+        if (obj.records[y][x].classList.contains('readonly') == true && ! force) {
             // Do nothing
         } else {
             // On change
@@ -4462,6 +4462,11 @@ var jexcel = (function(el, options) {
      * Search
      */
     obj.search = function(query) {
+        // Query
+        if (query) {
+            var query = query.toLowerCase();
+        }
+
         // Reset selection
         obj.resetSelection();
 
