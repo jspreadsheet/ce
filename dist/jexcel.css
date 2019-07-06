@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.2.5
+ * (c) jExcel v3.3.1
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -324,7 +324,7 @@
     left:-2000px;
     cursor:crosshair;
     box-sizing: initial;
-    z-index:1000;
+    z-index:10000;
 }
 
 .jexcel .editor

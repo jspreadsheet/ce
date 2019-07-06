@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.0
+ * (c) jExcel v3.3.1
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -159,13 +159,13 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            obj.options[property] = (property == 'text') ? Object.assign(defaults[property], options[property]) :  options[property];
+            obj.options[property] = options[property];
         } else {
             obj.options[property] = defaults[property];
         }
@@ -397,6 +397,7 @@ var jexcel = (function(el, options) {
         // Row
         obj.headerContainer = document.createElement('tr');
         var tempCol = document.createElement('td');
+        tempCol.classList.add('jexcel_selectall');
         obj.headerContainer.appendChild(tempCol);
 
         for (var i = 0; i < obj.options.columns.length; i++) {
@@ -1657,7 +1658,7 @@ var jexcel = (function(el, options) {
                     var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
                     // Update data and cell
                     obj.options.data[y][x] = value;
-                    obj.records[y][x].innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value);
+                    obj.records[y][x].innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
                 } else if (obj.options.columns[x].type == 'color') {
                     // Update color
                     obj.options.data[y][x] = value;
@@ -1882,8 +1883,10 @@ var jexcel = (function(el, options) {
 
                 // Check for merged cells
                 if (obj.highlighted[i].getAttribute('data-merged')) {
-                    var ux = parseInt(obj.highlighted[i].getAttribute('colspan'));
-                    var uy = parseInt(obj.highlighted[i].getAttribute('rowspan'));
+                    var colspan = parseInt(obj.highlighted[i].getAttribute('colspan'));
+                    var rowspan = parseInt(obj.highlighted[i].getAttribute('rowspan'));
+                    var ux = colspan > 0 ? colspan : px;
+                    var uy = rowspan > 0 ? rowspan : ux;
                 } else {
                     var ux = px;
                     var uy = py;
@@ -3509,20 +3512,16 @@ var jexcel = (function(el, options) {
     },
 
     /**
-     * Get seleted rows numbers
+     * Get seleted column numbers
      * 
      * @return array
      */
-    obj.getSelectedColumns = function(asIds) {
+    obj.getSelectedColumns = function() {
         var cols = [];
         // Get all selected cols
         for (var i = 0; i < obj.headers.length; i++) {
             if (obj.headers[i].classList.contains('selected')) {
-                if (asIds) {
-                    cols.push(i);
-                } else {
-                    cols.push(obj.cols[j]);
-                }
+                cols.push(i);
             }
         }
 
@@ -4311,6 +4310,10 @@ var jexcel = (function(el, options) {
     }
 
     obj.selectAll = function() {
+        if (! obj.selectedCell) {
+            obj.selectedCell = [];
+        }
+
         obj.selectedCell[0] = 0;
         obj.selectedCell[1] = 0;
         obj.selectedCell[2] = obj.headers.length - 1;
@@ -5925,7 +5928,11 @@ jexcel.mouseDownControls = function(e) {
     }
 
     if (jexcel.current && mouseButton == 1) {
-        if (e.target.classList.contains('jexcel_corner')) {
+        if (e.target.classList.contains('jexcel_selectall')) {
+            if (jexcel.current) {
+                jexcel.current.selectAll();
+            }
+        } else if (e.target.classList.contains('jexcel_corner')) {
             if (jexcel.current.options.editable == true) {
                 jexcel.current.selectedCorner = true;
             }
