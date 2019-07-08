@@ -1885,8 +1885,8 @@ var jexcel = (function(el, options) {
                 if (obj.highlighted[i].getAttribute('data-merged')) {
                     var colspan = parseInt(obj.highlighted[i].getAttribute('colspan'));
                     var rowspan = parseInt(obj.highlighted[i].getAttribute('rowspan'));
-                    var ux = colspan > 0 ? colspan : px;
-                    var uy = rowspan > 0 ? rowspan : ux;
+                    var ux = colspan > 0 ? px + (colspan - 1) : px;
+                    var uy = rowspan > 0 ? py + (rowspan - 1): py;
                 } else {
                     var ux = px;
                     var uy = py;
