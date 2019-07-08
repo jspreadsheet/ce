@@ -2844,7 +2844,11 @@ var jexcel = (function(el, options) {
 
         if (! ignoreDom) {
             if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[d]) >= 0) {
-                obj.tbody.insertBefore(obj.rows[o], obj.rows[d]);
+                if (o > d) {
+                    obj.tbody.insertBefore(obj.rows[o], obj.rows[d]);
+                } else {
+                    obj.tbody.insertBefore(obj.rows[o], obj.rows[d].nextSibling);
+                }
             } else {
                 obj.tbody.removeChild(obj.rows[o]);
             }
