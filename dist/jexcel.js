@@ -3851,7 +3851,7 @@ var jexcel = (function(el, options) {
                 }
 
                 expression = expression.replace(tokens[index], f.join(','));
-            };
+            }
         }
 
         var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
@@ -3890,7 +3890,7 @@ var jexcel = (function(el, options) {
                     }
                     // Get column data
                     if ((''+value).substr(0,1) == '=') {
-                        value = obj.executeFormula(value, position[1], position[0]);
+                        value = obj.executeFormula(value, position[0], position[1]);
                     }
                     // Type!
                     if ((''+value).trim() == '' || value != Number(value)) {
