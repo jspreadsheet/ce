@@ -421,13 +421,13 @@ var jexcel = (function(el, options) {
         obj.table.appendChild(obj.thead);
         obj.table.appendChild(obj.tbody);
 
-        // Spreasheet corner
+        // Spreadsheet corner
         obj.corner = document.createElement('div');
         obj.corner.className = 'jexcel_corner';
         obj.corner.setAttribute('unselectable', 'on');
         obj.corner.setAttribute('onselectstart', 'return false');
 
-        if (obj.selectionCopy == false) {
+        if (obj.options.selectionCopy == false) {
             obj.corner.style.display = 'none';
         }
 
