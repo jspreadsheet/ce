@@ -5341,7 +5341,8 @@ var jexcel = (function(el, options) {
                                 if (! obj.options.columns[i]) {
                                     obj.options.columns[i] = { type:'text', align:'center', width:obj.options.defaultColWidth };
                                 }
-                                if (typeof obj.options.columns[i].title === 'undefined'){
+                                // Precedence over pre-configurated titles
+                                if (typeof obj.options.columns[i].title === 'undefined') {
                                   obj.options.columns[i].title = headers[i];
                                 }
                             }
