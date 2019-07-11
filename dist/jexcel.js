@@ -2293,7 +2293,7 @@ var jexcel = (function(el, options) {
             // Get all headers
             var data = [];
             for (var i = 0; i < obj.headers.length; i++) {
-                data.push(obj.columns[i].width);
+                data.push(obj.options.columns[i].width);
             }
         } else {
             // In case the column is an object
