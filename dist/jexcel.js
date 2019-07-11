@@ -5310,7 +5310,9 @@ var jexcel = (function(el, options) {
                                 if (! obj.options.columns[i]) {
                                     obj.options.columns[i] = { type:'text', align:'center', width:obj.options.defaultColWidth };
                                 }
-                                obj.options.columns[i].title = headers[i];
+                                if (typeof obj.options.columns[i].title === 'undefined'){
+                                  obj.options.columns[i].title = headers[i];
+                                }
                             }
                         }
 
