@@ -5335,7 +5335,7 @@ var jexcel = (function(el, options) {
                         var data = obj.parseCSV(data, obj.options.csvDelimiter)
 
                         // Headers
-                        if (obj.options.csvHeaders == true) {
+                        if (obj.options.csvHeaders == true && data.length > 0) {
                             var headers = data.shift();
                             for(var i = 0; i < headers.length; i++) {
                                 if (! obj.options.columns[i]) {
