@@ -421,13 +421,13 @@ var jexcel = (function(el, options) {
         obj.table.appendChild(obj.thead);
         obj.table.appendChild(obj.tbody);
 
-        // Spreasheet corner
+        // Spreadsheet corner
         obj.corner = document.createElement('div');
         obj.corner.className = 'jexcel_corner';
         obj.corner.setAttribute('unselectable', 'on');
         obj.corner.setAttribute('onselectstart', 'return false');
 
-        if (obj.selectionCopy == false) {
+        if (obj.options.selectionCopy == false) {
             obj.corner.style.display = 'none';
         }
 
@@ -1549,25 +1549,8 @@ var jexcel = (function(el, options) {
             }
         }
 
-        // Update formula chain
-        var updateFormulaChain = function(x, y) {
-            var cellId = jexcel.getColumnNameFromId([x, y]);
-            if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
-                for (var i = 0; i < obj.formula[cellId].length; i++) {
-                    var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
-                    // Update cell
-                    var value = ''+obj.options.data[cell[1]][cell[0]];
-                    if (value.substr(0,1) == '=') {
-                        records.push(obj.updateCell(cell[0], cell[1], value, true));
-                    } else {
-                        // No longer a formula, remove from the chain
-                        Object.keys(obj.formula)[i] = null;
-                    }
-                    updateFormulaChain(cell[0], cell[1]);
-                }
-            }
-        }
-        updateFormulaChain(x, y);
+        // Update all formulas in the chain
+        obj.updateFormulaChain(x, y, records);
 
         // Update history
         obj.setHistory({
@@ -1684,7 +1667,11 @@ var jexcel = (function(el, options) {
                     }
                 } else {
                     // Update data and cell
-                    obj.options.data[y][x] = (value && Number(value) == value) ? Number(value) : value;
+                    if (obj.options.columns[x].autoCasting != false) { 
+                        obj.options.data[y][x] = (value && Number(value) == value) ? Number(value) : value;
+                    } else {
+                        obj.options.data[y][x] = value;
+                    }
                     // Label
                     if (('' + value).substr(0,1) == '=') {
                         value = obj.executeFormula(value, x, y);
@@ -1745,7 +1732,9 @@ var jexcel = (function(el, options) {
 
         // Records
         var records = []; 
+        var recordsChain = [];
         var lineNumber = 1;
+        var breakControl = false;
 
         // Copy data procedure
         var posx = 0;
@@ -1765,11 +1754,12 @@ var jexcel = (function(el, options) {
             // Data columns
             for (var i = x1; i <= x2; i++) {
                 // Update non-readonly
-                if (obj.records[j][i] && ! obj.records[j][i].classList.contains('readonly') && obj.records[j][i].style.display != 'none') {
+                if (obj.records[j][i] && ! obj.records[j][i].classList.contains('readonly') && obj.records[j][i].style.display != 'none' && breakControl == false) {
                     // Stop if contains value
-                    if (! jexcel.current.selection.length) {
+                    if (! obj.selection.length) {
                         if (obj.options.data[j][i]) {
-                            return;
+                            breakControl = true;
+                            continue;
                         }
                     }
 
@@ -1816,11 +1806,23 @@ var jexcel = (function(el, options) {
                     }
 
                     records.push(obj.updateCell(i, j, value));
+
+                    // Update formulas chain
+                    if ((''+value).substr(0,1) == '=') {
+                        recordsChain[i + ',' + j] = true;
+                    }
                 }
                 posx++;
             }
             posy++;
             lineNumber++;
+        }
+
+        // Update all formulas in the chain
+        var keys = Object.keys(recordsChain);
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i].split(',');
+            obj.updateFormulaChain(k[0], k[1], records);
         }
 
         // Update history
@@ -1849,12 +1851,12 @@ var jexcel = (function(el, options) {
     obj.conditionalSelectionUpdate = function(type, o, d) {
         if (type == 1) {
             if (obj.selectedCell && ((o >= obj.selectedCell[1] && o <= obj.selectedCell[3]) || (d >= obj.selectedCell[1] && d <= obj.selectedCell[3]))) {
-                obj.updateSelectionFromCoords(0, 0);
+                obj.resetSelection();
                 return;
             }
         } else {
             if (obj.selectedCell && ((o >= obj.selectedCell[0] && o <= obj.selectedCell[2]) || (d >= obj.selectedCell[0] && d <= obj.selectedCell[2]))) {
-                obj.updateSelectionFromCoords(0, 0);
+                obj.resetSelection();
                 return;
             }
         }
@@ -2069,6 +2071,12 @@ var jexcel = (function(el, options) {
             }
 
             // Create borders
+            if (! borderLeft) {
+                borderLeft = 0;
+            }
+            if (! borderRight) {
+                borderRight = 0;
+            }
             for (var i = borderLeft; i <= borderRight; i++) {
                 if (obj.options.columns[i].type != 'hidden') {
                     // Top border
@@ -2285,7 +2293,7 @@ var jexcel = (function(el, options) {
             // Get all headers
             var data = [];
             for (var i = 0; i < obj.headers.length; i++) {
-                data.push(obj.columns[i].width);
+                data.push(obj.options.columns[i].width);
             }
         } else {
             // In case the column is an object
@@ -3724,6 +3732,27 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Update all related cells in the chain
+     */
+    obj.updateFormulaChain = function(x, y, records) {
+        var cellId = jexcel.getColumnNameFromId([x, y]);
+        if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
+            for (var i = 0; i < obj.formula[cellId].length; i++) {
+                var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
+                // Update cell
+                var value = ''+obj.options.data[cell[1]][cell[0]];
+                if (value.substr(0,1) == '=') {
+                    records.push(obj.updateCell(cell[0], cell[1], value, true));
+                } else {
+                    // No longer a formula, remove from the chain
+                    Object.keys(obj.formula)[i] = null;
+                }
+                obj.updateFormulaChain(cell[0], cell[1], records);
+            }
+        }
+    }
+
+    /**
      * Update formulas
      */
     obj.updateFormulas = function(referencesToUpdate) {
@@ -5105,6 +5134,7 @@ var jexcel = (function(el, options) {
                 // Redo for changes in cells
                 for (var i = 0; i < historyRecord.records.length; i++) {
                     obj.updateCell(historyRecord.records[i].col, historyRecord.records[i].row, historyRecord.records[i].oldValue);
+                    obj.updateFormulaChain(historyRecord.records[i].col, historyRecord.records[i].row, records);
                     if (historyRecord.oldStyle) {
                         obj.resetStyle(historyRecord.oldStyle, true);
                     }
@@ -5172,6 +5202,7 @@ var jexcel = (function(el, options) {
                 // Redo for changes in cells
                 for (var i = 0; i < historyRecord.records.length; i++) {
                     obj.updateCell(historyRecord.records[i].col, historyRecord.records[i].row, historyRecord.records[i].newValue);
+                    obj.updateFormulaChain(historyRecord.records[i].col, historyRecord.records[i].row, records);
                     if (historyRecord.newStyle) {
                         obj.resetStyle(historyRecord.newStyle, true);
                     }
@@ -5310,7 +5341,10 @@ var jexcel = (function(el, options) {
                                 if (! obj.options.columns[i]) {
                                     obj.options.columns[i] = { type:'text', align:'center', width:obj.options.defaultColWidth };
                                 }
-                                obj.options.columns[i].title = headers[i];
+                                // Precedence over pre-configurated titles
+                                if (typeof obj.options.columns[i].title === 'undefined') {
+                                  obj.options.columns[i].title = headers[i];
+                                }
                             }
                         }
 
@@ -5875,14 +5909,16 @@ jexcel.keyDownControls = function(e) {
                                             // Start edition
                                             jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
                                         }
-                                    } else if ((e.keyCode == 113) ||
-                                               (e.keyCode == 110) ||
+                                    } else if ((e.keyCode == 110) ||
                                                (e.keyCode >= 48 && e.keyCode <= 57) ||
                                                (e.keyCode >= 65 && e.keyCode <= 90) ||
                                                (e.keyCode >= 96 && e.keyCode <= 105) ||
                                                (e.keyCode >= 186 && e.keyCode <= 190)) {
                                         // Start edition
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                    } else if (e.keyCode == 113) {
+                                        // Start edition with current content F2
+                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
                                     }
                                 }
                             }
