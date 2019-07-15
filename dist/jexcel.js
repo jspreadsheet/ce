@@ -233,7 +233,8 @@ var jexcel = (function(el, options) {
         // Number of columns
         var size = obj.options.columns.length;
 
-        if (obj.options.data[0].length > size) {
+        if (typeof obj.options.data[0] !== 'undefined' &&
+            obj.options.data[0].length > size) {
             size = obj.options.data[0].length;
         }
 
@@ -5335,7 +5336,7 @@ var jexcel = (function(el, options) {
                         var data = obj.parseCSV(data, obj.options.csvDelimiter)
 
                         // Headers
-                        if (obj.options.csvHeaders == true) {
+                        if (obj.options.csvHeaders == true && data.length > 0) {
                             var headers = data.shift();
                             for(var i = 0; i < headers.length; i++) {
                                 if (! obj.options.columns[i]) {
