@@ -233,7 +233,8 @@ var jexcel = (function(el, options) {
         // Number of columns
         var size = obj.options.columns.length;
 
-        if (obj.options.data[0].length > size) {
+        if (typeof obj.options.data[0] !== 'undefined' &&
+            obj.options.data[0].length > size) {
             size = obj.options.data[0].length;
         }
 
@@ -5335,7 +5336,7 @@ var jexcel = (function(el, options) {
                         var data = obj.parseCSV(data, obj.options.csvDelimiter)
 
                         // Headers
-                        if (obj.options.csvHeaders == true) {
+                        if (obj.options.csvHeaders == true && data.length > 0) {
                             var headers = data.shift();
                             for(var i = 0; i < headers.length; i++) {
                                 if (! obj.options.columns[i]) {
@@ -5872,58 +5873,58 @@ jexcel.keyDownControls = function(e) {
                 }
                 e.preventDefault();
             } else {
-              if ((e.ctrlKey || e.metaKey) && !e.shiftKey) {
-                  if (e.which == 65) {
-                      // Ctrl + A
-                      jexcel.current.selectAll();
-                      e.preventDefault();
-                  } else if (e.which == 83) {
-                      // Ctrl + S
-                      jexcel.current.download();
-                      e.preventDefault();
-                  } else if (e.which == 89) {
-                      // Ctrl + Y
-                      jexcel.current.redo();
-                      e.preventDefault();
-                  } else if (e.which == 90) {
-                      // Ctrl + Z
-                      jexcel.current.undo();
-                      e.preventDefault();
-                  }
-              } else {
-                  if (jexcel.current.selectedCell) {
-                      if (jexcel.current.options.editable == true) {
-                          var rowId = jexcel.current.selectedCell[1];
-                          var columnId = jexcel.current.selectedCell[0];
+                if ((e.ctrlKey || e.metaKey) && !e.shiftKey) {
+                    if (e.which == 65) {
+                        // Ctrl + A
+                        jexcel.current.selectAll();
+                        e.preventDefault();
+                    } else if (e.which == 83) {
+                        // Ctrl + S
+                        jexcel.current.download();
+                        e.preventDefault();
+                    } else if (e.which == 89) {
+                        // Ctrl + Y
+                        jexcel.current.redo();
+                        e.preventDefault();
+                    } else if (e.which == 90) {
+                        // Ctrl + Z
+                        jexcel.current.undo();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (jexcel.current.selectedCell) {
+                        if (jexcel.current.options.editable == true) {
+                            var rowId = jexcel.current.selectedCell[1];
+                            var columnId = jexcel.current.selectedCell[0];
 
-                          // If is not readonly
-                          if (jexcel.current.options.columns[columnId].type != 'readonly') {
-                              // Characters able to start a edition
-                              if (e.keyCode == 32) {
-                                  // Space
-                                  if (jexcel.current.options.columns[columnId].type == 'checkbox' ||
-                                      jexcel.current.options.columns[columnId].type == 'radio') {
-                                      e.preventDefault();
-                                  } else {
-                                      // Start edition
-                                      jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
-                                  }
-                              } else if ((e.keyCode == 110) ||
-                                         (e.keyCode >= 48 && e.keyCode <= 57) ||
-                                         (e.keyCode >= 65 && e.keyCode <= 90) ||
-                                         (e.keyCode >= 96 && e.keyCode <= 105) ||
-                                         (e.keyCode >= 186 && e.keyCode <= 190)) {
-                                  // Start edition
-                                  jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
-                              } else if (e.keyCode == 113) {
-                                  // Start edition with current content F2
-                                  jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
-                              }
-                          }
-                      }
-                  }
-              }
-          }
+                            // If is not readonly
+                            if (jexcel.current.options.columns[columnId].type != 'readonly') {
+                                // Characters able to start a edition
+                                if (e.keyCode == 32) {
+                                    // Space
+                                    if (jexcel.current.options.columns[columnId].type == 'checkbox' ||
+                                        jexcel.current.options.columns[columnId].type == 'radio') {
+                                        e.preventDefault();
+                                    } else {
+                                        // Start edition
+                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                    }
+                                } else if ((e.keyCode == 110) ||
+                                           (e.keyCode >= 48 && e.keyCode <= 57) ||
+                                           (e.keyCode >= 65 && e.keyCode <= 90) ||
+                                           (e.keyCode >= 96 && e.keyCode <= 105) ||
+                                           (e.keyCode >= 186 && e.keyCode <= 190)) {
+                                    // Start edition
+                                    jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                } else if (e.keyCode == 113) {
+                                    // Start edition with current content F2
+                                    jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         } else {
             if (e.target.classList.contains('jexcel_search')) {
                 if (jexcel.timeControl) {
