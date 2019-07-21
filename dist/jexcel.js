@@ -237,8 +237,7 @@ var jexcel = (function(el, options) {
         // Number of columns
         var size = obj.options.columns.length;
 
-        if (typeof obj.options.data[0] !== 'undefined' &&
-            obj.options.data[0].length > size) {
+        if (typeof obj.options.data[0] !== 'undefined' && obj.options.data[0].length > size) {
             size = obj.options.data[0].length;
         }
 
