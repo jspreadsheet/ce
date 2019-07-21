@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.1
+ * (c) jExcel v3.3.2
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -103,13 +103,17 @@ var jexcel = (function(el, options) {
         tableOverflow:false,
         tableHeight:'300px',
         tableWidth:null,
+        // Meta
+        meta: null,
         // Style
         style:null,
         // Event handles
         onload:null,
         onchange:null,
         onbeforechange:null,
+        onbeforeinsertrow: null,
         oninsertrow:null,
+        onbeforeinsertcolumn: null,
         oninsertcolumn:null,
         ondeleterow:null,
         ondeletecolumn:null,
@@ -159,7 +163,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -508,8 +512,8 @@ var jexcel = (function(el, options) {
                     obj.content.style.height = obj.options.tableHeight;
                 }
                 if (obj.options.tableWidth) {
-                    el.content.style['overflow-x'] = 'auto';
-                    el.content.width = obj.options.tableWidth;
+                    obj.content.style['overflow-x'] = 'auto';
+                    obj.content.width = obj.options.tableWidth;
                 }
             }
         }
@@ -931,6 +935,10 @@ var jexcel = (function(el, options) {
                 toolbarItem.classList.add('material-icons');
                 toolbarItem.setAttribute('data-k', toolbar[i].k);
                 toolbarItem.setAttribute('data-v', toolbar[i].v);
+                // Tooltip
+                if (toolbar[i].tooltip) {
+                    toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                }
                 // Handle click
                 if (toolbar[i].onclick && typeof(toolbar[i].onclick)) {
                     toolbarItem.onclick = toolbar[i].onclick;
@@ -948,6 +956,10 @@ var jexcel = (function(el, options) {
                var toolbarItem = document.createElement('select');
                toolbarItem.classList.add('jexcel_toolbar_item');
                toolbarItem.setAttribute('data-k', toolbar[i].k);
+               // Tooltip
+               if (toolbar[i].tooltip) {
+                   toolbarItem.setAttribute('title', toolbar[i].tooltip);
+               }
                // Handle onchange
                if (toolbar[i].onchange && typeof(toolbar[i].onchange)) {
                    toolbarItem.onchange = toolbar[i].onchange;
@@ -971,6 +983,10 @@ var jexcel = (function(el, options) {
                  toolbarItem.classList.add('material-icons');
                  toolbarItem.setAttribute('data-k', toolbar[i].k);
                  toolbarItem.setAttribute('data-v', '');
+                 // Tooltip
+                 if (toolbar[i].tooltip) {
+                     toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                 }
                  obj.toolbar.appendChild(toolbarItem);
                  toolbarItem.onclick = function() {
                      this.color.open();
@@ -2472,6 +2488,51 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Get meta information from cell(s)
+     * 
+     * @return integer
+     */
+    obj.getMeta = function(cell, key) {
+        if (! cell) {
+           return obj.options.meta;
+        } else {
+            return key ? obj.options.meta[cell][key] : obj.options.meta[cell];
+        }
+    }
+
+    /**
+     * Set meta information to cell(s)
+     * 
+     * @return integer
+     */
+    obj.setMeta = function(o, k, v) {
+        if (! obj.options.meta) {
+            obj.options.meta = {}
+        }
+
+        if (k && v) {
+            // Set data value
+            if (! obj.options.meta[o]) {
+                obj.options.meta[o] = {};
+            }
+            obj.options.meta[o][k] = v;
+        } else {
+            // Apply that for all cells
+            var keys = Object.keys(o);
+            for (var i = 0; i < keys.length; i++) {
+                if (! obj.options.meta[keys[i]]) {
+                    obj.options.meta[keys[i]] = {};
+                }
+
+                var prop = Object.keys(o[keys[i]]);
+                for (var j = 0; j < prop.length; j++) {
+                    obj.options.meta[keys[i]][prop[j]] = o[keys[i]][prop[j]];
+                }
+            }
+        }
+    }
+
+    /**
      * Get style information from cell(s)
      * 
      * @return integer
@@ -2743,16 +2804,16 @@ var jexcel = (function(el, options) {
                 order: order,
             });
 
+            // Update order
+            obj.updateOrderArrow(column, order);
+            obj.updateOrder(newValue);
+
             // On sort event
             if (obj.ignoreEvents != true) {
                 if (typeof(obj.options.onsort) == 'function') {
                     obj.options.onsort(el, column, order);
                 }
             }
-
-            // Update order
-            obj.updateOrderArrow(column, order);
-            obj.updateOrder(newValue);
 
             return true;
         }
@@ -2879,15 +2940,15 @@ var jexcel = (function(el, options) {
             newValue: d,
         });
 
+        // Update table references
+        obj.updateTableReferences();
+
         // Events
         if (obj.ignoreEvents != true) {
             if (typeof(obj.options.onmoverow) == 'function') {
                 obj.options.onmoverow(el, o, d);
             }
         }
-
-        // Update table references
-        obj.updateTableReferences();
     }
 
     /**
@@ -2926,6 +2987,15 @@ var jexcel = (function(el, options) {
 
             if (rowNumber == undefined || rowNumber >= parseInt(lastRow) || rowNumber < 0) {
                 rowNumber = lastRow;
+            }
+
+            // Onbeforeinsertrow
+            if (typeof(obj.options.onbeforeinsertrow) == 'function') {
+                if (! obj.options.onbeforeinsertrow(el, rowNumber, numOfRows, insertBefore)) {
+                    console.log('onbeforeinsertrow returned false');
+
+                    return false;
+                }
             }
 
             // Merged cells
@@ -3004,15 +3074,15 @@ var jexcel = (function(el, options) {
                 rowNode: rowNode,
             });
 
+            // Remove table references
+            obj.updateTableReferences();
+
             // Events
             if (obj.ignoreEvents != true) {
                 if (typeof(obj.options.oninsertrow) == 'function') {
-                    obj.options.oninsertrow(el, rowNumber, numOfRows, rowRecords);
+                    obj.options.oninsertrow(el, rowNumber, numOfRows, rowRecords, insertBefore);
                 }
             }
-
-            // Remove table references
-            obj.updateTableReferences();
         }
     }
 
@@ -3119,15 +3189,15 @@ var jexcel = (function(el, options) {
                         rowNode: rowNode
                     });
 
+                    // Remove table references
+                    obj.updateTableReferences();
+
                     // Events
                     if (obj.ignoreEvents != true) {
                         if (typeof(obj.options.ondeleterow) == 'function') {
                             obj.options.ondeleterow(el, rowNumber, numOfRows, rowRecords);
                         }
                     }
-
-                    // Remove table references
-                    obj.updateTableReferences();
                 }
             } else {
                 console.error('JEXCEL. It is not possible to delete the last row');
@@ -3187,15 +3257,15 @@ var jexcel = (function(el, options) {
             newValue: d,
         });
 
+        // Update table references
+        obj.updateTableReferences();
+
         // Events
         if (obj.ignoreEvents != true) {
             if (typeof(obj.options.onmovecolumn) == 'function') {
                 obj.options.onmovecolumn(el, o, d);
             }
         }
-
-        // Update table references
-        obj.updateTableReferences();
     }
 
 
@@ -3239,6 +3309,15 @@ var jexcel = (function(el, options) {
                 columnNumber = lastColumn;
             }
 
+            // Onbeforeinsertcolumn
+            if (typeof(obj.options.onbeforeinsertcolumn) == 'function') {
+                if (! obj.options.onbeforeinsertcolumn(el, columnNumber, numOfColumns, insertBefore)) {
+                    console.log('onbeforeinsertcolumn returned false');
+
+                    return false;
+                }
+            }
+
             // Merged cells
             if (Object.keys(obj.options.mergeCells).length > 0) {
                 if (obj.isColMerged(columnNumber, insertBefore).length) {
@@ -3265,7 +3344,7 @@ var jexcel = (function(el, options) {
 
             // Insert before
             var columnIndex = (! insertBefore) ? columnNumber + 1 : columnNumber;
-            obj.options.columns = obj.options.columns.injectArray(columnIndex, properties.columns);
+            obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties.columns);
 
             // Open space in the containers
             var currentHeaders = obj.headers.splice(columnIndex);
@@ -3351,15 +3430,15 @@ var jexcel = (function(el, options) {
                 data:historyData,
             });
 
+            // Remove table references
+            obj.updateTableReferences();
+
             // Events
             if (obj.ignoreEvents != true) {
                 if (typeof(obj.options.oninsertcolumn) == 'function') {
                     obj.options.oninsertcolumn(el, columnNumber, numOfColumns);
                 }
             }
-
-            // Remove table references
-            obj.updateTableReferences();
         }
     }
 
@@ -3486,15 +3565,15 @@ var jexcel = (function(el, options) {
                         data:historyData,
                     });
 
+                    // Update table references
+                    obj.updateTableReferences();
+
                     // Delete
                     if (obj.ignoreEvents != true) {
                         if (typeof(obj.options.ondeletecolumn) == 'function') {
                             obj.options.ondeletecolumn(el, columnNumber, numOfColumns, records);
                         }
                     }
-
-                    // Update table references
-                    obj.updateTableReferences();
                 }
             } else {
                 console.error('JEXCEL. It is not possible to delete the last column');
@@ -3538,6 +3617,15 @@ var jexcel = (function(el, options) {
         }
 
         return cols;
+    }
+
+    /**
+     * Get highlighted
+     * 
+     * @return array
+     */
+    obj.getHighlighted = function() {
+        return obj.highlighted;
     }
 
     /**
@@ -4858,6 +4946,24 @@ var jexcel = (function(el, options) {
         // Keep non visible information
         obj.hashString = obj.hash(obj.textarea.value); 
 
+        // Highlight
+        /*for (var i = 0; i < obj.highlighted.length; i++) {
+            obj.highlighted[i].classList.add('copying');
+
+            if (obj.highlighted[i].classList.contains('highlight-top')) {
+                obj.highlighted[i].classList.add('copying-top');
+            }
+            if (obj.highlighted[i].classList.contains('highlight-right')) {
+                obj.highlighted[i].classList.add('copying-right');
+            }
+            if (obj.highlighted[i].classList.contains('highlight-bottom')) {
+                obj.highlighted[i].classList.add('copying-bottom');
+            }
+            if (obj.highlighted[i].classList.contains('highlight-left')) {
+                obj.highlighted[i].classList.add('copying-left');
+            }
+        }*/
+
         return str;
     }
 
@@ -4984,9 +5090,9 @@ var jexcel = (function(el, options) {
             obj.conditionalSelectionUpdate(1, rowIndex, (numOfRows + rowIndex) - 1);
         } else {
             // Insert data
-            obj.records = obj.records.injectArray(rowIndex, historyRecord.rowRecords);
-            obj.options.data = obj.options.data.injectArray(rowIndex, historyRecord.rowData);
-            obj.rows = obj.rows.injectArray(rowIndex, historyRecord.rowNode);
+            obj.records = jexcel.injectArray(obj.records, rowIndex, historyRecord.rowRecords);
+            obj.options.data = jexcel.injectArray(obj.options.data, rowIndex, historyRecord.rowData);
+            obj.rows = jexcel.injectArray(obj.rows, rowIndex, historyRecord.rowNode);
             // Insert nodes
             var index = 0
             for (var j = rowIndex; j < (historyRecord.numOfRows + rowIndex); j++) {
@@ -5031,9 +5137,9 @@ var jexcel = (function(el, options) {
             obj.conditionalSelectionUpdate(0, columnIndex, (numOfColumns + columnIndex) - 1);
         } else {
             // Insert data
-            obj.options.columns = obj.options.columns.injectArray(columnIndex, historyRecord.columns);
-            obj.headers = obj.headers.injectArray(columnIndex, historyRecord.headers);
-            obj.colgroup = obj.colgroup.injectArray(columnIndex, historyRecord.colgroup);
+            obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, historyRecord.columns);
+            obj.headers = jexcel.injectArray(obj.headers, columnIndex, historyRecord.headers);
+            obj.colgroup = jexcel.injectArray(obj.colgroup, columnIndex, historyRecord.colgroup);
 
             var index = 0
             for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
@@ -5043,8 +5149,8 @@ var jexcel = (function(el, options) {
             }
 
             for (var j = 0; j < historyRecord.data.length; j++) {
-                obj.options.data[j] = obj.options.data[j].injectArray(columnIndex, historyRecord.data[j]);
-                obj.records[j] = obj.records[j].injectArray(columnIndex, historyRecord.records[j]);
+                obj.options.data[j] = jexcel.injectArray(obj.options.data[j], columnIndex, historyRecord.data[j]);
+                obj.records[j] = jexcel.injectArray(obj.records[j], columnIndex, historyRecord.records[j]);
                 var index = 0
                 for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
                     obj.rows[j].insertBefore(historyRecord.records[j][index], obj.rows[j].children[i+1]);
@@ -5378,11 +5484,6 @@ var jexcel = (function(el, options) {
         }
     }
 
-    // Helpers
-    Array.prototype.injectArray = function(idx, arr) {
-        return this.slice(0, idx).concat(arr).concat(this.slice(idx));
-    }
-
     // Context menu
     if (options && options.contextMenu != null) {
         obj.options.contextMenu = options.contextMenu;
@@ -5638,6 +5739,13 @@ jexcel.build = function() {
     document.addEventListener("touchend", jexcel.touchEndControls);
     document.addEventListener("touchcancel", jexcel.touchEndControls);
     document.addEventListener("touchmove", jexcel.touchEndControls);
+}
+
+/**
+ * Helper injectArray
+ */
+jexcel.injectArray = function(o, idx, arr) {
+    return o.slice(0, idx).concat(arr).concat(o.slice(idx));
 }
 
 /**

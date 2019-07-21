@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.1
+ * (c) jExcel v3.3.2
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -633,3 +633,44 @@
 {
     background-color:#ddd;
 }
+/*.copying
+{
+    border-top:1px solid #ccc !important;
+    border-left:1px solid #ccc !important;
+    border-right:1px solid #fff !important;
+    border-bottom:1px solid #fff !important;
+}
+
+.copying-top
+{
+    border-top:1px solid transparent !important;
+}
+
+.copying-bottom
+{
+    border-bottom:1px solid transparent !important;
+}
+
+.copying-left
+{
+    border-left:1px solid transparent !important;
+}
+
+.copying-right
+{
+    border-right:1px solid transparent !important;
+}
+
+.copying
+{
+    background: linear-gradient(white, white) padding-box, repeating-linear-gradient(-45deg, black 0, black 25%, transparent 0, transparent 50%) 0 / .6em .6em !important;
+    animation: ants 12s linear infinite;
+}
+
+@keyframes ants
+{
+    to
+    {
+        background-position: 50% 50%
+    }
+}*/
