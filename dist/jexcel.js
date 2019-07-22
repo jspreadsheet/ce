@@ -115,7 +115,9 @@ var jexcel = (function(el, options) {
         oninsertrow:null,
         onbeforeinsertcolumn: null,
         oninsertcolumn:null,
+        onbeforedeleterow:null,
         ondeleterow:null,
+        onbeforedeletecolumn:null,
         ondeletecolumn:null,
         onmoverow:null,
         onmovecolumn:null,
@@ -3120,7 +3122,15 @@ var jexcel = (function(el, options) {
                 if (! numOfRows) {
                     numOfRows = 1;
                 }
-
+                
+                // Onbeforedeleterow
+                if (typeof(obj.options.onbeforedeleterow) == 'function') {
+                    if (! obj.options.onbeforedeleterow(el, rowNumber, numOfRows)) {
+                        console.log('onbeforedeleterow returned false');
+                        return false;
+                    }
+                }
+				
                 // Do not delete more than the number of recoreds
                 if (rowNumber + numOfRows >= obj.options.data.length) {
                     numOfRows = obj.options.data.length - rowNumber;
@@ -3480,6 +3490,14 @@ var jexcel = (function(el, options) {
                     numOfColumns = 1;
                 }
 
+                // onbeforedeletecolumn
+                if (typeof(obj.options.onbeforedeletecolumn) == 'function') {
+                   if (! obj.options.onbeforedeletecolumn(el, columnNumber, numOfColumns)) {
+                      console.log('onbeforedeletecolumn returned false');
+                      return false;
+                   }
+                }
+				
                 // Can't delete more than the limit of the table
                 if (numOfColumns > obj.options.data[0].length - columnNumber) {
                     numOfColumns = obj.options.data[0].length - columnNumber;
