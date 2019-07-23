@@ -6091,7 +6091,6 @@ jexcel.mouseDownControls = function(e) {
                 if (columnId) {
                     // Update cursor
                     var info = e.target.getBoundingClientRect();
-
                     if (jexcel.current.options.columnResize == true && info.width - e.offsetX < 6) {
                         // Resize helper
                         jexcel.current.resizing = {
@@ -6164,9 +6163,7 @@ jexcel.mouseDownControls = function(e) {
 
                 if (e.target.classList.contains('jexcel_row')) {
                     var info = e.target.getBoundingClientRect();
-
                     var rowDragControlWidth = parseInt(window.getComputedStyle(e.target, ':after').width);
-
                     if (jexcel.current.options.rowResize == true && info.height - e.offsetY < 6) {
                         // Resize helper
                         jexcel.current.resizing = {
