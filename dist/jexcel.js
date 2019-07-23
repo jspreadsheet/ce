@@ -6091,6 +6091,7 @@ jexcel.mouseDownControls = function(e) {
                 if (columnId) {
                     // Update cursor
                     var info = e.target.getBoundingClientRect();
+
                     if (jexcel.current.options.columnResize == true && info.width - e.offsetX < 6) {
                         // Resize helper
                         jexcel.current.resizing = {
@@ -6163,6 +6164,9 @@ jexcel.mouseDownControls = function(e) {
 
                 if (e.target.classList.contains('jexcel_row')) {
                     var info = e.target.getBoundingClientRect();
+
+                    var rowDragControlWidth = parseInt(window.getComputedStyle(e.target, ':after').width);
+
                     if (jexcel.current.options.rowResize == true && info.height - e.offsetY < 6) {
                         // Resize helper
                         jexcel.current.resizing = {
@@ -6173,7 +6177,7 @@ jexcel.mouseDownControls = function(e) {
                         };
                         // Border indication
                         e.target.parentNode.classList.add('resizing');
-                    } else if (jexcel.current.options.rowDrag == true && info.width - e.offsetX < 6) {
+                    } else if (jexcel.current.options.rowDrag == true && info.width - e.offsetX <= rowDragControlWidth) {
                         if (jexcel.current.isRowMerged(rowId).length) {
                             console.error('JEXCEL: This row is part of a merged cell');
                         } else if (jexcel.current.options.search == true && jexcel.current.results) {
