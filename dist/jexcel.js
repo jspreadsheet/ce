@@ -3351,7 +3351,7 @@ var jexcel = (function(el, options) {
             }
             for (var i = 0; i < numOfColumns; i++) {
                 if (! properties.columns[i]) {
-                    properties.columns[i] = { type:'text', source:[], options:[], width:'50', align:'center' };
+                    properties.columns[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:'center' };
                 }
             }
 
