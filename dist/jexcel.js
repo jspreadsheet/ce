@@ -47,7 +47,7 @@ var jexcel = (function(el, options) {
         allowExport:true,
         // Allow column sorting
         columnSorting:true,
-        // Allow column resizing
+        // Allow column dragging
         columnDrag:false,
         // Allow column resizing
         columnResize:true,
