@@ -5557,11 +5557,11 @@ var jexcel = (function(el, options) {
                     });
                 }
 
-                // Line
-                items.push({ type:'line' });
-
                 // Sorting
                 if (obj.options.columnSorting == true) {
+                    // Line
+                    items.push({ type:'line' });
+
                     items.push({
                         title:obj.options.text.orderAscending,
                         onclick:function() {
@@ -5657,13 +5657,15 @@ var jexcel = (function(el, options) {
             }
 
             // Save
-            items.push({
-                title:obj.options.text.saveAs,
-                shortcut:'Ctrl + S',
-                onclick:function() {
-                    obj.download(true);
-                }
-            });
+            if (obj.options.allowExport) {
+                items.push({
+                    title: obj.options.text.saveAs,
+                    shortcut: 'Ctrl + S',
+                    onclick: function () {
+                        obj.download(true);
+                    }
+                });
+            }
 
             // About
             if (obj.options.about) {
