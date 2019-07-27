@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.2
+ * (c) jExcel v3.3.3
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -165,7 +165,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -515,7 +515,7 @@ var jexcel = (function(el, options) {
                 }
                 if (obj.options.tableWidth) {
                     obj.content.style['overflow-x'] = 'auto';
-                    obj.content.width = obj.options.tableWidth;
+                    obj.content.style.width = obj.options.tableWidth;
                 }
             }
         }
@@ -1031,8 +1031,10 @@ var jexcel = (function(el, options) {
 
         var cell = jexcel.getIdFromColumnName(cellName, true);
 
-        if (obj.options.mergeCells[cellName] && obj.options.mergeCells[cellName][2]) {
-            test = obj.options.text.cellAlreadyMerged;
+        if (obj.options.mergeCells[cellName]) {
+            if (obj.records[cell[1]][cell[0]].getAttribute('data-merged')) {
+                test = obj.options.text.cellAlreadyMerged;
+            }
         } else if ((! colspan || colspan < 2) && (! rowspan || rowspan < 2)) {
             test = obj.options.text.invalidMergeProperties;
         } else {
@@ -1040,7 +1042,7 @@ var jexcel = (function(el, options) {
             for (var j = cell[1]; j < cell[1] + rowspan; j++) {
                 for (var i = cell[0]; i < cell[0] + colspan; i++) {
                     var columnName = jexcel.getColumnNameFromId([i, j]);
-                    if (obj.options.mergeCells[columnName] && obj.options.mergeCells[columnName][2]) {
+                    if (obj.records[j][i].getAttribute('data-merged')) {
                         test = obj.options.text.thereIsAConflictWithAnotherMergedCell;
                     }
                 }
@@ -2736,7 +2738,8 @@ var jexcel = (function(el, options) {
      */
     obj.getConfig = function() {
         var options = obj.options;
-        options.style = obj.getStyle;
+        options.style = obj.getStyle();
+        options.mergeCells = obj.getMerge();
 
         return options;
     }
@@ -3123,17 +3126,17 @@ var jexcel = (function(el, options) {
                     numOfRows = 1;
                 }
                 
+                // Do not delete more than the number of recoreds
+                if (rowNumber + numOfRows >= obj.options.data.length) {
+                    numOfRows = obj.options.data.length - rowNumber;
+                }
+
                 // Onbeforedeleterow
                 if (typeof(obj.options.onbeforedeleterow) == 'function') {
                     if (! obj.options.onbeforedeleterow(el, rowNumber, numOfRows)) {
                         console.log('onbeforedeleterow returned false');
                         return false;
                     }
-                }
-				
-                // Do not delete more than the number of recoreds
-                if (rowNumber + numOfRows >= obj.options.data.length) {
-                    numOfRows = obj.options.data.length - rowNumber;
                 }
 
                 if (parseInt(rowNumber) > -1) {
@@ -3490,17 +3493,19 @@ var jexcel = (function(el, options) {
                     numOfColumns = 1;
                 }
 
+
+
+                // Can't delete more than the limit of the table
+                if (numOfColumns > obj.options.data[0].length - columnNumber) {
+                    numOfColumns = obj.options.data[0].length - columnNumber;
+                }
+
                 // onbeforedeletecolumn
                 if (typeof(obj.options.onbeforedeletecolumn) == 'function') {
                    if (! obj.options.onbeforedeletecolumn(el, columnNumber, numOfColumns)) {
                       console.log('onbeforedeletecolumn returned false');
                       return false;
                    }
-                }
-				
-                // Can't delete more than the limit of the table
-                if (numOfColumns > obj.options.data[0].length - columnNumber) {
-                    numOfColumns = obj.options.data[0].length - columnNumber;
                 }
 
                 // Can't remove the last column
@@ -4841,12 +4846,15 @@ var jexcel = (function(el, options) {
      * 
      * @return null
      */
-    obj.download = function() {
+    obj.download = function(includeHeaders) {
         if (obj.options.allowExport == false) {
             console.error('Export not allowed');
         } else {
             // Data
             var data = '';
+            if (includeHeaders == true) {
+                data += obj.getHeaders();
+            }
             // Get data
             data += obj.copy(false, ',', true);
             // Download element
@@ -6035,13 +6043,17 @@ jexcel.keyDownControls = function(e) {
                                             // Start edition
                                             jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
                                         }
-                                    } else if ((e.keyCode == 110) ||
+                                    } else if ((e.keyCode == 8) ||
                                                (e.keyCode >= 48 && e.keyCode <= 57) ||
                                                (e.keyCode >= 65 && e.keyCode <= 90) ||
-                                               (e.keyCode >= 96 && e.keyCode <= 105) ||
-                                               (e.keyCode >= 186 && e.keyCode <= 190)) {
+                                               (e.keyCode >= 96 && e.keyCode <= 122) ||
+                                               (e.keyCode >= 187 && e.keyCode <= 190)) {
                                         // Start edition
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                        // Prevent entries in the calendar
+                                        if (jexcel.current.options.columns[columnId].type == 'calendar') {
+                                            e.preventDefault();
+                                        }
                                     } else if (e.keyCode == 113) {
                                         // Start edition with current content F2
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
