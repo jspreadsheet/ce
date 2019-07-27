@@ -5553,7 +5553,7 @@ var jexcel = (function(el, options) {
                 items.push({ type:'line' });
 
                 // Sorting
-                if (obj.options.allowDeleteColumn == true) {
+                if (obj.options.columnSorting == true) {
                     items.push({
                         title:obj.options.text.orderAscending,
                         onclick:function() {
