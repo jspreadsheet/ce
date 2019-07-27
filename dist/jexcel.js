@@ -5557,11 +5557,11 @@ var jexcel = (function(el, options) {
                     });
                 }
 
-                // Line
-                items.push({ type:'line' });
-
                 // Sorting
                 if (obj.options.columnSorting == true) {
+                    // Line
+                    items.push({ type:'line' });
+
                     items.push({
                         title:obj.options.text.orderAscending,
                         onclick:function() {
