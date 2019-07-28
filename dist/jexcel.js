@@ -3594,7 +3594,7 @@ var jexcel = (function(el, options) {
                     // Delete
                     if (obj.ignoreEvents != true) {
                         if (typeof(obj.options.ondeletecolumn) == 'function') {
-                            obj.options.ondeletecolumn(el, columnNumber, numOfColumns, records);
+                            obj.options.ondeletecolumn(el, columnNumber, numOfColumns, historyRecords);
                         }
                     }
                 }
