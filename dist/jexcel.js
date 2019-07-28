@@ -138,6 +138,7 @@ var jexcel = (function(el, options) {
             show: 'Show ',
             search: 'Search',
             entries: ' entries',
+            columnName: 'Column name',
             insertANewColumnBefore: 'Insert a new column before',
             insertANewColumnAfter: 'Insert a new column after',
             deleteSelectedColumns: 'Delete selected columns',
@@ -2459,7 +2460,7 @@ var jexcel = (function(el, options) {
             var oldValue = obj.headers[column].innerText;
 
             if (! newValue) {
-                newValue = prompt('Column name', oldValue)
+                newValue = prompt(obj.options.text.columnName, oldValue)
             }
 
             if (newValue) {
