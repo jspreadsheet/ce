@@ -1096,7 +1096,7 @@ var jexcel = (function(el, options) {
                 });
 
                 if (typeof(obj.options.onmerge) == 'function') {
-                    obj.options.onmerge(el, column, width, oldWidth);
+                    obj.options.onmerge(el, cellName, colspan, rowspan);
                 }
             }
         }
