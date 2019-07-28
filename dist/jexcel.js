@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.3
+ * (c) jExcel v3.3.4
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -166,7 +166,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.4\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -5432,13 +5432,18 @@ var jexcel = (function(el, options) {
     }
 
     obj.hash = function(str) {
-        var output = '';
-        for (var i = 0; i < str.length; i++) {
-            if (str.charCodeAt(i) > 30 && str.charCodeAt(i) <= 127) {
-                output += str.charAt(i);
+        var hash = 0, i, chr;
+
+        if (str.length === 0) {
+            return hash;
+        } else {
+            for (i = 0; i < str.length; i++) {
+              chr = str.charCodeAt(i);
+              hash = ((hash << 5) - hash) + chr;
+              hash |= 0;
             }
         }
-        return output.split('').reduce((prevHash, currVal) => ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0);
+        return hash;
     }
 
     /**
@@ -6085,10 +6090,12 @@ jexcel.isMouseAction = false;
 
 jexcel.mouseDownControls = function(e) {
     e = e || window.event;
-    if ("buttons" in e) {
+    if (e.buttons) {
         var mouseButton = e.buttons;
+    } else if (e.button) {
+        var mouseButton = e.button;
     } else {
-        var mouseButton = e.which || e.button;
+        var mouseButton = e.which;
     }
 
     // Get elements
@@ -6393,10 +6400,12 @@ jexcel.mouseUpControls = function(e) {
 // Mouse move controls
 jexcel.mouseMoveControls = function(e) {
     e = e || window.event;
-    if ("buttons" in e) {
+    if (e.buttons) {
         var mouseButton = e.buttons;
+    } else if (e.button) {
+        var mouseButton = e.button;
     } else {
-        var mouseButton = e.which || e.button;
+        var mouseButton = e.which;
     }
 
     if (! mouseButton) {
@@ -6431,10 +6440,12 @@ jexcel.mouseMoveControls = function(e) {
 
 jexcel.mouseOverControls = function(e) {
     e = e || window.event;
-    if ("buttons" in e) {
+    if (e.buttons) {
         var mouseButton = e.buttons;
+    } else if (e.button) {
+        var mouseButton = e.button;
     } else {
-        var mouseButton = e.which || e.button;
+        var mouseButton = e.which;
     }
 
     if (! mouseButton) {
