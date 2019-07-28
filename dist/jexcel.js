@@ -138,6 +138,7 @@ var jexcel = (function(el, options) {
             show: 'Show ',
             search: 'Search',
             entries: ' entries',
+            columnName: 'Column name',
             insertANewColumnBefore: 'Insert a new column before',
             insertANewColumnAfter: 'Insert a new column after',
             deleteSelectedColumns: 'Delete selected columns',
@@ -1096,7 +1097,7 @@ var jexcel = (function(el, options) {
                 });
 
                 if (typeof(obj.options.onmerge) == 'function') {
-                    obj.options.onmerge(el, column, width, oldWidth);
+                    obj.options.onmerge(el, cellName, colspan, rowspan);
                 }
             }
         }
@@ -2459,7 +2460,7 @@ var jexcel = (function(el, options) {
             var oldValue = obj.headers[column].innerText;
 
             if (! newValue) {
-                newValue = prompt('Column name', oldValue)
+                newValue = prompt(obj.options.text.columnName, oldValue)
             }
 
             if (newValue) {
@@ -3594,7 +3595,7 @@ var jexcel = (function(el, options) {
                     // Delete
                     if (obj.ignoreEvents != true) {
                         if (typeof(obj.options.ondeletecolumn) == 'function') {
-                            obj.options.ondeletecolumn(el, columnNumber, numOfColumns, records);
+                            obj.options.ondeletecolumn(el, columnNumber, numOfColumns, historyRecords);
                         }
                     }
                 }
