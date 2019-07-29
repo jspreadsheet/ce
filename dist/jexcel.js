@@ -2507,7 +2507,7 @@ var jexcel = (function(el, options) {
 
     /**
      * Set meta information to cell(s)
-     * 
+     *
      * @return integer
      */
     obj.setMeta = function(o, k, v) {
@@ -2516,11 +2516,17 @@ var jexcel = (function(el, options) {
         }
 
         if (k && v) {
-            // Set data value
+            // Set cell meta value by key
             if (! obj.options.meta[o]) {
                 obj.options.meta[o] = {};
             }
             obj.options.meta[o][k] = v;
+        } else if (k) {
+            // Set cell meta value
+            if (! obj.options.meta[o]) {
+                obj.options.meta[o] = {};
+            }
+            obj.options.meta[o] = k;
         } else {
             // Apply that for all cells
             var keys = Object.keys(o);
@@ -2535,6 +2541,9 @@ var jexcel = (function(el, options) {
                 }
             }
         }
+
+        // Update table references
+        obj.updateTableReferences();
     }
 
     /**
