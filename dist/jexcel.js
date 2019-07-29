@@ -2738,7 +2738,7 @@ var jexcel = (function(el, options) {
      * Get table config information
      */
     obj.getConfig = function() {
-        var options = obj.options;
+        var options = Object.assign({}, obj.options);
         options.style = obj.getStyle();
         options.mergeCells = obj.getMerge();
 
