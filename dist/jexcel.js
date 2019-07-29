@@ -3091,7 +3091,7 @@ var jexcel = (function(el, options) {
             // Onbeforeinsertrow
             if (typeof(obj.options.onbeforeinsertrow) == 'function') {
                 if (! obj.options.onbeforeinsertrow(el, rowNumber, numOfRows, insertBefore)) {
-                    console.log('onbeforeinsertrow returned false');
+                    console.log('JEXCEL: onbeforeinsertrow returned false');
 
                     return false;
                 }
@@ -3231,7 +3231,7 @@ var jexcel = (function(el, options) {
                 // Onbeforedeleterow
                 if (typeof(obj.options.onbeforedeleterow) == 'function') {
                     if (! obj.options.onbeforedeleterow(el, rowNumber, numOfRows)) {
-                        console.log('onbeforedeleterow returned false');
+                        console.log('JEXCEL: onbeforedeleterow returned false');
                         return false;
                     }
                 }
@@ -3424,7 +3424,7 @@ var jexcel = (function(el, options) {
             // Onbeforeinsertcolumn
             if (typeof(obj.options.onbeforeinsertcolumn) == 'function') {
                 if (! obj.options.onbeforeinsertcolumn(el, columnNumber, numOfColumns, insertBefore)) {
-                    console.log('onbeforeinsertcolumn returned false');
+                    console.log('JEXCEL: onbeforeinsertcolumn returned false');
 
                     return false;
                 }
@@ -3605,7 +3605,7 @@ var jexcel = (function(el, options) {
                 // onbeforedeletecolumn
                 if (typeof(obj.options.onbeforedeletecolumn) == 'function') {
                    if (! obj.options.onbeforedeletecolumn(el, columnNumber, numOfColumns)) {
-                      console.log('onbeforedeletecolumn returned false');
+                      console.log('JEXCEL: onbeforedeletecolumn returned false');
                       return false;
                    }
                 }
@@ -4061,7 +4061,7 @@ var jexcel = (function(el, options) {
         // Code protection
         obj.formulaStack++;
         if (obj.formulaStack > 5) {
-            console.error('Too many executions...');
+            console.error('JEXCEL: Too many executions...');
             return 0;
         }
         // Parent column identification
@@ -4954,7 +4954,7 @@ var jexcel = (function(el, options) {
      */
     obj.download = function(includeHeaders) {
         if (obj.options.allowExport == false) {
-            console.error('Export not allowed');
+            console.error('JEXCEL: Export not allowed');
         } else {
             // Data
             var data = '';
@@ -5487,7 +5487,7 @@ var jexcel = (function(el, options) {
                 }
             }
         } else {
-            console.error('Invalid column');
+            console.error('JEXCEL: Invalid column');
         }
 
         return (value.length > 0) ? value.join('; ') : '';
