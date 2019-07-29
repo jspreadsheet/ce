@@ -2890,6 +2890,90 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Shifts columns meta information
+     *
+     * @param columnIndex - the index of a reference column
+     * @param pivot - desired shift value
+     * @return {Object.<string, Object>} new meta information
+     */
+    obj.shiftColumnMeta = function (columnIndex, pivot = 1) {
+        let newMeta = {};
+        Object.entries(obj.options.meta).forEach(([cellName, metaData]) => {
+            const [x, y] = jexcel.getIdFromColumnName(cellName, true);
+            if (columnIndex <= x) {
+                newMeta[jexcel.getColumnNameFromId([x + pivot, y])] = metaData;
+            } else {
+                newMeta[cellName] = metaData;
+            }
+        });
+
+        return obj.options.meta = newMeta;
+    };
+
+    /**
+     * Shifts rows meta information
+     *
+     * @param rowIndex - the index of a reference row
+     * @param pivot - desired shift value
+     * @return {Object.<string, Object>} new meta information
+     */
+    obj.shiftRowMeta = function (rowIndex, pivot = 1) {
+        let newMeta = {};
+        Object.entries(obj.options.meta).forEach(([cellName, metaData]) => {
+            const [x, y] = jexcel.getIdFromColumnName(cellName, true);
+            if (rowIndex <= y) {
+                newMeta[jexcel.getColumnNameFromId([x, y + pivot])] = metaData;
+            } else {
+                newMeta[cellName] = metaData;
+            }
+        });
+
+        return obj.options.meta = newMeta;
+    };
+
+    /**
+     * Deletes columns meta information
+     *
+     * @param columnIndex - the index of a reference column
+     * @param numberOfColumns - how many columns are deleted
+     * @return {Object.<string, Object>} new meta information
+     */
+    obj.deleteColumnMeta = function (columnIndex, numberOfColumns = 1) {
+        let newMeta = {};
+        Object.entries(obj.options.meta).forEach(([cellName, metaData]) => {
+            const [x, y] = jexcel.getIdFromColumnName(cellName, true);
+            if (columnIndex <= x && x < columnIndex + numberOfColumns) {
+                // delete
+            } else {
+                newMeta[cellName] = metaData;
+            }
+        });
+
+        return obj.options.meta = newMeta;
+    };
+
+    /**
+     * Deletes rows meta information
+     *
+     * @param rowIndex - the index of a reference column
+     * @param numberOfRows - how many rows are deleted
+     * @return {Object.<string, Object>} new meta information
+     */
+    obj.deleteRowMeta = function (rowIndex, numberOfRows = 1) {
+        let newMeta = {};
+        Object.entries(obj.options.meta).forEach(([cellName, metaData]) => {
+            const [x, y] = jexcel.getIdFromColumnName(cellName, true);
+            if (rowIndex <= y && y < rowIndex + numberOfRows) {
+                // delete
+            } else {
+                newMeta[cellName] = metaData;
+            }
+        });
+
+        return obj.options.meta = newMeta;
+    };
+
+    /**
      * Move row
      * 
      * @return void
@@ -3080,7 +3164,10 @@ var jexcel = (function(el, options) {
                 rowNode: rowNode,
             });
 
-            // Remove table references
+            // Update meta
+            obj.shiftRowMeta(rowIndex, 1);
+
+            // Update table references
             obj.updateTableReferences();
 
             // Events
@@ -3203,7 +3290,11 @@ var jexcel = (function(el, options) {
                         rowNode: rowNode
                     });
 
-                    // Remove table references
+                    // Delete meta
+                    obj.deleteRowMeta(rowNumber, numOfRows);
+                    obj.shiftRowMeta(rowNumber, -1 * numOfRows);
+
+                    // Delete table references
                     obj.updateTableReferences();
 
                     // Events
@@ -3218,7 +3309,6 @@ var jexcel = (function(el, options) {
             }
         }
     }
-
 
     /**
      * Move column
@@ -3281,7 +3371,6 @@ var jexcel = (function(el, options) {
             }
         }
     }
-
 
     /**
      * Insert a new column
@@ -3444,7 +3533,10 @@ var jexcel = (function(el, options) {
                 data:historyData,
             });
 
-            // Remove table references
+            // Update meta
+            obj.shiftColumnMeta(columnIndex, 1);
+
+            // Update table references
             obj.updateTableReferences();
 
             // Events
@@ -3589,7 +3681,11 @@ var jexcel = (function(el, options) {
                         data:historyData,
                     });
 
-                    // Update table references
+                    // Delete meta
+                    obj.deleteColumnMeta(columnNumber, numOfColumns);
+                    obj.shiftColumnMeta(columnNumber, -1 * numOfColumns);
+
+                    // Delete table references
                     obj.updateTableReferences();
 
                     // Delete
