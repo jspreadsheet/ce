@@ -1550,7 +1550,7 @@ var jexcel = (function(el, options) {
             var y = columnId[1];
 
             // Update cell
-            records.push(obj.updateCell(x, y, value));
+            records.push(obj.updateCell(x, y, value, force));
          } else {
             var keys = Object.keys(cell);
             if (keys.length > 0) {
@@ -1559,14 +1559,14 @@ var jexcel = (function(el, options) {
                     var y = cell[i].getAttribute('data-y');
 
                     // Update cell
-                    records.push(obj.updateCell(x, y, value));
+                    records.push(obj.updateCell(x, y, value, force));
                 }
             } else {
                 var x = cell.getAttribute('data-x');
                 var y = cell.getAttribute('data-y');
 
                 // Update cell
-                records.push(obj.updateCell(x, y, value));
+                records.push(obj.updateCell(x, y, value, force));
             }
         }
 
