@@ -127,6 +127,7 @@ var jexcel = (function(el, options) {
         onselection:null,
         onpaste:null,
         onmerge:null,
+        onremovemerge:null,
         onfocus:null,
         onblur:null,
         // Customize any cell behavior
@@ -1087,6 +1088,9 @@ var jexcel = (function(el, options) {
             // In the initialization is not necessary keep the history
             obj.updateSelection(obj.records[cell[1]][cell[0]]);
 
+            // Update table references
+            obj.updateTableReferences();
+
             if (! ignoreHistoryAndEvents) {
                 obj.setHistory({
                     action:'setMerge',
@@ -1135,7 +1139,7 @@ var jexcel = (function(el, options) {
      * Remove merge by cellname
      * @param cellName
      */
-    obj.removeMerge = function(cellName, data, keepOptions) {
+    obj.removeMerge = function(cellName, data, keepOptions, ignoreHistoryAndEvents) {
         if (obj.options.mergeCells[cellName]) {
             var cell = jexcel.getIdFromColumnName(cellName, true);
             obj.records[cell[1]][cell[0]].removeAttribute('colspan');
@@ -1161,8 +1165,25 @@ var jexcel = (function(el, options) {
             // Update selection
             obj.updateSelection(obj.records[cell[1]][cell[0]], obj.records[cell[1]+j-1][cell[0]+i-1]);
 
+            // Update table references
+            obj.updateTableReferences();
+
             if (! keepOptions) {
                 delete(obj.options.mergeCells[cellName]);
+            }
+
+            if (! ignoreHistoryAndEvents) {
+                obj.setHistory({
+                    action: 'removeMerge',
+                    column: cellName,
+                    colspan: info[0],
+                    rowspan: info[1],
+                    // data: data,
+                });
+
+                if (typeof(obj.options.onremovemerge) == 'function') {
+                    obj.options.onremovemerge(el, cellName, info[0], info[1]/*, data*/);
+                }
             }
         }
     }
