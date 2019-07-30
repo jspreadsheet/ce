@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.4
+ * (c) jExcel v3.3.5
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -86,7 +86,7 @@ var jexcel = (function(el, options) {
         // Disable corner selection
         selectionCopy:true,
         // Merged cells
-        mergeCells:[],
+        mergeCells:{},
         // Create toolbar
         toolbar:null,
         // Allow search
@@ -166,7 +166,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.4\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.5\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -2738,7 +2738,7 @@ var jexcel = (function(el, options) {
      * Get table config information
      */
     obj.getConfig = function() {
-        var options = Object.assign({}, obj.options);
+        var options = obj.options;
         options.style = obj.getStyle();
         options.mergeCells = obj.getMerge();
 
@@ -4706,6 +4706,11 @@ var jexcel = (function(el, options) {
      * Which page the cell is
      */
     obj.whichPage = function(cell) {
+        // Search
+        if (obj.options.search == true && obj.results) {
+            cell = obj.results.indexOf(cell);
+        }
+
         return (Math.ceil((parseInt(cell) + 1) / parseInt(obj.options.pagination))) - 1;
     }
 
