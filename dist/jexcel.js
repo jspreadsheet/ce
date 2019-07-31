@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.4
+ * (c) jExcel v3.3.5
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -86,7 +86,7 @@ var jexcel = (function(el, options) {
         // Disable corner selection
         selectionCopy:true,
         // Merged cells
-        mergeCells:[],
+        mergeCells:{},
         // Create toolbar
         toolbar:null,
         // Allow search
@@ -167,7 +167,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.4\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.5\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -1571,7 +1571,7 @@ var jexcel = (function(el, options) {
             var y = columnId[1];
 
             // Update cell
-            records.push(obj.updateCell(x, y, value));
+            records.push(obj.updateCell(x, y, value, force));
          } else {
             var keys = Object.keys(cell);
             if (keys.length > 0) {
@@ -1580,14 +1580,14 @@ var jexcel = (function(el, options) {
                     var y = cell[i].getAttribute('data-y');
 
                     // Update cell
-                    records.push(obj.updateCell(x, y, value));
+                    records.push(obj.updateCell(x, y, value, force));
                 }
             } else {
                 var x = cell.getAttribute('data-x');
                 var y = cell.getAttribute('data-y');
 
                 // Update cell
-                records.push(obj.updateCell(x, y, value));
+                records.push(obj.updateCell(x, y, value, force));
             }
         }
 
@@ -4832,6 +4832,11 @@ var jexcel = (function(el, options) {
      * Which page the cell is
      */
     obj.whichPage = function(cell) {
+        // Search
+        if (obj.options.search == true && obj.results) {
+            cell = obj.results.indexOf(cell);
+        }
+
         return (Math.ceil((parseInt(cell) + 1) / parseInt(obj.options.pagination))) - 1;
     }
 
@@ -4980,7 +4985,7 @@ var jexcel = (function(el, options) {
             // Data
             var data = '';
             if (includeHeaders == true) {
-                data += obj.getHeaders();
+                data += obj.getHeaders().concat('\n');
             }
             // Get data
             data += obj.copy(false, ',', true);
