@@ -4872,7 +4872,7 @@ var jexcel = (function(el, options) {
             // Data
             var data = '';
             if (includeHeaders == true) {
-                data += obj.getHeaders();
+                data += obj.getHeaders().concat('\n');
             }
             // Get data
             data += obj.copy(false, ',', true);
