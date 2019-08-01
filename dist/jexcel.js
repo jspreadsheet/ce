@@ -322,15 +322,8 @@ var jexcel = (function(el, options) {
             }
         }
 
-        if (requests.length) {
-            Promise.all(requests).then(function(data) {
-                for (var i = 0; i < data.length; i++) {
-                    obj.options.columns[i].source = data[i];
-                }
-                obj.createTable();
-            });
-        } else {
-            // Create table
+        // On complete
+        if (! multiple.length) {
             obj.createTable();
         }
     }
@@ -4872,7 +4865,8 @@ var jexcel = (function(el, options) {
             // Data
             var data = '';
             if (includeHeaders == true) {
-                data += obj.getHeaders().concat('\n');
+                data += obj.getHeaders();
+                data += "\r\n";
             }
             // Get data
             data += obj.copy(false, ',', true);
