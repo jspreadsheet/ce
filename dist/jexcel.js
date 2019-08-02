@@ -1507,7 +1507,7 @@ var jexcel = (function(el, options) {
      * @param object cell
      * @return string value
      */
-    obj.getValue = function(cell) {
+    obj.getValue = function(cell, processedValue) {
         if (typeof(cell) == 'object') {
             var x = cell.getAttribute('data-x');
             var y = cell.getAttribute('data-y');
@@ -1518,7 +1518,11 @@ var jexcel = (function(el, options) {
         }
 
         if (x != null && y != null) {
-            return obj.options.data[y][x];
+            if (processedValue || obj.options.copyCompatibility == true) {
+                return obj.records[y][x].innerHTML;
+            } else {
+                return obj.options.data[y][x];
+            }
         }
 
         return null;
@@ -1531,9 +1535,13 @@ var jexcel = (function(el, options) {
      * @param int y
      * @return string value
      */
-    obj.getValueFromCoords = function(x, y) {
+    obj.getValueFromCoords = function(x, y, processedValue) {
         if (x != null && y != null) {
-            return obj.options.data[y][x];
+            if (processedValue || obj.options.copyCompatibility == true) {
+                return obj.records[y][x].innerHTML;
+            } else {
+                return obj.options.data[y][x];
+            }
         }
     }
 
