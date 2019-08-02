@@ -266,21 +266,21 @@
 }
 
 .jexcel .highlight-top {
-    border-top:1px solid #000; // var(--jexcel-border-color);
+    border-top:1px solid #000; /* var(--jexcel-border-color);*/
     box-shadow: 0px -1px #ccc;
 }
 
 .jexcel .highlight-left {
-    border-left:1px solid #000; // var(--jexcel-border-color);
+    border-left:1px solid #000; /* var(--jexcel-border-color);*/
     box-shadow: -1px 0px #ccc;
 }
 
 .jexcel .highlight-right {
-    border-right:1px solid #000; // var(--jexcel-border-color);
+    border-right:1px solid #000; /* var(--jexcel-border-color);*/
 }
 
 .jexcel .highlight-bottom {
-    border-bottom:1px solid #000; // var(--jexcel-border-color);
+    border-bottom:1px solid #000; /* var(--jexcel-border-color);*/
 }
 
 .jexcel .highlight-top.highlight-left {
