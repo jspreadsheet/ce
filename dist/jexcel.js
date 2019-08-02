@@ -5569,7 +5569,7 @@ var jexcel = (function(el, options) {
                     items.push({
                         title:obj.options.text.deleteSelectedColumns,
                         onclick:function() {
-                            obj.deleteColumn();
+                            obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
                         }
                     });
                 }
