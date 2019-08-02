@@ -268,7 +268,7 @@ var jexcel = (function(el, options) {
             // Default column description
             if (! obj.options.columns[i]) {
                 obj.options.columns[i] = { type:'text' };
-            } else if (! obj.options.columns[i]) {
+            } else if (! obj.options.columns[i].type) {
                 obj.options.columns[i].type = 'text';
             }
             if (! obj.options.columns[i].source) {
