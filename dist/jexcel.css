@@ -266,21 +266,21 @@
 }
 
 .jexcel .highlight-top {
-    border-top:1px solid var(--jexcel-border-color);
+    border-top:1px solid #000; // var(--jexcel-border-color);
     box-shadow: 0px -1px #ccc;
 }
 
 .jexcel .highlight-left {
-    border-left:1px solid var(--jexcel-border-color);
+    border-left:1px solid #000; // var(--jexcel-border-color);
     box-shadow: -1px 0px #ccc;
 }
 
 .jexcel .highlight-right {
-    border-right:1px solid var(--jexcel-border-color);
+    border-right:1px solid #000; // var(--jexcel-border-color);
 }
 
 .jexcel .highlight-bottom {
-    border-bottom:1px solid var(--jexcel-border-color);
+    border-bottom:1px solid #000; // var(--jexcel-border-color);
 }
 
 .jexcel .highlight-top.highlight-left {
@@ -317,14 +317,15 @@
 {
     position:absolute;
     background-color: rgb(0, 0, 0);
-    height: 5px;
-    width: 5px;
+    height: 1px;
+    width: 1px;
     border: 1px solid rgb(255, 255, 255);
     top:-2000px;
     left:-2000px;
     cursor:crosshair;
     box-sizing: initial;
-    z-index:10000;
+    z-index:7000;
+    padding: 2px;
 }
 
 .jexcel .editor
@@ -347,7 +348,7 @@
 {
     position:fixed;
     top:100%;
-    z-index:9000;
+    z-index:8000;
     user-select:none;
     -webkit-font-smoothing: antialiased;
     font-size: .875rem;

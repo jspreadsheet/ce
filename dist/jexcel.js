@@ -251,8 +251,7 @@ var jexcel = (function(el, options) {
         }
 
         // Requests
-        var requests = [];
-        var requestsIndex = [];
+        var multiple = [];
 
         // Preparations
         for (var i = 0; i < size; i++) {
@@ -299,11 +298,22 @@ var jexcel = (function(el, options) {
             if (obj.options.columns[i].type == 'autocomplete' || obj.options.columns[i].type == 'dropdown') {
                 // if remote content
                 if (obj.options.columns[i].url) {
-                    requestsIndex.push(i);
-                    requests.push(fetch(obj.options.columns[i].url, { headers: new Headers({ 'content-type': 'text/json' }) })
-                        .then(function(data) {
-                            return data.json();
-                        }));
+                    multiple.push(jSuites.ajax({
+                        url: obj.options.columns[i].url,
+                        index: i,
+                        method: 'GET',
+                        dataType: 'json',
+                        multiple: multiple,
+                        success: function(data) {
+                            var source = [];
+                            for (var i = 0; i < data.length; i++) {
+                                obj.options.columns[this.index].source.push(data[i]);
+                            }
+                        },
+                        complete: function() {
+                            obj.createTable();
+                        }
+                    }));
                 }
             } else if (obj.options.columns[i].type == 'calendar') {
                 // Default format for date columns
@@ -313,15 +323,8 @@ var jexcel = (function(el, options) {
             }
         }
 
-        if (requests.length) {
-            Promise.all(requests).then(function(data) {
-                for (var i = 0; i < data.length; i++) {
-                    obj.options.columns[i].source = data[i];
-                }
-                obj.createTable();
-            });
-        } else {
-            // Create table
+        // On complete
+        if (! multiple.length) {
             obj.createTable();
         }
     }
@@ -4165,12 +4168,15 @@ var jexcel = (function(el, options) {
                         var number = ('' + value);
                         var decimal = obj.options.columns[position[0]].decimal || '.';
                         number = number.split(decimal);
-                        number[0] = number[0].match(/[0-9]*/g).join('');
+                        number[0] = number[0].match(/[+-]?[0-9]/g);
+                        if (number[0]) {
+                            number[0] = number[0].join('');
+                        } 
                         if (number[1]) {
                             number[1] = number[1].match(/[0-9]*/g).join('');
                         }
                         // Got a valid number
-                        if (number[0] != '' && Number(number[0]) >= 0) {
+                        if (number[0] && Number(number[0]) >= 0) {
                             if (! number[1]) {
                                 evalstring += "var " + tokens[i] + " = " + number[0] + ".00;";
                             } else {
@@ -4985,7 +4991,8 @@ var jexcel = (function(el, options) {
             // Data
             var data = '';
             if (includeHeaders == true) {
-                data += obj.getHeaders().concat('\n');
+                data += obj.getHeaders();
+                data += "\r\n";
             }
             // Get data
             data += obj.copy(false, ',', true);
@@ -5589,23 +5596,25 @@ var jexcel = (function(el, options) {
             jexcel.build = null;
         }
 
-        // Loading
-        if (obj.options.loadingSpin == true) {
-            jSuites.loading.show();
-        }
-
         // Load the table data based on an CSV file
         if (obj.options.csv) {
+            // Loading
+            if (obj.options.loadingSpin == true) {
+                jSuites.loading.show();
+            }
+
             // Load CSV file
-            fetch(obj.options.csv)
-                .then(function(data) {
-                    data.text().then(function(data) {
-                        // Convert data
-                        var data = obj.parseCSV(data, obj.options.csvDelimiter)
+            jSuites.ajax({
+                url: obj.options.csv,
+                method: 'GET',
+                dataType: 'text',
+                success: function(result) {
+                    // Convert data
+                    var newData = obj.parseCSV(result, obj.options.csvDelimiter)
 
                         // Headers
-                        if (obj.options.csvHeaders == true && data.length > 0) {
-                            var headers = data.shift();
+                    if (obj.options.csvHeaders == true && newData.length > 0) {
+                        var headers = newData.shift();
                             for(var i = 0; i < headers.length; i++) {
                                 if (! obj.options.columns[i]) {
                                     obj.options.columns[i] = { type:'text', align:'center', width:obj.options.defaultColWidth };
@@ -5618,19 +5627,26 @@ var jexcel = (function(el, options) {
                         }
 
                         // Data
-                        obj.options.data = data;
+                    obj.options.data = newData;
                         // Prepare table
                         obj.prepareTable();
                         // Hide spin
                         if (obj.options.loadingSpin == true) {
                             jSuites.loading.hide();
                         }
+                }
                     });
-                });
         } else if (obj.options.url) {
-            fetch(obj.options.url, { headers: new Headers({ 'content-type': 'text/json' }) })
-                .then(function(data) {
-                    data.json().then(function(result) {
+            // Loading
+            if (obj.options.loadingSpin == true) {
+                jSuites.loading.show();
+            }
+
+            jSuites.ajax({
+                url: obj.options.url,
+                method: 'GET',
+                dataType: 'json',
+                success: function(result) {
                         // Data
                         obj.options.data = (result.data) ? result.data : result;
                         // Prepare table
@@ -5639,8 +5655,8 @@ var jexcel = (function(el, options) {
                         if (obj.options.loadingSpin == true) {
                             jSuites.loading.hide();
                         }
-                    });
-                });
+                }
+            });
         } else {
             // Prepare table
             obj.prepareTable();
@@ -5851,7 +5867,7 @@ var jexcel = (function(el, options) {
         }
     }
 
-    el.addEventListener("scroll", obj.scrollControls);
+    el.addEventListener("DOMMouseScroll", obj.scrollControls);
     el.addEventListener("mousewheel", obj.scrollControls);
 
     obj.init();
@@ -6543,26 +6559,52 @@ jexcel.mouseMoveControls = function(e) {
         jexcel.isMouseAction = false;
     }
 
-    if (jexcel.current && jexcel.isMouseAction == true) {
-        // Resizing is ongoing
-        if (jexcel.current.resizing) {
-            if (jexcel.current.resizing.column) {
-                var width = e.pageX - jexcel.current.resizing.mousePosition;
+    if (jexcel.current) {
+        if (jexcel.isMouseAction == true) {
+            // Resizing is ongoing
+            if (jexcel.current.resizing) {
+                if (jexcel.current.resizing.column) {
+                    var width = e.pageX - jexcel.current.resizing.mousePosition;
 
-                if (jexcel.current.resizing.width + width > 0) {
-                    var tempWidth = jexcel.current.resizing.width + width;
-                    jexcel.current.colgroup[jexcel.current.resizing.column].setAttribute('width', tempWidth);
+                    if (jexcel.current.resizing.width + width > 0) {
+                        var tempWidth = jexcel.current.resizing.width + width;
+                        jexcel.current.colgroup[jexcel.current.resizing.column].setAttribute('width', tempWidth);
 
-                    jexcel.current.updateCornerPosition();
+                        jexcel.current.updateCornerPosition();
+                    }
+                } else {
+                    var height = e.pageY - jexcel.current.resizing.mousePosition;
+
+                    if (jexcel.current.resizing.height + height > 0) {
+                        var tempHeight = jexcel.current.resizing.height + height;
+                        jexcel.current.rows[jexcel.current.resizing.row].setAttribute('height', tempHeight);
+
+                        jexcel.current.updateCornerPosition();
+                    }
                 }
-            } else {
-                var height = e.pageY - jexcel.current.resizing.mousePosition;
+            }
+        } else {
+            var x = e.target.getAttribute('data-x');
+            var y = e.target.getAttribute('data-y');
+            var rect = e.target.getBoundingClientRect();
 
-                if (jexcel.current.resizing.height + height > 0) {
-                    var tempHeight = jexcel.current.resizing.height + height;
-                    jexcel.current.rows[jexcel.current.resizing.row].setAttribute('height', tempHeight);
+            if (e.target.style.cursor) {
+                e.target.style.cursor = '';
+            }
 
-                    jexcel.current.updateCornerPosition();
+            if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.classList.contains('resizable')) {
+                if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
+                    e.target.style.cursor = 'col-resize';
+                } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
+                    e.target.style.cursor = 'row-resize';
+                }
+            }
+
+            if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.classList.contains('draggable')) {
+                if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
+                    e.target.style.cursor = 'move';
+                } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
+                    e.target.style.cursor = 'move';
                 }
             }
         }
