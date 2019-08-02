@@ -1,11 +1,14 @@
 /**
- * (c) jExcel v3.3.5
+ * (c) jExcel v3.3.6
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
  * Description: Create amazing web based spreadsheets.
  * 
  * This software is distribute under MIT License
+ * 
+ * ROADMAP:
+ * Frozen columns
  */
 
 'use strict';
@@ -166,7 +169,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.5\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.3.6\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -1517,15 +1520,21 @@ var jexcel = (function(el, options) {
             var y = cell[1];
         }
 
+        var value = null;
+
         if (x != null && y != null) {
             if (processedValue || obj.options.copyCompatibility == true) {
-                return obj.records[y][x].innerHTML;
+                if (obj.records[y] && obj.records[y][x]) {
+                    value = obj.records[y][x].innerHTML;
+                }
             } else {
-                return obj.options.data[y][x];
+                if (obj.options.data[y] && obj.options.data[y][x]) {
+                    value = obj.options.data[y][x];
+                }
             }
         }
 
-        return null;
+        return value;
     }
 
     /**
@@ -1536,20 +1545,28 @@ var jexcel = (function(el, options) {
      * @return string value
      */
     obj.getValueFromCoords = function(x, y, processedValue) {
+        var value = null;
+
         if (x != null && y != null) {
             if (processedValue || obj.options.copyCompatibility == true) {
-                return obj.records[y][x].innerHTML;
+                if (obj.records[y] && obj.records[y][x]) {
+                    value = obj.records[y][x].innerHTML;
+                }
             } else {
-                return obj.options.data[y][x];
+                if (obj.options.data[y] && obj.options.data[y][x]) {
+                    value = obj.options.data[y][x];
+                }
             }
         }
+
+        return value;
     }
 
     /**
      * Set a cell value
      * 
-     * @param object cell destination cell
-     * @param object value value
+     * @param mixed cell destination cell
+     * @param string value value
      * @return void
      */
     obj.setValue = function(cell, value, force) {
@@ -1562,24 +1579,58 @@ var jexcel = (function(el, options) {
 
             // Update cell
             records.push(obj.updateCell(x, y, value, force));
-         } else {
-            var keys = Object.keys(cell);
-            if (keys.length > 0) {
-                for (var i = 0; i < keys.length; i++) {
-                    var x = cell[i].getAttribute('data-x');
-                    var y = cell[i].getAttribute('data-y');
-
-                    // Update cell
-                    records.push(obj.updateCell(x, y, value, force));
-                }
-            } else {
+        } else {
+            var x = null;
+            var y = null;
+            if (cell.getAttribute) {
                 var x = cell.getAttribute('data-x');
                 var y = cell.getAttribute('data-y');
+            }
 
-                // Update cell
+            // Update cell
+            if (x && y) {
                 records.push(obj.updateCell(x, y, value, force));
+            } else {
+                var keys = Object.keys(cell);
+                if (keys.length > 0) {
+                    for (var i = 0; i < keys.length; i++) {
+                        var x = cell[i].getAttribute('data-x');
+                        var y = cell[i].getAttribute('data-y');
+
+                         // Update cell
+                        if (x && y) {
+                            records.push(obj.updateCell(x, y, value, force));
+                        }
+                    }
+                }
             }
         }
+
+        // Update all formulas in the chain
+        obj.updateFormulaChain(x, y, records);
+
+        // Update history
+        obj.setHistory({
+            action:'setValue',
+            records:records,
+            selection:obj.selectedCell,
+        });
+
+        // Update table with custom configurations if applicable
+        obj.updateTable();
+    }
+
+    /**
+     * Set a cell value based on coordinates
+     * 
+     * @param int x destination cell
+     * @param int y destination cell
+     * @param string value
+     * @return void
+     */
+    obj.setValueFromCoords = function(x, y, value, force) {
+        var records = [];
+        records.push(obj.updateCell(x, y, value, force));
 
         // Update all formulas in the chain
         obj.updateFormulaChain(x, y, records);
@@ -5494,30 +5545,29 @@ var jexcel = (function(el, options) {
                     // Convert data
                     var newData = obj.parseCSV(result, obj.options.csvDelimiter)
 
-                        // Headers
+                    // Headers
                     if (obj.options.csvHeaders == true && newData.length > 0) {
                         var headers = newData.shift();
-                            for(var i = 0; i < headers.length; i++) {
-                                if (! obj.options.columns[i]) {
-                                    obj.options.columns[i] = { type:'text', align:'center', width:obj.options.defaultColWidth };
-                                }
-                                // Precedence over pre-configurated titles
-                                if (typeof obj.options.columns[i].title === 'undefined') {
-                                  obj.options.columns[i].title = headers[i];
-                                }
+                        for(var i = 0; i < headers.length; i++) {
+                            if (! obj.options.columns[i]) {
+                                obj.options.columns[i] = { type:'text', align:'center', width:obj.options.defaultColWidth };
+                            }
+                            // Precedence over pre-configurated titles
+                            if (typeof obj.options.columns[i].title === 'undefined') {
+                              obj.options.columns[i].title = headers[i];
                             }
                         }
-
-                        // Data
+                    }
+                    // Data
                     obj.options.data = newData;
-                        // Prepare table
-                        obj.prepareTable();
-                        // Hide spin
-                        if (obj.options.loadingSpin == true) {
-                            jSuites.loading.hide();
-                        }
+                    // Prepare table
+                    obj.prepareTable();
+                    // Hide spin
+                    if (obj.options.loadingSpin == true) {
+                        jSuites.loading.hide();
+                    }
                 }
-                    });
+            });
         } else if (obj.options.url) {
             // Loading
             if (obj.options.loadingSpin == true) {
@@ -5529,14 +5579,14 @@ var jexcel = (function(el, options) {
                 method: 'GET',
                 dataType: 'json',
                 success: function(result) {
-                        // Data
-                        obj.options.data = (result.data) ? result.data : result;
-                        // Prepare table
-                        obj.prepareTable();
-                        // Hide spin
-                        if (obj.options.loadingSpin == true) {
-                            jSuites.loading.hide();
-                        }
+                    // Data
+                    obj.options.data = (result.data) ? result.data : result;
+                    // Prepare table
+                    obj.prepareTable();
+                    // Hide spin
+                    if (obj.options.loadingSpin == true) {
+                        jSuites.loading.hide();
+                    }
                 }
             });
         } else {
@@ -6474,19 +6524,21 @@ jexcel.mouseMoveControls = function(e) {
                 e.target.style.cursor = '';
             }
 
-            if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.classList.contains('resizable')) {
-                if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
-                    e.target.style.cursor = 'col-resize';
-                } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
-                    e.target.style.cursor = 'row-resize';
+            if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
+                if (e.target.parentNode.parentNode.classList.contains('resizable')) {
+                    if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
+                        e.target.style.cursor = 'col-resize';
+                    } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
+                        e.target.style.cursor = 'row-resize';
+                    }
                 }
-            }
 
-            if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.classList.contains('draggable')) {
-                if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
-                    e.target.style.cursor = 'move';
-                } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
-                    e.target.style.cursor = 'move';
+                if (e.target.parentNode.parentNode.classList.contains('draggable')) {
+                    if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
+                        e.target.style.cursor = 'move';
+                    } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
+                        e.target.style.cursor = 'move';
+                    }
                 }
             }
         }
