@@ -5624,7 +5624,7 @@ var jexcel = (function(el, options) {
                     items.push({
                         title:obj.options.text.deleteSelectedRows,
                         onclick:function() {
-                            obj.deleteRow();
+                            obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
                         }
                     });
                 }
