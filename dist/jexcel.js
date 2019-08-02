@@ -17,8 +17,8 @@ if (! jSuites && typeof(require) === 'function') {
 
 var jexcel = (function(el, options) {
     // Create jexcel object
-    var obj = {};
-    obj.options = {};
+    var obj = { options: {} };
+    el.jexcel = obj;
 
     // Loading default configuration
     var defaults = {
@@ -5745,8 +5745,6 @@ var jexcel = (function(el, options) {
     el.addEventListener("mousewheel", obj.scrollControls);
 
     obj.init();
-
-    el.jexcel = obj;
 
     return obj;
 });
