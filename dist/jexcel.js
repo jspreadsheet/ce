@@ -5802,9 +5802,9 @@ var jexcel = (function(el, options) {
     el.addEventListener("DOMMouseScroll", obj.scrollControls);
     el.addEventListener("mousewheel", obj.scrollControls);
 
-    obj.init();
-
     el.jexcel = obj;
+
+    obj.init();
 
     return obj;
 });
