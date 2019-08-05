@@ -1270,6 +1270,13 @@ var jexcel = (function(el, options) {
         var y = cell.getAttribute('data-y');
         var x = cell.getAttribute('data-x');
 
+        // On edition start
+        if (! obj.ignoreEvents) {
+            if (typeof(obj.options.oneditionstart) == 'function') {
+                obj.options.oneditionstart(el, cell, x, y);
+            }
+        }
+
         // Overflow
         if (x > 0) {
             obj.records[y][x-1].style.overflow = 'hidden';
@@ -1504,6 +1511,13 @@ var jexcel = (function(el, options) {
 
         // Finish edition
         obj.edition = null;
+
+        // On edition end
+        if (! obj.ignoreEvents) {
+            if (typeof(obj.options.oneditionend) == 'function') {
+                obj.options.oneditionend(el, cell, x, y, value);
+            }
+        }
     },
 
     /**
