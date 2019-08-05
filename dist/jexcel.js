@@ -134,6 +134,8 @@ var jexcel = (function(el, options) {
         onfocus:null,
         onblur:null,
         onchangeheader:null,
+        oneditionstart:null,
+        oneditionend:null,
         // Customize any cell behavior
         updateTable:null,
         // Texts
