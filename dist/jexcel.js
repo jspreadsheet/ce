@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.3.6
+ * (c) jExcel v3.4.0
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -9,6 +9,7 @@
  * 
  * ROADMAP:
  * Frozen columns
+ * Meta information
  */
 
 'use strict';
@@ -132,6 +133,7 @@ var jexcel = (function(el, options) {
         onmerge:null,
         onfocus:null,
         onblur:null,
+        onchangeheader:null,
         // Customize any cell behavior
         updateTable:null,
         // Texts
@@ -169,7 +171,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.3.6\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.4.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -1686,7 +1688,13 @@ var jexcel = (function(el, options) {
             // On change
             if (! obj.ignoreEvents) {
                 if (typeof(obj.options.onbeforechange) == 'function') {
-                    obj.options.onbeforechange(el, obj.records[y][x], x, y, value);
+                    // Overwrite a value
+                    var val = obj.options.onbeforechange(el, obj.records[y][x], x, y, value);
+
+                    // If you return something this will overwrite the value
+                    if (val != 'undefined') {
+                        value = val;
+                    }
                 }
             }
 
@@ -2535,6 +2543,14 @@ var jexcel = (function(el, options) {
                 oldValue: oldValue,
                 newValue: newValue
             });
+
+            // On change
+            if (! obj.ignoreEvents) {
+                if (typeof(obj.options.onchangeheader) == 'function') {
+                    obj.options.onchangeheader(el, column, oldValue, newValue);
+                }
+            }
+            
         }
     }
 
@@ -2561,7 +2577,7 @@ var jexcel = (function(el, options) {
      */
     obj.getMeta = function(cell, key) {
         if (! cell) {
-           return obj.options.meta;
+            return obj.options.meta;
         } else {
             return key ? obj.options.meta[cell][key] : obj.options.meta[cell];
         }
