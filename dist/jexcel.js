@@ -4735,7 +4735,7 @@ var jexcel = (function(el, options) {
 
         if (query) {
             // Search filter
-1            var search = function(item, query, index) {
+            var search = function(item, query, index) {
                 for (var i = 0; i < item.length; i++) {
                     if ((''+item[i]).toLowerCase().search(query) >= 0 ||
                         (''+obj.records[index][i].innerHTML).toLowerCase().search(query) >= 0) {
