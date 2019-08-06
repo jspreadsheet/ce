@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.4.0
+ * (c) jExcel v3.4.1
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -136,6 +136,8 @@ var jexcel = (function(el, options) {
         onchangeheader:null,
         oneditionstart:null,
         oneditionend:null,
+        onchangestyle:null,
+        onchangemeta:null,
         // Customize any cell behavior
         updateTable:null,
         // Texts
@@ -173,7 +175,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.4.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -2629,6 +2631,12 @@ var jexcel = (function(el, options) {
                 }
             }
         }
+
+        if (obj.ignoreEvents != true) {
+            if (typeof(obj.options.onchangemeta) == 'function') {
+                obj.options.onchangemeta(el, o, k, v);
+            }
+        }
     }
 
     /**
@@ -2775,6 +2783,12 @@ var jexcel = (function(el, options) {
                 oldValue: oldValue,
                 newValue: newValue,
             });
+        }
+
+        if (obj.ignoreEvents != true) {
+            if (typeof(obj.options.onchangestyle) == 'function') {
+                obj.options.onchangestyle(el, o, k, v);
+            }
         }
     }
 
@@ -4721,9 +4735,10 @@ var jexcel = (function(el, options) {
 
         if (query) {
             // Search filter
-            var search = function(item, query) {
+1            var search = function(item, query, index) {
                 for (var i = 0; i < item.length; i++) {
-                    if ((''+item[i]).toLowerCase().search(query) >= 0) {
+                    if ((''+item[i]).toLowerCase().search(query) >= 0 ||
+                        (''+obj.records[index][i].innerHTML).toLowerCase().search(query) >= 0) {
                         return true;
                     }
                 }
@@ -4739,7 +4754,7 @@ var jexcel = (function(el, options) {
 
             // Filter
             var data = obj.options.data.filter(function(v, k) {
-                if (search(v, query)) {
+                if (search(v, query, k)) {
                     // Merged rows found
                     var rows = obj.isRowMerged(k);
                     if (rows.length) {
