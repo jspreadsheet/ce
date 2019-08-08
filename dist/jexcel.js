@@ -5011,6 +5011,11 @@ var jexcel = (function(el, options) {
             }
         }*/
 
+        // Return strLabel if copy compatible
+        if (obj.options.copyCompatibility == true) {
+            return strLabel;
+        }
+
         return str;
     }
 
