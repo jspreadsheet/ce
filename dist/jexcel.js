@@ -1525,6 +1525,36 @@ var jexcel = (function(el, options) {
     },
 
     /**
+     * Get the cell object
+     * 
+     * @param object cell
+     * @return string value
+     */
+    obj.getCell = function(cell) {
+        // Convert in case name is excel liked ex. A10, BB92
+        cell = jexcel.getIdFromColumnName(cell, true);
+        var x = cell[0];
+        var y = cell[1];
+
+        return obj.records[y][x];
+    }
+
+    /**
+     * Get label
+     * 
+     * @param object cell
+     * @return string value
+     */
+    obj.getLabel = function(cell) {
+        // Convert in case name is excel liked ex. A10, BB92
+        cell = jexcel.getIdFromColumnName(cell, true);
+        var x = cell[0];
+        var y = cell[1];
+
+        return obj.records[y][x].innerHTML;
+    }
+
+    /**
      * Get the value from a cell
      * 
      * @param object cell
