@@ -2540,18 +2540,26 @@ var jexcel = (function(el, options) {
     /**
      * Get the row height
      * 
-     * @param row - row number (first column is: 0)
+     * @param row - row number (first row is: 0)
      * @return height - current row height
      */
     obj.getHeight = function(row) {
         if (! row) {
+            // Get height of all rows
+            var data = [];
+            for (var j = 0; j < obj.rows.length; j++) {
+                var h = obj.rows[j].style.height;
+                if (h) {
+                    data[j] = h;
+                }
+            }
         } else {
-            // In case the column is an object
+            // In case the row is an object
             if (typeof(row) == 'object') {
                 row = $(row).getAttribute('data-y');
             }
 
-            data = obj.rows[row].getAttribute('height')
+            var data = obj.rows[row].style.height;
         }
 
         return data;
