@@ -635,6 +635,11 @@
     background-color:#ddd;
 }
 
+.jexcel_hidden_index tr > td:first-child, .jexcel_hidden_index colgroup > col:first-child
+{
+    display:none;
+}
+
 /*.copying
 {
     border-top:1px solid #ccc !important;

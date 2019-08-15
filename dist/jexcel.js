@@ -3979,14 +3979,14 @@ var jexcel = (function(el, options) {
      * Show index column
      */
     obj.showIndex = function() {
-        obj.colgroupContainer.children[0].width = 40;
+        obj.table.classList.remove('jexcel_hidden_index');
     }
 
     /**
      * Hide index column
      */
     obj.hideIndex = function() {
-        obj.colgroupContainer.children[0].width = 0;
+        obj.table.classList.add('jexcel_hidden_index');
     }
 
     /**
