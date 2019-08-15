@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.4.1
+ * (c) jExcel v3.4.2
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -175,7 +175,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.4.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -4138,11 +4138,13 @@ var jexcel = (function(el, options) {
             tokensUpdate(tokens);
         }
 
+        // String
+        var evalstring = '';
+
         // Get tokens
         var tokens = expression.match(/([A-Z]+[0-9]+)/g);
 
         if (tokens) {
-            var evalstring = "";
             for (var i = 0; i < tokens.length; i++) {
                 // Keep chain
                 if (! obj.formula[tokens[i]]) {
