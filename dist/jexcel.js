@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.4.2
+ * (c) jExcel v3.4.3
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -111,10 +111,13 @@ var jexcel = (function(el, options) {
         meta: null,
         // Style
         style:null,
+        // Execute formulas
+        parseFormulas:true,
         // Event handles
         onload:null,
         onchange:null,
         onbeforechange:null,
+        onafterchange:null,
         onbeforeinsertrow: null,
         oninsertrow:null,
         onbeforeinsertcolumn: null,
@@ -220,6 +223,7 @@ var jexcel = (function(el, options) {
     obj.style = [];
     obj.meta = [];
     obj.data = null;
+    obj.border = {};
 
     // Internal controllers
     obj.cursor = null;
@@ -830,7 +834,7 @@ var jexcel = (function(el, options) {
                 td.appendChild(img);
             }
         } else {
-            if ((''+value).substr(0,1) == '=') {
+            if ((''+value).substr(0,1) == '=' && obj.options.parseFormulas == true) {
                 value = obj.executeFormula(value, i, j)
             }
             if (obj.options.columns[i].mask) {
@@ -1668,6 +1672,13 @@ var jexcel = (function(el, options) {
 
         // Update table with custom configurations if applicable
         obj.updateTable();
+
+        // On after change
+        if (! obj.ignoreEvents) {
+            if (typeof(obj.options.onafterchange) == 'function') {
+                obj.options.onafterchange(el, records, value);
+            }
+        }
     }
 
     /**
@@ -1694,6 +1705,13 @@ var jexcel = (function(el, options) {
 
         // Update table with custom configurations if applicable
         obj.updateTable();
+
+        // On after change
+        if (! obj.ignoreEvents) {
+            if (typeof(obj.options.onafterchange) == 'function') {
+                obj.options.onafterchange(el, records, value);
+            }
+        }
     }
 
     /**
@@ -1719,6 +1737,13 @@ var jexcel = (function(el, options) {
                 records:records,
                 selection:obj.selectedCell,
             });
+
+            // On after change
+            if (! obj.ignoreEvents) {
+                if (typeof(obj.options.onafterchange) == 'function') {
+                    obj.options.onafterchange(el, records);
+                }
+            }
         }
     }
 
@@ -1812,7 +1837,7 @@ var jexcel = (function(el, options) {
                         obj.options.data[y][x] = value;
                     }
                     // Label
-                    if (('' + value).substr(0,1) == '=') {
+                    if (('' + value).substr(0,1) == '='  && obj.options.parseFormulas == true) {
                         value = obj.executeFormula(value, x, y);
                     }
                     if (obj.options.columns[x].mask) {
@@ -1973,6 +1998,42 @@ var jexcel = (function(el, options) {
 
         // Update table with custom configuration if applicable
         obj.updateTable();
+
+        // On after change
+        if (! obj.ignoreEvents) {
+            if (typeof(obj.options.onafterchange) == 'function') {
+                obj.options.onafterchange(el, records);
+            }
+        }
+    }
+
+    obj.setBorder = function(x1, y1, x2, y2, border) {
+        if (! obj.border[border]) {
+            obj.border[border] = document.createElement('div');
+            obj.border[border].classList.add('jexcel_border');
+            if (border == 'copying') {
+                obj.border[border].classList.add('jexcel_copying');
+            } else {
+                obj.border[border].style.borderColor = border;
+                //obj.border[border].style.backgroundColor = 'rgba(0,0,0,0.1)';
+            }
+            el.appendChild(obj.border[border]);
+        }
+
+        // Get last cell
+        var first = obj.records[x1][y1].getBoundingClientRect();
+        var x1 = first.left;
+        var y1 = first.top;
+
+        var last = obj.records[x2][y2].getBoundingClientRect();
+        var w1 = (last.left + last.width) - first.left - 2;
+        var h1 = (last.top + last.height) - first.top - 2;
+
+        // Place the corner in the correct place
+        obj.border[border].style.top = y1 + 'px';
+        obj.border[border].style.left = x1 + 'px';
+        obj.border[border].style.width = w1 + 'px';
+        obj.border[border].style.height = h1 + 'px';
     }
 
     /**
@@ -5121,33 +5182,13 @@ var jexcel = (function(el, options) {
                 obj.textarea.value = str;
             }
             obj.textarea.select();
-            jexcel.copyControls.enabled = false;
             document.execCommand("copy");
-            jexcel.copyControls.enabled = true;
         }
 
         // Keep data
         obj.data = str; 
         // Keep non visible information
         obj.hashString = obj.hash(obj.textarea.value); 
-
-        // Highlight
-        /*for (var i = 0; i < obj.highlighted.length; i++) {
-            obj.highlighted[i].classList.add('copying');
-
-            if (obj.highlighted[i].classList.contains('highlight-top')) {
-                obj.highlighted[i].classList.add('copying-top');
-            }
-            if (obj.highlighted[i].classList.contains('highlight-right')) {
-                obj.highlighted[i].classList.add('copying-right');
-            }
-            if (obj.highlighted[i].classList.contains('highlight-bottom')) {
-                obj.highlighted[i].classList.add('copying-bottom');
-            }
-            if (obj.highlighted[i].classList.contains('highlight-left')) {
-                obj.highlighted[i].classList.add('copying-left');
-            }
-        }*/
 
         return str;
     }
@@ -5238,13 +5279,13 @@ var jexcel = (function(el, options) {
                 oldStyle:oldStyle,
             });
 
+            // Update table
+            obj.updateTable();
+
             // Paste event
             if (typeof(obj.options.onpaste) == 'function') {
                 obj.options.onpaste(el, records);
             }
-
-            // Update table
-            obj.updateTable();
         }
     }
 
@@ -5912,8 +5953,6 @@ jexcel.destroy = function(element, destroyEventHandlers) {
             document.removeEventListener("mousemove", jexcel.mouseMoveControls);
             document.removeEventListener("mouseover", jexcel.mouseOverControls);
             document.removeEventListener("dblclick", jexcel.doubleClickControls);
-            document.removeEventListener("copy", jexcel.copyControls);
-            document.removeEventListener("cut", jexcel.cutControls);
             document.removeEventListener("paste", jexcel.pasteControls);
             document.removeEventListener("contextmenu", jexcel.contextMenuControls);
             document.removeEventListener("touchstart", jexcel.touchStartControls);
@@ -5931,8 +5970,6 @@ jexcel.build = function() {
     document.addEventListener("mousemove", jexcel.mouseMoveControls);
     document.addEventListener("mouseover", jexcel.mouseOverControls);
     document.addEventListener("dblclick", jexcel.doubleClickControls);
-    document.addEventListener("copy", jexcel.copyControls);
-    document.addEventListener("cut", jexcel.cutControls);
     document.addEventListener("paste", jexcel.pasteControls);
     document.addEventListener("contextmenu", jexcel.contextMenuControls);
     document.addEventListener("touchstart", jexcel.touchStartControls);
@@ -6198,6 +6235,25 @@ jexcel.keyDownControls = function(e) {
                             // Ctrl + Z
                             jexcel.current.undo();
                             e.preventDefault();
+                        } else if (e.which == 67) {
+                            // Ctrl + C
+                            jexcel.current.copy(true);
+                            e.preventDefault();
+                        } else if (e.which == 67) {
+                            // Ctrl + C
+                            jexcel.current.copy(true);
+                            e.preventDefault();
+                        } else if (e.which == 88) {
+                            // Ctrl + X
+                            if (jexcel.current.options.editable == true) {
+                                jexcel.cutControls();
+                            } else {
+                                jexcel.copyControls();
+                            }
+                            e.preventDefault();
+                        } else if (e.which == 86) {
+                            // Ctrl + V
+                            jexcel.pasteControls();
                         }
                     } else {
                         if (jexcel.current.selectedCell) {
@@ -6829,11 +6885,13 @@ jexcel.cutControls = function(e) {
 jexcel.pasteControls = function(e) {
     if (jexcel.current && jexcel.current.selectedCell) {
         if (! jexcel.current.edition) {
-            if (e.clipboardData) {
-                if (jexcel.current.options.editable == true) {
+            if (jexcel.current.options.editable == true) {
+                if (e && e.clipboardData) {
                     jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], e.clipboardData.getData('text'));
+                    e.preventDefault();
+                } else if (window.clipboardData) {
+                    jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], window.clipboardData.getData('text'));
                 }
-                e.preventDefault();
             }
         }
     }
@@ -6910,8 +6968,6 @@ jexcel.touchEndControls = function(e) {
         jexcel.timeControl = null;
     }
 }
-
-jexcel.copyControls.enabled = true;
 
 /**
  * Jquery Support
