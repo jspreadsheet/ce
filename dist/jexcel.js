@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.4.3
+ * (c) jExcel v3.4.4
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -113,6 +113,7 @@ var jexcel = (function(el, options) {
         style:null,
         // Execute formulas
         parseFormulas:true,
+        autoIncrement:true,
         // Event handles
         onload:null,
         onchange:null,
@@ -178,7 +179,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.4.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.4.4\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -1936,7 +1937,7 @@ var jexcel = (function(el, options) {
                         var value = data[posy][posx];
                     }
 
-                    if (value && t0 == t1) {
+                    if (value && t0 == t1 && obj.options.autoIncrement == true) {
                         if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
                             if ((''+value).substr(0,1) == '=') {
                                 var tokens = value.match(/([A-Z]+[0-9]+)/g);
@@ -6273,6 +6274,9 @@ jexcel.keyDownControls = function(e) {
                                             // Start edition
                                             jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
                                         }
+                                    } else if (e.keyCode == 113) {
+                                        // Start edition with current content F2
+                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
                                     } else if ((e.keyCode == 8) ||
                                                (e.keyCode >= 48 && e.keyCode <= 57) ||
                                                (e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -6284,9 +6288,6 @@ jexcel.keyDownControls = function(e) {
                                         if (jexcel.current.options.columns[columnId].type == 'calendar') {
                                             e.preventDefault();
                                         }
-                                    } else if (e.keyCode == 113) {
-                                        // Start edition with current content F2
-                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
                                     }
                                 }
                             }
