@@ -1441,13 +1441,6 @@ var jexcel = (function(el, options) {
         var x = parseInt(cell.getAttribute('data-x'));
         var y = parseInt(cell.getAttribute('data-y'));
 
-        // On edition end
-        if (! obj.ignoreEvents) {
-            if (typeof(obj.options.oneditionend) == 'function') {
-                obj.options.oneditionend(el, cell, x, y, value, save);
-            }
-        }
-
         // Get cell properties
         if (save == true) {
             // If custom editor
@@ -1478,6 +1471,13 @@ var jexcel = (function(el, options) {
                 } else {
                     var value = cell.children[0].value;
                     cell.children[0].onblur = null;
+                }
+            }
+
+            // On edition end
+            if (! obj.ignoreEvents) {
+                if (typeof(obj.options.oneditionend) == 'function') {
+                    obj.options.oneditionend(el, cell, x, y, value, save);
                 }
             }
 
@@ -1520,6 +1520,13 @@ var jexcel = (function(el, options) {
 
             // Restore value
             cell.innerHTML = obj.edition[1];
+
+            // On edition end
+            if (! obj.ignoreEvents) {
+                if (typeof(obj.options.oneditionend) == 'function') {
+                    obj.options.oneditionend(el, cell, x, y, value, save);
+                }
+            }
         }
 
         // Remove editor class
