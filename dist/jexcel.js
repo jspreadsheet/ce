@@ -118,7 +118,7 @@ var jexcel = (function(el, options) {
         onload:null,
         onchange:null,
         onbeforechange:null,
-        onafterchange:null,
+        onafterchanges:null,
         onbeforeinsertrow: null,
         oninsertrow:null,
         onbeforeinsertcolumn: null,
@@ -1676,8 +1676,8 @@ var jexcel = (function(el, options) {
 
         // On after change
         if (! obj.ignoreEvents) {
-            if (typeof(obj.options.onafterchange) == 'function') {
-                obj.options.onafterchange(el, records, value);
+            if (typeof(obj.options.onafterchanges) == 'function') {
+                obj.options.onafterchanges(el, records, value);
             }
         }
     }
@@ -5247,7 +5247,7 @@ var jexcel = (function(el, options) {
                         var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
                         newStyle[columnName] = style[styleIndex];
                         oldStyle[columnName] = obj.getStyle(columnName);
-                        obj.records[rowIndex][colIndex].style = style[styleIndex];
+                        obj.records[rowIndex][colIndex].setAttribute('style', style[styleIndex]);
                         styleIndex++
                     }
                     i++;
