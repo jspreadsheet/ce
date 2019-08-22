@@ -1441,6 +1441,13 @@ var jexcel = (function(el, options) {
         var x = parseInt(cell.getAttribute('data-x'));
         var y = parseInt(cell.getAttribute('data-y'));
 
+        // On edition end
+        if (! obj.ignoreEvents) {
+            if (typeof(obj.options.oneditionend) == 'function') {
+                obj.options.oneditionend(el, cell, x, y, value, save);
+            }
+        }
+
         // Get cell properties
         if (save == true) {
             // If custom editor
@@ -1520,14 +1527,7 @@ var jexcel = (function(el, options) {
 
         // Finish edition
         obj.edition = null;
-
-        // On edition end
-        if (! obj.ignoreEvents) {
-            if (typeof(obj.options.oneditionend) == 'function') {
-                obj.options.oneditionend(el, cell, x, y, value);
-            }
-        }
-    },
+    }
 
     /**
      * Get the cell object
