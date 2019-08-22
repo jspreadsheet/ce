@@ -5010,6 +5010,9 @@ var jexcel = (function(el, options) {
                 } else if (quantyOfPages - obj.pageNumber < 5) {
                     var startNumber = quantyOfPages - 9;
                     var finalNumber = quantyOfPages;
+                    if (startNumber < 1) {
+                        startNumber = 1;
+                    }
                 } else {
                     var startNumber = obj.pageNumber - 4;
                     var finalNumber = obj.pageNumber + 5;
