@@ -1716,8 +1716,8 @@ var jexcel = (function(el, options) {
 
         // On after change
         if (! obj.ignoreEvents) {
-            if (typeof(obj.options.onafterchange) == 'function') {
-                obj.options.onafterchange(el, records, value);
+            if (typeof(obj.options.onafterchanges) == 'function') {
+                obj.options.onafterchanges(el, records, value);
             }
         }
     }
@@ -1748,8 +1748,8 @@ var jexcel = (function(el, options) {
 
             // On after change
             if (! obj.ignoreEvents) {
-                if (typeof(obj.options.onafterchange) == 'function') {
-                    obj.options.onafterchange(el, records);
+                if (typeof(obj.options.onafterchanges) == 'function') {
+                    obj.options.onafterchanges(el, records);
                 }
             }
         }
@@ -2009,8 +2009,8 @@ var jexcel = (function(el, options) {
 
         // On after change
         if (! obj.ignoreEvents) {
-            if (typeof(obj.options.onafterchange) == 'function') {
-                obj.options.onafterchange(el, records);
+            if (typeof(obj.options.onafterchanges) == 'function') {
+                obj.options.onafterchanges(el, records);
             }
         }
     }
