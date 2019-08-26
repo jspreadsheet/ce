@@ -521,9 +521,6 @@ var jexcel = (function(el, options) {
         // Fullscreen
         if (obj.options.fullscreen == true) {
             el.classList.add('fullscreen');
-            if (obj.options.toolbar) {
-                el.classList.add('with-toolbar');
-            }
         } else {
             // Overflow
             if (obj.options.tableOverflow == true) {
@@ -536,6 +533,11 @@ var jexcel = (function(el, options) {
                     obj.content.style.width = obj.options.tableWidth;
                 }
             }
+        }
+
+        // With toolbars
+        if (obj.options.toolbar) {
+            el.classList.add('with-toolbar');
         }
 
         // Actions

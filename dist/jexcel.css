@@ -76,6 +76,11 @@
     z-index:2000;
 }
 
+.with-toolbar .jexcel > thead > tr > td
+{
+    top:42px;
+}
+
 .jexcel > thead.draggable > tr > td::before
 {
     content:'\00a0';
