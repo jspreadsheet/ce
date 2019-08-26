@@ -1839,11 +1839,7 @@ var jexcel = (function(el, options) {
                     }
                 } else {
                     // Update data and cell
-                    if (obj.options.columns[x].autoCasting != false) { 
-                        obj.options.data[y][x] = (value && Number(value) == value) ? Number(value) : value;
-                    } else {
-                        obj.options.data[y][x] = value;
-                    }
+                    obj.options.data[y][x] = value;
                     // Label
                     if (('' + value).substr(0,1) == '='  && obj.options.parseFormulas == true) {
                         value = obj.executeFormula(value, x, y);
@@ -4234,8 +4230,6 @@ var jexcel = (function(el, options) {
 
                 // Do not calculate again
                 if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
-                    // Declaretion
-                    evalstring += "var " + tokens[i] + " = null;";
                     // Coords
                     var position = jexcel.getIdFromColumnName(tokens[i], 1);
                     // Get value
@@ -4251,32 +4245,24 @@ var jexcel = (function(el, options) {
                         value = obj.executeFormula(value, position[0], position[1]);
                     }
                     // Type!
-                    if ((''+value).trim() == '' || value != Number(value)) {
-                        // Trying any formatted number
-                        var number = ('' + value);
-                        var decimal = obj.options.columns[position[0]].decimal || '.';
-                        number = number.split(decimal);
-                        number[0] = number[0].match(/[+-]?[0-9]/g);
-                        if (number[0]) {
-                            number[0] = number[0].join('');
-                        } 
-                        if (number[1]) {
-                            number[1] = number[1].match(/[0-9]*/g).join('');
-                        }
-                        // Got a valid number
-                        if (number[0] && Number(number[0]) >= 0) {
-                            if (! number[1]) {
-                                evalstring += "var " + tokens[i] + " = " + number[0] + ".00;";
-                            } else {
-                                evalstring += "var " + tokens[i] + " = " + number[0] + '.' + number[1] + ";";
-                            }
-                        } else {
-                            // Render as string
-                            evalstring += "var " + tokens[i] + " = '" + value + "';";
-                        }
+                    if ((''+value).trim() == '') {
+                        // Null
+                        evalstring += "var " + tokens[i] + " = null;";
                     } else {
-                        // Number
-                        evalstring += "var " + tokens[i] + " = " + value + ";";
+                        if (value == Number(value)) {
+                            // Number
+                            evalstring += "var " + tokens[i] + " = " + value + ";";
+                        } else {
+                            // Trying any formatted number
+                            var number = null;
+                            if (number = obj.parseNumber(value, position[0])) {
+                                // Render as number
+                                evalstring += "var " + tokens[i] + " = " + number + ";";
+                            } else {
+                                // Render as string
+                                evalstring += "var " + tokens[i] + " = '" + value + "';";
+                            }
+                        }
                     }
                 }
             }
@@ -4292,6 +4278,38 @@ var jexcel = (function(el, options) {
         }
 
         return res;
+    }
+
+    /**
+     * Trying to extract a number from a string
+     **/
+    obj.parseNumber = function(value, columnNumber) {
+        // Decimal point
+        var decimal = columnNumber && obj.options.columns[columnNumber].decimal ? obj.options.columns[columnNumber].decimal : '.';
+
+        // Parse both parts of the number
+        var number = ('' + value);
+        number = number.split(decimal);
+        number[0] = number[0].match(/[+-]?[0-9]/g);
+        if (number[0]) {
+            number[0] = number[0].join('');
+        } 
+        if (number[1]) {
+            number[1] = number[1].match(/[0-9]*/g).join('');
+        }
+
+        // Is a valid number 
+        if (number[0] && Number(number[0]) >= 0) {
+            if (! number[1]) {
+                var value = Number(number[0] + '.00');
+            } else {
+                var value = Number(number[0] + '.' + number[1]);
+            }
+        } else {
+            var value = null;
+        }
+
+        return value;
     }
 
     /**
