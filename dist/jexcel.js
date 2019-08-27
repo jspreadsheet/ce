@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.4.4
+ * (c) jExcel v3.4.5
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -179,7 +179,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.4.4\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.4.5\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
     };
 
     // Loading initial configuration from user
@@ -224,7 +224,6 @@ var jexcel = (function(el, options) {
     obj.style = [];
     obj.meta = [];
     obj.data = null;
-    obj.border = {};
 
     // Internal controllers
     obj.cursor = null;
@@ -2011,35 +2010,6 @@ var jexcel = (function(el, options) {
                 obj.options.onafterchanges(el, records);
             }
         }
-    }
-
-    obj.setBorder = function(x1, y1, x2, y2, border) {
-        if (! obj.border[border]) {
-            obj.border[border] = document.createElement('div');
-            obj.border[border].classList.add('jexcel_border');
-            if (border == 'copying') {
-                obj.border[border].classList.add('jexcel_copying');
-            } else {
-                obj.border[border].style.borderColor = border;
-                //obj.border[border].style.backgroundColor = 'rgba(0,0,0,0.1)';
-            }
-            el.appendChild(obj.border[border]);
-        }
-
-        // Get last cell
-        var first = obj.records[x1][y1].getBoundingClientRect();
-        var x1 = first.left;
-        var y1 = first.top;
-
-        var last = obj.records[x2][y2].getBoundingClientRect();
-        var w1 = (last.left + last.width) - first.left - 2;
-        var h1 = (last.top + last.height) - first.top - 2;
-
-        // Place the corner in the correct place
-        obj.border[border].style.top = y1 + 'px';
-        obj.border[border].style.left = x1 + 'px';
-        obj.border[border].style.width = w1 + 'px';
-        obj.border[border].style.height = h1 + 'px';
     }
 
     /**
