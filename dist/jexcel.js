@@ -2660,7 +2660,7 @@ var jexcel = (function(el, options) {
             title.push(obj.getHeader(i));
         }
 
-        return asArray ? title : title.join(',');
+        return asArray ? title : title.join(obj.options.csvDelimiter);
     }
 
     /**
@@ -5077,7 +5077,7 @@ var jexcel = (function(el, options) {
                 data += "\r\n";
             }
             // Get data
-            data += obj.copy(false, ',', true);
+            data += obj.copy(false, obj.options.csvDelimiter, true);
             // Download element
             var pom = document.createElement('a');
             var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
