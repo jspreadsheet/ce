@@ -71,6 +71,8 @@ var jexcel = (function(el, options) {
         allowManualInsertColumn:true,
         // Allow row delete
         allowDeleteRow:true,
+		// Allow deleting of all rows
+		allowDeletingAllRows:false,
         // Allow column delete
         allowDeleteColumn:true,
         // Allow rename column
@@ -3285,7 +3287,7 @@ var jexcel = (function(el, options) {
     obj.deleteRow = function(rowNumber, numOfRows) {
         // Global Configuration
         if (obj.options.allowDeleteRow == true) {
-            if (obj.options.data.length > 1) {
+            if (obj.options.allowDeletingAllRows || obj.options.data.length > 1) {
                 // Delete row definitions
                 if (rowNumber == undefined) {
                     var number = obj.getSelectedRows();
