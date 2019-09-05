@@ -1874,7 +1874,7 @@ var jexcel = (function(el, options) {
             // On change
             if (! obj.ignoreEvents) {
                 if (typeof(obj.options.onchange) == 'function') {
-                    obj.options.onchange(el, obj.records[y][x], x, y, value);
+                    obj.options.onchange(el, obj.records[y][x], x, y, value, record.oldValue);
                 }
             }
         }
