@@ -3530,18 +3530,16 @@ var jexcel = (function(el, options) {
             if (! properties) {
                 properties = [];
             }
-            if (! properties.columns) {
-                properties.columns = [];
-            }
+
             for (var i = 0; i < numOfColumns; i++) {
-                if (! properties.columns[i]) {
-                    properties.columns[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:'center' };
+                if (! properties[i]) {
+                    properties[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:'center' };
                 }
             }
 
             // Insert before
             var columnIndex = (! insertBefore) ? columnNumber + 1 : columnNumber;
-            obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties.columns);
+            obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties);
 
             // Open space in the containers
             var currentHeaders = obj.headers.splice(columnIndex);
