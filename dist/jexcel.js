@@ -79,6 +79,8 @@ var jexcel = (function(el, options) {
         allowComments:false,
         // Global wrap
         wordWrap:false,
+        // Image options
+        imageOptions: null,
         // CSV source
         csv:null,
         // Filename
@@ -1398,7 +1400,7 @@ var jexcel = (function(el, options) {
                         div.appendChild(img);
                     }
                     editor.appendChild(div);
-                    jSuites.image(div);
+                    jSuites.image(div, obj.options.imageOptions);
                     const rect = cell.getBoundingClientRect();
                     const rectContent = div.getBoundingClientRect();
                     if (window.innerHeight < rect.bottom + rectContent.height) {
