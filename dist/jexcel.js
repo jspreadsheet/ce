@@ -1413,7 +1413,7 @@ var jexcel = (function(el, options) {
                     var value = empty == true ? '' : obj.options.data[y][x];
 
                     // Basic editor
-                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || td.innerHTML.length > 200)) {
+                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || value.length > 200)) {
                         var editor = createEditor('textarea');
                     } else {
                         var editor = createEditor('input');
