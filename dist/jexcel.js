@@ -1413,7 +1413,7 @@ var jexcel = (function(el, options) {
                     var value = empty == true ? '' : obj.options.data[y][x];
 
                     // Basic editor
-                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || value.length > 200)) {
+                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true)) {
                         var editor = createEditor('textarea');
                     } else {
                         var editor = createEditor('input');
@@ -1854,7 +1854,7 @@ var jexcel = (function(el, options) {
                     obj.records[y][x].innerHTML = value;
 
                     // Handle big text inside a cell
-                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || td.innerHTML.length > 200)) {
+                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
                         obj.records[y][x].style.whiteSpace = 'pre-wrap';
                     } else {
                         obj.records[y][x].style.whiteSpace = '';
