@@ -857,10 +857,8 @@ var jexcel = (function(el, options) {
         td.style.textAlign = colAlign;
 
         // Wrap option
-        if (obj.options.columns[x].wordWrap != false) {
-            if (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200) {
-                td.style.whiteSpace = 'pre-wrap';
-            }
+        if (obj.options.columns[i].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200)) {
+            td.style.whiteSpace = 'pre-wrap';
         }
 
         // Overflow
@@ -1413,7 +1411,7 @@ var jexcel = (function(el, options) {
                     var value = empty == true ? '' : obj.options.data[y][x];
 
                     // Basic editor
-                    if (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || value.length > 200) {
+                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || td.innerHTML.length > 200)) {
                         var editor = createEditor('textarea');
                     } else {
                         var editor = createEditor('input');
@@ -1854,8 +1852,10 @@ var jexcel = (function(el, options) {
                     obj.records[y][x].innerHTML = value;
 
                     // Handle big text inside a cell
-                    if (obj.options.columns[x].wordWrap != false && obj.records[y][x].innerHTML.length > 200) {
-                        obj.records[y][x].style.whiteSpace = 'pre-wrap'; 
+                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || td.innerHTML.length > 200)) {
+                        obj.records[y][x].style.whiteSpace = 'pre-wrap';
+                    } else {
+                        obj.records[y][x].style.whiteSpace = '';
                     }
                 }
             }
