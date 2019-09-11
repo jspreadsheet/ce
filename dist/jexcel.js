@@ -1295,7 +1295,7 @@ var jexcel = (function(el, options) {
         // Create editor
         var createEditor = function(type) {
             // Cell information
-            let info = cell.getBoundingClientRect();
+            var info = cell.getBoundingClientRect();
 
             // Create dropdown
             var editor = document.createElement(type);
