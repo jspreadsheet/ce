@@ -857,8 +857,10 @@ var jexcel = (function(el, options) {
         td.style.textAlign = colAlign;
 
         // Wrap option
-        if (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200) {
-            td.style.whiteSpace = 'pre-wrap';
+        if (obj.options.columns[x].wordWrap != false) {
+            if (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200) {
+                td.style.whiteSpace = 'pre-wrap';
+            }
         }
 
         // Overflow
@@ -1852,12 +1854,8 @@ var jexcel = (function(el, options) {
                     obj.records[y][x].innerHTML = value;
 
                     // Handle big text inside a cell
-                    if (obj.records[y][x].innerHTML.length > 200) {
+                    if (obj.options.columns[x].wordWrap != false && obj.records[y][x].innerHTML.length > 200) {
                         obj.records[y][x].style.whiteSpace = 'pre-wrap'; 
-                    } else {
-                        if (obj.options.wordWrap == false && obj.options.columns[x].wordWrap == false) {
-                            obj.records[y][x].style.whiteSpace = ''; 
-                        }
                     }
                 }
             }
