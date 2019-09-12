@@ -1593,8 +1593,10 @@ var jexcel = (function(el, options) {
                     value = obj.records[y][x].innerHTML;
                 }
             } else {
-                if (obj.options.data[y] && obj.options.data[y][x]) {
-                    value = obj.options.data[y][x];
+                if (typeof(obj.options.data[y]) != 'undefined') {
+                    if (typeof(obj.options.data[y][x]) != 'undefined') {
+                        value = obj.options.data[y][x];
+                    }
                 }
             }
         }
@@ -4216,9 +4218,7 @@ var jexcel = (function(el, options) {
                     // Coords
                     var position = jexcel.getIdFromColumnName(tokens[i], 1);
                     // Get value
-                    if (obj.records[position[1]] && obj.records[position[1]][position[0]]) {
-                        var value = obj.records[position[1]][position[0]].innerHTML;
-                    } else if (obj.options.data[position[1]] && obj.options.data[position[1]][position[0]]) {
+                    if (typeof(obj.options.data[position[1]]) != 'undefined' && typeof(obj.options.data[position[1]][position[0]]) != 'undefined') {
                         var value = obj.options.data[position[1]][position[0]];
                     } else {
                         var value = '';
