@@ -81,6 +81,9 @@ var jexcel = (function(el, options) {
         wordWrap:false,
         // Image options
         imageOptions: null,
+        // Ajax options
+        ajaxMethod: 'GET',
+        postData: null,
         // CSV source
         csv:null,
         // Filename
@@ -5666,7 +5669,8 @@ var jexcel = (function(el, options) {
             // Load CSV file
             jSuites.ajax({
                 url: obj.options.csv,
-                method: 'GET',
+                method: obj.options.ajaxMethod,
+                data: obj.options.postData,
                 dataType: 'text',
                 success: function(result) {
                     // Convert data
@@ -5703,7 +5707,8 @@ var jexcel = (function(el, options) {
 
             jSuites.ajax({
                 url: obj.options.url,
-                method: 'GET',
+                method: obj.options.ajaxMethod,
+                data: obj.options.postData,
                 dataType: 'json',
                 success: function(result) {
                     // Data
