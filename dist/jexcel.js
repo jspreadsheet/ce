@@ -4027,22 +4027,35 @@ var jexcel = (function(el, options) {
     /**
      * Update all related cells in the chain
      */
+    
+    var chainLoopProtection = [];
+
     obj.updateFormulaChain = function(x, y, records) {
         var cellId = jexcel.getColumnNameFromId([x, y]);
         if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
-            for (var i = 0; i < obj.formula[cellId].length; i++) {
-                var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
-                // Update cell
-                var value = ''+obj.options.data[cell[1]][cell[0]];
-                if (value.substr(0,1) == '=') {
-                    records.push(obj.updateCell(cell[0], cell[1], value, true));
-                } else {
-                    // No longer a formula, remove from the chain
-                    Object.keys(obj.formula)[i] = null;
+            if (chainLoopProtection[cellId]) {
+                obj.records[y][x].innerHTML = '#ERROR';
+                obj.formula[cellId] = '';
+            } else {
+                // Protection
+                chainLoopProtection[cellId] = true;
+
+                for (var i = 0; i < obj.formula[cellId].length; i++) {
+                    var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
+                    // Update cell
+                    var value = ''+obj.options.data[cell[1]][cell[0]];
+                    if (value.substr(0,1) == '=') {
+                        records.push(obj.updateCell(cell[0], cell[1], value, true));
+                    } else {
+                        // No longer a formula, remove from the chain
+                        Object.keys(obj.formula)[i] = null;
+                    }
+                    obj.updateFormulaChain(cell[0], cell[1], records);
                 }
-                obj.updateFormulaChain(cell[0], cell[1], records);
             }
         }
+
+        chainLoopProtection = [];
     }
 
     /**
@@ -6286,6 +6299,7 @@ jexcel.keyDownControls = function(e) {
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
                                     } else if ((e.keyCode == 8) ||
                                                (e.keyCode >= 48 && e.keyCode <= 57) ||
+                                               (e.keyCode == 187) ||
                                                (jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
                                         // Start edition
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
