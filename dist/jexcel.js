@@ -14,11 +14,6 @@
 
 'use strict';
 
-if (! jSuites && typeof(require) === 'function') {
-    var jSuites = require('jsuites');
-    require('jsuites/dist/jsuites.css');
-}
-
 var jexcel = (function(el, options) {
     // Create jexcel object
     var obj = {};
@@ -5432,7 +5427,7 @@ var jexcel = (function(el, options) {
         var ignoreEvents = obj.ignoreEvents ? true : false;
         var ignoreHistory = obj.ignoreHistory ? true : false;
 
-        obj.ignoreEvents = true;
+        obj.ignoreEvents = false;
         obj.ignoreHistory = true;
 
         // Records
@@ -5504,7 +5499,7 @@ var jexcel = (function(el, options) {
         var ignoreEvents = obj.ignoreEvents ? true : false;
         var ignoreHistory = obj.ignoreHistory ? true : false;
 
-        obj.ignoreEvents = true;
+        obj.ignoreEvents = false;
         obj.ignoreHistory = true;
 
         // Records
