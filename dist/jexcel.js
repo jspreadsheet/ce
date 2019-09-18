@@ -25,6 +25,8 @@ var jexcel = (function(el, options) {
         url:null,
         // Data
         data:[[]],
+        // Third party reference
+        thirdPartyComponent:null,
         // Copy behavior
         copyCompatibility:false,
         // Rows and columns definitions
