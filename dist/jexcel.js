@@ -5211,8 +5211,24 @@ var jexcel = (function(el, options) {
      * @param integer row number
      * @return string value
      */
-    obj.paste = function(x, y, data) {
+    obj.paste = function(selectedCell, data) {
         // Paste filter
+        var x = selectedCell[0],
+            y = selectedCell[1],
+            w = selectedCell[2]-x+1,
+            h = selectedCell[3]-y+1;
+
+        // change paste range if select is from right to left
+        if (selectedCell[2]<selectedCell[0]){
+            x = selectedCell[2];
+            w = selectedCell[0]-x+1;
+        }
+        // change paste range if select is from down to up
+        if (selectedCell[3]<selectedCell[1]){
+            y = selectedCell[3];
+            h = selectedCell[1]-y+1;
+        }
+        // console.log(x, y, data);
         if (typeof(obj.options.onbeforepaste) == 'function') {
             var data = obj.options.onbeforepaste(data);
         }
@@ -5220,6 +5236,7 @@ var jexcel = (function(el, options) {
         // Controls
         var hash = obj.hash(data);
         var style = (hash == obj.hashString) ? obj.style : null;
+        console.log(style);
 
         // Depending on the behavior
         if (obj.options.copyCompatibility == true && hash == obj.hashString) {
@@ -5228,6 +5245,30 @@ var jexcel = (function(el, options) {
 
         // Split new line
         var data = obj.parseCSV(data, "\t");
+        // console.log(data,h,Number.isInteger(h/data.length));
+        // console.log(data);
+        //modify data to allow wor extending paste range in multiples of input range
+        if (w>1 & Number.isInteger(w/data[0].length )){
+            style = null;
+            repeats = w/data[0].length;
+
+            var arrayB = data.map(function(row,i){
+                // console.log(row,i)
+                var arrayC = Array.apply(null, {length: repeats * row.length})
+                            .map(function(e,i){return row[i % row.length]});                
+                return arrayC
+            });
+            data = arrayB;
+
+        }
+        if (h>1 & Number.isInteger(h/data.length )){
+            style = null;
+            var repeats = h/data.length;
+            var arrayB = Array.apply(null, {length: repeats * data.length})
+                .map(function(e,i){return data[i % data.length]});
+            data = arrayB;
+        }
+        // console.log(data);
 
         if (x != null && y != null && data) {
             // Records
@@ -5258,6 +5299,7 @@ var jexcel = (function(el, options) {
                         var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
                         newStyle[columnName] = style[styleIndex];
                         oldStyle[columnName] = obj.getStyle(columnName);
+                        console.log(style,columnName,styleIndex,style[styleIndex]);
                         obj.records[rowIndex][colIndex].setAttribute('style', style[styleIndex]);
                         styleIndex++
                     }
@@ -5299,7 +5341,7 @@ var jexcel = (function(el, options) {
                 obj.options.onpaste(el, records);
             }
         }
-    }
+    }  
 
     /**
      * Process row
@@ -5873,7 +5915,7 @@ var jexcel = (function(el, options) {
                         if (obj.selectedCell) {
                             navigator.clipboard.readText().then(function(text) {
                                 if (text) {
-                                    jexcel.current.paste(obj.selectedCell[0], obj.selectedCell[1], text);
+                                    jexcel.current.paste(obj.selectedCell, text);
                                 }
                             });
                         }
@@ -6907,10 +6949,10 @@ jexcel.pasteControls = function(e) {
         if (! jexcel.current.edition) {
             if (jexcel.current.options.editable == true) {
                 if (e && e.clipboardData) {
-                    jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], e.clipboardData.getData('text'));
+                    jexcel.current.paste(jexcel.current.selectedCell, e.clipboardData.getData('text'));
                     e.preventDefault();
                 } else if (window.clipboardData) {
-                    jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], window.clipboardData.getData('text'));
+                    jexcel.current.paste(jexcel.current.selectedCell, e.clipboardData.getData('text'));
                 }
             }
         }
