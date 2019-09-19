@@ -79,6 +79,8 @@ var jexcel = (function(el, options) {
         allowComments:false,
         // Global wrap
         wordWrap:false,
+        // Image options
+        imageOptions: null,
         // CSV source
         csv:null,
         // Filename
@@ -857,7 +859,7 @@ var jexcel = (function(el, options) {
         td.style.textAlign = colAlign;
 
         // Wrap option
-        if (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200) {
+        if (obj.options.columns[i].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200)) {
             td.style.whiteSpace = 'pre-wrap';
         }
 
@@ -1295,7 +1297,7 @@ var jexcel = (function(el, options) {
         // Create editor
         var createEditor = function(type) {
             // Cell information
-            let info = cell.getBoundingClientRect();
+            var info = cell.getBoundingClientRect();
 
             // Create dropdown
             var editor = document.createElement(type);
@@ -1398,7 +1400,7 @@ var jexcel = (function(el, options) {
                         div.appendChild(img);
                     }
                     editor.appendChild(div);
-                    jSuites.image(div);
+                    jSuites.image(div, obj.options.imageOptions);
                     const rect = cell.getBoundingClientRect();
                     const rectContent = div.getBoundingClientRect();
                     if (window.innerHeight < rect.bottom + rectContent.height) {
@@ -1411,7 +1413,7 @@ var jexcel = (function(el, options) {
                     var value = empty == true ? '' : obj.options.data[y][x];
 
                     // Basic editor
-                    if (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || value.length > 200) {
+                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true)) {
                         var editor = createEditor('textarea');
                     } else {
                         var editor = createEditor('input');
@@ -1591,8 +1593,10 @@ var jexcel = (function(el, options) {
                     value = obj.records[y][x].innerHTML;
                 }
             } else {
-                if (obj.options.data[y] && obj.options.data[y][x]) {
-                    value = obj.options.data[y][x];
+                if (typeof(obj.options.data[y]) != 'undefined') {
+                    if (typeof(obj.options.data[y][x]) != 'undefined') {
+                        value = obj.options.data[y][x];
+                    }
                 }
             }
         }
@@ -1852,12 +1856,10 @@ var jexcel = (function(el, options) {
                     obj.records[y][x].innerHTML = value;
 
                     // Handle big text inside a cell
-                    if (obj.records[y][x].innerHTML.length > 200) {
-                        obj.records[y][x].style.whiteSpace = 'pre-wrap'; 
+                    if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
+                        obj.records[y][x].style.whiteSpace = 'pre-wrap';
                     } else {
-                        if (obj.options.wordWrap == false && obj.options.columns[x].wordWrap == false) {
-                            obj.records[y][x].style.whiteSpace = ''; 
-                        }
+                        obj.records[y][x].style.whiteSpace = '';
                     }
                 }
             }
@@ -4027,22 +4029,35 @@ var jexcel = (function(el, options) {
     /**
      * Update all related cells in the chain
      */
+    
+    var chainLoopProtection = [];
+
     obj.updateFormulaChain = function(x, y, records) {
         var cellId = jexcel.getColumnNameFromId([x, y]);
         if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
-            for (var i = 0; i < obj.formula[cellId].length; i++) {
-                var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
-                // Update cell
-                var value = ''+obj.options.data[cell[1]][cell[0]];
-                if (value.substr(0,1) == '=') {
-                    records.push(obj.updateCell(cell[0], cell[1], value, true));
-                } else {
-                    // No longer a formula, remove from the chain
-                    Object.keys(obj.formula)[i] = null;
+            if (chainLoopProtection[cellId]) {
+                obj.records[y][x].innerHTML = '#ERROR';
+                obj.formula[cellId] = '';
+            } else {
+                // Protection
+                chainLoopProtection[cellId] = true;
+
+                for (var i = 0; i < obj.formula[cellId].length; i++) {
+                    var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
+                    // Update cell
+                    var value = ''+obj.options.data[cell[1]][cell[0]];
+                    if (value.substr(0,1) == '=') {
+                        records.push(obj.updateCell(cell[0], cell[1], value, true));
+                    } else {
+                        // No longer a formula, remove from the chain
+                        Object.keys(obj.formula)[i] = null;
+                    }
+                    obj.updateFormulaChain(cell[0], cell[1], records);
                 }
-                obj.updateFormulaChain(cell[0], cell[1], records);
             }
         }
+
+        chainLoopProtection = [];
     }
 
     /**
@@ -4203,9 +4218,7 @@ var jexcel = (function(el, options) {
                     // Coords
                     var position = jexcel.getIdFromColumnName(tokens[i], 1);
                     // Get value
-                    if (obj.records[position[1]] && obj.records[position[1]][position[0]]) {
-                        var value = obj.records[position[1]][position[0]].innerHTML;
-                    } else if (obj.options.data[position[1]] && obj.options.data[position[1]][position[0]]) {
+                    if (typeof(obj.options.data[position[1]]) != 'undefined' && typeof(obj.options.data[position[1]][position[0]]) != 'undefined') {
                         var value = obj.options.data[position[1]][position[0]];
                     } else {
                         var value = '';
@@ -6242,6 +6255,25 @@ jexcel.keyDownControls = function(e) {
                         // Ctrl + Z
                         jexcel.current.undo();
                         e.preventDefault();
+                    } else if (e.which == 67) {
+                        // Ctrl + C
+                        jexcel.current.copy(true);
+                        e.preventDefault();
+                    } else if (e.which == 67) {
+                        // Ctrl + C
+                        jexcel.current.copy(true);
+                        e.preventDefault();
+                    } else if (e.which == 88) {
+                        // Ctrl + X
+                        if (jexcel.current.options.editable == true) {
+                            jexcel.cutControls();
+                        } else {
+                            jexcel.copyControls();
+                        }
+                        e.preventDefault();
+                    } else if (e.which == 86) {
+                        // Ctrl + V
+                        jexcel.pasteControls();
                     }
                 } else {
                     if (jexcel.current.selectedCell) {
@@ -6260,21 +6292,20 @@ jexcel.keyDownControls = function(e) {
                                     } else {
                                         // Start edition
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
-                                        // Prevent entries in the calendar
-                                        if (jexcel.current.options.columns[columnId].type == 'calendar') {
-                                            e.preventDefault();
-                                        }
                                     }
-                                } else if ((e.keyCode == 110) ||
-                                           (e.keyCode >= 48 && e.keyCode <= 57) ||
-                                           (e.keyCode >= 65 && e.keyCode <= 90) ||
-                                           (e.keyCode >= 96 && e.keyCode <= 105) ||
-                                           (e.keyCode >= 186 && e.keyCode <= 190)) {
-                                    // Start edition
-                                    jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
                                 } else if (e.keyCode == 113) {
                                     // Start edition with current content F2
                                     jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
+                                } else if ((e.keyCode == 8) ||
+                                           (e.keyCode >= 48 && e.keyCode <= 57) ||
+                                           (e.keyCode == 187) ||
+                                           (jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
+                                    // Start edition
+                                    jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                    // Prevent entries in the calendar
+                                    if (jexcel.current.options.columns[columnId].type == 'calendar') {
+                                        e.preventDefault();
+                                    }
                                 }
                             }
                         }
