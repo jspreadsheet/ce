@@ -6238,75 +6238,73 @@ jexcel.keyDownControls = function(e) {
                 }
                 e.preventDefault();
             } else {
-                if (! e.shiftKey) {
-                    if (e.ctrlKey || e.metaKey) {
-                        if (e.which == 65) {
-                            // Ctrl + A
-                            jexcel.current.selectAll();
-                            e.preventDefault();
-                        } else if (e.which == 83) {
-                            // Ctrl + S
-                            jexcel.current.download();
-                            e.preventDefault();
-                        } else if (e.which == 89) {
-                            // Ctrl + Y
-                            jexcel.current.redo();
-                            e.preventDefault();
-                        } else if (e.which == 90) {
-                            // Ctrl + Z
-                            jexcel.current.undo();
-                            e.preventDefault();
-                        } else if (e.which == 67) {
-                            // Ctrl + C
-                            jexcel.current.copy(true);
-                            e.preventDefault();
-                        } else if (e.which == 67) {
-                            // Ctrl + C
-                            jexcel.current.copy(true);
-                            e.preventDefault();
-                        } else if (e.which == 88) {
-                            // Ctrl + X
-                            if (jexcel.current.options.editable == true) {
-                                jexcel.cutControls();
-                            } else {
-                                jexcel.copyControls();
-                            }
-                            e.preventDefault();
-                        } else if (e.which == 86) {
-                            // Ctrl + V
-                            jexcel.pasteControls();
+                if ((e.ctrlKey || e.metaKey) && ! e.shiftKey) {
+                    if (e.which == 65) {
+                        // Ctrl + A
+                        jexcel.current.selectAll();
+                        e.preventDefault();
+                    } else if (e.which == 83) {
+                        // Ctrl + S
+                        jexcel.current.download();
+                        e.preventDefault();
+                    } else if (e.which == 89) {
+                        // Ctrl + Y
+                        jexcel.current.redo();
+                        e.preventDefault();
+                    } else if (e.which == 90) {
+                        // Ctrl + Z
+                        jexcel.current.undo();
+                        e.preventDefault();
+                    } else if (e.which == 67) {
+                        // Ctrl + C
+                        jexcel.current.copy(true);
+                        e.preventDefault();
+                    } else if (e.which == 67) {
+                        // Ctrl + C
+                        jexcel.current.copy(true);
+                        e.preventDefault();
+                    } else if (e.which == 88) {
+                        // Ctrl + X
+                        if (jexcel.current.options.editable == true) {
+                            jexcel.cutControls();
+                        } else {
+                            jexcel.copyControls();
                         }
-                    } else {
-                        if (jexcel.current.selectedCell) {
-                            if (jexcel.current.options.editable == true) {
-                                var rowId = jexcel.current.selectedCell[1];
-                                var columnId = jexcel.current.selectedCell[0];
+                        e.preventDefault();
+                    } else if (e.which == 86) {
+                        // Ctrl + V
+                        jexcel.pasteControls();
+                    }
+                } else {
+                    if (jexcel.current.selectedCell) {
+                        if (jexcel.current.options.editable == true) {
+                            var rowId = jexcel.current.selectedCell[1];
+                            var columnId = jexcel.current.selectedCell[0];
 
-                                // If is not readonly
-                                if (jexcel.current.options.columns[columnId].type != 'readonly') {
-                                    // Characters able to start a edition
-                                    if (e.keyCode == 32) {
-                                        // Space
-                                        if (jexcel.current.options.columns[columnId].type == 'checkbox' ||
-                                            jexcel.current.options.columns[columnId].type == 'radio') {
-                                            e.preventDefault();
-                                        } else {
-                                            // Start edition
-                                            jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
-                                        }
-                                    } else if (e.keyCode == 113) {
-                                        // Start edition with current content F2
-                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
-                                    } else if ((e.keyCode == 8) ||
-                                               (e.keyCode >= 48 && e.keyCode <= 57) ||
-                                               (e.keyCode == 187) ||
-                                               (jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
+                            // If is not readonly
+                            if (jexcel.current.options.columns[columnId].type != 'readonly') {
+                                // Characters able to start a edition
+                                if (e.keyCode == 32) {
+                                    // Space
+                                    if (jexcel.current.options.columns[columnId].type == 'checkbox' ||
+                                        jexcel.current.options.columns[columnId].type == 'radio') {
+                                        e.preventDefault();
+                                    } else {
                                         // Start edition
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
-                                        // Prevent entries in the calendar
-                                        if (jexcel.current.options.columns[columnId].type == 'calendar') {
-                                            e.preventDefault();
-                                        }
+                                    }
+                                } else if (e.keyCode == 113) {
+                                    // Start edition with current content F2
+                                    jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
+                                } else if ((e.keyCode == 8) ||
+                                           (e.keyCode >= 48 && e.keyCode <= 57) ||
+                                           (e.keyCode == 187) ||
+                                           (jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
+                                    // Start edition
+                                    jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                    // Prevent entries in the calendar
+                                    if (jexcel.current.options.columns[columnId].type == 'calendar') {
+                                        e.preventDefault();
                                     }
                                 }
                             }
