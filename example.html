@@ -1,0 +1,30 @@
+<html>
+<script src="dist/jexcel.js"></script>
+<link rel="stylesheet" href="dist/jexcel.css" type="text/css" />
+
+<script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
+<link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
+
+<div id="spreadsheet"></div>
+
+<script>
+var data = [
+    [],
+    [],
+];
+
+jexcel(document.getElementById('spreadsheet'), {
+    data:data,
+    columns: [
+        { type: 'text' },
+        { type: 'text' },
+        { type: 'text' },
+        { type: 'text' },
+        { type: 'text' },
+        { type: 'text' },
+        { type: 'text' },
+     ],
+     minDimensions:[5,5]
+});
+</script>
+</html>
