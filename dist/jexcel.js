@@ -672,7 +672,7 @@ var jexcel = (function(el, options) {
         // Onload
         if (! obj.ignoreEvents) {
             if (typeof(obj.options.onload) == 'function') {
-                obj.options.onload(el);
+                obj.options.onload(el, obj);
             }
         }
     }
@@ -4265,7 +4265,7 @@ var jexcel = (function(el, options) {
 
     /**
      * Trying to extract a number from a string
-     **/
+     */
     obj.parseNumber = function(value, columnNumber) {
         // Decimal point
         var decimal = columnNumber && obj.options.columns[columnNumber].decimal ? obj.options.columns[columnNumber].decimal : '.';
