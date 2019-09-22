@@ -49,15 +49,22 @@ You should initiate your table based on a div container, such as:
 
 To initialize a jExcel table you should run a javascript, such as:
 ```javascript
-data = [
-    ['Google', 1998, 807.80],
-    ['Apple', 1976, 116.52],
-    ['Yahoo', 1994, 38.66],
+var data = [
+    ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
+    ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
 ];
 
-jexcel(document.getElementById('mytable'), {
+jexcel(document.getElementById('spreadsheet'), {
     data:data,
-    colWidths: [ 300, 80, 100 ]
+    columns: [
+        { type: 'text', title:'Car', width:120 },
+        { type: 'dropdown', title:'Make', width:200, source:[ "Alfa Romeo", "Audi", "Bmw" ] },
+        { type: 'calendar', title:'Available', width:200 },
+        { type: 'image', title:'Photo', width:120 },
+        { type: 'checkbox', title:'Stock', width:80 },
+        { type: 'numeric', title:'Price', width:100, mask:'$ #.##,00', decimal:',' },
+        { type: 'color', width:100, render:'square', }
+     ]
 });
 ```
 
@@ -209,4 +216,4 @@ Big improviments are included, such as:
 jExcel is released under the [MIT license]. Copyrights belong to Paul Hodel <paul.hodel@gmail.com>
 
 ## Other tools by the author
-- [Jtools Vanilla Web Components](https://bossanova.uk/jsuites)
+- [jSuites JavascriptWeb Components](https://bossanova.uk/jsuites)
