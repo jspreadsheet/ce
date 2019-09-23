@@ -2955,13 +2955,14 @@ var jexcel = (function(el, options) {
             // Filter
             Array.prototype.orderBy = function(p, o) {
                 return this.slice(0).sort(function(a, b) {
-                    var valueA = Number(a[p]) == a[p] ? Number(a[p]) : a[p].toLowerCase();
-                    var valueB = Number(b[p]) == b[p] ? Number(b[p]) : b[p].toLowerCase();
+					// blanks behave like in Excel. They are placed at the end of the list regardless of sorting ascending or descending
+                    var valueA = a[p]== ''? '' : Number(a[p])== a[p] ? Number(a[p]) : a[p].toLowerCase();
+                    var valueB = b[p]== ''? '' : Number(b[p])== b[p] ? Number(b[p]) : b[p].toLowerCase();
 
                     if (! o) {
-                        return (valueA > valueB) ? 1 : (valueA < valueB) ? -1 : 0;
+                        return (valueA==''&& valueB!='')? 1 : (valueA!='' && valueB=='')? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
                     } else {
-                        return (valueA > valueB) ? -1 : (valueA < valueB) ? 1 : 0;
+                        return (valueA==''&& valueB!='')? 1 : (valueA!='' && valueB=='')? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
                     }
                 });
             }
