@@ -29,7 +29,7 @@ var jexcel = (function(el, options) {
         // External data
         url:null,
         // Data
-        data:[[]],
+        data:null,
         // Copy behavior
         copyCompatibility:false,
         // Rows and columns definitions
@@ -256,7 +256,7 @@ var jexcel = (function(el, options) {
         // Number of columns
         var size = obj.options.columns.length;
 
-        if (typeof obj.options.data[0] !== 'undefined' && obj.options.data[0].length > size) {
+        if (obj.options.data && typeof obj.options.data[0] !== 'undefined' && obj.options.data[0].length > size) {
             size = obj.options.data[0].length;
         }
 
@@ -579,6 +579,11 @@ var jexcel = (function(el, options) {
             }
 
             obj.options.data = data;
+        }
+
+        // Data
+        if (! obj.options.data) {
+            obj.options.data = [];
         }
 
         // Adjust minimal dimensions
