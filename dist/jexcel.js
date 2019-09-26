@@ -136,6 +136,7 @@ var jexcel = (function(el, options) {
         onsort:null,
         onselection:null,
         onpaste:null,
+        onbeforepaste:null,
         onmerge:null,
         onfocus:null,
         onblur:null,
