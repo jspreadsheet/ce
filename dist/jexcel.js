@@ -2718,6 +2718,27 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Update meta information
+     * 
+     * @return integer
+     */
+    obj.updateMeta = function(affectedCells) {
+        if (obj.options.meta) {
+            var newMeta = [];
+            var keys = Object.keys(obj.options.meta);
+            for (var i = 0; i < keys.length; i++) {
+                if (affectedCells[keys[i]]) {
+                    newMeta[affectedCells[keys[i]]] = obj.options.meta[keys[i]];
+                } else {
+                    newMeta[keys[i]] = obj.options.meta[keys[i]];
+                }
+            }
+            // Update meta information
+            obj.options.meta = newMeta;
+        }
+    }
+
+    /**
      * Get style information from cell(s)
      * 
      * @return integer
@@ -3942,6 +3963,9 @@ var jexcel = (function(el, options) {
 
         // Update formulas
         obj.updateFormulas(affectedTokens);
+
+        // Update meta data
+        obj.updateMeta(affectedTokens);
 
         // Refresh selection
         obj.refreshSelection();
