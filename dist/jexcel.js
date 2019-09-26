@@ -4928,8 +4928,12 @@ var jexcel = (function(el, options) {
             }
         }
 
+        // Reset current nodes
+        while (obj.tbody.firstChild) {
+            obj.tbody.removeChild(obj.tbody.firstChild);
+        }
+
         // Hide all records from the table
-        obj.tbody.innerHTML = '';
         for (var j = 0; j < obj.rows.length; j++) {
             if (! obj.results || obj.results.indexOf(j) > -1) {
                 if (index < total) {
