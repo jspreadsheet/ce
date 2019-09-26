@@ -3382,7 +3382,7 @@ var jexcel = (function(el, options) {
                     for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
                         if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
                             obj.rows[row].className = '';
-                            obj.rows[row].remove();
+                            obj.rows[row].parentNode.removeChild(obj.rows[row]);
                         }
                     }
 
@@ -3739,8 +3739,8 @@ var jexcel = (function(el, options) {
                     for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
                         obj.colgroup[col].className = '';
                         obj.headers[col].className = '';
-                        obj.colgroup[col].remove();
-                        obj.headers[col].remove();
+                        obj.colgroup[col].parentNode.removeChild(obj.colgroup[col]);
+                        obj.headers[col].parentNode.removeChild(obj.headers[col]);
                     }
 
                     var historyHeaders = obj.headers.splice(columnNumber, numOfColumns);
@@ -3751,7 +3751,7 @@ var jexcel = (function(el, options) {
                     for (var row = 0; row < obj.options.data.length; row++) {
                         for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
                             obj.records[row][col].className = '';
-                            obj.records[row][col].remove();
+                            obj.records[row][col].parentNode.removeChild(obj.records[row][col]);
                         }
                     }
 
@@ -5126,7 +5126,7 @@ var jexcel = (function(el, options) {
             pom.setAttribute('download', obj.options.csvFileName + '.csv');
             document.body.appendChild(pom);
             pom.click();
-            pom.remove();
+            pom.parentNode.removeChild(pom);
         }
     }
 
@@ -5243,7 +5243,7 @@ var jexcel = (function(el, options) {
     obj.paste = function(x, y, data) {
         // Paste filter
         if (typeof(obj.options.onbeforepaste) == 'function') {
-            var data = obj.options.onbeforepaste(data);
+            var data = obj.options.onbeforepaste(instance, data);
         }
 
         // Controls
@@ -5347,7 +5347,7 @@ var jexcel = (function(el, options) {
             var numOfRows = historyRecord.numOfRows;
             // Remove nodes
             for (var j = rowIndex; j < (numOfRows + rowIndex); j++) {
-                obj.rows[j].remove();
+                obj.rows[j].parentNode.removeChild(obj.rows[j]);
             }
             // Remove references
             obj.records.splice(rowIndex, numOfRows);
@@ -5388,14 +5388,14 @@ var jexcel = (function(el, options) {
 
             obj.options.columns.splice(columnIndex, numOfColumns);
             for (var i = columnIndex; i < (numOfColumns + columnIndex); i++) {
-                obj.headers[i].remove();
-                obj.colgroup[i].remove();
+                obj.headers[i].parentNode.removeChild(obj.headers[i]);
+                obj.colgroup[i].parentNode.removeChild(obj.colgroup[i]);
             }
             obj.headers.splice(columnIndex, numOfColumns);
             obj.colgroup.splice(columnIndex, numOfColumns);
             for (var j = 0; j < historyRecord.data.length; j++) {
                 for (var i = columnIndex; i < (numOfColumns + columnIndex); i++) {
-                    obj.records[j][i].remove();
+                    obj.records[j][i].parentNode.removeChild(obj.records[j][i]);
                 }
                 obj.records[j].splice(columnIndex, numOfColumns);
                 obj.options.data[j].splice(columnIndex, numOfColumns);
