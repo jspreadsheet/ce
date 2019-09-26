@@ -762,6 +762,10 @@ var jexcel = (function(el, options) {
         if (! obj.records[j]) {
             obj.records[j] = [];
         }
+        // Default data
+        if (! data) {
+            var data = obj.options.data[j];
+        }
         // New line of data to be append in the table
         obj.rows[j] = document.createElement('tr');
         obj.rows[j].setAttribute('data-y', j);
@@ -5005,7 +5009,9 @@ var jexcel = (function(el, options) {
         }
 
         // Reset container
-        obj.tbody.innerHTML = '';
+        while (obj.tbody.firstChild) {
+            obj.tbody.removeChild(obj.tbody.firstChild);
+        }
 
         // Appeding items
         for (var j = startRow; j < finalRow; j++) {
