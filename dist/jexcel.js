@@ -119,6 +119,8 @@ var jexcel = (function(el, options) {
         parseFormulas:true,
         autoIncrement:true,
         // Event handles
+        onundo:null,
+        onredo:null,
         onload:null,
         onchange:null,
         onbeforechange:null,
@@ -5536,6 +5538,10 @@ var jexcel = (function(el, options) {
         }
         obj.ignoreEvents = ignoreEvents;
         obj.ignoreHistory = ignoreHistory;
+
+        if (typeof(obj.options.onundo) == 'function') {
+            obj.options.onundo(el, historyRecord);
+        }
     }
 
     /**
@@ -5605,6 +5611,10 @@ var jexcel = (function(el, options) {
         }
         obj.ignoreEvents = ignoreEvents;
         obj.ignoreHistory = ignoreHistory;
+
+        if (typeof(obj.options.onredo) == 'function') {
+            obj.options.onredo(el, historyRecord);
+        }
     }
 
     /**
@@ -7112,7 +7122,9 @@ jexcel.fromSpreadsheet = function(file, __callback) {
             if (temp && temp.length) {
                 for (var i = 0; i < temp.length; i++) {
                     spreadsheet.columns[i] = {};
-                    spreadsheet.columns[i].width = temp[i].wpx + 'px';
+                    if (temp[i] && temp[i].wpx) {
+                        spreadsheet.columns[i].width = temp[i].wpx + 'px';
+                    }
                 }
             }
             // Rows heights
