@@ -186,7 +186,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.5.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://jexcel.net/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.5.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -260,8 +260,13 @@ var jexcel = (function(el, options) {
         // Number of columns
         var size = obj.options.columns.length;
 
-        if (obj.options.data && typeof obj.options.data[0] !== 'undefined' && obj.options.data[0].length > size) {
-            size = obj.options.data[0].length;
+        if (obj.options.data && typeof obj.options.data[0] !== 'undefined') {
+            // Data keys
+            var keys = Object.keys(obj.options.data[0]);
+
+            if (keys.length > size) {
+                size = keys.length;
+            }
         }
 
         // Minimal dimensions
@@ -290,6 +295,9 @@ var jexcel = (function(el, options) {
                 obj.options.columns[i] = { type:'text' };
             } else if (! obj.options.columns[i].type) {
                 obj.options.columns[i].type = 'text';
+            }
+            if (! obj.options.columns[i].name) {
+                obj.options.columns[i].name = keys && keys[i] ? keys[i] : i;
             }
             if (! obj.options.columns[i].source) {
                 obj.options.columns[i].source = [];
@@ -349,6 +357,9 @@ var jexcel = (function(el, options) {
     }
 
     obj.createTable = function() {
+        // Data
+        obj.prepareData();
+
         // Elements
         obj.table = document.createElement('table');
         obj.thead = document.createElement('thead');
@@ -570,6 +581,26 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Make sure the data is in the correct format (json/array)
+     * 
+     * @param data
+     * @return void
+     */
+    obj.prepareData = function() {
+        var data = [];
+
+        for (var j = 0; j < obj.options.data.length; j++) {
+            var row = [];
+            for (var i = 0; i < obj.options.columns.length; i++) {
+                row[i] = obj.options.data[j][obj.options.columns[i].name];
+            }
+            data.push(row);
+        }
+
+        obj.options.data = data;
+    }
+
+    /**
      * Set data
      * 
      * @param array data In case no data is sent, default is reloaded
@@ -700,7 +731,7 @@ var jexcel = (function(el, options) {
         var py = 0;
 
         // Column and row length
-        var x = obj.options.data[0].length
+        var x = obj.options.columns.length
         var y = obj.options.data.length
 
         // Go through the columns to get the data
@@ -723,6 +754,40 @@ var jexcel = (function(el, options) {
        }
 
        return dataset;
+    }
+
+    /**
+     * Get the whole table data
+     * 
+     * @param integer row number
+     * @return string value
+     */
+    obj.getJson = function(highlighted) {
+        // Control vars
+        var data = [];
+
+        // Column and row length
+        var x = obj.options.columns.length
+        var y = obj.options.data.length
+
+        // Go through the columns to get the data
+        for (var j = 0; j < y; j++) {
+            var row = null;
+            for (var i = 0; i < x; i++) {
+                if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                    if (row == null) {
+                        row = {};
+                    }
+                    row[obj.options.columns[i].name] = obj.options.data[j][i];
+                }
+            }
+
+            if (row != null) {
+                data.push(row);
+            }
+       }
+
+       return data;
     }
 
     /**
@@ -1628,7 +1693,7 @@ var jexcel = (function(el, options) {
             if ((obj.records[y] && obj.records[y][x]) && processedValue || obj.options.copyCompatibility == true) {
                 value = obj.records[y][x].innerHTML;
             } else {
-                if (obj.options.data[y] && obj.options.data[y][x] != undefined) {
+                if (obj.options.data[y] && obj.options.data[y][x] != 'undefined') {
                     value = obj.options.data[y][x];
                 }
             }
