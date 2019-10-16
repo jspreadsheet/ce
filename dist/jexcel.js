@@ -5970,8 +5970,6 @@ jexcel.destroy = function(element, destroyEventHandlers) {
             document.removeEventListener("keydown", jexcel.keyDownControls);
             document.removeEventListener("mouseup", jexcel.mouseUpControls);
             document.removeEventListener("mousedown", jexcel.mouseDownControls);
-            document.removeEventListener("mousemove", jexcel.mouseMoveControls);
-            document.removeEventListener("mouseover", jexcel.mouseOverControls);
             document.removeEventListener("dblclick", jexcel.doubleClickControls);
             document.removeEventListener("paste", jexcel.pasteControls);
             document.removeEventListener("contextmenu", jexcel.contextMenuControls);
@@ -5987,8 +5985,6 @@ jexcel.build = function() {
     document.addEventListener("keydown", jexcel.keyDownControls);
     document.addEventListener("mouseup", jexcel.mouseUpControls);
     document.addEventListener("mousedown", jexcel.mouseDownControls);
-    document.addEventListener("mousemove", jexcel.mouseMoveControls);
-    document.addEventListener("mouseover", jexcel.mouseOverControls);
     document.addEventListener("dblclick", jexcel.doubleClickControls);
     document.addEventListener("paste", jexcel.pasteControls);
     document.addEventListener("contextmenu", jexcel.contextMenuControls);
@@ -6339,6 +6335,8 @@ jexcel.keyDownControls = function(e) {
 jexcel.isMouseAction = false;
 
 jexcel.mouseDownControls = function(e) {
+    document.addEventListener("mouseover", jexcel.mouseOverControls);
+    document.addEventListener("mousemove", jexcel.mouseMoveControls);
     e = e || window.event;
     if (e.buttons) {
         var mouseButton = e.buttons;
@@ -6566,6 +6564,8 @@ jexcel.mouseDownControls = function(e) {
 }
 
 jexcel.mouseUpControls = function(e) {
+    document.removeEventListener("mouseover", jexcel.mouseOverControls);
+    document.removeEventListener("mousemove", jexcel.mouseMoveControls);
     if (jexcel.current) {
         // Update cell size
         if (jexcel.current.resizing) {
