@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.5.0
+ * (c) jExcel v3.5.1
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -229,7 +229,6 @@ var jexcel = (function(el, options) {
     obj.selectedCell = null;
     obj.selectedContainer = null;
     obj.style = [];
-    obj.meta = [];
     obj.data = null;
 
     // Internal controllers
@@ -589,15 +588,17 @@ var jexcel = (function(el, options) {
     obj.prepareData = function() {
         var data = [];
 
-        for (var j = 0; j < obj.options.data.length; j++) {
-            var row = [];
-            for (var i = 0; i < obj.options.columns.length; i++) {
-                row[i] = obj.options.data[j][obj.options.columns[i].name];
+        if (obj.options.data) {
+            for (var j = 0; j < obj.options.data.length; j++) {
+                var row = [];
+                for (var i = 0; i < obj.options.columns.length; i++) {
+                    row[i] = obj.options.data[j][obj.options.columns[i].name];
+                }
+                data.push(row);
             }
-            data.push(row);
-        }
 
-        obj.options.data = data;
+            obj.options.data = data;
+        }
     }
 
     /**
@@ -1731,7 +1732,7 @@ var jexcel = (function(el, options) {
             }
 
             // Update cell
-            if (x && y) {
+            if (x != null && y != null) {
                 records.push(obj.updateCell(x, y, value, force));
 
                 // Update all formulas in the chain
@@ -1750,7 +1751,7 @@ var jexcel = (function(el, options) {
                         }
 
                          // Update cell
-                        if (x && y) {
+                        if (x != null && y != null) {
                             records.push(obj.updateCell(x, y, value, force));
 
                             // Update all formulas in the chain
@@ -2764,7 +2765,11 @@ var jexcel = (function(el, options) {
         if (! cell) {
             return obj.options.meta;
         } else {
-            return key ? obj.options.meta[cell][key] : obj.options.meta[cell];
+            if (key) {
+                return obj.options.meta[cell] && obj.options.meta[cell][key] ? obj.options.meta[cell][key] : null;
+            } else {
+                return obj.options.meta[cell] ? obj.options.meta[cell] : null;
+            }
         }
     }
 
@@ -2813,7 +2818,7 @@ var jexcel = (function(el, options) {
      */
     obj.updateMeta = function(affectedCells) {
         if (obj.options.meta) {
-            var newMeta = [];
+            var newMeta = {};
             var keys = Object.keys(obj.options.meta);
             for (var i = 0; i < keys.length; i++) {
                 if (affectedCells[keys[i]]) {
