@@ -552,7 +552,7 @@ var jexcel = (function(el, options) {
         }
 
         // With toolbars
-        if (obj.options.toolbar) {
+        if (obj.options.tableOverflow != true && obj.options.toolbar) {
             el.classList.add('with-toolbar');
         }
 
