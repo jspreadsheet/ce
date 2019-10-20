@@ -4261,6 +4261,7 @@ var jexcel = (function(el, options) {
      */
     obj.executeFormula = function(expression, x, y) {
 
+        var formulaResults = [];
         var formulaLoopProtection = [];
 
         // Execute formula with loop protection
@@ -4349,7 +4350,12 @@ var jexcel = (function(el, options) {
                             }
                             // Get column data
                             if ((''+value).substr(0,1) == '=') {
-                                value = execute(value, position[0], position[1]);
+                                if (formulaResults[parentId]) {
+                                    value = formulaResults[parentId];
+                                } else {
+                                    value = execute(value, position[0], position[1]);
+                                    formulaResults[parentId] = value;
+                                }
                             }
                             // Type!
                             if ((''+value).trim() == '') {
