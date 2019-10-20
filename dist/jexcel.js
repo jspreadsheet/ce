@@ -42,6 +42,7 @@ var jexcel = (function(el, options) {
         nestedHeaders:null,
         // Column width that is used by default
         defaultColWidth:50,
+        defaultColAlign:'center',
         // Spare rows and columns
         minSpareRows:0,
         minSpareCols:0,
@@ -282,10 +283,10 @@ var jexcel = (function(el, options) {
                 obj.options.colHeaders[i] = '';
             }
             if (! obj.options.colWidths[i]) {
-                obj.options.colWidths[i] = obj.options.defaultColWidth || '50';
+                obj.options.colWidths[i] = obj.options.defaultColWidth;
             }
             if (! obj.options.colAlignments[i]) {
-                obj.options.colAlignments[i] = 'center';
+                obj.options.colAlignments[i] = obj.options.defaultColAlign;
             }
 
             // Default column description
@@ -959,7 +960,7 @@ var jexcel = (function(el, options) {
     obj.createCellHeader = function(colNumber) {
         // Create col global control
         var colWidth = obj.options.columns[colNumber].width ? obj.options.columns[colNumber].width : obj.options.defaultColWidth;
-        var colAlign = obj.options.columns[colNumber].align ? obj.options.columns[colNumber].align : 'center';
+        var colAlign = obj.options.columns[colNumber].align ? obj.options.columns[colNumber].align : obj.options.defaultColAlign;
 
         // Create header cell
         obj.headers[colNumber] = document.createElement('td');
@@ -3640,7 +3641,7 @@ var jexcel = (function(el, options) {
 
             for (var i = 0; i < numOfColumns; i++) {
                 if (! properties[i]) {
-                    properties[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:'center' };
+                    properties[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:obj.options.defaultColAlign };
                 }
             }
 
@@ -5842,7 +5843,7 @@ var jexcel = (function(el, options) {
                         var headers = newData.shift();
                         for(var i = 0; i < headers.length; i++) {
                             if (! obj.options.columns[i]) {
-                                obj.options.columns[i] = { type:'text', align:'center', width:obj.options.defaultColWidth };
+                                obj.options.columns[i] = { type:'text', align:obj.options.defaultColAlign, width:obj.options.defaultColWidth };
                             }
                             // Precedence over pre-configurated titles
                             if (typeof obj.options.columns[i].title === 'undefined') {
