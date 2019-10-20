@@ -222,7 +222,6 @@ var jexcel = (function(el, options) {
     obj.records = [];
     obj.history = [];
     obj.formula = [];
-    obj.formulaStack = 0;
     obj.colgroup = [];
     obj.selection = [];
     obj.highlighted  = [];
@@ -259,7 +258,7 @@ var jexcel = (function(el, options) {
         // Number of columns
         var size = obj.options.columns.length;
 
-        if (obj.options.data && typeof obj.options.data[0] !== 'undefined') {
+        if (obj.options.data && typeof(obj.options.data[0]) !== 'undefined') {
             // Data keys
             var keys = Object.keys(obj.options.data[0]);
 
@@ -1778,12 +1777,8 @@ var jexcel = (function(el, options) {
         // Update table with custom configurations if applicable
         obj.updateTable();
 
-        // On after change
-        if (! obj.ignoreEvents) {
-            if (typeof(obj.options.onafterchanges) == 'function') {
-                obj.options.onafterchanges(el, records, value);
-            }
-        }
+        // On after changes
+        obj.onafterchanges(el, records);
     }
 
     /**
@@ -1811,12 +1806,8 @@ var jexcel = (function(el, options) {
         // Update table with custom configurations if applicable
         obj.updateTable();
 
-        // On after change
-        if (! obj.ignoreEvents) {
-            if (typeof(obj.options.onafterchanges) == 'function') {
-                obj.options.onafterchanges(el, records, value);
-            }
-        }
+        // On after changes
+        obj.onafterchanges(el, records);
     }
 
     /**
@@ -1843,12 +1834,8 @@ var jexcel = (function(el, options) {
                 selection:obj.selectedCell,
             });
 
-            // On after change
-            if (! obj.ignoreEvents) {
-                if (typeof(obj.options.onafterchanges) == 'function') {
-                    obj.options.onafterchanges(el, records);
-                }
-            }
+            // On after changes
+            obj.onafterchanges(el, records);
         }
     }
 
@@ -1968,7 +1955,7 @@ var jexcel = (function(el, options) {
             // On change
             if (! obj.ignoreEvents) {
                 if (typeof(obj.options.onchange) == 'function') {
-                    obj.options.onchange(el, obj.records[y][x], x, y, value, record.oldValue);
+                    obj.options.onchange(el, (obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null), x, y, value, record.oldValue);
                 }
             }
         }
@@ -2098,12 +2085,8 @@ var jexcel = (function(el, options) {
         // Update table with custom configuration if applicable
         obj.updateTable();
 
-        // On after change
-        if (! obj.ignoreEvents) {
-            if (typeof(obj.options.onafterchanges) == 'function') {
-                obj.options.onafterchanges(el, records);
-            }
-        }
+        // On after changes
+        obj.onafterchanges(el, records);
     }
 
     /**
@@ -4276,118 +4259,133 @@ var jexcel = (function(el, options) {
      * Parse formulas
      */
     obj.executeFormula = function(expression, x, y) {
-        // Code protection
-        obj.formulaStack++;
-        if (obj.formulaStack > 5) {
-            console.error('Too many executions...');
-            return 0;
-        }
-        // Parent column identification
-        var parentId = jexcel.getColumnNameFromId([x, y]);
-        // Convert range tokens
-        var tokensUpdate = function(tokens) {
-            for (var index = 0; index < tokens.length; index++) {
-                var f = [];
-                var token = tokens[index].split(':');
-                var e1 = jexcel.getIdFromColumnName(token[0], true);
-                var e2 = jexcel.getIdFromColumnName(token[1], true);
 
-                if (e1[0] <= e2[0]) {
-                    var x1 = e1[0];
-                    var x2 = e2[0];
-                } else {
-                    var x1 = e2[0];
-                    var x2 = e1[0];
-                }
+        var formulaLoopProtection = [];
 
-                if (e1[1] <= e2[1]) {
-                    var y1 = e1[1];
-                    var y2 = e2[1];
-                } else {
-                    var y1 = e2[1];
-                    var y2 = e1[1];
-                }
+        // Execute formula with loop protection
+        var execute = function(expression, x, y) {
+         // Parent column identification
+            var parentId = jexcel.getColumnNameFromId([x, y]);
 
-                for (var j = y1; j <= y2; j++) {
-                    for (var i = x1; i <= x2; i++) {
-                        f.push(jexcel.getColumnNameFromId([i, j]));
-                    }
-                }
-
-                expression = expression.replace(tokens[index], f.join(','));
+            // Code protection
+            if (formulaLoopProtection[parentId]) {
+                console.error('Reference loop detected');
+                return '#ERROR';
             }
-        }
 
-        var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
-        if (tokens && tokens.length) {
-            tokensUpdate(tokens);
-        }
+            formulaLoopProtection[parentId] = true;
 
-        // String
-        var evalstring = '';
+            // Convert range tokens
+            var tokensUpdate = function(tokens) {
+                for (var index = 0; index < tokens.length; index++) {
+                    var f = [];
+                    var token = tokens[index].split(':');
+                    var e1 = jexcel.getIdFromColumnName(token[0], true);
+                    var e2 = jexcel.getIdFromColumnName(token[1], true);
 
-        // Get tokens
-        var tokens = expression.match(/([A-Z]+[0-9]+)/g);
-
-        if (tokens) {
-            for (var i = 0; i < tokens.length; i++) {
-                // Keep chain
-                if (! obj.formula[tokens[i]]) {
-                    obj.formula[tokens[i]] = [];
-                }
-                // Is already in the register
-                if (obj.formula[tokens[i]].indexOf(parentId) < 0) {
-                    obj.formula[tokens[i]].push(parentId);
-                }
-
-                // Do not calculate again
-                if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
-                    // Coords
-                    var position = jexcel.getIdFromColumnName(tokens[i], 1);
-                    // Get value
-                    if (typeof(obj.options.data[position[1]]) != 'undefined' && typeof(obj.options.data[position[1]][position[0]]) != 'undefined') {
-                        var value = obj.options.data[position[1]][position[0]];
+                    if (e1[0] <= e2[0]) {
+                        var x1 = e1[0];
+                        var x2 = e2[0];
                     } else {
-                        var value = '';
+                        var x1 = e2[0];
+                        var x2 = e1[0];
                     }
-                    // Get column data
-                    if ((''+value).substr(0,1) == '=') {
-                        value = obj.executeFormula(value, position[0], position[1]);
-                    }
-                    // Type!
-                    if ((''+value).trim() == '') {
-                        // Null
-                        evalstring += "var " + tokens[i] + " = null;";
+
+                    if (e1[1] <= e2[1]) {
+                        var y1 = e1[1];
+                        var y2 = e2[1];
                     } else {
-                        if (value == Number(value)) {
-                            // Number
-                            evalstring += "var " + tokens[i] + " = " + value + ";";
-                        } else {
-                            // Trying any formatted number
-                            var number = null;
-                            if (number = obj.parseNumber(value, position[0])) {
-                                // Render as number
-                                evalstring += "var " + tokens[i] + " = " + number + ";";
+                        var y1 = e2[1];
+                        var y2 = e1[1];
+                    }
+
+                    for (var j = y1; j <= y2; j++) {
+                        for (var i = x1; i <= x2; i++) {
+                            f.push(jexcel.getColumnNameFromId([i, j]));
+                        }
+                    }
+
+                    expression = expression.replace(tokens[index], f.join(','));
+                }
+            }
+
+            var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
+            if (tokens && tokens.length) {
+                tokensUpdate(tokens);
+            }
+
+            // String
+            var evalstring = '';
+
+            // Get tokens
+            var tokens = expression.match(/([A-Z]+[0-9]+)/g);
+
+            // Direct self-reference protection
+            if (tokens.indexOf(parentId) > -1) {
+                console.error('Self Reference detected');
+                return '#ERROR';
+            } else {
+                if (tokens) {
+                    for (var i = 0; i < tokens.length; i++) {
+                        // Keep chain
+                        if (! obj.formula[tokens[i]]) {
+                            obj.formula[tokens[i]] = [];
+                        }
+                        // Is already in the register
+                        if (obj.formula[tokens[i]].indexOf(parentId) < 0) {
+                            obj.formula[tokens[i]].push(parentId);
+                        }
+
+                        // Do not calculate again
+                        if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
+                            // Coords
+                            var position = jexcel.getIdFromColumnName(tokens[i], 1);
+                            // Get value
+                            if (typeof(obj.options.data[position[1]]) != 'undefined' && typeof(obj.options.data[position[1]][position[0]]) != 'undefined') {
+                                var value = obj.options.data[position[1]][position[0]];
                             } else {
-                                // Render as string
-                                evalstring += "var " + tokens[i] + " = '" + value + "';";
+                                var value = '';
+                            }
+                            // Get column data
+                            if ((''+value).substr(0,1) == '=') {
+                                value = execute(value, position[0], position[1]);
+                            }
+                            // Type!
+                            if ((''+value).trim() == '') {
+                                // Null
+                                evalstring += "var " + tokens[i] + " = null;";
+                            } else {
+                                if (value == Number(value)) {
+                                    // Number
+                                    evalstring += "var " + tokens[i] + " = " + value + ";";
+                                } else {
+                                    // Trying any formatted number
+                                    var number = null;
+                                    if (number = obj.parseNumber(value, position[0])) {
+                                        // Render as number
+                                        evalstring += "var " + tokens[i] + " = " + number + ";";
+                                    } else {
+                                        // Render as string
+                                        evalstring += "var " + tokens[i] + " = '" + value + "';";
+                                    }
+                                }
                             }
                         }
                     }
                 }
+
+                // Convert formula to javascript
+                try {
+                    var res = eval(evalstring + expression.substr(1));
+                } catch (e) {
+                    var res = '#ERROR';
+                }
+
+                return res;
             }
         }
 
-        obj.formulaStack = 0;
-
-        // Convert formula to javascript
-        try {
-            var res = eval(evalstring + expression.substr(1));
-        } catch (e) {
-            var res = '#ERROR';
-        }
-
-        return res;
+        return execute(expression, x, y);
     }
 
     /**
@@ -5409,7 +5407,7 @@ var jexcel = (function(el, options) {
                     if (rowIndex >= obj.rows.length-1) {
                         obj.insertRow();
                     }
-                    var rowIndex = obj.down.get(x, rowIndex);
+                    rowIndex = obj.down.get(x, rowIndex);
                 }
             }
 
@@ -5432,6 +5430,9 @@ var jexcel = (function(el, options) {
             if (typeof(obj.options.onpaste) == 'function') {
                 obj.options.onpaste(el, records);
             }
+
+            // On after changes
+            obj.onafterchanges(el, records);
         }
     }
 
@@ -5797,6 +5798,15 @@ var jexcel = (function(el, options) {
             }
         }
         return hash;
+    }
+
+    obj.onafterchanges = function(el, records) {
+        if (! obj.ignoreEvents) {
+            // On after changes
+            if (typeof(obj.options.onafterchanges) == 'function') {
+                obj.options.onafterchanges(el, records);
+            }
+        }
     }
 
     /**
