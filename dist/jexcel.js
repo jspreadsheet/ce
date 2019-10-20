@@ -4322,7 +4322,7 @@ var jexcel = (function(el, options) {
             var tokens = expression.match(/([A-Z]+[0-9]+)/g);
 
             // Direct self-reference protection
-            if (tokens.indexOf(parentId) > -1) {
+            if (tokens && tokens.indexOf(parentId) > -1) {
                 console.error('Self Reference detected');
                 return '#ERROR';
             } else {
