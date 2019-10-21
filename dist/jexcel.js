@@ -3064,10 +3064,10 @@ var jexcel = (function(el, options) {
                     var valueA = a[p] == '' ? '' : Number(a[p]) == a[p] ? Number(a[p]) : a[p].toLowerCase();
                     var valueB = b[p] == '' ? '' : Number(b[p]) == b[p] ? Number(b[p]) : b[p].toLowerCase();
 
-                    if (! o) {
-                        return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
+                   if (! o) {
+                        return (valueA == '' && valueB != '' && typeof(valueA) != "number") ? 1 : (valueA != '' && valueB == '' && typeof(valueB) != "number") ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
                     } else {
-                        return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
+                        return (valueA == '' && valueB != '' && typeof(valueA) != "number") ? 1 : (valueA != '' && valueB == '' && typeof(valueB) != "number") ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
                     }
                 });
             }
