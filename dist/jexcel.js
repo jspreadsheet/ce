@@ -5353,7 +5353,7 @@ var jexcel = (function(el, options) {
     obj.paste = function(x, y, data) {
         // Paste filter
         if (typeof(obj.options.onbeforepaste) == 'function') {
-            var data = obj.options.onbeforepaste(instance, data);
+            var data = obj.options.onbeforepaste(el, data);
         }
 
         // Controls
