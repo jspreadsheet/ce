@@ -921,6 +921,11 @@ var jexcel = (function(el, options) {
             if ((''+value).substr(0,1) == '=' && obj.options.parseFormulas == true) {
                 value = obj.executeFormula(value, i, j)
             }
+            
+            if (obj.options.columns[i].editor && typeof(obj.options.columns[i].editor.updateCell) == 'function' ) {
+                value = obj.options.columns[i].editor.updateCell(td, value);
+            }
+            
             if (obj.options.columns[i].mask) {
                 var decimal = obj.options.columns[i].decimal || '.';
                 value = '' + jSuites.mask.run(value, obj.options.columns[i].mask, decimal);
@@ -2512,6 +2517,19 @@ var jexcel = (function(el, options) {
         } else {
             var x = (x2 - x1) + obj.content.scrollLeft + w2;
             var y = (y2 - y1) + obj.content.scrollTop + h2;
+        }
+        
+        // Correction scroll with Column Fixed
+        var correction = 0;
+        for(var ite_col in obj.records[0]) {
+            if(obj.records[0][ite_col].style.position=="relative") {
+                correction = Math.max(correction,obj.records[0][ite_col].getBoundingClientRect().left+obj.records[0][ite_col].getBoundingClientRect().width);
+            } else {
+                break;
+            }
+        }
+        if(x2<correction) {
+            x = x-correction-obj.content.scrollLeft+parseInt(obj.records[0][ite_col].style.left);
         }
 
         // Top position check
@@ -4316,8 +4334,8 @@ var jexcel = (function(el, options) {
                 tokensUpdate(tokens);
             }
 
-            // String
-            var evalstring = '';
+            // String with cell info (col, row, name)
+            var evalstring = 'var cell = {col:'+(x+1)+',row:'+(y+1)+', name:"'+jexcel.getColumnNameFromId([x, y])+'"};';
 
             // Get tokens
             var tokens = expression.match(/([A-Z]+[0-9]+)/g);
