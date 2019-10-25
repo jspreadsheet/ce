@@ -246,6 +246,36 @@ var jexcel = (function(el, options) {
         console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
         obj.options.lazyLoading = false;
     }
+    
+    /**
+     * Activate/Disable fullscreen 
+     * use programmatically : table.fullscreen(); or table.fullscreen(true); or table.fullscreen(false);
+     * @Param {boolean} activate
+     */
+    obj.fullscreen = function(activate) {
+        // If activate not defined, get reverse options.fullscreen
+        if(activate==null) {
+            activate = !obj.options.fullscreen;
+        }
+
+        // If change
+        if(obj.options.fullscreen!=activate) {
+
+            obj.options.fullscreen = activate;
+
+            // Test LazyLoading conflict
+            if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
+                console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
+                obj.options.lazyLoading = false;
+            }
+
+            if(activate) {
+                el.classList.add('fullscreen');
+            } else {
+                el.classList.remove('fullscreen');
+            }
+        } 
+    }
 
     /**
      * Prepare the jexcel table
