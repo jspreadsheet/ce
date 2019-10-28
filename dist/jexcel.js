@@ -251,7 +251,7 @@ var jexcel = (function(el, options) {
      * Print table
      * @param {Object} optionsPrint with available property : {title: {string}, header: {bool}, index: {bool}, autoprint: {bool}, style: {string}, stylesheet: {url}
      */
-        obj.print = function(optionsPrint) {
+     obj.print = function(optionsPrint) {
         
         // Scroll top for fix position header
         if(obj.content.scrollLeft!=0 || obj.content.scrollTop!=0){
@@ -368,7 +368,7 @@ var jexcel = (function(el, options) {
             row = "<tr><td class='jexcel_row'>"+(parseInt(x)+1)+"</td>";
             for(var y in obj.options.data[x]) {
                 
-                var cellName = jexcel.getColumnNameFromId([x,y]);
+                var cellName = jexcel.getColumnNameFromId([y,x]);
                 
                 // Manage merged cell
                 if(obj.options.mergeCells[cellName]!=null) {
