@@ -4409,6 +4409,8 @@ var jexcel = (function(el, options) {
 
                 // Convert formula to javascript
                 try {
+                    evalstring += "function COLUMN() { return x }; function ROW() { return y };";
+
                     var res = eval(evalstring + expression.substr(1));
                 } catch (e) {
                     var res = '#ERROR';
