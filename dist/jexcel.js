@@ -254,22 +254,16 @@ var jexcel = (function(el, options) {
      */
     obj.fullscreen = function(activate) {
         // If activate not defined, get reverse options.fullscreen
-        if(activate==null) {
-            activate = !obj.options.fullscreen;
+        if (activate == null) {
+            activate = ! obj.options.fullscreen;
         }
 
         // If change
-        if(obj.options.fullscreen!=activate) {
-
+        if (obj.options.fullscreen != activate) {
             obj.options.fullscreen = activate;
 
             // Test LazyLoading conflict
-            if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
-                console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
-                obj.options.lazyLoading = false;
-            }
-
-            if(activate) {
+            if (activate == true) {
                 el.classList.add('fullscreen');
             } else {
                 el.classList.remove('fullscreen');
@@ -1638,7 +1632,9 @@ var jexcel = (function(el, options) {
             }
 
             // Restore value
-            cell.innerHTML = obj.edition[1];
+            if (obj.editor && obj.editor[1]) {
+                cell.innerHTML = obj.edition[1];
+            }
 
             // On edition end
             if (! obj.ignoreEvents) {
