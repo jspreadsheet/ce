@@ -251,7 +251,7 @@ var jexcel = (function(el, options) {
      * Print table
      * @param {Object} optionsPrint with available property : {title: {string}, header: {bool}, index: {bool}, autoprint: {bool}, style: {string}, stylesheet: {url}
      */
-    obj.print = function(optionsPrint) {
+        obj.print = function(optionsPrint) {
         
         // Scroll top for fix position header
         if(obj.content.scrollLeft!=0 || obj.content.scrollTop!=0){
@@ -363,18 +363,39 @@ var jexcel = (function(el, options) {
         // Body
         bodyTable = "<tbody>";
         var row = "";
+        var cellNotShow = {};
         for(var x in obj.options.data) {
             row = "<tr><td class='jexcel_row'>"+(parseInt(x)+1)+"</td>";
             for(var y in obj.options.data[x]) {
-                if(obj.records[x]!=null && obj.records[x][y]!=null) {
-                    row += obj.records[x][y].outerHTML;
-                } else {
-                    row += "<td>" + obj.executeFormula(obj.options.data[x][y]) + "</td>";
+                
+                var cellName = jexcel.getColumnNameFromId([x,y]);
+                
+                // Manage merged cell
+                if(obj.options.mergeCells[cellName]!=null) {
+                    for(var x_merge=0;x_merge<obj.options.mergeCells[cellName][1];x_merge++) {
+                       for(var y_merge=0;y_merge<obj.options.mergeCells[cellName][0];y_merge++) {
+                           if(x_merge!=0 || y_merge!=0) {
+                              cellNotShow[(parseInt(x)+parseInt(x_merge))+","+(parseInt(y)+parseInt(y_merge))] = true;
+                           }
+                        } 
+                    }
+                }
+                
+                if(cellNotShow[parseInt(x)+","+parseInt(y)]==null) {
+                    if(obj.records[x]!=null && obj.records[x][y]!=null) {
+                        row += obj.records[x][y].outerHTML;
+                    } else if ((''+obj.options.data[x][y]).substr(0,1) == '=' && obj.options.parseFormulas == true) {
+                        row += "<td>" + obj.executeFormula(obj.options.data[x][y]) + "</td>";
+                    } else {
+                        row += "<td>" + obj.options.data[x][y] + "</td>";
+                    }
                 }
             }
             row += "</tr>";
             bodyTable += row;
         }
+        
+        
         
         bodyTable += "</tbody>";
         
