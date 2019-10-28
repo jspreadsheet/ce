@@ -6486,7 +6486,7 @@ jexcel.keyDownControls = function(e) {
                                 } else if ((e.keyCode == 8) ||
                                            (e.keyCode >= 48 && e.keyCode <= 57) ||
                                            (e.keyCode == 187) ||
-                                           (jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
+                                           ((String.fromCharCode(e.keyCode) == e.key || String.fromCharCode(e.keyCode).toLowerCase() == e.key.toLowerCase()) && jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
                                     // Start edition
                                     jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
                                     // Prevent entries in the calendar
