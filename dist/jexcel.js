@@ -6074,7 +6074,7 @@ var jexcel = (function(el, options) {
                     title: obj.options.text.saveAs,
                     shortcut: 'Ctrl + S',
                     onclick: function () {
-                        obj.download(true);
+                        obj.download();
                     }
                 });
             }
