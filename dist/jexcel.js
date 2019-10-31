@@ -2007,7 +2007,6 @@ var jexcel = (function(el, options) {
 
         // Records
         var records = [];
-        var recordsChain = [];
         var lineNumber = 1;
         var breakControl = false;
 
@@ -2016,7 +2015,8 @@ var jexcel = (function(el, options) {
         var posy = 0;
 
         for (var j = y1; j <= y2; j++) {
-            if (obj.rows[j].style.display == 'none') {
+            // Skip hidden rows
+            if (obj.rows[j] && obj.rows[j].style.display == 'none') {
                 continue;
             }
 
@@ -2032,7 +2032,7 @@ var jexcel = (function(el, options) {
                 if (obj.records[j][i] && ! obj.records[j][i].classList.contains('readonly') && obj.records[j][i].style.display != 'none' && breakControl == false) {
                     // Stop if contains value
                     if (! obj.selection.length) {
-                        if (obj.options.data[j][i]) {
+                        if (obj.options.data[j][i] != '') {
                             breakControl = true;
                             continue;
                         }
@@ -2082,22 +2082,13 @@ var jexcel = (function(el, options) {
 
                     records.push(obj.updateCell(i, j, value));
 
-                    // Update formulas chain
-                    if ((''+value).substr(0,1) == '=') {
-                        recordsChain[i + ',' + j] = true;
-                    }
+                    // Update all formulas in the chain
+                    obj.updateFormulaChain(i, j, records);
                 }
                 posx++;
             }
             posy++;
             lineNumber++;
-        }
-
-        // Update all formulas in the chain
-        var keys = Object.keys(recordsChain);
-        for (var i = 0; i < keys.length; i++) {
-            var k = keys[i].split(',');
-            obj.updateFormulaChain(k[0], k[1], records);
         }
 
         // Update history
@@ -4374,11 +4365,11 @@ var jexcel = (function(el, options) {
                             }
                             // Get column data
                             if ((''+value).substr(0,1) == '=') {
-                                if (formulaResults[parentId]) {
-                                    value = formulaResults[parentId];
+                                if (formulaResults[tokens[i]]) {
+                                    value = formulaResults[tokens[i]];
                                 } else {
                                     value = execute(value, position[0], position[1]);
-                                    formulaResults[parentId] = value;
+                                    formulaResults[tokens[i]] = value;
                                 }
                             }
                             // Type!
@@ -5418,6 +5409,8 @@ var jexcel = (function(el, options) {
                     var record = obj.updateCell(colIndex, rowIndex, row[i]);
                     // Keep history
                     records.push(record);
+                    // Update all formulas in the chain
+                    obj.updateFormulaChain(colIndex, rowIndex, records);
                     // Style
                     if (style) {
                         var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
