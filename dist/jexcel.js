@@ -1621,11 +1621,11 @@ var jexcel = (function(el, options) {
                 obj.options.columns[x].editor.closeEditor(cell, save);
             } else {
                 if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
-                    cell.children[0].dropdown.close(false);
+                    cell.children[0].dropdown.close(true);
                 } else if (obj.options.columns[x].type == 'calendar') {
-                    cell.children[0].calendar.close(false);
+                    cell.children[0].calendar.close(true);
                 } else if (obj.options.columns[x].type == 'color') {
-                    cell.children[1].color.close(false);
+                    cell.children[1].color.close(true);
                 } else {
                     cell.children[0].onblur = null;
                 }
