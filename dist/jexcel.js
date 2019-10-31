@@ -1632,9 +1632,7 @@ var jexcel = (function(el, options) {
             }
 
             // Restore value
-            if (obj.editor && obj.editor[1]) {
-                cell.innerHTML = obj.edition[1];
-            }
+            cell.innerHTML = obj.edition && obj.edition[1] ? obj.edition[1] : '';
 
             // On edition end
             if (! obj.ignoreEvents) {
@@ -4409,7 +4407,7 @@ var jexcel = (function(el, options) {
 
                 // Convert formula to javascript
                 try {
-                    evalstring += "function COLUMN() { return x }; function ROW() { return y };";
+                    evalstring += "function COLUMN() { return parseInt(x) + 1; }; function ROW() { return parseInt(y) + 1; };";
 
                     var res = eval(evalstring + expression.substr(1));
                 } catch (e) {
@@ -5413,7 +5411,7 @@ var jexcel = (function(el, options) {
             // Go through the columns to get the data
             while (row = data[j]) {
                 i = 0;
-                var colIndex = parseInt(x);
+                colIndex = parseInt(x);
 
                 while (row[i] != null) {
                     // Update and keep history
