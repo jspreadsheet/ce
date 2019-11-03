@@ -4227,6 +4227,17 @@ var jexcel = (function(el, options) {
             }
         }
         obj.formula = formula;
+
+		for (var j = 0; j < obj.options.data.length; j++) {
+			for (var i = 0; i < obj.options.data[0].length; i++) {
+				var value = '' + obj.options.data[j][i];
+				// Is formula
+				if (value.substr(0, 1) == '=') {
+					obj.executeFormula(value, i, j);
+				}
+			}
+		}
+
     }
 
     /**
