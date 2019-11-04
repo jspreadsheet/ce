@@ -186,6 +186,8 @@ var jexcel = (function(el, options) {
             cellAlreadyMerged: 'Cell already merged',
             noCellsSelected: 'No cells selected',
         },
+        // Options Print
+        print:null,
         // About message
         about:"jExcel CE Spreadsheet\nVersion 3.5.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
@@ -253,6 +255,11 @@ var jexcel = (function(el, options) {
      */
      obj.print = function(optionsPrint) {
         
+        // If optionsPrint is not defined, get optionsPrint default on init
+        if(optionsPrint == null) {
+            optionsPrint = obj.options.print;
+        }
+         
         // Scroll top for fix position header
         if(obj.content.scrollLeft!=0 || obj.content.scrollTop!=0){
             obj.content.scrollTop = 0;
