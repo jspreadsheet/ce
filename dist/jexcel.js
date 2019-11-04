@@ -187,6 +187,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // Options Print
+        allowPrint: true,
         print:null,
         // About message
         about:"jExcel CE Spreadsheet\nVersion 3.5.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
@@ -254,6 +255,9 @@ var jexcel = (function(el, options) {
      * @param {Object} optionsPrint with available property : {title: {string}, header: {bool}, index: {bool}, autoprint: {bool}, style: {string}, stylesheet: {url}
      */
      obj.print = function(optionsPrint) {
+        if (obj.options.allowPrint == false) {
+            console.error('Print not allowed');
+        }
         
         // If optionsPrint is not defined, get optionsPrint default on init
         if(optionsPrint == null) {
