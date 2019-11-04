@@ -1912,7 +1912,7 @@ var jexcel = (function(el, options) {
                     }
 
                     // Update data and cell
-                    obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true') ? true : false;
+                    obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true' || value == 'TRUE') ? true : false;
                     obj.options.data[y][x] = obj.records[y][x].children[0].checked;
                 } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
                     // Update data and cell
