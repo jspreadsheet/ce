@@ -257,6 +257,7 @@ var jexcel = (function(el, options) {
      obj.print = function(optionsPrint) {
         if (obj.options.allowPrint == false) {
             console.error('Print not allowed');
+            return false;
         }
         
         // If optionsPrint is not defined, get optionsPrint default on init
