@@ -1486,6 +1486,7 @@ var jexcel = (function(el, options) {
                         obj.options.columns[x].options.position = true;
                     }
                     obj.options.columns[x].options.value = obj.options.data[y][x];
+                    obj.options.columns[x].options.opened = true;
                     obj.options.columns[x].options.onclose = function(el, value) {
                         obj.closeEditor(cell, true);
                     }
@@ -6476,6 +6477,7 @@ jexcel.keyDownControls = function(e) {
                                     jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
                                 } else if ((e.keyCode == 8) ||
                                            (e.keyCode >= 48 && e.keyCode <= 57) ||
+                                           (e.keyCode >= 97 && e.keyCode <= 111) ||
                                            (e.keyCode == 187) ||
                                            ((String.fromCharCode(e.keyCode) == e.key || String.fromCharCode(e.keyCode).toLowerCase() == e.key.toLowerCase()) && jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
                                     // Start edition
