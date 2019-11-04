@@ -1032,7 +1032,7 @@ var jexcel = (function(el, options) {
             var column = [];
             // Header classes for this cell
             for (var x = 0; x < numberOfColumns; x++) {
-                if (obj.options.columns[headerIndex].type == 'hidden') {
+                if (obj.options.columns[headerIndex] && obj.options.columns[headerIndex].type == 'hidden') {
                     numberOfColumns++;
                 }
                 column.push(headerIndex);
