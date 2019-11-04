@@ -6869,24 +6869,29 @@ jexcel.mouseMoveControls = function(e) {
             var y = e.target.getAttribute('data-y');
             var rect = e.target.getBoundingClientRect();
 
-            if (e.target.style.cursor) {
-                e.target.style.cursor = '';
+            if (jexcel.current.cursor) {
+                jexcel.current.cursor.style.cursor = '';
+                jexcel.current.cursor = null;
             }
 
             if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
                 if (e.target.parentNode.parentNode.classList.contains('resizable')) {
                     if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
-                        e.target.style.cursor = 'col-resize';
+                        jexcel.current.cursor = e.target;
+                        jexcel.current.cursor.style.cursor = 'col-resize';
                     } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
-                        e.target.style.cursor = 'row-resize';
+                        jexcel.current.cursor = e.target;
+                        jexcel.current.cursor.style.cursor = 'row-resize';
                     }
                 }
 
                 if (e.target.parentNode.parentNode.classList.contains('draggable')) {
                     if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
-                        e.target.style.cursor = 'move';
+                        jexcel.current.cursor = e.target;
+                        jexcel.current.cursor.style.cursor = 'move';
                     } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
-                        e.target.style.cursor = 'move';
+                        jexcel.current.cursor = e.target;
+                        jexcel.current.cursor.style.cursor = 'move';
                     }
                 }
             }
