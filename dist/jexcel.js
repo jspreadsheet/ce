@@ -769,7 +769,11 @@ var jexcel = (function(el, options) {
                     if (! dataset[py]) {
                         dataset[py] = [];
                     }
-                    dataset[py][px] = obj.options.data[j][i];
+                    if (obj.options.copyCompatibility == true) {
+                        dataset[py][px] = obj.records[j][i].innerHTML;
+                    } else {
+                        dataset[py][px] = obj.options.data[j][i];
+                    }
                     px++;
                 }
             }
@@ -1588,34 +1592,12 @@ var jexcel = (function(el, options) {
                 }
             }
 
-            // On edition end
-            if (! obj.ignoreEvents) {
-                if (typeof(obj.options.oneditionend) == 'function') {
-                    obj.options.oneditionend(el, cell, x, y, value, save);
-                }
-            }
-
-            // Update values
-            var ignoreEvents = obj.ignoreEvents ? true : false;
-            var ignoreHistory = obj.ignoreHistory ? true : false;
-
             // Ignore changes if the value is the same
             if (obj.options.data[y][x] == value) {
-                // Disabled events and history
-                obj.ignoreEvents = true;
-                obj.ignoreHistory = true;
-            }
-
-            // Save value does not affect the table
-            if (obj.edition[1] == value) {
                 cell.innerHTML = obj.edition[1];
             } else {
                 obj.setValue(cell, value);
             }
-
-            // Restore events and history flag
-            obj.ignoreEvents = ignoreEvents;
-            obj.ignoreHistory = ignoreHistory;
         } else {
             if (obj.options.columns[x].editor) {
                 // Custom editor
@@ -1634,12 +1616,12 @@ var jexcel = (function(el, options) {
 
             // Restore value
             cell.innerHTML = obj.edition && obj.edition[1] ? obj.edition[1] : '';
+        }
 
-            // On edition end
-            if (! obj.ignoreEvents) {
-                if (typeof(obj.options.oneditionend) == 'function') {
-                    obj.options.oneditionend(el, cell, x, y, value, save);
-                }
+        // On edition end
+        if (! obj.ignoreEvents) {
+            if (typeof(obj.options.oneditionend) == 'function') {
+                obj.options.oneditionend(el, cell, x, y, value, save);
             }
         }
 
@@ -7186,19 +7168,12 @@ jexcel.touchEndControls = function(e) {
 
 if (typeof(jQuery) != 'undefined') {
     (function($){
-        var methods = {
-            init: function(init) {
-                methods = jexcel($(this).get(0), init)
-            }
-        };
-
         $.fn.jexcel = function(method) {
-            if (methods[method]) {
-                return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-            } else if ( typeof method === 'object' || ! method ) {
-                return methods.init.apply( this, arguments );
+            var spreadsheetContainer = $(this).get(0);
+            if (! spreadsheetContainer.jexcel) {
+                jexcel($(this).get(0), arguments[0]);
             } else {
-                $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+                spreadsheetContainer.jexcel[method].apply(this, Array.prototype.slice.call( arguments, 1 ));
             }
         };
 
