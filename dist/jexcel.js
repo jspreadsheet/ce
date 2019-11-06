@@ -6789,6 +6789,18 @@ jexcel.mouseUpControls = function(e) {
                 if (jexcel.current.selection.length > 0) {
                     // Copy data
                     jexcel.current.copyData(jexcel.current.selection[0], jexcel.current.selection[jexcel.current.selection.length - 1]);
+                    
+                    // Support in formula updates during drag
+                    for (var j = 0; j < jexcel.current.options.data.length; j++) {
+                        for (var i = 0; i < jexcel.current.options.data[0].length; i++) {
+                            var value = '' + jexcel.current.options.data[j][i];
+                            // Is formula
+                            if (value.substr(0, 1) == '=') {
+                                var parentId = jexcel.getColumnNameFromId([i, j]);
+                                jexcel.current.setValue(parentId,value);
+                            }
+                        }
+                    }
 
                     // Remove selection
                     jexcel.current.removeCopySelection();
