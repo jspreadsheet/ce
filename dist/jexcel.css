@@ -589,7 +589,10 @@
     height:24px;
     padding:4px;
     cursor:pointer;
-    display:inline-block;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    font-style: normal !important;
 }
 
 .jexcel_toolbar i.jexcel_toolbar_item:hover 
