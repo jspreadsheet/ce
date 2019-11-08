@@ -1074,7 +1074,8 @@ var jexcel = (function(el, options) {
             if (toolbar[i].type == 'i') {
                 var toolbarItem = document.createElement('i');
                 toolbarItem.classList.add('jexcel_toolbar_item');
-                toolbarItem.classList.add('material-icons');
+                var toolbarIcon = document.createElement('i');
+                toolbarIcon.classList.add('material-icons');
                 toolbarItem.setAttribute('data-k', toolbar[i].k);
                 toolbarItem.setAttribute('data-v', toolbar[i].v);
                 // Tooltip
@@ -1091,8 +1092,18 @@ var jexcel = (function(el, options) {
                         obj.setStyle(obj.highlighted, k, v);
                     }
                 }
+                
+                // Append Icon
+                toolbarIcon.innerHTML = toolbar[i].content;
+                toolbarItem.appendChild(toolbarIcon);
+                
+                // Create label
+                if(toolbar[i].label) {
+                    var toolbarLabel = document.createTextNode(toolbar[i].label);
+                    toolbarItem.appendChild(toolbarLabel);
+                }
+                
                 // Append element
-                toolbarItem.innerHTML = toolbar[i].content;
                 obj.toolbar.appendChild(toolbarItem);
             } else if (toolbar[i].type == 'select') {
                var toolbarItem = document.createElement('select');
