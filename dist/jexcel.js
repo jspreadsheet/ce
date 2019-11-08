@@ -1083,7 +1083,9 @@ var jexcel = (function(el, options) {
                 }
                 // Handle click
                 if (toolbar[i].onclick && typeof(toolbar[i].onclick)) {
-                    toolbarItem.onclick = toolbar[i].onclick;
+                    toolbarItem.jexcel = obj;
+                    toolbarItem.fctOnclick = toolbar[i].onclick;
+                    toolbarItem.addEventListener("click", function() {this.fctOnclick(this.jexcel);}, false);
                 } else {
                     toolbarItem.onclick = function() {
                         var k = this.getAttribute('data-k');
@@ -1104,7 +1106,9 @@ var jexcel = (function(el, options) {
                }
                // Handle onchange
                if (toolbar[i].onchange && typeof(toolbar[i].onchange)) {
-                   toolbarItem.onchange = toolbar[i].onchange;
+                   toolbarItem.jexcel = obj;
+                   toolbarItem.fctOnchange = toolbar[i].onchange;
+                   toolbarItem.addEventListener("change", function() {this.fctOnchange(this.jexcel);}, false);
                } else {
                    toolbarItem.onchange = function() {
                        var k = this.getAttribute('data-k');
