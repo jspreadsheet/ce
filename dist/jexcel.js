@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.6.0
+ * (c) jExcel v3.6.1
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -187,7 +187,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.6.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.6.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -1653,6 +1653,16 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Get the cell object from coords
+     * 
+     * @param object cell
+     * @return string value
+     */
+    obj.getCellFromCoords = function(x, y) {
+        return obj.records[y][x].element;
+    }
+
+    /**
      * Get label
      * 
      * @param object cell
@@ -1665,6 +1675,16 @@ var jexcel = (function(el, options) {
         var y = cell[1];
 
         return obj.records[y][x].innerHTML;
+    }
+
+    /**
+     * Get labelfrom coords
+     * 
+     * @param object cell
+     * @return string value
+     */
+    obj.getLabelFromCoords = function(x, y) {
+        return obj.records[y][x].element.innerHTML;
     }
 
     /**
@@ -4386,7 +4406,7 @@ var jexcel = (function(el, options) {
 
                 // Convert formula to javascript
                 try {
-                    evalstring += "function COLUMN() { return parseInt(x) + 1; }; function ROW() { return parseInt(y) + 1; };";
+                    evalstring += "function COLUMN() { return parseInt(x) + 1; }; function ROW() { return parseInt(y) + 1; }; function CELL() { return parentId; };";
 
                     var res = eval(evalstring + expression.substr(1));
                 } catch (e) {
@@ -5342,11 +5362,15 @@ var jexcel = (function(el, options) {
         }
 
         // Keep data
+        if (obj.options.copyCompatibility == true) {
+            obj.data = strLabel;
+        } else {
         obj.data = str;
+        }
         // Keep non visible information
-        obj.hashString = obj.hash(obj.textarea.value);
+        obj.hashString = obj.hash(obj.data);
 
-        return str;
+        return obj.data;
     }
 
     /**
