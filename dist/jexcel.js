@@ -119,6 +119,7 @@ var jexcel = (function(el, options) {
         // Execute formulas
         parseFormulas:true,
         autoIncrement:true,
+        autoCasting:true,
         // Event handles
         onundo:null,
         onredo:null,
@@ -4385,13 +4386,13 @@ var jexcel = (function(el, options) {
                                 // Null
                                 evalstring += "var " + tokens[i] + " = null;";
                             } else {
-                                if (value == Number(value)) {
+                                if (value == Number(value) && obj.options.autoCasting == true) {
                                     // Number
-                                    evalstring += "var " + tokens[i] + " = " + value + ";";
+                                    evalstring += "var " + tokens[i] + " = " + Number(value) + ";";
                                 } else {
                                     // Trying any formatted number
-                                    var number = null;
-                                    if (number = obj.parseNumber(value, position[0])) {
+                                    var number = obj.parseNumber(value, position[0])
+                                    if (obj.options.autoCasting == true && number) {
                                         // Render as number
                                         evalstring += "var " + tokens[i] + " = " + number + ";";
                                     } else {
