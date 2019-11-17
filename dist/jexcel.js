@@ -6146,6 +6146,8 @@ jexcel.timeControlLoading= null;
 
 jexcel.destroy = function(element, destroyEventHandlers) {
     if (element.jexcel) {
+        element.removeEventListener("DOMMouseScroll", element.jexcel.scrollControls);
+        element.removeEventListener("mousewheel", element.jexcel.scrollControls);
         element.jexcel = null;
         element.innerHTML = '';
 
