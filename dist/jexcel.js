@@ -6206,6 +6206,10 @@ jexcel.keyDownControls = function(e) {
             } else if (e.which == 38) {
                 jexcel.current.up(e.shiftKey, e.ctrlKey);
                 e.preventDefault();
+            } else if (e.altKey && e.which == 40) {
+                var e2 = {target : jexcel.current.getCellFromCoords(jexcel.current.selectedCell[0],jexcel.current.selectedCell[1])}
+                jexcel.doubleClickControls(e2)
+                e.preventDefault();
             } else if (e.which == 40) {
                 jexcel.current.down(e.shiftKey, e.ctrlKey);
                 e.preventDefault();
