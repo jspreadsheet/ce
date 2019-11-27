@@ -339,7 +339,7 @@ var jexcel = (function(el, options) {
                 obj.options.columns[i].title = obj.options.colHeaders[i] ? obj.options.colHeaders[i] : '';
             }
             if (! obj.options.columns[i].width) {
-                obj.options.columns[i].width = obj.options.colWidths[i] ? obj.options.colWidths[i] : '50';
+                obj.options.columns[i].width = obj.options.colWidths[i] ? obj.options.colWidths[i] : obj.options.defaultColWidth;
             }
             if (! obj.options.columns[i].align) {
                 obj.options.columns[i].align = obj.options.colAlignments[i] ? obj.options.colAlignments[i] : 'center';
@@ -441,7 +441,7 @@ var jexcel = (function(el, options) {
         // Colsgroup
         obj.colgroupContainer = document.createElement('colgroup');
         var tempCol = document.createElement('col');
-        tempCol.setAttribute('width', 50);
+        tempCol.setAttribute('width', obj.options.defaultColWidth);
         obj.colgroupContainer.appendChild(tempCol);
 
         // Nested
