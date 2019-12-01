@@ -1660,7 +1660,7 @@ var jexcel = (function(el, options) {
      * @return string value
      */
     obj.getCellFromCoords = function(x, y) {
-        return obj.records[y][x].element;
+        return obj.records[y][x];
     }
 
     /**
@@ -1685,7 +1685,7 @@ var jexcel = (function(el, options) {
      * @return string value
      */
     obj.getLabelFromCoords = function(x, y) {
-        return obj.records[y][x].element.innerHTML;
+        return obj.records[y][x].innerHTML;
     }
 
     /**
