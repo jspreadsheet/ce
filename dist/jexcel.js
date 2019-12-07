@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.6.3
+ * (c) jExcel v3.6.4
  * 
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -188,7 +188,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.6.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.6.4\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -736,8 +736,8 @@ var jexcel = (function(el, options) {
     /**
      * Get the whole table data
      * 
-     * @param integer row number
-     * @return string value
+     * @param bool get highlighted cells only
+     * @return array data
      */
     obj.getData = function(highlighted) {
         // Control vars
@@ -3763,7 +3763,7 @@ var jexcel = (function(el, options) {
             // Events
             if (obj.ignoreEvents != true) {
                 if (typeof(obj.options.oninsertcolumn) == 'function') {
-                    obj.options.oninsertcolumn(el, columnNumber, numOfColumns);
+                    obj.options.oninsertcolumn(el, columnNumber, numOfColumns, historyRecords, insertBefore);
                 }
             }
         }
@@ -6493,6 +6493,7 @@ jexcel.keyDownControls = function(e) {
                                            (e.keyCode >= 48 && e.keyCode <= 57) ||
                                            (e.keyCode >= 96 && e.keyCode <= 111) ||
                                            (e.keyCode == 187) ||
+                                           (e.keyCode == 189) ||
                                            ((String.fromCharCode(e.keyCode) == e.key || String.fromCharCode(e.keyCode).toLowerCase() == e.key.toLowerCase()) && jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
                                     // Start edition
                                     jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
