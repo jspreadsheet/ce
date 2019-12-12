@@ -422,7 +422,7 @@ var jexcel = (function(el, options) {
         // Colsgroup
         obj.colgroupContainer = document.createElement('colgroup');
         var tempCol = document.createElement('col');
-        tempCol.setAttribute('width', obj.options.defaultColWidth);
+        tempCol.setAttribute('width', '50');
         obj.colgroupContainer.appendChild(tempCol);
 
         // Nested

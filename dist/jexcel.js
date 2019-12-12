@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.7.2
+ * jExcel v3.7.3
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -193,7 +193,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.7.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.7.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -446,7 +446,7 @@ var jexcel = (function(el, options) {
         // Colsgroup
         obj.colgroupContainer = document.createElement('colgroup');
         var tempCol = document.createElement('col');
-        tempCol.setAttribute('width', obj.options.defaultColWidth);
+        tempCol.setAttribute('width', '50');
         obj.colgroupContainer.appendChild(tempCol);
 
         // Nested
