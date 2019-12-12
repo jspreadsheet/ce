@@ -583,6 +583,38 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Refresh the data
+     * 
+     * @return void
+     */
+    obj.refresh = function() {
+        if (obj.options.url) {
+            // Loading
+            if (obj.options.loadingSpin == true) {
+                jSuites.loading.show();
+            }
+
+            jSuites.ajax({
+                url: obj.options.url,
+                method: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    // Data
+                    obj.options.data = (result.data) ? result.data : result;
+                    // Prepare table
+                    obj.setData();
+                    // Hide spin
+                    if (obj.options.loadingSpin == true) {
+                        jSuites.loading.hide();
+                    }
+                }
+            });
+        } else {
+            obj.setData();
+        }
+    }
+
+    /**
      * Set data
      * 
      * @param array data In case no data is sent, default is reloaded

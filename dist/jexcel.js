@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.7.1
+ * jExcel v3.7.2
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -193,7 +193,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.7.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.7.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -603,6 +603,38 @@ var jexcel = (function(el, options) {
         // Style
         if (obj.options.style) {
             obj.setStyle(obj.options.style, null, null, 1, 1);
+        }
+    }
+
+    /**
+     * Refresh the data
+     * 
+     * @return void
+     */
+    obj.refresh = function() {
+        if (obj.options.url) {
+            // Loading
+            if (obj.options.loadingSpin == true) {
+                jSuites.loading.show();
+            }
+
+            jSuites.ajax({
+                url: obj.options.url,
+                method: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    // Data
+                    obj.options.data = (result.data) ? result.data : result;
+                    // Prepare table
+                    obj.setData();
+                    // Hide spin
+                    if (obj.options.loadingSpin == true) {
+                        jSuites.loading.hide();
+                    }
+                }
+            });
+        } else {
+            obj.setData();
         }
     }
 
