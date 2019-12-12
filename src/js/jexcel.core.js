@@ -169,7 +169,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.6.4\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.7.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -2717,6 +2717,8 @@ var jexcel = (function(el, options) {
 
             if (newValue) {
                 obj.headers[column].innerHTML = newValue;
+                // Keep the title property
+                obj.headers[column].setAttribute('title', newValue);
             }
 
             obj.setHistory({
