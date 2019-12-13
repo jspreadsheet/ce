@@ -5340,12 +5340,42 @@ var jexcel = (function(el, options) {
                     col.push(value);
 
                     // Labels
-                    var label = obj.records[j][i].innerHTML;
-                    if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
-                        // Scape double quotes
-                        label = label.replace(new RegExp('"', 'g'), '""');
-                        label = '"' + label + '"';
+                    /* This section will deal with how to treat various types of column data so that when
+                     * we paste it into some excel-like spreadsheet software, the data will actually show
+                     * up as we intend.
+                     * Currently, this is the specification:
+                     *	COLUMN TYPE		JEXCEL DATA EXAMPLE			CLIPBOARD DATA EXAMPLE
+                     *	checkbox		<input type="checkbox" name="c2">	true (or false)
+                     */	
+
+                    var setLabel = function(obj, i, j) {
+
+                        var label = "";
+
+                        // CHECKBOX
+                        if(obj.options.columns[i].type == "checkbox" && obj.records[j][i].innerHTML.includes('<input type="checkbox"')) {
+
+                            return value; //Use value rather than innerHTML in case of checkbox, where default innerHTML wasn't overriden
+
+                        }
+
+                        // Handle value to copy if the cell in the column was overriden with something, or if it isn't
+                        // one of the above cases -- this can be in the case when the value is overriden with some text
+                        // like if the user puts the string "TOTAL" in the checkbox column in the last row
+
+                        label = obj.records[j][i].innerHTML;
+
+                        if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                                            // Scape double quotes
+                                            label = label.replace(new RegExp('"', 'g'), '""');
+                                            label = '"' + label + '"';
+                                    }
+
+                        return label;
+
                     }
+
+                    var label = setLabel(obj, i, j);
                     colLabel.push(label);
 
                     // Get style
