@@ -169,7 +169,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.7.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.7.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -5271,7 +5271,7 @@ var jexcel = (function(el, options) {
             data += obj.copy(false, obj.options.csvDelimiter, true);
             // Download element
             var pom = document.createElement('a');
-            var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+            var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
             var url = URL.createObjectURL(blob);
             pom.href = url;
             pom.setAttribute('download', obj.options.csvFileName + '.csv');
