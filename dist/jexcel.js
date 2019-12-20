@@ -4188,6 +4188,28 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Show column
+     */
+    obj.showColumn = function(colNumber) {
+        obj.headers[colNumber].style.display = '';
+        obj.colgroup[colNumber].style.display = '';
+        for (var j = 0; j < obj.options.data.length; j++) {
+            obj.records[j][colNumber].style.display = '';
+        }
+    }
+
+    /**
+     * Hide column
+     */
+    obj.hideColumn = function(colNumber) {
+        obj.headers[colNumber].style.display = 'none';
+        obj.colgroup[colNumber].style.display = 'none';
+        for (var j = 0; j < obj.options.data.length; j++) {
+            obj.records[j][colNumber].style.display = 'none';
+        }
+    }
+
+    /**
      * Show index column
      */
     obj.showIndex = function() {
