@@ -569,7 +569,7 @@ var jexcel = (function(el, options) {
             if (obj.options.tableOverflow == true) {
                 if (obj.options.tableHeight) {
                     obj.content.style['overflow-y'] = 'auto';
-                    obj.content.style.height = obj.options.tableHeight;
+                    obj.content.style.maxHeight = obj.options.tableHeight;
                 }
                 if (obj.options.tableWidth) {
                     obj.content.style['overflow-x'] = 'auto';
@@ -5295,7 +5295,7 @@ var jexcel = (function(el, options) {
             data += obj.copy(false, obj.options.csvDelimiter, true);
             // Download element
             var pom = document.createElement('a');
-            var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+            var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
             var url = URL.createObjectURL(blob);
             pom.href = url;
             pom.setAttribute('download', obj.options.csvFileName + '.csv');

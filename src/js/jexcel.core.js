@@ -545,7 +545,7 @@ var jexcel = (function(el, options) {
             if (obj.options.tableOverflow == true) {
                 if (obj.options.tableHeight) {
                     obj.content.style['overflow-y'] = 'auto';
-                    obj.content.style.height = obj.options.tableHeight;
+                    obj.content.style.maxHeight = obj.options.tableHeight;
                 }
                 if (obj.options.tableWidth) {
                     obj.content.style['overflow-x'] = 'auto';
