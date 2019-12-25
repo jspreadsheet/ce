@@ -24,7 +24,7 @@
     left:0px;
     width:100%;
     height:100%;
-    z-index:2001;
+    z-index:21;
 }
 
 .jexcel_container.fullscreen .jexcel_content {
@@ -42,6 +42,7 @@
     display:inline-block;
     box-sizing: border-box;
     padding-right:2px;
+    padding-bottom:2px;
     position:relative;
 }
 
@@ -73,7 +74,7 @@
     overflow: hidden;
     position: sticky;
     top: 0;
-    z-index:2000;
+    z-index:20;
 }
 
 .with-toolbar .jexcel > thead > tr > td
@@ -329,7 +330,7 @@
     left:-2000px;
     cursor:crosshair;
     box-sizing: initial;
-    z-index:7000;
+    z-index:30;
     padding: 2px;
 }
 
@@ -353,7 +354,7 @@
 {
     position:fixed;
     top:100%;
-    z-index:8000;
+    z-index:40;
     user-select:none;
     -webkit-font-smoothing: antialiased;
     font-size: .875rem;
@@ -560,6 +561,11 @@
     cursor:pointer;
 }
 
+.jexcel_page
+{
+    font-size:0.8em;
+}
+
 .jexcel_page_selected
 {
     font-weight:bold;
@@ -575,7 +581,7 @@
     margin:0px 2px 4px 1px;
     position:sticky;
     top:0px;
-    z-index:8001;
+    z-index:21;
 }
 
 .jexcel_toolbar:empty
