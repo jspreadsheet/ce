@@ -6567,9 +6567,14 @@ jexcel.mouseDownControls = function(e) {
                     }
                 } else {
                     if (e.target.parentNode.classList.contains('jexcel_nested')) {
-                        var column = e.target.getAttribute('data-column').split(',');
-                        var c1 = parseInt(column[0]);
-                        var c2 = parseInt(column[column.length-1]);
+                        if (e.target.getAttribute('data-column')) {
+                            var column = e.target.getAttribute('data-column').split(',');
+                            var c1 = parseInt(column[0]);
+                            var c2 = parseInt(column[column.length-1]);
+                        } else {
+                            var c1 = 0;
+                            var c2 = jexcel.current.options.columns.length - 1;
+                        }
                         jexcel.current.updateSelectionFromCoords(c1, 0, c2, jexcel.current.options.data.length - 1);
                     }
                 }
