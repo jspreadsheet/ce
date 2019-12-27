@@ -4064,6 +4064,7 @@ var jexcel = (function(el, options) {
         }
 
         // Update merged if applicable
+        var updateInbeforLoop = [];
         var keys = Object.keys(mergeCellUpdates);
         if (keys.length) {
             for (var i = 0; i < keys.length; i++) {
@@ -4083,9 +4084,17 @@ var jexcel = (function(el, options) {
                     }
 
                     obj.options.mergeCells[columnIdTo] = obj.options.mergeCells[columnIdFrom];
-                    delete(obj.options.mergeCells[columnIdFrom]);
+                    //delete(obj.options.mergeCells[columnIdFrom]);
                 }
             }
+            for (var i = 0; i < keys.length; i++) {
+				if (mergeCellUpdates[keys[i]]) {
+				    var columnIdFrom = keys[i];
+					if(!updateInbeforLoop.includes(columnIdFrom)){
+						delete(obj.options.mergeCells[columnIdFrom]);
+					}
+				}
+			}
         }
 
         // Update formulas
