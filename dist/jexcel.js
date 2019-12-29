@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.7.3
+ * jExcel v3.7.4
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -5907,6 +5907,10 @@ var jexcel = (function(el, options) {
                 obj.options.onafterchanges(el, records);
             }
         }
+    }
+
+    obj.destroy = function() {
+        jexcel.destroy(el);
     }
 
     /**

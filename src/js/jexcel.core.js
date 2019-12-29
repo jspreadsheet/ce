@@ -5885,6 +5885,10 @@ var jexcel = (function(el, options) {
         }
     }
 
+    obj.destroy = function() {
+        jexcel.destroy(el);
+    }
+
     /**
      * Initialization method
      */

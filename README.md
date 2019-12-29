@@ -82,10 +82,10 @@ Full spreadsheet example with search and pagination to bring great compatibility
 - [Column types](https://bossanova.uk/jexcel/v3/examples/column-types)\
 Learn more about the powerful column types. This example brings all native column types and how to create your own custom type.
 
-- [Advanced dropdown](https://bossanova.uk/jexcel/v3/examples/dropdown-and-autocomplete)\
+- [Javascript dropdown](https://bossanova.uk/jexcel/v3/examples/dropdown-and-autocomplete)\
 Full examples on how to handle simple, advanced, multiple, autocomplete and conditional dropdowns. Create amazing JavaScript tables using categories and images in your dropdowns.
 
-- [Date and datetime picker](https://bossanova.uk/jexcel/v3/examples/date-and-datetime-picker)\
+- [Javascript calendar, date and datetime picker](https://bossanova.uk/jexcel/v3/examples/javascript-calendar)\
 Example from basic to advanced calendar usage, date and datetime picker.
 
 - [Image upload](https://bossanova.uk/jexcel/v3/examples/image-upload)\
