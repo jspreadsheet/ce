@@ -44,6 +44,24 @@
     padding-right:2px;
     padding-bottom:2px;
     position:relative;
+    scrollbar-width: thin;
+    scrollbar-color: #666 transparent;
+}
+
+@supports (-moz-appearance:none) {
+    .jexcel_content { padding-right:10px; } 
+}
+
+.jexcel_content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.jexcel_content::-webkit-scrollbar-track {
+  background: #fff;
+}
+ 
+.jexcel_content::-webkit-scrollbar-thumb {
+  background: #666; 
 }
 
 .jexcel {
