@@ -1,5 +1,11 @@
 ![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/logo-jexcel.png)
 
+# Hebrew support, not complete
+
+To enable rtl column width change, you need to add the special class: dirRtl to both the body and the div of the jExcel.
+Some behavior is improved, not all.
+
+
 [**jExcel CE**](https://bossanova.uk/jexcel/v3/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
 with Excel or any other spreadsheet software. You can create an online spreadsheet table from a JS array,
 JSON, CSV or XSLX files. You can copy from excel and paste straight to your jExcel CE spreadsheet and vice versa.

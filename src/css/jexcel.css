@@ -7,6 +7,10 @@
  * 
  * This software is distribute under MIT License
  */
+
+.dirRtl {
+    direction: rtl;
+}
 :root {
     --jexcel-border-color:#000;
 }
@@ -92,7 +96,7 @@
     cursor:move;
 }
 
-.jexcel > thead.resizable > tr > td::after
+body:not(.dirRtl) .jexcel > thead.resizable > tr > td::after
 {
     content:'\00a0';
     width:3px;
@@ -100,6 +104,17 @@
     position:absolute;
     top:0px;
     right:0px;
+    cursor:col-resize;
+}
+
+body.dirRtl .jexcel > thead.resizable > tr > td::before
+{
+    content:'\00a0';
+    width:3px;
+    height:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
     cursor:col-resize;
 }
 
