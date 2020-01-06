@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.7.4
+ * jExcel v3.7.6
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -7135,6 +7135,12 @@ jexcel.touchStartControls = function(e) {
                 jexcel.current.updateSelectionFromCoords(columnId, rowId);
 
                 jexcel.timeControl = setTimeout(function() {
+                    // Keep temporary reference to the element
+                    if (jexcel.current.options.columns[columnId].type == 'color') {
+                        jexcel.tmpElement = null;
+                    } else {
+                        jexcel.tmpElement = e.target;
+                    }
                     jexcel.current.openEditor(e.target, false, e);
                 }, 500);
             }
@@ -7147,6 +7153,11 @@ jexcel.touchEndControls = function(e) {
     if (jexcel.timeControl) {
         clearTimeout(jexcel.timeControl);
         jexcel.timeControl = null;
+        // Element
+        if (jexcel.tmpElement && jexcel.tmpElement.children[0].tagName == 'INPUT') {
+            jexcel.tmpElement.children[0].focus();
+        }
+        jexcel.tmpElement = null;
     }
 }
 
