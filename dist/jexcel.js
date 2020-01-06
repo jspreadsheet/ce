@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.7.6
+ * jExcel v3.7.7
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -193,7 +193,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.7.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.7.7\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -5391,11 +5391,15 @@ var jexcel = (function(el, options) {
                     col.push(value);
 
                     // Labels
-                    var label = obj.records[j][i].innerHTML;
-                    if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
-                        // Scape double quotes
-                        label = label.replace(new RegExp('"', 'g'), '""');
-                        label = '"' + label + '"';
+                    if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
+                        var label = value;
+                    } else {
+                        var label = obj.records[j][i].innerHTML;
+                        if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                            // Scape double quotes
+                            label = label.replace(new RegExp('"', 'g'), '""');
+                            label = '"' + label + '"';
+                        }
                     }
                     colLabel.push(label);
 

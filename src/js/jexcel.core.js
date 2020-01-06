@@ -5367,11 +5367,15 @@ var jexcel = (function(el, options) {
                     col.push(value);
 
                     // Labels
-                    var label = obj.records[j][i].innerHTML;
-                    if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
-                        // Scape double quotes
-                        label = label.replace(new RegExp('"', 'g'), '""');
-                        label = '"' + label + '"';
+                    if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
+                        var label = value;
+                    } else {
+                        var label = obj.records[j][i].innerHTML;
+                        if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                            // Scape double quotes
+                            label = label.replace(new RegExp('"', 'g'), '""');
+                            label = '"' + label + '"';
+                        }
                     }
                     colLabel.push(label);
 
