@@ -515,6 +515,11 @@ var jexcel = (function(el, options) {
         obj.pagination.appendChild(paginationInfo);
         obj.pagination.appendChild(paginationPages);
 
+        // Hide pagination if not in use
+        if (! obj.options.pagination) {
+            obj.pagination.style.display = 'none';
+        }
+
         // Append containers to the table
         if (obj.options.search == true) {
             el.appendChild(obj.filter);
