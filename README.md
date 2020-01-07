@@ -1,11 +1,11 @@
 ![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/logo-jexcel.png)
 
-[**jExcel**](https://bossanova.uk/jexcel/v3/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
+[**jExcel CE**](https://bossanova.uk/jexcel/v3/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
 with Excel or any other spreadsheet software. You can create an online spreadsheet table from a JS array,
-JSON, CSV or XSLX files. You can copy from excel and paste straight to your jExcel spreadsheet and vice versa.
+JSON, CSV or XSLX files. You can copy from excel and paste straight to your jExcel CE spreadsheet and vice versa.
 It is very easy to integrate any third party JavaScript plugins to create your own custom columns, custom editors, and customize any
-feature into your application. jExcel has plenty of different input options through its native column types to cover the most common web-based application
-requirements. It is a complete solution for web data management. Create amazing applications with jExcel JavaScript spreadsheet.
+feature into your application. jExcel CE has plenty of different input options through its native column types to cover the most common web-based application
+requirements. It is a complete solution for web data management. Create amazing applications with jExcel CE JavaScript spreadsheet.
 
 ## Main advantages
 
@@ -47,7 +47,7 @@ You should initiate your table based on a div container, such as:
 <div id="mytable"></div>
 ```
 
-To initialize a jExcel table you should run a JavaScript, such as:
+To initialize a jExcel CE table you should run a JavaScript, such as:
 ```javascript
 var data = [
     ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
@@ -71,10 +71,10 @@ jexcel(document.getElementById('spreadsheet'), {
 ## Examples
 
 - [React Implementation](https://bossanova.uk/jexcel/v3/examples/react)\
-A full example on how to integrate jExcel with React.
+A full example on how to integrate jExcel CE with React.
 
 - [VUE Implementation](https://bossanova.uk/jexcel/v3/examples/vue)\
-A full example on how to integrate jExcel with Vue.
+A full example on how to integrate jExcel CE with Vue.
 
 - [Search and pagination](https://bossanova.uk/jexcel/v3/examples/datatables)\
 Full spreadsheet example with search and pagination to bring great compatibility for those who love datatables.
@@ -82,10 +82,10 @@ Full spreadsheet example with search and pagination to bring great compatibility
 - [Column types](https://bossanova.uk/jexcel/v3/examples/column-types)\
 Learn more about the powerful column types. This example brings all native column types and how to create your own custom type.
 
-- [Advanced dropdown](https://bossanova.uk/jexcel/v3/examples/dropdown-and-autocomplete)\
+- [Javascript dropdown](https://bossanova.uk/jexcel/v3/examples/dropdown-and-autocomplete)\
 Full examples on how to handle simple, advanced, multiple, autocomplete and conditional dropdowns. Create amazing JavaScript tables using categories and images in your dropdowns.
 
-- [Date and datetime picker](https://bossanova.uk/jexcel/v3/examples/date-and-datetime-picker)\
+- [Javascript calendar, date and datetime picker](https://bossanova.uk/jexcel/v3/examples/javascript-calendar)\
 Example from basic to advanced calendar usage, date and datetime picker.
 
 - [Image upload](https://bossanova.uk/jexcel/v3/examples/image-upload)\
@@ -98,7 +98,7 @@ How to update your spreadsheet and its data by JavaScript.
 Bring a very special touch to your applications customizing your JavaScript spreadsheet.
 
 - [Events](https://bossanova.uk/jexcel/v3/examples/events)\
-Learn how to handle events on jExcel.
+Learn how to handle events on jExcel CE.
 
 - [Importing data](https://bossanova.uk/jexcel/v3/examples/import-data)\
 How to import data from an external CSV, json file or XLSX.
@@ -129,15 +129,15 @@ This example brings a very nice feature to deal with large table datasets.
 
 
 
-## jExcel History
+## jExcel CE History
 
-jExcel v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
+jExcel CE v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
 complete compatibility with the previous version. If you are upgrating you might need to implement a few updates in your code.
-If you have questions, you can review the article upgrating from jExcel v2 or Handsontable.
+If you have questions, you can review the article upgrating from jExcel CE v2 or Handsontable.
 
-### Jexcel 3.0.1
+### Jexcel CE 3.0.1
 
-The jExcel v3 brings lot of great new features:
+The jExcel CE v3 brings lot of great new features:
 
 - Drag and drop columns.
 - Resizable rows.
@@ -165,14 +165,14 @@ Big improviments are included, such as:
 - XLXS support using a custom sheetjs (experimental).
 
 
-### Jexcel 2.1.0
+### Jexcel CE 2.1.0
 
 We are glad to bring you the latest jQuery plugin version, with the following improvements:
 
 - Mobile touch fixes.
 - Paste fixes & New CSV parser.
 
-### Jexcel 2.0.0
+### Jexcel CE 2.0.0
 
 - New radio column.
 - New dropdown with autocomplete and multiple selection options.
@@ -185,18 +185,18 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - New table custom toolbar.
 - New responsive calendar picker.
 
-### Jexcel 1.5.7
+### Jexcel CE 1.5.7
 
 - Checkbox column type improvements.
 - Destroy jQuery table updates.
 
-### Jexcel 1.5.1
+### Jexcel CE 1.5.1
 
 - Spreadsheet data overflow and fixed headers. See an <a href='/jexcel/examples/table-with-fixed-headers'>example</a>.
 - Navigation improvements.
 
 
-### Jexcel 1.5.0
+### Jexcel CE 1.5.0
 
 - Relative insertRow, deleteRow, insertColumn, deleteColumn. See an <a href='/jexcel/examples/working-with-the-data'>example</a>.
 - Redo, Undo action tracker for insertRow, deleteRow, insertColumn, deleteColumn, moveRow.
@@ -206,14 +206,25 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 
 
 ## Officials websites
-- [jExcel v3 - Vanilla JavaScript](https://bossanova.uk/jexcel/v3)
-- [jExcel v2 - jQuery Plugin](https://bossanova.uk/jexcel/v2)
+- [jExcel CE v3 - Vanilla JavaScript](https://bossanova.uk/jexcel/v3)
+- [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jexcel/v2)
 
 ## Community
 - [GitHub](https://github.com/paulhodel/jexcel/issues)
 
+## Compilation
+
+To create a new distribution based on the source.
+
+docker-compose up
+docker-compose exec bash php
+
+% cd /bitnami/php-fpm/src
+% php compile.php
+
+
 ## Copyright and license
-jExcel is released under the [MIT license]. Copyrights belong to Paul Hodel <paul.hodel@gmail.com>
+jExcel CE is released under the [MIT license]. Copyrights belong to Paul Hodel <paul.hodel@gmail.com>
 
 ## Other tools by the author
 - [jSuites JavaScriptWeb Components](https://bossanova.uk/jsuites)

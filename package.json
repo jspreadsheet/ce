@@ -35,10 +35,10 @@
         "data-spreadsheet"
     ],
     "dependencies": {
-        "jsuites": "^2.2.2"
+        "jsuites": "^2.3.0"
     },
     "main": "dist/jexcel.js",
-    "version": "3.6.2",
+    "version": "3.7.0",
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel",
