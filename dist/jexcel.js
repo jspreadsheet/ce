@@ -85,6 +85,8 @@ var jexcel = (function(el, options) {
         allowRenameColumn:true,
         // Allow comments
         allowComments:false,
+        // renderColgroup
+        renderColgroups:true,
         // Global wrap
         wordWrap:false,
         // Image options
@@ -444,10 +446,12 @@ var jexcel = (function(el, options) {
         obj.filter.appendChild(searchContainer);
 
         // Colsgroup
-        obj.colgroupContainer = document.createElement('colgroup');
-        var tempCol = document.createElement('col');
-        tempCol.setAttribute('width', '50');
-        obj.colgroupContainer.appendChild(tempCol);
+        if (obj.options.renderColgroups) {
+            obj.colgroupContainer = document.createElement('colgroup');
+            var tempCol = document.createElement('col');
+            tempCol.setAttribute('width', '50');
+            obj.colgroupContainer.appendChild(tempCol);
+        }
 
         // Nested
         if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
@@ -472,7 +476,8 @@ var jexcel = (function(el, options) {
             obj.createCellHeader(i);
             // Append cell to the container
             obj.headerContainer.appendChild(obj.headers[i]);
-            obj.colgroupContainer.appendChild(obj.colgroup[i]);
+            if (obj.options.renderColgroups)
+                obj.colgroupContainer.appendChild(obj.colgroup[i]);
         }
 
         obj.thead.appendChild(obj.headerContainer);
@@ -484,7 +489,8 @@ var jexcel = (function(el, options) {
         obj.table.setAttribute('cellspacing', '0');
         obj.table.setAttribute('unselectable', 'yes');
         obj.table.setAttribute('onselectstart', 'return false');
-        obj.table.appendChild(obj.colgroupContainer);
+        if (obj.options.renderColgroups)
+            obj.table.appendChild(obj.colgroupContainer);
         obj.table.appendChild(obj.thead);
         obj.table.appendChild(obj.tbody);
 
@@ -3600,14 +3606,16 @@ var jexcel = (function(el, options) {
 
         if (o > d) {
             obj.headerContainer.insertBefore(obj.headers[o], obj.headers[d]);
-            obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d]);
+            if (obj.options.renderColgroups)
+                obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d]);
 
             for (var j = 0; j < obj.rows.length; j++) {
                 obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d]);
             }
         } else {
             obj.headerContainer.insertBefore(obj.headers[o], obj.headers[d].nextSibling);
-            obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d].nextSibling);
+            if (obj.options.renderColgroups)
+                obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d].nextSibling);
 
             for (var j = 0; j < obj.rows.length; j++) {
                 obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d].nextSibling);
@@ -3731,7 +3739,8 @@ var jexcel = (function(el, options) {
             for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
                 obj.createCellHeader(col);
                 obj.headerContainer.insertBefore(obj.headers[col], obj.headerContainer.children[col+1]);
-                obj.colgroupContainer.insertBefore(obj.colgroup[col], obj.colgroupContainer.children[col+1]);
+                if (obj.options.renderColgroups)
+                    obj.colgroupContainer.insertBefore(obj.colgroup[col], obj.colgroupContainer.children[col+1]);
 
                 historyHeaders.push(obj.headers[col]);
                 historyColgroup.push(obj.colgroup[col]);
@@ -5626,7 +5635,8 @@ var jexcel = (function(el, options) {
             var index = 0
             for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
                 obj.headerContainer.insertBefore(historyRecord.headers[index], obj.headerContainer.children[i+1]);
-                obj.colgroupContainer.insertBefore(historyRecord.colgroup[index], obj.colgroupContainer.children[i+1]);
+                if (obj.options.renderColgroups)
+                    obj.colgroupContainer.insertBefore(historyRecord.colgroup[index], obj.colgroupContainer.children[i+1]);
                 index++;
             }
 
