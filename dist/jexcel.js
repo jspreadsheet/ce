@@ -2094,9 +2094,9 @@ var jexcel = (function(el, options) {
                         posx = 0;
                     } else if (data[posy][posx] == undefined) {
                         posx = 0;
-                    } else {
-                        var value = data[posy][posx];
                     }
+					
+					var value = data[posy][posx];
 
                     if (value && t0 == t1 && obj.options.autoIncrement == true) {
                         if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
