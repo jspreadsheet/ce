@@ -29,6 +29,11 @@ var jexcel = (function(el, options) {
     var obj = {};
     obj.options = {};
 
+    if (! (el instanceof Element || el instanceof HTMLDocument)) {
+        console.error('JEXCEL: el is not a valid DOM element');
+        return false;
+    }
+
     // Loading default configuration
     var defaults = {
         // External data
