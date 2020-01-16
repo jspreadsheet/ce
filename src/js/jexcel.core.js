@@ -180,7 +180,7 @@ var jexcel = (function(el, options) {
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            obj.options[property] = (property == 'text') ? Object.assign(defaults[property], options[property]) :  options[property];
+            obj.options[property] = options[property];
         } else {
             obj.options[property] = defaults[property];
         }
