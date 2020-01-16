@@ -7223,7 +7223,9 @@ jexcel.fromSpreadsheet = function(file, __callback) {
             if (temp && temp.length) {
                 for (var i = 0; i < temp.length; i++) {
                     spreadsheet.columns[i] = {};
-                    spreadsheet.columns[i].width = temp[i].wpx + 'px';
+                    if (temp[i] && temp[i].wpx) {
+                        spreadsheet.columns[i].width = temp[i].wpx + 'px';
+                    }
                 }
             }
             // Rows heights
@@ -7320,24 +7322,6 @@ jexcel.fromSpreadsheet = function(file, __callback) {
     }
 
     oReq.send();
-}
-
-/**
- * Jquery Support
- */
-
-if (typeof(jQuery) != 'undefined') {
-    (function($){
-        $.fn.jexcel = function(method) {
-            var spreadsheetContainer = $(this).get(0);
-            if (! spreadsheetContainer.jexcel) {
-                return jexcel($(this).get(0), arguments[0]);
-            } else {
-                return spreadsheetContainer.jexcel[method].apply(this, Array.prototype.slice.call( arguments, 1 ));
-            }
-        };
-
-    })(jQuery);
 }
 
 /**
