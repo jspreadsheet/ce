@@ -174,7 +174,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.7.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.8.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -496,17 +496,20 @@ var jexcel = (function(el, options) {
         });
 
         // Powered by jExcel
-        var ads = '<a href="https://bossanova.uk/jexcel/"><img src="//bossanova.uk/jexcel/logo.png">jExcel Spreadsheet</a>';
+        var ads = document.createElement('a');
+        ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
         obj.ads = document.createElement('div');
         obj.ads.className = 'jexcel_about';
-        if (typeof(sessionStorage) !== "undefined") {
-            if (! sessionStorage.getItem('jexcel')) {
-                sessionStorage.setItem('jexcel', true);
-                obj.ads.innerHTML = ads;
-            }
-        } else {
-            obj.ads.innerHTML = ads;
+        if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
+            sessionStorage.setItem('jexcel', true);
+            var img = document.createElement('img');
+            img.src = '//bossanova.uk/jexcel/logo.png';
+            ads.appendChild(img);
         }
+        var span = document.createElement('span');
+        span.innerHTML = 'Jexcel spreadsheet';
+        ads.appendChild(span);
+        obj.ads.appendChild(ads);
 
         // Create table container TODO: frozen columns
         var container = document.createElement('div');
@@ -956,7 +959,7 @@ var jexcel = (function(el, options) {
             td.innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
         } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
             // Create dropdown cell
-            td.classList.add('dropdown');
+            td.classList.add('jexcel_dropdown');
             td.innerHTML = obj.getDropDownValue(i, value);
         } else if (obj.options.columns[i].type == 'color') {
             if (obj.options.columns[i].render == 'square') {
@@ -2075,9 +2078,10 @@ var jexcel = (function(el, options) {
                         posx = 0;
                     } else if (data[posy][posx] == undefined) {
                         posx = 0;
-                    } else {
-                        var value = data[posy][posx];
                     }
+
+                    // Value
+                    var value = data[posy][posx];
 
                     if (value && t0 == t1 && obj.options.autoIncrement == true) {
                         if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
@@ -2517,13 +2521,16 @@ var jexcel = (function(el, options) {
         } else {
             // Get last cell
             var last = obj.highlighted[obj.highlighted.length-1];
-            var x1 = obj.content.getBoundingClientRect().left;
-            var y1 = obj.content.getBoundingClientRect().top;
 
-            var x2 = last.getBoundingClientRect().left;
-            var y2 = last.getBoundingClientRect().top;
-            var w2 = last.getBoundingClientRect().width;
-            var h2 = last.getBoundingClientRect().height;
+            const contentRect = obj.content.getBoundingClientRect();
+            var x1 = contentRect.left;
+            var y1 = contentRect.top;
+
+            const lastRect = last.getBoundingClientRect();
+            var x2 = lastRect.left;
+            var y2 = lastRect.top;
+            var w2 = lastRect.width;
+            var h2 = lastRect.height;
 
             var x = (x2 - x1) + obj.content.scrollLeft + w2 - 4;
             var y = (y2 - y1) + obj.content.scrollTop + h2 - 4;
