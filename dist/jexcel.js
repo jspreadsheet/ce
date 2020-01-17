@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.7.7
+ * jExcel v3.8.1
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -60,6 +60,8 @@ var jexcel = (function(el, options) {
         minDimensions:[0,0],
         // Allow Export
         allowExport:true,
+        // @type {boolean} - Include the header titles on download
+        includeHeadersOnDownload:false,
         // Allow column sorting
         columnSorting:true,
         // Allow column dragging
@@ -198,7 +200,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.8.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.8.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -2029,7 +2031,7 @@ var jexcel = (function(el, options) {
 
             // Overflow
             if (x > 0) {
-                if (obj.options.data[y][x] || (obj.options.columns[x].type != 'text' && obj.options.columns[x].type != 'number')) {
+                if (obj.options.data[y][x]) {
                     obj.records[y][x-1].style.overflow = 'hidden';
                 } else {
                     obj.records[y][x-1].style.overflow = '';
@@ -5329,7 +5331,7 @@ var jexcel = (function(el, options) {
         } else {
             // Data
             var data = '';
-            if (includeHeaders == true) {
+            if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
                 data += obj.getHeaders();
                 data += "\r\n";
             }
