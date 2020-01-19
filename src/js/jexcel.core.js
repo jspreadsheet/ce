@@ -36,6 +36,8 @@ var jexcel = (function(el, options) {
         minDimensions:[0,0],
         // Allow Export
         allowExport:true,
+        // @type {boolean} - Include the header titles on download
+        includeHeadersOnDownload:false,
         // Allow column sorting
         columnSorting:true,
         // Allow column dragging
@@ -137,6 +139,7 @@ var jexcel = (function(el, options) {
         oneditionend:null,
         onchangestyle:null,
         onchangemeta:null,
+        onchangepage:null,
         // Customize any cell behavior
         updateTable:null,
         // Texts
@@ -174,7 +177,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.8.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.8.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -1909,6 +1912,12 @@ var jexcel = (function(el, options) {
         // Changing value depending on the column type
         if (obj.records[y][x].classList.contains('readonly') == true && ! force) {
             // Do nothing
+            var record = {
+                x: x,
+                y: y,
+                col: x,
+                row: y
+            }
         } else {
             // On change
             if (! obj.ignoreEvents) {
@@ -1925,6 +1934,8 @@ var jexcel = (function(el, options) {
 
             // History format
             var record = {
+                x: x,
+                y: y,
                 col: x,
                 row: y,
                 newValue: value,
@@ -2005,7 +2016,7 @@ var jexcel = (function(el, options) {
 
             // Overflow
             if (x > 0) {
-                if (obj.options.data[y][x] || (obj.options.columns[x].type != 'text' && obj.options.columns[x].type != 'number')) {
+                if (obj.options.data[y][x]) {
                     obj.records[y][x-1].style.overflow = 'hidden';
                 } else {
                     obj.records[y][x-1].style.overflow = '';
@@ -2546,18 +2557,21 @@ var jexcel = (function(el, options) {
      */
     obj.updateScroll = function(direction) {
         // jExcel Container information
-        var x1 = obj.content.getBoundingClientRect().left;
-        var y1 = obj.content.getBoundingClientRect().top;
-        var w1 = obj.content.getBoundingClientRect().width;
-        var h1 = obj.content.getBoundingClientRect().height;
+        const contentRect = obj.content.getBoundingClientRect();
+        var x1 = contentRect.left;
+        var y1 = contentRect.top;
+        var w1 = contentRect.width;
+        var h1 = contentRect.height;
 
         // Direction Left or Up
         var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
 
-        var x2 = reference.getBoundingClientRect().left;
-        var y2 = reference.getBoundingClientRect().top;
-        var w2 = reference.getBoundingClientRect().width;
-        var h2 = reference.getBoundingClientRect().height;
+            // Reference
+        const referenceRect = reference.getBoundingClientRect();
+        var x2 = referenceRect.left;
+        var y2 = referenceRect.top;
+        var w2 = referenceRect.width;
+        var h2 = referenceRect.height;
 
         // Direction
         if (direction == 0 || direction == 1) {
@@ -5157,6 +5171,8 @@ var jexcel = (function(el, options) {
      * Go to page
      */
     obj.page = function(pageNumber) {
+        var oldPage = obj.pageNumber;
+
         // Search
         if (obj.options.search == true && obj.results) {
             var results = obj.results;
@@ -5205,6 +5221,10 @@ var jexcel = (function(el, options) {
 
         // Update corner position
         obj.updateCornerPosition();
+
+        if (typeof(obj.options.onchangepage) == 'function') {
+            obj.options.onchangepage(el, pageNumber, oldPage);
+        }
     }
 
     /**
@@ -5302,7 +5322,7 @@ var jexcel = (function(el, options) {
         } else {
             // Data
             var data = '';
-            if (includeHeaders == true) {
+            if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
                 data += obj.getHeaders();
                 data += "\r\n";
             }
@@ -5406,8 +5426,8 @@ var jexcel = (function(el, options) {
         }
 
         // Final string
-        var str = row.join("\n");
-        var strLabel = rowLabel.join("\n");
+        var str = row.join("\r\n");
+        var strLabel = rowLabel.join("\r\n");
 
         // Create a hidden textarea to copy the values
         if (! returnData) {
@@ -5483,7 +5503,7 @@ var jexcel = (function(el, options) {
                     // Update all formulas in the chain
                     obj.updateFormulaChain(colIndex, rowIndex, records);
                     // Style
-                    if (style) {
+                    if (style && style[styleIndex]) {
                         var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
                         newStyle[columnName] = style[styleIndex];
                         oldStyle[columnName] = obj.getStyle(columnName);

@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.8.1
+ * jExcel v3.8.2
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -163,6 +163,7 @@ var jexcel = (function(el, options) {
         oneditionend:null,
         onchangestyle:null,
         onchangemeta:null,
+        onchangepage:null,
         // Customize any cell behavior
         updateTable:null,
         // Texts
@@ -200,7 +201,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.8.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.8.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -1935,6 +1936,12 @@ var jexcel = (function(el, options) {
         // Changing value depending on the column type
         if (obj.records[y][x].classList.contains('readonly') == true && ! force) {
             // Do nothing
+            var record = {
+                x: x,
+                y: y,
+                col: x,
+                row: y
+            }
         } else {
             // On change
             if (! obj.ignoreEvents) {
@@ -1951,6 +1958,8 @@ var jexcel = (function(el, options) {
 
             // History format
             var record = {
+                x: x,
+                y: y,
                 col: x,
                 row: y,
                 newValue: value,
@@ -5186,6 +5195,8 @@ var jexcel = (function(el, options) {
      * Go to page
      */
     obj.page = function(pageNumber) {
+        var oldPage = obj.pageNumber;
+
         // Search
         if (obj.options.search == true && obj.results) {
             var results = obj.results;
@@ -5234,6 +5245,10 @@ var jexcel = (function(el, options) {
 
         // Update corner position
         obj.updateCornerPosition();
+
+        if (typeof(obj.options.onchangepage) == 'function') {
+            obj.options.onchangepage(el, pageNumber, oldPage);
+        }
     }
 
     /**
@@ -5435,8 +5450,8 @@ var jexcel = (function(el, options) {
         }
 
         // Final string
-        var str = row.join("\n");
-        var strLabel = rowLabel.join("\n");
+        var str = row.join("\r\n");
+        var strLabel = rowLabel.join("\r\n");
 
         // Create a hidden textarea to copy the values
         if (! returnData) {
@@ -5512,7 +5527,7 @@ var jexcel = (function(el, options) {
                     // Update all formulas in the chain
                     obj.updateFormulaChain(colIndex, rowIndex, records);
                     // Style
-                    if (style) {
+                    if (style && style[styleIndex]) {
                         var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
                         newStyle[columnName] = style[styleIndex];
                         oldStyle[columnName] = obj.getStyle(columnName);
