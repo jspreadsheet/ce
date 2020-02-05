@@ -316,7 +316,7 @@ var jexcel = (function(el, options) {
         
         // default style of Jexcel
         var defaultStyle = "\
- .jexcel {display: table;table-layout: fixed; border-bottom:1px solid #ccc;border-right:1px solid #ccc;max-width: 100%} \n\
+ .jexcel {display: table;table-layout: fixed; border-bottom:1px solid #ccc;border-right:1px solid #ccc;width:"+obj.table.offsetWidth+"px} \n\
  .jexcel > thead > tr > td {text-align:center;border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;background-color:#f3f3f3;padding:2px;box-sizing: border-box;overflow: hidden;}\n\
  .jexcel > tbody > tr > td {border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;padding:4px;white-space: nowrap;box-sizing: border-box;line-height:1em;overflow: hidden;}\n\
  .jexcel > tbody > tr > td:first-child{background-color:#f3f3f3;text-align:center;} \n";
