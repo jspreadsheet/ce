@@ -250,11 +250,12 @@ var jexcel = (function(el, options) {
         obj.options.lazyLoading = false;
     }
     
-    /**
+        /**
      * Print table
-     * @param {Object} optionsPrint with available property : {title: {string}, header: {bool}, index: {bool}, autoprint: {bool}, style: {string}, stylesheet: {url}
+     * @param {Object} optionsPrint with available property : {title: {string}, header: {bool}, index: {bool}, autoprint: {bool}, style: {string}, stylesheet: {url}}
+     * @returns {Boolean}
      */
-     obj.print = function(optionsPrint) {
+    obj.print = function(optionsPrint) {
         if (obj.options.allowPrint == false) {
             console.error('Print not allowed');
             return false;
@@ -264,7 +265,7 @@ var jexcel = (function(el, options) {
         if(optionsPrint == null) {
             optionsPrint = obj.options.print;
         }
-         
+        
         // Scroll top for fix position header
         if(obj.content.scrollLeft!=0 || obj.content.scrollTop!=0){
             obj.content.scrollTop = 0;
@@ -301,16 +302,16 @@ var jexcel = (function(el, options) {
         
         // default style of Jexcel
         var defaultStyle = "\
- .jexcel {display: block;border-bottom:1px solid #ccc;border-right:1px solid #ccc;} \n\
- .jexcel > thead > tr > td {text-align:center;border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;background-color:#f3f3f3;padding:2px;box-sizing: border-box;}\n\
- .jexcel > tbody > tr > td{border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;padding:4px;white-space: nowrap;box-sizing: border-box;line-height:1em;}\n\
+ .jexcel {display: table;table-layout: fixed; border-bottom:1px solid #ccc;border-right:1px solid #ccc;width: 100%} \n\
+ .jexcel > thead > tr > td {text-align:center;border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;background-color:#f3f3f3;padding:2px;box-sizing: border-box;overflow: hidden;}\n\
+ .jexcel > tbody > tr > td {border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;padding:4px;white-space: nowrap;box-sizing: border-box;line-height:1em;overflow: hidden;}\n\
  .jexcel > tbody > tr > td:first-child{background-color:#f3f3f3;text-align:center;} \n";
         if(!optionsPrint.index) {
-            defaultStyle += " .jexcel > tbody > tr > td:first-child, .jexcel > thead > tr > td:first-child{display:none} \n";
+            defaultStyle += " .jexcel > tbody > tr > td:first-child, .jexcel > thead > tr > td:first-child, .jexcel > colgroup > col:first-child{display:none} \n";
         }
         
         // Style for printing table
-        defaultStyle += " @page {size: landscape} \n\
+        defaultStyle += " @page {size: auto} \n\
  table { page-break-inside:auto;page-break-after:auto; }\n\
  tr    { page-break-inside:avoid; page-break-after:auto; }\n\
  td    { page-break-inside:avoid; page-break-after:auto; }\n\
