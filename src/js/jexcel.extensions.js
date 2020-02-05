@@ -156,24 +156,6 @@ jexcel.fromSpreadsheet = function(file, __callback) {
 }
 
 /**
- * Jquery Support
- */
-
-if (typeof(jQuery) != 'undefined') {
-    (function($){
-        $.fn.jexcel = function(method) {
-            var spreadsheetContainer = $(this).get(0);
-            if (! spreadsheetContainer.jexcel) {
-                return jexcel($(this).get(0), arguments[0]);
-            } else {
-                return spreadsheetContainer.jexcel[method].apply(this, Array.prototype.slice.call( arguments, 1 ));
-            }
-        };
-
-    })(jQuery);
-}
-
-/**
  * Valid international letter
  */
 

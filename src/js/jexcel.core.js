@@ -5,6 +5,11 @@ var jexcel = (function(el, options) {
     var obj = {};
     obj.options = {};
 
+    if (! (el instanceof Element || el instanceof HTMLDocument)) {
+        console.error('JEXCEL: el is not a valid DOM element');
+        return false;
+    }
+
     // Loading default configuration
     var defaults = {
         // External data
@@ -31,6 +36,8 @@ var jexcel = (function(el, options) {
         minDimensions:[0,0],
         // Allow Export
         allowExport:true,
+        // @type {boolean} - Include the header titles on download
+        includeHeadersOnDownload:false,
         // Allow column sorting
         columnSorting:true,
         // Allow column dragging
@@ -132,6 +139,7 @@ var jexcel = (function(el, options) {
         oneditionend:null,
         onchangestyle:null,
         onchangemeta:null,
+        onchangepage:null,
         // Customize any cell behavior
         updateTable:null,
         // Texts
@@ -169,13 +177,13 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.7.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.8.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            obj.options[property] = (property == 'text') ? Object.assign(defaults[property], options[property]) :  options[property];
+            obj.options[property] = options[property];
         } else {
             obj.options[property] = defaults[property];
         }
@@ -491,17 +499,20 @@ var jexcel = (function(el, options) {
         });
 
         // Powered by jExcel
-        var ads = '<a href="https://bossanova.uk/jexcel/"><img src="//bossanova.uk/jexcel/logo.png">jExcel Spreadsheet</a>';
+        var ads = document.createElement('a');
+        ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
         obj.ads = document.createElement('div');
         obj.ads.className = 'jexcel_about';
-        if (typeof(sessionStorage) !== "undefined") {
-            if (! sessionStorage.getItem('jexcel')) {
-                sessionStorage.setItem('jexcel', true);
-                obj.ads.innerHTML = ads;
-            }
-        } else {
-            obj.ads.innerHTML = ads;
+        if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
+            sessionStorage.setItem('jexcel', true);
+            var img = document.createElement('img');
+            img.src = '//bossanova.uk/jexcel/logo.png';
+            ads.appendChild(img);
         }
+        var span = document.createElement('span');
+        span.innerHTML = 'Jexcel spreadsheet';
+        ads.appendChild(span);
+        obj.ads.appendChild(ads);
 
         // Create table container TODO: frozen columns
         var container = document.createElement('div');
@@ -951,7 +962,7 @@ var jexcel = (function(el, options) {
             td.innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
         } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
             // Create dropdown cell
-            td.classList.add('dropdown');
+            td.classList.add('jexcel_dropdown');
             td.innerHTML = obj.getDropDownValue(i, value);
         } else if (obj.options.columns[i].type == 'color') {
             if (obj.options.columns[i].render == 'square') {
@@ -1901,6 +1912,12 @@ var jexcel = (function(el, options) {
         // Changing value depending on the column type
         if (obj.records[y][x].classList.contains('readonly') == true && ! force) {
             // Do nothing
+            var record = {
+                x: x,
+                y: y,
+                col: x,
+                row: y
+            }
         } else {
             // On change
             if (! obj.ignoreEvents) {
@@ -1917,6 +1934,8 @@ var jexcel = (function(el, options) {
 
             // History format
             var record = {
+                x: x,
+                y: y,
                 col: x,
                 row: y,
                 newValue: value,
@@ -1997,7 +2016,7 @@ var jexcel = (function(el, options) {
 
             // Overflow
             if (x > 0) {
-                if (obj.options.data[y][x] || (obj.options.columns[x].type != 'text' && obj.options.columns[x].type != 'number')) {
+                if (obj.options.data[y][x]) {
                     obj.records[y][x-1].style.overflow = 'hidden';
                 } else {
                     obj.records[y][x-1].style.overflow = '';
@@ -2070,9 +2089,10 @@ var jexcel = (function(el, options) {
                         posx = 0;
                     } else if (data[posy][posx] == undefined) {
                         posx = 0;
-                    } else {
-                        var value = data[posy][posx];
                     }
+
+                    // Value
+                    var value = data[posy][posx];
 
                     if (value && t0 == t1 && obj.options.autoIncrement == true) {
                         if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
@@ -2512,13 +2532,16 @@ var jexcel = (function(el, options) {
         } else {
             // Get last cell
             var last = obj.highlighted[obj.highlighted.length-1];
-            var x1 = obj.content.getBoundingClientRect().left;
-            var y1 = obj.content.getBoundingClientRect().top;
 
-            var x2 = last.getBoundingClientRect().left;
-            var y2 = last.getBoundingClientRect().top;
-            var w2 = last.getBoundingClientRect().width;
-            var h2 = last.getBoundingClientRect().height;
+            const contentRect = obj.content.getBoundingClientRect();
+            var x1 = contentRect.left;
+            var y1 = contentRect.top;
+
+            const lastRect = last.getBoundingClientRect();
+            var x2 = lastRect.left;
+            var y2 = lastRect.top;
+            var w2 = lastRect.width;
+            var h2 = lastRect.height;
 
             var x = (x2 - x1) + obj.content.scrollLeft + w2 - 4;
             var y = (y2 - y1) + obj.content.scrollTop + h2 - 4;
@@ -2534,18 +2557,21 @@ var jexcel = (function(el, options) {
      */
     obj.updateScroll = function(direction) {
         // jExcel Container information
-        var x1 = obj.content.getBoundingClientRect().left;
-        var y1 = obj.content.getBoundingClientRect().top;
-        var w1 = obj.content.getBoundingClientRect().width;
-        var h1 = obj.content.getBoundingClientRect().height;
+        const contentRect = obj.content.getBoundingClientRect();
+        var x1 = contentRect.left;
+        var y1 = contentRect.top;
+        var w1 = contentRect.width;
+        var h1 = contentRect.height;
 
         // Direction Left or Up
         var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
 
-        var x2 = reference.getBoundingClientRect().left;
-        var y2 = reference.getBoundingClientRect().top;
-        var w2 = reference.getBoundingClientRect().width;
-        var h2 = reference.getBoundingClientRect().height;
+            // Reference
+        const referenceRect = reference.getBoundingClientRect();
+        var x2 = referenceRect.left;
+        var y2 = referenceRect.top;
+        var w2 = referenceRect.width;
+        var h2 = referenceRect.height;
 
         // Direction
         if (direction == 0 || direction == 1) {
@@ -5145,6 +5171,8 @@ var jexcel = (function(el, options) {
      * Go to page
      */
     obj.page = function(pageNumber) {
+        var oldPage = obj.pageNumber;
+
         // Search
         if (obj.options.search == true && obj.results) {
             var results = obj.results;
@@ -5193,6 +5221,10 @@ var jexcel = (function(el, options) {
 
         // Update corner position
         obj.updateCornerPosition();
+
+        if (typeof(obj.options.onchangepage) == 'function') {
+            obj.options.onchangepage(el, pageNumber, oldPage);
+        }
     }
 
     /**
@@ -5290,7 +5322,7 @@ var jexcel = (function(el, options) {
         } else {
             // Data
             var data = '';
-            if (includeHeaders == true) {
+            if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
                 data += obj.getHeaders();
                 data += "\r\n";
             }
@@ -5394,8 +5426,8 @@ var jexcel = (function(el, options) {
         }
 
         // Final string
-        var str = row.join("\n");
-        var strLabel = rowLabel.join("\n");
+        var str = row.join("\r\n");
+        var strLabel = rowLabel.join("\r\n");
 
         // Create a hidden textarea to copy the values
         if (! returnData) {
@@ -5471,7 +5503,7 @@ var jexcel = (function(el, options) {
                     // Update all formulas in the chain
                     obj.updateFormulaChain(colIndex, rowIndex, records);
                     // Style
-                    if (style) {
+                    if (style && style[styleIndex]) {
                         var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
                         newStyle[columnName] = style[styleIndex];
                         oldStyle[columnName] = obj.getStyle(columnName);
