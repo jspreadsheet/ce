@@ -4273,7 +4273,7 @@ var jexcel = (function(el, options) {
         if (typeof(obj.options.updateTable) == 'function') {
             for (var j = 0; j < obj.rows.length; j++) {
                 for (var i = 0; i < obj.headers.length; i++) {
-                    obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText, jexcel.getColumnNameFromId([i, j]));
+                    obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText);
                 }
             }
         }
