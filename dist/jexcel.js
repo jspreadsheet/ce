@@ -3495,7 +3495,7 @@ var jexcel = (function(el, options) {
                 // Create row
                 var tr = obj.createRow(row, obj.options.data[row]);
                 // Append node
-                if (! currentRows[0] || Array.prototype.indexOf.call(obj.tbody.children, currentRows[0]) >= 0) {
+                if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[rowNumber]) >= 0) {
                     obj.tbody.insertBefore(tr, currentRows[0]);
                 }
                 // Record History
