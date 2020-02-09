@@ -166,8 +166,6 @@ var jexcel = (function(el, options) {
         onchangepage:null,
         // Customize any cell behavior
         updateTable:null,
-        // Detach the HTML table when calling updateTable
-        detachForUpdates: false,
         // Texts
         text:{
             noRecordsFound: 'No records found',
@@ -209,16 +207,7 @@ var jexcel = (function(el, options) {
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            if (property === 'text') {
-                obj.options[property] = defaults[property];
-                for (var textKey in options[property]) {
-                    if (options[property].hasOwnProperty(textKey)){
-                        obj.options[property][textKey] = options[property][textKey];
-                    }
-                }
-            } else {
-                obj.options[property] = options[property];
-            }
+            obj.options[property] = options[property];
         } else {
             obj.options[property] = defaults[property];
         }
@@ -2052,7 +2041,7 @@ var jexcel = (function(el, options) {
 
             // Overflow
             if (x > 0) {
-                if (obj.options.data[y][x]) {
+                if (value) {
                     obj.records[y][x-1].style.overflow = 'hidden';
                 } else {
                     obj.records[y][x-1].style.overflow = '';
@@ -2078,8 +2067,7 @@ var jexcel = (function(el, options) {
         var data = obj.getData(true);
 
         // Selected cells
-        var t0 = obj.selectedContainer[1];
-        var t1 = obj.selectedContainer[3];
+        var h = obj.selectedContainer;
 
         // Cells
         var x1 = parseInt(o.getAttribute('data-x'));
@@ -2089,8 +2077,24 @@ var jexcel = (function(el, options) {
 
         // Records
         var records = [];
-        var lineNumber = 1;
         var breakControl = false;
+
+        if (h[0] == x1) {
+            // Vertical copy
+            if (y1 < h[1]) {
+                var rowNumber = y1 - h[1];
+            } else {
+                var rowNumber = 1;
+            }
+            var colNumber = 0;
+        } else {
+            if (x1 < h[0]) {
+                var colNumber = x1 - h[0];
+            } else {
+                var colNumber = 1;
+            }
+            var rowNumber = 0;
+        }
 
         // Copy data procedure
         var posx = 0;
@@ -2108,6 +2112,14 @@ var jexcel = (function(el, options) {
             }
             posx = 0;
 
+            // Data columns
+            if (h[0] != x1) {
+                if (x1 < h[0]) {
+                    var colNumber = x1 - h[0];
+                } else {
+                    var colNumber = 1;
+                }
+            }
             // Data columns
             for (var i = x1; i <= x2; i++) {
                 // Update non-readonly
@@ -2130,7 +2142,7 @@ var jexcel = (function(el, options) {
                     // Value
                     var value = data[posy][posx];
 
-                    if (value && t0 == t1 && obj.options.autoIncrement == true) {
+                        if (value && ! data[1] && obj.options.autoIncrement == true) {
                         if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
                             if ((''+value).substr(0,1) == '=') {
                                 var tokens = value.match(/([A-Z]+[0-9]+)/g);
@@ -2139,7 +2151,11 @@ var jexcel = (function(el, options) {
                                     var affectedTokens = [];
                                     for (var index = 0; index < tokens.length; index++) {
                                         var position = jexcel.getIdFromColumnName(tokens[index], 1);
-                                        position[1] += lineNumber;
+                                        position[0] += colNumber;
+                                        position[1] += rowNumber;
+                                        if (position[1] < 0) {
+                                            position[1] = 0;
+                                        }
                                         var token = jexcel.getColumnNameFromId([position[0], position[1]]);
 
                                         if (token != tokens[index]) {
@@ -2153,13 +2169,13 @@ var jexcel = (function(el, options) {
                                 }
                             } else {
                                 if (value == Number(value)) {
-                                    value = Number(value) + lineNumber;
+                                    value = Number(value) + rowNumber;
                                 }
                             }
                         } else if (obj.options.columns[i].type == 'calendar') {
                             var date = new Date(value);
-                            date.setDate(date.getDate() + lineNumber);
-                            value = date.getFullYear() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':00';
+                            date.setDate(date.getDate() + rowNumber);
+                            value = date.getFullYear() + '-' + jexcel.doubleDigitFormat(parseInt(date.getMonth() + 1)) + '-' + jexcel.doubleDigitFormat(date.getDate()) + ' ' + '00:00:00';
                         }
                     }
 
@@ -2169,9 +2185,12 @@ var jexcel = (function(el, options) {
                     obj.updateFormulaChain(i, j, records);
                 }
                 posx++;
+                if (h[0] != x1) {
+                    colNumber++;
+                }
             }
             posy++;
-            lineNumber++;
+            rowNumber++;
         }
 
         // Update history
@@ -4217,18 +4236,10 @@ var jexcel = (function(el, options) {
 
         // Customizations by the developer
         if (typeof(obj.options.updateTable) == 'function') {
-            if (obj.options.detachForUpdates) {
-                el.removeChild(obj.content);
-            }
-            
             for (var j = 0; j < obj.rows.length; j++) {
                 for (var i = 0; i < obj.headers.length; i++) {
                     obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText, jexcel.getColumnNameFromId([i, j]));
                 }
-            }
-            
-            if (obj.options.detachForUpdates) {
-                el.insertBefore(obj.content, obj.pagination);
             }
         }
 
