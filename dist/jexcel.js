@@ -166,6 +166,8 @@ var jexcel = (function(el, options) {
         onchangepage:null,
         // Customize any cell behavior
         updateTable:null,
+        // Detach the HTML table when calling updateTable
+        detachForUpdates: false,
         // Texts
         text:{
             noRecordsFound: 'No records found',
@@ -207,7 +209,16 @@ var jexcel = (function(el, options) {
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            obj.options[property] = options[property];
+            if (property === 'text') {
+                obj.options[property] = defaults[property];
+                for (var textKey in options[property]) {
+                    if (options[property].hasOwnProperty(textKey)){
+                        obj.options[property][textKey] = options[property][textKey];
+                    }
+                }
+            } else {
+                obj.options[property] = options[property];
+            }
         } else {
             obj.options[property] = defaults[property];
         }
@@ -4206,10 +4217,18 @@ var jexcel = (function(el, options) {
 
         // Customizations by the developer
         if (typeof(obj.options.updateTable) == 'function') {
+            if (obj.options.detachForUpdates) {
+                el.removeChild(obj.content);
+            }
+            
             for (var j = 0; j < obj.rows.length; j++) {
                 for (var i = 0; i < obj.headers.length; i++) {
                     obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText, jexcel.getColumnNameFromId([i, j]));
                 }
+            }
+            
+            if (obj.options.detachForUpdates) {
+                el.insertBefore(obj.content, obj.pagination);
             }
         }
 
