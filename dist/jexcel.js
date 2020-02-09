@@ -2744,16 +2744,24 @@ var jexcel = (function(el, options) {
         if (height > 0) {
             // In case the column is an object
             if (typeof(row) == 'object') {
-                row = $(row).getAttribute('data-y');
+                row = row.getAttribute('data-y');
             }
 
             // Oldwidth
             if (! oldHeight) {
-                obj.rows[row].getAttribute('height');
+                oldHeight = obj.rows[row].getAttribute('height');
+
+                if (! oldHeight) {
+                    var rect = obj.rows[row].getBoundingClientRect();
+                    oldHeight = rect.height;
+                }
             }
 
+            // Integer
+            height = parseInt(height);
+
             // Set width
-            obj.rows[row].setAttribute('height', height);
+            obj.rows[row].style.height = height + 'px';
 
             // Keep options updated
             if (! obj.options.rows[row]) {
