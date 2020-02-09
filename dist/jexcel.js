@@ -3672,7 +3672,13 @@ var jexcel = (function(el, options) {
      */
     obj.moveColumn = function(o, d) {
         if (Object.keys(obj.options.mergeCells).length > 0) {
-            if (obj.isColMerged(d).length) {
+            if (o > d) {
+                var insertBefore = 1;
+            } else {
+                var insertBefore = 0;
+            }
+
+            if (obj.isColMerged(o).length || obj.isColMerged(d, insertBefore).length) {
                 if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
                     return false;
                 } else {
