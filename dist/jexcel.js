@@ -1497,7 +1497,7 @@ var jexcel = (function(el, options) {
             // If there is a custom editor for it
             if (obj.options.columns[x].editor) {
                 // Custom editors
-                obj.options.columns[x].editor.openEditor(cell, el);
+                obj.options.columns[x].editor.openEditor(cell, el, empty, e);
             } else {
                 // Native functions
                 if (obj.options.columns[x].type == 'hidden') {
