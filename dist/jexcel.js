@@ -2532,7 +2532,7 @@ var jexcel = (function(el, options) {
         var x2 = obj.selectedContainer[2];
         var y2 = obj.selectedContainer[3];
 
-        if (x3 && y3) {
+        if (x3 != null && y3 != null) {
             if (x3 - x2 > 0) {
                 var px = parseInt(x2) + 1;
                 var ux = parseInt(x3);
@@ -2701,12 +2701,12 @@ var jexcel = (function(el, options) {
         if (width > 0) {
             // In case the column is an object
             if (typeof(column) == 'object') {
-                column = $(column).getAttribute('data-x');
+                column = column.getAttribute('data-x');
             }
 
             // Oldwidth
             if (! oldWidth) {
-                obj.colgroup[column].getAttribute('width');
+                oldWidth = obj.colgroup[column].getAttribute('width');
             }
 
             // Set width
