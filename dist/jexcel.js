@@ -3179,6 +3179,7 @@ var jexcel = (function(el, options) {
         var options = obj.options;
         options.style = obj.getStyle();
         options.mergeCells = obj.getMerge();
+        options.comments = obj.getComments();
 
         return options;
     }
