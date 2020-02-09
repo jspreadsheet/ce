@@ -183,7 +183,16 @@ var jexcel = (function(el, options) {
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            obj.options[property] = options[property];
+            if (property === 'text') {
+                obj.options[property] = defaults[property];
+                for (var textKey in options[property]) {
+                    if (options[property].hasOwnProperty(textKey)){
+                        obj.options[property][textKey] = options[property][textKey];
+                    }
+                }
+            } else {
+                obj.options[property] = options[property];
+            }
         } else {
             obj.options[property] = defaults[property];
         }
