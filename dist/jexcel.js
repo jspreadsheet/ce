@@ -3109,17 +3109,31 @@ var jexcel = (function(el, options) {
     }
 
     /**
-     * Get cell comments
+     * Get cell comments, null cell for all
      */
     obj.getComments = function(cell, withAuthor) {
-        if (typeof(cell) == 'string') {
-            var cell = jexcel.getIdFromColumnName(cell, true);
-        }
+        if (cell) {
+            if (typeof(cell) == 'string') {
+              var cell = jexcel.getIdFromColumnName(cell, true);
+            }
 
-        if (withAuthor) {
-            return [obj.records[cell[1]][cell[0]].getAttribute('title'), obj.records[cell[1]][cell[0]].getAttribute('author')];
+            if (withAuthor) {
+                return [obj.records[cell[1]][cell[0]].getAttribute('title'), obj.records[cell[1]][cell[0]].getAttribute('author')];
+            } else {
+                return obj.records[cell[1]][cell[0]].getAttribute('title') || '';
+            }
         } else {
-            return obj.records[cell[1]][cell[0]].getAttribute('title') || '';
+            var data = {};
+            for (var j = 0; j < obj.options.data.length; j++) {
+                for (var i = 0; i < obj.options.columns.length; i++) {
+                    var comments = obj.records[j][i].getAttribute('title');
+                    if (comments) {
+                        var cell = jexcel.getColumnNameFromId([i, j]);
+                        data[cell] = comments;
+                    }
+                }
+            }
+            return data;
         }
     }
 
