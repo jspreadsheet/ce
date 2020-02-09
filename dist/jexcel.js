@@ -7551,6 +7551,14 @@ jexcel.getElement = function(element) {
     return [ jexcelElement, jexcelSection ];
 }
 
+jexcel.doubleDigitFormat = function(v) {
+    v = ''+v;
+    if (v.length == 1) {
+        v = '0'+v;
+    }
+    return v;
+}
+
 /**
  * Jquery Support
  */
