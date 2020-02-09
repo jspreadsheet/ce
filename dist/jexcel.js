@@ -3335,7 +3335,13 @@ var jexcel = (function(el, options) {
      */
     obj.moveRow = function(o, d, ignoreDom) {
         if (Object.keys(obj.options.mergeCells).length > 0) {
-            if (obj.isRowMerged(d).length) {
+           if (o > d) {
+               var insertBefore = 1;
+           } else {
+               var insertBefore = 0;
+           }
+
+           if (obj.isRowMerged(o).length || obj.isRowMerged(d, insertBefore).length) {
                 if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
                     return false;
                 } else {
