@@ -510,6 +510,7 @@ var jexcel = (function(el, options) {
         obj.textarea = document.createElement('textarea');
         obj.textarea.className = 'jexcel_textarea';
         obj.textarea.id = 'jexcel_textarea';
+        obj.textarea.tabIndex = '-1';
 
         // Contextmenu container
         obj.contextMenu = document.createElement('div');
