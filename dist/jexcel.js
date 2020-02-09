@@ -5416,17 +5416,26 @@ var jexcel = (function(el, options) {
                 data += obj.getHeaders();
                 data += "\r\n";
             }
+
             // Get data
             data += obj.copy(false, obj.options.csvDelimiter, true);
+
             // Download element
-            var pom = document.createElement('a');
             var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
-            var url = URL.createObjectURL(blob);
-            pom.href = url;
-            pom.setAttribute('download', obj.options.csvFileName + '.csv');
-            document.body.appendChild(pom);
-            pom.click();
-            pom.parentNode.removeChild(pom);
+
+            // IE Compatibility
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(blob, options.csvFileName + '.csv');
+            } else {
+                // Download element
+                var pom = document.createElement('a');
+                var url = URL.createObjectURL(blob);
+                pom.href = url;
+                pom.setAttribute('download', obj.options.csvFileName + '.csv');
+                document.body.appendChild(pom);
+                pom.click();
+                pom.parentNode.removeChild(pom);
+            }
         }
     }
 
