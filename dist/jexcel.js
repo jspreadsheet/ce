@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.8.2
+ * jExcel v3.9.0
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -166,6 +166,8 @@ var jexcel = (function(el, options) {
         onchangepage:null,
         // Customize any cell behavior
         updateTable:null,
+        // Detach the HTML table when calling updateTable
+        detachForUpdates: false,
         // Texts
         text:{
             noRecordsFound: 'No records found',
@@ -201,13 +203,22 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.8.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.9.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
     for (var property in defaults) {
         if (options && options.hasOwnProperty(property)) {
-            obj.options[property] = options[property];
+            if (property === 'text') {
+                obj.options[property] = defaults[property];
+                for (var textKey in options[property]) {
+                    if (options[property].hasOwnProperty(textKey)){
+                        obj.options[property][textKey] = options[property][textKey];
+                    }
+                }
+            } else {
+                obj.options[property] = options[property];
+            }
         } else {
             obj.options[property] = defaults[property];
         }
@@ -793,11 +804,14 @@ var jexcel = (function(el, options) {
      * @param bool get highlighted cells only
      * @return array data
      */
-    obj.getData = function(highlighted) {
+        obj.getData = function(highlighted, dataOnly) {
         // Control vars
         var dataset = [];
         var px = 0;
         var py = 0;
+
+        // Data type
+        var dataType = dataOnly == true || obj.options.copyCompatibility == false ? true : false;
 
         // Column and row length
         var x = obj.options.columns.length
@@ -813,7 +827,7 @@ var jexcel = (function(el, options) {
                     if (! dataset[py]) {
                         dataset[py] = [];
                     }
-                    if (obj.options.copyCompatibility == true) {
+                    if (! dataType) {
                         dataset[py][px] = obj.records[j][i].innerHTML;
                     } else {
                         dataset[py][px] = obj.options.data[j][i];
@@ -2064,7 +2078,7 @@ var jexcel = (function(el, options) {
      */
     obj.copyData = function(o, d) {
         // Get data from all selected cells
-        var data = obj.getData(true);
+        var data = obj.getData(true, true);
 
         // Selected cells
         var h = obj.selectedContainer;
@@ -4271,10 +4285,18 @@ var jexcel = (function(el, options) {
 
         // Customizations by the developer
         if (typeof(obj.options.updateTable) == 'function') {
+            if (obj.options.detachForUpdates) {
+                el.removeChild(obj.content);
+            }
+
             for (var j = 0; j < obj.rows.length; j++) {
                 for (var i = 0; i < obj.headers.length; i++) {
-                    obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText);
+                    obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText, jexcel.getColumnNameFromId([i, j]));
                 }
+            }
+
+            if (obj.options.detachForUpdates) {
+                el.insertBefore(obj.content, obj.pagination);
             }
         }
 

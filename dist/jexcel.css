@@ -32,8 +32,8 @@
 .jexcel_content {
     display:inline-block;
     box-sizing: border-box;
-    padding-right:2px;
-    padding-bottom:2px;
+    padding-right:3px;
+    padding-bottom:3px;
     position:relative;
     scrollbar-width: thin;
     scrollbar-color: #666 transparent;
