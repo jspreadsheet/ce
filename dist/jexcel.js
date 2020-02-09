@@ -202,6 +202,9 @@ var jexcel = (function(el, options) {
             cellAlreadyMerged: 'Cell already merged',
             noCellsSelected: 'No cells selected',
         },
+        // Options Print
+        allowPrint: true,
+        print:null,
         // About message
         about:"jExcel CE Spreadsheet\nVersion 3.9.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
@@ -270,6 +273,221 @@ var jexcel = (function(el, options) {
     if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
         console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
         obj.options.lazyLoading = false;
+    }
+ 
+    /**
+     * Print table
+     * @param {Object} optionsPrint with available property : {title: {string}, header: {bool}, index: {bool}, autoprint: {bool}, style: {string}, stylesheet: {url}}
+     * @returns {Boolean}
+     */
+    obj.print = function(optionsPrint) {
+        if (obj.options.allowPrint == false) {
+            console.error('Print not allowed');
+            return false;
+        }
+        
+        // If optionsPrint is not defined, get optionsPrint default on init
+        if(optionsPrint == null) {
+            optionsPrint = obj.options.print;
+        }
+        
+        // Scroll top for fix position header
+        if(obj.content.scrollLeft!=0 || obj.content.scrollTop!=0){
+            obj.content.scrollTop = 0;
+            obj.content.scrollLeft = 0;
+            setTimeout(obj.print.bind(null,optionsPrint), 100);
+            return false;
+        }
+        
+        
+        // Set default value
+        if(optionsPrint==null) {
+            optionsPrint = {};
+        }
+        if(optionsPrint.title == null) {
+            optionsPrint.title = "";
+        }
+        if(optionsPrint.header == null) {
+            optionsPrint.header = true;
+        }
+        if(optionsPrint.index == null) {
+            optionsPrint.index = true;
+        }
+        if(optionsPrint.autoprint == null) {
+            optionsPrint.autoprint = true;
+        }
+        if(optionsPrint.style == null) {
+            optionsPrint.style = "";
+        }
+        
+        if(optionsPrint.stylesheet == null) {
+            optionsPrint.stylesheet = "";
+        }
+        
+        // default style of Jexcel
+        var defaultStyle = "\
+ .jexcel {display: table;table-layout: fixed; border-bottom:1px solid #ccc;border-right:1px solid #ccc;width:"+obj.table.offsetWidth+"px} \n\
+ .jexcel > thead > tr > td {text-align:center;border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;background-color:#f3f3f3;padding:2px;box-sizing: border-box;overflow: hidden;}\n\
+ .jexcel > tbody > tr > td {border-top:1px solid #ccc;border-left:1px solid #ccc;border-right:1px solid transparent;border-bottom:1px solid transparent;padding:4px;white-space: nowrap;box-sizing: border-box;line-height:1em;overflow: hidden;}\n\
+ .jexcel > tbody > tr > td:first-child{background-color:#f3f3f3;text-align:center;} \n";
+        if(!optionsPrint.index) {
+            defaultStyle += " .jexcel > tbody > tr > td:first-child, .jexcel > thead > tr > td:first-child, .jexcel > colgroup > col:first-child{display:none} \n";
+        }
+        
+        // Style for printing table
+        defaultStyle += " @page {size: auto} \n\
+ table { page-break-inside:auto;page-break-after:auto; }\n\
+ tr    { page-break-inside:avoid; page-break-after:auto; }\n\
+ td    { page-break-inside:avoid; page-break-after:auto; }\n\
+ thead { display:table-header-group; }\n\
+ tfoot { display:table-footer-group; }\n";
+        
+        optionsPrint.style =  defaultStyle + optionsPrint.style;
+        
+        var _link = document.createElement( 'a' );
+        var _relToAbs = function( href ) {
+                // Assign to a link on the original page so the browser will do all the
+                // hard work of figuring out where the file actually is
+                _link.href = href;
+                var linkHost = _link.host;
+
+                // IE doesn't have a trailing slash on the host
+                // Chrome has it on the pathname
+                if ( linkHost.indexOf('/') === -1 && _link.pathname.indexOf('/') !== 0) {
+                        linkHost += '/';
+                }
+
+                return _link.protocol+"//"+linkHost+_link.pathname+_link.search;
+        };
+
+        
+        var table = "<table class='jexcel' cellspacing='0'>";
+        var headTable = "";
+        var bodyTable = "";
+        
+        table += obj.colgroupContainer.outerHTML;
+        
+        if(optionsPrint.header) {
+            // Create header
+            headTable = "<thead>";
+            
+            // Nested
+            if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                // Flexible way to handle nestedheaders
+                if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                    for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
+                        headTable += obj.createNestedHeader(obj.options.nestedHeaders[j]).outerHTML;
+                    }
+                } else {
+                    headTable += obj.createNestedHeader(obj.options.nestedHeaders).outerHTML;
+                }
+            }
+            
+            // Header column
+            headTable += "<tr><td>&nbsp;</td>";
+           
+            for(var ite_col in obj.headers) {
+                headTable += "<td>" + (obj.headers[ite_col].outerText||obj.headers[ite_col].innerHTML) + "</td>";
+            }
+            
+            headTable += "</tr></thead>";
+        }
+        
+        table += headTable;
+        
+        // Body
+        bodyTable = "<tbody>";
+        var row = "";
+        var cellNotShow = {};
+        for(var x in obj.options.data) {
+            row = "<tr><td class='jexcel_row'>"+(parseInt(x)+1)+"</td>";
+            for(var y in obj.options.data[x]) {
+                
+                var cellName = jexcel.getColumnNameFromId([y,x]);
+                
+                // Manage merged cell
+                if(obj.options.mergeCells[cellName]!=null) {
+                    for(var x_merge=0;x_merge<obj.options.mergeCells[cellName][1];x_merge++) {
+                       for(var y_merge=0;y_merge<obj.options.mergeCells[cellName][0];y_merge++) {
+                           if(x_merge!=0 || y_merge!=0) {
+                              cellNotShow[(parseInt(x)+parseInt(x_merge))+","+(parseInt(y)+parseInt(y_merge))] = true;
+                           }
+                        } 
+                    }
+                }
+                
+                if(cellNotShow[parseInt(x)+","+parseInt(y)]==null) {
+                    if(obj.records[x]!=null && obj.records[x][y]!=null) {
+                        row += obj.records[x][y].outerHTML;
+                    } else if ((''+obj.options.data[x][y]).substr(0,1) == '=' && obj.options.parseFormulas == true) {
+                        row += "<td>" + obj.executeFormula(obj.options.data[x][y]) + "</td>";
+                    } else {
+                        row += "<td>" + obj.options.data[x][y] + "</td>";
+                    }
+                }
+            }
+            row += "</tr>";
+            bodyTable += row;
+        }
+        
+        
+        
+        bodyTable += "</tbody>";
+        
+        table += bodyTable;
+        
+        table += "</table>";
+        
+        // Create popup
+        // Open a new window for the printable table
+        var win = window.open( '', '' );
+        win.document.close();
+        
+        if(optionsPrint.title!="") {
+            try {
+                    win.document.head.innerHTML = "<title>"+optionsPrint.title+"</title>"; // Work around for Edge
+            }
+            catch (e) {
+                    console.error(e);
+            }
+        }
+        
+        if(optionsPrint.stylesheet!="") {
+            try {
+                    win.document.head.innerHTML += "<link rel=\"stylesheet\" href=\""+_relToAbs(optionsPrint.stylesheet)+"\" type=\"text/css\" />"; // Work around for Edge
+            }
+            catch (e) {
+                    console.error(e);
+            }
+        }
+        
+        if(optionsPrint.style!="") {
+            try {
+                    win.document.head.innerHTML += "<style>"+optionsPrint.style+"</style>"; // Work around for Edge
+            }
+            catch (e) {
+                    console.error(e);
+            }
+        }
+        
+        // Inject the table and other information
+        win.document.body.innerHTML = '<h1>'+optionsPrint.title+'</h1>'+table;
+        
+        // Allow stylesheets time to load
+        var autoPrint = function () {
+                if ( optionsPrint.autoprint ) {
+                        win.print(); // blocking - so close will not
+                        win.close(); // execute until this is done
+                }
+        };
+
+        if ( navigator.userAgent.match(/Trident\/\d.\d/) ) { // IE needs to call this without a setTimeout
+                autoPrint();
+        }
+        else {
+                win.setTimeout( autoPrint, 1000 );
+        }
+        
     }
     
     /**
@@ -6535,9 +6753,9 @@ jexcel.keyDownControls = function(e) {
                         // Ctrl + C
                         jexcel.current.copy(true);
                         e.preventDefault();
-                    } else if (e.which == 67) {
-                        // Ctrl + C
-                        jexcel.current.copy(true);
+                    } else if (e.which == 80) {
+                        // Ctrl + P
+                        jexcel.current.print();
                         e.preventDefault();
                     } else if (e.which == 88) {
                         // Ctrl + X
