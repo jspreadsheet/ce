@@ -2859,6 +2859,8 @@ var jexcel = (function(el, options) {
                 obj.headers[column].innerHTML = newValue;
                 // Keep the title property
                 obj.headers[column].setAttribute('title', newValue);
+                // Update title
+                obj.options.columns[column].title = newValue;
             }
 
             obj.setHistory({
