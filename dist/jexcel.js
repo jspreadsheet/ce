@@ -1,6 +1,6 @@
 
 /**
- * jExcel v3.9.0
+ * jExcel v3.9.1
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -203,7 +203,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.9.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 3.9.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -3509,8 +3509,14 @@ var jexcel = (function(el, options) {
                 // Create row
                 var tr = obj.createRow(row, obj.options.data[row]);
                 // Append node
-                if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[rowNumber]) >= 0) {
-                    obj.tbody.insertBefore(tr, currentRows[0]);
+                if (currentRows[0]) {
+                    if (Array.prototype.indexOf.call(obj.tbody.children, currentRows[0]) >= 0) {
+                        obj.tbody.insertBefore(tr, currentRows[0]);
+                    }
+                } else {
+                    if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[rowNumber]) >= 0) {
+                        obj.tbody.appendChild(tr);
+                    }
                 }
                 // Record History
                 rowRecords.push(obj.records[row]);
@@ -6230,7 +6236,10 @@ var jexcel = (function(el, options) {
                         items.push({
                             title: title ? obj.options.text.editComments : obj.options.text.addComments,
                             onclick:function() {
-                                obj.setComments([ x, y ], prompt(obj.options.text.comments, title));
+                                var comment = prompt(obj.options.text.comments, title);
+                                if (comment) {
+                                    obj.setComments([ x, y ], comment);
+                                }
                             }
                         });
 
