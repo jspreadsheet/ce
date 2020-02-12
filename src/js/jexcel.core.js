@@ -1941,7 +1941,7 @@ var jexcel = (function(el, options) {
                     var val = obj.options.onbeforechange(el, obj.records[y][x], x, y, value);
 
                     // If you return something this will overwrite the value
-                    if (val != undefined) {
+                    if (val != undefined || val === null) {
                         value = val;
                     }
                 }
