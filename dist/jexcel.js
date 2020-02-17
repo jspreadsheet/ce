@@ -3036,7 +3036,7 @@ var jexcel = (function(el, options) {
             // Position
             var cell = jexcel.getIdFromColumnName(cellId, true);
 
-            if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]]) {
+            if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]] && (obj.records[cell[1]][cell[0]].classList.contains('readonly')==false || force)) {
                 // Current value
                 var currentValue = obj.records[cell[1]][cell[0]].style[key];
 
