@@ -5782,12 +5782,12 @@ var jexcel = (function(el, options) {
     /**
      * Undo last action
      */
-    obj.undo = function() {
+    obj.undo = function(OptionIgnoreEvent) {
         // Ignore events and history
         var ignoreEvents = obj.ignoreEvents ? true : false;
         var ignoreHistory = obj.ignoreHistory ? true : false;
 
-        obj.ignoreEvents = true;
+        obj.ignoreEvents = OptionIgnoreEvent == null ? true : OptionIgnoreEvent;
         obj.ignoreHistory = true;
 
         // Records
@@ -5858,12 +5858,12 @@ var jexcel = (function(el, options) {
     /**
      * Redo previously undone action
      */
-    obj.redo = function() {
+    obj.redo = function(OptionIgnoreEvent) {
         // Ignore events and history
         var ignoreEvents = obj.ignoreEvents ? true : false;
         var ignoreHistory = obj.ignoreHistory ? true : false;
 
-        obj.ignoreEvents = true;
+        obj.ignoreEvents = OptionIgnoreEvent == null ? true : OptionIgnoreEvent;
         obj.ignoreHistory = true;
 
         // Records
