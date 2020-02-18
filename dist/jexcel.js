@@ -92,6 +92,10 @@ var jexcel = (function(el, options) {
         allowRenameColumn:true,
         // Allow comments
         allowComments:false,
+        // Option ignore Event on undo
+        ignoreEventsonundo:true,
+        // Option ignore Event on redo
+        ignoreEventsonredo:true,
         // Global wrap
         wordWrap:false,
         // Image options
@@ -5813,7 +5817,7 @@ var jexcel = (function(el, options) {
         var ignoreEvents = obj.ignoreEvents ? true : false;
         var ignoreHistory = obj.ignoreHistory ? true : false;
 
-        obj.ignoreEvents = true;
+        obj.ignoreEvents = obj.options.ignoreEventsonundo;
         obj.ignoreHistory = true;
 
         // Records
@@ -5889,7 +5893,7 @@ var jexcel = (function(el, options) {
         var ignoreEvents = obj.ignoreEvents ? true : false;
         var ignoreHistory = obj.ignoreHistory ? true : false;
 
-        obj.ignoreEvents = true;
+        obj.ignoreEvents = obj.options.ignoreEventsonredo;
         obj.ignoreHistory = true;
 
         // Records
