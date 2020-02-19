@@ -4315,6 +4315,20 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Show row
+     */
+    obj.showRow = function(rowNumber) {
+        obj.rows[rowNumber].style.display = '';
+    }
+
+    /**
+     * Hide row
+     */
+    obj.hideRow = function(rowNumber) {
+        obj.rows[rowNumber].style.display = 'none';
+    }
+
+    /**
      * Show column
      */
     obj.showColumn = function(colNumber) {
