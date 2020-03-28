@@ -986,7 +986,7 @@ var jexcel = (function(el, options) {
                 obj.setValue(td, this.checked);
             }
 
-            if (obj.options.columns[i].readOnly == true) {
+            if (obj.options.columns[i].readOnly == true || obj.options.editable == false) {
                 element.setAttribute('disabled', 'disabled');
             }
 
