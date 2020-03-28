@@ -4606,6 +4606,15 @@ var jexcel = (function(el, options) {
                         }
                     }
                 }
+             
+                // Formula for Cell and Coordonnage
+                // Use in formula : 
+                // "=CELL(5,1)" Get value cell of E1 (E = column 5)
+                // "=COLUMN()" get Column number
+                // "=ROW()" get Row number
+                // "=CELL(COLUMN()-1, ROW())" get value of cell to left of this cell
+                evalstring += " var COLUMN = function() { return parseInt(x) + 1; }; var ROW = function() { return parseInt(y) + 1; };";
+                evalstring += " var CELL = function (col, row) { var v = obj.getValueFromCoords(col-1, row-1, true); if( isNaN(Number(v)) ) {return v;} else {return Number(v);};};";
 
                 // Convert formula to javascript
                 try {
