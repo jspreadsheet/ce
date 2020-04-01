@@ -12066,8 +12066,11 @@ jexcel.methods.math = (function() {
         return result;
     };
 
-    exports.SUMIF = function(range, criteria) {
-        range = utils.parseNumberArray(utils.flatten(range));
+    exports.SUMIF = function() {
+        var args = utils.argsToArray(arguments);
+        var criteria = args.pop();
+        var range = utils.parseNumberArray(utils.flatten(args));
+     
         if (range instanceof Error) {
             return range;
         }
@@ -12599,8 +12602,11 @@ jexcel.methods.stats = (function() {
         return blanks;
     };
 
-    exports.COUNTIF = function(range, criteria) {
-        range = utils.flatten(range);
+    exports.COUNTIF = function() {
+        var args = utils.argsToArray(arguments);
+        var criteria = args.pop();
+        var range = utils.flatten(args);
+     
         if (!/[<>=!]/.test(criteria)) {
             criteria = '=="' + criteria + '"';
         }
