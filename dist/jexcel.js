@@ -1657,6 +1657,8 @@ var jexcel = (function(el, options) {
                     if (value.substr(0,1) != '=') {
                         if (value == '') {
                             value = obj.options.columns[x].allowEmpty ? '' : 0;
+                        } else {
+                            value = value.replace(/,/gi,'.');
                         }
                     }
                     cell.children[0].onblur = null;
