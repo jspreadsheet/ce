@@ -1970,6 +1970,10 @@ var jexcel = (function(el, options) {
                     }
                 }
             }
+         
+            if(value=='') {
+                value = obj.options.columns[x].allowEmpty ? '' : 0;
+            }
 
             // History format
             var record = {
