@@ -6918,7 +6918,14 @@ jexcel.mouseUpControls = function(e) {
                         }
                     }
                 } else {
-                    var position = Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children, jexcel.current.dragging.element);
+                    if (jexcel.current.dragging.element.nextSibling) {
+                        var position = parseInt(jexcel.current.dragging.element.nextSibling.getAttribute('data-y'));
+                        if (jexcel.current.dragging.row < position) {
+                            position -= 1;
+                        }
+                    } else {
+                        var position = parseInt(jexcel.current.dragging.element.previousSibling.getAttribute('data-y'));
+                    }
                     if (jexcel.current.dragging.row != position) {
                         jexcel.current.moveRow(jexcel.current.dragging.row, position, true);
                     }
