@@ -7295,6 +7295,13 @@ jexcel.touchStartControls = function(e) {
         if (! jexcel.current.edition) {
             var columnId = e.target.getAttribute('data-x');
             var rowId = e.target.getAttribute('data-y');
+         
+            if (e.target.classList.contains('highlight')) {
+                jexcel.startMove = true;
+
+            } else {
+                jexcel.startMove = false;
+            }
 
             if (columnId && rowId) {
                 jexcel.current.updateSelectionFromCoords(columnId, rowId);
@@ -7314,6 +7321,26 @@ jexcel.touchStartControls = function(e) {
 }
 
 jexcel.touchEndControls = function(e) {
+    // Move for select multiple cell on mobile
+    if(jexcel.startMove) {
+        if(jexcel.timeControl) {
+            clearTimeout(jexcel.timeControl);
+            jexcel.timeControl = null;
+        }
+        var moveDestination = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+
+        if(moveDestination) {
+
+            var columnId2 = moveDestination.getAttribute('data-x');
+            var rowId2 = moveDestination.getAttribute('data-y');
+            var columnId1 = e.target.getAttribute('data-x');
+            var rowId1 = e.target.getAttribute('data-y');
+
+            if (columnId1 && rowId1 && columnId2 && rowId2) {
+                jexcel.current.updateSelectionFromCoords(columnId1, rowId1, columnId2, rowId2);
+            }
+        }
+    } else
     // Clear any time control
     if (jexcel.timeControl) {
         clearTimeout(jexcel.timeControl);
