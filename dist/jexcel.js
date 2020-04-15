@@ -6408,7 +6408,7 @@ jexcel.build = function() {
     document.addEventListener("touchstart", jexcel.touchStartControls);
     document.addEventListener("touchend", jexcel.touchEndControls);
     document.addEventListener("touchcancel", jexcel.touchEndControls);
-    document.addEventListener("touchmove", jexcel.touchEndControls);
+    document.addEventListener("touchmove", jexcel.touchEndControls, { passive:false });
 }
 
 /**
@@ -7322,7 +7322,9 @@ jexcel.touchStartControls = function(e) {
 
 jexcel.touchEndControls = function(e) {
     // Move for select multiple cell on mobile
-    if(jexcel.startMove) {
+    if(e.type != "touchend") {
+            e.preventDefault();//Stops the default behavior 
+        }
         if(jexcel.timeControl) {
             clearTimeout(jexcel.timeControl);
             jexcel.timeControl = null;
@@ -7338,9 +7340,28 @@ jexcel.touchEndControls = function(e) {
 
             if (columnId1 && rowId1 && columnId2 && rowId2) {
                 jexcel.current.updateSelectionFromCoords(columnId1, rowId1, columnId2, rowId2);
+
+                // Move Content if necessary
+                var clientRect = jexcel.current.content.getBoundingClientRect();
+                var clientX = clientRect.left;
+                var clientY = clientRect.top;
+
+                if((clientX+jexcel.current.content.clientWidth)<(e.changedTouches[0].clientX+50)) { // Scroll X
+                    jexcel.current.content.scrollLeft = jexcel.current.content.scrollLeft+10;
+
+                } else if(clientX>(e.changedTouches[0].clientX-50)) { // Reverse scroll X
+                    jexcel.current.content.scrollLeft = jexcel.current.content.scrollLeft-10;
+                }
+                if((clientY+jexcel.current.content.clientHeight)<(e.changedTouches[0].clientY+50)) { // Scroll Y
+                    jexcel.current.content.scrollTop = jexcel.current.content.scrollTop+10;
+                } else if(clientY>(e.changedTouches[0].clientY-50)) { // Reverse scroll Y
+                    jexcel.current.content.scrollTop = jexcel.current.content.scrollTop-10;
+                }
+
+                jexcel.current.scrollControls(e);
             }
         }
-    } else
+    } else 
     // Clear any time control
     if (jexcel.timeControl) {
         clearTimeout(jexcel.timeControl);
