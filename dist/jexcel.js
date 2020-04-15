@@ -4607,11 +4607,25 @@ var jexcel = (function(el, options) {
                     }
                 }
 
+                var evalFct = "function COLUMN() { return parseInt(x) + 1; }; function ROW() { return parseInt(y) + 1; }; function CELL() { return parentId; }; "
+                
+                
+                // formulaParser customization
+                if (typeof(options.formulaParser) == 'function') {
+                    var rtFormulaParser = options.formulaParser(el, expression, x, y, tokens, evalstring, formulaResults);
+                    if(rtFormulaParser!=null && rtFormulaParser!=false) {
+                        evalstring = evalFct + rtFormulaParser;
+                    } else {
+                        evalstring += evalFct + expression.substr(1);
+                    }
+                } else {
+                    evalstring += evalFct + expression.substr(1);
+                }
+                
+
                 // Convert formula to javascript
                 try {
-                    evalstring += "function COLUMN() { return parseInt(x) + 1; }; function ROW() { return parseInt(y) + 1; }; function CELL() { return parentId; };";
-
-                    var res = eval(evalstring + expression.substr(1));
+                    var res = eval(evalstring);
                 } catch (e) {
                     var res = '#ERROR';
                 }
