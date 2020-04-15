@@ -7322,7 +7322,8 @@ jexcel.touchStartControls = function(e) {
 
 jexcel.touchEndControls = function(e) {
     // Move for select multiple cell on mobile
-    if(e.type != "touchend") {
+    if(jexcel.startMove) {
+        if(e.type != "touchend") {
             e.preventDefault();//Stops the default behavior 
         }
         if(jexcel.timeControl) {
