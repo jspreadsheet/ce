@@ -25,6 +25,10 @@
     background-color:#ffffff;
 }
 
+.jexcel_container.with-toolbar .jexcel > thead > tr > td {
+    top: 0;
+}
+
 .jexcel_container.fullscreen.with-toolbar {
     height: calc(100% - 46px);
 }
