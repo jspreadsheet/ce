@@ -12,7 +12,7 @@ if ($handle = opendir('js')) {
 
     $js = "
 /**
- * jExcel v3.7.0
+ * jExcel v4.0.0
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
