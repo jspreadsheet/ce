@@ -131,11 +131,8 @@ This example brings a very nice feature to deal with large table datasets.
 
 ## jExcel CE History
 
-jExcel CE v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
-complete compatibility with the previous version. If you are upgrating you might need to implement a few updates in your code.
-If you have questions, you can review the article upgrating from jExcel CE v2 or Handsontable.
-
 ### Jexcel 4.0.0
+
 A special thank to the [FDL - Fonds de Dotation du Libre](https://www.fdl-lef.org/) support and sponsorship that make this version possible with so many nice features.
 
 - Support workbooks/tabs
@@ -170,6 +167,10 @@ A special thank to the [FDL - Fonds de Dotation du Libre](https://www.fdl-lef.or
 
 
 ### Jexcel CE 3.0.1
+
+jExcel CE v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
+complete compatibility with the previous version. If you are upgrating you might need to implement a few updates in your code.
+If you have questions, you can review the article upgrating from jExcel CE v2 or Handsontable.
 
 The jExcel CE v3 brings lot of great new features:
 
