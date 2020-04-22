@@ -51,6 +51,7 @@
             data:null,
             // Copy behavior
             copyCompatibility:false,
+            root:null,
             // Rows and columns definitions
             rows:[],
             columns:[],
@@ -937,6 +938,9 @@
                     if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
                         if (row == null) {
                             row = {};
+                        }
+                        if (! obj.options.columns[i].name) {
+                            obj.options.columns[i].name = i;
                         }
                         row[obj.options.columns[i].name] = obj.options.data[j][i];
                     }
@@ -1878,11 +1882,11 @@ console.log(ret);
                             }
                         }
     
-                        editor.value = value;
                         editor.onblur = function() {
                             obj.closeEditor(cell, true);
                         };
                         editor.focus();
+                        editor.value = value;
                     }
                 }
             }
@@ -6436,8 +6440,12 @@ console.log(ret);
     
             // Build handlers
             if (typeof(jexcel.build) == 'function') {
-                jexcel.build();
-                jexcel.build = null;
+                if (obj.options.root) {
+                    jexcel.build(obj.options.root);
+                } else {
+                    jexcel.build(document);
+                    jexcel.build = null;
+                }
             }
     
             // Load the table data based on an CSV file
@@ -6785,41 +6793,42 @@ console.log(ret);
     
     jexcel.destroy = function(element, destroyEventHandlers) {
         if (element.jexcel) {
+            var root = element.jexcel.options.root ? element.jexcel.options.root : document;
             element.removeEventListener("DOMMouseScroll", element.jexcel.scrollControls);
             element.removeEventListener("mousewheel", element.jexcel.scrollControls);
             element.jexcel = null;
             element.innerHTML = '';
     
             if (destroyEventHandlers) {
+                root.removeEventListener("mouseup", jexcel.mouseUpControls);
+                root.removeEventListener("mousedown", jexcel.mouseDownControls);
+                root.removeEventListener("mousemove", jexcel.mouseMoveControls);
+                root.removeEventListener("mouseover", jexcel.mouseOverControls);
+                root.removeEventListener("dblclick", jexcel.doubleClickControls);
+                root.removeEventListener("paste", jexcel.pasteControls);
+                root.removeEventListener("contextmenu", jexcel.contextMenuControls);
+                root.removeEventListener("touchstart", jexcel.touchStartControls);
+                root.removeEventListener("touchend", jexcel.touchEndControls);
+                root.removeEventListener("touchcancel", jexcel.touchEndControls);
                 document.removeEventListener("keydown", jexcel.keyDownControls);
-                document.removeEventListener("mouseup", jexcel.mouseUpControls);
-                document.removeEventListener("mousedown", jexcel.mouseDownControls);
-                document.removeEventListener("mousemove", jexcel.mouseMoveControls);
-                document.removeEventListener("mouseover", jexcel.mouseOverControls);
-                document.removeEventListener("dblclick", jexcel.doubleClickControls);
-                document.removeEventListener("paste", jexcel.pasteControls);
-                document.removeEventListener("contextmenu", jexcel.contextMenuControls);
-                document.removeEventListener("touchstart", jexcel.touchStartControls);
-                document.removeEventListener("touchend", jexcel.touchEndControls);
-                document.removeEventListener("touchcancel", jexcel.touchEndControls);
                 jexcel = null;
             }
         }
     }
     
-    jexcel.build = function() {
+    jexcel.build = function(root) {
+        root.addEventListener("mouseup", jexcel.mouseUpControls);
+        root.addEventListener("mousedown", jexcel.mouseDownControls);
+        root.addEventListener("mousemove", jexcel.mouseMoveControls);
+        root.addEventListener("mouseover", jexcel.mouseOverControls);
+        root.addEventListener("dblclick", jexcel.doubleClickControls);
+        root.addEventListener("paste", jexcel.pasteControls);
+        root.addEventListener("contextmenu", jexcel.contextMenuControls);
+        root.addEventListener("touchstart", jexcel.touchStartControls);
+        root.addEventListener("touchend", jexcel.touchEndControls);
+        root.addEventListener("touchcancel", jexcel.touchEndControls);
+        root.addEventListener("touchmove", jexcel.touchEndControls);
         document.addEventListener("keydown", jexcel.keyDownControls);
-        document.addEventListener("mouseup", jexcel.mouseUpControls);
-        document.addEventListener("mousedown", jexcel.mouseDownControls);
-        document.addEventListener("mousemove", jexcel.mouseMoveControls);
-        document.addEventListener("mouseover", jexcel.mouseOverControls);
-        document.addEventListener("dblclick", jexcel.doubleClickControls);
-        document.addEventListener("paste", jexcel.pasteControls);
-        document.addEventListener("contextmenu", jexcel.contextMenuControls);
-        document.addEventListener("touchstart", jexcel.touchStartControls);
-        document.addEventListener("touchend", jexcel.touchEndControls);
-        document.addEventListener("touchcancel", jexcel.touchEndControls);
-        document.addEventListener("touchmove", jexcel.touchEndControls);
     }
     
     /**
