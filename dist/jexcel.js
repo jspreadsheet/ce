@@ -1,5 +1,5 @@
 /**
- * jExcel v4.1.0
+ * jExcel v4.1.1
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -228,7 +228,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.1.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"jExcel CE Spreadsheet\nVersion 4.1.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
         };
     
         // Loading initial configuration from user
@@ -6448,6 +6448,15 @@ console.log(ret);
                 }
             }
     
+            // Event
+            el.setAttribute('tabindex', 1);
+            el.addEventListener('focus', function(e) {
+                if (jexcel.current && ! obj.selectedCell) {
+                    obj.updateSelectionFromCoords(0,0,0,0);
+                    obj.left();
+                }
+            });
+
             // Load the table data based on an CSV file
             if (obj.options.csv) {
                 // Loading
