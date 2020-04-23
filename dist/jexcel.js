@@ -1,5 +1,5 @@
 /**
- * jExcel v4.1.1
+ * jExcel v4.1.2
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -228,7 +228,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.1.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"jExcel CE Spreadsheet\nVersion 4.1.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
         };
     
         // Loading initial configuration from user
@@ -1918,7 +1918,7 @@ console.log(ret);
                     } else if (obj.options.columns[x].type == 'calendar') {
                         var value = cell.children[0].calendar.close(true);
                     } else if (obj.options.columns[x].type == 'color') {
-                        var value = cell.children[1].color.close(true);
+                        var value = cell.children[0].color.close(true);
                     } else if (obj.options.columns[x].type == 'html') {
                         var value = cell.children[0].children[0].editor.getData();
                     } else if (obj.options.columns[x].type == 'image') {
@@ -1954,7 +1954,7 @@ console.log(ret);
                     } else if (obj.options.columns[x].type == 'calendar') {
                         cell.children[0].calendar.close(true);
                     } else if (obj.options.columns[x].type == 'color') {
-                        cell.children[1].color.close(true);
+                        cell.children[0].color.close(true);
                     } else {
                         cell.children[0].onblur = null;
                     }
