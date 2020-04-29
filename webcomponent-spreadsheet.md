@@ -1,4 +1,6 @@
-# Javascript
+# Javascript webcomponent online spreadsheet
+
+## Javascript
 
 ```
 class Jexcel extends HTMLElement {
@@ -48,7 +50,7 @@ class Jexcel extends HTMLElement {
 window.customElements.define('jexcel-spreadsheet', Jexcel);
 ```
 
-# HTML
+## HTML
 
 ```<html>
 <script type="text/javascript" src="/jexcel/v4/jexcel.js"></script>
