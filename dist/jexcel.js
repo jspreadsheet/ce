@@ -2817,7 +2817,7 @@ console.log(ret);
                     var uy = parseInt(y1) - 1;
                 }
     
-                if (ux - px < uy - py) {
+                if (ux - px <= uy - py) {
                     var px = parseInt(x1);
                     var ux = parseInt(x2);
                 } else {
