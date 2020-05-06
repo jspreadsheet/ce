@@ -171,6 +171,7 @@
             onresizecolumn:null,
             onsort:null,
             onselection:null,
+            oncopy:null,
             onpaste:null,
             onbeforepaste:null,
             onmerge:null,
@@ -5929,6 +5930,9 @@ console.log(ret);
                     }
                 }
             }
+
+            // Paste event
+            obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
 
             return obj.data;
         }
