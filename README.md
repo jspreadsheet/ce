@@ -16,7 +16,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 - Compatibility with excel: users can move data around with common copy and paste shortcuts.
 - Easy customizations with easy third-party plugin integrations.
 - Lean, fast and simple to use.
-- Thousands of successfully user cases.
+- Thousands of successful user cases.
 - Speed up your work dealing with difficult data entry in a web-based software.
 
 
