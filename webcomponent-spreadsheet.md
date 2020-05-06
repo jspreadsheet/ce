@@ -1,4 +1,10 @@
-##Javascript
+# Javascript webcomponent online spreadsheet
+
+Create a online javascript spreadsheet using jExcel Ce.
+
+(Jexcel v4)(https://bossanova.uk/jexcel/v4)
+
+## Javascript
 
 ```
 class Jexcel extends HTMLElement {
@@ -48,7 +54,7 @@ class Jexcel extends HTMLElement {
 window.customElements.define('jexcel-spreadsheet', Jexcel);
 ```
 
-##HTML
+## HTML
 
 ```<html>
 <script type="text/javascript" src="/jexcel/v4/jexcel.js"></script>
