@@ -3578,8 +3578,8 @@ console.log(ret);
                 // Filter
                 Array.prototype.orderBy = function(p, o) {
                     return this.slice(0).sort(function(a, b) {
-                        var valueA = a[p] == '' ? '' : Number(a[p]) == a[p] ? Number(a[p]) : a[p].toLowerCase();
-                        var valueB = b[p] == '' ? '' : Number(b[p]) == b[p] ? Number(b[p]) : b[p].toLowerCase();
+                        var valueA = a[p];
+                        var valueB = b[p];
     
                         if (! o) {
                             return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
@@ -3591,15 +3591,17 @@ console.log(ret);
     
                 // Test order
                 var temp = [];
-                if (obj.options.columns[column].type == 'calendar' ||
-                    obj.options.columns[column].type == 'checkbox' ||
-                    obj.options.columns[column].type == 'radio') {
+                if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        temp[j] = [ j, Number(obj.options.data[j][column]) ];
+                    }
+                } else if (obj.options.columns[column].type == 'calendar' || obj.options.columns[column].type == 'checkbox' || obj.options.columns[column].type == 'radio') {
                     for (var j = 0; j < obj.options.data.length; j++) {
                         temp[j] = [ j, obj.options.data[j][column] ];
                     }
                 } else {
                     for (var j = 0; j < obj.options.data.length; j++) {
-                        temp[j] = [ j, obj.records[j][column].innerText ];
+                        temp[j] = [ j, obj.records[j][column].innerText.toLowerCase() ];
                     }
                 }
                 temp = temp.orderBy(1, order);
@@ -3674,7 +3676,7 @@ console.log(ret);
             obj.updateTableReferences();
     
             // Redo search
-            if (obj.results.length) {
+            if (obj.results && obj.results.length) {
                 if (obj.searchInput.value) {
                     obj.search(obj.searchInput.value);
                 } else {
