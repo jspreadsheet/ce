@@ -681,14 +681,12 @@
 }
 
 .jexcel_hidden_index > tbody > tr > td:first-child,
-.jexcel_hidden_index > thead > tr > td:first-child,
+.jexcel_hidden_index > thead > tr > td:first-child, 
 .jexcel_hidden_index > tfoot > tr > td:first-child,
 .jexcel_hidden_index > colgroup > col:first-child
 {
     display:none;
 }
-
-
 
 .jexcel .jrating {
     display: inline-flex;
@@ -724,8 +722,10 @@
     padding-right: 20px;
 }
 
-.jexcel thead .jexcel_freezed {
-    left: 0px;
+.jexcel thead .jexcel_freezed,
+.jexcel tfoot .jexcel_freezed
+{
+    left: 1px;
     z-index: 3 !important;
     box-shadow: 2px 0px 2px 0.2px #ccc !important;
     -webkit-box-shadow: 2px 0px 2px 0.2px #ccc !important;

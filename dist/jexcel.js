@@ -49,6 +49,7 @@
             url:null,
             // Data
             data:null,
+            chartCell: null,
             // Copy behavior
             copyCompatibility:false,
             root:null,
@@ -153,6 +154,7 @@
             // Filters
             filters:false,
             footers:null,
+            nestedFooters:null,
             // Event handles
             onundo:null,
             onredo:null,
@@ -197,6 +199,7 @@
             // Detach the HTML table when calling updateTable
             detachForUpdates: false,
             freezeColumns:null,
+            freezeFooters:false,
             // Texts
             text:{
                 noRecordsFound: 'No records found',
@@ -274,6 +277,8 @@
     
         // Containers
         obj.headers = [];
+        obj.nestedHeaders = [];
+        obj.nestedFooters = [];
         obj.records = [];
         obj.history = [];
         obj.formula = [];
@@ -531,21 +536,25 @@
             tempCol.setAttribute('width', '50');
             obj.colgroupContainer.appendChild(tempCol);
     
-            // Nested
+            // Nested headers
             if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
                 // Flexible way to handle nestedheaders
                 if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
                     for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
-                        obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders[j]));
+                        obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders[j], j));
                     }
                 } else {
-                    obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders));
+                    obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders, 0));
                 }
             }
-    
+
             // Row
             obj.headerContainer = document.createElement('tr');
             var tempCol = document.createElement('td');
+
+            //by zyj
+            tempCol.style.top = 26 * obj.nestedHeaders.length + 'px';
+
             tempCol.classList.add('jexcel_selectall');
             obj.headerContainer.appendChild(tempCol);
     
@@ -688,7 +697,9 @@
     
             // With toolbars
             if (obj.options.tableOverflow != true && obj.options.toolbar) {
-                el.classList.add('with-toolbar');
+
+              // by zyj
+                // el.classList.add('with-toolbar');
             }
     
             // Actions
@@ -1120,7 +1131,18 @@ console.log(ret);
             td.setAttribute('data-x', i);
             td.setAttribute('data-y', j);
 
-            // Security
+            //by zyj
+          // if (i === 0 && j === 0) {
+          //   const div = document.createElement('div');
+          //   div.setAttribute('id', 'chartTest');
+          //   // div.style.height='800px';
+          //   // div.style.width='800px'
+          //   td.appendChild(div)
+          //   return td;
+          // }
+
+
+          // Security
             if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
                 var val = secureFormula(value);
                 if (val != value) {
@@ -1224,7 +1246,6 @@ console.log(ret);
                     }
                 }
             }
-    
             return td;
         }
     
@@ -1245,6 +1266,9 @@ console.log(ret);
             // Width control
             obj.colgroup[colNumber] = document.createElement('col');
             obj.colgroup[colNumber].setAttribute('width', colWidth);
+
+            // by zyj
+            obj.headers[colNumber].style.top = obj.nestedHeaders.length * 26 + 'px';
     
             // Hidden column
             if (obj.options.columns[colNumber].type == 'hidden') {
@@ -1266,14 +1290,22 @@ console.log(ret);
         /**
          * Create a nested header object
          */
-        obj.createNestedHeader = function(nestedInformation) {
+        obj.createNestedHeader = function(nestedInformation, colNumber) {
             var tr = document.createElement('tr');
             tr.classList.add('jexcel_nested');
             var td = document.createElement('td');
+
+            //by zyj
+            td.style.top = 26 * colNumber + 'px';
+
             tr.appendChild(td);
             // Element
             nestedInformation.element = tr;
-    
+
+            //by zyj
+            if (!obj.nestedHeaders[colNumber]) obj.nestedHeaders[colNumber]= [];
+            var j = 0;
+
             var headerIndex = 0;
             for (var i = 0; i < nestedInformation.length; i++) {
                 // Default values
@@ -1307,7 +1339,18 @@ console.log(ret);
                 td.setAttribute('colspan', nestedInformation[i].colspan);
                 td.setAttribute('align', nestedInformation[i].align);
                 td.innerText = nestedInformation[i].title;
+                td.style.top = 26 * colNumber + 'px';
                 tr.appendChild(td);
+
+                // by zyj
+                var colspan = Number(nestedInformation[i].colspan);
+                obj.nestedHeaders[colNumber][j] = td;
+                // fill empty td
+                for (var r = 1; r < colspan; r++) {
+                    obj.nestedHeaders[colNumber][j + r] = null
+                }
+                j += colspan;
+
             }
     
             return tr;
@@ -3161,6 +3204,7 @@ console.log(ret);
                 obj.options.footers = data;
             }
 
+            var len = obj.options.nestedFooters.length
             if (obj.options.footers) {
                 if (! obj.tfoot) {
                     obj.tfoot = document.createElement('tfoot');
@@ -3173,6 +3217,11 @@ console.log(ret);
                     } else {
                         var tr = document.createElement('tr');
                         var td = document.createElement('td');
+
+                        //by zyj
+                        td.style.position = 'sticky';
+                        td.style.bottom = (len - j - 1) * 27 + 'px';
+
                         tr.appendChild(td);
                         obj.tfoot.appendChild(tr);
                     }
@@ -3189,12 +3238,75 @@ console.log(ret);
                             // Text align
                             var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
                             td.style.textAlign = colAlign;
+
+                            //freeze footers by zyj
+                            if (obj.options.freezeFooters) {
+                                td.style.position = 'sticky';
+                                td.style.bottom = (len - j - 1) * 27 + 'px';
+                            }
                         }
                         td.innerText = obj.parseValue(i, j, obj.options.footers[j][i]);
                     }
                 }
             }
         }
+
+        //by zyj
+        obj.setNestedFooter = function() {
+            if (obj.options.nestedFooters) {
+                if (! obj.tfoot) {
+                    obj.tfoot = document.createElement('tfoot');
+                    obj.table.appendChild(obj.tfoot);
+                }
+
+                var len = obj.options.nestedFooters.length
+                for (var j = 0; j < len; j++) {
+                    if (obj.tfoot.children[j]) {
+                        var tr = obj.tfoot.children[j];
+                    } else {
+                        var tr = document.createElement('tr');
+                        var td = document.createElement('td');
+
+                        if (obj.options.freezeFooters) {
+                            td.style.position = 'sticky';
+                            td.style.bottom = (len - j - 1) * 27 + 'px';
+                        }
+
+                        tr.appendChild(td);
+                        obj.tfoot.appendChild(tr);
+                    }
+                    var row = obj.options.nestedFooters[j];
+                    var i = 0;
+                    while(i < row.length) {
+                        var td = document.createElement('td');
+                        tr.appendChild(td);
+
+                        // Text align
+                        var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
+                        td.style.textAlign = colAlign;
+
+                        //freeze footers
+                        if (obj.options.freezeFooters) {
+                            td.style.position = 'sticky';
+                            td.style.bottom = (len - j - 1) * 27 + 'px';
+                        }
+
+                        td.innerText = obj.parseValue(i, j, row[i].title);
+                        td.setAttribute('colspan', row[i].colspan);
+
+                        //handle empty td
+                        var colspan = Number(row[i].colspan);
+                        for (var r = 1; r < colspan; r++) {
+                            var tdTemp = document.createElement('td');
+                            tdTemp.style.display = 'none';
+                            tr.appendChild(tdTemp);
+                        }
+                        i ++;
+                    }
+                }
+            }
+        }
+
 
         /**
          * Get the column title
@@ -4660,6 +4772,8 @@ console.log(ret);
             // Update footers
             if (obj.options.footers) {
                 obj.setFooter();
+            } else if (obj.options.nestedFooters) {  //by zyj
+                obj.setNestedFooter();
             }
 
             // Update corner position
@@ -6838,18 +6952,43 @@ console.log(ret);
         obj.updateFreezePosition = function() {
             scrollLeft = obj.content.scrollLeft;
             var width = 0;
-            if (scrollLeft > 50) {
+            var hideIndex = obj.table.classList.contains('jexcel_hidden_index')
+            if (scrollLeft > 50 || hideIndex) {
                 for (var i = 0; i < obj.options.freezeColumns; i++) {
                     if (i > 0) {
                         width += parseInt(obj.options.columns[i-1].width);
+                    } else {
+                        width = hideIndex ? 1 : 0;
                     }
+
                     obj.headers[i].classList.add('jexcel_freezed');
-                    obj.headers[i].style.left = width + 'px';
+                    obj.headers[i].style.left = width +  'px';
+
+                    //handle freeze nestedHeaders (by zyj)
+                    for (var j = 0; j < obj.nestedHeaders.length; j++) {
+                        var nestedHeadersRow = obj.nestedHeaders[j];
+                        if (nestedHeadersRow[i]) {
+                            nestedHeadersRow[i].classList.add('jexcel_freezed');
+                            nestedHeadersRow[i].style.left = width + 'px';
+                        }
+                    }
+
+                    //handle freeze footers (by zyj)
+                    for (var j = 0; j < obj.tfoot.childNodes.length; j++) {
+                        var nestedFootersRow = obj.tfoot.childNodes[j];
+                        var childNodes = nestedFootersRow.childNodes[i + 1];
+                        if (childNodes) {
+                            childNodes.classList.add('jexcel_freezed');
+                            childNodes.style.left = width + 'px';
+                        }
+                    }
+
                     for (var j = 0; j < obj.rows.length; j++) {
                         if (obj.rows[j] && obj.records[j][i]) {
-                            var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0)) - 51 + 'px';
+                            var val = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0))
+                            var shifted = hideIndex ?  val : val - 51;
                             obj.records[j][i].classList.add('jexcel_freezed');
-                            obj.records[j][i].style.left = shifted;
+                            obj.records[j][i].style.left = shifted + 'px';
                         }
                     }
                 }
@@ -6861,6 +7000,25 @@ console.log(ret);
                         if (obj.records[j][i]) {
                             obj.records[j][i].classList.remove('jexcel_freezed');
                             obj.records[j][i].style.left = '';
+                        }
+                    }
+
+                    //handle freeze nestedHeaders (by zyj)
+                    for (var j = 0; j < obj.nestedHeaders.length; j++) {
+                        var nestedHeadersRow = obj.nestedHeaders[j];
+                        if (nestedHeadersRow[i]) {
+                            nestedHeadersRow[i].classList.remove('jexcel_freezed');
+                            nestedHeadersRow[i].style.left = '';
+                        }
+                    }
+
+                    //handle freeze footers (by zyj)
+                    for (var j = 0; j < obj.tfoot.childNodes.length; j++) {
+                        var nestedFootersRow = obj.tfoot.childNodes[j];
+                        var childNodes = nestedFootersRow.childNodes[ i + 1];
+                        if (childNodes) {
+                            childNodes.classList.remove('jexcel_freezed');
+                            childNodes.style.left = '';
                         }
                     }
                 }
@@ -7427,6 +7585,7 @@ console.log(ret);
                 }
                 // Reset resizing helper
                 jexcel.current.resizing = null;
+
             } else if (jexcel.current.dragging) {
                 // Reset dragging helper
                 if (jexcel.current.dragging) {
@@ -7739,6 +7898,10 @@ console.log(ret);
                             }
                         }
                         var cell = getCellCoords(e.target);
+                        
+                        // (by zyj)
+                        // if(cell.getAttribute('data-x') == 0 && cell.getAttribute('data-y') == 0) return
+                      
                         if (cell && cell.classList.contains('highlight')) {
                             jexcel.current.openEditor(cell);
                         }
