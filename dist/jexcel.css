@@ -681,7 +681,8 @@
 }
 
 .jexcel_hidden_index > tbody > tr > td:first-child,
-.jexcel_hidden_index > thead > tr > td:first-child, 
+.jexcel_hidden_index > thead > tr > td:first-child,
+.jexcel_hidden_index > tfoot > tr > td:first-child,
 .jexcel_hidden_index > colgroup > col:first-child
 {
     display:none;
