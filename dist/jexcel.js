@@ -6956,7 +6956,7 @@ console.log(ret);
             if (scrollLeft > 50 || hideIndex) {
                 for (var i = 0; i < obj.options.freezeColumns; i++) {
                     if (i > 0) {
-                        width += parseInt(obj.options.columns[i-1].width);
+                        width += parseInt(obj.colgroup[i-1].width);
                     } else {
                         width = hideIndex ? 1 : 0;
                     }
@@ -7555,20 +7555,22 @@ console.log(ret);
                 if (jexcel.current.resizing.column) {
                     // New width
                     var newWidth = jexcel.current.colgroup[jexcel.current.resizing.column].getAttribute('width');
+
+                    // cancel resize all selected columns(by zyj)
                     // Columns
-                    var columns = jexcel.current.getSelectedColumns();
-                    if (columns.length > 1) {
-                        var currentWidth = [];
-                        for (var i = 0; i < columns.length; i++) {
-                            currentWidth.push(parseInt(jexcel.current.colgroup[columns[i]].getAttribute('width')));
-                        }
-                        // Previous width
-                        var index = columns.indexOf(parseInt(jexcel.current.resizing.column));
-                        currentWidth[index] = jexcel.current.resizing.width;
-                        jexcel.current.setWidth(columns, newWidth, currentWidth);
-                    } else {
+                    // var columns = jexcel.current.getSelectedColumns();
+                    // if (columns.length > 1) {
+                    //     var currentWidth = [];
+                    //     for (var i = 0; i < columns.length; i++) {
+                    //         currentWidth.push(parseInt(jexcel.current.colgroup[columns[i]].getAttribute('width')));
+                    //     }
+                    //     // Previous width
+                    //     var index = columns.indexOf(parseInt(jexcel.current.resizing.column));
+                    //     currentWidth[index] = jexcel.current.resizing.width;
+                    //     jexcel.current.setWidth(columns, newWidth, currentWidth);
+                    // } else {
                         jexcel.current.setWidth(jexcel.current.resizing.column, newWidth, jexcel.current.resizing.width);
-                    }
+                    // }
                     // Remove border
                     jexcel.current.headers[jexcel.current.resizing.column].classList.remove('resizing');
                     for (var j = 0; j < jexcel.current.records.length; j++) {
@@ -7670,6 +7672,7 @@ console.log(ret);
     
         if (jexcel.current) {
             if (jexcel.isMouseAction == true) {
+                console.log('jexcel.current.resizing', jexcel.current.resizing)
                 // Resizing is ongoing
                 if (jexcel.current.resizing) {
                     if (jexcel.current.resizing.column) {
@@ -7680,6 +7683,8 @@ console.log(ret);
                             jexcel.current.colgroup[jexcel.current.resizing.column].setAttribute('width', tempWidth);
     
                             jexcel.current.updateCornerPosition();
+                            jexcel.current.updateFreezePosition();
+                            console.log('jexcel.current.colgroup', jexcel.current.colgroup)
                         }
                     } else {
                         var height = e.pageY - jexcel.current.resizing.mousePosition;
