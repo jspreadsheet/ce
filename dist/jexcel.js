@@ -7708,9 +7708,9 @@ console.log(ret);
                         if (e.target && (rect.width - (e.clientX - rect.left) < 6) && x ) {
                             jexcel.current.cursor = e.target;
                             jexcel.current.cursor.style.cursor = 'col-resize';
-                        } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
-                            jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'row-resize';
+                        // } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
+                        //     jexcel.current.cursor = e.target;
+                        //     jexcel.current.cursor.style.cursor = 'row-resize';
                         }
                     }
     
