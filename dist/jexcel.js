@@ -7347,7 +7347,8 @@ console.log(ret);
                 }
             } else {
                 // Header found
-                if (jexcelTable[1] == 1) {
+                //add 'jexcelTable[1] == 2' for resize columns' width when drag tbody's column (by zyj)
+                if (jexcelTable[1] == 1 || jexcelTable[1] == 2) {
                     var columnId = e.target.getAttribute('data-x');
                     if (columnId) {
                         // Update cursor
@@ -7702,8 +7703,9 @@ console.log(ret);
                 }
 
                 if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
-                    if (e.target.parentNode.parentNode.classList.contains('resizable')) {
-                        if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
+                    if (e.target.parentNode.parentNode.classList.contains('resizable') ||
+                      e.target.parentNode.parentNode.classList.contains('draggable')) {
+                        if (e.target && (rect.width - (e.clientX - rect.left) < 6) && x ) {
                             jexcel.current.cursor = e.target;
                             jexcel.current.cursor.style.cursor = 'col-resize';
                         } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
@@ -7900,7 +7902,7 @@ console.log(ret);
                         var cell = getCellCoords(e.target);
                         
                         // (by zyj)
-                        // if(cell.getAttribute('data-x') == 0 && cell.getAttribute('data-y') == 0) return
+                        if(cell.getAttribute('data-x') == 0 && cell.getAttribute('data-y') == 0) return
                       
                         if (cell && cell.classList.contains('highlight')) {
                             jexcel.current.openEditor(cell);
