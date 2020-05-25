@@ -278,6 +278,7 @@
         // Containers
         obj.headers = [];
         obj.nestedHeaders = [];
+        obj.rowspanHideCell = {};
         obj.nestedFooters = [];
         obj.records = [];
         obj.history = [];
@@ -545,6 +546,16 @@
                     }
                 } else {
                     obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders, 0));
+                }
+            }
+
+            //hide rowspan head cell
+            for (var row = 0; row < obj.nestedHeaders.length; row++) {
+                for (var col = 0; col < obj.nestedHeaders[row].length; col ++) {
+                    if (obj.rowspanHideCell[row] && obj.rowspanHideCell[row].includes(col)
+                      && obj.nestedHeaders[row][col] ) {
+                        obj.nestedHeaders[row][col].style.display = 'none';
+                    }
                 }
             }
 
@@ -1001,7 +1012,7 @@
         obj.save = function(url, data) {
             // Parse anything in the data before sending to the server
             var ret = obj.dispatch('onbeforesave', el, obj, data);
-console.log(ret);
+            console.log(ret);
             if (ret) {
                 var data = ret;
             } else {
@@ -1290,37 +1301,40 @@ console.log(ret);
         /**
          * Create a nested header object
          */
-        obj.createNestedHeader = function(nestedInformation, colNumber) {
+        obj.createNestedHeader = function(nestedInformation, rowNumber) {
             var tr = document.createElement('tr');
             tr.classList.add('jexcel_nested');
             var td = document.createElement('td');
 
             //by zyj
-            td.style.top = 26 * colNumber + 'px';
+            td.style.top = 26 * rowNumber + 'px';
 
             tr.appendChild(td);
             // Element
             nestedInformation.element = tr;
 
             //by zyj
-            if (!obj.nestedHeaders[colNumber]) obj.nestedHeaders[colNumber]= [];
+            if (!obj.nestedHeaders[rowNumber]) obj.nestedHeaders[rowNumber]= [];
             var j = 0;
 
             var headerIndex = 0;
-            for (var i = 0; i < nestedInformation.length; i++) {
+            for (var colNumber = 0; colNumber < nestedInformation.length; colNumber++) {
                 // Default values
-                if (! nestedInformation[i].colspan) {
-                    nestedInformation[i].colspan = 1;
+                if (! nestedInformation[colNumber].colspan) {
+                    nestedInformation[colNumber].colspan = 1;
                 }
-                if (! nestedInformation[i].align) {
-                    nestedInformation[i].align = 'center';
+                if (! nestedInformation[colNumber].rowspan) {
+                    nestedInformation[colNumber].rowspan = 1;
                 }
-                if (! nestedInformation[i].title) {
-                    nestedInformation[i].title = '';
+                if (! nestedInformation[colNumber].align) {
+                    nestedInformation[colNumber].align = 'center';
+                }
+                if (! nestedInformation[colNumber].title) {
+                    nestedInformation[colNumber].title = '';
                 }
     
                 // Number of columns
-                var numberOfColumns = nestedInformation[i].colspan;
+                var numberOfColumns = nestedInformation[colNumber].colspan;
     
                 // Classes container
                 var column = [];
@@ -1332,27 +1346,38 @@ console.log(ret);
                     column.push(headerIndex);
                     headerIndex++;
                 }
-    
+
                 // Created the nested cell
                 var td = document.createElement('td');
+
+                //handle rowspan(by zyj)
+                var rowspan = Number(nestedInformation[colNumber].rowspan);
+                var colspan = Number( nestedInformation[colNumber].colspan);
+                //save hide cell
+                for (var r = 1; r < rowspan; r++) {
+                    if (!obj.rowspanHideCell[rowNumber + r]) obj.rowspanHideCell[rowNumber + r] = [];
+                    for (var z = 0; z < colspan; z++) {
+                        obj.rowspanHideCell[rowNumber + r].push(colNumber + z);
+                    }
+                }
+
                 td.setAttribute('data-column', column.join(','));
-                td.setAttribute('colspan', nestedInformation[i].colspan);
-                td.setAttribute('align', nestedInformation[i].align);
-                td.innerText = nestedInformation[i].title;
-                td.style.top = 26 * colNumber + 'px';
+                td.setAttribute('colspan', colspan);
+                td.setAttribute('rowspan', rowspan);
+                td.setAttribute('align', nestedInformation[colNumber].align);
+                td.innerText = nestedInformation[colNumber].title;
+                td.style.top = 26 * rowNumber + 'px';
                 tr.appendChild(td);
 
                 // by zyj
-                var colspan = Number(nestedInformation[i].colspan);
-                obj.nestedHeaders[colNumber][j] = td;
+                var colspan = Number(nestedInformation[colNumber].colspan);
+                obj.nestedHeaders[rowNumber][j] = td;
                 // fill empty td
                 for (var r = 1; r < colspan; r++) {
-                    obj.nestedHeaders[colNumber][j + r] = null
+                    obj.nestedHeaders[rowNumber][j + r] = null
                 }
                 j += colspan;
-
             }
-    
             return tr;
         }
     
@@ -7672,7 +7697,6 @@ console.log(ret);
     
         if (jexcel.current) {
             if (jexcel.isMouseAction == true) {
-                console.log('jexcel.current.resizing', jexcel.current.resizing)
                 // Resizing is ongoing
                 if (jexcel.current.resizing) {
                     if (jexcel.current.resizing.column) {
@@ -7684,7 +7708,6 @@ console.log(ret);
     
                             jexcel.current.updateCornerPosition();
                             jexcel.current.updateFreezePosition();
-                            console.log('jexcel.current.colgroup', jexcel.current.colgroup)
                         }
                     } else {
                         var height = e.pageY - jexcel.current.resizing.mousePosition;
