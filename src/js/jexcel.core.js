@@ -590,13 +590,17 @@ var jexcel = (function(el, options) {
         var ads = document.createElement('a');
         ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
         obj.ads = document.createElement('div');
-        obj.ads.className = 'jexcel_about';
-        if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
-            sessionStorage.setItem('jexcel', true);
-            var img = document.createElement('img');
-            img.src = '//bossanova.uk/jexcel/logo.png';
-            ads.appendChild(img);
-        }
+		obj.ads.className = 'jexcel_about';
+		try {
+			if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
+				sessionStorage.setItem('jexcel', true);
+				var img = document.createElement('img');
+				img.src = '//bossanova.uk/jexcel/logo.png';
+				ads.appendChild(img);
+			}
+		} catch (exception) {
+			// ignore, see https://github.com/paulhodel/jexcel/issues/966
+		}
         var span = document.createElement('span');
         span.innerHTML = 'Jexcel spreadsheet';
         ads.appendChild(span);
