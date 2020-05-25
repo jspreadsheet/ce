@@ -619,11 +619,14 @@
             ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
             obj.ads = document.createElement('div');
             obj.ads.className = 'jexcel_about';
-            if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
-                sessionStorage.setItem('jexcel', true);
-                var img = document.createElement('img');
-                img.src = '//bossanova.uk/jexcel/logo.png';
-                ads.appendChild(img);
+            try {
+                if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
+                    sessionStorage.setItem('jexcel', true);
+                    var img = document.createElement('img');
+                    img.src = '//bossanova.uk/jexcel/logo.png';
+                    ads.appendChild(img);
+                }
+            } catch (exception) {
             }
             var span = document.createElement('span');
             span.innerHTML = 'Jexcel spreadsheet';
@@ -1906,7 +1909,7 @@ console.log(ret);
                                 editor.setAttribute('data-mask', obj.options.columns[x].mask);
                             }
                         }
-    
+
                         editor.onblur = function() {
                             obj.closeEditor(cell, true);
                         };

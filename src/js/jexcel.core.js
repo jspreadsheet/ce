@@ -28,6 +28,7 @@ var jexcel = (function(el, options) {
         data:null,
         // Copy behavior
         copyCompatibility:false,
+        root:null,
         // Rows and columns definitions
         rows:[],
         columns:[],
@@ -123,6 +124,9 @@ var jexcel = (function(el, options) {
         parseFormulas:true,
         autoIncrement:true,
         autoCasting:true,
+        // Security
+        secureFormulas:true,
+        stripHTML:true,
         // Filters
         filters:false,
         footers:null,
@@ -147,6 +151,7 @@ var jexcel = (function(el, options) {
         onresizecolumn:null,
         onsort:null,
         onselection:null,
+        oncopy:null,
         onpaste:null,
         onbeforepaste:null,
         onmerge:null,
@@ -204,7 +209,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 3.9.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 4.2.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -590,17 +595,16 @@ var jexcel = (function(el, options) {
         var ads = document.createElement('a');
         ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
         obj.ads = document.createElement('div');
-		obj.ads.className = 'jexcel_about';
-		try {
-			if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
-				sessionStorage.setItem('jexcel', true);
-				var img = document.createElement('img');
-				img.src = '//bossanova.uk/jexcel/logo.png';
-				ads.appendChild(img);
-			}
-		} catch (exception) {
-			// ignore, see https://github.com/paulhodel/jexcel/issues/966
-		}
+        obj.ads.className = 'jexcel_about';
+        try {
+            if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
+                sessionStorage.setItem('jexcel', true);
+                var img = document.createElement('img');
+                img.src = '//bossanova.uk/jexcel/logo.png';
+                ads.appendChild(img);
+            }
+        } catch (exception) {
+        }
         var span = document.createElement('span');
         span.innerHTML = 'Jexcel spreadsheet';
         ads.appendChild(span);
@@ -919,6 +923,9 @@ var jexcel = (function(el, options) {
                     if (row == null) {
                         row = {};
                     }
+                    if (! obj.options.columns[i].name) {
+                        obj.options.columns[i].name = i;
+                    }
                     row[obj.options.columns[i].name] = obj.options.data[j][i];
                 }
             }
@@ -1093,9 +1100,22 @@ console.log(ret);
         td.setAttribute('data-x', i);
         td.setAttribute('data-y', j);
 
+        // Security
+        if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
+            var val = secureFormula(value);
+            if (val != value) {
+                // Update the data container
+                value = val;
+            }
+        }
+
         // Custom column
         if (obj.options.columns[i].editor) {
-            td.innerHTML =  value;
+            if (obj.options.stripHTML == true) {
+                td.innerText = value;
+            } else {
+                td.innerHTML =  value;
+            }
             if (typeof(obj.options.columns[i].editor.createCell) == 'function') {
                 td = obj.options.columns[i].editor.createCell(td);
             }
@@ -1103,7 +1123,7 @@ console.log(ret);
             // Hidden column
             if (obj.options.columns[i].type == 'hidden') {
                 td.style.display = 'none';
-                td.innerHTML = value;
+                td.innerText = value;
             } else if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
                 // Create input
                 var element = document.createElement('input');
@@ -1126,11 +1146,11 @@ console.log(ret);
                 // Try formatted date
                 var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
                 // Create calendar cell
-                td.innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
+                td.innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
             } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
                 // Create dropdown cell
                 td.classList.add('jexcel_dropdown');
-                td.innerHTML = obj.getDropDownValue(i, value);
+                td.innerText = obj.getDropDownValue(i, value);
             } else if (obj.options.columns[i].type == 'color') {
                 if (obj.options.columns[i].render == 'square') {
                     var color = document.createElement('div');
@@ -1139,7 +1159,7 @@ console.log(ret);
                     td.appendChild(color);
                 } else {
                     td.style.color = value;
-                    td.innerHTML = value;
+                    td.innerText = value;
                 }
             } else if (obj.options.columns[i].type == 'image') {
                 if (value && value.substr(0, 10) == 'data:image') {
@@ -1148,7 +1168,15 @@ console.log(ret);
                     td.appendChild(img);
                 }
             } else {
-                td.innerHTML = obj.parseValue(i, j, value);
+                if (obj.options.columns[i].type == 'html') {
+                    td.innerHTML = stripScript(obj.parseValue(i, j, value));
+                } else {
+                    if (obj.options.stripHTML == true) {
+                        td.innerText = obj.parseValue(i, j, value);
+                    } else {
+                        td.innerHTML = stripScript(obj.parseValue(i, j, value));
+                    }
+                }
             }
         }
 
@@ -1187,7 +1215,7 @@ console.log(ret);
 
         // Create header cell
         obj.headers[colNumber] = document.createElement('td');
-        obj.headers[colNumber].innerHTML = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+        obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
         obj.headers[colNumber].setAttribute('data-x', colNumber);
         obj.headers[colNumber].style.textAlign = colAlign;
         if (obj.options.columns[colNumber].title) {
@@ -1211,7 +1239,7 @@ console.log(ret);
     obj.updateNestedHeader = function(x, y, title) {
         if (obj.options.nestedHeaders[y][x].title) {
             obj.options.nestedHeaders[y][x].title = title;
-            obj.options.nestedHeaders[y].element.children[x+1].innerHTML = title;
+            obj.options.nestedHeaders[y].element.children[x+1].innerText = title;
         }
     }
 
@@ -1258,7 +1286,7 @@ console.log(ret);
             td.setAttribute('data-column', column.join(','));
             td.setAttribute('colspan', nestedInformation[i].colspan);
             td.setAttribute('align', nestedInformation[i].align);
-            td.innerHTML = nestedInformation[i].title;
+            td.innerText = nestedInformation[i].title;
             tr.appendChild(td);
         }
 
@@ -1297,7 +1325,7 @@ console.log(ret);
                     }
                 }
                 // Append element
-                toolbarItem.innerHTML = toolbar[i].content;
+                toolbarItem.innerText = toolbar[i].content;
                 obj.toolbar.appendChild(toolbarItem);
             } else if (toolbar[i].type == 'select') {
                var toolbarItem = document.createElement('select');
@@ -1320,7 +1348,7 @@ console.log(ret);
                for(var j = 0; j < toolbar[i].v.length; j++) {
                     var toolbarDropdownOption = document.createElement('option');
                     toolbarDropdownOption.value = toolbar[i].v[j];
-                    toolbarDropdownOption.innerHTML = toolbar[i].v[j];
+                    toolbarDropdownOption.innerText = toolbar[i].v[j];
                     toolbarItem.appendChild(toolbarDropdownOption);
                }
                obj.toolbar.appendChild(toolbarItem);
@@ -1338,7 +1366,7 @@ console.log(ret);
                  toolbarItem.onclick = function() {
                      this.color.open();
                  }
-                 toolbarItem.innerHTML = toolbar[i].content;
+                 toolbarItem.innerText = toolbar[i].content;
                  jSuites.color(toolbarItem, {
                      onchange:function(o, v) {
                          var k = o.getAttribute('data-k');
@@ -1895,7 +1923,7 @@ console.log(ret);
                 } else if (obj.options.columns[x].type == 'calendar') {
                     var value = cell.children[0].calendar.close(true);
                 } else if (obj.options.columns[x].type == 'color') {
-                    var value = cell.children[1].color.close(true);
+                    var value = cell.children[0].color.close(true);
                 } else if (obj.options.columns[x].type == 'html') {
                     var value = cell.children[0].children[0].editor.getData();
                 } else if (obj.options.columns[x].type == 'image') {
@@ -1931,7 +1959,7 @@ console.log(ret);
                 } else if (obj.options.columns[x].type == 'calendar') {
                     cell.children[0].calendar.close(true);
                 } else if (obj.options.columns[x].type == 'color') {
-                    cell.children[1].color.close(true);
+                    cell.children[0].color.close(true);
                 } else {
                     cell.children[0].onblur = null;
                 }
@@ -2198,6 +2226,17 @@ console.log(ret);
     }
 
     /**
+     * Strip tags
+     */
+     var stripScript = function(a) {
+        var b = new Option;
+        b.innerHTML = a;
+        var c = null;
+        for (a = b.getElementsByTagName('script'); c=a[0];) c.parentNode.removeChild(c);
+        return b.innerHTML;
+    }
+
+    /**
      * Update cell content
      * 
      * @param object cell
@@ -2214,6 +2253,15 @@ console.log(ret);
                 row: y
             }
         } else {
+            // Security
+            if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
+                var val = secureFormula(value);
+                if (val != value) {
+                    // Update the data container
+                    value = val;
+                }
+            }
+
             // On change
             var val = obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value);
 
@@ -2255,13 +2303,13 @@ console.log(ret);
                 } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
                     // Update data and cell
                     obj.options.data[y][x] = value;
-                    obj.records[y][x].innerHTML = obj.getDropDownValue(x, value);
+                    obj.records[y][x].innerText = obj.getDropDownValue(x, value);
                 } else if (obj.options.columns[x].type == 'calendar') {
                     // Update calendar
                     var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
                     // Update data and cell
                     obj.options.data[y][x] = value;
-                    obj.records[y][x].innerHTML = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
+                    obj.records[y][x].innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
                 } else if (obj.options.columns[x].type == 'color') {
                     // Update color
                     obj.options.data[y][x] = value;
@@ -2270,11 +2318,11 @@ console.log(ret);
                         var color = document.createElement('div');
                         color.className = 'color';
                         color.style.backgroundColor = value;
-                        obj.records[y][x].innerHTML = '';
+                        obj.records[y][x].innerText = '';
                         obj.records[y][x].appendChild(color);
                     } else {
                     obj.records[y][x].style.color = value;
-                        obj.records[y][x].innerHTML = value;
+                        obj.records[y][x].innerText = value;
                     }
                 } else if (obj.options.columns[x].type == 'image') {
                     value = ''+value;
@@ -2289,7 +2337,15 @@ console.log(ret);
                     // Update data and cell
                     obj.options.data[y][x] = value;
                     // Label
-                    obj.records[y][x].innerHTML = obj.parseValue(x, y, value);
+                    if (obj.options.columns[x].type == 'html') {
+                        obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                    } else {
+                        if (obj.options.stripHTML == true) {
+                            obj.records[y][x].innerText = obj.parseValue(x, y, value);
+                        } else {
+                            obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                        }
+                    }
                     // Handle big text inside a cell
                     if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
                         obj.records[y][x].style.whiteSpace = 'pre-wrap';
@@ -2793,7 +2849,7 @@ console.log(ret);
                 var uy = parseInt(y1) - 1;
             }
 
-            if (ux - px < uy - py) {
+           if (ux - px <= uy - py) {
                 var px = parseInt(x1);
                 var ux = parseInt(x2);
             } else {
@@ -3114,7 +3170,7 @@ console.log(ret);
                         var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
                         td.style.textAlign = colAlign;
                     }
-                    td.innerHTML = obj.parseValue(i, j, obj.options.footers[j][i]);
+                    td.innerText = obj.parseValue(i, j, obj.options.footers[j][i]);
                 }
             }
         }
@@ -3145,7 +3201,7 @@ console.log(ret);
             }
 
             if (newValue) {
-                obj.headers[column].innerHTML = newValue;
+                obj.headers[column].innerText = newValue;
                 // Keep the title property
                 obj.headers[column].setAttribute('title', newValue);
                 // Update title
@@ -3502,8 +3558,8 @@ console.log(ret);
             // Filter
             Array.prototype.orderBy = function(p, o) {
                 return this.slice(0).sort(function(a, b) {
-                    var valueA = a[p] == '' ? '' : Number(a[p]) == a[p] ? Number(a[p]) : a[p].toLowerCase();
-                    var valueB = b[p] == '' ? '' : Number(b[p]) == b[p] ? Number(b[p]) : b[p].toLowerCase();
+                    var valueA = a[p];
+                    var valueB = b[p];
 
                     if (! o) {
                         return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
@@ -3515,15 +3571,17 @@ console.log(ret);
 
             // Test order
             var temp = [];
-            if (obj.options.columns[column].type == 'calendar' ||
-                obj.options.columns[column].type == 'checkbox' ||
-                obj.options.columns[column].type == 'radio') {
+                if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        temp[j] = [ j, Number(obj.options.data[j][column]) ];
+                    }
+                } else if (obj.options.columns[column].type == 'calendar' || obj.options.columns[column].type == 'checkbox' || obj.options.columns[column].type == 'radio') {
                 for (var j = 0; j < obj.options.data.length; j++) {
                     temp[j] = [ j, obj.options.data[j][column] ];
                 }
             } else {
                 for (var j = 0; j < obj.options.data.length; j++) {
-                    temp[j] = [ j, obj.records[j][column].innerHTML ];
+                    temp[j] = [ j, obj.records[j][column].innerText.toLowerCase() ];
                 }
             }
             temp = temp.orderBy(1, order);
@@ -3598,7 +3656,7 @@ console.log(ret);
         obj.updateTableReferences();
 
         // Redo search
-        if (obj.results.length) {
+        if (obj.results && obj.results.length) {
             if (obj.searchInput.value) {
                 obj.search(obj.searchInput.value);
             } else {
@@ -4757,6 +4815,32 @@ console.log(ret);
 
         return newFormula;
     }
+    
+    /**
+    * Secure formula
+    */
+    var secureFormula = function(oldValue) {
+        var newValue = '';
+        var inside = 0;
+
+        for (var i = 0; i < oldValue.length; i++) {
+            if (oldValue[i] == '"') {
+                if (inside == 0) {
+                    inside = 1;
+                } else {
+                    inside = 0;
+                }
+            }
+
+            if (inside == 1) {
+                newValue += oldValue[i];
+             } else {
+                newValue += oldValue[i].toUpperCase();
+            }
+        }
+
+        return newValue;
+    }
 
     /**
      * Parse formulas
@@ -5907,6 +5991,9 @@ console.log(ret);
             }
         }
 
+        // Paste event
+        obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
+
         return obj.data;
     }
 
@@ -6417,9 +6504,22 @@ console.log(ret);
 
         // Build handlers
         if (typeof(jexcel.build) == 'function') {
-            jexcel.build();
-            jexcel.build = null;
+            if (obj.options.root) {
+                jexcel.build(obj.options.root);
+            } else {
+                jexcel.build(document);
+                jexcel.build = null;
+            }
         }
+
+        // Event
+        el.setAttribute('tabindex', 1);
+        el.addEventListener('focus', function(e) {
+            if (jexcel.current && ! obj.selectedCell) {
+                obj.updateSelectionFromCoords(0,0,0,0);
+                obj.left();
+            }
+        });
 
         // Load the table data based on an CSV file
         if (obj.options.csv) {
@@ -6766,41 +6866,42 @@ jexcel.timeControlLoading = null;
 
 jexcel.destroy = function(element, destroyEventHandlers) {
     if (element.jexcel) {
+        var root = element.jexcel.options.root ? element.jexcel.options.root : document;
         element.removeEventListener("DOMMouseScroll", element.jexcel.scrollControls);
         element.removeEventListener("mousewheel", element.jexcel.scrollControls);
         element.jexcel = null;
         element.innerHTML = '';
 
         if (destroyEventHandlers) {
+            root.removeEventListener("mouseup", jexcel.mouseUpControls);
+            root.removeEventListener("mousedown", jexcel.mouseDownControls);
+            root.removeEventListener("mousemove", jexcel.mouseMoveControls);
+            root.removeEventListener("mouseover", jexcel.mouseOverControls);
+            root.removeEventListener("dblclick", jexcel.doubleClickControls);
+            root.removeEventListener("paste", jexcel.pasteControls);
+            root.removeEventListener("contextmenu", jexcel.contextMenuControls);
+            root.removeEventListener("touchstart", jexcel.touchStartControls);
+            root.removeEventListener("touchend", jexcel.touchEndControls);
+            root.removeEventListener("touchcancel", jexcel.touchEndControls);
             document.removeEventListener("keydown", jexcel.keyDownControls);
-            document.removeEventListener("mouseup", jexcel.mouseUpControls);
-            document.removeEventListener("mousedown", jexcel.mouseDownControls);
-            document.removeEventListener("mousemove", jexcel.mouseMoveControls);
-            document.removeEventListener("mouseover", jexcel.mouseOverControls);
-            document.removeEventListener("dblclick", jexcel.doubleClickControls);
-            document.removeEventListener("paste", jexcel.pasteControls);
-            document.removeEventListener("contextmenu", jexcel.contextMenuControls);
-            document.removeEventListener("touchstart", jexcel.touchStartControls);
-            document.removeEventListener("touchend", jexcel.touchEndControls);
-            document.removeEventListener("touchcancel", jexcel.touchEndControls);
             jexcel = null;
         }
     }
 }
 
-jexcel.build = function() {
+jexcel.build = function(root) {
+    root.addEventListener("mouseup", jexcel.mouseUpControls);
+    root.addEventListener("mousedown", jexcel.mouseDownControls);
+    root.addEventListener("mousemove", jexcel.mouseMoveControls);
+    root.addEventListener("mouseover", jexcel.mouseOverControls);
+    root.addEventListener("dblclick", jexcel.doubleClickControls);
+    root.addEventListener("paste", jexcel.pasteControls);
+    root.addEventListener("contextmenu", jexcel.contextMenuControls);
+    root.addEventListener("touchstart", jexcel.touchStartControls);
+    root.addEventListener("touchend", jexcel.touchEndControls);
+    root.addEventListener("touchcancel", jexcel.touchEndControls);
+    root.addEventListener("touchmove", jexcel.touchEndControls);
     document.addEventListener("keydown", jexcel.keyDownControls);
-    document.addEventListener("mouseup", jexcel.mouseUpControls);
-    document.addEventListener("mousedown", jexcel.mouseDownControls);
-    document.addEventListener("mousemove", jexcel.mouseMoveControls);
-    document.addEventListener("mouseover", jexcel.mouseOverControls);
-    document.addEventListener("dblclick", jexcel.doubleClickControls);
-    document.addEventListener("paste", jexcel.pasteControls);
-    document.addEventListener("contextmenu", jexcel.contextMenuControls);
-    document.addEventListener("touchstart", jexcel.touchStartControls);
-    document.addEventListener("touchend", jexcel.touchEndControls);
-    document.addEventListener("touchcancel", jexcel.touchEndControls);
-    document.addEventListener("touchmove", jexcel.touchEndControls);
 }
 
 /**
