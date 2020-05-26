@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+    php:
+      image: bitnami/php-fpm
+      ports:
+        - 9000
+      volumes:
+        - .:/bitnami/php-fpm
