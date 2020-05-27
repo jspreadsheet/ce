@@ -1134,10 +1134,10 @@ console.log(ret);
 
             // Custom column
             if (obj.options.columns[i].editor) {
-                if (obj.options.stripHTML == true) {
-                    td.innerText = value;
-                } else {
+                if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
                     td.innerHTML =  value;
+                } else {
+                    td.innerText = value;
                 }
                 if (typeof(obj.options.columns[i].editor.createCell) == 'function') {
                     td = obj.options.columns[i].editor.createCell(td);
@@ -1194,10 +1194,10 @@ console.log(ret);
                     if (obj.options.columns[i].type == 'html') {
                         td.innerHTML = stripScript(obj.parseValue(i, j, value));
                     } else {
-                        if (obj.options.stripHTML == true) {
-                            td.innerText = obj.parseValue(i, j, value);
-                        } else {
+                        if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
                             td.innerHTML = stripScript(obj.parseValue(i, j, value));
+                        } else {
+                            td.innerText = obj.parseValue(i, j, value);
                         }
                     }
                 }
@@ -1675,7 +1675,7 @@ console.log(ret);
                 obj.filter.children[columnId + 1].innerHTML = '';
                 obj.filter.children[columnId + 1].appendChild(div);
                 obj.filter.children[columnId + 1].style.paddingLeft = '0px';
-                obj.filter.children[columnId + 1].style.paddingRight = '20px';
+                obj.filter.children[columnId + 1].style.paddingRight = '0px';
                 obj.filter.children[columnId + 1].style.overflow = 'initial';
 
                 // Dynamic dropdown
@@ -2363,10 +2363,10 @@ console.log(ret);
                         if (obj.options.columns[x].type == 'html') {
                             obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
                         } else {
-                            if (obj.options.stripHTML == true) {
-                                obj.records[y][x].innerText = obj.parseValue(x, y, value);
-                            } else {
+                            if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
                                 obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                            } else {
+                                obj.records[y][x].innerText = obj.parseValue(x, y, value);
                             }
                         }
                         // Handle big text inside a cell
@@ -5995,6 +5995,9 @@ console.log(ret);
             // Keep non visible information
             obj.hashString = obj.hash(obj.data);
     
+            // Any exiting border should go
+            obj.removeCopyingSelection();
+
             // Border
             if (obj.highlighted) {
                 for (var i = 0; i < obj.highlighted.length; i++) {
