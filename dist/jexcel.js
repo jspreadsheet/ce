@@ -626,7 +626,7 @@
                     img.src = '//bossanova.uk/jexcel/logo.png';
                     ads.appendChild(img);
                 }
-            } catch (exception) {
+            } catch (exception) {
             }
             var span = document.createElement('span');
             span.innerHTML = 'Jexcel spreadsheet';
