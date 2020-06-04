@@ -1,5 +1,5 @@
 /**
- * jExcel v4.2.0
+ * jExcel v4.2.1
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -7876,6 +7876,7 @@ console.log(ret);
      */
     
     jexcel.tabs = function(tabs, result) {
+        var instances = [];
         // Create tab container
         if (! tabs.classList.contains('jexcel_tabs')) {
             tabs.innerHTML = '';
@@ -7899,7 +7900,7 @@ console.log(ret);
             spreadsheet[i].classList.add('jexcel_tab');
             var worksheet = jexcel(spreadsheet[i], result[i]);
             content.appendChild(spreadsheet[i]);
-            tabs.jexcel.push(worksheet);
+            instances[i] = tabs.jexcel.push(worksheet);
 
             // Tab link
             link[i] = document.createElement('div');
@@ -7925,6 +7926,8 @@ console.log(ret);
         }
         headers.children[headers.children.length - 1].classList.add('selected');
         content.children[headers.children.length - 1].style.display = 'block';
+
+        return instances;
     }
 
     // Compability to older versions
