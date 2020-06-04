@@ -1339,7 +1339,12 @@ console.log(ret);
                     }
                     // Handle click
                     if (toolbar[i].onclick && typeof(toolbar[i].onclick)) {
-                        toolbarItem.onclick = toolbar[i].onclick;
+                        toolbarItem.onclick = (function (a) {
+                            var b = a;
+                            return function () {
+                                toolbar[b].onclick(el, obj, this);
+                            };
+                        })(i);
                     } else {
                         toolbarItem.onclick = function() {
                             var k = this.getAttribute('data-k');
