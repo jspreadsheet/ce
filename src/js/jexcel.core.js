@@ -1310,6 +1310,10 @@ console.log(ret);
                 toolbarItem.classList.add('material-icons');
                 toolbarItem.setAttribute('data-k', toolbar[i].k);
                 toolbarItem.setAttribute('data-v', toolbar[i].v);
+                // optionally add an ID for css or whatever
+                if (toolbar[i].hasOwnProperty('id')) {
+                    toolbarItem.setAttribute('id', toolbar[i].id);
+                }
                 // Tooltip
                 if (toolbar[i].tooltip) {
                     toolbarItem.setAttribute('title', toolbar[i].tooltip);
