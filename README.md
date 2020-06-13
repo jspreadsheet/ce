@@ -44,7 +44,7 @@ A basic example to integrate the JavaScript spreadsheet in your website to creat
 
 You should initiate your table based on a div container, such as:
 ```html
-<div id="mytable"></div>
+<div id="spreadsheet"></div>
 ```
 
 To initialize a jExcel CE table you should run a JavaScript, such as:
