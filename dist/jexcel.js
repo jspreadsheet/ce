@@ -1,5 +1,5 @@
 /**
- * jExcel v4.2.2
+ * jExcel v4.2.3
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -232,7 +232,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.2.2\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"jExcel CE Spreadsheet\nVersion 4.2.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
         };
     
         // Loading initial configuration from user
@@ -1819,10 +1819,16 @@ console.log(ret);
                             var source = obj.options.columns[x].source;
                         }
     
+                        // Do not change the original source
+                        var data = [];
+                        for (var j = 0; j < source.length; j++) {
+                            data.push(source[j]);
+                        }
+
                         // Create editor
                         var editor = createEditor('div');
                         var options = {
-                            data: source,
+                            data: data,
                             multiple: obj.options.columns[x].multiple ? true : false,
                             autocomplete: obj.options.columns[x].autocomplete || obj.options.columns[x].type == 'autocomplete' ? true : false,
                             opened:true,
@@ -5871,7 +5877,7 @@ console.log(ret);
 
                 // IE Compatibility
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(blob, options.csvFileName + '.csv');
+                    window.navigator.msSaveOrOpenBlob(blob, obj.options.csvFileName + '.csv');
                 } else {
                     // Download element
                     var pom = document.createElement('a');

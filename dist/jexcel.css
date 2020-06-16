@@ -7,6 +7,7 @@
     padding-right:2px;
     box-sizing: border-box;
     overscroll-behavior: contain;
+    outline: none;
 }
 
 .jexcel_container.fullscreen {
