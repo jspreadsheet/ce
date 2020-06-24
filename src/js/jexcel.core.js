@@ -1062,7 +1062,7 @@ console.log(ret);
         }
         // Row number label
         var td = document.createElement('td');
-        td.innerHTML = parseInt(j + 1);
+        td.innerHTML = obj.options.rows[j].title || parseInt(j + 1);
         td.setAttribute('data-y', j);
         td.className = 'jexcel_row';
         obj.rows[j].appendChild(td);
