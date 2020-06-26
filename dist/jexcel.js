@@ -1671,6 +1671,7 @@ console.log(ret);
                 }
                 var keys = Object.keys(options);
                 var optionsFiltered = [];
+                optionsFiltered.push({ id: '', name: 'Blanks' });
                 for (var j = 0; j < keys.length; j++) {
                     optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
                 }
@@ -1683,13 +1684,12 @@ console.log(ret);
                 obj.filter.children[columnId + 1].style.paddingRight = '0px';
                 obj.filter.children[columnId + 1].style.overflow = 'initial';
 
-                // Dynamic dropdown
-                jSuites.dropdown(div, {
+                var opt = {
                     data: optionsFiltered,
                     multiple: true,
                     autocomplete: true,
                     opened: true,
-                    value: obj.filters[columnId] ? obj.filters[columnId] : '',
+                    value: obj.filters[columnId] !== undefined ? obj.filters[columnId] : null,
                     width:'100%',
                     position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
                     onclose: function(o) {
@@ -1701,7 +1701,10 @@ console.log(ret);
                         obj.filter.children[columnId + 1].style.overflow = '';
                         obj.closeFilter(columnId);
                     }
-                });
+                };
+
+                // Dynamic dropdown
+                jSuites.dropdown(div, opt);
             }
         }
 
