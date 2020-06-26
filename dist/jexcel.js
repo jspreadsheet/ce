@@ -1,5 +1,5 @@
 /**
- * jExcel v4.2.3
+ * jExcel v4.3.0
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -232,7 +232,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.2.3\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"jExcel CE Spreadsheet\nVersion 4.3.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
         };
     
         // Loading initial configuration from user
@@ -430,22 +430,18 @@
                 if (obj.options.columns[i].type == 'autocomplete' || obj.options.columns[i].type == 'dropdown') {
                     // if remote content
                     if (obj.options.columns[i].url) {
-                        multiple.push(jSuites.ajax({
+                        multiple.push({
                             url: obj.options.columns[i].url,
                             index: i,
                             method: 'GET',
                             dataType: 'json',
-                            multiple: multiple,
                             success: function(data) {
                                 var source = [];
                                 for (var i = 0; i < data.length; i++) {
                                     obj.options.columns[this.index].source.push(data[i]);
                                 }
-                            },
-                            complete: function() {
-                                obj.createTable();
                             }
-                        }));
+                        });
                     }
                 } else if (obj.options.columns[i].type == 'calendar') {
                     // Default format for date columns
@@ -455,9 +451,13 @@
                 }
             }
     
-            // On complete
+            // Create the table when is ready
             if (! multiple.length) {
                 obj.createTable();
+            } else {
+                jSuites.ajax(multiple, function() {
+                    obj.createTable();
+                });
             }
         }
     

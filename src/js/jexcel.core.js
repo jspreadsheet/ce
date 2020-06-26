@@ -209,7 +209,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 4.2.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 4.3.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -407,22 +407,18 @@ var jexcel = (function(el, options) {
             if (obj.options.columns[i].type == 'autocomplete' || obj.options.columns[i].type == 'dropdown') {
                 // if remote content
                 if (obj.options.columns[i].url) {
-                    multiple.push(jSuites.ajax({
+                    multiple.push({
                         url: obj.options.columns[i].url,
                         index: i,
                         method: 'GET',
                         dataType: 'json',
-                        multiple: multiple,
                         success: function(data) {
                             var source = [];
                             for (var i = 0; i < data.length; i++) {
                                 obj.options.columns[this.index].source.push(data[i]);
                             }
-                        },
-                        complete: function() {
-                            obj.createTable();
                         }
-                    }));
+                    });
                 }
             } else if (obj.options.columns[i].type == 'calendar') {
                 // Default format for date columns
@@ -432,9 +428,13 @@ var jexcel = (function(el, options) {
             }
         }
 
-        // On complete
+        // Create the table when is ready
         if (! multiple.length) {
             obj.createTable();
+        } else {
+            jSuites.ajax(multiple, function() {
+                obj.createTable();
+            });
         }
     }
 
@@ -603,7 +603,7 @@ var jexcel = (function(el, options) {
                 img.src = '//bossanova.uk/jexcel/logo.png';
                 ads.appendChild(img);
             }
-        } catch (exception) {
+        } catch (exception) {
         }
         var span = document.createElement('span');
         span.innerHTML = 'Jexcel spreadsheet';
@@ -1111,10 +1111,10 @@ console.log(ret);
 
         // Custom column
         if (obj.options.columns[i].editor) {
-            if (obj.options.stripHTML == true) {
-                td.innerText = value;
-            } else {
+            if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
                 td.innerHTML =  value;
+            } else {
+                td.innerText = value;
             }
             if (typeof(obj.options.columns[i].editor.createCell) == 'function') {
                 td = obj.options.columns[i].editor.createCell(td);
@@ -1171,10 +1171,10 @@ console.log(ret);
                 if (obj.options.columns[i].type == 'html') {
                     td.innerHTML = stripScript(obj.parseValue(i, j, value));
                 } else {
-                    if (obj.options.stripHTML == true) {
-                        td.innerText = obj.parseValue(i, j, value);
-                    } else {
+                    if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
                         td.innerHTML = stripScript(obj.parseValue(i, j, value));
+                    } else {
+                        td.innerText = obj.parseValue(i, j, value);
                     }
                 }
             }
@@ -1316,7 +1316,12 @@ console.log(ret);
                 }
                 // Handle click
                 if (toolbar[i].onclick && typeof(toolbar[i].onclick)) {
-                    toolbarItem.onclick = toolbar[i].onclick;
+                    toolbarItem.onclick = (function (a) {
+                        var b = a;
+                        return function () {
+                            toolbar[b].onclick(el, obj, this);
+                        };
+                    })(i);
                 } else {
                     toolbarItem.onclick = function() {
                         var k = this.getAttribute('data-k');
@@ -1652,7 +1657,7 @@ console.log(ret);
             obj.filter.children[columnId + 1].innerHTML = '';
             obj.filter.children[columnId + 1].appendChild(div);
             obj.filter.children[columnId + 1].style.paddingLeft = '0px';
-            obj.filter.children[columnId + 1].style.paddingRight = '20px';
+            obj.filter.children[columnId + 1].style.paddingRight = '0px';
             obj.filter.children[columnId + 1].style.overflow = 'initial';
 
             // Dynamic dropdown
@@ -1791,10 +1796,16 @@ console.log(ret);
                         var source = obj.options.columns[x].source;
                     }
 
+                    // Do not change the original source
+                    var data = [];
+                    for (var j = 0; j < source.length; j++) {
+                        data.push(source[j]);
+                    }
+
                     // Create editor
                     var editor = createEditor('div');
                     var options = {
-                        data: source,
+                        data: data,
                         multiple: obj.options.columns[x].multiple ? true : false,
                         autocomplete: obj.options.columns[x].autocomplete || obj.options.columns[x].type == 'autocomplete' ? true : false,
                         opened:true,
@@ -1887,11 +1898,11 @@ console.log(ret);
                         }
                     }
 
-                    editor.value = value;
                     editor.onblur = function() {
                         obj.closeEditor(cell, true);
                     };
                     editor.focus();
+                    editor.value = value;
                 }
             }
         }
@@ -2340,10 +2351,10 @@ console.log(ret);
                     if (obj.options.columns[x].type == 'html') {
                         obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
                     } else {
-                        if (obj.options.stripHTML == true) {
-                            obj.records[y][x].innerText = obj.parseValue(x, y, value);
-                        } else {
+                        if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
                             obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                        } else {
+                            obj.records[y][x].innerText = obj.parseValue(x, y, value);
                         }
                     }
                     // Handle big text inside a cell
@@ -2910,10 +2921,14 @@ console.log(ret);
                 if (x2 - x1 + w2 < width) {
                     obj.corner.style.display = 'none';
                 } else {
-                    obj.corner.style.display = '';
+                    if (obj.options.selectionCopy == true) {
+                        obj.corner.style.display = '';
+                    }
                 }
             } else {
-                obj.corner.style.display = '';
+                if (obj.options.selectionCopy == true) {
+                    obj.corner.style.display = '';
+                }
             }
         }
     }
@@ -5839,7 +5854,7 @@ console.log(ret);
 
             // IE Compatibility
             if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(blob, options.csvFileName + '.csv');
+                window.navigator.msSaveOrOpenBlob(blob, obj.options.csvFileName + '.csv');
             } else {
                 // Download element
                 var pom = document.createElement('a');
@@ -5971,6 +5986,9 @@ console.log(ret);
         }
         // Keep non visible information
         obj.hashString = obj.hash(obj.data);
+
+        // Any exiting border should go
+        obj.removeCopyingSelection();
 
         // Border
         if (obj.highlighted) {
