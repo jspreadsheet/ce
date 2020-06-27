@@ -1671,7 +1671,7 @@ console.log(ret);
                 }
                 var keys = Object.keys(options);
                 var optionsFiltered = [];
-                optionsFiltered.push({ id: '', name: 'Blanks' });
+                optionsFiltered.push({ id: '', name: '(Blanks)' });
                 for (var j = 0; j < keys.length; j++) {
                     optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
                 }
@@ -1729,8 +1729,9 @@ console.log(ret);
             // Search filter
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
-                    if ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
-                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0) {
+                    if ((query[i] != '' && ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
+                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0)) ||
+                        (query[i] == '' && (''+obj.options.data[y][x]) == '')) {
                         return true;
                     }
                 }
