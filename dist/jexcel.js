@@ -453,7 +453,6 @@
                     }
                 }
             }
-
             // Create the table when is ready
             if (! multiple.length) {
                 obj.createTable();
@@ -1023,7 +1022,6 @@
         obj.save = function(url, data) {
             // Parse anything in the data before sending to the server
             var ret = obj.dispatch('onbeforesave', el, obj, data);
-
             if (ret) {
                 var data = ret;
             } else {
@@ -1265,7 +1263,6 @@
                     }
                 }
             }
-
             return td;
         }
     
@@ -1367,7 +1364,6 @@
             } else {
                 var toolbar = obj.options.toolbar;
             }
-
             for (var i = 0; i < toolbar.length; i++) {
                 if (toolbar[i].type == 'i') {
                     var toolbarItem = document.createElement('i');
@@ -2312,7 +2308,6 @@
                 obj.onafterchanges(el, records);
             }
         }
-
         /**
          * Strip tags
          */
@@ -3655,7 +3650,6 @@
                     return this.slice(0).sort(function(a, b) {
                         var valueA = a[p];
                         var valueB = b[p];
-
                         if (! o) {
                             return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
                         } else {
@@ -3663,7 +3657,6 @@
                         }
                     });
                 }
-
                 // Test order
                 var temp = [];
                 if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
