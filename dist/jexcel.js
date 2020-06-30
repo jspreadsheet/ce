@@ -8,7 +8,7 @@
  * This software is distribute under MIT License
  */
 
- if (! jSuites && typeof(require) === 'function') {
+if (! jSuites && typeof(require) === 'function') {
     var jSuites = require('jsuites');
     require('jsuites/dist/jsuites.css');
 }
@@ -1661,19 +1661,24 @@ console.log(ret);
                 // Reset selection
                 obj.resetSelection();
                 // Load options
-                var options = [];
-                for (var j = 0; j < obj.options.data.length; j++) {
-                    var k = obj.options.data[j][columnId];
-                    var v = obj.records[j][columnId].innerHTML;
-                    if (k && v) {
-                        options[k] = v;
-                    }
-                }
-                var keys = Object.keys(options);
                 var optionsFiltered = [];
-                optionsFiltered.push({ id: '', name: '(Blanks)' });
-                for (var j = 0; j < keys.length; j++) {
-                    optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                if (obj.options.columns[columnId].type == 'checkbox') {
+                    optionsFiltered.push({ id: 'false', name: '<input type=checkbox unchecked disabled>'});
+                    optionsFiltered.push({ id: 'true', name: '<input type=checkbox checked disabled>' });
+                } else {
+                    var options = [];
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        var k = obj.options.data[j][columnId];
+                        var v = obj.records[j][columnId].innerHTML;
+                        if (k && v) {
+                            options[k] = v;
+                        }
+                    }
+                    var keys = Object.keys(options);
+                    optionsFiltered.push({ id: '', name: '(Blanks)' });
+                    for (var j = 0; j < keys.length; j++) {
+                        optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                    }
                 }
 
                 // Create dropdown
@@ -1729,9 +1734,12 @@ console.log(ret);
             // Search filter
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
-                    if ((query[i] != '' && ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
-                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0)) ||
-                        (query[i] == '' && (''+obj.options.data[y][x]) == '')) {
+                    if ((query[i] == '' && // Blank matching
+                        ((obj.options.data[y][x] === false) || // Unchecked checkbox
+                        (''+obj.options.data[y][x]) == '')) || // Blank non-checkbox value
+                        ((query[i] != '' && // Normal non-blank filtering
+                        ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
+                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0)))) {
                         return true;
                     }
                 }
@@ -1739,14 +1747,15 @@ console.log(ret);
             }
 
             var query = obj.filters[columnId];
-            obj.results = [];
-            for (var j = 0; j < obj.options.data.length; j++) {
-                if (search(query, columnId, j)) {
-                    obj.results.push(j);
-                }
-            }
-            if (! obj.results.length) {
+            if (query.length == 0) {
                 obj.results = null;
+            } else {
+                obj.results = [];
+                for (var j = 0; j < obj.options.data.length; j++) {
+                    if (search(query, columnId, j)) {
+                        obj.results.push(j);
+                    }
+                }
             }
 
             obj.updateResult();
