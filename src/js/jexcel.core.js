@@ -1846,6 +1846,13 @@ console.log(ret);
                     editor.focus();
                 } else if (obj.options.columns[x].type == 'html') {
                     var value = obj.options.data[y][x];
+
+                    // jSuites toolbar setting
+                    var toolbar = obj.options.columns[x].toolbar;
+                    if (toolbar === undefined) {
+                        toolbar = jSuites.editor.getDefaultToolbar();
+                    }
+
                     // Create editor
                     var editor = createEditor('div');
                     editor.style.position = 'relative';
@@ -1855,6 +1862,7 @@ console.log(ret);
                     jSuites.editor(div, {
                         focus: true,
                         value: value,
+                        toolbar: toolbar,
                     });
                     const rect = cell.getBoundingClientRect();
                     const rectContent = div.getBoundingClientRect();
