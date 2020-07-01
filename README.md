@@ -169,8 +169,8 @@ A special thank to the [FDL - Fonds de Dotation du Libre](https://www.fdl-lef.or
 ### Jexcel CE 3.0.1
 
 jExcel CE v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
-complete compatibility with the previous version. If you are upgrating you might need to implement a few updates in your code.
-If you have questions, you can review the article upgrating from jExcel CE v2 or Handsontable.
+complete compatibility with the previous version. If you are upgrading you might need to implement a few updates in your code.
+If you have questions, you can review the article upgrading from jExcel CE v2 or Handsontable.
 
 The jExcel CE v3 brings lot of great new features:
 
@@ -184,15 +184,15 @@ The jExcel CE v3 brings lot of great new features:
 - Image upload.
 - Native color picker.
 - Better mobile compatibility.
-- Better nested headers compatibily.
-- Amazing keyboard navegation support.
+- Better nested headers compatibility.
+- Amazing keyboard navigation support.
 - Better hidden column management.
 - Great data picker: dropdown, autocomplete, multiple, group options and icons.
 - Importing from XSLX (experimental).
 
-Big improviments are included, such as:
+Big improvements are included, such as:
 
-- Complete new formula engine with no external depencies with much faster results.
+- Complete new formula engine with no external dependencies with much faster results.
 - Absolutely no selectors, means a much faster application.
 - New native columns.
 - jQuery is not required anymore.
@@ -241,7 +241,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 
 
 ## Officials websites
-- [jExcel CE v4 - Javascript Spreasheet](https://bossanova.uk/jexcel/v3)
+- [jExcel CE v4 - Javascript Spreadsheet](https://bossanova.uk/jexcel/v3)
 - [jExcel CE v3 - Vanilla JavaScript](https://bossanova.uk/jexcel/v3)
 - [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jexcel/v2)
 
