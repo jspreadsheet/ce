@@ -1729,9 +1729,15 @@ console.log(ret);
             // Search filter
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
-                    if ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
-                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0) {
-                        return true;
+                    if (query[i] == '') {
+                        if (obj.options.data[y][x] == '') {
+                            return true;
+                        }
+                    } else {
+                        if ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
+                            (''+obj.records[y][x].innerHTML).search(query[i]) >= 0) {
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -7483,7 +7489,7 @@ console.log(ret);
                         } else {
                             var position = parseInt(jexcel.current.dragging.element.previousSibling.getAttribute('data-y'));
                         }
-                        if (jexcel.current.dragging.row != position) {
+                        if (jexcel.current.dragging.row != jexcel.current.dragging.destination) {
                             jexcel.current.moveRow(jexcel.current.dragging.row, position, true);
                         }
                         jexcel.current.dragging.element.classList.remove('dragging');
@@ -7658,7 +7664,10 @@ console.log(ret);
                                 console.error('JEXCEL: This row is part of a merged cell.');
                             } else {
                                 var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
-                                e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
+                                if (jexcel.current.dragging.element != target) {
+                                    e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
+                                    jexcel.current.dragging.destination = Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children, jexcel.current.dragging.element);
+                                }
                             }
                         }
                     }
