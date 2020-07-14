@@ -1863,7 +1863,8 @@ console.log(ret);
                         // Create editor
                         var editor = createEditor('input');
                         editor.value = value;
-    
+                        editor.select();
+                        
                         if (obj.options.tableOverflow == true || obj.options.fullscreen == true) {
                             obj.options.columns[x].options.position = true;
                         }
