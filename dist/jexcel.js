@@ -8290,7 +8290,7 @@ console.log(ret);
                                 value = '=' + value;
                             }
                         } else {
-                            var value = content[j].children[i].innerText;
+                            var value = content[j].children[i].innerHTML;
                         }
                         options.data[rowNumber].push(value);
 
