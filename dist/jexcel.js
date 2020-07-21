@@ -1238,7 +1238,11 @@ console.log(ret);
     
             // Create header cell
             obj.headers[colNumber] = document.createElement('td');
-            obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+            if (obj.options.stripHTML) {
+                obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+            } else {
+                obj.headers[colNumber].innerHTML = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+            }
             obj.headers[colNumber].setAttribute('data-x', colNumber);
             obj.headers[colNumber].style.textAlign = colAlign;
             if (obj.options.columns[colNumber].title) {
@@ -4693,6 +4697,28 @@ console.log(ret);
             setTimeout(function() {
                 obj.updateCornerPosition();
             },0);
+        }
+
+        /**
+         * Readonly
+         */
+        obj.isReadOnly = function(cell) {
+            if (cell = obj.getCell(cell)) {
+                return cell.classList.contains('readonly') ? true : false;
+            }
+        }
+
+        /**
+         * Readonly
+         */
+        obj.setReadOnly = function(cell, state) {
+            if (cell = obj.getCell(cell)) {
+                if (state) {
+                    cell.classList.add('readonly');
+                } else {
+                    cell.classList.remove('readonly');
+                }
+            }
         }
 
         /**
