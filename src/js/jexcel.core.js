@@ -1218,7 +1218,11 @@ console.log(ret);
 
         // Create header cell
         obj.headers[colNumber] = document.createElement('td');
-        obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+        if (obj.options.stripHTML) {
+            obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+        } else {
+            obj.headers[colNumber].innerHTML = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+        }
         obj.headers[colNumber].setAttribute('data-x', colNumber);
         obj.headers[colNumber].style.textAlign = colAlign;
         if (obj.options.columns[colNumber].title) {
@@ -1651,6 +1655,7 @@ console.log(ret);
             }
             var keys = Object.keys(options);
             var optionsFiltered = [];
+            optionsFiltered.push({ id: '', name: 'Blanks' });
             for (var j = 0; j < keys.length; j++) {
                 optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
             }
@@ -1663,25 +1668,27 @@ console.log(ret);
             obj.filter.children[columnId + 1].style.paddingRight = '0px';
             obj.filter.children[columnId + 1].style.overflow = 'initial';
 
-            // Dynamic dropdown
-            jSuites.dropdown(div, {
-                data: optionsFiltered,
-                multiple: true,
-                autocomplete: true,
-                opened: true,
-                value: obj.filters[columnId] ? obj.filters[columnId] : '',
-                width:'100%',
-                position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
-                onclose: function(o) {
-                    obj.resetFilters();
-                    obj.filters[columnId] = o.dropdown.getValue(true);
-                    obj.filter.children[columnId + 1].innerHTML = o.dropdown.getText();
-                    obj.filter.children[columnId + 1].style.paddingLeft = '';
-                    obj.filter.children[columnId + 1].style.paddingRight = '';
-                    obj.filter.children[columnId + 1].style.overflow = '';
-                    obj.closeFilter(columnId);
-                }
-            });
+                var opt = {
+                    data: optionsFiltered,
+                    multiple: true,
+                    autocomplete: true,
+                    opened: true,
+                    value: obj.filters[columnId] !== undefined ? obj.filters[columnId] : null,
+                    width:'100%',
+                    position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
+                    onclose: function(o) {
+                        obj.resetFilters();
+                        obj.filters[columnId] = o.dropdown.getValue(true);
+                        obj.filter.children[columnId + 1].innerHTML = o.dropdown.getText();
+                        obj.filter.children[columnId + 1].style.paddingLeft = '';
+                        obj.filter.children[columnId + 1].style.paddingRight = '';
+                        obj.filter.children[columnId + 1].style.overflow = '';
+                        obj.closeFilter(columnId);
+                    }
+                };
+
+                // Dynamic dropdown
+                jSuites.dropdown(div, opt);
         }
     }
 
@@ -1706,9 +1713,15 @@ console.log(ret);
         // Search filter
         var search = function(query, x, y) {
             for (var i = 0; i < query.length; i++) {
-                if ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
-                    (''+obj.records[y][x].innerHTML).search(query[i]) >= 0) {
-                    return true;
+                if (query[i] == '') {
+                    if (obj.options.data[y][x] == '') {
+                        return true;
+                    }
+                } else {
+                    if ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
+                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0) {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -4667,6 +4680,28 @@ console.log(ret);
     }
 
     /**
+     * Readonly
+     */
+    obj.isReadOnly = function(cell) {
+        if (cell = obj.getCell(cell)) {
+            return cell.classList.contains('readonly') ? true : false;
+        }
+    }
+
+    /**
+     * Readonly
+    */
+    obj.setReadOnly = function(cell, state) {
+        if (cell = obj.getCell(cell)) {
+            if (state) {
+                cell.classList.add('readonly');
+            } else {
+                cell.classList.remove('readonly');
+            }
+        }
+    }
+
+    /**
      * Show row
      */
     obj.showRow = function(rowNumber) {
@@ -7460,7 +7495,7 @@ jexcel.mouseUpControls = function(e) {
                     } else {
                         var position = parseInt(jexcel.current.dragging.element.previousSibling.getAttribute('data-y'));
                     }
-                    if (jexcel.current.dragging.row != position) {
+                        if (jexcel.current.dragging.row != jexcel.current.dragging.destination) {
                         jexcel.current.moveRow(jexcel.current.dragging.row, position, true);
                     }
                     jexcel.current.dragging.element.classList.remove('dragging');
@@ -7635,7 +7670,10 @@ jexcel.mouseOverControls = function(e) {
                             console.error('JEXCEL: This row is part of a merged cell.');
                         } else {
                             var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
-                            e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
+                            if (jexcel.current.dragging.element != target) {
+                                e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
+                                jexcel.current.dragging.destination = Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children, jexcel.current.dragging.element);
+                            }
                         }
                     }
                 }
