@@ -491,6 +491,9 @@ var jexcel = (function(el, options) {
                 obj.paginationDropdown.appendChild(temp);
             }
 
+            // Set initial pagination value
+            obj.paginationDropdown.value = obj.options.pagination;
+
             paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.show));
             paginationUpdateContainer.appendChild(obj.paginationDropdown);
             paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.entries));
@@ -1062,7 +1065,7 @@ console.log(ret);
         }
         // Row number label
         var td = document.createElement('td');
-        td.innerHTML = parseInt(j + 1);
+        td.innerHTML = obj.options.rows[j].title || parseInt(j + 1);
         td.setAttribute('data-y', j);
         td.className = 'jexcel_row';
         obj.rows[j].appendChild(td);
