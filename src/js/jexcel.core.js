@@ -491,6 +491,9 @@ var jexcel = (function(el, options) {
                 obj.paginationDropdown.appendChild(temp);
             }
 
+            // Set initial pagination value
+            obj.paginationDropdown.value = obj.options.pagination;
+
             paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.show));
             paginationUpdateContainer.appendChild(obj.paginationDropdown);
             paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.entries));
