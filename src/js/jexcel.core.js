@@ -5478,7 +5478,7 @@ console.log(ret);
         // pageNumber
         if (pageNumber == null || pageNumber == -1) {
             // Last page
-            pageNumber = Math.ceil(results.length / quantityPerPage); 
+            pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
         }
 
         var startRow = (pageNumber * quantityPerPage);
@@ -5744,7 +5744,7 @@ console.log(ret);
         // pageNumber
         if (pageNumber == null || pageNumber == -1) {
             // Last page
-            pageNumber = Math.ceil(results.length / quantityPerPage); 
+            pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
         }
 
         // Page number
