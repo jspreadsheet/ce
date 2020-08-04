@@ -6477,8 +6477,12 @@ console.log(ret);
             var keys = Array.isArray(key) ? key : ('' + key).split(';');
 
             for (var i = 0; i < keys.length; i++) {
-                if (combo[keys[i]]) {
-                    value.push(combo[keys[i]]);
+                if (typeof(keys[i]) === 'object') {
+                    value.push(combo[keys[i].id]);
+                } else {
+                    if (combo[keys[i]]) {
+                        value.push(combo[keys[i]]);
+                    }
                 }
             }
         } else {
