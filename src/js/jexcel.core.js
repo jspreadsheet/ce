@@ -550,6 +550,9 @@ var jexcel = (function(el, options) {
                 td.innerHTML = '&nbsp;';
                 td.setAttribute('data-x', i);
                 td.className = 'jexcel_column_filter';
+                if (obj.options.columns[i].type == 'hidden') {
+                    td.style.display = 'none';
+                }
                 obj.filter.appendChild(td);
             }
 
