@@ -3,6 +3,7 @@
  */
 
 jexcel.tabs = function(tabs, result) {
+    var instances = [];
     // Create tab container
     if (! tabs.classList.contains('jexcel_tabs')) {
         tabs.innerHTML = '';
@@ -26,7 +27,7 @@ jexcel.tabs = function(tabs, result) {
         spreadsheet[i].classList.add('jexcel_tab');
         var worksheet = jexcel(spreadsheet[i], result[i]);
         content.appendChild(spreadsheet[i]);
-        tabs.jexcel.push(worksheet);
+        instances[i] = tabs.jexcel.push(worksheet);
 
         // Tab link
         link[i] = document.createElement('div');
@@ -52,6 +53,8 @@ jexcel.tabs = function(tabs, result) {
     }
     headers.children[headers.children.length - 1].classList.add('selected');
     content.children[headers.children.length - 1].style.display = 'block';
+
+    return instances;
 }
 
 // Compability to older versions
