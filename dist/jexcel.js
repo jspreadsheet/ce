@@ -573,6 +573,9 @@
                     td.innerHTML = '&nbsp;';
                     td.setAttribute('data-x', i);
                     td.className = 'jexcel_column_filter';
+                    if (obj.options.columns[i].type == 'hidden') {
+                        td.style.display = 'none';
+                    }
                     obj.filter.appendChild(td);
                 }
 
@@ -1827,6 +1830,9 @@ console.log(ret);
                     } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
                         // Get current value
                         var value = obj.options.data[y][x];
+                        if (obj.options.columns[x].multiple && !Array.isArray(value)) {
+                            value = value.split(';');
+                        }
     
                         // Create dropdown
                         if (typeof(obj.options.columns[x].filter) == 'function') {
@@ -1848,7 +1854,7 @@ console.log(ret);
                             multiple: obj.options.columns[x].multiple ? true : false,
                             autocomplete: obj.options.columns[x].autocomplete || obj.options.columns[x].type == 'autocomplete' ? true : false,
                             opened:true,
-                            value: obj.options.columns[x].multiple ? value.split(';') : value,
+                        value: value,
                             width:'100%',
                             height:editor.style.minHeight,
                             position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
@@ -5501,7 +5507,7 @@ console.log(ret);
             // pageNumber
             if (pageNumber == null || pageNumber == -1) {
                 // Last page
-                pageNumber = Math.ceil(results.length / quantityPerPage); 
+                pageNumber = Math.ceil(results.length / quantityPerPage) - 1; 
             }
     
             var startRow = (pageNumber * quantityPerPage);
@@ -5767,7 +5773,7 @@ console.log(ret);
             // pageNumber
             if (pageNumber == null || pageNumber == -1) {
                 // Last page
-                pageNumber = Math.ceil(results.length / quantityPerPage); 
+                pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
             }
     
             // Page number
@@ -6493,12 +6499,16 @@ console.log(ret);
                     }
                 }
     
-                // Garante single multiple compatibily
-                var keys = ('' + key).split(';')
-    
+                // Guarantee single multiple compatibility
+                var keys = Array.isArray(key) ? key : ('' + key).split(';');
+
                 for (var i = 0; i < keys.length; i++) {
-                    if (combo[keys[i]]) {
-                        value.push(combo[keys[i]]);
+                    if (typeof(keys[i]) === 'object') {
+                        value.push(combo[keys[i].id]);
+                    } else {
+                        if (combo[keys[i]]) {
+                            value.push(combo[keys[i]]);
+                        }
                     }
                 }
             } else {
