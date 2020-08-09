@@ -127,6 +127,7 @@ var jexcel = (function(el, options) {
         // Security
         secureFormulas:true,
         stripHTML:true,
+        stripHTMLOnCopy:false,
         // Filters
         filters:false,
         footers:null,
@@ -209,7 +210,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 4.3.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 4.4.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -1065,10 +1066,14 @@ console.log(ret);
             if (obj.options.rows[j].height) {
                 obj.rows[j].style.height = obj.options.rows[j].height;
             }
+
+            var index = obj.options.rows[j].title;
+        } else {
+            var index = parseInt(j + 1);
         }
         // Row number label
         var td = document.createElement('td');
-        td.innerHTML = obj.options.rows[j].title || parseInt(j + 1);
+        td.innerHTML = index;
         td.setAttribute('data-y', j);
         td.className = 'jexcel_row';
         obj.rows[j].appendChild(td);
@@ -5943,6 +5948,7 @@ console.log(ret);
         }
 
         // Controls
+        var header = [];
         var col = [];
         var colLabel = [];
         var row = [];
@@ -5950,15 +5956,7 @@ console.log(ret);
         var x = obj.options.data[0].length
         var y = obj.options.data.length
         var tmp = '';
-
-        // Headers
-        if (obj.options.includeHeadersOnCopy == true) {
-            if (obj.options.copyCompatibility == true) {
-                strLabel.push(obj.getHeaders(true).join(delimiter));
-            } else {
-                str.push(obj.getHeaders(true).join(delimiter));
-            }
-        }
+        var copyHeader = obj.options.includeHeadersOnCopy;
 
         // Reset container
         obj.style = [];
@@ -5971,6 +5969,9 @@ console.log(ret);
             for (var i = 0; i < x; i++) {
                 // If cell is highlighted
                 if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                    if (copyHeader == true) {
+                        header.push(obj.headers[i].innerText);
+                    }
                     // Values
                     var value = obj.options.data[j][i];
                     if (value.match && (value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
@@ -5983,7 +5984,11 @@ console.log(ret);
                     if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
                         var label = value;
                     } else {
-                        var label = obj.records[j][i].innerHTML;
+                        if (obj.options.stripHTMLOnCopy == true) {
+                            var label = obj.records[j][i].innerText;
+                        } else {
+                            var label = obj.records[j][i].innerHTML;
+                        }
                         if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
                             // Scape double quotes
                             label = label.replace(new RegExp('"', 'g'), '""');
@@ -6000,11 +6005,18 @@ console.log(ret);
             }
 
             if (col.length) {
+                if (copyHeader) {
+                    row.push(header.join(delimiter));
+                }
                 row.push(col.join(delimiter));
             }
             if (colLabel.length) {
+                if (copyHeader) {
+                    rowLabel.push(header.join(delimiter));
+                }
                 rowLabel.push(colLabel.join(delimiter));
             }
+            copyHeader = false;
         }
 
         // Final string
