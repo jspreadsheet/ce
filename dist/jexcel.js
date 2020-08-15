@@ -899,7 +899,7 @@
             var py = 0;
 
             // Data type
-            var dataType = dataOnly == true || obj.options.copyCompatibility == false ? true : false;
+            var dataType = dataOnly == true || obj.options.copyCompatibility == true ? true : false;
 
             // Column and row length
             var x = obj.options.columns.length
@@ -915,7 +915,7 @@
                         if (! dataset[py]) {
                             dataset[py] = [];
                         }
-                        if (! dataType) {
+                        if (dataType) {
                             dataset[py][px] = obj.records[j][i].innerHTML;
                         } else {
                             dataset[py][px] = obj.options.data[j][i];
