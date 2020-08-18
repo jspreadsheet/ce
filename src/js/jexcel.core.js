@@ -6905,7 +6905,8 @@ console.log(ret);
                 obj.headers[i].style.left = width + 'px';
                 for (var j = 0; j < obj.rows.length; j++) {
                     if (obj.rows[j] && obj.records[j][i]) {
-                        var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0)) - 51 + 'px';
+                        var indexColumnWidth = (obj.table.classList.contains('jexcel_hidden_index') ? 1 : 51)
+                        var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0)) - indexColumnWidth + 'px';
                         obj.records[j][i].classList.add('jexcel_freezed');
                         obj.records[j][i].style.left = shifted;
                     }
