@@ -1,5 +1,5 @@
 /**
- * jExcel v4.4.0
+ * jExcel v4.4.1
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -234,7 +234,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.4.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"jExcel CE Spreadsheet\nVersion 4.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
         };
     
         // Loading initial configuration from user
@@ -452,7 +452,7 @@
                     }
                 }
             }
-    
+
             // Create the table when is ready
             if (! multiple.length) {
                 obj.createTable();
@@ -1147,7 +1147,7 @@ console.log(ret);
             // Custom column
             if (obj.options.columns[i].editor) {
                 if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
-                    td.innerHTML =  value;
+                    td.innerHTML = value;
                 } else {
                     td.innerText = value;
                 }
@@ -1239,7 +1239,7 @@ console.log(ret);
                     }
                 }
             }
-    
+
             return td;
         }
     
@@ -1341,7 +1341,7 @@ console.log(ret);
             } else {
                 var toolbar = obj.options.toolbar;
             }
-    
+
             for (var i = 0; i < toolbar.length; i++) {
                 if (toolbar[i].type == 'i') {
                     var toolbarItem = document.createElement('i');
@@ -1863,7 +1863,7 @@ console.log(ret);
                             multiple: obj.options.columns[x].multiple ? true : false,
                             autocomplete: obj.options.columns[x].autocomplete || obj.options.columns[x].type == 'autocomplete' ? true : false,
                             opened:true,
-                        value: value,
+                            value: value,
                             width:'100%',
                             height:editor.style.minHeight,
                             position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
@@ -1951,7 +1951,7 @@ console.log(ret);
                                 editor.setAttribute('data-mask', obj.options.columns[x].mask);
                             }
                         }
-
+    
                         editor.onblur = function() {
                             obj.closeEditor(cell, true);
                         };
@@ -2289,7 +2289,7 @@ console.log(ret);
                 obj.onafterchanges(el, records);
             }
         }
-    
+
         /**
          * Strip tags
          */
@@ -2386,7 +2386,7 @@ console.log(ret);
                             obj.records[y][x].innerText = '';
                             obj.records[y][x].appendChild(color);
                         } else {
-                        obj.records[y][x].style.color = value;
+                            obj.records[y][x].style.color = value;
                             obj.records[y][x].innerText = value;
                         }
                     } else if (obj.options.columns[x].type == 'image') {
@@ -3629,7 +3629,7 @@ console.log(ret);
                     return this.slice(0).sort(function(a, b) {
                         var valueA = a[p];
                         var valueB = b[p];
-    
+
                         if (! o) {
                             return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
                         } else {
@@ -3637,7 +3637,7 @@ console.log(ret);
                         }
                     });
                 }
-    
+
                 // Test order
                 var temp = [];
                 if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
@@ -6517,7 +6517,7 @@ console.log(ret);
     
                 // Guarantee single multiple compatibility
                 var keys = Array.isArray(key) ? key : ('' + key).split(';');
-
+    
                 for (var i = 0; i < keys.length; i++) {
                     if (typeof(keys[i]) === 'object') {
                         value.push(combo[keys[i].id]);
