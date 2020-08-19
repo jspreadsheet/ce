@@ -182,6 +182,7 @@
             onfocus:null,
             onblur:null,
             onchangeheader:null,
+            oncreateeditor:null,
             oneditionstart:null,
             oneditionend:null,
             onchangestyle:null,
@@ -1807,6 +1808,9 @@ console.log(ret);
                 cell.innerHTML = '';
                 cell.appendChild(editor);
     
+                // On edition start
+                obj.dispatch('oncreateeditor', el, cell, x, y, editor);
+
                 return editor;
             }
     
