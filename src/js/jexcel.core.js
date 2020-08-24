@@ -909,9 +909,29 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Get json data by row number
+     *
+     * @param integer row number
+     * @return object
+     */
+    obj.getJsonRow = function(rowNumber) {
+        var rowData = obj.options.data[rowNumber];
+        var x = obj.options.columns.length
+
+        var row = {};
+        for (var i = 0; i < x; i++) {
+            if (! obj.options.columns[i].name) {
+                obj.options.columns[i].name = i;
+            }
+            row[obj.options.columns[i].name] = rowData[i];
+        }
+
+        return row;
+    }
+
+    /**
      * Get the whole table data
      * 
-     * @param integer row number
      * @return string value
      */
     obj.getJson = function(highlighted) {
