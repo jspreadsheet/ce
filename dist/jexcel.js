@@ -1001,7 +1001,7 @@
         obj.save = function(url, data) {
             // Parse anything in the data before sending to the server
             var ret = obj.dispatch('onbeforesave', el, obj, data);
-console.log(ret);
+
             if (ret) {
                 var data = ret;
             } else {
@@ -1407,9 +1407,6 @@ console.log(ret);
                          toolbarItem.setAttribute('title', toolbar[i].tooltip);
                      }
                      obj.toolbar.appendChild(toolbarItem);
-                     toolbarItem.onclick = function() {
-                         this.color.open();
-                     }
                      toolbarItem.innerText = toolbar[i].content;
                      jSuites.color(toolbarItem, {
                          onchange:function(o, v) {
