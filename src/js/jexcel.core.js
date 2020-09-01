@@ -734,6 +734,28 @@ var jexcel = (function(el, options) {
     }
 
     /**
+     * Access JS object property by string
+     * Taken from: https://stackoverflow.com/a/6491621
+     * @param o
+     * @param s
+     * @returns {*}
+     */
+    obj.byString = function(o, s) {
+        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        s = s.replace(/^\./, '');           // strip a leading dot
+        var a = s.split('.');
+        for (var i = 0, n = a.length; i < n; ++i) {
+            var k = a[i];
+            if (o && (k in o)) {
+                o = o[k];
+            } else {
+                return;
+            }
+        }
+        return o;
+    }
+
+    /**
      * Set data
      * 
      * @param array data In case no data is sent, default is reloaded
@@ -761,7 +783,7 @@ var jexcel = (function(el, options) {
                 for (var j = 0; j < obj.options.data.length; j++) {
                     var row = [];
                     for (var i = 0; i < obj.options.columns.length; i++) {
-                        row[i] = obj.options.data[j][obj.options.columns[i].name];
+                        row[i] = obj.byString(obj.options.data[j], obj.options.columns[i].name);
                     }
                     data.push(row);
                 }
