@@ -4003,6 +4003,12 @@ console.log(ret);
                         obj.results = null;
                     }
 
+                    // If delete all rows, and set allowDeletingAllRows false, will stay one row
+                    if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
+                        numOfRows--;
+                        console.error('JEXCEL. It is not possible to delete the last row');
+                    }
+
                     // Remove node
                     for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
                         if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
