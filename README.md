@@ -37,8 +37,8 @@ A basic example to integrate the JavaScript spreadsheet in your website to creat
 
 ```html
 <script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
-<script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
+<script src="https://bossanova.uk/jsuites/v3/jsuites.js"></script>
+<link rel="stylesheet" href="https://bossanova.uk/jsuites/v3/jsuites.css" type="text/css" />
 <link rel="stylesheet" href="https://bossanova.uk/jexcel/v4/jexcel.css" type="text/css" />
 ```
 
