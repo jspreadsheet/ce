@@ -5943,7 +5943,7 @@ if (! jSuites && typeof(require) === 'function') {
                 // Data
                 var data = '';
                 if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
-                    data += obj.getHeaders();
+                    data += obj.getHeaders().replace(/\s+/gm,' ');
                     data += "\r\n";
                 }
 
