@@ -1907,8 +1907,8 @@
                             focus: true,
                             value: value,
                         });
-                        const rect = cell.getBoundingClientRect();
-                        const rectContent = div.getBoundingClientRect();
+                        var rect = cell.getBoundingClientRect();
+                        var rectContent = div.getBoundingClientRect();
                         if (window.innerHeight < rect.bottom + rectContent.height) {
                             div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
                         } else {
@@ -1927,8 +1927,8 @@
                         }
                         editor.appendChild(div);
                         jSuites.image(div, obj.options.imageOptions);
-                        const rect = cell.getBoundingClientRect();
-                        const rectContent = div.getBoundingClientRect();
+                        var rect = cell.getBoundingClientRect();
+                        var rectContent = div.getBoundingClientRect();
                         if (window.innerHeight < rect.bottom + rectContent.height) {
                             div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
                         } else {
@@ -2950,11 +2950,11 @@
                 // Get last cell
                 var last = obj.highlighted[obj.highlighted.length-1];
 
-                const contentRect = obj.content.getBoundingClientRect();
+                var contentRect = obj.content.getBoundingClientRect();
                 var x1 = contentRect.left;
                 var y1 = contentRect.top;
 
-                const lastRect = last.getBoundingClientRect();
+                var lastRect = last.getBoundingClientRect();
                 var x2 = lastRect.left;
                 var y2 = lastRect.top;
                 var w2 = lastRect.width;
@@ -2989,7 +2989,7 @@
          */
         obj.updateScroll = function(direction) {
             // jExcel Container information
-            const contentRect = obj.content.getBoundingClientRect();
+            var contentRect = obj.content.getBoundingClientRect();
             var x1 = contentRect.left;
             var y1 = contentRect.top;
             var w1 = contentRect.width;
@@ -2999,7 +2999,7 @@
             var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
     
             // Reference
-            const referenceRect = reference.getBoundingClientRect();
+            var referenceRect = reference.getBoundingClientRect();
             var x2 = referenceRect.left;
             var y2 = referenceRect.top;
             var w2 = referenceRect.width;
