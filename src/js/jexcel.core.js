@@ -136,6 +136,7 @@ var jexcel = (function(el, options) {
         onredo:null,
         onload:null,
         onchange:null,
+        oncomments:null,
         onbeforechange:null,
         onafterchanges:null,
         onbeforeinsertrow: null,
@@ -159,6 +160,7 @@ var jexcel = (function(el, options) {
         onfocus:null,
         onblur:null,
         onchangeheader:null,
+        oncreateeditor:null,
         oneditionstart:null,
         oneditionend:null,
         onchangestyle:null,
@@ -210,7 +212,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 4.4.0\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"jExcel CE Spreadsheet\nVersion 4.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
     };
 
     // Loading initial configuration from user
@@ -932,6 +934,7 @@ var jexcel = (function(el, options) {
     /**
      * Get the whole table data
      * 
+     * @param bool highlighted cells only
      * @return string value
      */
     obj.getJson = function(highlighted) {
@@ -997,7 +1000,7 @@ var jexcel = (function(el, options) {
     obj.save = function(url, data) {
         // Parse anything in the data before sending to the server
         var ret = obj.dispatch('onbeforesave', el, obj, data);
-console.log(ret);
+
             if (ret) {
                 var data = ret;
             } else {
@@ -1403,9 +1406,6 @@ console.log(ret);
                      toolbarItem.setAttribute('title', toolbar[i].tooltip);
                  }
                  obj.toolbar.appendChild(toolbarItem);
-                 toolbarItem.onclick = function() {
-                     this.color.open();
-                 }
                  toolbarItem.innerText = toolbar[i].content;
                  jSuites.color(toolbarItem, {
                      onchange:function(o, v) {
@@ -1804,6 +1804,9 @@ console.log(ret);
             cell.innerHTML = '';
             cell.appendChild(editor);
 
+            // On edition start
+            obj.dispatch('oncreateeditor', el, cell, x, y, editor);
+
             return editor;
         }
 
@@ -1903,8 +1906,8 @@ console.log(ret);
                         focus: true,
                         value: value,
                     });
-                    const rect = cell.getBoundingClientRect();
-                    const rectContent = div.getBoundingClientRect();
+                    var rect = cell.getBoundingClientRect();
+                    var rectContent = div.getBoundingClientRect();
                     if (window.innerHeight < rect.bottom + rectContent.height) {
                         div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
                     } else {
@@ -1923,8 +1926,8 @@ console.log(ret);
                     }
                     editor.appendChild(div);
                     jSuites.image(div, obj.options.imageOptions);
-                    const rect = cell.getBoundingClientRect();
-                    const rectContent = div.getBoundingClientRect();
+                    var rect = cell.getBoundingClientRect();
+                    var rectContent = div.getBoundingClientRect();
                     if (window.innerHeight < rect.bottom + rectContent.height) {
                         div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
                     } else {
@@ -2946,11 +2949,11 @@ console.log(ret);
             // Get last cell
             var last = obj.highlighted[obj.highlighted.length-1];
 
-            const contentRect = obj.content.getBoundingClientRect();
+            var contentRect = obj.content.getBoundingClientRect();
             var x1 = contentRect.left;
             var y1 = contentRect.top;
 
-            const lastRect = last.getBoundingClientRect();
+            var lastRect = last.getBoundingClientRect();
             var x2 = lastRect.left;
             var y2 = lastRect.top;
             var w2 = lastRect.width;
@@ -2985,7 +2988,7 @@ console.log(ret);
      */
     obj.updateScroll = function(direction) {
         // jExcel Container information
-        const contentRect = obj.content.getBoundingClientRect();
+        var contentRect = obj.content.getBoundingClientRect();
         var x1 = contentRect.left;
         var y1 = contentRect.top;
         var w1 = contentRect.width;
@@ -2995,7 +2998,7 @@ console.log(ret);
         var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
 
         // Reference
-        const referenceRect = reference.getBoundingClientRect();
+        var referenceRect = reference.getBoundingClientRect();
         var x2 = referenceRect.left;
         var y2 = referenceRect.top;
         var w2 = referenceRect.width;
@@ -3581,6 +3584,9 @@ console.log(ret);
             newValue: [ comments, author ],
             oldValue: oldValue,
         });
+
+        // Set comments
+        obj.dispatch('oncomments', el, comments, title);
     }
 
     /**
@@ -7191,8 +7197,7 @@ jexcel.keyDownControls = function(e) {
                                 } else if ((e.keyCode == 8) ||
                                            (e.keyCode >= 48 && e.keyCode <= 57) ||
                                            (e.keyCode >= 96 && e.keyCode <= 111) ||
-                                           (e.keyCode == 187) ||
-                                           (e.keyCode == 189) ||
+                                           (e.keyCode >= 187 && e.keyCode <= 190) ||
                                            ((String.fromCharCode(e.keyCode) == e.key || String.fromCharCode(e.keyCode).toLowerCase() == e.key.toLowerCase()) && jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
                                     // Start edition
                                     jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);

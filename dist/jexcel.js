@@ -1,5 +1,5 @@
 /**
- * jExcel v4.4.1
+ * jExcel v4.4.2
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -159,6 +159,7 @@
             onredo:null,
             onload:null,
             onchange:null,
+            oncomments:null,
             onbeforechange:null,
             onafterchanges:null,
             onbeforeinsertrow: null,
@@ -933,9 +934,30 @@
         }
     
         /**
+        * Get json data by row number
+        *
+        * @param integer row number
+        * @return object
+        */
+        obj.getJsonRow = function(rowNumber) {
+            var rowData = obj.options.data[rowNumber];
+            var x = obj.options.columns.length
+
+            var row = {};
+            for (var i = 0; i < x; i++) {
+                if (! obj.options.columns[i].name) {
+                    obj.options.columns[i].name = i;
+                }
+                row[obj.options.columns[i].name] = rowData[i];
+            }
+
+            return row;
+        }
+
+        /**
          * Get the whole table data
          * 
-         * @param integer row number
+         * @param bool highlighted cells only
          * @return string value
          */
         obj.getJson = function(highlighted) {
@@ -3585,6 +3607,9 @@
                 newValue: [ comments, author ],
                 oldValue: oldValue,
             });
+
+            // Set comments
+            obj.dispatch('oncomments', el, comments, title);
         }
     
         /**

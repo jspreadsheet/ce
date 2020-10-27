@@ -353,7 +353,7 @@ jexcel.createFromTable = function(el, options) {
                 options.columns[i].type = 'text';
             }
             options.columns[i].width = width + 'px';
-            options.columns[i].title = header.innerText;
+            options.columns[i].title = header.innerHTML;
             options.columns[i].align = header.style.textAlign || 'center';
         }
 
@@ -390,7 +390,7 @@ jexcel.createFromTable = function(el, options) {
                             value = '=' + value;
                         }
                     } else {
-                        var value = content[j].children[i].innerText;
+                        var value = content[j].children[i].innerHTML;
                     }
                     options.data[rowNumber].push(value);
 
