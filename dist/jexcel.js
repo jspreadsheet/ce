@@ -1107,15 +1107,19 @@
             // New line of data to be append in the table
             obj.rows[j] = document.createElement('tr');
             obj.rows[j].setAttribute('data-y', j);
+            // Index
+            var index = null;
             // Definitions
             if (obj.options.rows[j]) {
                 if (obj.options.rows[j].height) {
                     obj.rows[j].style.height = obj.options.rows[j].height;
                 }
-                
-                var index = obj.options.rows[j].title;
-            } else {
-                var index = parseInt(j + 1);
+                if (obj.options.rows[j].title) {
+                    index = obj.options.rows[j].title;
+                }
+            }
+            if (! index) {
+                index = parseInt(j + 1);
             }
             // Row number label
             var td = document.createElement('td');
