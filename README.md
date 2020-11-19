@@ -263,7 +263,7 @@ docker-compose exec bash php
 
 
 ## Copyright and license
-jExcel CE is released under the [MIT license]. Copyrights belong to Paul Hodel <paul.hodel@gmail.com>
+jExcel CE is released under the [MIT license]. More information <contact@jexcel.net>
 
 ## Other tools by the author
 - [jSuites JavaScriptWeb Components](https://bossanova.uk/jsuites)
