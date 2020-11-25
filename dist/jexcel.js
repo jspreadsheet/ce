@@ -2354,13 +2354,26 @@ if (! jSuites && typeof(require) === 'function') {
                 // On change
                 var val = obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value);
 
-                // If you return something this will overwrite the value
-                if (val != undefined) {
-                    value = val;
+                // Ignore changes if the value is the same
+                if (obj.options.data[y][x] == value) {
+                    cell.innerHTML = obj.edition[1];
+                } else {
+                    obj.setValue(cell, value);
                 }
-
-                if (obj.options.columns[x].editor && typeof(obj.options.columns[x].editor.updateCell) == 'function') {
-                    value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
+            } else {
+                if (obj.options.columns[x].editor) {
+                    // Custom editor
+                    obj.options.columns[x].editor.closeEditor(cell, save);
+                } else {
+                    if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                        cell.children[0].dropdown.close(true);
+                    } else if (obj.options.columns[x].type == 'calendar') {
+                        cell.children[0].calendar.close(true);
+                    } else if (obj.options.columns[x].type == 'color') {
+                        cell.children[0].color.close(true);
+                    } else {
+                        cell.children[0].onblur = null;
+                    }
                 }
 
                 // History format
@@ -3612,12 +3625,9 @@ if (! jSuites && typeof(require) === 'function') {
                 newValue: [ comments, author ],
                 oldValue: oldValue,
             });
-
             // Set comments
             obj.dispatch('oncomments', el, comments, title);
         }
-    
-        /**
          * Get table config information
          */
         obj.getConfig = function() {
