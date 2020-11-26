@@ -701,11 +701,11 @@ var jexcel = function(el, options) {
             if (obj.options.tableOverflow == true) {
                 if (obj.options.tableHeight) {
                     obj.content.style["overflow-y"] = "auto";
-                    obj.content.style.maxHeight = obj.options.tableHeight;
+                    obj.content.style.maxHeight = obj.options.tableHeight || "auto"; //miamod
                 }
                 if (obj.options.tableWidth) {
                     obj.content.style["overflow-x"] = "auto";
-                    obj.content.style.width = obj.options.tableWidth;
+                    obj.content.style.width = obj.options.tableWidth || "100%"; //miamod
                 }
             }
         }

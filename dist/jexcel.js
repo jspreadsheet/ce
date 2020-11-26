@@ -8,38 +8,38 @@
  * This software is distribute under MIT License
  */
 
-if (!jSuites && typeof(require) === 'function') {
-    var jSuites = require('jsuites');
-    require('jsuites/dist/jsuites.css');
+if (!jSuites && typeof require === "function") {
+    var jSuites = require("jsuites");
+    require("jsuites/dist/jsuites.css");
 }
 
-;
 (function(global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-        typeof define === 'function' && define.amd ? define(factory) :
-        global.jexcel = factory();
-}(this, (function() {
-
-    'use strict';
+    typeof exports === "object" && typeof module !== "undefined" ?
+        (module.exports = factory()) :
+        typeof define === "function" && define.amd ?
+        define(factory) :
+        (global.jexcel = factory());
+})(this, function() {
+    "use strict";
 
     // Jexcel core object
 
-    var jexcel = (function(el, options) {
+    var jexcel = function(el, options) {
         // Create jexcel object
         var obj = {};
         obj.options = {};
 
         if (!(el instanceof Element || el instanceof HTMLDocument)) {
-            console.error('JEXCEL: el is not a valid DOM element');
+            console.error("JEXCEL: el is not a valid DOM element");
             return false;
-        } else if (el.tagName == 'TABLE') {
-            if (options = jexcel.createFromTable(el, options)) {
-                var div = document.createElement('div');
+        } else if (el.tagName == "TABLE") {
+            if ((options = jexcel.createFromTable(el, options))) {
+                var div = document.createElement("div");
                 el.parentNode.insertBefore(div, el);
                 el.remove();
                 el = div;
             } else {
-                console.error('JEXCEL: el is not a valid DOM element');
+                console.error("JEXCEL: el is not a valid DOM element");
                 return false;
             }
         }
@@ -63,7 +63,7 @@ if (!jSuites && typeof(require) === 'function') {
             nestedHeaders: null,
             // Column width that is used by default
             defaultColWidth: 50,
-            defaultColAlign: 'center',
+            defaultColAlign: "center",
             // Spare rows and columns
             minSpareRows: 0,
             minSpareCols: 0,
@@ -112,11 +112,11 @@ if (!jSuites && typeof(require) === 'function') {
             // CSV source
             csv: null,
             // Filename
-            csvFileName: 'jexcel',
+            csvFileName: "jexcel",
             // Consider first line as header
             csvHeaders: true,
             // Delimiters
-            csvDelimiter: ',',
+            csvDelimiter: ",",
             // First row as header
             parseTableFirstRowAsHeader: false,
             parseTableAutoCellType: false,
@@ -138,7 +138,7 @@ if (!jSuites && typeof(require) === 'function') {
             loadingSpin: false,
             // Table overflow
             tableOverflow: false,
-            tableHeight: '300px',
+            tableHeight: "300px",
             tableWidth: null,
             // Meta
             meta: null,
@@ -203,46 +203,46 @@ if (!jSuites && typeof(require) === 'function') {
             freezeColumns: null,
             // Texts
             text: {
-                noRecordsFound: 'No records found',
-                showingPage: 'Showing page {0} of {1} entries',
-                show: 'Show ',
-                search: 'Search',
-                entries: ' entries',
-                columnName: 'Column name',
-                insertANewColumnBefore: 'Insert a new column before',
-                insertANewColumnAfter: 'Insert a new column after',
-                deleteSelectedColumns: 'Delete selected columns',
-                renameThisColumn: 'Rename this column',
-                orderAscending: 'Order ascending',
-                orderDescending: 'Order descending',
-                insertANewRowBefore: 'Insert a new row before',
-                insertANewRowAfter: 'Insert a new row after',
-                deleteSelectedRows: 'Delete selected rows',
-                editComments: 'Edit comments',
-                addComments: 'Add comments',
-                comments: 'Comments',
-                clearComments: 'Clear comments',
-                copy: 'Copy...',
-                paste: 'Paste...',
-                saveAs: 'Save as...',
-                about: 'About',
-                areYouSureToDeleteTheSelectedRows: 'Are you sure to delete the selected rows?',
-                areYouSureToDeleteTheSelectedColumns: 'Are you sure to delete the selected columns?',
-                thisActionWillDestroyAnyExistingMergedCellsAreYouSure: 'This action will destroy any existing merged cells. Are you sure?',
-                thisActionWillClearYourSearchResultsAreYouSure: 'This action will clear your search results. Are you sure?',
-                thereIsAConflictWithAnotherMergedCell: 'There is a conflict with another merged cell',
-                invalidMergeProperties: 'Invalid merged properties',
-                cellAlreadyMerged: 'Cell already merged',
-                noCellsSelected: 'No cells selected',
+                noRecordsFound: "No records found",
+                showingPage: "Showing page {0} of {1} entries",
+                show: "Show ",
+                search: "Search",
+                entries: " entries",
+                columnName: "Column name",
+                insertANewColumnBefore: "Insert a new column before",
+                insertANewColumnAfter: "Insert a new column after",
+                deleteSelectedColumns: "Delete selected columns",
+                renameThisColumn: "Rename this column",
+                orderAscending: "Order ascending",
+                orderDescending: "Order descending",
+                insertANewRowBefore: "Insert a new row before",
+                insertANewRowAfter: "Insert a new row after",
+                deleteSelectedRows: "Delete selected rows",
+                editComments: "Edit comments",
+                addComments: "Add comments",
+                comments: "Comments",
+                clearComments: "Clear comments",
+                copy: "Copy...",
+                paste: "Paste...",
+                saveAs: "Save as...",
+                about: "About",
+                areYouSureToDeleteTheSelectedRows: "Are you sure to delete the selected rows?",
+                areYouSureToDeleteTheSelectedColumns: "Are you sure to delete the selected columns?",
+                thisActionWillDestroyAnyExistingMergedCellsAreYouSure: "This action will destroy any existing merged cells. Are you sure?",
+                thisActionWillClearYourSearchResultsAreYouSure: "This action will clear your search results. Are you sure?",
+                thereIsAConflictWithAnotherMergedCell: "There is a conflict with another merged cell",
+                invalidMergeProperties: "Invalid merged properties",
+                cellAlreadyMerged: "Cell already merged",
+                noCellsSelected: "No cells selected"
             },
             // About message
-            about: "jExcel CE Spreadsheet\nVersion 4.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about: "jExcel CE Spreadsheet\nVersion 4.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3"
         };
 
         // Loading initial configuration from user
         for (var property in defaults) {
             if (options && options.hasOwnProperty(property)) {
-                if (property === 'text') {
+                if (property === "text") {
                     obj.options[property] = defaults[property];
                     for (var textKey in options[property]) {
                         if (options[property].hasOwnProperty(textKey)) {
@@ -302,13 +302,19 @@ if (!jSuites && typeof(require) === 'function') {
         obj.dragging = null;
 
         // Lazy loading
-        if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
-            console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
+        if (
+            obj.options.lazyLoading == true &&
+            obj.options.tableOverflow == false &&
+            obj.options.fullscreen == false
+        ) {
+            console.error(
+                "JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes"
+            );
             obj.options.lazyLoading = false;
         }
 
         /**
-         * Activate/Disable fullscreen 
+         * Activate/Disable fullscreen
          * use programmatically : table.fullscreen(); or table.fullscreen(true); or table.fullscreen(false);
          * @Param {boolean} activate
          */
@@ -324,12 +330,12 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Test LazyLoading conflict
                 if (activate == true) {
-                    el.classList.add('fullscreen');
+                    el.classList.add("fullscreen");
                 } else {
-                    el.classList.remove('fullscreen');
+                    el.classList.remove("fullscreen");
                 }
             }
-        }
+        };
 
         /**
          * Trigger events
@@ -338,28 +344,34 @@ if (!jSuites && typeof(require) === 'function') {
             // Dispatch events
             if (!obj.ignoreEvents) {
                 // Call global event
-                if (typeof(obj.options.onevent) == 'function') {
+                if (typeof obj.options.onevent == "function") {
                     var ret = obj.options.onevent.apply(this, arguments);
                 }
                 // Call specific events
-                if (typeof(obj.options[event]) == 'function') {
-                    var ret = obj.options[event].apply(this, Array.prototype.slice.call(arguments, 1));
+                if (typeof obj.options[event] == "function") {
+                    var ret = obj.options[event].apply(
+                        this,
+                        Array.prototype.slice.call(arguments, 1)
+                    );
                 }
             }
 
             // Persistance
-            if (event == 'onafterchanges' && obj.options.persistance) {
-                var url = obj.options.persistance == true ? obj.options.url : obj.options.persistance;
+            if (event == "onafterchanges" && obj.options.persistance) {
+                var url =
+                    obj.options.persistance == true ?
+                    obj.options.url :
+                    obj.options.persistance;
                 var data = obj.prepareJson(arguments[2]);
                 obj.save(url, data);
             }
 
             return ret;
-        }
+        };
 
         /**
          * Prepare the jexcel table
-         * 
+         *
          * @Param config
          */
         obj.prepareTable = function() {
@@ -369,7 +381,7 @@ if (!jSuites && typeof(require) === 'function') {
             // Number of columns
             var size = obj.options.columns.length;
 
-            if (obj.options.data && typeof(obj.options.data[0]) !== 'undefined') {
+            if (obj.options.data && typeof obj.options.data[0] !== "undefined") {
                 // Data keys
                 var keys = Object.keys(obj.options.data[0]);
 
@@ -390,7 +402,7 @@ if (!jSuites && typeof(require) === 'function') {
             for (var i = 0; i < size; i++) {
                 // Deprected options. You should use only columns
                 if (!obj.options.colHeaders[i]) {
-                    obj.options.colHeaders[i] = '';
+                    obj.options.colHeaders[i] = "";
                 }
                 if (!obj.options.colWidths[i]) {
                     obj.options.colWidths[i] = obj.options.defaultColWidth;
@@ -401,9 +413,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Default column description
                 if (!obj.options.columns[i]) {
-                    obj.options.columns[i] = { type: 'text' };
+                    obj.options.columns[i] = { type: "text" };
                 } else if (!obj.options.columns[i].type) {
-                    obj.options.columns[i].type = 'text';
+                    obj.options.columns[i].type = "text";
                 }
                 if (!obj.options.columns[i].name) {
                     obj.options.columns[i].name = keys && keys[i] ? keys[i] : i;
@@ -421,24 +433,33 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.options.columns[i].allowEmpty = false;
                 }
                 if (!obj.options.columns[i].title) {
-                    obj.options.columns[i].title = obj.options.colHeaders[i] ? obj.options.colHeaders[i] : '';
+                    obj.options.columns[i].title = obj.options.colHeaders[i] ?
+                        obj.options.colHeaders[i] :
+                        "";
                 }
                 if (!obj.options.columns[i].width) {
-                    obj.options.columns[i].width = obj.options.colWidths[i] ? obj.options.colWidths[i] : obj.options.defaultColWidth;
+                    obj.options.columns[i].width = obj.options.colWidths[i] ?
+                        obj.options.colWidths[i] :
+                        obj.options.defaultColWidth;
                 }
                 if (!obj.options.columns[i].align) {
-                    obj.options.columns[i].align = obj.options.colAlignments[i] ? obj.options.colAlignments[i] : 'center';
+                    obj.options.columns[i].align = obj.options.colAlignments[i] ?
+                        obj.options.colAlignments[i] :
+                        "center";
                 }
 
                 // Pre-load initial source for json autocomplete
-                if (obj.options.columns[i].type == 'autocomplete' || obj.options.columns[i].type == 'dropdown') {
+                if (
+                    obj.options.columns[i].type == "autocomplete" ||
+                    obj.options.columns[i].type == "dropdown"
+                ) {
                     // if remote content
                     if (obj.options.columns[i].url) {
                         multiple.push({
                             url: obj.options.columns[i].url,
                             index: i,
-                            method: 'GET',
-                            dataType: 'json',
+                            method: "GET",
+                            dataType: "json",
                             success: function(data) {
                                 var source = [];
                                 for (var i = 0; i < data.length; i++) {
@@ -447,10 +468,10 @@ if (!jSuites && typeof(require) === 'function') {
                             }
                         });
                     }
-                } else if (obj.options.columns[i].type == 'calendar') {
+                } else if (obj.options.columns[i].type == "calendar") {
                     // Default format for date columns
                     if (!obj.options.columns[i].options.format) {
-                        obj.options.columns[i].options.format = 'DD/MM/YYYY';
+                        obj.options.columns[i].options.format = "DD/MM/YYYY";
                     }
                 }
             }
@@ -463,56 +484,60 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.createTable();
                 });
             }
-        }
+        };
 
         obj.createTable = function() {
             // Elements
-            obj.table = document.createElement('table');
-            obj.thead = document.createElement('thead');
-            obj.tbody = document.createElement('tbody');
+            obj.table = document.createElement("table");
+            obj.thead = document.createElement("thead");
+            obj.tbody = document.createElement("tbody");
 
             // Create headers controllers
             obj.headers = [];
             obj.colgroup = [];
 
             // Create table container
-            obj.content = document.createElement('div');
-            obj.content.classList.add('jexcel_content');
+            obj.content = document.createElement("div");
+            obj.content.classList.add("jexcel_content");
             obj.content.onscroll = function(e) {
                 obj.scrollControls(e);
-            }
+            };
             obj.content.onwheel = function(e) {
                 obj.wheelControls(e);
-            }
+            };
 
             // Create toolbar object
-            obj.toolbar = document.createElement('div');
-            obj.toolbar.classList.add('jexcel_toolbar');
+            obj.toolbar = document.createElement("div");
+            obj.toolbar.classList.add("jexcel_toolbar");
 
             // Search
-            var searchContainer = document.createElement('div');
-            var searchText = document.createTextNode((obj.options.text.search) + ': ');
-            obj.searchInput = document.createElement('input');
-            obj.searchInput.classList.add('jexcel_search');
+            var searchContainer = document.createElement("div");
+            var searchText = document.createTextNode(obj.options.text.search + ": ");
+            obj.searchInput = document.createElement("input");
+            obj.searchInput.classList.add("jexcel_search");
             searchContainer.appendChild(searchText);
             searchContainer.appendChild(obj.searchInput);
             obj.searchInput.onfocus = function() {
                 obj.resetSelection();
-            }
+            };
 
             // Pagination select option
-            var paginationUpdateContainer = document.createElement('div');
+            var paginationUpdateContainer = document.createElement("div");
 
-            if (obj.options.pagination > 0 && obj.options.paginationOptions && obj.options.paginationOptions.length > 0) {
-                obj.paginationDropdown = document.createElement('select');
-                obj.paginationDropdown.classList.add('jexcel_pagination_dropdown');
+            if (
+                obj.options.pagination > 0 &&
+                obj.options.paginationOptions &&
+                obj.options.paginationOptions.length > 0
+            ) {
+                obj.paginationDropdown = document.createElement("select");
+                obj.paginationDropdown.classList.add("jexcel_pagination_dropdown");
                 obj.paginationDropdown.onchange = function() {
                     obj.options.pagination = parseInt(this.value);
                     obj.page(0);
-                }
+                };
 
                 for (var i = 0; i < obj.options.paginationOptions.length; i++) {
-                    var temp = document.createElement('option');
+                    var temp = document.createElement("option");
                     temp.value = obj.options.paginationOptions[i];
                     temp.innerHTML = obj.options.paginationOptions[i];
                     obj.paginationDropdown.appendChild(temp);
@@ -521,21 +546,25 @@ if (!jSuites && typeof(require) === 'function') {
                 // Set initial pagination value
                 obj.paginationDropdown.value = obj.options.pagination;
 
-                paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.show));
+                paginationUpdateContainer.appendChild(
+                    document.createTextNode(obj.options.text.show)
+                );
                 paginationUpdateContainer.appendChild(obj.paginationDropdown);
-                paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.entries));
+                paginationUpdateContainer.appendChild(
+                    document.createTextNode(obj.options.text.entries)
+                );
             }
 
             // Filter and pagination container
-            var filter = document.createElement('div');
-            filter.classList.add('jexcel_filter');
+            var filter = document.createElement("div");
+            filter.classList.add("jexcel_filter");
             filter.appendChild(paginationUpdateContainer);
             filter.appendChild(searchContainer);
 
             // Colsgroup
-            obj.colgroupContainer = document.createElement('colgroup');
-            var tempCol = document.createElement('col');
-            tempCol.setAttribute('width', '50');
+            obj.colgroupContainer = document.createElement("colgroup");
+            var tempCol = document.createElement("col");
+            tempCol.setAttribute("width", "50");
             obj.colgroupContainer.appendChild(tempCol);
 
             // Nested
@@ -543,17 +572,21 @@ if (!jSuites && typeof(require) === 'function') {
                 // Flexible way to handle nestedheaders
                 if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
                     for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
-                        obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders[j]));
+                        obj.thead.appendChild(
+                            obj.createNestedHeader(obj.options.nestedHeaders[j])
+                        );
                     }
                 } else {
-                    obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders));
+                    obj.thead.appendChild(
+                        obj.createNestedHeader(obj.options.nestedHeaders)
+                    );
                 }
             }
 
             // Row
-            obj.headerContainer = document.createElement('tr');
-            var tempCol = document.createElement('td');
-            tempCol.classList.add('jexcel_selectall');
+            obj.headerContainer = document.createElement("tr");
+            var tempCol = document.createElement("td");
+            tempCol.classList.add("jexcel_selectall");
             obj.headerContainer.appendChild(tempCol);
 
             for (var i = 0; i < obj.options.columns.length; i++) {
@@ -568,17 +601,17 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Filters
             if (obj.options.filters == true) {
-                obj.filter = document.createElement('tr');
-                var td = document.createElement('td');
+                obj.filter = document.createElement("tr");
+                var td = document.createElement("td");
                 obj.filter.appendChild(td);
 
                 for (var i = 0; i < obj.options.columns.length; i++) {
-                    var td = document.createElement('td');
-                    td.innerHTML = '&nbsp;';
-                    td.setAttribute('data-x', i);
-                    td.className = 'jexcel_column_filter';
-                    if (obj.options.columns[i].type == 'hidden') {
-                        td.style.display = 'none';
+                    var td = document.createElement("td");
+                    td.innerHTML = "&nbsp;";
+                    td.setAttribute("data-x", i);
+                    td.className = "jexcel_column_filter";
+                    if (obj.options.columns[i].type == "hidden") {
+                        td.style.display = "none";
                     }
                     obj.filter.appendChild(td);
                 }
@@ -587,35 +620,35 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Content table
-            obj.table = document.createElement('table');
-            obj.table.classList.add('jexcel');
-            obj.table.setAttribute('cellpadding', '0');
-            obj.table.setAttribute('cellspacing', '0');
-            obj.table.setAttribute('unselectable', 'yes');
+            obj.table = document.createElement("table");
+            obj.table.classList.add("jexcel");
+            obj.table.setAttribute("cellpadding", "0");
+            obj.table.setAttribute("cellspacing", "0");
+            obj.table.setAttribute("unselectable", "yes");
             //obj.table.setAttribute('onselectstart', 'return false');
             obj.table.appendChild(obj.colgroupContainer);
             obj.table.appendChild(obj.thead);
             obj.table.appendChild(obj.tbody);
 
             // Spreadsheet corner
-            obj.corner = document.createElement('div');
-            obj.corner.className = 'jexcel_corner';
-            obj.corner.setAttribute('unselectable', 'on');
-            obj.corner.setAttribute('onselectstart', 'return false');
+            obj.corner = document.createElement("div");
+            obj.corner.className = "jexcel_corner";
+            obj.corner.setAttribute("unselectable", "on");
+            obj.corner.setAttribute("onselectstart", "return false");
 
             if (obj.options.selectionCopy == false) {
-                obj.corner.style.display = 'none';
+                obj.corner.style.display = "none";
             }
 
             // Textarea helper
-            obj.textarea = document.createElement('textarea');
-            obj.textarea.className = 'jexcel_textarea';
-            obj.textarea.id = 'jexcel_textarea';
-            obj.textarea.tabIndex = '-1';
+            obj.textarea = document.createElement("textarea");
+            obj.textarea.className = "jexcel_textarea";
+            obj.textarea.id = "jexcel_textarea";
+            obj.textarea.tabIndex = "-1";
 
             // Contextmenu container
-            obj.contextMenu = document.createElement('div');
-            obj.contextMenu.className = 'jexcel_contextmenu';
+            obj.contextMenu = document.createElement("div");
+            obj.contextMenu.className = "jexcel_contextmenu";
 
             // Create element
             jSuites.contextmenu(obj.contextMenu, {
@@ -625,38 +658,41 @@ if (!jSuites && typeof(require) === 'function') {
             });
 
             // Powered by jExcel
-            var ads = document.createElement('a');
-            ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
-            obj.ads = document.createElement('div');
-            obj.ads.className = 'jexcel_about';
+            var ads = document.createElement("a");
+            ads.setAttribute("href", "https://bossanova.uk/jexcel/");
+            obj.ads = document.createElement("div");
+            obj.ads.className = "jexcel_about";
             try {
-                if (typeof(sessionStorage) !== "undefined" && !sessionStorage.getItem('jexcel')) {
-                    sessionStorage.setItem('jexcel', true);
-                    var img = document.createElement('img');
-                    img.src = '//bossanova.uk/jexcel/logo.png';
+                if (
+                    typeof sessionStorage !== "undefined" &&
+                    !sessionStorage.getItem("jexcel")
+                ) {
+                    sessionStorage.setItem("jexcel", true);
+                    var img = document.createElement("img");
+                    img.src = "//bossanova.uk/jexcel/logo.png";
                     ads.appendChild(img);
                 }
             } catch (exception) {}
-            var span = document.createElement('span');
-            span.innerHTML = 'Jexcel spreadsheet';
+            var span = document.createElement("span");
+            span.innerHTML = "Jexcel spreadsheet";
             ads.appendChild(span);
             obj.ads.appendChild(ads);
 
             // Create table container TODO: frozen columns
-            var container = document.createElement('div');
-            container.classList.add('jexcel_table');
+            var container = document.createElement("div");
+            container.classList.add("jexcel_table");
 
             // Pagination
-            obj.pagination = document.createElement('div');
-            obj.pagination.classList.add('jexcel_pagination');
-            var paginationInfo = document.createElement('div');
-            var paginationPages = document.createElement('div');
+            obj.pagination = document.createElement("div");
+            obj.pagination.classList.add("jexcel_pagination");
+            var paginationInfo = document.createElement("div");
+            var paginationPages = document.createElement("div");
             obj.pagination.appendChild(paginationInfo);
             obj.pagination.appendChild(paginationPages);
 
             // Hide pagination if not in use
             if (!obj.options.pagination) {
-                obj.pagination.style.display = 'none';
+                obj.pagination.style.display = "none";
             }
 
             // Append containers to the table
@@ -674,7 +710,7 @@ if (!jSuites && typeof(require) === 'function') {
             el.appendChild(obj.pagination);
             el.appendChild(obj.contextMenu);
             el.appendChild(obj.ads);
-            el.classList.add('jexcel_container');
+            el.classList.add("jexcel_container");
 
             // Create toolbar
             if (obj.options.toolbar && obj.options.toolbar.length) {
@@ -683,38 +719,38 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Fullscreen
             if (obj.options.fullscreen == true) {
-                el.classList.add('fullscreen');
+                el.classList.add("fullscreen");
             } else {
                 // Overflow
                 if (obj.options.tableOverflow == true) {
                     if (obj.options.tableHeight) {
-                        obj.content.style['overflow-y'] = 'auto';
-                        obj.content.style.maxHeight = obj.options.tableHeight;
+                        obj.content.style["overflow-y"] = "auto";
+                        obj.content.style.maxHeight = obj.options.tableHeight || "auto"; //miamod
                     }
                     if (obj.options.tableWidth) {
-                        obj.content.style['overflow-x'] = 'auto';
-                        obj.content.style.width = obj.options.tableWidth;
+                        obj.content.style["overflow-x"] = "auto";
+                        obj.content.style.width = obj.options.tableWidth || "100%"; //miamod
                     }
                 }
             }
 
             // With toolbars
             if (obj.options.tableOverflow != true && obj.options.toolbar) {
-                el.classList.add('with-toolbar');
+                el.classList.add("with-toolbar");
             }
 
             // Actions
             if (obj.options.columnDrag == true) {
-                obj.thead.classList.add('draggable');
+                obj.thead.classList.add("draggable");
             }
             if (obj.options.columnResize == true) {
-                obj.thead.classList.add('resizable');
+                obj.thead.classList.add("resizable");
             }
             if (obj.options.rowDrag == true) {
-                obj.tbody.classList.add('draggable');
+                obj.tbody.classList.add("draggable");
             }
             if (obj.options.rowResize == true) {
-                obj.tbody.classList.add('resizable');
+                obj.tbody.classList.add("resizable");
             }
 
             // Load data
@@ -724,11 +760,11 @@ if (!jSuites && typeof(require) === 'function') {
             if (obj.options.style) {
                 obj.setStyle(obj.options.style, null, null, 1, 1);
             }
-        }
+        };
 
         /**
          * Refresh the data
-         * 
+         *
          * @return void
          */
         obj.refresh = function() {
@@ -740,11 +776,11 @@ if (!jSuites && typeof(require) === 'function') {
 
                 jSuites.ajax({
                     url: obj.options.url,
-                    method: 'GET',
-                    dataType: 'json',
+                    method: "GET",
+                    dataType: "json",
                     success: function(result) {
                         // Data
-                        obj.options.data = (result.data) ? result.data : result;
+                        obj.options.data = result.data ? result.data : result;
                         // Prepare table
                         obj.setData();
                         // Hide spin
@@ -756,18 +792,18 @@ if (!jSuites && typeof(require) === 'function') {
             } else {
                 obj.setData();
             }
-        }
+        };
 
         /**
          * Set data
-         * 
+         *
          * @param array data In case no data is sent, default is reloaded
          * @return void
          */
         obj.setData = function(data) {
             // Update data
             if (data) {
-                if (typeof(data) == 'string') {
+                if (typeof data == "string") {
                     data = JSON.parse(data);
                 }
 
@@ -812,7 +848,7 @@ if (!jSuites && typeof(require) === 'function') {
                     }
 
                     if (obj.options.data[j][i] == undefined) {
-                        obj.options.data[j][i] = '';
+                        obj.options.data[j][i] = "";
                     }
                 }
             }
@@ -827,17 +863,20 @@ if (!jSuites && typeof(require) === 'function') {
             obj.historyIndex = -1;
 
             // Reset data
-            obj.tbody.innerHTML = '';
+            obj.tbody.innerHTML = "";
 
             // Lazy loading
             if (obj.options.lazyLoading == true) {
                 // Load only 100 records
-                var startNumber = 0
-                var finalNumber = obj.options.data.length < 100 ? obj.options.data.length : 100;
+                var startNumber = 0;
+                var finalNumber =
+                    obj.options.data.length < 100 ? obj.options.data.length : 100;
 
                 if (obj.options.pagination) {
                     obj.options.pagination = false;
-                    console.error('JEXCEL: Pagination will be disable due the lazyLoading');
+                    console.error(
+                        "JEXCEL: Pagination will be disable due the lazyLoading"
+                    );
                 }
             } else if (obj.options.pagination) {
                 // Pagination
@@ -845,8 +884,9 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.pageNumber = 0;
                 }
                 var quantityPerPage = obj.options.pagination;
-                startNumber = (obj.options.pagination * obj.pageNumber);
-                finalNumber = (obj.options.pagination * obj.pageNumber) + obj.options.pagination;
+                startNumber = obj.options.pagination * obj.pageNumber;
+                finalNumber =
+                    obj.options.pagination * obj.pageNumber + obj.options.pagination;
 
                 if (obj.options.data.length < finalNumber) {
                     finalNumber = obj.options.data.length;
@@ -885,12 +925,12 @@ if (!jSuites && typeof(require) === 'function') {
             obj.updateTable();
 
             // Onload
-            obj.dispatch('onload', el, obj);
-        }
+            obj.dispatch("onload", el, obj);
+        };
 
         /**
          * Get the whole table data
-         * 
+         *
          * @param bool get highlighted cells only
          * @return array data
          */
@@ -901,18 +941,23 @@ if (!jSuites && typeof(require) === 'function') {
             var py = 0;
 
             // Data type
-            var dataType = dataOnly == true || obj.options.copyCompatibility == false ? true : false;
+            var dataType =
+                dataOnly == true || obj.options.copyCompatibility == false ?
+                true :
+                false;
 
             // Column and row length
-            var x = obj.options.columns.length
-            var y = obj.options.data.length
+            var x = obj.options.columns.length;
+            var y = obj.options.data.length;
 
             // Go through the columns to get the data
             for (var j = 0; j < y; j++) {
                 px = 0;
                 for (var i = 0; i < x; i++) {
                     // Cell selected or fullset
-                    if (!highlighted || obj.records[j][i].classList.contains('highlight')) {
+                    if (!highlighted ||
+                        obj.records[j][i].classList.contains("highlight")
+                    ) {
                         // Get value
                         if (!dataset[py]) {
                             dataset[py] = [];
@@ -931,11 +976,11 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return dataset;
-        }
+        };
 
         /**
          * Get the whole table data
-         * 
+         *
          * @param bool highlighted cells only
          * @return string value
          */
@@ -944,14 +989,16 @@ if (!jSuites && typeof(require) === 'function') {
             var data = [];
 
             // Column and row length
-            var x = obj.options.columns.length
-            var y = obj.options.data.length
+            var x = obj.options.columns.length;
+            var y = obj.options.data.length;
 
             // Go through the columns to get the data
             for (var j = 0; j < y; j++) {
                 var row = null;
                 for (var i = 0; i < x; i++) {
-                    if (!highlighted || obj.records[j][i].classList.contains('highlight')) {
+                    if (!highlighted ||
+                        obj.records[j][i].classList.contains("highlight")
+                    ) {
                         if (row == null) {
                             row = {};
                         }
@@ -968,7 +1015,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return data;
-        }
+        };
 
         /**
          * Get json data by row number
@@ -978,7 +1025,7 @@ if (!jSuites && typeof(require) === 'function') {
          */
         obj.getJsonRow = function(rowNumber) {
             var rowData = obj.options.data[rowNumber];
-            var x = obj.options.columns.length
+            var x = obj.options.columns.length;
 
             var row = {};
             for (var i = 0; i < x; i++) {
@@ -989,7 +1036,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return row;
-        }
+        };
 
         /**
          * Prepare JSON in the correct format
@@ -1005,7 +1052,7 @@ if (!jSuites && typeof(require) === 'function') {
                 if (!rows[y]) {
                     rows[y] = {
                         row: y,
-                        data: {},
+                        data: {}
                     };
                 }
                 rows[y].data[k] = data[i].newValue;
@@ -1015,14 +1062,14 @@ if (!jSuites && typeof(require) === 'function') {
             return rows.filter(function(el) {
                 return el != null;
             });
-        }
+        };
 
         /**
          * Post json to a remote server
          */
         obj.save = function(url, data) {
             // Parse anything in the data before sending to the server
-            var ret = obj.dispatch('onbeforesave', el, obj, data);
+            var ret = obj.dispatch("onbeforesave", el, obj, data);
 
             if (ret) {
                 var data = ret;
@@ -1035,22 +1082,22 @@ if (!jSuites && typeof(require) === 'function') {
             // Remove update
             jSuites.ajax({
                 url: url,
-                method: 'POST',
-                dataType: 'json',
+                method: "POST",
+                dataType: "json",
                 data: { data: JSON.stringify(data) },
                 success: function(result) {
                     // Event
-                    obj.dispatch('onsave', el, obj, data);
+                    obj.dispatch("onsave", el, obj, data);
                 }
             });
-        }
+        };
 
         /**
          * Get a row data by rowNumber
          */
         obj.getRowData = function(rowNumber) {
             return obj.options.data[rowNumber];
-        }
+        };
 
         /**
          * Set a row data by rowNumber
@@ -1064,7 +1111,7 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.setValue(columnName, data[i]);
                 }
             }
-        }
+        };
 
         /**
          * Get a column data by columnNumber
@@ -1076,7 +1123,7 @@ if (!jSuites && typeof(require) === 'function') {
                 dataset.push(obj.options.data[j][columnNumber]);
             }
             return dataset;
-        }
+        };
 
         /**
          * Set a column data by colNumber
@@ -1090,7 +1137,7 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.setValue(columnName, data[j]);
                 }
             }
-        }
+        };
 
         /**
          * Create row
@@ -1105,8 +1152,8 @@ if (!jSuites && typeof(require) === 'function') {
                 var data = obj.options.data[j];
             }
             // New line of data to be append in the table
-            obj.rows[j] = document.createElement('tr');
-            obj.rows[j].setAttribute('data-y', j);
+            obj.rows[j] = document.createElement("tr");
+            obj.rows[j].setAttribute("data-y", j);
 
             // Definitions
             var index = parseInt(j + 1);
@@ -1121,10 +1168,10 @@ if (!jSuites && typeof(require) === 'function') {
                 index = obj.options.rows[j].title || parseInt(j + 1);
             }
             // Row number label
-            var td = document.createElement('td');
+            var td = document.createElement("td");
             td.innerHTML = index;
-            td.setAttribute('data-y', j);
-            td.className = 'jexcel_row';
+            td.setAttribute("data-y", j);
+            td.className = "jexcel_row";
             obj.rows[j].appendChild(td);
 
             // Data columns
@@ -1137,31 +1184,38 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Add row to the table body
             return obj.rows[j];
-        }
+        };
 
         obj.parseValue = function(i, j, value) {
-            if (('' + value).substr(0, 1) == '=' && obj.options.parseFormulas == true) {
-                value = obj.executeFormula(value, i, j)
+            if (
+                ("" + value).substr(0, 1) == "=" &&
+                obj.options.parseFormulas == true
+            ) {
+                value = obj.executeFormula(value, i, j);
             }
             if (obj.options.columns[i].mask) {
-                var decimal = obj.options.columns[i].decimal || '.';
-                value = '' + jSuites.mask.run(value, obj.options.columns[i].mask, decimal);
+                var decimal = obj.options.columns[i].decimal || ".";
+                value =
+                    "" + jSuites.mask.run(value, obj.options.columns[i].mask, decimal);
             }
 
             return value;
-        }
+        };
 
         /**
          * Create cell
          */
         obj.createCell = function(i, j, value) {
             // Create cell and properties
-            var td = document.createElement('td');
-            td.setAttribute('data-x', i);
-            td.setAttribute('data-y', j);
+            var td = document.createElement("td");
+            td.setAttribute("data-x", i);
+            td.setAttribute("data-y", j);
 
             // Security
-            if (('' + value).substr(0, 1) == '=' && obj.options.secureFormulas == true) {
+            if (
+                ("" + value).substr(0, 1) == "=" &&
+                obj.options.secureFormulas == true
+            ) {
                 var val = secureFormula(value);
                 if (val != value) {
                     // Update the data container
@@ -1171,67 +1225,89 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Custom column
             if (obj.options.columns[i].editor) {
-                if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
+                if (
+                    obj.options.stripHTML === false ||
+                    obj.options.columns[i].stripHTML === false
+                ) {
                     td.innerHTML = value;
                 } else {
                     td.innerText = value;
                 }
-                if (typeof(obj.options.columns[i].editor.createCell) == 'function') {
+                if (typeof obj.options.columns[i].editor.createCell == "function") {
                     td = obj.options.columns[i].editor.createCell(td);
                 }
             } else {
                 // Hidden column
-                if (obj.options.columns[i].type == 'hidden') {
-                    td.style.display = 'none';
+                if (obj.options.columns[i].type == "hidden") {
+                    td.style.display = "none";
                     td.innerText = value;
-                } else if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
+                } else if (
+                    obj.options.columns[i].type == "checkbox" ||
+                    obj.options.columns[i].type == "radio"
+                ) {
                     // Create input
-                    var element = document.createElement('input');
+                    var element = document.createElement("input");
                     element.type = obj.options.columns[i].type;
-                    element.name = 'c' + i;
-                    element.checked = (value == 1 || value == true || value == 'true') ? true : false;
+                    element.name = "c" + i;
+                    element.checked =
+                        value == 1 || value == true || value == "true" ? true : false;
                     element.onclick = function() {
                         obj.setValue(td, this.checked);
-                    }
+                    };
 
-                    if (obj.options.columns[i].readOnly == true || obj.options.editable == false) {
-                        element.setAttribute('disabled', 'disabled');
+                    if (
+                        obj.options.columns[i].readOnly == true ||
+                        obj.options.editable == false
+                    ) {
+                        element.setAttribute("disabled", "disabled");
                     }
 
                     // Append to the table
                     td.appendChild(element);
                     // Make sure the values are correct
                     obj.options.data[j][i] = element.checked;
-                } else if (obj.options.columns[i].type == 'calendar') {
+                } else if (obj.options.columns[i].type == "calendar") {
                     // Try formatted date
-                    var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
+                    var formatted = jSuites.calendar.extractDateFromString(
+                        value,
+                        obj.options.columns[i].options.format
+                    );
                     // Create calendar cell
-                    td.innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
-                } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
+                    td.innerText = jSuites.calendar.getDateString(
+                        formatted ? formatted : value,
+                        obj.options.columns[i].options.format
+                    );
+                } else if (
+                    obj.options.columns[i].type == "dropdown" ||
+                    obj.options.columns[i].type == "autocomplete"
+                ) {
                     // Create dropdown cell
-                    td.classList.add('jexcel_dropdown');
+                    td.classList.add("jexcel_dropdown");
                     td.innerText = obj.getDropDownValue(i, value);
-                } else if (obj.options.columns[i].type == 'color') {
-                    if (obj.options.columns[i].render == 'square') {
-                        var color = document.createElement('div');
-                        color.className = 'color';
+                } else if (obj.options.columns[i].type == "color") {
+                    if (obj.options.columns[i].render == "square") {
+                        var color = document.createElement("div");
+                        color.className = "color";
                         color.style.backgroundColor = value;
                         td.appendChild(color);
                     } else {
                         td.style.color = value;
                         td.innerText = value;
                     }
-                } else if (obj.options.columns[i].type == 'image') {
-                    if (value && value.substr(0, 10) == 'data:image') {
-                        var img = document.createElement('img');
+                } else if (obj.options.columns[i].type == "image") {
+                    if (value && value.substr(0, 10) == "data:image") {
+                        var img = document.createElement("img");
                         img.src = value;
                         td.appendChild(img);
                     }
                 } else {
-                    if (obj.options.columns[i].type == 'html') {
+                    if (obj.options.columns[i].type == "html") {
                         td.innerHTML = stripScript(obj.parseValue(i, j, value));
                     } else {
-                        if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
+                        if (
+                            obj.options.stripHTML === false ||
+                            obj.options.columns[i].stripHTML === false
+                        ) {
                             td.innerHTML = stripScript(obj.parseValue(i, j, value));
                         } else {
                             td.innerText = obj.parseValue(i, j, value);
@@ -1242,60 +1318,78 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Readonly
             if (obj.options.columns[i].readOnly == true) {
-                td.className = 'readonly';
+                td.className = "readonly";
             }
 
             // Text align
-            var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
+            var colAlign = obj.options.columns[i].align ?
+                obj.options.columns[i].align :
+                "center";
             td.style.textAlign = colAlign;
 
             // Wrap option
-            if (obj.options.columns[i].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200)) {
-                td.style.whiteSpace = 'pre-wrap';
+            if (
+                obj.options.columns[i].wordWrap != false &&
+                (obj.options.wordWrap == true ||
+                    obj.options.columns[i].wordWrap == true ||
+                    td.innerHTML.length > 200)
+            ) {
+                td.style.whiteSpace = "pre-wrap";
             }
 
             // Overflow
             if (i > 0) {
                 if (value || td.innerHTML) {
-                    obj.records[j][i - 1].style.overflow = 'hidden';
+                    obj.records[j][i - 1].style.overflow = "hidden";
                 } else {
                     if (i == obj.options.columns.length - 1) {
-                        td.style.overflow = 'hidden';
+                        td.style.overflow = "hidden";
                     }
                 }
             }
 
             return td;
-        }
+        };
 
         obj.createCellHeader = function(colNumber) {
             // Create col global control
-            var colWidth = obj.options.columns[colNumber].width ? obj.options.columns[colNumber].width : obj.options.defaultColWidth;
-            var colAlign = obj.options.columns[colNumber].align ? obj.options.columns[colNumber].align : obj.options.defaultColAlign;
+            var colWidth = obj.options.columns[colNumber].width ?
+                obj.options.columns[colNumber].width :
+                obj.options.defaultColWidth;
+            var colAlign = obj.options.columns[colNumber].align ?
+                obj.options.columns[colNumber].align :
+                obj.options.defaultColAlign;
 
             // Create header cell
-            obj.headers[colNumber] = document.createElement('td');
+            obj.headers[colNumber] = document.createElement("td");
             if (obj.options.stripHTML) {
-                obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+                obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ?
+                    obj.options.columns[colNumber].title :
+                    jexcel.getColumnName(colNumber);
             } else {
-                obj.headers[colNumber].innerHTML = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+                obj.headers[colNumber].innerHTML = obj.options.columns[colNumber].title ?
+                    obj.options.columns[colNumber].title :
+                    jexcel.getColumnName(colNumber);
             }
-            obj.headers[colNumber].setAttribute('data-x', colNumber);
+            obj.headers[colNumber].setAttribute("data-x", colNumber);
             obj.headers[colNumber].style.textAlign = colAlign;
             if (obj.options.columns[colNumber].title) {
-                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
+                obj.headers[colNumber].setAttribute(
+                    "title",
+                    obj.options.columns[colNumber].title
+                );
             }
 
             // Width control
-            obj.colgroup[colNumber] = document.createElement('col');
-            obj.colgroup[colNumber].setAttribute('width', colWidth);
+            obj.colgroup[colNumber] = document.createElement("col");
+            obj.colgroup[colNumber].setAttribute("width", colWidth);
 
             // Hidden column
-            if (obj.options.columns[colNumber].type == 'hidden') {
-                obj.headers[colNumber].style.display = 'none';
-                obj.colgroup[colNumber].style.display = 'none';
+            if (obj.options.columns[colNumber].type == "hidden") {
+                obj.headers[colNumber].style.display = "none";
+                obj.colgroup[colNumber].style.display = "none";
             }
-        }
+        };
 
         /**
          * Update a nested header title
@@ -1305,15 +1399,15 @@ if (!jSuites && typeof(require) === 'function') {
                 obj.options.nestedHeaders[y][x].title = title;
                 obj.options.nestedHeaders[y].element.children[x + 1].innerText = title;
             }
-        }
+        };
 
         /**
          * Create a nested header object
          */
         obj.createNestedHeader = function(nestedInformation) {
-            var tr = document.createElement('tr');
-            tr.classList.add('jexcel_nested');
-            var td = document.createElement('td');
+            var tr = document.createElement("tr");
+            tr.classList.add("jexcel_nested");
+            var td = document.createElement("td");
             tr.appendChild(td);
             // Element
             nestedInformation.element = tr;
@@ -1325,10 +1419,10 @@ if (!jSuites && typeof(require) === 'function') {
                     nestedInformation[i].colspan = 1;
                 }
                 if (!nestedInformation[i].align) {
-                    nestedInformation[i].align = 'center';
+                    nestedInformation[i].align = "center";
                 }
                 if (!nestedInformation[i].title) {
-                    nestedInformation[i].title = '';
+                    nestedInformation[i].title = "";
                 }
 
                 // Number of columns
@@ -1338,7 +1432,10 @@ if (!jSuites && typeof(require) === 'function') {
                 var column = [];
                 // Header classes for this cell
                 for (var x = 0; x < numberOfColumns; x++) {
-                    if (obj.options.columns[headerIndex] && obj.options.columns[headerIndex].type == 'hidden') {
+                    if (
+                        obj.options.columns[headerIndex] &&
+                        obj.options.columns[headerIndex].type == "hidden"
+                    ) {
                         numberOfColumns++;
                     }
                     column.push(headerIndex);
@@ -1346,16 +1443,16 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // Created the nested cell
-                var td = document.createElement('td');
-                td.setAttribute('data-column', column.join(','));
-                td.setAttribute('colspan', nestedInformation[i].colspan);
-                td.setAttribute('align', nestedInformation[i].align);
+                var td = document.createElement("td");
+                td.setAttribute("data-column", column.join(","));
+                td.setAttribute("colspan", nestedInformation[i].colspan);
+                td.setAttribute("align", nestedInformation[i].align);
                 td.innerText = nestedInformation[i].title;
                 tr.appendChild(td);
             }
 
             return tr;
-        }
+        };
 
         /**
          * Create toolbar
@@ -1368,18 +1465,18 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             for (var i = 0; i < toolbar.length; i++) {
-                if (toolbar[i].type == 'i') {
-                    var toolbarItem = document.createElement('i');
-                    toolbarItem.classList.add('jexcel_toolbar_item');
-                    toolbarItem.classList.add('material-icons');
-                    toolbarItem.setAttribute('data-k', toolbar[i].k);
-                    toolbarItem.setAttribute('data-v', toolbar[i].v);
+                if (toolbar[i].type == "i") {
+                    var toolbarItem = document.createElement("i");
+                    toolbarItem.classList.add("jexcel_toolbar_item");
+                    toolbarItem.classList.add("material-icons");
+                    toolbarItem.setAttribute("data-k", toolbar[i].k);
+                    toolbarItem.setAttribute("data-v", toolbar[i].v);
                     // Tooltip
                     if (toolbar[i].tooltip) {
-                        toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                        toolbarItem.setAttribute("title", toolbar[i].tooltip);
                     }
                     // Handle click
-                    if (toolbar[i].onclick && typeof(toolbar[i].onclick)) {
+                    if (toolbar[i].onclick && typeof toolbar[i].onclick) {
                         toolbarItem.onclick = (function(a) {
                             var b = a;
                             return function() {
@@ -1388,60 +1485,60 @@ if (!jSuites && typeof(require) === 'function') {
                         })(i);
                     } else {
                         toolbarItem.onclick = function() {
-                            var k = this.getAttribute('data-k');
-                            var v = this.getAttribute('data-v');
+                            var k = this.getAttribute("data-k");
+                            var v = this.getAttribute("data-v");
                             obj.setStyle(obj.highlighted, k, v);
-                        }
+                        };
                     }
                     // Append element
                     toolbarItem.innerText = toolbar[i].content;
                     obj.toolbar.appendChild(toolbarItem);
-                } else if (toolbar[i].type == 'select') {
-                    var toolbarItem = document.createElement('select');
-                    toolbarItem.classList.add('jexcel_toolbar_item');
-                    toolbarItem.setAttribute('data-k', toolbar[i].k);
+                } else if (toolbar[i].type == "select") {
+                    var toolbarItem = document.createElement("select");
+                    toolbarItem.classList.add("jexcel_toolbar_item");
+                    toolbarItem.setAttribute("data-k", toolbar[i].k);
                     // Tooltip
                     if (toolbar[i].tooltip) {
-                        toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                        toolbarItem.setAttribute("title", toolbar[i].tooltip);
                     }
                     // Handle onchange
-                    if (toolbar[i].onchange && typeof(toolbar[i].onchange)) {
+                    if (toolbar[i].onchange && typeof toolbar[i].onchange) {
                         toolbarItem.onchange = toolbar[i].onchange;
                     } else {
                         toolbarItem.onchange = function() {
-                            var k = this.getAttribute('data-k');
+                            var k = this.getAttribute("data-k");
                             obj.setStyle(obj.highlighted, k, this.value);
-                        }
+                        };
                     }
                     // Add options to the dropdown
                     for (var j = 0; j < toolbar[i].v.length; j++) {
-                        var toolbarDropdownOption = document.createElement('option');
+                        var toolbarDropdownOption = document.createElement("option");
                         toolbarDropdownOption.value = toolbar[i].v[j];
                         toolbarDropdownOption.innerText = toolbar[i].v[j];
                         toolbarItem.appendChild(toolbarDropdownOption);
                     }
                     obj.toolbar.appendChild(toolbarItem);
-                } else if (toolbar[i].type == 'color') {
-                    var toolbarItem = document.createElement('i');
-                    toolbarItem.classList.add('jexcel_toolbar_item');
-                    toolbarItem.classList.add('material-icons');
-                    toolbarItem.setAttribute('data-k', toolbar[i].k);
-                    toolbarItem.setAttribute('data-v', '');
+                } else if (toolbar[i].type == "color") {
+                    var toolbarItem = document.createElement("i");
+                    toolbarItem.classList.add("jexcel_toolbar_item");
+                    toolbarItem.classList.add("material-icons");
+                    toolbarItem.setAttribute("data-k", toolbar[i].k);
+                    toolbarItem.setAttribute("data-v", "");
                     // Tooltip
                     if (toolbar[i].tooltip) {
-                        toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                        toolbarItem.setAttribute("title", toolbar[i].tooltip);
                     }
                     obj.toolbar.appendChild(toolbarItem);
                     toolbarItem.innerText = toolbar[i].content;
                     jSuites.color(toolbarItem, {
                         onchange: function(o, v) {
-                            var k = o.getAttribute('data-k');
+                            var k = o.getAttribute("data-k");
                             obj.setStyle(obj.highlighted, k, v);
                         }
                     });
                 }
             }
-        }
+        };
 
         /**
          * Merge cells
@@ -1450,7 +1547,12 @@ if (!jSuites && typeof(require) === 'function') {
          * @param rowspan
          * @param ignoreHistoryAndEvents
          */
-        obj.setMerge = function(cellName, colspan, rowspan, ignoreHistoryAndEvents) {
+        obj.setMerge = function(
+            cellName,
+            colspan,
+            rowspan,
+            ignoreHistoryAndEvents
+        ) {
             var test = false;
 
             if (!cellName) {
@@ -1458,20 +1560,24 @@ if (!jSuites && typeof(require) === 'function') {
                     alert(obj.options.text.noCellsSelected);
                     return null;
                 } else {
-                    var x1 = parseInt(obj.highlighted[0].getAttribute('data-x'));
-                    var y1 = parseInt(obj.highlighted[0].getAttribute('data-y'));
-                    var x2 = parseInt(obj.highlighted[obj.highlighted.length - 1].getAttribute('data-x'));
-                    var y2 = parseInt(obj.highlighted[obj.highlighted.length - 1].getAttribute('data-y'));
+                    var x1 = parseInt(obj.highlighted[0].getAttribute("data-x"));
+                    var y1 = parseInt(obj.highlighted[0].getAttribute("data-y"));
+                    var x2 = parseInt(
+                        obj.highlighted[obj.highlighted.length - 1].getAttribute("data-x")
+                    );
+                    var y2 = parseInt(
+                        obj.highlighted[obj.highlighted.length - 1].getAttribute("data-y")
+                    );
                     var cellName = jexcel.getColumnNameFromId([x1, y1]);
-                    var colspan = (x2 - x1) + 1;
-                    var rowspan = (y2 - y1) + 1;
+                    var colspan = x2 - x1 + 1;
+                    var rowspan = y2 - y1 + 1;
                 }
             }
 
             var cell = jexcel.getIdFromColumnName(cellName, true);
 
             if (obj.options.mergeCells[cellName]) {
-                if (obj.records[cell[1]][cell[0]].getAttribute('data-merged')) {
+                if (obj.records[cell[1]][cell[0]].getAttribute("data-merged")) {
                     test = obj.options.text.cellAlreadyMerged;
                 }
             } else if ((!colspan || colspan < 2) && (!rowspan || rowspan < 2)) {
@@ -1481,7 +1587,7 @@ if (!jSuites && typeof(require) === 'function') {
                 for (var j = cell[1]; j < cell[1] + rowspan; j++) {
                     for (var i = cell[0]; i < cell[0] + colspan; i++) {
                         var columnName = jexcel.getColumnNameFromId([i, j]);
-                        if (obj.records[j][i].getAttribute('data-merged')) {
+                        if (obj.records[j][i].getAttribute("data-merged")) {
                             test = obj.options.text.thereIsAConflictWithAnotherMergedCell;
                         }
                     }
@@ -1493,21 +1599,21 @@ if (!jSuites && typeof(require) === 'function') {
             } else {
                 // Add property
                 if (colspan > 1) {
-                    obj.records[cell[1]][cell[0]].setAttribute('colspan', colspan);
+                    obj.records[cell[1]][cell[0]].setAttribute("colspan", colspan);
                 } else {
                     colspan = 1;
                 }
                 if (rowspan > 1) {
-                    obj.records[cell[1]][cell[0]].setAttribute('rowspan', rowspan);
+                    obj.records[cell[1]][cell[0]].setAttribute("rowspan", rowspan);
                 } else {
                     rowspan = 1;
                 }
                 // Keep links to the existing nodes
                 obj.options.mergeCells[cellName] = [colspan, rowspan, []];
                 // Mark cell as merged
-                obj.records[cell[1]][cell[0]].setAttribute('data-merged', 'true');
+                obj.records[cell[1]][cell[0]].setAttribute("data-merged", "true");
                 // Overflow
-                obj.records[cell[1]][cell[0]].style.overflow = 'hidden';
+                obj.records[cell[1]][cell[0]].style.overflow = "hidden";
                 // History data
                 var data = [];
                 // Adjust the nodes
@@ -1515,9 +1621,9 @@ if (!jSuites && typeof(require) === 'function') {
                     for (var x = cell[0]; x < cell[0] + colspan; x++) {
                         if (!(cell[0] == x && cell[1] == y)) {
                             data.push(obj.options.data[y][x]);
-                            obj.updateCell(x, y, '', true);
+                            obj.updateCell(x, y, "", true);
                             obj.options.mergeCells[cellName][2].push(obj.records[y][x]);
-                            obj.records[y][x].style.display = 'none';
+                            obj.records[y][x].style.display = "none";
                             obj.records[y][x] = obj.records[cell[1]][cell[0]];
                         }
                     }
@@ -1527,17 +1633,17 @@ if (!jSuites && typeof(require) === 'function') {
 
                 if (!ignoreHistoryAndEvents) {
                     obj.setHistory({
-                        action: 'setMerge',
+                        action: "setMerge",
                         column: cellName,
                         colspan: colspan,
                         rowspan: rowspan,
-                        data: data,
+                        data: data
                     });
 
-                    obj.dispatch('onmerge', el, cellName, colspan, rowspan);
+                    obj.dispatch("onmerge", el, cellName, colspan, rowspan);
                 }
             }
-        }
+        };
 
         /**
          * Merge cells
@@ -1550,7 +1656,10 @@ if (!jSuites && typeof(require) === 'function') {
             var data = {};
             if (cellName) {
                 if (obj.options.mergeCells[cellName]) {
-                    data = [obj.options.mergeCells[cellName][0], obj.options.mergeCells[cellName][1]];
+                    data = [
+                        obj.options.mergeCells[cellName][0],
+                        obj.options.mergeCells[cellName][1]
+                    ];
                 } else {
                     data = null;
                 }
@@ -1559,13 +1668,16 @@ if (!jSuites && typeof(require) === 'function') {
                     var mergedCells = obj.options.mergeCells;
                     var keys = Object.keys(obj.options.mergeCells);
                     for (var i = 0; i < keys.length; i++) {
-                        data[keys[i]] = [obj.options.mergeCells[keys[i]][0], obj.options.mergeCells[keys[i]][1]];
+                        data[keys[i]] = [
+                            obj.options.mergeCells[keys[i]][0],
+                            obj.options.mergeCells[keys[i]][1]
+                        ];
                     }
                 }
             }
 
             return data;
-        }
+        };
 
         /**
          * Remove merge by cellname
@@ -1574,9 +1686,9 @@ if (!jSuites && typeof(require) === 'function') {
         obj.removeMerge = function(cellName, data, keepOptions) {
             if (obj.options.mergeCells[cellName]) {
                 var cell = jexcel.getIdFromColumnName(cellName, true);
-                obj.records[cell[1]][cell[0]].removeAttribute('colspan');
-                obj.records[cell[1]][cell[0]].removeAttribute('rowspan');
-                obj.records[cell[1]][cell[0]].removeAttribute('data-merged');
+                obj.records[cell[1]][cell[0]].removeAttribute("colspan");
+                obj.records[cell[1]][cell[0]].removeAttribute("rowspan");
+                obj.records[cell[1]][cell[0]].removeAttribute("data-merged");
                 var info = obj.options.mergeCells[cellName];
 
                 var index = 0;
@@ -1584,7 +1696,7 @@ if (!jSuites && typeof(require) === 'function') {
                     for (var i = 0; i < info[0]; i++) {
                         if (j > 0 || i > 0) {
                             obj.records[cell[1] + j][cell[0] + i] = info[2][index];
-                            obj.records[cell[1] + j][cell[0] + i].style.display = '';
+                            obj.records[cell[1] + j][cell[0] + i].style.display = "";
                             // Recover data
                             if (data && data[index]) {
                                 obj.updateCell(cell[0] + i, cell[1] + j, data[index]);
@@ -1595,13 +1707,16 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // Update selection
-                obj.updateSelection(obj.records[cell[1]][cell[0]], obj.records[cell[1] + j - 1][cell[0] + i - 1]);
+                obj.updateSelection(
+                    obj.records[cell[1]][cell[0]],
+                    obj.records[cell[1] + j - 1][cell[0] + i - 1]
+                );
 
                 if (!keepOptions) {
-                    delete(obj.options.mergeCells[cellName]);
+                    delete obj.options.mergeCells[cellName];
                 }
             }
-        }
+        };
 
         /**
          * Remove all merged cells
@@ -1615,7 +1730,7 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.removeMerge(keys[i], null, keepOptions);
                 }
             }
-        }
+        };
 
         /**
          * Is column merged
@@ -1632,16 +1747,16 @@ if (!jSuites && typeof(require) === 'function') {
                     var x2 = info[0] + (colspan > 1 ? colspan - 1 : 0);
 
                     if (insertBefore == null) {
-                        if ((x1 <= x && x2 >= x)) {
+                        if (x1 <= x && x2 >= x) {
                             cols.push(keys[i]);
                         }
                     } else {
                         if (insertBefore) {
-                            if ((x1 < x && x2 >= x)) {
+                            if (x1 < x && x2 >= x) {
                                 cols.push(keys[i]);
                             }
                         } else {
-                            if ((x1 <= x && x2 > x)) {
+                            if (x1 <= x && x2 > x) {
                                 cols.push(keys[i]);
                             }
                         }
@@ -1650,7 +1765,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return cols;
-        }
+        };
 
         /**
          * Is rows merged
@@ -1667,16 +1782,16 @@ if (!jSuites && typeof(require) === 'function') {
                     var y2 = info[1] + (rowspan > 1 ? rowspan - 1 : 0);
 
                     if (insertBefore == null) {
-                        if ((y1 <= y && y2 >= y)) {
+                        if (y1 <= y && y2 >= y) {
                             rows.push(keys[i]);
                         }
                     } else {
                         if (insertBefore) {
-                            if ((y1 < y && y2 >= y)) {
+                            if (y1 < y && y2 >= y) {
                                 rows.push(keys[i]);
                             }
                         } else {
-                            if ((y1 <= y && y2 > y)) {
+                            if (y1 <= y && y2 > y) {
                                 rows.push(keys[i]);
                             }
                         }
@@ -1685,14 +1800,14 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return rows;
-        }
+        };
 
         /**
          * Open the column filter
          */
         obj.openFilter = function(columnId) {
             if (!obj.options.filters) {
-                console.log('JEXCEL: filters not enabled.');
+                console.log("JEXCEL: filters not enabled.");
             } else {
                 // Make sure is integer
                 columnId = parseInt(columnId);
@@ -1709,18 +1824,18 @@ if (!jSuites && typeof(require) === 'function') {
                 }
                 var keys = Object.keys(options);
                 var optionsFiltered = [];
-                optionsFiltered.push({ id: '', name: 'Blanks' });
+                optionsFiltered.push({ id: "", name: "Blanks" });
                 for (var j = 0; j < keys.length; j++) {
                     optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
                 }
 
                 // Create dropdown
-                var div = document.createElement('div');
-                obj.filter.children[columnId + 1].innerHTML = '';
+                var div = document.createElement("div");
+                obj.filter.children[columnId + 1].innerHTML = "";
                 obj.filter.children[columnId + 1].appendChild(div);
-                obj.filter.children[columnId + 1].style.paddingLeft = '0px';
-                obj.filter.children[columnId + 1].style.paddingRight = '0px';
-                obj.filter.children[columnId + 1].style.overflow = 'initial';
+                obj.filter.children[columnId + 1].style.paddingLeft = "0px";
+                obj.filter.children[columnId + 1].style.paddingRight = "0px";
+                obj.filter.children[columnId + 1].style.overflow = "initial";
 
                 var opt = {
                     data: optionsFiltered,
@@ -1728,15 +1843,17 @@ if (!jSuites && typeof(require) === 'function') {
                     autocomplete: true,
                     opened: true,
                     value: obj.filters[columnId] !== undefined ? obj.filters[columnId] : null,
-                    width: '100%',
-                    position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
+                    width: "100%",
+                    position: obj.options.tableOverflow == true || obj.options.fullscreen == true ?
+                        true :
+                        false,
                     onclose: function(o) {
                         obj.resetFilters();
                         obj.filters[columnId] = o.dropdown.getValue(true);
                         obj.filter.children[columnId + 1].innerHTML = o.dropdown.getText();
-                        obj.filter.children[columnId + 1].style.paddingLeft = '';
-                        obj.filter.children[columnId + 1].style.paddingRight = '';
-                        obj.filter.children[columnId + 1].style.overflow = '';
+                        obj.filter.children[columnId + 1].style.paddingLeft = "";
+                        obj.filter.children[columnId + 1].style.paddingRight = "";
+                        obj.filter.children[columnId + 1].style.overflow = "";
                         obj.closeFilter(columnId);
                     }
                 };
@@ -1744,16 +1861,16 @@ if (!jSuites && typeof(require) === 'function') {
                 // Dynamic dropdown
                 jSuites.dropdown(div, opt);
             }
-        }
+        };
 
         obj.resetFilters = function() {
             if (obj.options.filters) {
                 for (var i = 0; i < obj.filter.children.length; i++) {
-                    obj.filter.children[i].innerHTML = '&nbsp;';
+                    obj.filter.children[i].innerHTML = "&nbsp;";
                     obj.filters[i] = null;
                 }
             }
-        }
+        };
 
         obj.closeFilter = function(columnId) {
             if (!columnId) {
@@ -1767,19 +1884,21 @@ if (!jSuites && typeof(require) === 'function') {
             // Search filter
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
-                    if (query[i] == '') {
-                        if (obj.options.data[y][x] == '') {
+                    if (query[i] == "") {
+                        if (obj.options.data[y][x] == "") {
                             return true;
                         }
                     } else {
-                        if (('' + obj.options.data[y][x]).search(query[i]) >= 0 ||
-                            ('' + obj.records[y][x].innerHTML).search(query[i]) >= 0) {
+                        if (
+                            ("" + obj.options.data[y][x]).search(query[i]) >= 0 ||
+                            ("" + obj.records[y][x].innerHTML).search(query[i]) >= 0
+                        ) {
                             return true;
                         }
                     }
                 }
                 return false;
-            }
+            };
 
             var query = obj.filters[columnId];
             obj.results = [];
@@ -1793,25 +1912,25 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             obj.updateResult();
-        }
+        };
 
         /**
          * Open the editor
-         * 
+         *
          * @param object cell
          * @return void
          */
         obj.openEditor = function(cell, empty, e) {
             // Get cell position
-            var y = cell.getAttribute('data-y');
-            var x = cell.getAttribute('data-x');
+            var y = cell.getAttribute("data-y");
+            var x = cell.getAttribute("data-x");
 
             // On edition start
-            obj.dispatch('oneditionstart', el, cell, x, y);
+            obj.dispatch("oneditionstart", el, cell, x, y);
 
             // Overflow
             if (x > 0) {
-                obj.records[y][x - 1].style.overflow = 'hidden';
+                obj.records[y][x - 1].style.overflow = "hidden";
             }
 
             // Create editor
@@ -1821,23 +1940,23 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Create dropdown
                 var editor = document.createElement(type);
-                editor.style.width = (info.width) + 'px';
-                editor.style.height = (info.height - 2) + 'px';
-                editor.style.minHeight = (info.height - 2) + 'px';
+                editor.style.width = info.width + "px";
+                editor.style.height = info.height - 2 + "px";
+                editor.style.minHeight = info.height - 2 + "px";
 
                 // Edit cell
-                cell.classList.add('editor');
-                cell.innerHTML = '';
+                cell.classList.add("editor");
+                cell.innerHTML = "";
                 cell.appendChild(editor);
 
                 // On edition start
-                obj.dispatch('oncreateeditor', el, cell, x, y, editor);
+                obj.dispatch("oncreateeditor", el, cell, x, y, editor);
 
                 return editor;
-            }
+            };
 
             // Readonly
-            if (cell.classList.contains('readonly') == true) {
+            if (cell.classList.contains("readonly") == true) {
                 // Do nothing
             } else {
                 // Holder
@@ -1849,25 +1968,37 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.options.columns[x].editor.openEditor(cell, el, empty, e);
                 } else {
                     // Native functions
-                    if (obj.options.columns[x].type == 'hidden') {
+                    if (obj.options.columns[x].type == "hidden") {
                         // Do nothing
-                    } else if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
+                    } else if (
+                        obj.options.columns[x].type == "checkbox" ||
+                        obj.options.columns[x].type == "radio"
+                    ) {
                         // Get value
                         var value = cell.children[0].checked ? false : true;
                         // Toogle value
                         obj.setValue(cell, value);
                         // Do not keep edition open
                         obj.edition = null;
-                    } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                    } else if (
+                        obj.options.columns[x].type == "dropdown" ||
+                        obj.options.columns[x].type == "autocomplete"
+                    ) {
                         // Get current value
                         var value = obj.options.data[y][x];
                         if (obj.options.columns[x].multiple && !Array.isArray(value)) {
-                            value = value.split(';');
+                            value = value.split(";");
                         }
 
                         // Create dropdown
-                        if (typeof(obj.options.columns[x].filter) == 'function') {
-                            var source = obj.options.columns[x].filter(el, cell, x, y, obj.options.columns[x].source);
+                        if (typeof obj.options.columns[x].filter == "function") {
+                            var source = obj.options.columns[x].filter(
+                                el,
+                                cell,
+                                x,
+                                y,
+                                obj.options.columns[x].source
+                            );
                         } else {
                             var source = obj.options.columns[x].source;
                         }
@@ -1879,74 +2010,89 @@ if (!jSuites && typeof(require) === 'function') {
                         }
 
                         // Create editor
-                        var editor = createEditor('div');
+                        var editor = createEditor("div");
                         var options = {
                             data: data,
                             multiple: obj.options.columns[x].multiple ? true : false,
-                            autocomplete: obj.options.columns[x].autocomplete || obj.options.columns[x].type == 'autocomplete' ? true : false,
+                            autocomplete: obj.options.columns[x].autocomplete ||
+                                obj.options.columns[x].type == "autocomplete" ?
+                                true :
+                                false,
                             opened: true,
                             value: value,
-                            width: '100%',
+                            width: "100%",
                             height: editor.style.minHeight,
-                            position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
+                            position: obj.options.tableOverflow == true ||
+                                obj.options.fullscreen == true ?
+                                true :
+                                false,
                             onclose: function() {
                                 obj.closeEditor(cell, true);
                             }
                         };
-                        if (obj.options.columns[x].options && obj.options.columns[x].options.type) {
+                        if (
+                            obj.options.columns[x].options &&
+                            obj.options.columns[x].options.type
+                        ) {
                             options.type = obj.options.columns[x].options.type;
                         }
                         jSuites.dropdown(editor, options);
-                    } else if (obj.options.columns[x].type == 'calendar' || obj.options.columns[x].type == 'color') {
+                    } else if (
+                        obj.options.columns[x].type == "calendar" ||
+                        obj.options.columns[x].type == "color"
+                    ) {
                         // Value
                         var value = obj.options.data[y][x];
                         // Create editor
-                        var editor = createEditor('input');
+                        var editor = createEditor("input");
                         editor.value = value;
 
-                        if (obj.options.tableOverflow == true || obj.options.fullscreen == true) {
+                        if (
+                            obj.options.tableOverflow == true ||
+                            obj.options.fullscreen == true
+                        ) {
                             obj.options.columns[x].options.position = true;
                         }
                         obj.options.columns[x].options.value = obj.options.data[y][x];
                         obj.options.columns[x].options.opened = true;
                         obj.options.columns[x].options.onclose = function(el, value) {
-                                obj.closeEditor(cell, true);
-                            }
-                            // Current value
-                        if (obj.options.columns[x].type == 'color') {
+                            obj.closeEditor(cell, true);
+                        };
+                        // Current value
+                        if (obj.options.columns[x].type == "color") {
                             jSuites.color(editor, obj.options.columns[x].options);
                         } else {
                             jSuites.calendar(editor, obj.options.columns[x].options);
                         }
                         // Focus on editor
                         editor.focus();
-                    } else if (obj.options.columns[x].type == 'html') {
+                    } else if (obj.options.columns[x].type == "html") {
                         var value = obj.options.data[y][x];
                         // Create editor
-                        var editor = createEditor('div');
-                        editor.style.position = 'relative';
-                        var div = document.createElement('div');
-                        div.classList.add('jexcel_richtext');
+                        var editor = createEditor("div");
+                        editor.style.position = "relative";
+                        var div = document.createElement("div");
+                        div.classList.add("jexcel_richtext");
                         editor.appendChild(div);
                         jSuites.editor(div, {
                             focus: true,
-                            value: value,
+                            value: value
                         });
                         var rect = cell.getBoundingClientRect();
                         var rectContent = div.getBoundingClientRect();
                         if (window.innerHeight < rect.bottom + rectContent.height) {
-                            div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
+                            div.style.top = rect.top - (rectContent.height + 2) + "px";
                         } else {
-                            div.style.top = (rect.top) + 'px';
+                            div.style.top = rect.top + "px";
                         }
-                    } else if (obj.options.columns[x].type == 'image') {
+                    } else if (obj.options.columns[x].type == "image") {
                         // Value
                         var img = cell.children[0];
                         // Create editor
-                        var editor = createEditor('div');
-                        editor.style.position = 'relative';
-                        var div = document.createElement('div');
-                        div.classList.add('jclose');
+                        var editor = createEditor("div");
+                        editor.style.position = "relative";
+                        var div = document.createElement("div");
+                        div.classList.add("jclose");
                         if (img && img.src) {
                             div.appendChild(img);
                         }
@@ -1955,22 +2101,26 @@ if (!jSuites && typeof(require) === 'function') {
                         var rect = cell.getBoundingClientRect();
                         var rectContent = div.getBoundingClientRect();
                         if (window.innerHeight < rect.bottom + rectContent.height) {
-                            div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
+                            div.style.top = rect.top - (rectContent.height + 2) + "px";
                         } else {
-                            div.style.top = (rect.top) + 'px';
+                            div.style.top = rect.top + "px";
                         }
                     } else {
                         // Value
-                        var value = empty == true ? '' : obj.options.data[y][x];
+                        var value = empty == true ? "" : obj.options.data[y][x];
 
                         // Basic editor
-                        if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true)) {
-                            var editor = createEditor('textarea');
+                        if (
+                            obj.options.columns[x].wordWrap != false &&
+                            (obj.options.wordWrap == true ||
+                                obj.options.columns[x].wordWrap == true)
+                        ) {
+                            var editor = createEditor("textarea");
                         } else {
-                            var editor = createEditor('input');
+                            var editor = createEditor("input");
                             // Mask
                             if (obj.options.columns[x].mask) {
-                                editor.setAttribute('data-mask', obj.options.columns[x].mask);
+                                editor.setAttribute("data-mask", obj.options.columns[x].mask);
                             }
                         }
 
@@ -1982,18 +2132,18 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-        }
+        };
 
         /**
          * Close the editor and save the information
-         * 
+         *
          * @param object cell
          * @param boolean save
          * @return void
          */
         obj.closeEditor = function(cell, save) {
-            var x = parseInt(cell.getAttribute('data-x'));
-            var y = parseInt(cell.getAttribute('data-y'));
+            var x = parseInt(cell.getAttribute("data-x"));
+            var y = parseInt(cell.getAttribute("data-y"));
 
             // Get cell properties
             if (save == true) {
@@ -2003,24 +2153,31 @@ if (!jSuites && typeof(require) === 'function') {
                     var value = obj.options.columns[x].editor.closeEditor(cell, save);
                 } else {
                     // Native functions
-                    if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio' || obj.options.columns[x].type == 'hidden') {
+                    if (
+                        obj.options.columns[x].type == "checkbox" ||
+                        obj.options.columns[x].type == "radio" ||
+                        obj.options.columns[x].type == "hidden"
+                    ) {
                         // Do nothing
-                    } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                    } else if (
+                        obj.options.columns[x].type == "dropdown" ||
+                        obj.options.columns[x].type == "autocomplete"
+                    ) {
                         var value = cell.children[0].dropdown.close(true);
-                    } else if (obj.options.columns[x].type == 'calendar') {
+                    } else if (obj.options.columns[x].type == "calendar") {
                         var value = cell.children[0].calendar.close(true);
-                    } else if (obj.options.columns[x].type == 'color') {
+                    } else if (obj.options.columns[x].type == "color") {
                         var value = cell.children[0].color.close(true);
-                    } else if (obj.options.columns[x].type == 'html') {
+                    } else if (obj.options.columns[x].type == "html") {
                         var value = cell.children[0].children[0].editor.getData();
-                    } else if (obj.options.columns[x].type == 'image') {
+                    } else if (obj.options.columns[x].type == "image") {
                         var img = cell.children[0].children[0].children[0];
-                        var value = img && img.tagName == 'IMG' ? img.src : '';
-                    } else if (obj.options.columns[x].type == 'numeric') {
+                        var value = img && img.tagName == "IMG" ? img.src : "";
+                    } else if (obj.options.columns[x].type == "numeric") {
                         var value = cell.children[0].value;
-                        if (value.substr(0, 1) != '=') {
-                            if (value == '') {
-                                value = obj.options.columns[x].allowEmpty ? '' : 0;
+                        if (value.substr(0, 1) != "=") {
+                            if (value == "") {
+                                value = obj.options.columns[x].allowEmpty ? "" : 0;
                             }
                         }
                         cell.children[0].onblur = null;
@@ -2041,11 +2198,14 @@ if (!jSuites && typeof(require) === 'function') {
                     // Custom editor
                     obj.options.columns[x].editor.closeEditor(cell, save);
                 } else {
-                    if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                    if (
+                        obj.options.columns[x].type == "dropdown" ||
+                        obj.options.columns[x].type == "autocomplete"
+                    ) {
                         cell.children[0].dropdown.close(true);
-                    } else if (obj.options.columns[x].type == 'calendar') {
+                    } else if (obj.options.columns[x].type == "calendar") {
                         cell.children[0].calendar.close(true);
-                    } else if (obj.options.columns[x].type == 'color') {
+                    } else if (obj.options.columns[x].type == "color") {
                         cell.children[0].color.close(true);
                     } else {
                         cell.children[0].onblur = null;
@@ -2053,22 +2213,22 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // Restore value
-                cell.innerHTML = obj.edition && obj.edition[1] ? obj.edition[1] : '';
+                cell.innerHTML = obj.edition && obj.edition[1] ? obj.edition[1] : "";
             }
 
             // On edition end
-            obj.dispatch('oneditionend', el, cell, x, y, value, save);
+            obj.dispatch("oneditionend", el, cell, x, y, value, save);
 
             // Remove editor class
-            cell.classList.remove('editor');
+            cell.classList.remove("editor");
 
             // Finish edition
             obj.edition = null;
-        }
+        };
 
         /**
          * Get the cell object
-         * 
+         *
          * @param object cell
          * @return string value
          */
@@ -2079,21 +2239,21 @@ if (!jSuites && typeof(require) === 'function') {
             var y = cell[1];
 
             return obj.records[y][x];
-        }
+        };
 
         /**
          * Get the cell object from coords
-         * 
+         *
          * @param object cell
          * @return string value
          */
         obj.getCellFromCoords = function(x, y) {
             return obj.records[y][x];
-        }
+        };
 
         /**
          * Get label
-         * 
+         *
          * @param object cell
          * @return string value
          */
@@ -2104,28 +2264,28 @@ if (!jSuites && typeof(require) === 'function') {
             var y = cell[1];
 
             return obj.records[y][x].innerHTML;
-        }
+        };
 
         /**
          * Get labelfrom coords
-         * 
+         *
          * @param object cell
          * @return string value
          */
         obj.getLabelFromCoords = function(x, y) {
             return obj.records[y][x].innerHTML;
-        }
+        };
 
         /**
          * Get the value from a cell
-         * 
+         *
          * @param object cell
          * @return string value
          */
         obj.getValue = function(cell, processedValue) {
-            if (typeof(cell) == 'object') {
-                var x = cell.getAttribute('data-x');
-                var y = cell.getAttribute('data-y');
+            if (typeof cell == "object") {
+                var x = cell.getAttribute("data-x");
+                var y = cell.getAttribute("data-y");
             } else {
                 cell = jexcel.getIdFromColumnName(cell, true);
                 var x = cell[0];
@@ -2135,21 +2295,25 @@ if (!jSuites && typeof(require) === 'function') {
             var value = null;
 
             if (x != null && y != null) {
-                if (obj.records[y] && obj.records[y][x] && (processedValue || obj.options.copyCompatibility == true)) {
+                if (
+                    obj.records[y] &&
+                    obj.records[y][x] &&
+                    (processedValue || obj.options.copyCompatibility == true)
+                ) {
                     value = obj.records[y][x].innerHTML;
                 } else {
-                    if (obj.options.data[y] && obj.options.data[y][x] != 'undefined') {
+                    if (obj.options.data[y] && obj.options.data[y][x] != "undefined") {
                         value = obj.options.data[y][x];
                     }
                 }
             }
 
             return value;
-        }
+        };
 
         /**
          * Get the value from a coords
-         * 
+         *
          * @param int x
          * @param int y
          * @return string value
@@ -2158,21 +2322,24 @@ if (!jSuites && typeof(require) === 'function') {
             var value = null;
 
             if (x != null && y != null) {
-                if ((obj.records[y] && obj.records[y][x]) && processedValue || obj.options.copyCompatibility == true) {
+                if (
+                    (obj.records[y] && obj.records[y][x] && processedValue) ||
+                    obj.options.copyCompatibility == true
+                ) {
                     value = obj.records[y][x].innerHTML;
                 } else {
-                    if (obj.options.data[y] && obj.options.data[y][x] != 'undefined') {
+                    if (obj.options.data[y] && obj.options.data[y][x] != "undefined") {
                         value = obj.options.data[y][x];
                     }
                 }
             }
 
             return value;
-        }
+        };
 
         /**
          * Set a cell value
-         * 
+         *
          * @param mixed cell destination cell
          * @param string value value
          * @return void
@@ -2180,7 +2347,7 @@ if (!jSuites && typeof(require) === 'function') {
         obj.setValue = function(cell, value, force) {
             var records = [];
 
-            if (typeof(cell) == 'string') {
+            if (typeof cell == "string") {
                 var columnId = jexcel.getIdFromColumnName(cell, true);
                 var x = columnId[0];
                 var y = columnId[1];
@@ -2194,8 +2361,8 @@ if (!jSuites && typeof(require) === 'function') {
                 var x = null;
                 var y = null;
                 if (cell && cell.getAttribute) {
-                    var x = cell.getAttribute('data-x');
-                    var y = cell.getAttribute('data-y');
+                    var x = cell.getAttribute("data-x");
+                    var y = cell.getAttribute("data-y");
                 }
 
                 // Update cell
@@ -2208,7 +2375,7 @@ if (!jSuites && typeof(require) === 'function') {
                     var keys = Object.keys(cell);
                     if (keys.length > 0) {
                         for (var i = 0; i < keys.length; i++) {
-                            if (typeof(cell[i]) == 'string') {
+                            if (typeof cell[i] == "string") {
                                 var columnId = jexcel.getIdFromColumnName(cell[i], true);
                                 var x = columnId[0];
                                 var y = columnId[1];
@@ -2223,8 +2390,8 @@ if (!jSuites && typeof(require) === 'function') {
                                         value = cell[i].value;
                                     }
                                 } else {
-                                    var x = cell[i].getAttribute('data-x');
-                                    var y = cell[i].getAttribute('data-y');
+                                    var x = cell[i].getAttribute("data-x");
+                                    var y = cell[i].getAttribute("data-y");
                                 }
                             }
 
@@ -2242,9 +2409,9 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Update history
             obj.setHistory({
-                action: 'setValue',
+                action: "setValue",
                 records: records,
-                selection: obj.selectedCell,
+                selection: obj.selectedCell
             });
 
             // Update table with custom configurations if applicable
@@ -2252,11 +2419,11 @@ if (!jSuites && typeof(require) === 'function') {
 
             // On after changes
             obj.onafterchanges(el, records);
-        }
+        };
 
         /**
          * Set a cell value based on coordinates
-         * 
+         *
          * @param int x destination cell
          * @param int y destination cell
          * @param string value
@@ -2271,9 +2438,9 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Update history
             obj.setHistory({
-                action: 'setValue',
+                action: "setValue",
                 records: records,
-                selection: obj.selectedCell,
+                selection: obj.selectedCell
             });
 
             // Update table with custom configurations if applicable
@@ -2281,7 +2448,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // On after changes
             obj.onafterchanges(el, records);
-        }
+        };
 
         /**
          * Toogle
@@ -2290,10 +2457,13 @@ if (!jSuites && typeof(require) === 'function') {
             var records = [];
             var keys = Object.keys(obj.highlighted);
             for (var i = 0; i < keys.length; i++) {
-                var x = obj.highlighted[i].getAttribute('data-x');
-                var y = obj.highlighted[i].getAttribute('data-y');
+                var x = obj.highlighted[i].getAttribute("data-x");
+                var y = obj.highlighted[i].getAttribute("data-y");
 
-                if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
+                if (
+                    obj.options.columns[x].type == "checkbox" ||
+                    obj.options.columns[x].type == "radio"
+                ) {
                     // Update cell
                     records.push(obj.updateCell(x, y, !obj.options.data[y][x]));
                 }
@@ -2302,46 +2472,51 @@ if (!jSuites && typeof(require) === 'function') {
             if (records.length) {
                 // Update history
                 obj.setHistory({
-                    action: 'setValue',
+                    action: "setValue",
                     records: records,
-                    selection: obj.selectedCell,
+                    selection: obj.selectedCell
                 });
 
                 // On after changes
                 obj.onafterchanges(el, records);
             }
-        }
+        };
 
         /**
          * Strip tags
          */
         var stripScript = function(a) {
-            var b = new Option;
+            var b = new Option();
             b.innerHTML = a;
             var c = null;
-            for (a = b.getElementsByTagName('script'); c = a[0];) c.parentNode.removeChild(c);
+            for (a = b.getElementsByTagName("script");
+                (c = a[0]);)
+                c.parentNode.removeChild(c);
             return b.innerHTML;
-        }
+        };
 
         /**
          * Update cell content
-         * 
+         *
          * @param object cell
          * @return void
          */
         obj.updateCell = function(x, y, value, force) {
             // Changing value depending on the column type
-            if (obj.records[y][x].classList.contains('readonly') == true && !force) {
+            if (obj.records[y][x].classList.contains("readonly") == true && !force) {
                 // Do nothing
                 var record = {
                     x: x,
                     y: y,
                     col: x,
                     row: y
-                }
+                };
             } else {
                 // Security
-                if (('' + value).substr(0, 1) == '=' && obj.options.secureFormulas == true) {
+                if (
+                    ("" + value).substr(0, 1) == "=" &&
+                    obj.options.secureFormulas == true
+                ) {
                     var val = secureFormula(value);
                     if (val != value) {
                         // Update the data container
@@ -2350,15 +2525,29 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // On change
-                var val = obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value);
+                var val = obj.dispatch(
+                    "onbeforechange",
+                    el,
+                    obj.records[y][x],
+                    x,
+                    y,
+                    value
+                );
 
                 // If you return something this will overwrite the value
                 if (val != undefined) {
                     value = val;
                 }
 
-                if (obj.options.columns[x].editor && typeof(obj.options.columns[x].editor.updateCell) == 'function') {
-                    value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
+                if (
+                    obj.options.columns[x].editor &&
+                    typeof obj.options.columns[x].editor.updateCell == "function"
+                ) {
+                    value = obj.options.columns[x].editor.updateCell(
+                        obj.records[y][x],
+                        value,
+                        force
+                    );
                 }
 
                 // History format
@@ -2368,55 +2557,70 @@ if (!jSuites && typeof(require) === 'function') {
                     col: x,
                     row: y,
                     newValue: value,
-                    oldValue: obj.options.data[y][x],
-                }
+                    oldValue: obj.options.data[y][x]
+                };
 
                 if (obj.options.columns[x].editor) {
                     // Update data and cell
                     obj.options.data[y][x] = value;
                 } else {
                     // Native functions
-                    if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
+                    if (
+                        obj.options.columns[x].type == "checkbox" ||
+                        obj.options.columns[x].type == "radio"
+                    ) {
                         // Unchecked all options
-                        if (obj.options.columns[x].type == 'radio') {
+                        if (obj.options.columns[x].type == "radio") {
                             for (var j = 0; j < obj.options.data.length; j++) {
                                 obj.options.data[j][x] = false;
                             }
                         }
 
                         // Update data and cell
-                        obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true' || value == 'TRUE') ? true : false;
+                        obj.records[y][x].children[0].checked =
+                            value == 1 || value == true || value == "true" || value == "TRUE" ?
+                            true :
+                            false;
                         obj.options.data[y][x] = obj.records[y][x].children[0].checked;
-                    } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                    } else if (
+                        obj.options.columns[x].type == "dropdown" ||
+                        obj.options.columns[x].type == "autocomplete"
+                    ) {
                         // Update data and cell
                         obj.options.data[y][x] = value;
                         obj.records[y][x].innerText = obj.getDropDownValue(x, value);
-                    } else if (obj.options.columns[x].type == 'calendar') {
+                    } else if (obj.options.columns[x].type == "calendar") {
                         // Update calendar
-                        var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                        var formatted = jSuites.calendar.extractDateFromString(
+                            value,
+                            obj.options.columns[x].options.format
+                        );
                         // Update data and cell
                         obj.options.data[y][x] = value;
-                        obj.records[y][x].innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
-                    } else if (obj.options.columns[x].type == 'color') {
+                        obj.records[y][x].innerText = jSuites.calendar.getDateString(
+                            formatted ? formatted : value,
+                            obj.options.columns[x].options.format
+                        );
+                    } else if (obj.options.columns[x].type == "color") {
                         // Update color
                         obj.options.data[y][x] = value;
                         // Render
-                        if (obj.options.columns[x].render == 'square') {
-                            var color = document.createElement('div');
-                            color.className = 'color';
+                        if (obj.options.columns[x].render == "square") {
+                            var color = document.createElement("div");
+                            color.className = "color";
                             color.style.backgroundColor = value;
-                            obj.records[y][x].innerText = '';
+                            obj.records[y][x].innerText = "";
                             obj.records[y][x].appendChild(color);
                         } else {
                             obj.records[y][x].style.color = value;
                             obj.records[y][x].innerText = value;
                         }
-                    } else if (obj.options.columns[x].type == 'image') {
-                        value = '' + value;
+                    } else if (obj.options.columns[x].type == "image") {
+                        value = "" + value;
                         obj.options.data[y][x] = value;
-                        obj.records[y][x].innerHTML = '';
-                        if (value && value.substr(0, 10) == 'data:image') {
-                            var img = document.createElement('img');
+                        obj.records[y][x].innerHTML = "";
+                        if (value && value.substr(0, 10) == "data:image") {
+                            var img = document.createElement("img");
                             img.src = value;
                             obj.records[y][x].appendChild(img);
                         }
@@ -2424,20 +2628,32 @@ if (!jSuites && typeof(require) === 'function') {
                         // Update data and cell
                         obj.options.data[y][x] = value;
                         // Label
-                        if (obj.options.columns[x].type == 'html') {
-                            obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                        if (obj.options.columns[x].type == "html") {
+                            obj.records[y][x].innerHTML = stripScript(
+                                obj.parseValue(x, y, value)
+                            );
                         } else {
-                            if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
-                                obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                            if (
+                                obj.options.stripHTML === false ||
+                                obj.options.columns[x].stripHTML === false
+                            ) {
+                                obj.records[y][x].innerHTML = stripScript(
+                                    obj.parseValue(x, y, value)
+                                );
                             } else {
                                 obj.records[y][x].innerText = obj.parseValue(x, y, value);
                             }
                         }
                         // Handle big text inside a cell
-                        if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
-                            obj.records[y][x].style.whiteSpace = 'pre-wrap';
+                        if (
+                            obj.options.columns[x].wordWrap != false &&
+                            (obj.options.wordWrap == true ||
+                                obj.options.columns[x].wordWrap == true ||
+                                obj.records[y][x].innerHTML.length > 200)
+                        ) {
+                            obj.records[y][x].style.whiteSpace = "pre-wrap";
                         } else {
-                            obj.records[y][x].style.whiteSpace = '';
+                            obj.records[y][x].style.whiteSpace = "";
                         }
                     }
                 }
@@ -2445,18 +2661,26 @@ if (!jSuites && typeof(require) === 'function') {
                 // Overflow
                 if (x > 0) {
                     if (value) {
-                        obj.records[y][x - 1].style.overflow = 'hidden';
+                        obj.records[y][x - 1].style.overflow = "hidden";
                     } else {
-                        obj.records[y][x - 1].style.overflow = '';
+                        obj.records[y][x - 1].style.overflow = "";
                     }
                 }
 
                 // On change
-                obj.dispatch('onchange', el, (obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null), x, y, value, record.oldValue);
+                obj.dispatch(
+                    "onchange",
+                    el,
+                    obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null,
+                    x,
+                    y,
+                    value,
+                    record.oldValue
+                );
             }
 
             return record;
-        }
+        };
 
         /**
          * Helper function to copy data using the corner icon
@@ -2469,10 +2693,10 @@ if (!jSuites && typeof(require) === 'function') {
             var h = obj.selectedContainer;
 
             // Cells
-            var x1 = parseInt(o.getAttribute('data-x'));
-            var y1 = parseInt(o.getAttribute('data-y'));
-            var x2 = parseInt(d.getAttribute('data-x'));
-            var y2 = parseInt(d.getAttribute('data-y'));
+            var x1 = parseInt(o.getAttribute("data-x"));
+            var y1 = parseInt(o.getAttribute("data-y"));
+            var x2 = parseInt(d.getAttribute("data-x"));
+            var y2 = parseInt(d.getAttribute("data-y"));
 
             // Records
             var records = [];
@@ -2501,7 +2725,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             for (var j = y1; j <= y2; j++) {
                 // Skip hidden rows
-                if (obj.rows[j] && obj.rows[j].style.display == 'none') {
+                if (obj.rows[j] && obj.rows[j].style.display == "none") {
                     continue;
                 }
 
@@ -2522,10 +2746,15 @@ if (!jSuites && typeof(require) === 'function') {
                 // Data columns
                 for (var i = x1; i <= x2; i++) {
                     // Update non-readonly
-                    if (obj.records[j][i] && !obj.records[j][i].classList.contains('readonly') && obj.records[j][i].style.display != 'none' && breakControl == false) {
+                    if (
+                        obj.records[j][i] &&
+                        !obj.records[j][i].classList.contains("readonly") &&
+                        obj.records[j][i].style.display != "none" &&
+                        breakControl == false
+                    ) {
                         // Stop if contains value
                         if (!obj.selection.length) {
-                            if (obj.options.data[j][i] != '') {
+                            if (obj.options.data[j][i] != "") {
                                 breakControl = true;
                                 continue;
                             }
@@ -2542,20 +2771,29 @@ if (!jSuites && typeof(require) === 'function') {
                         var value = data[posy][posx];
 
                         if (value && !data[1] && obj.options.autoIncrement == true) {
-                            if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
-                                if (('' + value).substr(0, 1) == '=') {
+                            if (
+                                obj.options.columns[i].type == "text" ||
+                                obj.options.columns[i].type == "number"
+                            ) {
+                                if (("" + value).substr(0, 1) == "=") {
                                     var tokens = value.match(/([A-Z]+[0-9]+)/g);
 
                                     if (tokens) {
                                         var affectedTokens = [];
                                         for (var index = 0; index < tokens.length; index++) {
-                                            var position = jexcel.getIdFromColumnName(tokens[index], 1);
+                                            var position = jexcel.getIdFromColumnName(
+                                                tokens[index],
+                                                1
+                                            );
                                             position[0] += colNumber;
                                             position[1] += rowNumber;
                                             if (position[1] < 0) {
                                                 position[1] = 0;
                                             }
-                                            var token = jexcel.getColumnNameFromId([position[0], position[1]]);
+                                            var token = jexcel.getColumnNameFromId([
+                                                position[0],
+                                                position[1]
+                                            ]);
 
                                             if (token != tokens[index]) {
                                                 affectedTokens[tokens[index]] = token;
@@ -2563,7 +2801,7 @@ if (!jSuites && typeof(require) === 'function') {
                                         }
                                         // Update formula
                                         if (affectedTokens) {
-                                            value = obj.updateFormula(value, affectedTokens)
+                                            value = obj.updateFormula(value, affectedTokens);
                                         }
                                     }
                                 } else {
@@ -2571,10 +2809,17 @@ if (!jSuites && typeof(require) === 'function') {
                                         value = Number(value) + rowNumber;
                                     }
                                 }
-                            } else if (obj.options.columns[i].type == 'calendar') {
+                            } else if (obj.options.columns[i].type == "calendar") {
                                 var date = new Date(value);
                                 date.setDate(date.getDate() + rowNumber);
-                                value = date.getFullYear() + '-' + jexcel.doubleDigitFormat(parseInt(date.getMonth() + 1)) + '-' + jexcel.doubleDigitFormat(date.getDate()) + ' ' + '00:00:00';
+                                value =
+                                    date.getFullYear() +
+                                    "-" +
+                                    jexcel.doubleDigitFormat(parseInt(date.getMonth() + 1)) +
+                                    "-" +
+                                    jexcel.doubleDigitFormat(date.getDate()) +
+                                    " " +
+                                    "00:00:00";
                             }
                         }
 
@@ -2594,9 +2839,9 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Update history
             obj.setHistory({
-                action: 'setValue',
+                action: "setValue",
                 records: records,
-                selection: obj.selectedCell,
+                selection: obj.selectedCell
             });
 
             // Update table with custom configuration if applicable
@@ -2604,33 +2849,46 @@ if (!jSuites && typeof(require) === 'function') {
 
             // On after changes
             obj.onafterchanges(el, records);
-        }
+        };
 
         /**
          * Refresh current selection
          */
         obj.refreshSelection = function() {
             if (obj.selectedCell) {
-                obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                obj.updateSelectionFromCoords(
+                    obj.selectedCell[0],
+                    obj.selectedCell[1],
+                    obj.selectedCell[2],
+                    obj.selectedCell[3]
+                );
             }
-        }
+        };
 
         /**
          * Move coords to A1 in case ovelaps with an excluded cell
          */
         obj.conditionalSelectionUpdate = function(type, o, d) {
             if (type == 1) {
-                if (obj.selectedCell && ((o >= obj.selectedCell[1] && o <= obj.selectedCell[3]) || (d >= obj.selectedCell[1] && d <= obj.selectedCell[3]))) {
+                if (
+                    obj.selectedCell &&
+                    ((o >= obj.selectedCell[1] && o <= obj.selectedCell[3]) ||
+                        (d >= obj.selectedCell[1] && d <= obj.selectedCell[3]))
+                ) {
                     obj.resetSelection();
                     return;
                 }
             } else {
-                if (obj.selectedCell && ((o >= obj.selectedCell[0] && o <= obj.selectedCell[2]) || (d >= obj.selectedCell[0] && d <= obj.selectedCell[2]))) {
+                if (
+                    obj.selectedCell &&
+                    ((o >= obj.selectedCell[0] && o <= obj.selectedCell[2]) ||
+                        (d >= obj.selectedCell[0] && d <= obj.selectedCell[2]))
+                ) {
                     obj.resetSelection();
                     return;
                 }
             }
-        }
+        };
 
         /**
          * Clear table selection
@@ -2643,20 +2901,20 @@ if (!jSuites && typeof(require) === 'function') {
                 var previousStatus = 1;
 
                 for (var i = 0; i < obj.highlighted.length; i++) {
-                    obj.highlighted[i].classList.remove('highlight');
-                    obj.highlighted[i].classList.remove('highlight-left');
-                    obj.highlighted[i].classList.remove('highlight-right');
-                    obj.highlighted[i].classList.remove('highlight-top');
-                    obj.highlighted[i].classList.remove('highlight-bottom');
-                    obj.highlighted[i].classList.remove('highlight-selected');
+                    obj.highlighted[i].classList.remove("highlight");
+                    obj.highlighted[i].classList.remove("highlight-left");
+                    obj.highlighted[i].classList.remove("highlight-right");
+                    obj.highlighted[i].classList.remove("highlight-top");
+                    obj.highlighted[i].classList.remove("highlight-bottom");
+                    obj.highlighted[i].classList.remove("highlight-selected");
 
-                    var px = parseInt(obj.highlighted[i].getAttribute('data-x'));
-                    var py = parseInt(obj.highlighted[i].getAttribute('data-y'));
+                    var px = parseInt(obj.highlighted[i].getAttribute("data-x"));
+                    var py = parseInt(obj.highlighted[i].getAttribute("data-y"));
 
                     // Check for merged cells
-                    if (obj.highlighted[i].getAttribute('data-merged')) {
-                        var colspan = parseInt(obj.highlighted[i].getAttribute('colspan'));
-                        var rowspan = parseInt(obj.highlighted[i].getAttribute('rowspan'));
+                    if (obj.highlighted[i].getAttribute("data-merged")) {
+                        var colspan = parseInt(obj.highlighted[i].getAttribute("colspan"));
+                        var rowspan = parseInt(obj.highlighted[i].getAttribute("rowspan"));
                         var ux = colspan > 0 ? px + (colspan - 1) : px;
                         var uy = rowspan > 0 ? py + (rowspan - 1) : py;
                     } else {
@@ -2667,14 +2925,14 @@ if (!jSuites && typeof(require) === 'function') {
                     // Remove selected from headers
                     for (var j = px; j <= ux; j++) {
                         if (obj.headers[j]) {
-                            obj.headers[j].classList.remove('selected');
+                            obj.headers[j].classList.remove("selected");
                         }
                     }
 
                     // Remove selected from rows
                     for (var j = py; j <= uy; j++) {
                         if (obj.rows[j]) {
-                            obj.rows[j].classList.remove('selected');
+                            obj.rows[j].classList.remove("selected");
                         }
                     }
                 }
@@ -2687,32 +2945,32 @@ if (!jSuites && typeof(require) === 'function') {
             obj.selectedCell = null;
 
             // Hide corner
-            obj.corner.style.top = '-2000px';
-            obj.corner.style.left = '-2000px';
+            obj.corner.style.top = "-2000px";
+            obj.corner.style.left = "-2000px";
 
             if (blur == true && previousStatus == 1) {
-                obj.dispatch('onblur', el);
+                obj.dispatch("onblur", el);
             }
 
             return previousStatus;
-        }
+        };
 
         /**
          * Update selection based on two cells
          */
         obj.updateSelection = function(el1, el2, origin) {
-            var x1 = el1.getAttribute('data-x');
-            var y1 = el1.getAttribute('data-y');
+            var x1 = el1.getAttribute("data-x");
+            var y1 = el1.getAttribute("data-y");
             if (el2) {
-                var x2 = el2.getAttribute('data-x');
-                var y2 = el2.getAttribute('data-y');
+                var x2 = el2.getAttribute("data-x");
+                var y2 = el2.getAttribute("data-y");
             } else {
                 var x2 = x1;
                 var y2 = y1;
             }
 
             obj.updateSelectionFromCoords(x1, y1, x2, y2, origin);
-        }
+        };
 
         /**
          * Update selection from coords
@@ -2751,7 +3009,7 @@ if (!jSuites && typeof(require) === 'function') {
             if (x1 != null) {
                 // Add selected cell
                 if (obj.records[y1][x1]) {
-                    obj.records[y1][x1].classList.add('highlight-selected');
+                    obj.records[y1][x1].classList.add("highlight-selected");
                 }
 
                 // Origin & Destination
@@ -2774,11 +3032,14 @@ if (!jSuites && typeof(require) === 'function') {
                 // Verify merged columns
                 for (var i = px; i <= ux; i++) {
                     for (var j = py; j <= uy; j++) {
-                        if (obj.records[j][i] && obj.records[j][i].getAttribute('data-merged')) {
-                            var x = parseInt(obj.records[j][i].getAttribute('data-x'));
-                            var y = parseInt(obj.records[j][i].getAttribute('data-y'));
-                            var colspan = parseInt(obj.records[j][i].getAttribute('colspan'));
-                            var rowspan = parseInt(obj.records[j][i].getAttribute('rowspan'));
+                        if (
+                            obj.records[j][i] &&
+                            obj.records[j][i].getAttribute("data-merged")
+                        ) {
+                            var x = parseInt(obj.records[j][i].getAttribute("data-x"));
+                            var y = parseInt(obj.records[j][i].getAttribute("data-y"));
+                            var colspan = parseInt(obj.records[j][i].getAttribute("colspan"));
+                            var rowspan = parseInt(obj.records[j][i].getAttribute("rowspan"));
 
                             if (colspan > 1) {
                                 if (x < px) {
@@ -2792,7 +3053,6 @@ if (!jSuites && typeof(require) === 'function') {
                             if (rowspan) {
                                 if (y < py) {
                                     py = y;
-
                                 }
                                 if (y + rowspan > uy) {
                                     uy = y + rowspan - 1;
@@ -2810,7 +3070,7 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Vertical limits
                 for (var j = py; j <= uy; j++) {
-                    if (obj.rows[j].style.display != 'none') {
+                    if (obj.rows[j].style.display != "none") {
                         if (borderTop == null) {
                             borderTop = j;
                         }
@@ -2821,14 +3081,17 @@ if (!jSuites && typeof(require) === 'function') {
                 // Redefining styles
                 for (var i = px; i <= ux; i++) {
                     for (var j = py; j <= uy; j++) {
-                        if (obj.rows[j].style.display != 'none' && obj.records[j][i].style.display != 'none') {
-                            obj.records[j][i].classList.add('highlight');
+                        if (
+                            obj.rows[j].style.display != "none" &&
+                            obj.records[j][i].style.display != "none"
+                        ) {
+                            obj.records[j][i].classList.add("highlight");
                             obj.highlighted.push(obj.records[j][i]);
                         }
                     }
 
                     // Horizontal limits
-                    if (obj.options.columns[i].type != 'hidden') {
+                    if (obj.options.columns[i].type != "hidden") {
                         if (borderLeft == null) {
                             borderLeft = i;
                         }
@@ -2844,68 +3107,81 @@ if (!jSuites && typeof(require) === 'function') {
                     borderRight = 0;
                 }
                 for (var i = borderLeft; i <= borderRight; i++) {
-                    if (obj.options.columns[i].type != 'hidden') {
+                    if (obj.options.columns[i].type != "hidden") {
                         // Top border
                         if (obj.records[borderTop][i]) {
-                            obj.records[borderTop][i].classList.add('highlight-top');
+                            obj.records[borderTop][i].classList.add("highlight-top");
                         }
                         // Bottom border
                         if (obj.records[borderBottom][i]) {
-                            obj.records[borderBottom][i].classList.add('highlight-bottom');
+                            obj.records[borderBottom][i].classList.add("highlight-bottom");
                         }
                         // Add selected from headers
-                        obj.headers[i].classList.add('selected');
+                        obj.headers[i].classList.add("selected");
                     }
                 }
 
                 for (var j = borderTop; j <= borderBottom; j++) {
-                    if (obj.rows[j].style.display != 'none') {
+                    if (obj.rows[j].style.display != "none") {
                         // Left border
-                        obj.records[j][borderLeft].classList.add('highlight-left');
+                        obj.records[j][borderLeft].classList.add("highlight-left");
                         // Right border
-                        obj.records[j][borderRight].classList.add('highlight-right');
+                        obj.records[j][borderRight].classList.add("highlight-right");
                         // Add selected from rows
-                        obj.rows[j].classList.add('selected');
+                        obj.rows[j].classList.add("selected");
                     }
                 }
 
-                obj.selectedContainer = [borderLeft, borderTop, borderRight, borderBottom];
+                obj.selectedContainer = [
+                    borderLeft,
+                    borderTop,
+                    borderRight,
+                    borderBottom
+                ];
             }
 
             // Handle events
             if (previousState == 0) {
-                obj.dispatch('onfocus', el);
+                obj.dispatch("onfocus", el);
 
                 obj.removeCopyingSelection();
             }
 
-            obj.dispatch('onselection', el, borderLeft, borderTop, borderRight, borderBottom, origin);
+            obj.dispatch(
+                "onselection",
+                el,
+                borderLeft,
+                borderTop,
+                borderRight,
+                borderBottom,
+                origin
+            );
 
             // Find corner cell
             obj.updateCornerPosition();
-        }
+        };
 
         /**
          * Remove copy selection
-         * 
+         *
          * @return void
          */
         obj.removeCopySelection = function() {
             // Remove current selection
             for (var i = 0; i < obj.selection.length; i++) {
-                obj.selection[i].classList.remove('selection');
-                obj.selection[i].classList.remove('selection-left');
-                obj.selection[i].classList.remove('selection-right');
-                obj.selection[i].classList.remove('selection-top');
-                obj.selection[i].classList.remove('selection-bottom');
+                obj.selection[i].classList.remove("selection");
+                obj.selection[i].classList.remove("selection-left");
+                obj.selection[i].classList.remove("selection-right");
+                obj.selection[i].classList.remove("selection-top");
+                obj.selection[i].classList.remove("selection-bottom");
             }
 
             obj.selection = [];
-        }
+        };
 
         /**
          * Update copy selection
-         * 
+         *
          * @param int x, y
          * @return void
          */
@@ -2946,12 +3222,16 @@ if (!jSuites && typeof(require) === 'function') {
 
                 for (var j = py; j <= uy; j++) {
                     for (var i = px; i <= ux; i++) {
-                        if (obj.records[j][i] && obj.rows[j].style.display != 'none' && obj.records[j][i].style.display != 'none') {
-                            obj.records[j][i].classList.add('selection');
-                            obj.records[py][i].classList.add('selection-top');
-                            obj.records[uy][i].classList.add('selection-bottom');
-                            obj.records[j][px].classList.add('selection-left');
-                            obj.records[j][ux].classList.add('selection-right');
+                        if (
+                            obj.records[j][i] &&
+                            obj.rows[j].style.display != "none" &&
+                            obj.records[j][i].style.display != "none"
+                        ) {
+                            obj.records[j][i].classList.add("selection");
+                            obj.records[py][i].classList.add("selection-top");
+                            obj.records[uy][i].classList.add("selection-bottom");
+                            obj.records[j][px].classList.add("selection-left");
+                            obj.records[j][ux].classList.add("selection-right");
 
                             // Persist selected elements
                             obj.selection.push(obj.records[j][i]);
@@ -2959,18 +3239,18 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-        }
+        };
 
         /**
          * Update corner position
-         * 
+         *
          * @return void
          */
         obj.updateCornerPosition = function() {
             // If any selected cells
             if (!obj.highlighted.length) {
-                obj.corner.style.top = '-2000px';
-                obj.corner.style.left = '-2000px';
+                obj.corner.style.top = "-2000px";
+                obj.corner.style.left = "-2000px";
             } else {
                 // Get last cell
                 var last = obj.highlighted[obj.highlighted.length - 1];
@@ -2985,29 +3265,29 @@ if (!jSuites && typeof(require) === 'function') {
                 var w2 = lastRect.width;
                 var h2 = lastRect.height;
 
-                var x = (x2 - x1) + obj.content.scrollLeft + w2 - 4;
-                var y = (y2 - y1) + obj.content.scrollTop + h2 - 4;
+                var x = x2 - x1 + obj.content.scrollLeft + w2 - 4;
+                var y = y2 - y1 + obj.content.scrollTop + h2 - 4;
 
                 // Place the corner in the correct place
-                obj.corner.style.top = y + 'px';
-                obj.corner.style.left = x + 'px';
+                obj.corner.style.top = y + "px";
+                obj.corner.style.left = x + "px";
 
                 if (obj.options.freezeColumns) {
                     var width = obj.getFreezeWidth();
                     if (x2 - x1 + w2 < width) {
-                        obj.corner.style.display = 'none';
+                        obj.corner.style.display = "none";
                     } else {
                         if (obj.options.selectionCopy == true) {
-                            obj.corner.style.display = '';
+                            obj.corner.style.display = "";
                         }
                     }
                 } else {
                     if (obj.options.selectionCopy == true) {
-                        obj.corner.style.display = '';
+                        obj.corner.style.display = "";
                     }
                 }
             }
-        }
+        };
 
         /**
          * Update scroll position based on the selection
@@ -3032,15 +3312,15 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Direction
             if (direction == 0 || direction == 1) {
-                var x = (x2 - x1) + obj.content.scrollLeft;
-                var y = (y2 - y1) + obj.content.scrollTop - 2;
+                var x = x2 - x1 + obj.content.scrollLeft;
+                var y = y2 - y1 + obj.content.scrollTop - 2;
             } else {
-                var x = (x2 - x1) + obj.content.scrollLeft + w2;
-                var y = (y2 - y1) + obj.content.scrollTop + h2;
+                var x = x2 - x1 + obj.content.scrollLeft + w2;
+                var y = y2 - y1 + obj.content.scrollTop + h2;
             }
 
             // Top position check
-            if (y > (obj.content.scrollTop + 30) && y < (obj.content.scrollTop + h1)) {
+            if (y > obj.content.scrollTop + 30 && y < obj.content.scrollTop + h1) {
                 // In the viewport
             } else {
                 // Out of viewport
@@ -3051,11 +3331,14 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
 
-            // Freeze columns? 
+            // Freeze columns?
             var freezed = obj.getFreezeWidth();
 
             // Left position check - TODO: change that to the bottom border of the element
-            if (x > (obj.content.scrollLeft + freezed) && x < (obj.content.scrollLeft + w1)) {
+            if (
+                x > obj.content.scrollLeft + freezed &&
+                x < obj.content.scrollLeft + w1
+            ) {
                 // In the viewport
             } else {
                 // Out of viewport
@@ -3070,11 +3353,11 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.content.scrollLeft = x - (w1 - 20);
                 }
             }
-        }
+        };
 
         /**
          * Get the column width
-         * 
+         *
          * @param int column column number (first column is: 0)
          * @return int current width
          */
@@ -3087,20 +3370,19 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             } else {
                 // In case the column is an object
-                if (typeof(column) == 'object') {
-                    column = $(column).getAttribute('data-x');
+                if (typeof column == "object") {
+                    column = $(column).getAttribute("data-x");
                 }
 
-                data = obj.colgroup[column].getAttribute('width')
+                data = obj.colgroup[column].getAttribute("width");
             }
 
             return data;
-        }
-
+        };
 
         /**
          * Set the column width
-         * 
+         *
          * @param int column number (first column is: 0)
          * @param int new column width
          * @param int old column width
@@ -3115,41 +3397,41 @@ if (!jSuites && typeof(require) === 'function') {
                     // Set width
                     for (var i = 0; i < column.length; i++) {
                         if (!oldWidth[i]) {
-                            oldWidth[i] = obj.colgroup[column[i]].getAttribute('width');
+                            oldWidth[i] = obj.colgroup[column[i]].getAttribute("width");
                         }
                         var w = Array.isArray(width) && width[i] ? width[i] : width;
-                        obj.colgroup[column[i]].setAttribute('width', w);
+                        obj.colgroup[column[i]].setAttribute("width", w);
                         obj.options.columns[column[i]].width = w;
                     }
                 } else {
                     // Oldwidth
                     if (!oldWidth) {
-                        oldWidth = obj.colgroup[column].getAttribute('width');
+                        oldWidth = obj.colgroup[column].getAttribute("width");
                     }
                     // Set width
-                    obj.colgroup[column].setAttribute('width', width);
+                    obj.colgroup[column].setAttribute("width", width);
                     obj.options.columns[column].width = width;
                 }
 
                 // Keeping history of changes
                 obj.setHistory({
-                    action: 'setWidth',
+                    action: "setWidth",
                     column: column,
                     oldValue: oldWidth,
-                    newValue: width,
+                    newValue: width
                 });
 
                 // On resize column
-                obj.dispatch('onresizecolumn', el, column, width, oldWidth);
+                obj.dispatch("onresizecolumn", el, column, width, oldWidth);
 
                 // Update corner position
                 obj.updateCornerPosition();
             }
-        }
+        };
 
         /**
          * Set the row height
-         * 
+         *
          * @param row - row number (first row is: 0)
          * @param height - new row height
          * @param oldHeight - old row height
@@ -3157,13 +3439,13 @@ if (!jSuites && typeof(require) === 'function') {
         obj.setHeight = function(row, height, oldHeight) {
             if (height > 0) {
                 // In case the column is an object
-                if (typeof(row) == 'object') {
-                    row = row.getAttribute('data-y');
+                if (typeof row == "object") {
+                    row = row.getAttribute("data-y");
                 }
 
                 // Oldwidth
                 if (!oldHeight) {
-                    oldHeight = obj.rows[row].getAttribute('height');
+                    oldHeight = obj.rows[row].getAttribute("height");
 
                     if (!oldHeight) {
                         var rect = obj.rows[row].getBoundingClientRect();
@@ -3175,7 +3457,7 @@ if (!jSuites && typeof(require) === 'function') {
                 height = parseInt(height);
 
                 // Set width
-                obj.rows[row].style.height = height + 'px';
+                obj.rows[row].style.height = height + "px";
 
                 // Keep options updated
                 if (!obj.options.rows[row]) {
@@ -3185,23 +3467,23 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Keeping history of changes
                 obj.setHistory({
-                    action: 'setHeight',
+                    action: "setHeight",
                     row: row,
                     oldValue: oldHeight,
-                    newValue: height,
+                    newValue: height
                 });
 
                 // On resize column
-                obj.dispatch('onresizerow', el, row, height, oldHeight);
+                obj.dispatch("onresizerow", el, row, height, oldHeight);
 
                 // Update corner position
                 obj.updateCornerPosition();
             }
-        }
+        };
 
         /**
          * Get the row height
-         * 
+         *
          * @param row - row number (first row is: 0)
          * @return height - current row height
          */
@@ -3217,15 +3499,15 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             } else {
                 // In case the row is an object
-                if (typeof(row) == 'object') {
-                    row = $(row).getAttribute('data-y');
+                if (typeof row == "object") {
+                    row = $(row).getAttribute("data-y");
                 }
 
                 var data = obj.rows[row].style.height;
             }
 
             return data;
-        }
+        };
 
         obj.setFooter = function(data) {
             if (data) {
@@ -3234,7 +3516,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             if (obj.options.footers) {
                 if (!obj.tfoot) {
-                    obj.tfoot = document.createElement('tfoot');
+                    obj.tfoot = document.createElement("tfoot");
                     obj.table.appendChild(obj.tfoot);
                 }
 
@@ -3242,44 +3524,46 @@ if (!jSuites && typeof(require) === 'function') {
                     if (obj.tfoot.children[j]) {
                         var tr = obj.tfoot.children[j];
                     } else {
-                        var tr = document.createElement('tr');
-                        var td = document.createElement('td');
+                        var tr = document.createElement("tr");
+                        var td = document.createElement("td");
                         tr.appendChild(td);
                         obj.tfoot.appendChild(tr);
                     }
                     for (var i = 0; i < obj.headers.length; i++) {
                         if (!obj.options.footers[j][i]) {
-                            obj.options.footers[j][i] = '';
+                            obj.options.footers[j][i] = "";
                         }
                         if (obj.tfoot.children[j].children[i + 1]) {
                             var td = obj.tfoot.children[j].children[i + 1];
                         } else {
-                            var td = document.createElement('td');
+                            var td = document.createElement("td");
                             tr.appendChild(td);
 
                             // Text align
-                            var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
+                            var colAlign = obj.options.columns[i].align ?
+                                obj.options.columns[i].align :
+                                "center";
                             td.style.textAlign = colAlign;
                         }
                         td.innerText = obj.parseValue(i, j, obj.options.footers[j][i]);
                     }
                 }
             }
-        }
+        };
 
         /**
          * Get the column title
-         * 
+         *
          * @param column - column number (first column is: 0)
          * @param title - new column title
          */
         obj.getHeader = function(column) {
             return obj.headers[column].innerText;
-        }
+        };
 
         /**
          * Set the column title
-         * 
+         *
          * @param column - column number (first column is: 0)
          * @param title - new column title
          */
@@ -3288,32 +3572,32 @@ if (!jSuites && typeof(require) === 'function') {
                 var oldValue = obj.headers[column].innerText;
 
                 if (!newValue) {
-                    newValue = prompt(obj.options.text.columnName, oldValue)
+                    newValue = prompt(obj.options.text.columnName, oldValue);
                 }
 
                 if (newValue) {
                     obj.headers[column].innerText = newValue;
                     // Keep the title property
-                    obj.headers[column].setAttribute('title', newValue);
+                    obj.headers[column].setAttribute("title", newValue);
                     // Update title
                     obj.options.columns[column].title = newValue;
                 }
 
                 obj.setHistory({
-                    action: 'setHeader',
+                    action: "setHeader",
                     column: column,
                     oldValue: oldValue,
                     newValue: newValue
                 });
 
                 // On onchange header
-                obj.dispatch('onchangeheader', el, column, oldValue, newValue);
+                obj.dispatch("onchangeheader", el, column, oldValue, newValue);
             }
-        }
+        };
 
         /**
          * Get the headers
-         * 
+         *
          * @param asArray
          * @return mixed
          */
@@ -3325,11 +3609,11 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return asArray ? title : title.join(obj.options.csvDelimiter);
-        }
+        };
 
         /**
          * Get meta information from cell(s)
-         * 
+         *
          * @return integer
          */
         obj.getMeta = function(cell, key) {
@@ -3337,21 +3621,23 @@ if (!jSuites && typeof(require) === 'function') {
                 return obj.options.meta;
             } else {
                 if (key) {
-                    return obj.options.meta[cell] && obj.options.meta[cell][key] ? obj.options.meta[cell][key] : null;
+                    return obj.options.meta[cell] && obj.options.meta[cell][key] ?
+                        obj.options.meta[cell][key] :
+                        null;
                 } else {
                     return obj.options.meta[cell] ? obj.options.meta[cell] : null;
                 }
             }
-        }
+        };
 
         /**
          * Set meta information to cell(s)
-         * 
+         *
          * @return integer
          */
         obj.setMeta = function(o, k, v) {
             if (!obj.options.meta) {
-                obj.options.meta = {}
+                obj.options.meta = {};
             }
 
             if (k && v) {
@@ -3375,12 +3661,12 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
 
-            obj.dispatch('onchangemeta', el, o, k, v);
-        }
+            obj.dispatch("onchangemeta", el, o, k, v);
+        };
 
         /**
          * Update meta information
-         * 
+         *
          * @return integer
          */
         obj.updateMeta = function(affectedCells) {
@@ -3397,62 +3683,65 @@ if (!jSuites && typeof(require) === 'function') {
                 // Update meta information
                 obj.options.meta = newMeta;
             }
-        }
+        };
 
         /**
          * Get style information from cell(s)
-         * 
+         *
          * @return integer
          */
-        obj.getStyle = function(cell, key) {
-                // Cell
-                if (!cell) {
-                    // Control vars
-                    var data = {};
+        (obj.getStyle = function(cell, key) {
+            // Cell
+            if (!cell) {
+                // Control vars
+                var data = {};
 
-                    // Column and row length
-                    var x = obj.options.data[0].length;
-                    var y = obj.options.data.length;
+                // Column and row length
+                var x = obj.options.data[0].length;
+                var y = obj.options.data.length;
 
-                    // Go through the columns to get the data
-                    for (var j = 0; j < y; j++) {
-                        for (var i = 0; i < x; i++) {
+                // Go through the columns to get the data
+                for (var j = 0; j < y; j++) {
+                    for (var i = 0; i < x; i++) {
+                        // Value
+                        var v = key ?
+                            obj.records[j][i].style[key] :
+                            obj.records[j][i].getAttribute("style");
+
+                        // Any meta data for this column?
+                        if (v) {
+                            // Column name
+                            var k = jexcel.getColumnNameFromId([i, j]);
                             // Value
-                            var v = key ? obj.records[j][i].style[key] : obj.records[j][i].getAttribute('style');
-
-                            // Any meta data for this column?
-                            if (v) {
-                                // Column name
-                                var k = jexcel.getColumnNameFromId([i, j]);
-                                // Value
-                                data[k] = v;
-                            }
+                            data[k] = v;
                         }
                     }
-
-                    return data;
-                } else {
-                    cell = jexcel.getIdFromColumnName(cell, true);
-
-                    return key ? obj.records[cell[1]][cell[0]].style[key] : obj.records[cell[1]][cell[0]].getAttribute('style');
                 }
-            },
 
-            obj.resetStyle = function(o, ignoreHistoryAndEvents) {
-                var keys = Object.keys(o);
-                for (var i = 0; i < keys.length; i++) {
-                    // Position
-                    var cell = jexcel.getIdFromColumnName(keys[i], true);
-                    if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]]) {
-                        obj.records[cell[1]][cell[0]].setAttribute('style', '');
-                    }
-                }
-                obj.setStyle(o, null, null, null, ignoreHistoryAndEvents);
+                return data;
+            } else {
+                cell = jexcel.getIdFromColumnName(cell, true);
+
+                return key ?
+                    obj.records[cell[1]][cell[0]].style[key] :
+                    obj.records[cell[1]][cell[0]].getAttribute("style");
             }
+        }),
+        (obj.resetStyle = function(o, ignoreHistoryAndEvents) {
+            var keys = Object.keys(o);
+            for (var i = 0; i < keys.length; i++) {
+                // Position
+                var cell = jexcel.getIdFromColumnName(keys[i], true);
+                if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]]) {
+                    obj.records[cell[1]][cell[0]].setAttribute("style", "");
+                }
+            }
+            obj.setStyle(o, null, null, null, ignoreHistoryAndEvents);
+        });
 
         /**
          * Set meta information to cell(s)
-         * 
+         *
          * @return integer
          */
         obj.setStyle = function(o, k, v, force, ignoreHistoryAndEvents) {
@@ -3470,8 +3759,8 @@ if (!jSuites && typeof(require) === 'function') {
 
                     // Change layout
                     if (currentValue == value && !force) {
-                        value = '';
-                        obj.records[cell[1]][cell[0]].style[key] = '';
+                        value = "";
+                        obj.records[cell[1]][cell[0]].style[key] = "";
                     } else {
                         obj.records[cell[1]][cell[0]].style[key] = value;
                     }
@@ -3484,22 +3773,22 @@ if (!jSuites && typeof(require) === 'function') {
                         newValue[cellId] = [];
                     }
 
-                    oldValue[cellId].push([key + ':' + currentValue]);
-                    newValue[cellId].push([key + ':' + value]);
+                    oldValue[cellId].push([key + ":" + currentValue]);
+                    newValue[cellId].push([key + ":" + value]);
                 }
-            }
+            };
 
             if (k && v) {
                 // Get object from string
-                if (typeof(o) == 'string') {
+                if (typeof o == "string") {
                     applyStyle(o, k, v);
                 } else {
                     // Avoid duplications
                     var oneApplication = [];
                     // Apply that for all cells
                     for (var i = 0; i < o.length; i++) {
-                        var x = o[i].getAttribute('data-x');
-                        var y = o[i].getAttribute('data-y');
+                        var x = o[i].getAttribute("data-x");
+                        var y = o[i].getAttribute("data-y");
                         var cellName = jexcel.getColumnNameFromId([x, y]);
                         // This happens when is a merged cell
                         if (!oneApplication[cellName]) {
@@ -3512,12 +3801,12 @@ if (!jSuites && typeof(require) === 'function') {
                 var keys = Object.keys(o);
                 for (var i = 0; i < keys.length; i++) {
                     var style = o[keys[i]];
-                    if (typeof(style) == 'string') {
-                        style = style.split(';');
+                    if (typeof style == "string") {
+                        style = style.split(";");
                     }
                     for (var j = 0; j < style.length; j++) {
-                        if (typeof(style[j]) == 'string') {
-                            style[j] = style[j].split(':');
+                        if (typeof style[j] == "string") {
+                            style[j] = style[j].split(":");
                         }
                         // Apply value
                         if (style[j][0].trim()) {
@@ -3529,44 +3818,47 @@ if (!jSuites && typeof(require) === 'function') {
 
             var keys = Object.keys(oldValue);
             for (var i = 0; i < keys.length; i++) {
-                oldValue[keys[i]] = oldValue[keys[i]].join(';');
+                oldValue[keys[i]] = oldValue[keys[i]].join(";");
             }
             var keys = Object.keys(newValue);
             for (var i = 0; i < keys.length; i++) {
-                newValue[keys[i]] = newValue[keys[i]].join(';');
+                newValue[keys[i]] = newValue[keys[i]].join(";");
             }
 
             if (!ignoreHistoryAndEvents) {
                 // Keeping history of changes
                 obj.setHistory({
-                    action: 'setStyle',
+                    action: "setStyle",
                     oldValue: oldValue,
-                    newValue: newValue,
+                    newValue: newValue
                 });
             }
 
-            obj.dispatch('onchangestyle', el, o, k, v);
-        }
+            obj.dispatch("onchangestyle", el, o, k, v);
+        };
 
         /**
          * Get cell comments, null cell for all
          */
         obj.getComments = function(cell, withAuthor) {
             if (cell) {
-                if (typeof(cell) == 'string') {
+                if (typeof cell == "string") {
                     var cell = jexcel.getIdFromColumnName(cell, true);
                 }
 
                 if (withAuthor) {
-                    return [obj.records[cell[1]][cell[0]].getAttribute('title'), obj.records[cell[1]][cell[0]].getAttribute('author')];
+                    return [
+                        obj.records[cell[1]][cell[0]].getAttribute("title"),
+                        obj.records[cell[1]][cell[0]].getAttribute("author")
+                    ];
                 } else {
-                    return obj.records[cell[1]][cell[0]].getAttribute('title') || '';
+                    return obj.records[cell[1]][cell[0]].getAttribute("title") || "";
                 }
             } else {
                 var data = {};
                 for (var j = 0; j < obj.options.data.length; j++) {
                     for (var i = 0; i < obj.options.columns.length; i++) {
-                        var comments = obj.records[j][i].getAttribute('title');
+                        var comments = obj.records[j][i].getAttribute("title");
                         if (comments) {
                             var cell = jexcel.getColumnNameFromId([i, j]);
                             data[cell] = comments;
@@ -3575,45 +3867,51 @@ if (!jSuites && typeof(require) === 'function') {
                 }
                 return data;
             }
-        }
+        };
 
         /**
          * Set cell comments
          */
         obj.setComments = function(cellId, comments, author) {
-            if (typeof(cellId) == 'string') {
+            if (typeof cellId == "string") {
                 var cell = jexcel.getIdFromColumnName(cellId, true);
             } else {
                 var cell = cellId;
             }
 
             // Keep old value
-            var title = obj.records[cell[1]][cell[0]].getAttribute('title');
-            var author = obj.records[cell[1]][cell[0]].getAttribute('data-author');
+            var title = obj.records[cell[1]][cell[0]].getAttribute("title");
+            var author = obj.records[cell[1]][cell[0]].getAttribute("data-author");
             var oldValue = [title, author];
 
             // Set new values
-            obj.records[cell[1]][cell[0]].setAttribute('title', comments ? comments : '');
-            obj.records[cell[1]][cell[0]].setAttribute('data-author', author ? author : '');
+            obj.records[cell[1]][cell[0]].setAttribute(
+                "title",
+                comments ? comments : ""
+            );
+            obj.records[cell[1]][cell[0]].setAttribute(
+                "data-author",
+                author ? author : ""
+            );
 
             // Remove class if there is no comment
             if (comments) {
-                obj.records[cell[1]][cell[0]].classList.add('jexcel_comments');
+                obj.records[cell[1]][cell[0]].classList.add("jexcel_comments");
             } else {
-                obj.records[cell[1]][cell[0]].classList.remove('jexcel_comments');
+                obj.records[cell[1]][cell[0]].classList.remove("jexcel_comments");
             }
 
             // Save history
             obj.setHistory({
-                action: 'setComments',
+                action: "setComments",
                 column: cellId,
                 newValue: [comments, author],
-                oldValue: oldValue,
+                oldValue: oldValue
             });
 
             // Set comments
-            obj.dispatch('oncomments', el, comments, title);
-        }
+            obj.dispatch("oncomments", el, comments, title);
+        };
 
         /**
          * Get table config information
@@ -3625,7 +3923,7 @@ if (!jSuites && typeof(require) === 'function') {
             options.comments = obj.getComments();
 
             return options;
-        }
+        };
 
         /**
          * Sort data and reload table
@@ -3634,7 +3932,10 @@ if (!jSuites && typeof(require) === 'function') {
             if (column >= 0) {
                 // Merged cells
                 if (Object.keys(obj.options.mergeCells).length > 0) {
-                    if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                    if (!confirm(
+                            obj.options.text
+                            .thisActionWillDestroyAnyExistingMergedCellsAreYouSure
+                        )) {
                         return false;
                     } else {
                         // Remove merged cells
@@ -3644,7 +3945,7 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Direction
                 if (order == null) {
-                    order = obj.headers[column].classList.contains('arrow-down') ? 1 : 0;
+                    order = obj.headers[column].classList.contains("arrow-down") ? 1 : 0;
                 } else {
                     order = order ? 1 : 0;
                 }
@@ -3656,20 +3957,45 @@ if (!jSuites && typeof(require) === 'function') {
                         var valueB = b[p];
 
                         if (!o) {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 : 0;
+                            return valueA == "" && valueB != "" ?
+                                1 :
+                                valueA != "" && valueB == "" ?
+                                -1 :
+                                valueA > valueB ?
+                                1 :
+                                valueA < valueB ?
+                                -1 :
+                                0;
                         } else {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 : 0;
+                            return valueA == "" && valueB != "" ?
+                                1 :
+                                valueA != "" && valueB == "" ?
+                                -1 :
+                                valueA > valueB ?
+                                -1 :
+                                valueA < valueB ?
+                                1 :
+                                0;
                         }
                     });
-                }
+                };
 
                 // Test order
                 var temp = [];
-                if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
+                if (
+                    obj.options.columns[column].type == "number" ||
+                    obj.options.columns[column].type == "percentage" ||
+                    obj.options.columns[column].type == "autonumber" ||
+                    obj.options.columns[column].type == "color"
+                ) {
                     for (var j = 0; j < obj.options.data.length; j++) {
                         temp[j] = [j, Number(obj.options.data[j][column])];
                     }
-                } else if (obj.options.columns[column].type == 'calendar' || obj.options.columns[column].type == 'checkbox' || obj.options.columns[column].type == 'radio') {
+                } else if (
+                    obj.options.columns[column].type == "calendar" ||
+                    obj.options.columns[column].type == "checkbox" ||
+                    obj.options.columns[column].type == "radio"
+                ) {
                     for (var j = 0; j < obj.options.data.length; j++) {
                         temp[j] = [j, obj.options.data[j][column]];
                     }
@@ -3688,10 +4014,10 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Save history
                 obj.setHistory({
-                    action: 'orderBy',
+                    action: "orderBy",
                     rows: newValue,
                     column: column,
-                    order: order,
+                    order: order
                 });
 
                 // Update order
@@ -3699,11 +4025,11 @@ if (!jSuites && typeof(require) === 'function') {
                 obj.updateOrder(newValue);
 
                 // On sort event
-                obj.dispatch('onsort', el, column, order);
+                obj.dispatch("onsort", el, column, order);
 
                 return true;
             }
-        }
+        };
 
         /**
          * Update order arrow
@@ -3711,36 +4037,36 @@ if (!jSuites && typeof(require) === 'function') {
         obj.updateOrderArrow = function(column, order) {
             // Remove order
             for (var i = 0; i < obj.headers.length; i++) {
-                obj.headers[i].classList.remove('arrow-up');
-                obj.headers[i].classList.remove('arrow-down');
+                obj.headers[i].classList.remove("arrow-up");
+                obj.headers[i].classList.remove("arrow-down");
             }
 
             // No order specified then toggle order
             if (order) {
-                obj.headers[column].classList.add('arrow-up');
+                obj.headers[column].classList.add("arrow-up");
             } else {
-                obj.headers[column].classList.add('arrow-down');
+                obj.headers[column].classList.add("arrow-down");
             }
-        }
+        };
 
         /**
          * Update rows position
          */
         obj.updateOrder = function(rows) {
             // History
-            var data = []
+            var data = [];
             for (var j = 0; j < rows.length; j++) {
                 data[j] = obj.options.data[rows[j]];
             }
             obj.options.data = data;
 
-            var data = []
+            var data = [];
             for (var j = 0; j < rows.length; j++) {
                 data[j] = obj.records[rows[j]];
             }
             obj.records = data;
 
-            var data = []
+            var data = [];
             for (var j = 0; j < rows.length; j++) {
                 data[j] = obj.rows[rows[j]];
             }
@@ -3771,11 +4097,11 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-        }
+        };
 
         /**
          * Move row
-         * 
+         *
          * @return void
          */
         obj.moveRow = function(o, d, ignoreDom) {
@@ -3786,8 +4112,14 @@ if (!jSuites && typeof(require) === 'function') {
                     var insertBefore = 0;
                 }
 
-                if (obj.isRowMerged(o).length || obj.isRowMerged(d, insertBefore).length) {
-                    if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                if (
+                    obj.isRowMerged(o).length ||
+                    obj.isRowMerged(d, insertBefore).length
+                ) {
+                    if (!confirm(
+                            obj.options.text
+                            .thisActionWillDestroyAnyExistingMergedCellsAreYouSure
+                        )) {
                         return false;
                     } else {
                         obj.destroyMerged();
@@ -3797,7 +4129,11 @@ if (!jSuites && typeof(require) === 'function') {
 
             if (obj.options.search == true) {
                 if (obj.results && obj.results.length != obj.rows.length) {
-                    if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                    if (
+                        confirm(
+                            obj.options.text.thisActionWillClearYourSearchResultsAreYouSure
+                        )
+                    ) {
                         obj.resetSearch();
                     } else {
                         return false;
@@ -3808,7 +4144,9 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             if (!ignoreDom) {
-                if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[d]) >= 0) {
+                if (
+                    Array.prototype.indexOf.call(obj.tbody.children, obj.rows[d]) >= 0
+                ) {
                     if (o > d) {
                         obj.tbody.insertBefore(obj.rows[o], obj.rows[d]);
                     } else {
@@ -3825,27 +4163,30 @@ if (!jSuites && typeof(require) === 'function') {
             obj.options.data.splice(d, 0, obj.options.data.splice(o, 1)[0]);
 
             // Respect pagination
-            if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
+            if (
+                obj.options.pagination > 0 &&
+                obj.tbody.children.length != obj.options.pagination
+            ) {
                 obj.page(obj.pageNumber);
             }
 
             // Keeping history of changes
             obj.setHistory({
-                action: 'moveRow',
+                action: "moveRow",
                 oldValue: o,
-                newValue: d,
+                newValue: d
             });
 
             // Update table references
             obj.updateTableReferences();
 
             // Events
-            obj.dispatch('onmoverow', el, o, d);
-        }
+            obj.dispatch("onmoverow", el, o, d);
+        };
 
         /**
          * Insert a new row
-         * 
+         *
          * @param mixed - number of blank lines to be insert or a single array with the data of the new row
          * @param rowNumber
          * @param insertBefore
@@ -3877,13 +4218,25 @@ if (!jSuites && typeof(require) === 'function') {
                 // Current column number
                 var lastRow = obj.options.data.length - 1;
 
-                if (rowNumber == undefined || rowNumber >= parseInt(lastRow) || rowNumber < 0) {
+                if (
+                    rowNumber == undefined ||
+                    rowNumber >= parseInt(lastRow) ||
+                    rowNumber < 0
+                ) {
                     rowNumber = lastRow;
                 }
 
                 // Onbeforeinsertrow
-                if (obj.dispatch('onbeforeinsertrow', el, rowNumber, numOfRows, insertBefore) === false) {
-                    console.log('onbeforeinsertrow returned false');
+                if (
+                    obj.dispatch(
+                        "onbeforeinsertrow",
+                        el,
+                        rowNumber,
+                        numOfRows,
+                        insertBefore
+                    ) === false
+                ) {
+                    console.log("onbeforeinsertrow returned false");
 
                     return false;
                 }
@@ -3891,7 +4244,10 @@ if (!jSuites && typeof(require) === 'function') {
                 // Merged cells
                 if (Object.keys(obj.options.mergeCells).length > 0) {
                     if (obj.isRowMerged(rowNumber, insertBefore).length) {
-                        if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                        if (!confirm(
+                                obj.options.text
+                                .thisActionWillDestroyAnyExistingMergedCellsAreYouSure
+                            )) {
                             return false;
                         } else {
                             obj.destroyMerged();
@@ -3902,7 +4258,11 @@ if (!jSuites && typeof(require) === 'function') {
                 // Clear any search
                 if (obj.options.search == true) {
                     if (obj.results && obj.results.length != obj.rows.length) {
-                        if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                        if (
+                            confirm(
+                                obj.options.text.thisActionWillClearYourSearchResultsAreYouSure
+                            )
+                        ) {
                             obj.resetSearch();
                         } else {
                             return false;
@@ -3913,7 +4273,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // Insertbefore
-                var rowIndex = (!insertBefore) ? rowNumber + 1 : rowNumber;
+                var rowIndex = !insertBefore ? rowNumber + 1 : rowNumber;
 
                 // Keep the current data
                 var currentRecords = obj.records.splice(rowIndex);
@@ -3925,21 +4285,31 @@ if (!jSuites && typeof(require) === 'function') {
                 var rowData = [];
                 var rowNode = [];
 
-                for (var row = rowIndex; row < (numOfRows + rowIndex); row++) {
+                for (var row = rowIndex; row < numOfRows + rowIndex; row++) {
                     // Push data to the data container
                     obj.options.data[row] = [];
                     for (var col = 0; col < obj.options.columns.length; col++) {
-                        obj.options.data[row][col] = data[col] ? data[col] : '';
+                        obj.options.data[row][col] = data[col] ? data[col] : "";
                     }
                     // Create row
                     var tr = obj.createRow(row, obj.options.data[row]);
                     // Append node
                     if (currentRows[0]) {
-                        if (Array.prototype.indexOf.call(obj.tbody.children, currentRows[0]) >= 0) {
+                        if (
+                            Array.prototype.indexOf.call(
+                                obj.tbody.children,
+                                currentRows[0]
+                            ) >= 0
+                        ) {
                             obj.tbody.insertBefore(tr, currentRows[0]);
                         }
                     } else {
-                        if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[rowNumber]) >= 0) {
+                        if (
+                            Array.prototype.indexOf.call(
+                                obj.tbody.children,
+                                obj.rows[rowNumber]
+                            ) >= 0
+                        ) {
                             obj.tbody.appendChild(tr);
                         }
                     }
@@ -3961,26 +4331,33 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Keep history
                 obj.setHistory({
-                    action: 'insertRow',
+                    action: "insertRow",
                     rowNumber: rowNumber,
                     numOfRows: numOfRows,
                     insertBefore: insertBefore,
                     rowRecords: rowRecords,
                     rowData: rowData,
-                    rowNode: rowNode,
+                    rowNode: rowNode
                 });
 
                 // Remove table references
                 obj.updateTableReferences();
 
                 // Events
-                obj.dispatch('oninsertrow', el, rowNumber, numOfRows, rowRecords, insertBefore);
+                obj.dispatch(
+                    "oninsertrow",
+                    el,
+                    rowNumber,
+                    numOfRows,
+                    rowRecords,
+                    insertBefore
+                );
             }
-        }
+        };
 
         /**
          * Delete a row by number
-         * 
+         *
          * @param integer rowNumber - row number to be excluded
          * @param integer numOfRows - number of lines
          * @return void
@@ -3988,7 +4365,10 @@ if (!jSuites && typeof(require) === 'function') {
         obj.deleteRow = function(rowNumber, numOfRows) {
             // Global Configuration
             if (obj.options.allowDeleteRow == true) {
-                if (obj.options.allowDeletingAllRows == true || obj.options.data.length > 1) {
+                if (
+                    obj.options.allowDeletingAllRows == true ||
+                    obj.options.data.length > 1
+                ) {
                     // Delete row definitions
                     if (rowNumber == undefined) {
                         var number = obj.getSelectedRows();
@@ -3997,7 +4377,7 @@ if (!jSuites && typeof(require) === 'function') {
                             rowNumber = obj.options.data.length - 1;
                             numOfRows = 1;
                         } else {
-                            rowNumber = parseInt(number[0].getAttribute('data-y'));
+                            rowNumber = parseInt(number[0].getAttribute("data-y"));
                             numOfRows = number.length;
                         }
                     }
@@ -4019,8 +4399,11 @@ if (!jSuites && typeof(require) === 'function') {
                     }
 
                     // Onbeforedeleterow
-                    if (obj.dispatch('onbeforedeleterow', el, rowNumber, numOfRows) === false) {
-                        console.log('onbeforedeleterow returned false');
+                    if (
+                        obj.dispatch("onbeforedeleterow", el, rowNumber, numOfRows) ===
+                        false
+                    ) {
+                        console.log("onbeforedeleterow returned false");
                         return false;
                     }
 
@@ -4035,7 +4418,10 @@ if (!jSuites && typeof(require) === 'function') {
                             }
                         }
                         if (mergeExists) {
-                            if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                            if (!confirm(
+                                    obj.options.text
+                                    .thisActionWillDestroyAnyExistingMergedCellsAreYouSure
+                                )) {
                                 return false;
                             } else {
                                 obj.destroyMerged();
@@ -4045,7 +4431,12 @@ if (!jSuites && typeof(require) === 'function') {
                         // Clear any search
                         if (obj.options.search == true) {
                             if (obj.results && obj.results.length != obj.rows.length) {
-                                if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                                if (
+                                    confirm(
+                                        obj.options.text
+                                        .thisActionWillClearYourSearchResultsAreYouSure
+                                    )
+                                ) {
                                     obj.resetSearch();
                                 } else {
                                     return false;
@@ -4057,8 +4448,13 @@ if (!jSuites && typeof(require) === 'function') {
 
                         // Remove node
                         for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
-                            if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
-                                obj.rows[row].className = '';
+                            if (
+                                Array.prototype.indexOf.call(
+                                    obj.tbody.children,
+                                    obj.rows[row]
+                                ) >= 0
+                            ) {
+                                obj.rows[row].className = "";
                                 obj.rows[row].parentNode.removeChild(obj.rows[row]);
                             }
                         }
@@ -4069,16 +4465,23 @@ if (!jSuites && typeof(require) === 'function') {
                         var rowNode = obj.rows.splice(rowNumber, numOfRows);
 
                         // Respect pagination
-                        if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
+                        if (
+                            obj.options.pagination > 0 &&
+                            obj.tbody.children.length != obj.options.pagination
+                        ) {
                             obj.page(obj.pageNumber);
                         }
 
                         // Remove selection
-                        obj.conditionalSelectionUpdate(1, rowNumber, (rowNumber + numOfRows) - 1);
+                        obj.conditionalSelectionUpdate(
+                            1,
+                            rowNumber,
+                            rowNumber + numOfRows - 1
+                        );
 
                         // Keep history
                         obj.setHistory({
-                            action: 'deleteRow',
+                            action: "deleteRow",
                             rowNumber: rowNumber,
                             numOfRows: numOfRows,
                             insertBefore: 1,
@@ -4091,18 +4494,17 @@ if (!jSuites && typeof(require) === 'function') {
                         obj.updateTableReferences();
 
                         // Events
-                        obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
+                        obj.dispatch("ondeleterow", el, rowNumber, numOfRows, rowRecords);
                     }
                 } else {
-                    console.error('JEXCEL. It is not possible to delete the last row');
+                    console.error("JEXCEL. It is not possible to delete the last row");
                 }
             }
-        }
-
+        };
 
         /**
          * Move column
-         * 
+         *
          * @return void
          */
         obj.moveColumn = function(o, d) {
@@ -4113,8 +4515,14 @@ if (!jSuites && typeof(require) === 'function') {
                     var insertBefore = 0;
                 }
 
-                if (obj.isColMerged(o).length || obj.isColMerged(d, insertBefore).length) {
-                    if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                if (
+                    obj.isColMerged(o).length ||
+                    obj.isColMerged(d, insertBefore).length
+                ) {
+                    if (!confirm(
+                            obj.options.text
+                            .thisActionWillDestroyAnyExistingMergedCellsAreYouSure
+                        )) {
                         return false;
                     } else {
                         obj.destroyMerged();
@@ -4133,11 +4541,20 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d]);
                 }
             } else {
-                obj.headerContainer.insertBefore(obj.headers[o], obj.headers[d].nextSibling);
-                obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d].nextSibling);
+                obj.headerContainer.insertBefore(
+                    obj.headers[o],
+                    obj.headers[d].nextSibling
+                );
+                obj.colgroupContainer.insertBefore(
+                    obj.colgroup[o],
+                    obj.colgroup[d].nextSibling
+                );
 
                 for (var j = 0; j < obj.rows.length; j++) {
-                    obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d].nextSibling);
+                    obj.rows[j].insertBefore(
+                        obj.records[j][o],
+                        obj.records[j][d].nextSibling
+                    );
                 }
             }
 
@@ -4153,34 +4570,43 @@ if (!jSuites && typeof(require) === 'function') {
             // Update footers position
             if (obj.options.footers) {
                 for (var j = 0; j < obj.options.footers.length; j++) {
-                    obj.options.footers[j].splice(d, 0, obj.options.footers[j].splice(o, 1)[0]);
+                    obj.options.footers[j].splice(
+                        d,
+                        0,
+                        obj.options.footers[j].splice(o, 1)[0]
+                    );
                 }
             }
 
             // Keeping history of changes
             obj.setHistory({
-                action: 'moveColumn',
+                action: "moveColumn",
                 oldValue: o,
-                newValue: d,
+                newValue: d
             });
 
             // Update table references
             obj.updateTableReferences();
 
             // Events
-            obj.dispatch('onmovecolumn', el, o, d);
-        }
+            obj.dispatch("onmovecolumn", el, o, d);
+        };
 
         /**
          * Insert a new column
-         * 
+         *
          * @param mixed - num of columns to be added or data to be added in one single column
          * @param int columnNumber - number of columns to be created
          * @param bool insertBefore
          * @param object properties - column properties
          * @return void
          */
-        obj.insertColumn = function(mixed, columnNumber, insertBefore, properties) {
+        obj.insertColumn = function(
+            mixed,
+            columnNumber,
+            insertBefore,
+            properties
+        ) {
             // Configuration
             if (obj.options.allowInsertColumn == true) {
                 // Records
@@ -4207,13 +4633,25 @@ if (!jSuites && typeof(require) === 'function') {
                 var lastColumn = obj.options.columns.length - 1;
 
                 // Confirm position
-                if (columnNumber == undefined || columnNumber >= parseInt(lastColumn) || columnNumber < 0) {
+                if (
+                    columnNumber == undefined ||
+                    columnNumber >= parseInt(lastColumn) ||
+                    columnNumber < 0
+                ) {
                     columnNumber = lastColumn;
                 }
 
                 // Onbeforeinsertcolumn
-                if (obj.dispatch('onbeforeinsertcolumn', el, columnNumber, numOfColumns, insertBefore) === false) {
-                    console.log('onbeforeinsertcolumn returned false');
+                if (
+                    obj.dispatch(
+                        "onbeforeinsertcolumn",
+                        el,
+                        columnNumber,
+                        numOfColumns,
+                        insertBefore
+                    ) === false
+                ) {
+                    console.log("onbeforeinsertcolumn returned false");
 
                     return false;
                 }
@@ -4221,7 +4659,10 @@ if (!jSuites && typeof(require) === 'function') {
                 // Merged cells
                 if (Object.keys(obj.options.mergeCells).length > 0) {
                     if (obj.isColMerged(columnNumber, insertBefore).length) {
-                        if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                        if (!confirm(
+                                obj.options.text
+                                .thisActionWillDestroyAnyExistingMergedCellsAreYouSure
+                            )) {
                             return false;
                         } else {
                             obj.destroyMerged();
@@ -4236,13 +4677,23 @@ if (!jSuites && typeof(require) === 'function') {
 
                 for (var i = 0; i < numOfColumns; i++) {
                     if (!properties[i]) {
-                        properties[i] = { type: 'text', source: [], options: [], width: obj.options.defaultColWidth, align: obj.options.defaultColAlign };
+                        properties[i] = {
+                            type: "text",
+                            source: [],
+                            options: [],
+                            width: obj.options.defaultColWidth,
+                            align: obj.options.defaultColAlign
+                        };
                     }
                 }
 
                 // Insert before
-                var columnIndex = (!insertBefore) ? columnNumber + 1 : columnNumber;
-                obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties);
+                var columnIndex = !insertBefore ? columnNumber + 1 : columnNumber;
+                obj.options.columns = jexcel.injectArray(
+                    obj.options.columns,
+                    columnIndex,
+                    properties
+                );
 
                 // Open space in the containers
                 var currentHeaders = obj.headers.splice(columnIndex);
@@ -4256,10 +4707,16 @@ if (!jSuites && typeof(require) === 'function') {
                 var historyFooters = [];
 
                 // Add new headers
-                for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                for (var col = columnIndex; col < numOfColumns + columnIndex; col++) {
                     obj.createCellHeader(col);
-                    obj.headerContainer.insertBefore(obj.headers[col], obj.headerContainer.children[col + 1]);
-                    obj.colgroupContainer.insertBefore(obj.colgroup[col], obj.colgroupContainer.children[col + 1]);
+                    obj.headerContainer.insertBefore(
+                        obj.headers[col],
+                        obj.headerContainer.children[col + 1]
+                    );
+                    obj.colgroupContainer.insertBefore(
+                        obj.colgroup[col],
+                        obj.colgroupContainer.children[col + 1]
+                    );
 
                     historyHeaders.push(obj.headers[col]);
                     historyColgroup.push(obj.colgroup[col]);
@@ -4270,7 +4727,7 @@ if (!jSuites && typeof(require) === 'function') {
                     for (var j = 0; j < obj.options.footers.length; j++) {
                         historyFooters[j] = [];
                         for (var i = 0; i < numOfColumns; i++) {
-                            historyFooters[j].push('');
+                            historyFooters[j].push("");
                         }
                         obj.options.footers[j].splice(columnIndex, 0, historyFooters[j]);
                     }
@@ -4286,9 +4743,9 @@ if (!jSuites && typeof(require) === 'function') {
                     historyData[row] = [];
                     historyRecords[row] = [];
 
-                    for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                    for (var col = columnIndex; col < numOfColumns + columnIndex; col++) {
                         // New value
-                        var value = data[row] ? data[row] : '';
+                        var value = data[row] ? data[row] : "";
                         obj.options.data[row][col] = value;
                         // New cell
                         var td = obj.createCell(col, row, obj.options.data[row][col]);
@@ -4316,20 +4773,32 @@ if (!jSuites && typeof(require) === 'function') {
                     // Flexible way to handle nestedheaders
                     if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
                         for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
-                            var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) + numOfColumns;
-                            obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan = colspan;
-                            obj.thead.children[j].children[obj.thead.children[j].children.length - 1].setAttribute('colspan', colspan);
+                            var colspan =
+                                parseInt(
+                                    obj.options.nestedHeaders[j][
+                                        obj.options.nestedHeaders[j].length - 1
+                                    ].colspan
+                                ) + numOfColumns;
+                            obj.options.nestedHeaders[j][
+                                obj.options.nestedHeaders[j].length - 1
+                            ].colspan = colspan;
+                            obj.thead.children[j].children[
+                                obj.thead.children[j].children.length - 1
+                            ].setAttribute("colspan", colspan);
                         }
                     } else {
-                        var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
+                        var colspan =
+                            parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
                         obj.options.nestedHeaders[0].colspan = colspan;
-                        obj.thead.children[0].children[obj.thead.children[0].children.length - 1].setAttribute('colspan', colspan);
+                        obj.thead.children[0].children[
+                            obj.thead.children[0].children.length - 1
+                        ].setAttribute("colspan", colspan);
                     }
                 }
 
                 // Keep history
                 obj.setHistory({
-                    action: 'insertColumn',
+                    action: "insertColumn",
                     columnNumber: columnNumber,
                     numOfColumns: numOfColumns,
                     insertBefore: insertBefore,
@@ -4338,20 +4807,27 @@ if (!jSuites && typeof(require) === 'function') {
                     colgroup: historyColgroup,
                     records: historyRecords,
                     footers: historyFooters,
-                    data: historyData,
+                    data: historyData
                 });
 
                 // Remove table references
                 obj.updateTableReferences();
 
                 // Events
-                obj.dispatch('oninsertcolumn', el, columnNumber, numOfColumns, historyRecords, insertBefore);
+                obj.dispatch(
+                    "oninsertcolumn",
+                    el,
+                    columnNumber,
+                    numOfColumns,
+                    historyRecords,
+                    insertBefore
+                );
             }
-        }
+        };
 
         /**
          * Delete a column by number
-         * 
+         *
          * @param integer columnNumber - reference column to be excluded
          * @param integer numOfColumns - number of columns to be excluded from the reference column
          * @return void
@@ -4378,7 +4854,11 @@ if (!jSuites && typeof(require) === 'function') {
                     // Lasat column
                     var lastColumn = obj.options.data[0].length - 1;
 
-                    if (columnNumber == undefined || columnNumber > lastColumn || columnNumber < 0) {
+                    if (
+                        columnNumber == undefined ||
+                        columnNumber > lastColumn ||
+                        columnNumber < 0
+                    ) {
                         columnNumber = lastColumn;
                     }
 
@@ -4393,8 +4873,15 @@ if (!jSuites && typeof(require) === 'function') {
                     }
 
                     // onbeforedeletecolumn
-                    if (obj.dispatch('onbeforedeletecolumn', el, columnNumber, numOfColumns) === false) {
-                        console.log('onbeforedeletecolumn returned false');
+                    if (
+                        obj.dispatch(
+                            "onbeforedeletecolumn",
+                            el,
+                            columnNumber,
+                            numOfColumns
+                        ) === false
+                    ) {
+                        console.log("onbeforedeletecolumn returned false");
                         return false;
                     }
 
@@ -4403,14 +4890,19 @@ if (!jSuites && typeof(require) === 'function') {
                         // Merged cells
                         var mergeExists = false;
                         if (Object.keys(obj.options.mergeCells).length > 0) {
-                            for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                            for (
+                                var col = columnNumber; col < columnNumber + numOfColumns; col++
+                            ) {
                                 if (obj.isColMerged(col, false).length) {
                                     mergeExists = true;
                                 }
                             }
                         }
                         if (mergeExists) {
-                            if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                            if (!confirm(
+                                    obj.options.text
+                                    .thisActionWillDestroyAnyExistingMergedCellsAreYouSure
+                                )) {
                                 return false;
                             } else {
                                 obj.destroyMerged();
@@ -4418,64 +4910,107 @@ if (!jSuites && typeof(require) === 'function') {
                         }
 
                         // Delete the column properties
-                        var columns = obj.options.columns.splice(columnNumber, numOfColumns);
+                        var columns = obj.options.columns.splice(
+                            columnNumber,
+                            numOfColumns
+                        );
 
-                        for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
-                            obj.colgroup[col].className = '';
-                            obj.headers[col].className = '';
+                        for (
+                            var col = columnNumber; col < columnNumber + numOfColumns; col++
+                        ) {
+                            obj.colgroup[col].className = "";
+                            obj.headers[col].className = "";
                             obj.colgroup[col].parentNode.removeChild(obj.colgroup[col]);
                             obj.headers[col].parentNode.removeChild(obj.headers[col]);
                         }
 
                         var historyHeaders = obj.headers.splice(columnNumber, numOfColumns);
-                        var historyColgroup = obj.colgroup.splice(columnNumber, numOfColumns);
+                        var historyColgroup = obj.colgroup.splice(
+                            columnNumber,
+                            numOfColumns
+                        );
                         var historyRecords = [];
                         var historyData = [];
                         var historyFooters = [];
 
                         for (var row = 0; row < obj.options.data.length; row++) {
-                            for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
-                                obj.records[row][col].className = '';
-                                obj.records[row][col].parentNode.removeChild(obj.records[row][col]);
+                            for (
+                                var col = columnNumber; col < columnNumber + numOfColumns; col++
+                            ) {
+                                obj.records[row][col].className = "";
+                                obj.records[row][col].parentNode.removeChild(
+                                    obj.records[row][col]
+                                );
                             }
                         }
 
                         // Delete headers
                         for (var row = 0; row < obj.options.data.length; row++) {
                             // History
-                            historyData[row] = obj.options.data[row].splice(columnNumber, numOfColumns);
-                            historyRecords[row] = obj.records[row].splice(columnNumber, numOfColumns);
+                            historyData[row] = obj.options.data[row].splice(
+                                columnNumber,
+                                numOfColumns
+                            );
+                            historyRecords[row] = obj.records[row].splice(
+                                columnNumber,
+                                numOfColumns
+                            );
                         }
 
                         // Delete footers
                         if (obj.options.footers) {
                             for (var row = 0; row < obj.options.footers.length; row++) {
-                                historyFooters[row] = obj.options.footers[row].splice(columnNumber, numOfColumns);
+                                historyFooters[row] = obj.options.footers[row].splice(
+                                    columnNumber,
+                                    numOfColumns
+                                );
                             }
                         }
 
                         // Remove selection
-                        obj.conditionalSelectionUpdate(0, columnNumber, (columnNumber + numOfColumns) - 1);
+                        obj.conditionalSelectionUpdate(
+                            0,
+                            columnNumber,
+                            columnNumber + numOfColumns - 1
+                        );
 
                         // Adjust nested headers
-                        if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                        if (
+                            obj.options.nestedHeaders &&
+                            obj.options.nestedHeaders.length > 0
+                        ) {
                             // Flexible way to handle nestedheaders
-                            if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                            if (
+                                obj.options.nestedHeaders[0] &&
+                                obj.options.nestedHeaders[0][0]
+                            ) {
                                 for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
-                                    var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) - numOfColumns;
-                                    obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan = colspan;
-                                    obj.thead.children[j].children[obj.thead.children[j].children.length - 1].setAttribute('colspan', colspan);
+                                    var colspan =
+                                        parseInt(
+                                            obj.options.nestedHeaders[j][
+                                                obj.options.nestedHeaders[j].length - 1
+                                            ].colspan
+                                        ) - numOfColumns;
+                                    obj.options.nestedHeaders[j][
+                                        obj.options.nestedHeaders[j].length - 1
+                                    ].colspan = colspan;
+                                    obj.thead.children[j].children[
+                                        obj.thead.children[j].children.length - 1
+                                    ].setAttribute("colspan", colspan);
                                 }
                             } else {
-                                var colspan = parseInt(obj.options.nestedHeaders[0].colspan) - numOfColumns;
+                                var colspan =
+                                    parseInt(obj.options.nestedHeaders[0].colspan) - numOfColumns;
                                 obj.options.nestedHeaders[0].colspan = colspan;
-                                obj.thead.children[0].children[obj.thead.children[0].children.length - 1].setAttribute('colspan', colspan);
+                                obj.thead.children[0].children[
+                                    obj.thead.children[0].children.length - 1
+                                ].setAttribute("colspan", colspan);
                             }
                         }
 
                         // Keeping history of changes
                         obj.setHistory({
-                            action: 'deleteColumn',
+                            action: "deleteColumn",
                             columnNumber: columnNumber,
                             numOfColumns: numOfColumns,
                             insertBefore: 1,
@@ -4484,83 +5019,88 @@ if (!jSuites && typeof(require) === 'function') {
                             colgroup: historyColgroup,
                             records: historyRecords,
                             footers: historyFooters,
-                            data: historyData,
+                            data: historyData
                         });
 
                         // Update table references
                         obj.updateTableReferences();
 
                         // Delete
-                        obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
+                        obj.dispatch(
+                            "ondeletecolumn",
+                            el,
+                            columnNumber,
+                            numOfColumns,
+                            historyRecords
+                        );
                     }
                 } else {
-                    console.error('JEXCEL. It is not possible to delete the last column');
+                    console.error("JEXCEL. It is not possible to delete the last column");
                 }
             }
-        }
+        };
 
         /**
          * Get seleted rows numbers
-         * 
+         *
          * @return array
          */
-        obj.getSelectedRows = function(asIds) {
-                var rows = [];
-                // Get all selected rows
-                for (var j = 0; j < obj.rows.length; j++) {
-                    if (obj.rows[j].classList.contains('selected')) {
-                        if (asIds) {
-                            rows.push(j);
-                        } else {
-                            rows.push(obj.rows[j]);
-                        }
+        (obj.getSelectedRows = function(asIds) {
+            var rows = [];
+            // Get all selected rows
+            for (var j = 0; j < obj.rows.length; j++) {
+                if (obj.rows[j].classList.contains("selected")) {
+                    if (asIds) {
+                        rows.push(j);
+                    } else {
+                        rows.push(obj.rows[j]);
                     }
                 }
-
-                return rows;
-            },
-
-            /**
-             * Get seleted column numbers
-             * 
-             * @return array
-             */
-            obj.getSelectedColumns = function() {
-                var cols = [];
-                // Get all selected cols
-                for (var i = 0; i < obj.headers.length; i++) {
-                    if (obj.headers[i].classList.contains('selected')) {
-                        cols.push(i);
-                    }
-                }
-
-                return cols;
             }
+
+            return rows;
+        }),
+        /**
+         * Get seleted column numbers
+         *
+         * @return array
+         */
+        (obj.getSelectedColumns = function() {
+            var cols = [];
+            // Get all selected cols
+            for (var i = 0; i < obj.headers.length; i++) {
+                if (obj.headers[i].classList.contains("selected")) {
+                    cols.push(i);
+                }
+            }
+
+            return cols;
+        });
 
         /**
          * Get highlighted
-         * 
+         *
          * @return array
          */
         obj.getHighlighted = function() {
             return obj.highlighted;
-        }
+        };
 
         /**
          * Update cell references
-         * 
+         *
          * @return void
          */
         obj.updateTableReferences = function() {
             // Update headers
             for (var i = 0; i < obj.headers.length; i++) {
-                var x = obj.headers[i].getAttribute('data-x');
+                var x = obj.headers[i].getAttribute("data-x");
 
                 if (x != i) {
                     // Update coords
-                    obj.headers[i].setAttribute('data-x', i);
+                    obj.headers[i].setAttribute("data-x", i);
                     // Title
-                    if (!obj.headers[i].getAttribute('title')) {
+                    if (!obj.headers[i].getAttribute("title")) {
                         obj.headers[i].innerHTML = jexcel.getColumnName(i);
                     }
                 }
@@ -4569,12 +5109,12 @@ if (!jSuites && typeof(require) === 'function') {
             // Update all rows
             for (var j = 0; j < obj.rows.length; j++) {
                 if (obj.rows[j]) {
-                    var y = obj.rows[j].getAttribute('data-y');
+                    var y = obj.rows[j].getAttribute("data-y");
 
                     if (y != j) {
                         // Update coords
-                        obj.rows[j].setAttribute('data-y', j);
-                        obj.rows[j].children[0].setAttribute('data-y', j);
+                        obj.rows[j].setAttribute("data-y", j);
+                        obj.rows[j].children[0].setAttribute("data-y", j);
                         // Row number
                         obj.rows[j].children[0].innerHTML = j + 1;
                     }
@@ -4588,10 +5128,10 @@ if (!jSuites && typeof(require) === 'function') {
             // Update cell
             var updatePosition = function(x, y, i, j) {
                 if (x != i) {
-                    obj.records[j][i].setAttribute('data-x', i);
+                    obj.records[j][i].setAttribute("data-x", i);
                 }
                 if (y != j) {
-                    obj.records[j][i].setAttribute('data-y', j);
+                    obj.records[j][i].setAttribute("data-y", j);
                 }
 
                 // Other updates
@@ -4600,17 +5140,17 @@ if (!jSuites && typeof(require) === 'function') {
                     var columnIdTo = jexcel.getColumnNameFromId([i, j]);
                     affectedTokens[columnIdFrom] = columnIdTo;
                 }
-            }
+            };
 
             for (var j = 0; j < obj.records.length; j++) {
                 for (var i = 0; i < obj.records[0].length; i++) {
                     if (obj.records[j][i]) {
                         // Current values
-                        var x = obj.records[j][i].getAttribute('data-x');
-                        var y = obj.records[j][i].getAttribute('data-y');
+                        var x = obj.records[j][i].getAttribute("data-x");
+                        var y = obj.records[j][i].getAttribute("data-y");
 
                         // Update column
-                        if (obj.records[j][i].getAttribute('data-merged')) {
+                        if (obj.records[j][i].getAttribute("data-merged")) {
                             var columnIdFrom = jexcel.getColumnNameFromId([x, y]);
                             var columnIdTo = jexcel.getColumnNameFromId([i, j]);
                             if (mergeCellUpdates[columnIdFrom] == null) {
@@ -4634,22 +5174,44 @@ if (!jSuites && typeof(require) === 'function') {
             if (keys.length) {
                 for (var i = 0; i < keys.length; i++) {
                     if (mergeCellUpdates[keys[i]]) {
-                        var info = jexcel.getIdFromColumnName(keys[i], true)
+                        var info = jexcel.getIdFromColumnName(keys[i], true);
                         var x = info[0];
                         var y = info[1];
-                        updatePosition(x, y, x + mergeCellUpdates[keys[i]][1], y + mergeCellUpdates[keys[i]][2]);
+                        updatePosition(
+                            x,
+                            y,
+                            x + mergeCellUpdates[keys[i]][1],
+                            y + mergeCellUpdates[keys[i]][2]
+                        );
 
                         var columnIdFrom = keys[i];
                         var columnIdTo = mergeCellUpdates[keys[i]][0];
-                        for (var j = 0; j < obj.options.mergeCells[columnIdFrom][2].length; j++) {
-                            var x = parseInt(obj.options.mergeCells[columnIdFrom][2][j].getAttribute('data-x'));
-                            var y = parseInt(obj.options.mergeCells[columnIdFrom][2][j].getAttribute('data-y'));
-                            obj.options.mergeCells[columnIdFrom][2][j].setAttribute('data-x', x + mergeCellUpdates[keys[i]][1]);
-                            obj.options.mergeCells[columnIdFrom][2][j].setAttribute('data-y', y + mergeCellUpdates[keys[i]][2]);
+                        for (
+                            var j = 0; j < obj.options.mergeCells[columnIdFrom][2].length; j++
+                        ) {
+                            var x = parseInt(
+                                obj.options.mergeCells[columnIdFrom][2][j].getAttribute(
+                                    "data-x"
+                                )
+                            );
+                            var y = parseInt(
+                                obj.options.mergeCells[columnIdFrom][2][j].getAttribute(
+                                    "data-y"
+                                )
+                            );
+                            obj.options.mergeCells[columnIdFrom][2][j].setAttribute(
+                                "data-x",
+                                x + mergeCellUpdates[keys[i]][1]
+                            );
+                            obj.options.mergeCells[columnIdFrom][2][j].setAttribute(
+                                "data-y",
+                                y + mergeCellUpdates[keys[i]][2]
+                            );
                         }
 
-                        obj.options.mergeCells[columnIdTo] = obj.options.mergeCells[columnIdFrom];
-                        delete(obj.options.mergeCells[columnIdFrom]);
+                        obj.options.mergeCells[columnIdTo] =
+                            obj.options.mergeCells[columnIdFrom];
+                        delete obj.options.mergeCells[columnIdFrom];
                     }
                 }
             }
@@ -4665,7 +5227,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Update table with custom configuration if applicable
             obj.updateTable();
-        }
+        };
 
         /**
          * Custom settings for the cells
@@ -4689,7 +5251,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 if (obj.options.minSpareRows - numBlankRows > 0) {
-                    obj.insertRow(obj.options.minSpareRows - numBlankRows)
+                    obj.insertRow(obj.options.minSpareRows - numBlankRows);
                 }
             }
 
@@ -4710,19 +5272,27 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 if (obj.options.minSpareCols - numBlankCols > 0) {
-                    obj.insertColumn(obj.options.minSpareCols - numBlankCols)
+                    obj.insertColumn(obj.options.minSpareCols - numBlankCols);
                 }
             }
 
             // Customizations by the developer
-            if (typeof(obj.options.updateTable) == 'function') {
+            if (typeof obj.options.updateTable == "function") {
                 if (obj.options.detachForUpdates) {
                     el.removeChild(obj.content);
                 }
 
                 for (var j = 0; j < obj.rows.length; j++) {
                     for (var i = 0; i < obj.headers.length; i++) {
-                        obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText, jexcel.getColumnNameFromId([i, j]));
+                        obj.options.updateTable(
+                            el,
+                            obj.records[j][i],
+                            i,
+                            j,
+                            obj.options.data[j][i],
+                            obj.records[j][i].innerText,
+                            jexcel.getColumnNameFromId([i, j])
+                        );
                     }
                 }
 
@@ -4740,79 +5310,79 @@ if (!jSuites && typeof(require) === 'function') {
             setTimeout(function() {
                 obj.updateCornerPosition();
             }, 0);
-        }
+        };
 
         /**
          * Readonly
          */
         obj.isReadOnly = function(cell) {
-            if (cell = obj.getCell(cell)) {
-                return cell.classList.contains('readonly') ? true : false;
+            if ((cell = obj.getCell(cell))) {
+                return cell.classList.contains("readonly") ? true : false;
             }
-        }
+        };
 
         /**
          * Readonly
          */
         obj.setReadOnly = function(cell, state) {
-            if (cell = obj.getCell(cell)) {
+            if ((cell = obj.getCell(cell))) {
                 if (state) {
-                    cell.classList.add('readonly');
+                    cell.classList.add("readonly");
                 } else {
-                    cell.classList.remove('readonly');
+                    cell.classList.remove("readonly");
                 }
             }
-        }
+        };
 
         /**
          * Show row
          */
         obj.showRow = function(rowNumber) {
-            obj.rows[rowNumber].style.display = '';
-        }
+            obj.rows[rowNumber].style.display = "";
+        };
 
         /**
          * Hide row
          */
         obj.hideRow = function(rowNumber) {
-            obj.rows[rowNumber].style.display = 'none';
-        }
+            obj.rows[rowNumber].style.display = "none";
+        };
 
         /**
          * Show column
          */
         obj.showColumn = function(colNumber) {
-            obj.headers[colNumber].style.display = '';
-            obj.colgroup[colNumber].style.display = '';
+            obj.headers[colNumber].style.display = "";
+            obj.colgroup[colNumber].style.display = "";
             for (var j = 0; j < obj.options.data.length; j++) {
-                obj.records[j][colNumber].style.display = '';
+                obj.records[j][colNumber].style.display = "";
             }
-        }
+        };
 
         /**
          * Hide column
          */
         obj.hideColumn = function(colNumber) {
-            obj.headers[colNumber].style.display = 'none';
-            obj.colgroup[colNumber].style.display = 'none';
+            obj.headers[colNumber].style.display = "none";
+            obj.colgroup[colNumber].style.display = "none";
             for (var j = 0; j < obj.options.data.length; j++) {
-                obj.records[j][colNumber].style.display = 'none';
+                obj.records[j][colNumber].style.display = "none";
             }
-        }
+        };
 
         /**
          * Show index column
          */
         obj.showIndex = function() {
-            obj.table.classList.remove('jexcel_hidden_index');
-        }
+            obj.table.classList.remove("jexcel_hidden_index");
+        };
 
         /**
          * Hide index column
          */
         obj.hideIndex = function() {
-            obj.table.classList.add('jexcel_hidden_index');
-        }
+            obj.table.classList.add("jexcel_hidden_index");
+        };
 
         /**
          * Update all related cells in the chain
@@ -4823,8 +5393,8 @@ if (!jSuites && typeof(require) === 'function') {
             var cellId = jexcel.getColumnNameFromId([x, y]);
             if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
                 if (chainLoopProtection[cellId]) {
-                    obj.records[y][x].innerHTML = '#ERROR';
-                    obj.formula[cellId] = '';
+                    obj.records[y][x].innerHTML = "#ERROR";
+                    obj.formula[cellId] = "";
                 } else {
                     // Protection
                     chainLoopProtection[cellId] = true;
@@ -4832,8 +5402,8 @@ if (!jSuites && typeof(require) === 'function') {
                     for (var i = 0; i < obj.formula[cellId].length; i++) {
                         var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
                         // Update cell
-                        var value = '' + obj.options.data[cell[1]][cell[0]];
-                        if (value.substr(0, 1) == '=') {
+                        var value = "" + obj.options.data[cell[1]][cell[0]];
+                        if (value.substr(0, 1) == "=") {
                             records.push(obj.updateCell(cell[0], cell[1], value, true));
                         } else {
                             // No longer a formula, remove from the chain
@@ -4845,7 +5415,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             chainLoopProtection = [];
-        }
+        };
 
         /**
          * Update formulas
@@ -4854,9 +5424,9 @@ if (!jSuites && typeof(require) === 'function') {
             // Update formulas
             for (var j = 0; j < obj.options.data.length; j++) {
                 for (var i = 0; i < obj.options.data[0].length; i++) {
-                    var value = '' + obj.options.data[j][i];
+                    var value = "" + obj.options.data[j][i];
                     // Is formula
-                    if (value.substr(0, 1) == '=') {
+                    if (value.substr(0, 1) == "=") {
                         // Replace tokens
                         var newFormula = obj.updateFormula(value, referencesToUpdate);
                         if (newFormula != value) {
@@ -4888,7 +5458,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
             obj.formula = formula;
-        }
+        };
 
         /**
          * Update formula
@@ -4897,10 +5467,10 @@ if (!jSuites && typeof(require) === 'function') {
             var testLetter = /[A-Z]/;
             var testNumber = /[0-9]/;
 
-            var newFormula = '';
+            var newFormula = "";
             var letter = null;
             var number = null;
-            var token = '';
+            var token = "";
 
             for (var index = 0; index < formula.length; index++) {
                 if (testLetter.exec(formula[index])) {
@@ -4912,13 +5482,15 @@ if (!jSuites && typeof(require) === 'function') {
                     token += formula[index];
                 } else {
                     if (letter && number) {
-                        token = referencesToUpdate[token] ? referencesToUpdate[token] : token;
+                        token = referencesToUpdate[token] ?
+                            referencesToUpdate[token] :
+                            token;
                     }
                     newFormula += token;
                     newFormula += formula[index];
                     letter = 0;
                     number = 0;
-                    token = '';
+                    token = "";
                 }
             }
 
@@ -4930,13 +5502,13 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return newFormula;
-        }
+        };
 
         /**
          * Secure formula
          */
         var secureFormula = function(oldValue) {
-            var newValue = '';
+            var newValue = "";
             var inside = 0;
 
             for (var i = 0; i < oldValue.length; i++) {
@@ -4956,13 +5528,12 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return newValue;
-        }
+        };
 
         /**
          * Parse formulas
          */
         obj.executeFormula = function(expression, x, y) {
-
             var formulaResults = [];
             var formulaLoopProtection = [];
 
@@ -4973,8 +5544,8 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Code protection
                 if (formulaLoopProtection[parentId]) {
-                    console.error('Reference loop detected');
-                    return '#ERROR';
+                    console.error("Reference loop detected");
+                    return "#ERROR";
                 }
 
                 formulaLoopProtection[parentId] = true;
@@ -4983,7 +5554,7 @@ if (!jSuites && typeof(require) === 'function') {
                 var tokensUpdate = function(tokens) {
                     for (var index = 0; index < tokens.length; index++) {
                         var f = [];
-                        var token = tokens[index].split(':');
+                        var token = tokens[index].split(":");
                         var e1 = jexcel.getIdFromColumnName(token[0], true);
                         var e2 = jexcel.getIdFromColumnName(token[1], true);
 
@@ -5009,9 +5580,9 @@ if (!jSuites && typeof(require) === 'function') {
                             }
                         }
 
-                        expression = expression.replace(tokens[index], f.join(','));
+                        expression = expression.replace(tokens[index], f.join(","));
                     }
-                }
+                };
 
                 var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
                 if (tokens && tokens.length) {
@@ -5019,15 +5590,15 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // String
-                var evalstring = '';
+                var evalstring = "";
 
                 // Get tokens
                 var tokens = expression.match(/([A-Z]+[0-9]+)/g);
 
                 // Direct self-reference protection
                 if (tokens && tokens.indexOf(parentId) > -1) {
-                    console.error('Self Reference detected');
-                    return '#ERROR';
+                    console.error("Self Reference detected");
+                    return "#ERROR";
                 } else {
                     if (tokens) {
                         for (var i = 0; i < tokens.length; i++) {
@@ -5041,17 +5612,21 @@ if (!jSuites && typeof(require) === 'function') {
                             }
 
                             // Do not calculate again
-                            if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
+                            if (eval("typeof(" + tokens[i] + ') == "undefined"')) {
                                 // Coords
                                 var position = jexcel.getIdFromColumnName(tokens[i], 1);
                                 // Get value
-                                if (typeof(obj.options.data[position[1]]) != 'undefined' && typeof(obj.options.data[position[1]][position[0]]) != 'undefined') {
+                                if (
+                                    typeof obj.options.data[position[1]] != "undefined" &&
+                                    typeof obj.options.data[position[1]][position[0]] !=
+                                    "undefined"
+                                ) {
                                     var value = obj.options.data[position[1]][position[0]];
                                 } else {
-                                    var value = '';
+                                    var value = "";
                                 }
                                 // Get column data
-                                if (('' + value).substr(0, 1) == '=') {
+                                if (("" + value).substr(0, 1) == "=") {
                                     if (formulaResults[tokens[i]]) {
                                         value = formulaResults[tokens[i]];
                                     } else {
@@ -5060,16 +5635,20 @@ if (!jSuites && typeof(require) === 'function') {
                                     }
                                 }
                                 // Type!
-                                if (('' + value).trim() == '') {
+                                if (("" + value).trim() == "") {
                                     // Null
                                     evalstring += "var " + tokens[i] + " = null;";
                                 } else {
-                                    if (value == Number(value) && obj.options.autoCasting == true) {
+                                    if (
+                                        value == Number(value) &&
+                                        obj.options.autoCasting == true
+                                    ) {
                                         // Number
-                                        evalstring += "var " + tokens[i] + " = " + Number(value) + ";";
+                                        evalstring +=
+                                            "var " + tokens[i] + " = " + Number(value) + ";";
                                     } else {
                                         // Trying any formatted number
-                                        var number = obj.parseNumber(value, position[0])
+                                        var number = obj.parseNumber(value, position[0]);
                                         if (obj.options.autoCasting == true && number) {
                                             // Render as number
                                             evalstring += "var " + tokens[i] + " = " + number + ";";
@@ -5085,91 +5664,115 @@ if (!jSuites && typeof(require) === 'function') {
 
                     // Convert formula to javascript
                     try {
-                        evalstring += "function COLUMN() { return parseInt(x) + 1; }; function ROW() { return parseInt(y) + 1; }; function CELL() { return parentId; }; function TABLE() { return obj; }; function VALUE(col, row) { return obj.records[row-1][col-1].innerHTML; }; function THISROWCELL(col) { var id = jexcel.getIdFromColumnName(col+(parseInt(y)+1), true); return obj.records[id[1]][id[0]].innerHTML; }";
+                        evalstring +=
+                            "function COLUMN() { return parseInt(x) + 1; }; function ROW() { return parseInt(y) + 1; }; function CELL() { return parentId; }; function TABLE() { return obj; }; function VALUE(col, row) { return obj.records[row-1][col-1].innerHTML; }; function THISROWCELL(col) { var id = jexcel.getIdFromColumnName(col+(parseInt(y)+1), true); return obj.records[id[1]][id[0]].innerHTML; }";
 
                         var res = eval(evalstring + expression.substr(1));
                     } catch (e) {
-                        var res = '#ERROR';
+                        var res = "#ERROR";
                     }
 
                     return res;
                 }
-            }
+            };
 
             return execute(expression, x, y);
-        }
+        };
 
         /**
          * Trying to extract a number from a string
          */
         obj.parseNumber = function(value, columnNumber) {
             // Decimal point
-            var decimal = columnNumber && obj.options.columns[columnNumber].decimal ? obj.options.columns[columnNumber].decimal : '.';
+            var decimal =
+                columnNumber && obj.options.columns[columnNumber].decimal ?
+                obj.options.columns[columnNumber].decimal :
+                ".";
 
             // Parse both parts of the number
-            var number = ('' + value);
+            var number = "" + value;
             number = number.split(decimal);
             number[0] = number[0].match(/[+-]?[0-9]/g);
             if (number[0]) {
-                number[0] = number[0].join('');
+                number[0] = number[0].join("");
             }
             if (number[1]) {
-                number[1] = number[1].match(/[0-9]*/g).join('');
+                number[1] = number[1].match(/[0-9]*/g).join("");
             }
 
             // Is a valid number
             if (number[0] && Number(number[0]) >= 0) {
                 if (!number[1]) {
-                    var value = Number(number[0] + '.00');
+                    var value = Number(number[0] + ".00");
                 } else {
-                    var value = Number(number[0] + '.' + number[1]);
+                    var value = Number(number[0] + "." + number[1]);
                 }
             } else {
                 var value = null;
             }
 
             return value;
-        }
+        };
 
         /**
          * Get row number
          */
-        obj.row = function(cell) {}
+        obj.row = function(cell) {};
 
         /**
          * Get col number
          */
-        obj.col = function(cell) {}
+        obj.col = function(cell) {};
 
         obj.up = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[3] > 0) {
-                    obj.up.visible(1, ctrlKey ? 0 : 1)
+                    obj.up.visible(1, ctrlKey ? 0 : 1);
                 }
             } else {
                 if (obj.selectedCell[1] > 0) {
-                    obj.up.visible(0, ctrlKey ? 0 : 1)
+                    obj.up.visible(0, ctrlKey ? 0 : 1);
                 }
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
 
             // Update selection
-            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateSelectionFromCoords(
+                obj.selectedCell[0],
+                obj.selectedCell[1],
+                obj.selectedCell[2],
+                obj.selectedCell[3]
+            );
 
             // Change page
             if (obj.options.lazyLoading == true) {
                 if (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0) {
                     obj.loadPage(0);
-                    obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                    obj.updateSelectionFromCoords(
+                        obj.selectedCell[0],
+                        obj.selectedCell[1],
+                        obj.selectedCell[2],
+                        obj.selectedCell[3]
+                    );
                 } else {
                     if (obj.loadValidation()) {
-                        obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                        obj.updateSelectionFromCoords(
+                            obj.selectedCell[0],
+                            obj.selectedCell[1],
+                            obj.selectedCell[2],
+                            obj.selectedCell[3]
+                        );
                     } else {
-                        var item = parseInt(obj.tbody.firstChild.getAttribute('data-y'));
+                        var item = parseInt(obj.tbody.firstChild.getAttribute("data-y"));
                         if (obj.selectedCell[1] - item < 30) {
                             obj.loadUp();
-                            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                            obj.updateSelectionFromCoords(
+                                obj.selectedCell[0],
+                                obj.selectedCell[1],
+                                obj.selectedCell[2],
+                                obj.selectedCell[3]
+                            );
                         }
                     }
                 }
@@ -5181,7 +5784,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             obj.updateScroll(1);
-        }
+        };
 
         obj.up.visible = function(group, direction) {
             if (group == 0) {
@@ -5194,7 +5797,10 @@ if (!jSuites && typeof(require) === 'function') {
 
             if (direction == 0) {
                 for (var j = 0; j < y; j++) {
-                    if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
+                    if (
+                        obj.records[j][x].style.display != "none" &&
+                        obj.rows[j].style.display != "none"
+                    ) {
                         y = j;
                         break;
                     }
@@ -5210,14 +5816,17 @@ if (!jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = x;
                 obj.selectedCell[3] = y;
             }
-        }
+        };
 
         obj.up.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
-            for (var j = (y - 1); j >= 0; j--) {
-                if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
-                    if (obj.records[j][x].getAttribute('data-merged')) {
+            for (var j = y - 1; j >= 0; j--) {
+                if (
+                    obj.records[j][x].style.display != "none" &&
+                    obj.rows[j].style.display != "none"
+                ) {
+                    if (obj.records[j][x].getAttribute("data-merged")) {
                         if (obj.records[j][x] == obj.records[y][x]) {
                             continue;
                         }
@@ -5228,36 +5837,59 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return y;
-        }
+        };
 
         obj.down = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[3] < obj.records.length - 1) {
-                    obj.down.visible(1, ctrlKey ? 0 : 1)
+                    obj.down.visible(1, ctrlKey ? 0 : 1);
                 }
             } else {
                 if (obj.selectedCell[1] < obj.records.length - 1) {
-                    obj.down.visible(0, ctrlKey ? 0 : 1)
+                    obj.down.visible(0, ctrlKey ? 0 : 1);
                 }
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
 
-            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateSelectionFromCoords(
+                obj.selectedCell[0],
+                obj.selectedCell[1],
+                obj.selectedCell[2],
+                obj.selectedCell[3]
+            );
 
             // Change page
             if (obj.options.lazyLoading == true) {
-                if ((obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
+                if (
+                    obj.selectedCell[1] == obj.records.length - 1 ||
+                    obj.selectedCell[3] == obj.records.length - 1
+                ) {
                     obj.loadPage(-1);
-                    obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                    obj.updateSelectionFromCoords(
+                        obj.selectedCell[0],
+                        obj.selectedCell[1],
+                        obj.selectedCell[2],
+                        obj.selectedCell[3]
+                    );
                 } else {
                     if (obj.loadValidation()) {
-                        obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                        obj.updateSelectionFromCoords(
+                            obj.selectedCell[0],
+                            obj.selectedCell[1],
+                            obj.selectedCell[2],
+                            obj.selectedCell[3]
+                        );
                     } else {
-                        var item = parseInt(obj.tbody.lastChild.getAttribute('data-y'));
+                        var item = parseInt(obj.tbody.lastChild.getAttribute("data-y"));
                         if (item - obj.selectedCell[3] < 30) {
                             obj.loadDown();
-                            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                            obj.updateSelectionFromCoords(
+                                obj.selectedCell[0],
+                                obj.selectedCell[1],
+                                obj.selectedCell[2],
+                                obj.selectedCell[3]
+                            );
                         }
                     }
                 }
@@ -5269,7 +5901,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             obj.updateScroll(3);
-        }
+        };
 
         obj.down.visible = function(group, direction) {
             if (group == 0) {
@@ -5282,7 +5914,10 @@ if (!jSuites && typeof(require) === 'function') {
 
             if (direction == 0) {
                 for (var j = obj.rows.length - 1; j > y; j--) {
-                    if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
+                    if (
+                        obj.records[j][x].style.display != "none" &&
+                        obj.rows[j].style.display != "none"
+                    ) {
                         y = j;
                         break;
                     }
@@ -5298,14 +5933,17 @@ if (!jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = x;
                 obj.selectedCell[3] = y;
             }
-        }
+        };
 
         obj.down.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
-            for (var j = (y + 1); j < obj.rows.length; j++) {
-                if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
-                    if (obj.records[j][x].getAttribute('data-merged')) {
+            for (var j = y + 1; j < obj.rows.length; j++) {
+                if (
+                    obj.records[j][x].style.display != "none" &&
+                    obj.rows[j].style.display != "none"
+                ) {
+                    if (obj.records[j][x].getAttribute("data-merged")) {
                         if (obj.records[j][x] == obj.records[y][x]) {
                             continue;
                         }
@@ -5316,24 +5954,29 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return y;
-        }
+        };
 
         obj.right = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[2] < obj.headers.length - 1) {
-                    obj.right.visible(1, ctrlKey ? 0 : 1)
+                    obj.right.visible(1, ctrlKey ? 0 : 1);
                 }
             } else {
                 if (obj.selectedCell[0] < obj.headers.length - 1) {
-                    obj.right.visible(0, ctrlKey ? 0 : 1)
+                    obj.right.visible(0, ctrlKey ? 0 : 1);
                 }
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
 
-            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateSelectionFromCoords(
+                obj.selectedCell[0],
+                obj.selectedCell[1],
+                obj.selectedCell[2],
+                obj.selectedCell[3]
+            );
             obj.updateScroll(2);
-        }
+        };
 
         obj.right.visible = function(group, direction) {
             if (group == 0) {
@@ -5346,7 +5989,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             if (direction == 0) {
                 for (var i = obj.headers.length - 1; i > x; i--) {
-                    if (obj.records[y][i].style.display != 'none') {
+                    if (obj.records[y][i].style.display != "none") {
                         x = i;
                         break;
                     }
@@ -5362,15 +6005,15 @@ if (!jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = x;
                 obj.selectedCell[3] = y;
             }
-        }
+        };
 
         obj.right.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
 
-            for (var i = (x + 1); i < obj.headers.length; i++) {
-                if (obj.records[y][i].style.display != 'none') {
-                    if (obj.records[y][i].getAttribute('data-merged')) {
+            for (var i = x + 1; i < obj.headers.length; i++) {
+                if (obj.records[y][i].style.display != "none") {
+                    if (obj.records[y][i].getAttribute("data-merged")) {
                         if (obj.records[y][i] == obj.records[y][x]) {
                             continue;
                         }
@@ -5381,24 +6024,29 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return x;
-        }
+        };
 
         obj.left = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[2] > 0) {
-                    obj.left.visible(1, ctrlKey ? 0 : 1)
+                    obj.left.visible(1, ctrlKey ? 0 : 1);
                 }
             } else {
                 if (obj.selectedCell[0] > 0) {
-                    obj.left.visible(0, ctrlKey ? 0 : 1)
+                    obj.left.visible(0, ctrlKey ? 0 : 1);
                 }
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
 
-            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateSelectionFromCoords(
+                obj.selectedCell[0],
+                obj.selectedCell[1],
+                obj.selectedCell[2],
+                obj.selectedCell[3]
+            );
             obj.updateScroll(0);
-        }
+        };
 
         obj.left.visible = function(group, direction) {
             if (group == 0) {
@@ -5411,7 +6059,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             if (direction == 0) {
                 for (var i = 0; i < x; i++) {
-                    if (obj.records[y][i].style.display != 'none') {
+                    if (obj.records[y][i].style.display != "none") {
                         x = i;
                         break;
                     }
@@ -5427,14 +6075,14 @@ if (!jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = x;
                 obj.selectedCell[3] = y;
             }
-        }
+        };
 
         obj.left.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
-            for (var i = (x - 1); i >= 0; i--) {
-                if (obj.records[y][i].style.display != 'none') {
-                    if (obj.records[y][i].getAttribute('data-merged')) {
+            for (var i = x - 1; i >= 0; i--) {
+                if (obj.records[y][i].style.display != "none") {
+                    if (obj.records[y][i].getAttribute("data-merged")) {
                         if (obj.records[y][i] == obj.records[y][x]) {
                             continue;
                         }
@@ -5445,7 +6093,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return x;
-        }
+        };
 
         obj.first = function(shiftKey, ctrlKey) {
             if (shiftKey) {
@@ -5465,7 +6113,10 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Change page
-            if (obj.options.lazyLoading == true && (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0)) {
+            if (
+                obj.options.lazyLoading == true &&
+                (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0)
+            ) {
                 obj.loadPage(0);
             } else if (obj.options.pagination > 0) {
                 var pageNumber = obj.whichPage(obj.selectedCell[3]);
@@ -5474,9 +6125,14 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
 
-            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateSelectionFromCoords(
+                obj.selectedCell[0],
+                obj.selectedCell[1],
+                obj.selectedCell[2],
+                obj.selectedCell[3]
+            );
             obj.updateScroll(1);
-        }
+        };
 
         obj.last = function(shiftKey, ctrlKey) {
             if (shiftKey) {
@@ -5496,7 +6152,11 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Change page
-            if (obj.options.lazyLoading == true && (obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
+            if (
+                obj.options.lazyLoading == true &&
+                (obj.selectedCell[1] == obj.records.length - 1 ||
+                    obj.selectedCell[3] == obj.records.length - 1)
+            ) {
                 obj.loadPage(-1);
             } else if (obj.options.pagination > 0) {
                 var pageNumber = obj.whichPage(obj.selectedCell[3]);
@@ -5505,9 +6165,14 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
 
-            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateSelectionFromCoords(
+                obj.selectedCell[0],
+                obj.selectedCell[1],
+                obj.selectedCell[2],
+                obj.selectedCell[3]
+            );
             obj.updateScroll(3);
-        }
+        };
 
         obj.selectAll = function() {
             if (!obj.selectedCell) {
@@ -5519,8 +6184,13 @@ if (!jSuites && typeof(require) === 'function') {
             obj.selectedCell[2] = obj.headers.length - 1;
             obj.selectedCell[3] = obj.records.length - 1;
 
-            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
-        }
+            obj.updateSelectionFromCoords(
+                obj.selectedCell[0],
+                obj.selectedCell[1],
+                obj.selectedCell[2],
+                obj.selectedCell[3]
+            );
+        };
 
         /**
          * Go to a page in a lazyLoading
@@ -5542,8 +6212,8 @@ if (!jSuites && typeof(require) === 'function') {
                 pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
             }
 
-            var startRow = (pageNumber * quantityPerPage);
-            var finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
+            var startRow = pageNumber * quantityPerPage;
+            var finalRow = pageNumber * quantityPerPage + quantityPerPage;
             if (finalRow > results.length) {
                 finalRow = results.length;
             }
@@ -5564,7 +6234,7 @@ if (!jSuites && typeof(require) === 'function') {
                     obj.tbody.removeChild(obj.tbody.firstChild);
                 }
             }
-        }
+        };
 
         obj.loadUp = function() {
             // Search
@@ -5576,7 +6246,7 @@ if (!jSuites && typeof(require) === 'function') {
             var test = 0;
             if (results.length > 100) {
                 // Get the first element in the page
-                var item = parseInt(obj.tbody.firstChild.getAttribute('data-y'));
+                var item = parseInt(obj.tbody.firstChild.getAttribute("data-y"));
                 if (obj.options.search == true && obj.results) {
                     item = results.indexOf(item);
                 }
@@ -5585,7 +6255,10 @@ if (!jSuites && typeof(require) === 'function') {
                         item = item - 1;
                         if (item > -1) {
                             if (obj.options.search == true && obj.results) {
-                                obj.tbody.insertBefore(obj.rows[results[item]], obj.tbody.firstChild);
+                                obj.tbody.insertBefore(
+                                    obj.rows[results[item]],
+                                    obj.tbody.firstChild
+                                );
                             } else {
                                 obj.tbody.insertBefore(obj.rows[item], obj.tbody.firstChild);
                             }
@@ -5598,7 +6271,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
             return test;
-        }
+        };
 
         obj.loadDown = function() {
             // Search
@@ -5610,7 +6283,7 @@ if (!jSuites && typeof(require) === 'function') {
             var test = 0;
             if (results.length > 100) {
                 // Get the last element in the page
-                var item = parseInt(obj.tbody.lastChild.getAttribute('data-y'));
+                var item = parseInt(obj.tbody.lastChild.getAttribute("data-y"));
                 if (obj.options.search == true && obj.results) {
                     item = results.indexOf(item);
                 }
@@ -5633,16 +6306,20 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return test;
-        }
+        };
 
         obj.loadValidation = function() {
             if (obj.selectedCell) {
-                var currentPage = parseInt(obj.tbody.firstChild.getAttribute('data-y')) / 100;
+                var currentPage =
+                    parseInt(obj.tbody.firstChild.getAttribute("data-y")) / 100;
                 var selectedPage = parseInt(obj.selectedCell[3] / 100);
                 var totalPages = parseInt(obj.rows.length / 100);
 
                 if (currentPage != selectedPage && selectedPage <= totalPages) {
-                    if (!Array.prototype.indexOf.call(obj.tbody.children, obj.rows[obj.selectedCell[3]])) {
+                    if (!Array.prototype.indexOf.call(
+                            obj.tbody.children,
+                            obj.rows[obj.selectedCell[3]]
+                        )) {
                         obj.loadPage(selectedPage);
                         return true;
                     }
@@ -5650,16 +6327,16 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return false;
-        }
+        };
 
         /**
          * Reset search
          */
         obj.resetSearch = function() {
-            obj.searchInput.value = '';
-            obj.search('');
+            obj.searchInput.value = "";
+            obj.search("");
             obj.results = null;
-        }
+        };
 
         /**
          * Search
@@ -5686,20 +6363,24 @@ if (!jSuites && typeof(require) === 'function') {
                 // Search filter
                 var search = function(item, query, index) {
                     for (var i = 0; i < item.length; i++) {
-                        if (('' + item[i]).toLowerCase().search(query) >= 0 ||
-                            ('' + obj.records[index][i].innerHTML).toLowerCase().search(query) >= 0) {
+                        if (
+                            ("" + item[i]).toLowerCase().search(query) >= 0 ||
+                            ("" + obj.records[index][i].innerHTML)
+                            .toLowerCase()
+                            .search(query) >= 0
+                        ) {
                             return true;
                         }
                     }
                     return false;
-                }
+                };
 
                 // Result
                 var addToResult = function(k) {
                     if (obj.results.indexOf(k) == -1) {
                         obj.results.push(k);
                     }
-                }
+                };
 
                 // Filter
                 var data = obj.options.data.filter(function(v, k) {
@@ -5727,7 +6408,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             return obj.updateResult();
-        }
+        };
 
         obj.updateResult = function() {
             var total = 0;
@@ -5758,9 +6439,9 @@ if (!jSuites && typeof(require) === 'function') {
                         obj.tbody.appendChild(obj.rows[j]);
                         index++;
                     }
-                    obj.rows[j].style.display = '';
+                    obj.rows[j].style.display = "";
                 } else {
-                    obj.rows[j].style.display = 'none';
+                    obj.rows[j].style.display = "none";
                 }
             }
 
@@ -5772,7 +6453,7 @@ if (!jSuites && typeof(require) === 'function') {
             obj.updateCornerPosition();
 
             return total;
-        }
+        };
 
         /**
          * Which page the cell is
@@ -5783,8 +6464,10 @@ if (!jSuites && typeof(require) === 'function') {
                 cell = obj.results.indexOf(cell);
             }
 
-            return (Math.ceil((parseInt(cell) + 1) / parseInt(obj.options.pagination))) - 1;
-        }
+            return (
+                Math.ceil((parseInt(cell) + 1) / parseInt(obj.options.pagination)) - 1
+            );
+        };
 
         /**
          * Go to page
@@ -5811,8 +6494,8 @@ if (!jSuites && typeof(require) === 'function') {
             // Page number
             obj.pageNumber = pageNumber;
 
-            var startRow = (pageNumber * quantityPerPage);
-            var finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
+            var startRow = pageNumber * quantityPerPage;
+            var finalRow = pageNumber * quantityPerPage + quantityPerPage;
             if (finalRow > results.length) {
                 finalRow = results.length;
             }
@@ -5842,16 +6525,16 @@ if (!jSuites && typeof(require) === 'function') {
             obj.updateCornerPosition();
 
             // Events
-            obj.dispatch('onchangepage', el, pageNumber, oldPage);
-        }
+            obj.dispatch("onchangepage", el, pageNumber, oldPage);
+        };
 
         /**
          * Update the pagination
          */
         obj.updatePagination = function() {
             // Reset container
-            obj.pagination.children[0].innerHTML = '';
-            obj.pagination.children[1].innerHTML = '';
+            obj.pagination.children[0].innerHTML = "";
+            obj.pagination.children[1].innerHTML = "";
 
             // Start pagination
             if (obj.options.pagination) {
@@ -5864,7 +6547,8 @@ if (!jSuites && typeof(require) === 'function') {
 
                 if (!results) {
                     // No records found
-                    obj.pagination.children[0].innerHTML = obj.options.text.noRecordsFound;
+                    obj.pagination.children[0].innerHTML =
+                        obj.options.text.noRecordsFound;
                 } else {
                     // Pagination container
                     var quantyOfPages = Math.ceil(results / obj.options.pagination);
@@ -5885,30 +6569,30 @@ if (!jSuites && typeof(require) === 'function') {
 
                     // First
                     if (startNumber > 1) {
-                        var paginationItem = document.createElement('div');
-                        paginationItem.className = 'jexcel_page';
-                        paginationItem.innerHTML = '<';
+                        var paginationItem = document.createElement("div");
+                        paginationItem.className = "jexcel_page";
+                        paginationItem.innerHTML = "<";
                         paginationItem.title = 1;
                         obj.pagination.children[1].appendChild(paginationItem);
                     }
 
                     // Get page links
                     for (var i = startNumber; i <= finalNumber; i++) {
-                        var paginationItem = document.createElement('div');
-                        paginationItem.className = 'jexcel_page';
+                        var paginationItem = document.createElement("div");
+                        paginationItem.className = "jexcel_page";
                         paginationItem.innerHTML = i;
                         obj.pagination.children[1].appendChild(paginationItem);
 
-                        if (obj.pageNumber == (i - 1)) {
-                            paginationItem.classList.add('jexcel_page_selected');
+                        if (obj.pageNumber == i - 1) {
+                            paginationItem.classList.add("jexcel_page_selected");
                         }
                     }
 
                     // Last
                     if (finalNumber < quantyOfPages) {
-                        var paginationItem = document.createElement('div');
-                        paginationItem.className = 'jexcel_page';
-                        paginationItem.innerHTML = '>';
+                        var paginationItem = document.createElement("div");
+                        paginationItem.className = "jexcel_page";
+                        paginationItem.innerHTML = ">";
                         paginationItem.title = quantyOfPages;
                         obj.pagination.children[1].appendChild(paginationItem);
                     }
@@ -5917,29 +6601,34 @@ if (!jSuites && typeof(require) === 'function') {
                     var format = function(format) {
                         var args = Array.prototype.slice.call(arguments, 1);
                         return format.replace(/{(\d+)}/g, function(match, number) {
-                            return typeof args[number] != 'undefined' ?
-                                args[number] :
-                                match;
+                            return typeof args[number] != "undefined" ? args[number] : match;
                         });
                     };
 
-                    obj.pagination.children[0].innerHTML = format(obj.options.text.showingPage, obj.pageNumber + 1, quantyOfPages)
+                    obj.pagination.children[0].innerHTML = format(
+                        obj.options.text.showingPage,
+                        obj.pageNumber + 1,
+                        quantyOfPages
+                    );
                 }
             }
-        }
+        };
 
         /**
          * Download CSV table
-         * 
+         *
          * @return null
          */
         obj.download = function(includeHeaders) {
             if (obj.options.allowExport == false) {
-                console.error('Export not allowed');
+                console.error("Export not allowed");
             } else {
                 // Data
-                var data = '';
-                if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
+                var data = "";
+                if (
+                    includeHeaders == true ||
+                    obj.options.includeHeadersOnDownload == true
+                ) {
                     data += obj.getHeaders();
                     data += "\r\n";
                 }
@@ -5948,27 +6637,32 @@ if (!jSuites && typeof(require) === 'function') {
                 data += obj.copy(false, obj.options.csvDelimiter, true);
 
                 // Download element
-                var blob = new Blob(["\uFEFF" + data], { type: 'text/csv;charset=utf-8;' });
+                var blob = new Blob(["\uFEFF" + data], {
+                    type: "text/csv;charset=utf-8;"
+                });
 
                 // IE Compatibility
                 if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(blob, obj.options.csvFileName + '.csv');
+                    window.navigator.msSaveOrOpenBlob(
+                        blob,
+                        obj.options.csvFileName + ".csv"
+                    );
                 } else {
                     // Download element
-                    var pom = document.createElement('a');
+                    var pom = document.createElement("a");
                     var url = URL.createObjectURL(blob);
                     pom.href = url;
-                    pom.setAttribute('download', obj.options.csvFileName + '.csv');
+                    pom.setAttribute("download", obj.options.csvFileName + ".csv");
                     document.body.appendChild(pom);
                     pom.click();
                     pom.parentNode.removeChild(pom);
                 }
             }
-        }
+        };
 
         /**
          * Initializes a new history record for undo/redo
-         * 
+         *
          * @return null
          */
         obj.setHistory = function(changes) {
@@ -5977,16 +6671,16 @@ if (!jSuites && typeof(require) === 'function') {
                 var index = ++obj.historyIndex;
 
                 // Slice the array to discard undone changes
-                obj.history = (obj.history = obj.history.slice(0, index + 1));
+                obj.history = obj.history = obj.history.slice(0, index + 1);
 
                 // Keep history
                 obj.history[index] = changes;
             }
-        }
+        };
 
         /**
          * Copy method
-         * 
+         *
          * @param bool highlighted - Get only highlighted cells
          * @param delimiter - \t default to keep compatibility with excel
          * @return string value
@@ -6002,9 +6696,9 @@ if (!jSuites && typeof(require) === 'function') {
             var colLabel = [];
             var row = [];
             var rowLabel = [];
-            var x = obj.options.data[0].length
-            var y = obj.options.data.length
-            var tmp = '';
+            var x = obj.options.data[0].length;
+            var y = obj.options.data.length;
+            var tmp = "";
             var copyHeader = obj.options.includeHeadersOnCopy;
 
             // Reset container
@@ -6017,20 +6711,28 @@ if (!jSuites && typeof(require) === 'function') {
 
                 for (var i = 0; i < x; i++) {
                     // If cell is highlighted
-                    if (!highlighted || obj.records[j][i].classList.contains('highlight')) {
+                    if (!highlighted ||
+                        obj.records[j][i].classList.contains("highlight")
+                    ) {
                         if (copyHeader == true) {
                             header.push(obj.headers[i].innerText);
                         }
                         // Values
                         var value = obj.options.data[j][i];
-                        if (value.match && (value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
-                            value = value.replace(new RegExp('"', 'g'), '""');
+                        if (
+                            value.match &&
+                            (value.match(/,/g) || value.match(/\n/) || value.match(/\"/))
+                        ) {
+                            value = value.replace(new RegExp('"', "g"), '""');
                             value = '"' + value + '"';
                         }
                         col.push(value);
 
                         // Labels
-                        if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
+                        if (
+                            obj.options.columns[i].type == "checkbox" ||
+                            obj.options.columns[i].type == "radio"
+                        ) {
                             var label = value;
                         } else {
                             if (obj.options.stripHTMLOnCopy == true) {
@@ -6038,18 +6740,21 @@ if (!jSuites && typeof(require) === 'function') {
                             } else {
                                 var label = obj.records[j][i].innerHTML;
                             }
-                            if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                            if (
+                                label.match &&
+                                (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))
+                            ) {
                                 // Scape double quotes
-                                label = label.replace(new RegExp('"', 'g'), '""');
+                                label = label.replace(new RegExp('"', "g"), '""');
                                 label = '"' + label + '"';
                             }
                         }
                         colLabel.push(label);
 
                         // Get style
-                        tmp = obj.records[j][i].getAttribute('style');
-                        tmp = tmp.replace('display: none;', '');
-                        obj.style.push(tmp ? tmp : '');
+                        tmp = obj.records[j][i].getAttribute("style");
+                        tmp = tmp.replace("display: none;", "");
+                        obj.style.push(tmp ? tmp : "");
                     }
                 }
 
@@ -6098,37 +6803,42 @@ if (!jSuites && typeof(require) === 'function') {
             // Border
             if (obj.highlighted) {
                 for (var i = 0; i < obj.highlighted.length; i++) {
-                    obj.highlighted[i].classList.add('copying');
-                    if (obj.highlighted[i].classList.contains('highlight-left')) {
-                        obj.highlighted[i].classList.add('copying-left');
+                    obj.highlighted[i].classList.add("copying");
+                    if (obj.highlighted[i].classList.contains("highlight-left")) {
+                        obj.highlighted[i].classList.add("copying-left");
                     }
-                    if (obj.highlighted[i].classList.contains('highlight-right')) {
-                        obj.highlighted[i].classList.add('copying-right');
+                    if (obj.highlighted[i].classList.contains("highlight-right")) {
+                        obj.highlighted[i].classList.add("copying-right");
                     }
-                    if (obj.highlighted[i].classList.contains('highlight-top')) {
-                        obj.highlighted[i].classList.add('copying-top');
+                    if (obj.highlighted[i].classList.contains("highlight-top")) {
+                        obj.highlighted[i].classList.add("copying-top");
                     }
-                    if (obj.highlighted[i].classList.contains('highlight-bottom')) {
-                        obj.highlighted[i].classList.add('copying-bottom');
+                    if (obj.highlighted[i].classList.contains("highlight-bottom")) {
+                        obj.highlighted[i].classList.add("copying-bottom");
                     }
                 }
             }
 
             // Paste event
-            obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
+            obj.dispatch(
+                "oncopy",
+                el,
+                obj.options.copyCompatibility == true ? rowLabel : row,
+                obj.hashString
+            );
 
             return obj.data;
-        }
+        };
 
         /**
          * jExcel paste method
-         * 
+         *
          * @param integer row number
          * @return string value
          */
         obj.paste = function(x, y, data) {
             // Paste filter
-            var ret = obj.dispatch('onbeforepaste', el, data, x, y);
+            var ret = obj.dispatch("onbeforepaste", el, data, x, y);
 
             if (ret === false) {
                 return false;
@@ -6138,7 +6848,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Controls
             var hash = obj.hash(data);
-            var style = (hash == obj.hashString) ? obj.style : null;
+            var style = hash == obj.hashString ? obj.style : null;
 
             // Depending on the behavior
             if (obj.options.copyCompatibility == true && hash == obj.hashString) {
@@ -6163,7 +6873,7 @@ if (!jSuites && typeof(require) === 'function') {
                 var row = null;
 
                 // Go through the columns to get the data
-                while (row = data[j]) {
+                while ((row = data[j])) {
                     i = 0;
                     colIndex = parseInt(x);
 
@@ -6179,8 +6889,11 @@ if (!jSuites && typeof(require) === 'function') {
                             var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
                             newStyle[columnName] = style[styleIndex];
                             oldStyle[columnName] = obj.getStyle(columnName);
-                            obj.records[rowIndex][colIndex].setAttribute('style', style[styleIndex]);
-                            styleIndex++
+                            obj.records[rowIndex][colIndex].setAttribute(
+                                "style",
+                                style[styleIndex]
+                            );
+                            styleIndex++;
                         }
                         i++;
                         if (row[i] != null) {
@@ -6205,45 +6918,47 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Update history
                 obj.setHistory({
-                    action: 'setValue',
+                    action: "setValue",
                     records: records,
                     selection: obj.selectedCell,
                     newStyle: newStyle,
-                    oldStyle: oldStyle,
+                    oldStyle: oldStyle
                 });
 
                 // Update table
                 obj.updateTable();
 
                 // Paste event
-                obj.dispatch('onpaste', el, data);
+                obj.dispatch("onpaste", el, data);
 
                 // On after changes
                 obj.onafterchanges(el, records);
             }
 
             obj.removeCopyingSelection();
-        }
+        };
 
         /**
          * Remove copying border
          */
         obj.removeCopyingSelection = function() {
-            var copying = document.querySelectorAll('.jexcel .copying');
+            var copying = document.querySelectorAll(".jexcel .copying");
             for (var i = 0; i < copying.length; i++) {
-                copying[i].classList.remove('copying');
-                copying[i].classList.remove('copying-left');
-                copying[i].classList.remove('copying-right');
-                copying[i].classList.remove('copying-top');
-                copying[i].classList.remove('copying-bottom');
+                copying[i].classList.remove("copying");
+                copying[i].classList.remove("copying-left");
+                copying[i].classList.remove("copying-right");
+                copying[i].classList.remove("copying-top");
+                copying[i].classList.remove("copying-bottom");
             }
-        }
+        };
 
         /**
          * Process row
          */
         obj.historyProcessRow = function(type, historyRecord) {
-            var rowIndex = (!historyRecord.insertBefore) ? historyRecord.rowNumber + 1 : historyRecord.rowNumber;
+            var rowIndex = !historyRecord.insertBefore ?
+                historyRecord.rowNumber + 1 :
+                historyRecord.rowNumber;
 
             if (obj.options.search == true) {
                 if (obj.results && obj.results.length != obj.rows.length) {
@@ -6255,7 +6970,7 @@ if (!jSuites && typeof(require) === 'function') {
             if (type == 1) {
                 var numOfRows = historyRecord.numOfRows;
                 // Remove nodes
-                for (var j = rowIndex; j < (numOfRows + rowIndex); j++) {
+                for (var j = rowIndex; j < numOfRows + rowIndex; j++) {
                     obj.rows[j].parentNode.removeChild(obj.rows[j]);
                 }
                 // Remove references
@@ -6263,16 +6978,31 @@ if (!jSuites && typeof(require) === 'function') {
                 obj.options.data.splice(rowIndex, numOfRows);
                 obj.rows.splice(rowIndex, numOfRows);
 
-                obj.conditionalSelectionUpdate(1, rowIndex, (numOfRows + rowIndex) - 1);
+                obj.conditionalSelectionUpdate(1, rowIndex, numOfRows + rowIndex - 1);
             } else {
                 // Insert data
-                obj.records = jexcel.injectArray(obj.records, rowIndex, historyRecord.rowRecords);
-                obj.options.data = jexcel.injectArray(obj.options.data, rowIndex, historyRecord.rowData);
-                obj.rows = jexcel.injectArray(obj.rows, rowIndex, historyRecord.rowNode);
+                obj.records = jexcel.injectArray(
+                    obj.records,
+                    rowIndex,
+                    historyRecord.rowRecords
+                );
+                obj.options.data = jexcel.injectArray(
+                    obj.options.data,
+                    rowIndex,
+                    historyRecord.rowData
+                );
+                obj.rows = jexcel.injectArray(
+                    obj.rows,
+                    rowIndex,
+                    historyRecord.rowNode
+                );
                 // Insert nodes
-                var index = 0
-                for (var j = rowIndex; j < (historyRecord.numOfRows + rowIndex); j++) {
-                    obj.tbody.insertBefore(historyRecord.rowNode[index], obj.tbody.children[j]);
+                var index = 0;
+                for (var j = rowIndex; j < historyRecord.numOfRows + rowIndex; j++) {
+                    obj.tbody.insertBefore(
+                        historyRecord.rowNode[index],
+                        obj.tbody.children[j]
+                    );
                     index++;
                 }
             }
@@ -6283,27 +7013,29 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             obj.updateTableReferences();
-        }
+        };
 
         /**
          * Process column
          */
         obj.historyProcessColumn = function(type, historyRecord) {
-            var columnIndex = (!historyRecord.insertBefore) ? historyRecord.columnNumber + 1 : historyRecord.columnNumber;
+            var columnIndex = !historyRecord.insertBefore ?
+                historyRecord.columnNumber + 1 :
+                historyRecord.columnNumber;
 
             // Remove column
             if (type == 1) {
                 var numOfColumns = historyRecord.numOfColumns;
 
                 obj.options.columns.splice(columnIndex, numOfColumns);
-                for (var i = columnIndex; i < (numOfColumns + columnIndex); i++) {
+                for (var i = columnIndex; i < numOfColumns + columnIndex; i++) {
                     obj.headers[i].parentNode.removeChild(obj.headers[i]);
                     obj.colgroup[i].parentNode.removeChild(obj.colgroup[i]);
                 }
                 obj.headers.splice(columnIndex, numOfColumns);
                 obj.colgroup.splice(columnIndex, numOfColumns);
                 for (var j = 0; j < historyRecord.data.length; j++) {
-                    for (var i = columnIndex; i < (numOfColumns + columnIndex); i++) {
+                    for (var i = columnIndex; i < numOfColumns + columnIndex; i++) {
                         obj.records[j][i].parentNode.removeChild(obj.records[j][i]);
                     }
                     obj.records[j].splice(columnIndex, numOfColumns);
@@ -6317,30 +7049,67 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             } else {
                 // Insert data
-                obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, historyRecord.columns);
-                obj.headers = jexcel.injectArray(obj.headers, columnIndex, historyRecord.headers);
-                obj.colgroup = jexcel.injectArray(obj.colgroup, columnIndex, historyRecord.colgroup);
+                obj.options.columns = jexcel.injectArray(
+                    obj.options.columns,
+                    columnIndex,
+                    historyRecord.columns
+                );
+                obj.headers = jexcel.injectArray(
+                    obj.headers,
+                    columnIndex,
+                    historyRecord.headers
+                );
+                obj.colgroup = jexcel.injectArray(
+                    obj.colgroup,
+                    columnIndex,
+                    historyRecord.colgroup
+                );
 
-                var index = 0
-                for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
-                    obj.headerContainer.insertBefore(historyRecord.headers[index], obj.headerContainer.children[i + 1]);
-                    obj.colgroupContainer.insertBefore(historyRecord.colgroup[index], obj.colgroupContainer.children[i + 1]);
+                var index = 0;
+                for (
+                    var i = columnIndex; i < historyRecord.numOfColumns + columnIndex; i++
+                ) {
+                    obj.headerContainer.insertBefore(
+                        historyRecord.headers[index],
+                        obj.headerContainer.children[i + 1]
+                    );
+                    obj.colgroupContainer.insertBefore(
+                        historyRecord.colgroup[index],
+                        obj.colgroupContainer.children[i + 1]
+                    );
                     index++;
                 }
 
                 for (var j = 0; j < historyRecord.data.length; j++) {
-                    obj.options.data[j] = jexcel.injectArray(obj.options.data[j], columnIndex, historyRecord.data[j]);
-                    obj.records[j] = jexcel.injectArray(obj.records[j], columnIndex, historyRecord.records[j]);
-                    var index = 0
-                    for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
-                        obj.rows[j].insertBefore(historyRecord.records[j][index], obj.rows[j].children[i + 1]);
+                    obj.options.data[j] = jexcel.injectArray(
+                        obj.options.data[j],
+                        columnIndex,
+                        historyRecord.data[j]
+                    );
+                    obj.records[j] = jexcel.injectArray(
+                        obj.records[j],
+                        columnIndex,
+                        historyRecord.records[j]
+                    );
+                    var index = 0;
+                    for (
+                        var i = columnIndex; i < historyRecord.numOfColumns + columnIndex; i++
+                    ) {
+                        obj.rows[j].insertBefore(
+                            historyRecord.records[j][index],
+                            obj.rows[j].children[i + 1]
+                        );
                         index++;
                     }
                 }
                 // Process footers
                 if (obj.options.footers) {
                     for (var j = 0; j < obj.options.footers.length; j++) {
-                        obj.options.footers[j] = jexcel.injectArray(obj.options.footers[j], columnIndex, historyRecord.footers[j]);
+                        obj.options.footers[j] = jexcel.injectArray(
+                            obj.options.footers[j],
+                            columnIndex,
+                            historyRecord.footers[j]
+                        );
                     }
                 }
             }
@@ -6351,26 +7120,46 @@ if (!jSuites && typeof(require) === 'function') {
                 if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
                     for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
                         if (type == 1) {
-                            var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) - historyRecord.numOfColumns;
+                            var colspan =
+                                parseInt(
+                                    obj.options.nestedHeaders[j][
+                                        obj.options.nestedHeaders[j].length - 1
+                                    ].colspan
+                                ) - historyRecord.numOfColumns;
                         } else {
-                            var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) + historyRecord.numOfColumns;
+                            var colspan =
+                                parseInt(
+                                    obj.options.nestedHeaders[j][
+                                        obj.options.nestedHeaders[j].length - 1
+                                    ].colspan
+                                ) + historyRecord.numOfColumns;
                         }
-                        obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan = colspan;
-                        obj.thead.children[j].children[obj.thead.children[j].children.length - 1].setAttribute('colspan', colspan);
+                        obj.options.nestedHeaders[j][
+                            obj.options.nestedHeaders[j].length - 1
+                        ].colspan = colspan;
+                        obj.thead.children[j].children[
+                            obj.thead.children[j].children.length - 1
+                        ].setAttribute("colspan", colspan);
                     }
                 } else {
                     if (type == 1) {
-                        var colspan = parseInt(obj.options.nestedHeaders[0].colspan) - historyRecord.numOfColumns;
+                        var colspan =
+                            parseInt(obj.options.nestedHeaders[0].colspan) -
+                            historyRecord.numOfColumns;
                     } else {
-                        var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + historyRecord.numOfColumns;
+                        var colspan =
+                            parseInt(obj.options.nestedHeaders[0].colspan) +
+                            historyRecord.numOfColumns;
                     }
                     obj.options.nestedHeaders[0].colspan = colspan;
-                    obj.thead.children[0].children[obj.thead.children[0].children.length - 1].setAttribute('colspan', colspan);
+                    obj.thead.children[0].children[
+                        obj.thead.children[0].children.length - 1
+                    ].setAttribute("colspan", colspan);
                 }
             }
 
             obj.updateTableReferences();
-        }
+        };
 
         /**
          * Undo last action
@@ -6391,44 +7180,51 @@ if (!jSuites && typeof(require) === 'function') {
                 // History
                 var historyRecord = obj.history[obj.historyIndex--];
 
-                if (historyRecord.action == 'insertRow') {
+                if (historyRecord.action == "insertRow") {
                     obj.historyProcessRow(1, historyRecord);
-                } else if (historyRecord.action == 'deleteRow') {
+                } else if (historyRecord.action == "deleteRow") {
                     obj.historyProcessRow(0, historyRecord);
-                } else if (historyRecord.action == 'insertColumn') {
+                } else if (historyRecord.action == "insertColumn") {
                     obj.historyProcessColumn(1, historyRecord);
-                } else if (historyRecord.action == 'deleteColumn') {
+                } else if (historyRecord.action == "deleteColumn") {
                     obj.historyProcessColumn(0, historyRecord);
-                } else if (historyRecord.action == 'moveRow') {
+                } else if (historyRecord.action == "moveRow") {
                     obj.moveRow(historyRecord.newValue, historyRecord.oldValue);
-                } else if (historyRecord.action == 'moveColumn') {
+                } else if (historyRecord.action == "moveColumn") {
                     obj.moveColumn(historyRecord.newValue, historyRecord.oldValue);
-                } else if (historyRecord.action == 'setMerge') {
+                } else if (historyRecord.action == "setMerge") {
                     obj.removeMerge(historyRecord.column, historyRecord.data);
-                } else if (historyRecord.action == 'setStyle') {
+                } else if (historyRecord.action == "setStyle") {
                     obj.setStyle(historyRecord.oldValue, null, null, 1);
-                } else if (historyRecord.action == 'setWidth') {
+                } else if (historyRecord.action == "setWidth") {
                     obj.setWidth(historyRecord.column, historyRecord.oldValue);
-                } else if (historyRecord.action == 'setHeight') {
+                } else if (historyRecord.action == "setHeight") {
                     obj.setHeight(historyRecord.row, historyRecord.oldValue);
-                } else if (historyRecord.action == 'setHeader') {
+                } else if (historyRecord.action == "setHeader") {
                     obj.setHeader(historyRecord.column, historyRecord.oldValue);
-                } else if (historyRecord.action == 'setComments') {
-                    obj.setComments(historyRecord.column, historyRecord.oldValue[0], historyRecord.oldValue[1]);
-                } else if (historyRecord.action == 'orderBy') {
+                } else if (historyRecord.action == "setComments") {
+                    obj.setComments(
+                        historyRecord.column,
+                        historyRecord.oldValue[0],
+                        historyRecord.oldValue[1]
+                    );
+                } else if (historyRecord.action == "orderBy") {
                     var rows = [];
                     for (var j = 0; j < historyRecord.rows.length; j++) {
                         rows[historyRecord.rows[j]] = j;
                     }
-                    obj.updateOrderArrow(historyRecord.column, historyRecord.order ? 0 : 1);
+                    obj.updateOrderArrow(
+                        historyRecord.column,
+                        historyRecord.order ? 0 : 1
+                    );
                     obj.updateOrder(rows);
-                } else if (historyRecord.action == 'setValue') {
+                } else if (historyRecord.action == "setValue") {
                     // Redo for changes in cells
                     for (var i = 0; i < historyRecord.records.length; i++) {
                         records.push({
                             x: historyRecord.records[i].x,
                             y: historyRecord.records[i].y,
-                            newValue: historyRecord.records[i].oldValue,
+                            newValue: historyRecord.records[i].oldValue
                         });
 
                         if (historyRecord.oldStyle) {
@@ -6440,7 +7236,12 @@ if (!jSuites && typeof(require) === 'function') {
 
                     // Update selection
                     if (historyRecord.selection) {
-                        obj.updateSelectionFromCoords(historyRecord.selection[0], historyRecord.selection[1], historyRecord.selection[2], historyRecord.selection[3]);
+                        obj.updateSelectionFromCoords(
+                            historyRecord.selection[0],
+                            historyRecord.selection[1],
+                            historyRecord.selection[2],
+                            historyRecord.selection[3]
+                        );
                     }
                 }
             }
@@ -6448,8 +7249,8 @@ if (!jSuites && typeof(require) === 'function') {
             obj.ignoreHistory = ignoreHistory;
 
             // Events
-            obj.dispatch('onundo', el, historyRecord);
-        }
+            obj.dispatch("onundo", el, historyRecord);
+        };
 
         /**
          * Redo previously undone action
@@ -6470,34 +7271,43 @@ if (!jSuites && typeof(require) === 'function') {
                 // History
                 var historyRecord = obj.history[++obj.historyIndex];
 
-                if (historyRecord.action == 'insertRow') {
+                if (historyRecord.action == "insertRow") {
                     obj.historyProcessRow(0, historyRecord);
-                } else if (historyRecord.action == 'deleteRow') {
+                } else if (historyRecord.action == "deleteRow") {
                     obj.historyProcessRow(1, historyRecord);
-                } else if (historyRecord.action == 'insertColumn') {
+                } else if (historyRecord.action == "insertColumn") {
                     obj.historyProcessColumn(0, historyRecord);
-                } else if (historyRecord.action == 'deleteColumn') {
+                } else if (historyRecord.action == "deleteColumn") {
                     obj.historyProcessColumn(1, historyRecord);
-                } else if (historyRecord.action == 'moveRow') {
+                } else if (historyRecord.action == "moveRow") {
                     obj.moveRow(historyRecord.oldValue, historyRecord.newValue);
-                } else if (historyRecord.action == 'moveColumn') {
+                } else if (historyRecord.action == "moveColumn") {
                     obj.moveColumn(historyRecord.oldValue, historyRecord.newValue);
-                } else if (historyRecord.action == 'setMerge') {
-                    obj.setMerge(historyRecord.column, historyRecord.colspan, historyRecord.rowspan, 1);
-                } else if (historyRecord.action == 'setStyle') {
+                } else if (historyRecord.action == "setMerge") {
+                    obj.setMerge(
+                        historyRecord.column,
+                        historyRecord.colspan,
+                        historyRecord.rowspan,
+                        1
+                    );
+                } else if (historyRecord.action == "setStyle") {
                     obj.setStyle(historyRecord.newValue, null, null, 1);
-                } else if (historyRecord.action == 'setWidth') {
+                } else if (historyRecord.action == "setWidth") {
                     obj.setWidth(historyRecord.column, historyRecord.newValue);
-                } else if (historyRecord.action == 'setHeight') {
+                } else if (historyRecord.action == "setHeight") {
                     obj.setHeight(historyRecord.row, historyRecord.newValue);
-                } else if (historyRecord.action == 'setHeader') {
+                } else if (historyRecord.action == "setHeader") {
                     obj.setHeader(historyRecord.column, historyRecord.newValue);
-                } else if (historyRecord.action == 'setComments') {
-                    obj.setComments(historyRecord.column, historyRecord.newValue[0], historyRecord.newValue[1]);
-                } else if (historyRecord.action == 'orderBy') {
+                } else if (historyRecord.action == "setComments") {
+                    obj.setComments(
+                        historyRecord.column,
+                        historyRecord.newValue[0],
+                        historyRecord.newValue[1]
+                    );
+                } else if (historyRecord.action == "orderBy") {
                     obj.updateOrderArrow(historyRecord.column, historyRecord.order);
                     obj.updateOrder(historyRecord.rows);
-                } else if (historyRecord.action == 'setValue') {
+                } else if (historyRecord.action == "setValue") {
                     obj.setValue(historyRecord.records);
                     // Redo for changes in cells
                     for (var i = 0; i < historyRecord.records.length; i++) {
@@ -6507,7 +7317,12 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                     // Update selection
                     if (historyRecord.selection) {
-                        obj.updateSelectionFromCoords(historyRecord.selection[0], historyRecord.selection[1], historyRecord.selection[2], historyRecord.selection[3]);
+                        obj.updateSelectionFromCoords(
+                            historyRecord.selection[0],
+                            historyRecord.selection[1],
+                            historyRecord.selection[2],
+                            historyRecord.selection[3]
+                        );
                     }
                 }
             }
@@ -6515,8 +7330,8 @@ if (!jSuites && typeof(require) === 'function') {
             obj.ignoreHistory = ignoreHistory;
 
             // Events
-            obj.dispatch('onredo', el, historyRecord);
-        }
+            obj.dispatch("onredo", el, historyRecord);
+        };
 
         /**
          * Get dropdown value from key
@@ -6530,7 +7345,7 @@ if (!jSuites && typeof(require) === 'function') {
                 var source = obj.options.columns[column].source;
 
                 for (var i = 0; i < source.length; i++) {
-                    if (typeof(source[i]) == 'object') {
+                    if (typeof source[i] == "object") {
                         combo[source[i].id] = source[i].name;
                     } else {
                         combo[source[i]] = source[i];
@@ -6538,10 +7353,10 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // Guarantee single multiple compatibility
-                var keys = Array.isArray(key) ? key : ('' + key).split(';');
+                var keys = Array.isArray(key) ? key : ("" + key).split(";");
 
                 for (var i = 0; i < keys.length; i++) {
-                    if (typeof(keys[i]) === 'object') {
+                    if (typeof keys[i] === "object") {
                         value.push(combo[keys[i].id]);
                     } else {
                         if (combo[keys[i]]) {
@@ -6550,11 +7365,11 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                 }
             } else {
-                console.error('Invalid column');
+                console.error("Invalid column");
             }
 
-            return (value.length > 0) ? value.join('; ') : '';
-        }
+            return value.length > 0 ? value.join("; ") : "";
+        };
 
         /**
          * From starckoverflow contributions
@@ -6567,7 +7382,7 @@ if (!jSuites && typeof(require) === 'function') {
                 str += "\0";
             }
             // user-supplied delimeter or default comma
-            delimiter = (delimiter || ",");
+            delimiter = delimiter || ",";
 
             var arr = [];
             var quote = false; // true means we're inside a quoted field
@@ -6576,57 +7391,78 @@ if (!jSuites && typeof(require) === 'function') {
                 var cc = str[c],
                     nc = str[c + 1];
                 arr[row] = arr[row] || [];
-                arr[row][col] = arr[row][col] || '';
+                arr[row][col] = arr[row][col] || "";
 
                 // If the current character is a quotation mark, and we're inside a quoted field, and the next character is also a quotation mark, add a quotation mark to the current column and skip the next character
-                if (cc == '"' && quote && nc == '"') { arr[row][col] += cc;++c; continue; }
+                if (cc == '"' && quote && nc == '"') {
+                    arr[row][col] += cc;
+                    ++c;
+                    continue;
+                }
 
                 // If it's just one quotation mark, begin/end quoted field
-                if (cc == '"') { quote = !quote; continue; }
+                if (cc == '"') {
+                    quote = !quote;
+                    continue;
+                }
 
                 // If it's a comma and we're not in a quoted field, move on to the next column
-                if (cc == delimiter && !quote) {++col; continue; }
+                if (cc == delimiter && !quote) {
+                    ++col;
+                    continue;
+                }
 
                 // If it's a newline (CRLF) and we're not in a quoted field, skip the next character and move on to the next row and move to column 0 of that new row
-                if (cc == '\r' && nc == '\n' && !quote) {++row;
-                    col = 0;++c; continue; }
+                if (cc == "\r" && nc == "\n" && !quote) {
+                    ++row;
+                    col = 0;
+                    ++c;
+                    continue;
+                }
 
                 // If it's a newline (LF or CR) and we're not in a quoted field, move on to the next row and move to column 0 of that new row
-                if (cc == '\n' && !quote) {++row;
-                    col = 0; continue; }
-                if (cc == '\r' && !quote) {++row;
-                    col = 0; continue; }
+                if (cc == "\n" && !quote) {
+                    ++row;
+                    col = 0;
+                    continue;
+                }
+                if (cc == "\r" && !quote) {
+                    ++row;
+                    col = 0;
+                    continue;
+                }
 
                 // Otherwise, append the current character to the current column
                 arr[row][col] += cc;
             }
             return arr;
-        }
+        };
 
         obj.hash = function(str) {
             var hash = 0,
-                i, chr;
+                i,
+                chr;
 
             if (str.length === 0) {
                 return hash;
             } else {
                 for (i = 0; i < str.length; i++) {
                     chr = str.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + chr;
+                    hash = (hash << 5) - hash + chr;
                     hash |= 0;
                 }
             }
             return hash;
-        }
+        };
 
         obj.onafterchanges = function(el, records) {
             // Events
-            obj.dispatch('onafterchanges', el, records);
-        }
+            obj.dispatch("onafterchanges", el, records);
+        };
 
         obj.destroy = function() {
             jexcel.destroy(el);
-        }
+        };
 
         /**
          * Initialization method
@@ -6635,7 +7471,7 @@ if (!jSuites && typeof(require) === 'function') {
             jexcel.current = obj;
 
             // Build handlers
-            if (typeof(jexcel.build) == 'function') {
+            if (typeof jexcel.build == "function") {
                 if (obj.options.root) {
                     jexcel.build(obj.options.root);
                 } else {
@@ -6645,8 +7481,8 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Event
-            el.setAttribute('tabindex', 1);
-            el.addEventListener('focus', function(e) {
+            el.setAttribute("tabindex", 1);
+            el.addEventListener("focus", function(e) {
                 if (jexcel.current && !obj.selectedCell) {
                     obj.updateSelectionFromCoords(0, 0, 0, 0);
                     obj.left();
@@ -6663,21 +7499,25 @@ if (!jSuites && typeof(require) === 'function') {
                 // Load CSV file
                 jSuites.ajax({
                     url: obj.options.csv,
-                    method: 'GET',
-                    dataType: 'text',
+                    method: "GET",
+                    dataType: "text",
                     success: function(result) {
                         // Convert data
-                        var newData = obj.parseCSV(result, obj.options.csvDelimiter)
+                        var newData = obj.parseCSV(result, obj.options.csvDelimiter);
 
                         // Headers
                         if (obj.options.csvHeaders == true && newData.length > 0) {
                             var headers = newData.shift();
                             for (var i = 0; i < headers.length; i++) {
                                 if (!obj.options.columns[i]) {
-                                    obj.options.columns[i] = { type: 'text', align: obj.options.defaultColAlign, width: obj.options.defaultColWidth };
+                                    obj.options.columns[i] = {
+                                        type: "text",
+                                        align: obj.options.defaultColAlign,
+                                        width: obj.options.defaultColWidth
+                                    };
                                 }
                                 // Precedence over pre-configurated titles
-                                if (typeof obj.options.columns[i].title === 'undefined') {
+                                if (typeof obj.options.columns[i].title === "undefined") {
                                     obj.options.columns[i].title = headers[i];
                                 }
                             }
@@ -6700,11 +7540,11 @@ if (!jSuites && typeof(require) === 'function') {
 
                 jSuites.ajax({
                     url: obj.options.url,
-                    method: 'GET',
-                    dataType: 'json',
+                    method: "GET",
+                    dataType: "json",
                     success: function(result) {
                         // Data
-                        obj.options.data = (result.data) ? result.data : result;
+                        obj.options.data = result.data ? result.data : result;
                         // Prepare table
                         obj.prepareTable();
                         // Hide spin
@@ -6717,7 +7557,7 @@ if (!jSuites && typeof(require) === 'function') {
                 // Prepare table
                 obj.prepareTable();
             }
-        }
+        };
 
         // Context menu
         if (options && options.contextMenu != null) {
@@ -6751,7 +7591,9 @@ if (!jSuites && typeof(require) === 'function') {
                         items.push({
                             title: obj.options.text.deleteSelectedColumns,
                             onclick: function() {
-                                obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                                obj.deleteColumn(
+                                    obj.getSelectedColumns().length ? undefined : parseInt(x)
+                                );
                             }
                         });
                     }
@@ -6769,7 +7611,7 @@ if (!jSuites && typeof(require) === 'function') {
                     // Sorting
                     if (obj.options.columnSorting == true) {
                         // Line
-                        items.push({ type: 'line' });
+                        items.push({ type: "line" });
 
                         items.push({
                             title: obj.options.text.orderAscending,
@@ -6806,19 +7648,23 @@ if (!jSuites && typeof(require) === 'function') {
                         items.push({
                             title: obj.options.text.deleteSelectedRows,
                             onclick: function() {
-                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                                obj.deleteRow(
+                                    obj.getSelectedRows().length ? undefined : parseInt(y)
+                                );
                             }
                         });
                     }
 
                     if (x) {
                         if (obj.options.allowComments == true) {
-                            items.push({ type: 'line' });
+                            items.push({ type: "line" });
 
-                            var title = obj.records[y][x].getAttribute('title') || '';
+                            var title = obj.records[y][x].getAttribute("title") || "";
 
                             items.push({
-                                title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                title: title ?
+                                    obj.options.text.editComments :
+                                    obj.options.text.addComments,
                                 onclick: function() {
                                     var comment = prompt(obj.options.text.comments, title);
                                     if (comment) {
@@ -6831,7 +7677,7 @@ if (!jSuites && typeof(require) === 'function') {
                                 items.push({
                                     title: obj.options.text.clearComments,
                                     onclick: function() {
-                                        obj.setComments([x, y], '');
+                                        obj.setComments([x, y], "");
                                     }
                                 });
                             }
@@ -6840,12 +7686,12 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // Line
-                items.push({ type: 'line' });
+                items.push({ type: "line" });
 
                 // Copy
                 items.push({
                     title: obj.options.text.copy,
-                    shortcut: 'Ctrl + C',
+                    shortcut: "Ctrl + C",
                     onclick: function() {
                         obj.copy(true);
                     }
@@ -6855,12 +7701,16 @@ if (!jSuites && typeof(require) === 'function') {
                 if (navigator && navigator.clipboard) {
                     items.push({
                         title: obj.options.text.paste,
-                        shortcut: 'Ctrl + V',
+                        shortcut: "Ctrl + V",
                         onclick: function() {
                             if (obj.selectedCell) {
                                 navigator.clipboard.readText().then(function(text) {
                                     if (text) {
-                                        jexcel.current.paste(obj.selectedCell[0], obj.selectedCell[1], text);
+                                        jexcel.current.paste(
+                                            obj.selectedCell[0],
+                                            obj.selectedCell[1],
+                                            text
+                                        );
                                     }
                                 });
                             }
@@ -6872,7 +7722,7 @@ if (!jSuites && typeof(require) === 'function') {
                 if (obj.options.allowExport) {
                     items.push({
                         title: obj.options.text.saveAs,
-                        shortcut: 'Ctrl + S',
+                        shortcut: "Ctrl + S",
                         onclick: function() {
                             obj.download();
                         }
@@ -6890,39 +7740,53 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 return items;
-            }
+            };
         }
 
         obj.scrollControls = function(e) {
             obj.wheelControls();
 
-            if (obj.options.freezeColumns > 0 && obj.content.scrollLeft != scrollLeft) {
+            if (
+                obj.options.freezeColumns > 0 &&
+                obj.content.scrollLeft != scrollLeft
+            ) {
                 obj.updateFreezePosition();
             }
 
             // Close editor
-            if (obj.options.lazyLoading == true || obj.options.tableOverflow == true) {
-                if (obj.edition && e.target.className.substr(0, 9) != 'jdropdown') {
+            if (
+                obj.options.lazyLoading == true ||
+                obj.options.tableOverflow == true
+            ) {
+                if (obj.edition && e.target.className.substr(0, 9) != "jdropdown") {
                     obj.closeEditor(obj.edition[0], true);
                 }
             }
-        }
+        };
 
         obj.wheelControls = function(e) {
             if (obj.options.lazyLoading == true) {
                 if (jexcel.timeControlLoading == null) {
                     jexcel.timeControlLoading = setTimeout(function() {
-                        if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight) {
+                        if (
+                            obj.content.scrollTop + obj.content.clientHeight >=
+                            obj.content.scrollHeight
+                        ) {
                             if (obj.loadDown()) {
-                                if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
-                                    obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
+                                if (
+                                    obj.content.scrollTop + obj.content.clientHeight >
+                                    obj.content.scrollHeight - 10
+                                ) {
+                                    obj.content.scrollTop =
+                                        obj.content.scrollTop - obj.content.clientHeight;
                                 }
                                 obj.updateCornerPosition();
                             }
                         } else if (obj.content.scrollTop <= obj.content.clientHeight) {
                             if (obj.loadUp()) {
                                 if (obj.content.scrollTop < 10) {
-                                    obj.content.scrollTop = obj.content.scrollTop + obj.content.clientHeight;
+                                    obj.content.scrollTop =
+                                        obj.content.scrollTop + obj.content.clientHeight;
                                 }
                                 obj.updateCornerPosition();
                             }
@@ -6932,7 +7796,7 @@ if (!jSuites && typeof(require) === 'function') {
                     }, 100);
                 }
             }
-        }
+        };
 
         // Get width of all freezed cells together
         obj.getFreezeWidth = function() {
@@ -6943,7 +7807,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
             return width;
-        }
+        };
 
         var scrollLeft = 0;
 
@@ -6955,24 +7819,28 @@ if (!jSuites && typeof(require) === 'function') {
                     if (i > 0) {
                         width += parseInt(obj.options.columns[i - 1].width);
                     }
-                    obj.headers[i].classList.add('jexcel_freezed');
-                    obj.headers[i].style.left = width + 'px';
+                    obj.headers[i].classList.add("jexcel_freezed");
+                    obj.headers[i].style.left = width + "px";
                     for (var j = 0; j < obj.rows.length; j++) {
                         if (obj.rows[j] && obj.records[j][i]) {
-                            var shifted = (scrollLeft + (i > 0 ? obj.records[j][i - 1].style.width : 0)) - 51 + 'px';
-                            obj.records[j][i].classList.add('jexcel_freezed');
+                            var shifted =
+                                scrollLeft +
+                                (i > 0 ? obj.records[j][i - 1].style.width : 0) -
+                                51 +
+                                "px";
+                            obj.records[j][i].classList.add("jexcel_freezed");
                             obj.records[j][i].style.left = shifted;
                         }
                     }
                 }
             } else {
                 for (var i = 0; i < obj.options.freezeColumns; i++) {
-                    obj.headers[i].classList.remove('jexcel_freezed');
-                    obj.headers[i].style.left = '';
+                    obj.headers[i].classList.remove("jexcel_freezed");
+                    obj.headers[i].style.left = "";
                     for (var j = 0; j < obj.rows.length; j++) {
                         if (obj.records[j][i]) {
-                            obj.records[j][i].classList.remove('jexcel_freezed');
-                            obj.records[j][i].style.left = '';
+                            obj.records[j][i].classList.remove("jexcel_freezed");
+                            obj.records[j][i].style.left = "";
                         }
                     }
                 }
@@ -6980,7 +7848,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Place the corner in the correct place
             obj.updateCornerPosition();
-        }
+        };
 
         el.addEventListener("DOMMouseScroll", obj.wheelControls);
         el.addEventListener("mousewheel", obj.wheelControls);
@@ -6990,7 +7858,7 @@ if (!jSuites && typeof(require) === 'function') {
         obj.init();
 
         return obj;
-    });
+    };
 
     jexcel.current = null;
     jexcel.timeControl = null;
@@ -6998,11 +7866,16 @@ if (!jSuites && typeof(require) === 'function') {
 
     jexcel.destroy = function(element, destroyEventHandlers) {
         if (element.jexcel) {
-            var root = element.jexcel.options.root ? element.jexcel.options.root : document;
-            element.removeEventListener("DOMMouseScroll", element.jexcel.scrollControls);
+            var root = element.jexcel.options.root ?
+                element.jexcel.options.root :
+                document;
+            element.removeEventListener(
+                "DOMMouseScroll",
+                element.jexcel.scrollControls
+            );
             element.removeEventListener("mousewheel", element.jexcel.scrollControls);
             element.jexcel = null;
-            element.innerHTML = '';
+            element.innerHTML = "";
 
             if (destroyEventHandlers) {
                 root.removeEventListener("mouseup", jexcel.mouseUpControls);
@@ -7019,7 +7892,7 @@ if (!jSuites && typeof(require) === 'function') {
                 jexcel = null;
             }
         }
-    }
+    };
 
     jexcel.build = function(root) {
         root.addEventListener("mouseup", jexcel.mouseUpControls);
@@ -7034,7 +7907,7 @@ if (!jSuites && typeof(require) === 'function') {
         root.addEventListener("touchcancel", jexcel.touchEndControls);
         root.addEventListener("touchmove", jexcel.touchEndControls);
         document.addEventListener("keydown", jexcel.keyDownControls);
-    }
+    };
 
     /**
      * Events
@@ -7051,21 +7924,37 @@ if (!jSuites && typeof(require) === 'function') {
                     e.preventDefault();
                 } else if (e.which == 13) {
                     // Enter
-                    if (jexcel.current.options.columns[jexcel.current.edition[2]].type == 'calendar') {
+                    if (
+                        jexcel.current.options.columns[jexcel.current.edition[2]].type ==
+                        "calendar"
+                    ) {
                         jexcel.current.closeEditor(jexcel.current.edition[0], true);
-                    } else if (jexcel.current.options.columns[jexcel.current.edition[2]].type == 'dropdown' ||
-                        jexcel.current.options.columns[jexcel.current.edition[2]].type == 'autocomplete') {
+                    } else if (
+                        jexcel.current.options.columns[jexcel.current.edition[2]].type ==
+                        "dropdown" ||
+                        jexcel.current.options.columns[jexcel.current.edition[2]].type ==
+                        "autocomplete"
+                    ) {
                         // Do nothing
                     } else {
                         // Alt enter -> do not close editor
-                        if ((jexcel.current.options.wordWrap == true ||
-                                jexcel.current.options.columns[jexcel.current.edition[2]].wordWrap == true ||
-                                jexcel.current.options.data[jexcel.current.edition[3]][jexcel.current.edition[2]].length > 200) && e.altKey) {
+                        if (
+                            (jexcel.current.options.wordWrap == true ||
+                                jexcel.current.options.columns[jexcel.current.edition[2]]
+                                .wordWrap == true ||
+                                jexcel.current.options.data[jexcel.current.edition[3]][
+                                    jexcel.current.edition[2]
+                                ].length > 200) &&
+                            e.altKey
+                        ) {
                             // Add new line to the editor
                             var editorTextarea = jexcel.current.edition[0].children[0];
                             var editorValue = jexcel.current.edition[0].children[0].value;
                             var editorIndexOf = editorTextarea.selectionStart;
-                            editorValue = editorValue.slice(0, editorIndexOf) + "\n" + editorValue.slice(editorIndexOf);
+                            editorValue =
+                                editorValue.slice(0, editorIndexOf) +
+                                "\n" +
+                                editorValue.slice(editorIndexOf);
                             editorTextarea.value = editorValue;
                             editorTextarea.focus();
                             editorTextarea.selectionStart = editorIndexOf + 1;
@@ -7076,7 +7965,10 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                 } else if (e.which == 9) {
                     // Tab
-                    if (jexcel.current.options.columns[jexcel.current.edition[2]].type == 'calendar') {
+                    if (
+                        jexcel.current.options.columns[jexcel.current.edition[2]].type ==
+                        "calendar"
+                    ) {
                         jexcel.current.closeEditor(jexcel.current.edition[0], true);
                     } else {
                         jexcel.current.edition[0].children[0].blur();
@@ -7114,19 +8006,29 @@ if (!jSuites && typeof(require) === 'function') {
                     if (jexcel.current.options.editable == true) {
                         if (jexcel.current.selectedRow) {
                             if (jexcel.current.options.allowDeleteRow == true) {
-                                if (confirm(jexcel.current.options.text.areYouSureToDeleteTheSelectedRows)) {
+                                if (
+                                    confirm(
+                                        jexcel.current.options.text
+                                        .areYouSureToDeleteTheSelectedRows
+                                    )
+                                ) {
                                     jexcel.current.deleteRow();
                                 }
                             }
                         } else if (jexcel.current.selectedHeader) {
                             if (jexcel.current.options.allowDeleteColumn == true) {
-                                if (confirm(jexcel.current.options.text.areYouSureToDeleteTheSelectedColumns)) {
+                                if (
+                                    confirm(
+                                        jexcel.current.options.text
+                                        .areYouSureToDeleteTheSelectedColumns
+                                    )
+                                ) {
                                     jexcel.current.deleteColumn();
                                 }
                             }
                         } else {
                             // Change value
-                            jexcel.current.setValue(jexcel.current.highlighted, '');
+                            jexcel.current.setValue(jexcel.current.highlighted, "");
                         }
                     }
                 } else if (e.which == 13) {
@@ -7136,7 +8038,10 @@ if (!jSuites && typeof(require) === 'function') {
                     } else {
                         if (jexcel.current.options.allowInsertRow == true) {
                             if (jexcel.current.options.allowManualInsertRow == true) {
-                                if (jexcel.current.selectedCell[1] == jexcel.current.options.data.length - 1) {
+                                if (
+                                    jexcel.current.selectedCell[1] ==
+                                    jexcel.current.options.data.length - 1
+                                ) {
                                     // New record in case selectedCell in the last row
                                     jexcel.current.insertRow();
                                 }
@@ -7153,7 +8058,10 @@ if (!jSuites && typeof(require) === 'function') {
                     } else {
                         if (jexcel.current.options.allowInsertColumn == true) {
                             if (jexcel.current.options.allowManualInsertColumn == true) {
-                                if (jexcel.current.selectedCell[0] == jexcel.current.options.data[0].length - 1) {
+                                if (
+                                    jexcel.current.selectedCell[0] ==
+                                    jexcel.current.options.data[0].length - 1
+                                ) {
                                     // New record in case selectedCell in the last column
                                     jexcel.current.insertColumn();
                                 }
@@ -7208,29 +8116,51 @@ if (!jSuites && typeof(require) === 'function') {
                                 var columnId = jexcel.current.selectedCell[0];
 
                                 // If is not readonly
-                                if (jexcel.current.options.columns[columnId].type != 'readonly') {
+                                if (
+                                    jexcel.current.options.columns[columnId].type != "readonly"
+                                ) {
                                     // Characters able to start a edition
                                     if (e.keyCode == 32) {
                                         // Space
-                                        if (jexcel.current.options.columns[columnId].type == 'checkbox' ||
-                                            jexcel.current.options.columns[columnId].type == 'radio') {
+                                        if (
+                                            jexcel.current.options.columns[columnId].type ==
+                                            "checkbox" ||
+                                            jexcel.current.options.columns[columnId].type == "radio"
+                                        ) {
                                             e.preventDefault();
                                         } else {
                                             // Start edition
-                                            jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                            jexcel.current.openEditor(
+                                                jexcel.current.records[rowId][columnId],
+                                                true
+                                            );
                                         }
                                     } else if (e.keyCode == 113) {
                                         // Start edition with current content F2
-                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
-                                    } else if ((e.keyCode == 8) ||
+                                        jexcel.current.openEditor(
+                                            jexcel.current.records[rowId][columnId],
+                                            false
+                                        );
+                                    } else if (
+                                        e.keyCode == 8 ||
                                         (e.keyCode >= 48 && e.keyCode <= 57) ||
                                         (e.keyCode >= 96 && e.keyCode <= 111) ||
                                         (e.keyCode >= 187 && e.keyCode <= 190) ||
-                                        ((String.fromCharCode(e.keyCode) == e.key || String.fromCharCode(e.keyCode).toLowerCase() == e.key.toLowerCase()) && jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
+                                        ((String.fromCharCode(e.keyCode) == e.key ||
+                                                String.fromCharCode(e.keyCode).toLowerCase() ==
+                                                e.key.toLowerCase()) &&
+                                            jexcel.validLetter(String.fromCharCode(e.keyCode)))
+                                    ) {
                                         // Start edition
-                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                        jexcel.current.openEditor(
+                                            jexcel.current.records[rowId][columnId],
+                                            true
+                                        );
                                         // Prevent entries in the calendar
-                                        if (jexcel.current.options.columns[columnId].type == 'calendar') {
+                                        if (
+                                            jexcel.current.options.columns[columnId].type ==
+                                            "calendar"
+                                        ) {
                                             e.preventDefault();
                                         }
                                     }
@@ -7240,7 +8170,7 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                 }
             } else {
-                if (e.target.classList.contains('jexcel_search')) {
+                if (e.target.classList.contains("jexcel_search")) {
                     if (jexcel.timeControl) {
                         clearTimeout(jexcel.timeControl);
                     }
@@ -7251,7 +8181,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    }
+    };
 
     jexcel.isMouseAction = false;
 
@@ -7290,39 +8220,45 @@ if (!jSuites && typeof(require) === 'function') {
         }
 
         if (jexcel.current && mouseButton == 1) {
-            if (e.target.classList.contains('jexcel_selectall')) {
+            if (e.target.classList.contains("jexcel_selectall")) {
                 if (jexcel.current) {
                     jexcel.current.selectAll();
                 }
-            } else if (e.target.classList.contains('jexcel_corner')) {
+            } else if (e.target.classList.contains("jexcel_corner")) {
                 if (jexcel.current.options.editable == true) {
                     jexcel.current.selectedCorner = true;
                 }
             } else {
                 // Header found
                 if (jexcelTable[1] == 1) {
-                    var columnId = e.target.getAttribute('data-x');
+                    var columnId = e.target.getAttribute("data-x");
                     if (columnId) {
                         // Update cursor
                         var info = e.target.getBoundingClientRect();
-                        if (jexcel.current.options.columnResize == true && info.width - e.offsetX < 6) {
+                        if (
+                            jexcel.current.options.columnResize == true &&
+                            info.width - e.offsetX < 6
+                        ) {
                             // Resize helper
                             jexcel.current.resizing = {
                                 mousePosition: e.pageX,
                                 column: columnId,
-                                width: info.width,
+                                width: info.width
                             };
 
                             // Border indication
-                            jexcel.current.headers[columnId].classList.add('resizing');
+                            jexcel.current.headers[columnId].classList.add("resizing");
                             for (var j = 0; j < jexcel.current.records.length; j++) {
                                 if (jexcel.current.records[j][columnId]) {
-                                    jexcel.current.records[j][columnId].classList.add('resizing');
+                                    jexcel.current.records[j][columnId].classList.add("resizing");
                                 }
                             }
-                        } else if (jexcel.current.options.columnDrag == true && info.height - e.offsetY < 6) {
+                        } else if (
+                            jexcel.current.options.columnDrag == true &&
+                            info.height - e.offsetY < 6
+                        ) {
                             if (jexcel.current.isColMerged(columnId).length) {
-                                console.error('JEXCEL: This column is part of a merged cell.');
+                                console.error("JEXCEL: This column is part of a merged cell.");
                             } else {
                                 // Reset selection
                                 jexcel.current.resetSelection();
@@ -7330,13 +8266,15 @@ if (!jSuites && typeof(require) === 'function') {
                                 jexcel.current.dragging = {
                                     element: e.target,
                                     column: columnId,
-                                    destination: columnId,
+                                    destination: columnId
                                 };
                                 // Border indication
-                                jexcel.current.headers[columnId].classList.add('dragging');
+                                jexcel.current.headers[columnId].classList.add("dragging");
                                 for (var j = 0; j < jexcel.current.records.length; j++) {
                                     if (jexcel.current.records[j][columnId]) {
-                                        jexcel.current.records[j][columnId].classList.add('dragging');
+                                        jexcel.current.records[j][columnId].classList.add(
+                                            "dragging"
+                                        );
                                     }
                                 }
                             }
@@ -7346,7 +8284,10 @@ if (!jSuites && typeof(require) === 'function') {
                                 var d = columnId;
                             } else {
                                 // Press to rename
-                                if (jexcel.current.selectedHeader == columnId && jexcel.current.options.allowRenameColumn == true) {
+                                if (
+                                    jexcel.current.selectedHeader == columnId &&
+                                    jexcel.current.options.allowRenameColumn == true
+                                ) {
                                     jexcel.timeControl = setTimeout(function() {
                                         jexcel.current.setHeader(columnId);
                                     }, 800);
@@ -7361,19 +8302,29 @@ if (!jSuites && typeof(require) === 'function') {
                             }
 
                             // Update selection
-                            jexcel.current.updateSelectionFromCoords(o, 0, d, jexcel.current.options.data.length - 1);
+                            jexcel.current.updateSelectionFromCoords(
+                                o,
+                                0,
+                                d,
+                                jexcel.current.options.data.length - 1
+                            );
                         }
                     } else {
-                        if (e.target.parentNode.classList.contains('jexcel_nested')) {
-                            if (e.target.getAttribute('data-column')) {
-                                var column = e.target.getAttribute('data-column').split(',');
+                        if (e.target.parentNode.classList.contains("jexcel_nested")) {
+                            if (e.target.getAttribute("data-column")) {
+                                var column = e.target.getAttribute("data-column").split(",");
                                 var c1 = parseInt(column[0]);
                                 var c2 = parseInt(column[column.length - 1]);
                             } else {
                                 var c1 = 0;
                                 var c2 = jexcel.current.options.columns.length - 1;
                             }
-                            jexcel.current.updateSelectionFromCoords(c1, 0, c2, jexcel.current.options.data.length - 1);
+                            jexcel.current.updateSelectionFromCoords(
+                                c1,
+                                0,
+                                c2,
+                                jexcel.current.options.data.length - 1
+                            );
                         }
                     }
                 } else {
@@ -7382,25 +8333,36 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Body found
                 if (jexcelTable[1] == 2) {
-                    var rowId = e.target.getAttribute('data-y');
+                    var rowId = e.target.getAttribute("data-y");
 
-                    if (e.target.classList.contains('jexcel_row')) {
+                    if (e.target.classList.contains("jexcel_row")) {
                         var info = e.target.getBoundingClientRect();
-                        if (jexcel.current.options.rowResize == true && info.height - e.offsetY < 6) {
+                        if (
+                            jexcel.current.options.rowResize == true &&
+                            info.height - e.offsetY < 6
+                        ) {
                             // Resize helper
                             jexcel.current.resizing = {
                                 element: e.target.parentNode,
                                 mousePosition: e.pageY,
                                 row: rowId,
-                                height: info.height,
+                                height: info.height
                             };
                             // Border indication
-                            e.target.parentNode.classList.add('resizing');
-                        } else if (jexcel.current.options.rowDrag == true && info.width - e.offsetX < 6) {
+                            e.target.parentNode.classList.add("resizing");
+                        } else if (
+                            jexcel.current.options.rowDrag == true &&
+                            info.width - e.offsetX < 6
+                        ) {
                             if (jexcel.current.isRowMerged(rowId).length) {
-                                console.error('JEXCEL: This row is part of a merged cell');
-                            } else if (jexcel.current.options.search == true && jexcel.current.results) {
-                                console.error('JEXCEL: Please clear your search before perform this action');
+                                console.error("JEXCEL: This row is part of a merged cell");
+                            } else if (
+                                jexcel.current.options.search == true &&
+                                jexcel.current.results
+                            ) {
+                                console.error(
+                                    "JEXCEL: Please clear your search before perform this action"
+                                );
                             } else {
                                 // Reset selection
                                 jexcel.current.resetSelection();
@@ -7408,10 +8370,10 @@ if (!jSuites && typeof(require) === 'function') {
                                 jexcel.current.dragging = {
                                     element: e.target.parentNode,
                                     row: rowId,
-                                    destination: rowId,
+                                    destination: rowId
                                 };
                                 // Border indication
-                                e.target.parentNode.classList.add('dragging');
+                                e.target.parentNode.classList.add("dragging");
                             }
                         } else {
                             if (jexcel.current.selectedRow && (e.shiftKey || e.ctrlKey)) {
@@ -7427,16 +8389,25 @@ if (!jSuites && typeof(require) === 'function') {
                             }
 
                             // Update selection
-                            jexcel.current.updateSelectionFromCoords(0, o, jexcel.current.options.data[0].length - 1, d);
+                            jexcel.current.updateSelectionFromCoords(
+                                0,
+                                o,
+                                jexcel.current.options.data[0].length - 1,
+                                d
+                            );
                         }
                     } else {
                         // Jclose
-                        if (e.target.classList.contains('jclose') && e.target.clientWidth - e.offsetX < 50 && e.offsetY < 50) {
+                        if (
+                            e.target.classList.contains("jclose") &&
+                            e.target.clientWidth - e.offsetX < 50 &&
+                            e.offsetY < 50
+                        ) {
                             jexcel.current.closeEditor(jexcel.current.edition[0], true);
                         } else {
                             var getCellCoords = function(element) {
-                                var x = element.getAttribute('data-x');
-                                var y = element.getAttribute('data-y');
+                                var x = element.getAttribute("data-x");
+                                var y = element.getAttribute("data-y");
                                 if (x && y) {
                                     return [x, y];
                                 } else {
@@ -7448,12 +8419,14 @@ if (!jSuites && typeof(require) === 'function') {
 
                             var position = getCellCoords(e.target);
                             if (position) {
-
                                 var columnId = position[0];
                                 var rowId = position[1];
                                 // Close edition
                                 if (jexcel.current.edition) {
-                                    if (jexcel.current.edition[2] != columnId || jexcel.current.edition[3] != rowId) {
+                                    if (
+                                        jexcel.current.edition[2] != columnId ||
+                                        jexcel.current.edition[3] != rowId
+                                    ) {
                                         jexcel.current.closeEditor(jexcel.current.edition[0], true);
                                     }
                                 }
@@ -7461,7 +8434,12 @@ if (!jSuites && typeof(require) === 'function') {
                                 if (!jexcel.current.edition) {
                                     // Update cell selection
                                     if (e.shiftKey) {
-                                        jexcel.current.updateSelectionFromCoords(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], columnId, rowId);
+                                        jexcel.current.updateSelectionFromCoords(
+                                            jexcel.current.selectedCell[0],
+                                            jexcel.current.selectedCell[1],
+                                            columnId,
+                                            rowId
+                                        );
                                     } else {
                                         jexcel.current.updateSelectionFromCoords(columnId, rowId);
                                     }
@@ -7478,11 +8456,11 @@ if (!jSuites && typeof(require) === 'function') {
                 }
 
                 // Pagination
-                if (e.target.classList.contains('jexcel_page')) {
-                    if (e.target.innerText == '<') {
+                if (e.target.classList.contains("jexcel_page")) {
+                    if (e.target.innerText == "<") {
                         jexcel.current.page(0);
-                    } else if (e.target.innerText == '>') {
-                        jexcel.current.page(e.target.getAttribute('title') - 1);
+                    } else if (e.target.innerText == ">") {
+                        jexcel.current.page(e.target.getAttribute("title") - 1);
                     } else {
                         jexcel.current.page(e.target.innerText - 1);
                     }
@@ -7497,7 +8475,7 @@ if (!jSuites && typeof(require) === 'function') {
         } else {
             jexcel.isMouseAction = false;
         }
-    }
+    };
 
     jexcel.mouseUpControls = function(e) {
         if (jexcel.current) {
@@ -7506,35 +8484,59 @@ if (!jSuites && typeof(require) === 'function') {
                 // Columns to be updated
                 if (jexcel.current.resizing.column) {
                     // New width
-                    var newWidth = jexcel.current.colgroup[jexcel.current.resizing.column].getAttribute('width');
+                    var newWidth = jexcel.current.colgroup[
+                        jexcel.current.resizing.column
+                    ].getAttribute("width");
                     // Columns
                     var columns = jexcel.current.getSelectedColumns();
                     if (columns.length > 1) {
                         var currentWidth = [];
                         for (var i = 0; i < columns.length; i++) {
-                            currentWidth.push(parseInt(jexcel.current.colgroup[columns[i]].getAttribute('width')));
+                            currentWidth.push(
+                                parseInt(
+                                    jexcel.current.colgroup[columns[i]].getAttribute("width")
+                                )
+                            );
                         }
                         // Previous width
-                        var index = columns.indexOf(parseInt(jexcel.current.resizing.column));
+                        var index = columns.indexOf(
+                            parseInt(jexcel.current.resizing.column)
+                        );
                         currentWidth[index] = jexcel.current.resizing.width;
                         jexcel.current.setWidth(columns, newWidth, currentWidth);
                     } else {
-                        jexcel.current.setWidth(jexcel.current.resizing.column, newWidth, jexcel.current.resizing.width);
+                        jexcel.current.setWidth(
+                            jexcel.current.resizing.column,
+                            newWidth,
+                            jexcel.current.resizing.width
+                        );
                     }
                     // Remove border
-                    jexcel.current.headers[jexcel.current.resizing.column].classList.remove('resizing');
+                    jexcel.current.headers[
+                        jexcel.current.resizing.column
+                    ].classList.remove("resizing");
                     for (var j = 0; j < jexcel.current.records.length; j++) {
                         if (jexcel.current.records[j][jexcel.current.resizing.column]) {
-                            jexcel.current.records[j][jexcel.current.resizing.column].classList.remove('resizing');
+                            jexcel.current.records[j][
+                                jexcel.current.resizing.column
+                            ].classList.remove("resizing");
                         }
                     }
                 } else {
                     // Remove Class
-                    jexcel.current.rows[jexcel.current.resizing.row].children[0].classList.remove('resizing');
-                    var newHeight = jexcel.current.rows[jexcel.current.resizing.row].getAttribute('height');
-                    jexcel.current.setHeight(jexcel.current.resizing.row, newHeight, jexcel.current.resizing.height);
+                    jexcel.current.rows[
+                        jexcel.current.resizing.row
+                    ].children[0].classList.remove("resizing");
+                    var newHeight = jexcel.current.rows[
+                        jexcel.current.resizing.row
+                    ].getAttribute("height");
+                    jexcel.current.setHeight(
+                        jexcel.current.resizing.row,
+                        newHeight,
+                        jexcel.current.resizing.height
+                    );
                     // Remove border
-                    jexcel.current.resizing.element.classList.remove('resizing');
+                    jexcel.current.resizing.element.classList.remove("resizing");
                 }
                 // Reset resizing helper
                 jexcel.current.resizing = null;
@@ -7543,37 +8545,61 @@ if (!jSuites && typeof(require) === 'function') {
                 if (jexcel.current.dragging) {
                     if (jexcel.current.dragging.column) {
                         // Target
-                        var columnId = e.target.getAttribute('data-x');
+                        var columnId = e.target.getAttribute("data-x");
                         // Remove move style
-                        jexcel.current.headers[jexcel.current.dragging.column].classList.remove('dragging');
+                        jexcel.current.headers[
+                            jexcel.current.dragging.column
+                        ].classList.remove("dragging");
                         for (var j = 0; j < jexcel.current.rows.length; j++) {
                             if (jexcel.current.records[j][jexcel.current.dragging.column]) {
-                                jexcel.current.records[j][jexcel.current.dragging.column].classList.remove('dragging');
+                                jexcel.current.records[j][
+                                    jexcel.current.dragging.column
+                                ].classList.remove("dragging");
                             }
                         }
                         for (var i = 0; i < jexcel.current.headers.length; i++) {
-                            jexcel.current.headers[i].classList.remove('dragging-left');
-                            jexcel.current.headers[i].classList.remove('dragging-right');
+                            jexcel.current.headers[i].classList.remove("dragging-left");
+                            jexcel.current.headers[i].classList.remove("dragging-right");
                         }
                         // Update position
                         if (columnId) {
-                            if (jexcel.current.dragging.column != jexcel.current.dragging.destination) {
-                                jexcel.current.moveColumn(jexcel.current.dragging.column, jexcel.current.dragging.destination);
+                            if (
+                                jexcel.current.dragging.column !=
+                                jexcel.current.dragging.destination
+                            ) {
+                                jexcel.current.moveColumn(
+                                    jexcel.current.dragging.column,
+                                    jexcel.current.dragging.destination
+                                );
                             }
                         }
                     } else {
                         if (jexcel.current.dragging.element.nextSibling) {
-                            var position = parseInt(jexcel.current.dragging.element.nextSibling.getAttribute('data-y'));
+                            var position = parseInt(
+                                jexcel.current.dragging.element.nextSibling.getAttribute(
+                                    "data-y"
+                                )
+                            );
                             if (jexcel.current.dragging.row < position) {
                                 position -= 1;
                             }
                         } else {
-                            var position = parseInt(jexcel.current.dragging.element.previousSibling.getAttribute('data-y'));
+                            var position = parseInt(
+                                jexcel.current.dragging.element.previousSibling.getAttribute(
+                                    "data-y"
+                                )
+                            );
                         }
-                        if (jexcel.current.dragging.row != jexcel.current.dragging.destination) {
-                            jexcel.current.moveRow(jexcel.current.dragging.row, position, true);
+                        if (
+                            jexcel.current.dragging.row != jexcel.current.dragging.destination
+                        ) {
+                            jexcel.current.moveRow(
+                                jexcel.current.dragging.row,
+                                position,
+                                true
+                            );
                         }
-                        jexcel.current.dragging.element.classList.remove('dragging');
+                        jexcel.current.dragging.element.classList.remove("dragging");
                     }
                     jexcel.current.dragging = null;
                 }
@@ -7585,7 +8611,10 @@ if (!jSuites && typeof(require) === 'function') {
                     // Data to be copied
                     if (jexcel.current.selection.length > 0) {
                         // Copy data
-                        jexcel.current.copyData(jexcel.current.selection[0], jexcel.current.selection[jexcel.current.selection.length - 1]);
+                        jexcel.current.copyData(
+                            jexcel.current.selection[0],
+                            jexcel.current.selection[jexcel.current.selection.length - 1]
+                        );
 
                         // Remove selection
                         jexcel.current.removeCopySelection();
@@ -7602,7 +8631,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         // Mouse up
         jexcel.isMouseAction = false;
-    }
+    };
 
     // Mouse move controls
     jexcel.mouseMoveControls = function(e) {
@@ -7628,7 +8657,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                         if (jexcel.current.resizing.width + width > 0) {
                             var tempWidth = jexcel.current.resizing.width + width;
-                            jexcel.current.colgroup[jexcel.current.resizing.column].setAttribute('width', tempWidth);
+                            jexcel.current.colgroup[
+                                jexcel.current.resizing.column
+                            ].setAttribute("width", tempWidth);
 
                             jexcel.current.updateCornerPosition();
                         }
@@ -7637,46 +8668,72 @@ if (!jSuites && typeof(require) === 'function') {
 
                         if (jexcel.current.resizing.height + height > 0) {
                             var tempHeight = jexcel.current.resizing.height + height;
-                            jexcel.current.rows[jexcel.current.resizing.row].setAttribute('height', tempHeight);
+                            jexcel.current.rows[jexcel.current.resizing.row].setAttribute(
+                                "height",
+                                tempHeight
+                            );
 
                             jexcel.current.updateCornerPosition();
                         }
                     }
                 }
             } else {
-                var x = e.target.getAttribute('data-x');
-                var y = e.target.getAttribute('data-y');
+                var x = e.target.getAttribute("data-x");
+                var y = e.target.getAttribute("data-y");
                 var rect = e.target.getBoundingClientRect();
 
                 if (jexcel.current.cursor) {
-                    jexcel.current.cursor.style.cursor = '';
+                    jexcel.current.cursor.style.cursor = "";
                     jexcel.current.cursor = null;
                 }
 
-                if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
-                    if (e.target.parentNode.parentNode.classList.contains('resizable')) {
-                        if (e.target && x && !y && (rect.width - (e.clientX - rect.left) < 6)) {
+                if (
+                    e.target.parentNode.parentNode &&
+                    e.target.parentNode.parentNode.className
+                ) {
+                    if (e.target.parentNode.parentNode.classList.contains("resizable")) {
+                        if (
+                            e.target &&
+                            x &&
+                            !y &&
+                            rect.width - (e.clientX - rect.left) < 6
+                        ) {
                             jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'col-resize';
-                        } else if (e.target && !x && y && (rect.height - (e.clientY - rect.top) < 6)) {
+                            jexcel.current.cursor.style.cursor = "col-resize";
+                        } else if (
+                            e.target &&
+                            !x &&
+                            y &&
+                            rect.height - (e.clientY - rect.top) < 6
+                        ) {
                             jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'row-resize';
+                            jexcel.current.cursor.style.cursor = "row-resize";
                         }
                     }
 
-                    if (e.target.parentNode.parentNode.classList.contains('draggable')) {
-                        if (e.target && !x && y && (rect.width - (e.clientX - rect.left) < 6)) {
+                    if (e.target.parentNode.parentNode.classList.contains("draggable")) {
+                        if (
+                            e.target &&
+                            !x &&
+                            y &&
+                            rect.width - (e.clientX - rect.left) < 6
+                        ) {
                             jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'move';
-                        } else if (e.target && x && !y && (rect.height - (e.clientY - rect.top) < 6)) {
+                            jexcel.current.cursor.style.cursor = "move";
+                        } else if (
+                            e.target &&
+                            x &&
+                            !y &&
+                            rect.height - (e.clientY - rect.top) < 6
+                        ) {
                             jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'move';
+                            jexcel.current.cursor.style.cursor = "move";
                         }
                     }
                 }
             }
         }
-    }
+    };
 
     jexcel.mouseOverControls = function(e) {
         e = e || window.event;
@@ -7704,18 +8761,18 @@ if (!jSuites && typeof(require) === 'function') {
                     }
                 }
 
-                var columnId = e.target.getAttribute('data-x');
-                var rowId = e.target.getAttribute('data-y');
+                var columnId = e.target.getAttribute("data-x");
+                var rowId = e.target.getAttribute("data-y");
 
                 if (jexcel.current.dragging) {
                     if (jexcel.current.dragging.column) {
                         if (columnId) {
                             if (jexcel.current.isColMerged(columnId).length) {
-                                console.error('JEXCEL: This column is part of a merged cell.');
+                                console.error("JEXCEL: This column is part of a merged cell.");
                             } else {
                                 for (var i = 0; i < jexcel.current.headers.length; i++) {
-                                    jexcel.current.headers[i].classList.remove('dragging-left');
-                                    jexcel.current.headers[i].classList.remove('dragging-right');
+                                    jexcel.current.headers[i].classList.remove("dragging-left");
+                                    jexcel.current.headers[i].classList.remove("dragging-right");
                                 }
 
                                 if (jexcel.current.dragging.column == columnId) {
@@ -7723,18 +8780,24 @@ if (!jSuites && typeof(require) === 'function') {
                                 } else {
                                     if (e.target.clientWidth / 2 > e.offsetX) {
                                         if (jexcel.current.dragging.column < columnId) {
-                                            jexcel.current.dragging.destination = parseInt(columnId) - 1;
+                                            jexcel.current.dragging.destination =
+                                                parseInt(columnId) - 1;
                                         } else {
                                             jexcel.current.dragging.destination = parseInt(columnId);
                                         }
-                                        jexcel.current.headers[columnId].classList.add('dragging-left');
+                                        jexcel.current.headers[columnId].classList.add(
+                                            "dragging-left"
+                                        );
                                     } else {
                                         if (jexcel.current.dragging.column < columnId) {
                                             jexcel.current.dragging.destination = parseInt(columnId);
                                         } else {
-                                            jexcel.current.dragging.destination = parseInt(columnId) + 1;
+                                            jexcel.current.dragging.destination =
+                                                parseInt(columnId) + 1;
                                         }
-                                        jexcel.current.headers[columnId].classList.add('dragging-right');
+                                        jexcel.current.headers[columnId].classList.add(
+                                            "dragging-right"
+                                        );
                                     }
                                 }
                             }
@@ -7742,12 +8805,21 @@ if (!jSuites && typeof(require) === 'function') {
                     } else {
                         if (rowId) {
                             if (jexcel.current.isRowMerged(rowId).length) {
-                                console.error('JEXCEL: This row is part of a merged cell.');
+                                console.error("JEXCEL: This row is part of a merged cell.");
                             } else {
-                                var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
+                                var target =
+                                    e.target.clientHeight / 2 > e.offsetY ?
+                                    e.target.parentNode.nextSibling :
+                                    e.target.parentNode;
                                 if (jexcel.current.dragging.element != target) {
-                                    e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
-                                    jexcel.current.dragging.destination = Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children, jexcel.current.dragging.element);
+                                    e.target.parentNode.parentNode.insertBefore(
+                                        jexcel.current.dragging.element,
+                                        target
+                                    );
+                                    jexcel.current.dragging.destination = Array.prototype.indexOf.call(
+                                        jexcel.current.dragging.element.parentNode.children,
+                                        jexcel.current.dragging.element
+                                    );
                                 }
                             }
                         }
@@ -7756,22 +8828,32 @@ if (!jSuites && typeof(require) === 'function') {
                     // Header found
                     if (jexcelTable[1] == 1) {
                         if (jexcel.current.selectedHeader) {
-                            var columnId = e.target.getAttribute('data-x');
+                            var columnId = e.target.getAttribute("data-x");
                             var o = jexcel.current.selectedHeader;
                             var d = columnId;
                             // Update selection
-                            jexcel.current.updateSelectionFromCoords(o, 0, d, jexcel.current.options.data.length - 1);
+                            jexcel.current.updateSelectionFromCoords(
+                                o,
+                                0,
+                                d,
+                                jexcel.current.options.data.length - 1
+                            );
                         }
                     }
 
                     // Body found
                     if (jexcelTable[1] == 2) {
-                        if (e.target.classList.contains('jexcel_row')) {
+                        if (e.target.classList.contains("jexcel_row")) {
                             if (jexcel.current.selectedRow) {
                                 var o = jexcel.current.selectedRow;
                                 var d = rowId;
                                 // Update selection
-                                jexcel.current.updateSelectionFromCoords(0, o, jexcel.current.options.data[0].length - 1, d);
+                                jexcel.current.updateSelectionFromCoords(
+                                    0,
+                                    o,
+                                    jexcel.current.options.data[0].length - 1,
+                                    d
+                                );
                             }
                         } else {
                             // Do not select edtion is in progress
@@ -7781,7 +8863,12 @@ if (!jSuites && typeof(require) === 'function') {
                                         jexcel.current.updateCopySelection(columnId, rowId);
                                     } else {
                                         if (jexcel.current.selectedCell) {
-                                            jexcel.current.updateSelectionFromCoords(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], columnId, rowId);
+                                            jexcel.current.updateSelectionFromCoords(
+                                                jexcel.current.selectedCell[0],
+                                                jexcel.current.selectedCell[1],
+                                                columnId,
+                                                rowId
+                                            );
                                         }
                                     }
                                 }
@@ -7797,7 +8884,7 @@ if (!jSuites && typeof(require) === 'function') {
             clearTimeout(jexcel.timeControl);
             jexcel.timeControl = null;
         }
-    }
+    };
 
     /**
      * Double click event handler: controls the double click in the corner, cell edition or column re-ordering.
@@ -7806,32 +8893,44 @@ if (!jSuites && typeof(require) === 'function') {
         // Jexcel is selected
         if (jexcel.current) {
             // Corner action
-            if (e.target.classList.contains('jexcel_corner')) {
+            if (e.target.classList.contains("jexcel_corner")) {
                 // Any selected cells
                 if (jexcel.current.highlighted.length > 0) {
                     // Copy from this
-                    var x1 = jexcel.current.highlighted[0].getAttribute('data-x');
-                    var y1 = parseInt(jexcel.current.highlighted[jexcel.current.highlighted.length - 1].getAttribute('data-y')) + 1;
+                    var x1 = jexcel.current.highlighted[0].getAttribute("data-x");
+                    var y1 =
+                        parseInt(
+                            jexcel.current.highlighted[
+                                jexcel.current.highlighted.length - 1
+                            ].getAttribute("data-y")
+                        ) + 1;
                     // Until this
-                    var x2 = jexcel.current.highlighted[jexcel.current.highlighted.length - 1].getAttribute('data-x');
-                    var y2 = jexcel.current.records.length - 1
-                        // Execute copy
-                    jexcel.current.copyData(jexcel.current.records[y1][x1], jexcel.current.records[y2][x2]);
+                    var x2 = jexcel.current.highlighted[
+                        jexcel.current.highlighted.length - 1
+                    ].getAttribute("data-x");
+                    var y2 = jexcel.current.records.length - 1;
+                    // Execute copy
+                    jexcel.current.copyData(
+                        jexcel.current.records[y1][x1],
+                        jexcel.current.records[y2][x2]
+                    );
                 }
-            } else if (e.target.classList.contains('jexcel_column_filter')) {
+            } else if (e.target.classList.contains("jexcel_column_filter")) {
                 // Column
-                var columnId = e.target.getAttribute('data-x');
+                var columnId = e.target.getAttribute("data-x");
                 // Open filter
                 jexcel.current.openFilter(columnId);
-
             } else {
                 // Get table
                 var jexcelTable = jexcel.getElement(e.target);
 
                 // Double click over header
-                if (jexcelTable[1] == 1 && jexcel.current.options.columnSorting == true) {
+                if (
+                    jexcelTable[1] == 1 &&
+                    jexcel.current.options.columnSorting == true
+                ) {
                     // Check valid column header coords
-                    var columnId = e.target.getAttribute('data-x');
+                    var columnId = e.target.getAttribute("data-x");
                     if (columnId) {
                         jexcel.current.orderBy(columnId);
                     }
@@ -7842,24 +8941,24 @@ if (!jSuites && typeof(require) === 'function') {
                     if (!jexcel.current.edition) {
                         var getCellCoords = function(element) {
                             if (element.parentNode) {
-                                var x = element.getAttribute('data-x');
-                                var y = element.getAttribute('data-y');
+                                var x = element.getAttribute("data-x");
+                                var y = element.getAttribute("data-y");
                                 if (x && y) {
                                     return element;
                                 } else {
                                     return getCellCoords(element.parentNode);
                                 }
                             }
-                        }
+                        };
                         var cell = getCellCoords(e.target);
-                        if (cell && cell.classList.contains('highlight')) {
+                        if (cell && cell.classList.contains("highlight")) {
                             jexcel.current.openEditor(cell);
                         }
                     }
                 }
             }
         }
-    }
+    };
 
     jexcel.copyControls = function(e) {
         if (jexcel.current && jexcel.copyControls.enabled) {
@@ -7867,33 +8966,41 @@ if (!jSuites && typeof(require) === 'function') {
                 jexcel.current.copy(true);
             }
         }
-    }
+    };
 
     jexcel.cutControls = function(e) {
         if (jexcel.current) {
             if (!jexcel.current.edition) {
                 jexcel.current.copy(true);
                 if (jexcel.current.options.editable == true) {
-                    jexcel.current.setValue(jexcel.current.highlighted, '');
+                    jexcel.current.setValue(jexcel.current.highlighted, "");
                 }
             }
         }
-    }
+    };
 
     jexcel.pasteControls = function(e) {
         if (jexcel.current && jexcel.current.selectedCell) {
             if (!jexcel.current.edition) {
                 if (jexcel.current.options.editable == true) {
                     if (e && e.clipboardData) {
-                        jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], e.clipboardData.getData('text'));
+                        jexcel.current.paste(
+                            jexcel.current.selectedCell[0],
+                            jexcel.current.selectedCell[1],
+                            e.clipboardData.getData("text")
+                        );
                         e.preventDefault();
                     } else if (window.clipboardData) {
-                        jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], window.clipboardData.getData('text'));
+                        jexcel.current.paste(
+                            jexcel.current.selectedCell[0],
+                            jexcel.current.selectedCell[1],
+                            window.clipboardData.getData("text")
+                        );
                     }
                 }
             }
         }
-    }
+    };
 
     jexcel.contextMenuControls = function(e) {
         e = e || window.event;
@@ -7910,12 +9017,17 @@ if (!jSuites && typeof(require) === 'function') {
                 jexcel.current.contextMenu.contextmenu.close();
 
                 if (jexcel.current) {
-                    var x = e.target.getAttribute('data-x');
-                    var y = e.target.getAttribute('data-y');
+                    var x = e.target.getAttribute("data-x");
+                    var y = e.target.getAttribute("data-y");
 
                     if (x || y) {
                         // Table found
-                        var items = jexcel.current.options.contextMenu(jexcel.current, x, y, e);
+                        var items = jexcel.current.options.contextMenu(
+                            jexcel.current,
+                            x,
+                            y,
+                            e
+                        );
                         // The id is depending on header and body
                         jexcel.current.contextMenu.contextmenu.open(e, items);
                         // Avoid the real one
@@ -7924,7 +9036,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    }
+    };
 
     jexcel.touchStartControls = function(e) {
         var jexcelTable = jexcel.getElement(e.target);
@@ -7945,15 +9057,15 @@ if (!jSuites && typeof(require) === 'function') {
 
         if (jexcel.current) {
             if (!jexcel.current.edition) {
-                var columnId = e.target.getAttribute('data-x');
-                var rowId = e.target.getAttribute('data-y');
+                var columnId = e.target.getAttribute("data-x");
+                var rowId = e.target.getAttribute("data-y");
 
                 if (columnId && rowId) {
                     jexcel.current.updateSelectionFromCoords(columnId, rowId);
 
                     jexcel.timeControl = setTimeout(function() {
                         // Keep temporary reference to the element
-                        if (jexcel.current.options.columns[columnId].type == 'color') {
+                        if (jexcel.current.options.columns[columnId].type == "color") {
                             jexcel.tmpElement = null;
                         } else {
                             jexcel.tmpElement = e.target;
@@ -7963,7 +9075,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    }
+    };
 
     jexcel.touchEndControls = function(e) {
         // Clear any time control
@@ -7971,12 +9083,15 @@ if (!jSuites && typeof(require) === 'function') {
             clearTimeout(jexcel.timeControl);
             jexcel.timeControl = null;
             // Element
-            if (jexcel.tmpElement && jexcel.tmpElement.children[0].tagName == 'INPUT') {
+            if (
+                jexcel.tmpElement &&
+                jexcel.tmpElement.children[0].tagName == "INPUT"
+            ) {
                 jexcel.tmpElement.children[0].focus();
             }
             jexcel.tmpElement = null;
         }
-    }
+    };
 
     /**
      * Jexcel extensions
@@ -7985,57 +9100,57 @@ if (!jSuites && typeof(require) === 'function') {
     jexcel.tabs = function(tabs, result) {
         var instances = [];
         // Create tab container
-        if (!tabs.classList.contains('jexcel_tabs')) {
-            tabs.innerHTML = '';
-            tabs.classList.add('jexcel_tabs')
+        if (!tabs.classList.contains("jexcel_tabs")) {
+            tabs.innerHTML = "";
+            tabs.classList.add("jexcel_tabs");
             tabs.jexcel = [];
 
-            var div = document.createElement('div');
+            var div = document.createElement("div");
             var headers = tabs.appendChild(div);
-            var div = document.createElement('div');
+            var div = document.createElement("div");
             var content = tabs.appendChild(div);
         } else {
             var headers = tabs.children[0];
             var content = tabs.children[1];
         }
 
-        var spreadsheet = []
+        var spreadsheet = [];
         var link = [];
         for (var i = 0; i < result.length; i++) {
             // Spreadsheet container
-            spreadsheet[i] = document.createElement('div');
-            spreadsheet[i].classList.add('jexcel_tab');
+            spreadsheet[i] = document.createElement("div");
+            spreadsheet[i].classList.add("jexcel_tab");
             var worksheet = jexcel(spreadsheet[i], result[i]);
             content.appendChild(spreadsheet[i]);
             instances[i] = tabs.jexcel.push(worksheet);
 
             // Tab link
-            link[i] = document.createElement('div');
-            link[i].classList.add('jexcel_tab_link');
-            link[i].setAttribute('data-spreadsheet', tabs.jexcel.length - 1);
+            link[i] = document.createElement("div");
+            link[i].classList.add("jexcel_tab_link");
+            link[i].setAttribute("data-spreadsheet", tabs.jexcel.length - 1);
             link[i].innerHTML = result[i].sheetName;
             link[i].onclick = function() {
                 for (var j = 0; j < headers.children.length; j++) {
-                    headers.children[j].classList.remove('selected');
-                    content.children[j].style.display = 'none';
+                    headers.children[j].classList.remove("selected");
+                    content.children[j].style.display = "none";
                 }
-                var i = this.getAttribute('data-spreadsheet');
-                content.children[i].style.display = 'block';
-                headers.children[i].classList.add('selected')
-            }
+                var i = this.getAttribute("data-spreadsheet");
+                content.children[i].style.display = "block";
+                headers.children[i].classList.add("selected");
+            };
             headers.appendChild(link[i]);
         }
 
         // First tab
         for (var j = 0; j < headers.children.length; j++) {
-            headers.children[j].classList.remove('selected');
-            content.children[j].style.display = 'none';
+            headers.children[j].classList.remove("selected");
+            content.children[j].style.display = "none";
         }
-        headers.children[headers.children.length - 1].classList.add('selected');
-        content.children[headers.children.length - 1].style.display = 'block';
+        headers.children[headers.children.length - 1].classList.add("selected");
+        content.children[headers.children.length - 1].style.display = "block";
 
         return instances;
-    }
+    };
 
     // Compability to older versions
     jexcel.createTabs = jexcel.tabs;
@@ -8052,27 +9167,27 @@ if (!jSuites && typeof(require) === 'function') {
                 spreadsheet.sheetName = sheetName;
 
                 // Column widths
-                var temp = workbook.Sheets[sheetName]['!cols'];
+                var temp = workbook.Sheets[sheetName]["!cols"];
                 if (temp && temp.length) {
                     for (var i = 0; i < temp.length; i++) {
                         spreadsheet.columns[i] = {};
                         if (temp[i] && temp[i].wpx) {
-                            spreadsheet.columns[i].width = temp[i].wpx + 'px';
+                            spreadsheet.columns[i].width = temp[i].wpx + "px";
                         }
                     }
                 }
                 // Rows heights
-                var temp = workbook.Sheets[sheetName]['!rows'];
+                var temp = workbook.Sheets[sheetName]["!rows"];
                 if (temp && temp.length) {
                     for (var i = 0; i < temp.length; i++) {
                         if (temp[i] && temp[i].hpx) {
                             spreadsheet.rows[i] = {};
-                            spreadsheet.rows[i].height = temp[i].hpx + 'px';
+                            spreadsheet.rows[i].height = temp[i].hpx + "px";
                         }
                     }
                 }
                 // Merge cells
-                var temp = workbook.Sheets[sheetName]['!merges'];
+                var temp = workbook.Sheets[sheetName]["!merges"];
                 if (temp && temp.length > 0) {
                     spreadsheet.mergeCells = [];
                     for (var i = 0; i < temp.length; i++) {
@@ -8089,13 +9204,13 @@ if (!jSuites && typeof(require) === 'function') {
                 var max_y = 0;
                 var temp = Object.keys(workbook.Sheets[sheetName]);
                 for (var i = 0; i < temp.length; i++) {
-                    if (temp[i].substr(0, 1) != '!') {
+                    if (temp[i].substr(0, 1) != "!") {
                         var cell = workbook.Sheets[sheetName][temp[i]];
                         var info = jexcel.getIdFromColumnName(temp[i], true);
                         if (!spreadsheet.data[info[1]]) {
                             spreadsheet.data[info[1]] = [];
                         }
-                        spreadsheet.data[info[1]][info[0]] = cell.f ? '=' + cell.f : cell.w;
+                        spreadsheet.data[info[1]][info[0]] = cell.f ? "=" + cell.f : cell.w;
                         if (max_x < info[0]) {
                             max_x = info[0];
                         }
@@ -8108,9 +9223,10 @@ if (!jSuites && typeof(require) === 'function') {
                         }
                         if (cell.s && cell.s.fgColor) {
                             if (spreadsheet.style[temp[i]]) {
-                                spreadsheet.style[temp[i]] += ';';
+                                spreadsheet.style[temp[i]] += ";";
                             }
-                            spreadsheet.style[temp[i]] += 'background-color:#' + cell.s.fgColor.rgb;
+                            spreadsheet.style[temp[i]] +=
+                                "background-color:#" + cell.s.fgColor.rgb;
                         }
                     }
                 }
@@ -8122,7 +9238,7 @@ if (!jSuites && typeof(require) === 'function') {
                         }
                         if (!spreadsheet.data[j][i]) {
                             if (numColumns < i) {
-                                spreadsheet.data[j][i] = '';
+                                spreadsheet.data[j][i] = "";
                             }
                         }
                     }
@@ -8131,33 +9247,41 @@ if (!jSuites && typeof(require) === 'function') {
             });
 
             return spreadsheets;
-        }
+        };
 
         var oReq;
         oReq = new XMLHttpRequest();
         oReq.open("GET", file, true);
 
-        if (typeof Uint8Array !== 'undefined') {
+        if (typeof Uint8Array !== "undefined") {
             oReq.responseType = "arraybuffer";
             oReq.onload = function(e) {
                 var arraybuffer = oReq.response;
                 var data = new Uint8Array(arraybuffer);
-                var wb = XLSX.read(data, { type: "array", cellFormula: true, cellStyles: true });
-                __callback(convert(wb))
+                var wb = XLSX.read(data, {
+                    type: "array",
+                    cellFormula: true,
+                    cellStyles: true
+                });
+                __callback(convert(wb));
             };
         } else {
             oReq.setRequestHeader("Accept-Charset", "x-user-defined");
             oReq.onreadystatechange = function() {
                 if (oReq.readyState == 4 && oReq.status == 200) {
                     var ff = convertResponseBodyToText(oReq.responseBody);
-                    var wb = XLSX.read(ff, { type: "binary", cellFormula: true, cellStyles: true });
-                    __callback(convert(wb))
+                    var wb = XLSX.read(ff, {
+                        type: "binary",
+                        cellFormula: true,
+                        cellStyles: true
+                    });
+                    __callback(convert(wb));
                 }
             };
         }
 
         oReq.send();
-    }
+    };
 
     /**
      * Valid international letter
@@ -8166,23 +9290,23 @@ if (!jSuites && typeof(require) === 'function') {
     jexcel.validLetter = function(text) {
         var regex = /([\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0\u08A2-\u08AC\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097F\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C3D\u0C58\u0C59\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D60\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191C\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19C1-\u19C7\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2183\u2184\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005\u3006\u3031-\u3035\u303B\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FCC\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA697\uA6A0-\uA6E5\uA717-\uA71F\uA722-\uA788\uA78B-\uA78E\uA790-\uA793\uA7A0-\uA7AA\uA7F8-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA80-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uABC0-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC-\u0400-\u04FF']+)/g;
         return text.match(regex) ? 1 : 0;
-    }
+    };
 
     /**
      * Helper injectArray
      */
     jexcel.injectArray = function(o, idx, arr) {
         return o.slice(0, idx).concat(arr).concat(o.slice(idx));
-    }
+    };
 
     /**
      * Get letter based on a number
-     * 
+     *
      * @param integer i
      * @return string letter
      */
     jexcel.getColumnName = function(i) {
-        var letter = '';
+        var letter = "";
         if (i > 701) {
             letter += String.fromCharCode(64 + parseInt(i / 676));
             letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
@@ -8192,11 +9316,11 @@ if (!jSuites && typeof(require) === 'function') {
         letter += String.fromCharCode(65 + (i % 26));
 
         return letter;
-    }
+    };
 
     /**
      * Convert excel like column to jexcel id
-     * 
+     *
      * @param string id
      * @return string id
      */
@@ -8208,7 +9332,8 @@ if (!jSuites && typeof(require) === 'function') {
             // Base 26 calculation
             var code = 0;
             for (var i = 0; i < t[0].length; i++) {
-                code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+                code +=
+                    parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, t[0].length - 1 - i);
             }
             code--;
             // Make sure jexcel starts on zero
@@ -8225,30 +9350,32 @@ if (!jSuites && typeof(require) === 'function') {
             if (arr == true) {
                 id = [code, number];
             } else {
-                id = code + '-' + number;
+                id = code + "-" + number;
             }
         }
 
         return id;
-    }
+    };
 
     /**
      * Convert jexcel id to excel like column name
-     * 
+     *
      * @param string id
      * @return string id
      */
     jexcel.getColumnNameFromId = function(cellId) {
         if (!Array.isArray(cellId)) {
-            cellId = cellId.split('-');
+            cellId = cellId.split("-");
         }
 
-        return jexcel.getColumnName(parseInt(cellId[0])) + (parseInt(cellId[1]) + 1);
-    }
+        return (
+            jexcel.getColumnName(parseInt(cellId[0])) + (parseInt(cellId[1]) + 1)
+        );
+    };
 
     /**
      * Verify element inside jexcel table
-     * 
+     *
      * @param string id
      * @return string id
      */
@@ -8258,14 +9385,14 @@ if (!jSuites && typeof(require) === 'function') {
 
         function path(element) {
             if (element.className) {
-                if (element.classList.contains('jexcel_container')) {
+                if (element.classList.contains("jexcel_container")) {
                     jexcelElement = element;
                 }
             }
 
-            if (element.tagName == 'THEAD') {
+            if (element.tagName == "THEAD") {
                 jexcelSection = 1;
-            } else if (element.tagName == 'TBODY') {
+            } else if (element.tagName == "TBODY") {
                 jexcelSection = 2;
             }
 
@@ -8279,19 +9406,19 @@ if (!jSuites && typeof(require) === 'function') {
         path(element);
 
         return [jexcelElement, jexcelSection];
-    }
+    };
 
     jexcel.doubleDigitFormat = function(v) {
-        v = '' + v;
+        v = "" + v;
         if (v.length == 1) {
-            v = '0' + v;
+            v = "0" + v;
         }
         return v;
-    }
+    };
 
     jexcel.createFromTable = function(el, options) {
-        if (el.tagName != 'TABLE') {
-            console.log('Element is not a table');
+        if (el.tagName != "TABLE") {
+            console.log("Element is not a table");
         } else {
             // Configuration
             if (!options) {
@@ -8301,18 +9428,18 @@ if (!jSuites && typeof(require) === 'function') {
             options.data = [];
 
             // Colgroup
-            var colgroup = el.querySelectorAll('colgroup > col');
+            var colgroup = el.querySelectorAll("colgroup > col");
             if (colgroup.length) {
                 // Get column width
                 for (var i = 0; i < colgroup.length; i++) {
                     var width = colgroup[i].style.width;
                     if (!width) {
-                        var width = colgroup[i].getAttribute('width');
+                        var width = colgroup[i].getAttribute("width");
                     }
                     // Set column width
                     if (width) {
                         if (!options.columns[i]) {
-                            options.columns[i] = {}
+                            options.columns[i] = {};
                         }
                         options.columns[i].width = width;
                     }
@@ -8329,18 +9456,18 @@ if (!jSuites && typeof(require) === 'function') {
                 if (!options.columns[i]) {
                     options.columns[i] = {};
                 }
-                if (header.getAttribute('data-celltype')) {
-                    options.columns[i].type = header.getAttribute('data-celltype');
+                if (header.getAttribute("data-celltype")) {
+                    options.columns[i].type = header.getAttribute("data-celltype");
                 } else {
-                    options.columns[i].type = 'text';
+                    options.columns[i].type = "text";
                 }
-                options.columns[i].width = width + 'px';
+                options.columns[i].width = width + "px";
                 options.columns[i].title = header.innerHTML;
-                options.columns[i].align = header.style.textAlign || 'center';
-            }
+                options.columns[i].align = header.style.textAlign || "center";
+            };
 
             // Headers
-            var headers = el.querySelectorAll('thead > tr');
+            var headers = el.querySelectorAll("thead > tr");
             if (headers.length) {
                 // Get the last row in the thead
                 headers = headers[headers.length - 1].children;
@@ -8356,7 +9483,7 @@ if (!jSuites && typeof(require) === 'function') {
             var rows = {};
             var style = {};
 
-            var content = el.querySelectorAll('table > tr, tbody tr');
+            var content = el.querySelectorAll("table > tr, tbody tr");
             for (var j = 0; j < content.length; j++) {
                 options.data[rowNumber] = [];
                 if (options.parseTableFirstRowAsHeader == true && j == 0) {
@@ -8366,10 +9493,10 @@ if (!jSuites && typeof(require) === 'function') {
                 } else {
                     for (var i = 0; i < content[j].children.length; i++) {
                         // WickedGrid formula compatibility
-                        var value = content[j].children[i].getAttribute('data-formula');
+                        var value = content[j].children[i].getAttribute("data-formula");
                         if (value) {
-                            if (value.substr(0, 1) != '=') {
-                                value = '=' + value;
+                            if (value.substr(0, 1) != "=") {
+                                value = "=" + value;
                             }
                         } else {
                             var value = content[j].children[i].innerHTML;
@@ -8380,27 +9507,33 @@ if (!jSuites && typeof(require) === 'function') {
                         var cellName = jexcel.getColumnNameFromId([i, j]);
 
                         // Merged cells
-                        var mergedColspan = parseInt(content[j].children[i].getAttribute('colspan')) || 0;
-                        var mergedRowspan = parseInt(content[j].children[i].getAttribute('rowspan')) || 0;
+                        var mergedColspan =
+                            parseInt(content[j].children[i].getAttribute("colspan")) || 0;
+                        var mergedRowspan =
+                            parseInt(content[j].children[i].getAttribute("rowspan")) || 0;
                         if (mergedColspan || mergedRowspan) {
                             mergeCells[cellName] = [mergedColspan || 1, mergedRowspan || 1];
                         }
 
                         // Avoid problems with hidden cells
-                        if (s = content[j].children[i].style && content[j].children[i].style.display == 'none') {
-                            content[j].children[i].style.display = '';
+                        if (
+                            (s =
+                                content[j].children[i].style &&
+                                content[j].children[i].style.display == "none")
+                        ) {
+                            content[j].children[i].style.display = "";
                         }
                         // Get style
-                        var s = content[j].children[i].getAttribute('style');
+                        var s = content[j].children[i].getAttribute("style");
                         if (s) {
                             style[cellName] = s;
                         }
                         // Bold
-                        if (content[j].children[i].classList.contains('styleBold')) {
+                        if (content[j].children[i].classList.contains("styleBold")) {
                             if (style[cellName]) {
-                                style[cellName] += '; font-weight:bold;';
+                                style[cellName] += "; font-weight:bold;";
                             } else {
-                                style[cellName] = 'font-weight:bold;';
+                                style[cellName] = "font-weight:bold;";
                             }
                         }
                     }
@@ -8447,7 +9580,7 @@ if (!jSuites && typeof(require) === 'function') {
                             test = false;
                         }
                         if (value.length == 10) {
-                            if (!(value.substr(4, 1) == '-' && value.substr(7, 1) == '-')) {
+                            if (!(value.substr(4, 1) == "-" && value.substr(7, 1) == "-")) {
                                 testCalendar = false;
                             }
                         } else {
@@ -8457,9 +9590,13 @@ if (!jSuites && typeof(require) === 'function') {
 
                     var keys = Object.keys(pattern[i]).length;
                     if (testCalendar) {
-                        options.columns[i].type = 'calendar';
-                    } else if (test == true && keys > 1 && keys <= parseInt(options.data.length * 0.1)) {
-                        options.columns[i].type = 'dropdown';
+                        options.columns[i].type = "calendar";
+                    } else if (
+                        test == true &&
+                        keys > 1 &&
+                        keys <= parseInt(options.data.length * 0.1)
+                    ) {
+                        options.columns[i].type = "dropdown";
                         options.columns[i].source = Object.keys(pattern[i]);
                     }
                 }
@@ -8467,40 +9604,41 @@ if (!jSuites && typeof(require) === 'function') {
 
             return options;
         }
-    }
+    };
 
     /**
      * Jquery Support
      */
-    if (typeof(jQuery) != 'undefined') {
+    if (typeof jQuery != "undefined") {
         (function($) {
             $.fn.jexcel = function(method) {
                 var spreadsheetContainer = $(this).get(0);
                 if (!spreadsheetContainer.jexcel) {
                     return jexcel($(this).get(0), arguments[0]);
                 } else {
-                    return spreadsheetContainer.jexcel[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                    return spreadsheetContainer.jexcel[method].apply(
+                        this,
+                        Array.prototype.slice.call(arguments, 1)
+                    );
                 }
             };
-
         })(jQuery);
     }
-
 
     // Based on sutoiku work (https://github.com/sutoiku)
 
     var error = (function() {
         var exports = {};
 
-        exports.nil = new Error('#NULL!');
-        exports.div0 = new Error('#DIV/0!');
-        exports.value = new Error('#VALUE!');
-        exports.ref = new Error('#REF!');
-        exports.name = new Error('#NAME?');
-        exports.num = new Error('#NUM!');
-        exports.na = new Error('#N/A');
-        exports.error = new Error('#ERROR!');
-        exports.data = new Error('#GETTING_DATA');
+        exports.nil = new Error("#NULL!");
+        exports.div0 = new Error("#DIV/0!");
+        exports.value = new Error("#VALUE!");
+        exports.ref = new Error("#REF!");
+        exports.name = new Error("#NAME?");
+        exports.num = new Error("#NUM!");
+        exports.na = new Error("#N/A");
+        exports.error = new Error("#ERROR!");
+        exports.data = new Error("#GETTING_DATA");
 
         return exports;
     })();
@@ -8570,7 +9708,7 @@ if (!jSuites && typeof(require) === 'function') {
         exports.numbers = function() {
             var possibleNumbers = this.flatten.apply(null, arguments);
             return possibleNumbers.filter(function(el) {
-                return typeof el === 'number';
+                return typeof el === "number";
             });
         };
 
@@ -8580,7 +9718,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.parseBool = function(bool) {
-            if (typeof bool === 'boolean') {
+            if (typeof bool === "boolean") {
                 return bool;
             }
 
@@ -8588,17 +9726,17 @@ if (!jSuites && typeof(require) === 'function') {
                 return bool;
             }
 
-            if (typeof bool === 'number') {
+            if (typeof bool === "number") {
                 return bool !== 0;
             }
 
-            if (typeof bool === 'string') {
+            if (typeof bool === "string") {
                 var up = bool.toUpperCase();
-                if (up === 'TRUE') {
+                if (up === "TRUE") {
                     return true;
                 }
 
-                if (up === 'FALSE') {
+                if (up === "FALSE") {
                     return false;
                 }
             }
@@ -8611,7 +9749,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.parseNumber = function(string) {
-            if (string === undefined || string === '') {
+            if (string === undefined || string === "") {
                 return error.value;
             }
             if (!isNaN(string)) {
@@ -8676,7 +9814,7 @@ if (!jSuites && typeof(require) === 'function') {
                 }
                 return new Date(d1900.getTime() + (d - 2) * 86400000);
             }
-            if (typeof date === 'string') {
+            if (typeof date === "string") {
                 date = new Date(date);
                 if (!isNaN(date)) {
                     return date;
@@ -8713,7 +9851,7 @@ if (!jSuites && typeof(require) === 'function') {
             var el;
             while (n--) {
                 el = arr[n];
-                if (typeof el === 'number') {
+                if (typeof el === "number") {
                     continue;
                 }
                 if (el === true) {
@@ -8724,7 +9862,7 @@ if (!jSuites && typeof(require) === 'function') {
                     arr[n] = 0;
                     continue;
                 }
-                if (typeof el === 'string') {
+                if (typeof el === "string") {
                     var number = this.parseNumber(el);
                     if (number instanceof Error) {
                         arr[n] = 0;
@@ -8738,7 +9876,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.rest = function(array, idx) {
             idx = idx || 1;
-            if (!array || typeof array.slice !== 'function') {
+            if (!array || typeof array.slice !== "function") {
                 return array;
             }
             return array.slice(idx);
@@ -8746,7 +9884,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.initial = function(array, idx) {
             idx = idx || 1;
-            if (!array || typeof array.slice !== 'function') {
+            if (!array || typeof array.slice !== "function") {
                 return array;
             }
             return array.slice(0, array.length - idx);
@@ -8862,7 +10000,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.DATEVALUE = function(date_text) {
-            if (typeof date_text !== 'string') {
+            if (typeof date_text !== "string") {
                 return error.value;
             }
             var date = Date.parse(date_text);
@@ -8919,7 +10057,13 @@ if (!jSuites && typeof(require) === 'function') {
                 return error.value;
             }
             months = parseInt(months, 10);
-            return serial(new Date(start_date.getFullYear(), start_date.getMonth() + months + 1, 0));
+            return serial(
+                new Date(
+                    start_date.getFullYear(),
+                    start_date.getMonth() + months + 1,
+                    0
+                )
+            );
         };
 
         exports.HOUR = function(serial_number) {
@@ -8931,7 +10075,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.INTERVAL = function(second) {
-            if (typeof second !== 'number' && typeof second !== 'string') {
+            if (typeof second !== "number" && typeof second !== "string") {
                 return error.value;
             } else {
                 second = parseInt(second, 10);
@@ -8950,14 +10094,14 @@ if (!jSuites && typeof(require) === 'function') {
             second = second % 60;
             var sec = second;
 
-            year = (year > 0) ? year + 'Y' : '';
-            month = (month > 0) ? month + 'M' : '';
-            day = (day > 0) ? day + 'D' : '';
-            hour = (hour > 0) ? hour + 'H' : '';
-            min = (min > 0) ? min + 'M' : '';
-            sec = (sec > 0) ? sec + 'S' : '';
+            year = year > 0 ? year + "Y" : "";
+            month = month > 0 ? month + "M" : "";
+            day = day > 0 ? day + "D" : "";
+            hour = hour > 0 ? hour + "H" : "";
+            min = min > 0 ? min + "M" : "";
+            sec = sec > 0 ? sec + "S" : "";
 
-            return 'P' + year + month + day + 'T' + hour + min + sec;
+            return "P" + year + month + day + "T" + hour + min + sec;
         };
 
         exports.ISOWEEKNUM = function(date) {
@@ -8969,7 +10113,7 @@ if (!jSuites && typeof(require) === 'function') {
             date.setHours(0, 0, 0);
             date.setDate(date.getDate() + 4 - (date.getDay() || 7));
             var yearStart = new Date(date.getFullYear(), 0, 1);
-            return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+            return Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
         };
 
         exports.MINUTE = function(serial_number) {
@@ -8990,7 +10134,12 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.NETWORKDAYS = function(start_date, end_date, holidays) {};
 
-        exports.NETWORKDAYS.INTL = function(start_date, end_date, weekend, holidays) {};
+        exports.NETWORKDAYS.INTL = function(
+            start_date,
+            end_date,
+            weekend,
+            holidays
+        ) {};
 
         exports.NOW = function() {
             return new Date();
@@ -9022,7 +10171,12 @@ if (!jSuites && typeof(require) === 'function') {
             if (time_text instanceof Error) {
                 return time_text;
             }
-            return (3600 * time_text.getHours() + 60 * time_text.getMinutes() + time_text.getSeconds()) / 86400;
+            return (
+                (3600 * time_text.getHours() +
+                    60 * time_text.getMinutes() +
+                    time_text.getSeconds()) /
+                86400
+            );
         };
 
         exports.TODAY = function() {
@@ -9062,7 +10216,7 @@ if (!jSuites && typeof(require) === 'function') {
         exports.YEARFRAC = function(start_date, end_date, basis) {};
 
         function serial(date) {
-            var addOn = (date > -2203891200000) ? 2 : 1;
+            var addOn = date > -2203891200000 ? 2 : 1;
             return (date - d1900) / 86400000 + addOn;
         }
 
@@ -9130,8 +10284,8 @@ if (!jSuites && typeof(require) === 'function') {
                         }
                         hasMatchingCriteria = true;
                         for (var p = 1; p < criteria.length; ++p) {
-                            currentCriteriaResult = currentCriteriaResult ||
-                                eval(database[k][l] + criteria[p]); // jshint
+                            currentCriteriaResult =
+                                currentCriteriaResult || eval(database[k][l] + criteria[p]); // jshint
                             // ignore:line
                         }
                     }
@@ -9153,7 +10307,7 @@ if (!jSuites && typeof(require) === 'function') {
         // Database functions
         exports.DAVERAGE = function(database, field, criteria) {
             // Return error if field is not a number and not a string
-            if (isNaN(field) && (typeof field !== "string")) {
+            if (isNaN(field) && typeof field !== "string") {
                 return error.value;
             }
             var resultIndexes = findResultIndex(database, criteria);
@@ -9168,7 +10322,9 @@ if (!jSuites && typeof(require) === 'function') {
             for (var i = 0; i < resultIndexes.length; i++) {
                 sum += targetFields[resultIndexes[i]];
             }
-            return resultIndexes.length === 0 ? error.div0 : sum / resultIndexes.length;
+            return resultIndexes.length === 0 ?
+                error.div0 :
+                sum / resultIndexes.length;
         };
 
         exports.DCOUNT = function(database, field, criteria) {};
@@ -9177,7 +10333,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.DGET = function(database, field, criteria) {
             // Return error if field is not a number and not a string
-            if (isNaN(field) && (typeof field !== "string")) {
+            if (isNaN(field) && typeof field !== "string") {
                 return error.value;
             }
             var resultIndexes = findResultIndex(database, criteria);
@@ -9203,7 +10359,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.DMAX = function(database, field, criteria) {
             // Return error if field is not a number and not a string
-            if (isNaN(field) && (typeof field !== "string")) {
+            if (isNaN(field) && typeof field !== "string") {
                 return error.value;
             }
             var resultIndexes = findResultIndex(database, criteria);
@@ -9225,7 +10381,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.DMIN = function(database, field, criteria) {
             // Return error if field is not a number and not a string
-            if (isNaN(field) && (typeof field !== "string")) {
+            if (isNaN(field) && typeof field !== "string") {
                 return error.value;
             }
             var resultIndexes = findResultIndex(database, criteria);
@@ -9247,7 +10403,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.DPRODUCT = function(database, field, criteria) {
             // Return error if field is not a number and not a string
-            if (isNaN(field) && (typeof field !== "string")) {
+            if (isNaN(field) && typeof field !== "string") {
                 return error.value;
             }
             var resultIndexes = findResultIndex(database, criteria);
@@ -9311,9 +10467,11 @@ if (!jSuites && typeof(require) === 'function') {
                         }
                     }
                 } else if (matchType === 0) {
-                    if (typeof lookupValue === 'string') {
-                        lookupValue = lookupValue.replace(/\?/g, '.');
-                        if (lookupArray[idx].toLowerCase().match(lookupValue.toLowerCase())) {
+                    if (typeof lookupValue === "string") {
+                        lookupValue = lookupValue.replace(/\?/g, ".");
+                        if (
+                            lookupArray[idx].toLowerCase().match(lookupValue.toLowerCase())
+                        ) {
                             return idx + 1;
                         }
                     } else {
@@ -9346,7 +10504,7 @@ if (!jSuites && typeof(require) === 'function') {
         var exports = {};
 
         function isValidBinaryNumber(number) {
-            return (/^[01]{1,10}$/).test(number);
+            return /^[01]{1,10}$/.test(number);
         }
 
         exports.BESSELI = function(x, n) {};
@@ -9369,7 +10527,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Handle negative numbers
             var stringified = number.toString();
-            if (stringified.length === 10 && stringified.substring(0, 1) === '1') {
+            if (stringified.length === 10 && stringified.substring(0, 1) === "1") {
                 return parseInt(stringified.substring(1), 2) - 512;
             } else {
                 return result;
@@ -9386,8 +10544,10 @@ if (!jSuites && typeof(require) === 'function') {
             // Ignore places and return a 10-character hexadecimal number if number
             // is negative
             var stringified = number.toString();
-            if (stringified.length === 10 && stringified.substring(0, 1) === '1') {
-                return (1099511627264 + parseInt(stringified.substring(1), 2)).toString(16);
+            if (stringified.length === 10 && stringified.substring(0, 1) === "1") {
+                return (1099511627264 + parseInt(stringified.substring(1), 2)).toString(
+                    16
+                );
             }
 
             // Convert binary number to hexadecimal
@@ -9413,7 +10573,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -9427,7 +10589,7 @@ if (!jSuites && typeof(require) === 'function') {
             // Ignore places and return a 10-character octal number if number is
             // negative
             var stringified = number.toString();
-            if (stringified.length === 10 && stringified.substring(0, 1) === '1') {
+            if (stringified.length === 10 && stringified.substring(0, 1) === "1") {
                 return (1073741312 + parseInt(stringified.substring(1), 2)).toString(8);
             }
 
@@ -9454,7 +10616,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -9514,7 +10678,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return number shifted by shift bits to the left or to the right if
             // shift is negative
-            return (shift >= 0) ? number << shift : number >> -shift;
+            return shift >= 0 ? number << shift : number >> -shift;
         };
 
         exports.BITOR = function(number1, number2) {
@@ -9572,7 +10736,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return number shifted by shift bits to the right or to the left if
             // shift is negative
-            return (shift >= 0) ? number >> shift : number << -shift;
+            return shift >= 0 ? number >> shift : number << -shift;
         };
 
         exports.BITXOR = function(number1, number2) {
@@ -9609,10 +10773,10 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Set suffix
-            suffix = (suffix === undefined) ? 'i' : suffix;
+            suffix = suffix === undefined ? "i" : suffix;
 
             // Return error if suffix is neither "i" nor "j"
-            if (suffix !== 'i' && suffix !== 'j') {
+            if (suffix !== "i" && suffix !== "j") {
                 return error.value;
             }
 
@@ -9620,12 +10784,16 @@ if (!jSuites && typeof(require) === 'function') {
             if (real === 0 && imaginary === 0) {
                 return 0;
             } else if (real === 0) {
-                return (imaginary === 1) ? suffix : imaginary.toString() + suffix;
+                return imaginary === 1 ? suffix : imaginary.toString() + suffix;
             } else if (imaginary === 0) {
                 return real.toString();
             } else {
-                var sign = (imaginary > 0) ? '+' : '';
-                return real.toString() + sign + ((imaginary === 1) ? suffix : imaginary.toString() + suffix);
+                var sign = imaginary > 0 ? "+" : "";
+                return (
+                    real.toString() +
+                    sign +
+                    (imaginary === 1 ? suffix : imaginary.toString() + suffix)
+                );
             }
         };
 
@@ -9640,18 +10808,82 @@ if (!jSuites && typeof(require) === 'function') {
             // [Name, Symbol, Alternate symbols, Quantity, ISU, CONVERT, Conversion
             // ratio]
             var units = [
-                ["a.u. of action", "?", null, "action", false, false, 1.05457168181818e-34],
-                ["a.u. of charge", "e", null, "electric_charge", false, false, 1.60217653141414e-19],
-                ["a.u. of energy", "Eh", null, "energy", false, false, 4.35974417757576e-18],
-                ["a.u. of length", "a?", null, "length", false, false, 5.29177210818182e-11],
-                ["a.u. of mass", "m?", null, "mass", false, false, 9.10938261616162e-31],
-                ["a.u. of time", "?/Eh", null, "time", false, false, 2.41888432650516e-17],
+                [
+                    "a.u. of action",
+                    "?",
+                    null,
+                    "action",
+                    false,
+                    false,
+                    1.05457168181818e-34
+                ],
+                [
+                    "a.u. of charge",
+                    "e",
+                    null,
+                    "electric_charge",
+                    false,
+                    false,
+                    1.60217653141414e-19
+                ],
+                [
+                    "a.u. of energy",
+                    "Eh",
+                    null,
+                    "energy",
+                    false,
+                    false,
+                    4.35974417757576e-18
+                ],
+                [
+                    "a.u. of length",
+                    "a?",
+                    null,
+                    "length",
+                    false,
+                    false,
+                    5.29177210818182e-11
+                ],
+                [
+                    "a.u. of mass",
+                    "m?",
+                    null,
+                    "mass",
+                    false,
+                    false,
+                    9.10938261616162e-31
+                ],
+                [
+                    "a.u. of time",
+                    "?/Eh",
+                    null,
+                    "time",
+                    false,
+                    false,
+                    2.41888432650516e-17
+                ],
                 ["admiralty knot", "admkn", null, "speed", false, true, 0.514773333],
                 ["ampere", "A", null, "electric_current", true, false, 1],
-                ["ampere per meter", "A/m", null, "magnetic_field_intensity", true, false, 1],
+                [
+                    "ampere per meter",
+                    "A/m",
+                    null,
+                    "magnetic_field_intensity",
+                    true,
+                    false,
+                    1
+                ],
                 ["ångström", "Å", ["ang"], "length", false, true, 1e-10],
                 ["are", "ar", null, "area", false, true, 100],
-                ["astronomical unit", "ua", null, "length", false, false, 1.49597870691667e-11],
+                [
+                    "astronomical unit",
+                    "ua",
+                    null,
+                    "length",
+                    false,
+                    false,
+                    1.49597870691667e-11
+                ],
                 ["bar", "bar", null, "pressure", false, false, 100000],
                 ["barn", "b", null, "area", false, false, 1e-28],
                 ["becquerel", "Bq", null, "radioactivity", true, false, 1],
@@ -9659,22 +10891,66 @@ if (!jSuites && typeof(require) === 'function') {
                 ["btu", "BTU", ["btu"], "energy", false, true, 1055.05585262],
                 ["byte", "byte", null, "information", false, true, 8],
                 ["candela", "cd", null, "luminous_intensity", true, false, 1],
-                ["candela per square metre", "cd/m?", null, "luminance", true, false, 1],
+                [
+                    "candela per square metre",
+                    "cd/m?",
+                    null,
+                    "luminance",
+                    true,
+                    false,
+                    1
+                ],
                 ["coulomb", "C", null, "electric_charge", true, false, 1],
                 ["cubic ångström", "ang3", ["ang^3"], "volume", false, true, 1e-30],
                 ["cubic foot", "ft3", ["ft^3"], "volume", false, true, 0.028316846592],
                 ["cubic inch", "in3", ["in^3"], "volume", false, true, 0.000016387064],
-                ["cubic light-year", "ly3", ["ly^3"], "volume", false, true, 8.46786664623715e-47],
+                [
+                    "cubic light-year",
+                    "ly3", ["ly^3"],
+                    "volume",
+                    false,
+                    true,
+                    8.46786664623715e-47
+                ],
                 ["cubic metre", "m?", null, "volume", true, true, 1],
-                ["cubic mile", "mi3", ["mi^3"], "volume", false, true, 4168181825.44058],
-                ["cubic nautical mile", "Nmi3", ["Nmi^3"], "volume", false, true, 6352182208],
-                ["cubic Pica", "Pica3", ["Picapt3", "Pica^3", "Picapt^3"], "volume", false, true, 7.58660370370369e-8],
+                [
+                    "cubic mile",
+                    "mi3", ["mi^3"],
+                    "volume",
+                    false,
+                    true,
+                    4168181825.44058
+                ],
+                [
+                    "cubic nautical mile",
+                    "Nmi3", ["Nmi^3"],
+                    "volume",
+                    false,
+                    true,
+                    6352182208
+                ],
+                [
+                    "cubic Pica",
+                    "Pica3", ["Picapt3", "Pica^3", "Picapt^3"],
+                    "volume",
+                    false,
+                    true,
+                    7.58660370370369e-8
+                ],
                 ["cubic yard", "yd3", ["yd^3"], "volume", false, true, 0.764554857984],
                 ["cup", "cup", null, "volume", false, true, 0.0002365882365],
                 ["dalton", "Da", ["u"], "mass", false, false, 1.66053886282828e-27],
                 ["day", "d", ["day"], "time", false, true, 86400],
                 ["degree", "°", null, "angle", false, false, 0.0174532925199433],
-                ["degrees Rankine", "Rank", null, "temperature", false, true, 0.555555555555556],
+                [
+                    "degrees Rankine",
+                    "Rank",
+                    null,
+                    "temperature",
+                    false,
+                    true,
+                    0.555555555555556
+                ],
                 ["dyne", "dyn", ["dy"], "force", false, true, 0.00001],
                 ["electronvolt", "eV", ["ev"], "energy", false, true, 1.60217656514141],
                 ["ell", "ell", null, "length", false, true, 1.143],
@@ -9689,19 +10965,71 @@ if (!jSuites && typeof(require) === 'function') {
                 ["grain", "grain", null, "mass", false, true, 0.0000647989],
                 ["gram", "g", null, "mass", false, true, 0.001],
                 ["gray", "Gy", null, "absorbed_dose", true, false, 1],
-                ["gross registered ton", "GRT", ["regton"], "volume", false, true, 2.8316846592],
+                [
+                    "gross registered ton",
+                    "GRT", ["regton"],
+                    "volume",
+                    false,
+                    true,
+                    2.8316846592
+                ],
                 ["hectare", "ha", null, "area", false, true, 10000],
                 ["henry", "H", null, "inductance", true, false, 1],
                 ["hertz", "Hz", null, "frequency", true, false, 1],
                 ["horsepower", "HP", ["h"], "power", false, true, 745.69987158227],
-                ["horsepower-hour", "HPh", ["hh", "hph"], "energy", false, true, 2684519.538],
+                [
+                    "horsepower-hour",
+                    "HPh", ["hh", "hph"],
+                    "energy",
+                    false,
+                    true,
+                    2684519.538
+                ],
                 ["hour", "h", ["hr"], "time", false, true, 3600],
-                ["imperial gallon (U.K.)", "uk_gal", null, "volume", false, true, 0.00454609],
-                ["imperial hundredweight", "lcwt", ["uk_cwt", "hweight"], "mass", false, true, 50.802345],
-                ["imperial quart (U.K)", "uk_qt", null, "volume", false, true, 0.0011365225],
-                ["imperial ton", "brton", ["uk_ton", "LTON"], "mass", false, true, 1016.046909],
+                [
+                    "imperial gallon (U.K.)",
+                    "uk_gal",
+                    null,
+                    "volume",
+                    false,
+                    true,
+                    0.00454609
+                ],
+                [
+                    "imperial hundredweight",
+                    "lcwt", ["uk_cwt", "hweight"],
+                    "mass",
+                    false,
+                    true,
+                    50.802345
+                ],
+                [
+                    "imperial quart (U.K)",
+                    "uk_qt",
+                    null,
+                    "volume",
+                    false,
+                    true,
+                    0.0011365225
+                ],
+                [
+                    "imperial ton",
+                    "brton", ["uk_ton", "LTON"],
+                    "mass",
+                    false,
+                    true,
+                    1016.046909
+                ],
                 ["inch", "in", null, "length", false, true, 0.0254],
-                ["international acre", "uk_acre", null, "area", false, true, 4046.8564224],
+                [
+                    "international acre",
+                    "uk_acre",
+                    null,
+                    "area",
+                    false,
+                    true,
+                    4046.8564224
+                ],
                 ["IT calorie", "cal", null, "energy", false, true, 4.1868],
                 ["joule", "J", null, "energy", true, true, 1],
                 ["katal", "kat", null, "catalytic_activity", true, false, 1],
@@ -9714,34 +11042,112 @@ if (!jSuites && typeof(require) === 'function') {
                 ["lux", "lx", null, "illuminance", true, false, 1],
                 ["maxwell", "Mx", null, "magnetic_flux", false, false, 1e-18],
                 ["measurement ton", "MTON", null, "volume", false, true, 1.13267386368],
-                ["meter per hour", "m/h", ["m/hr"], "speed", false, true, 0.00027777777777778],
+                [
+                    "meter per hour",
+                    "m/h", ["m/hr"],
+                    "speed",
+                    false,
+                    true,
+                    0.00027777777777778
+                ],
                 ["meter per second", "m/s", ["m/sec"], "speed", true, true, 1],
-                ["meter per second squared", "m?s??", null, "acceleration", true, false, 1],
+                [
+                    "meter per second squared",
+                    "m?s??",
+                    null,
+                    "acceleration",
+                    true,
+                    false,
+                    1
+                ],
                 ["parsec", "pc", ["parsec"], "length", false, true, 30856775814671900],
-                ["meter squared per second", "m?/s", null, "kinematic_viscosity", true, false, 1],
+                [
+                    "meter squared per second",
+                    "m?/s",
+                    null,
+                    "kinematic_viscosity",
+                    true,
+                    false,
+                    1
+                ],
                 ["metre", "m", null, "length", true, true, 1],
                 ["miles per hour", "mph", null, "speed", false, true, 0.44704],
-                ["millimetre of mercury", "mmHg", null, "pressure", false, false, 133.322],
+                [
+                    "millimetre of mercury",
+                    "mmHg",
+                    null,
+                    "pressure",
+                    false,
+                    false,
+                    133.322
+                ],
                 ["minute", "?", null, "angle", false, false, 0.000290888208665722],
                 ["minute", "min", ["mn"], "time", false, true, 60],
                 ["modern teaspoon", "tspm", null, "volume", false, true, 0.000005],
                 ["mole", "mol", null, "amount_of_substance", true, false, 1],
                 ["morgen", "Morgen", null, "area", false, true, 2500],
-                ["n.u. of action", "?", null, "action", false, false, 1.05457168181818e-34],
-                ["n.u. of mass", "m?", null, "mass", false, false, 9.10938261616162e-31],
+                [
+                    "n.u. of action",
+                    "?",
+                    null,
+                    "action",
+                    false,
+                    false,
+                    1.05457168181818e-34
+                ],
+                [
+                    "n.u. of mass",
+                    "m?",
+                    null,
+                    "mass",
+                    false,
+                    false,
+                    9.10938261616162e-31
+                ],
                 ["n.u. of speed", "c?", null, "speed", false, false, 299792458],
-                ["n.u. of time", "?/(me?c??)", null, "time", false, false, 1.28808866778687e-21],
+                [
+                    "n.u. of time",
+                    "?/(me?c??)",
+                    null,
+                    "time",
+                    false,
+                    false,
+                    1.28808866778687e-21
+                ],
                 ["nautical mile", "M", ["Nmi"], "length", false, true, 1852],
                 ["newton", "N", null, "force", true, true, 1],
-                ["œrsted", "Oe ", null, "magnetic_field_intensity", false, false, 79.5774715459477],
+                [
+                    "œrsted",
+                    "Oe ",
+                    null,
+                    "magnetic_field_intensity",
+                    false,
+                    false,
+                    79.5774715459477
+                ],
                 ["ohm", "Ω", null, "electric_resistance", true, false, 1],
                 ["ounce mass", "ozm", null, "mass", false, true, 0.028349523125],
                 ["pascal", "Pa", null, "pressure", true, false, 1],
                 ["pascal second", "Pa?s", null, "dynamic_viscosity", true, false, 1],
                 ["pferdestärke", "PS", null, "power", false, true, 735.49875],
                 ["phot", "ph", null, "illuminance", false, false, 0.0001],
-                ["pica (1/6 inch)", "pica", null, "length", false, true, 0.00035277777777778],
-                ["pica (1/72 inch)", "Pica", ["Picapt"], "length", false, true, 0.00423333333333333],
+                [
+                    "pica (1/6 inch)",
+                    "pica",
+                    null,
+                    "length",
+                    false,
+                    true,
+                    0.00035277777777778
+                ],
+                [
+                    "pica (1/72 inch)",
+                    "Pica", ["Picapt"],
+                    "length",
+                    false,
+                    true,
+                    0.00423333333333333
+                ],
                 ["poise", "P", null, "dynamic_viscosity", false, false, 0.1],
                 ["pond", "pond", null, "force", false, true, 0.00980665],
                 ["pound force", "lbf", null, "force", false, true, 4.4482216152605],
@@ -9750,18 +11156,46 @@ if (!jSuites && typeof(require) === 'function') {
                 ["radian", "rad", null, "angle", true, false, 1],
                 ["second", "?", null, "angle", false, false, 0.00000484813681109536],
                 ["second", "s", ["sec"], "time", true, true, 1],
-                ["short hundredweight", "cwt", ["shweight"], "mass", false, true, 45.359237],
+                [
+                    "short hundredweight",
+                    "cwt", ["shweight"],
+                    "mass",
+                    false,
+                    true,
+                    45.359237
+                ],
                 ["siemens", "S", null, "electrical_conductance", true, false, 1],
                 ["sievert", "Sv", null, "equivalent_dose", true, false, 1],
                 ["slug", "sg", null, "mass", false, true, 14.59390294],
                 ["square ångström", "ang2", ["ang^2"], "area", false, true, 1e-20],
                 ["square foot", "ft2", ["ft^2"], "area", false, true, 0.09290304],
                 ["square inch", "in2", ["in^2"], "area", false, true, 0.00064516],
-                ["square light-year", "ly2", ["ly^2"], "area", false, true, 8.95054210748189e+31],
+                [
+                    "square light-year",
+                    "ly2", ["ly^2"],
+                    "area",
+                    false,
+                    true,
+                    8.95054210748189e31
+                ],
                 ["square meter", "m?", null, "area", true, true, 1],
                 ["square mile", "mi2", ["mi^2"], "area", false, true, 2589988.110336],
-                ["square nautical mile", "Nmi2", ["Nmi^2"], "area", false, true, 3429904],
-                ["square Pica", "Pica2", ["Picapt2", "Pica^2", "Picapt^2"], "area", false, true, 0.00001792111111111],
+                [
+                    "square nautical mile",
+                    "Nmi2", ["Nmi^2"],
+                    "area",
+                    false,
+                    true,
+                    3429904
+                ],
+                [
+                    "square Pica",
+                    "Pica2", ["Picapt2", "Pica^2", "Picapt^2"],
+                    "area",
+                    false,
+                    true,
+                    0.00001792111111111
+                ],
                 ["square yard", "yd2", ["yd^2"], "area", false, true, 0.83612736],
                 ["statute mile", "mi", null, "length", false, true, 1609.344],
                 ["steradian", "sr", null, "solid_angle", true, false, 1],
@@ -9778,8 +11212,24 @@ if (!jSuites && typeof(require) === 'function') {
                 ["U.S. bushel", "bushel", null, "volume", false, true, 0.03523907],
                 ["U.S. oil barrel", "barrel", null, "volume", false, true, 0.158987295],
                 ["U.S. pint", "pt", ["us_pt"], "volume", false, true, 0.000473176473],
-                ["U.S. survey mile", "survey_mi", null, "length", false, true, 1609.347219],
-                ["U.S. survey/statute acre", "us_acre", null, "area", false, true, 4046.87261],
+                [
+                    "U.S. survey mile",
+                    "survey_mi",
+                    null,
+                    "length",
+                    false,
+                    true,
+                    1609.347219
+                ],
+                [
+                    "U.S. survey/statute acre",
+                    "us_acre",
+                    null,
+                    "area",
+                    false,
+                    true,
+                    4046.87261
+                ],
                 ["volt", "V", null, "voltage", true, false, 1],
                 ["watt", "W", null, "power", true, true, 1],
                 ["watt-hour", "Wh", ["wh"], "energy", false, true, 3600],
@@ -9805,21 +11255,21 @@ if (!jSuites && typeof(require) === 'function') {
             // Unit prefixes
             // [Name, Multiplier, Abbreviation]
             var unit_prefixes = {
-                Y: ["yotta", 1e+24, "Y"],
-                Z: ["zetta", 1e+21, "Z"],
-                E: ["exa", 1e+18, "E"],
-                P: ["peta", 1e+15, "P"],
-                T: ["tera", 1e+12, "T"],
-                G: ["giga", 1e+09, "G"],
-                M: ["mega", 1e+06, "M"],
-                k: ["kilo", 1e+03, "k"],
-                h: ["hecto", 1e+02, "h"],
-                e: ["dekao", 1e+01, "e"],
-                d: ["deci", 1e-01, "d"],
-                c: ["centi", 1e-02, "c"],
-                m: ["milli", 1e-03, "m"],
-                u: ["micro", 1e-06, "u"],
-                n: ["nano", 1e-09, "n"],
+                Y: ["yotta", 1e24, "Y"],
+                Z: ["zetta", 1e21, "Z"],
+                E: ["exa", 1e18, "E"],
+                P: ["peta", 1e15, "P"],
+                T: ["tera", 1e12, "T"],
+                G: ["giga", 1e9, "G"],
+                M: ["mega", 1e6, "M"],
+                k: ["kilo", 1e3, "k"],
+                h: ["hecto", 1e2, "h"],
+                e: ["dekao", 1e1, "e"],
+                d: ["deci", 1e-1, "d"],
+                c: ["centi", 1e-2, "c"],
+                m: ["milli", 1e-3, "m"],
+                u: ["micro", 1e-6, "u"],
+                n: ["nano", 1e-9, "n"],
                 p: ["pico", 1e-12, "p"],
                 f: ["femto", 1e-15, "f"],
                 a: ["atto", 1e-18, "a"],
@@ -9838,8 +11288,11 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup from and to units
             for (var i = 0; i < units.length; i++) {
-                alt = (units[i][2] === null) ? [] : units[i][2];
-                if (units[i][1] === base_from_unit || alt.indexOf(base_from_unit) >= 0) {
+                alt = units[i][2] === null ? [] : units[i][2];
+                if (
+                    units[i][1] === base_from_unit ||
+                    alt.indexOf(base_from_unit) >= 0
+                ) {
                     from = units[i];
                 }
                 if (units[i][1] === base_to_unit || alt.indexOf(base_to_unit) >= 0) {
@@ -9853,8 +11306,8 @@ if (!jSuites && typeof(require) === 'function') {
                 var from_unit_prefix = unit_prefixes[from_unit.substring(0, 1)];
 
                 // Handle dekao unit prefix (only unit prefix with two characters)
-                if (from_unit.substring(0, 2) === 'da') {
-                    from_unit_prefix = ["dekao", 1e+01, "da"];
+                if (from_unit.substring(0, 2) === "da") {
+                    from_unit_prefix = ["dekao", 1e1, "da"];
                 }
 
                 // Handle binary prefixes first (so that 'Yi' is processed before
@@ -9869,8 +11322,11 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Lookup from unit
                 for (var j = 0; j < units.length; j++) {
-                    alt = (units[j][2] === null) ? [] : units[j][2];
-                    if (units[j][1] === base_from_unit || alt.indexOf(base_from_unit) >= 0) {
+                    alt = units[j][2] === null ? [] : units[j][2];
+                    if (
+                        units[j][1] === base_from_unit ||
+                        alt.indexOf(base_from_unit) >= 0
+                    ) {
                         from = units[j];
                     }
                 }
@@ -9882,8 +11338,8 @@ if (!jSuites && typeof(require) === 'function') {
                 var to_unit_prefix = unit_prefixes[to_unit.substring(0, 1)];
 
                 // Handle dekao unit prefix (only unit prefix with two characters)
-                if (to_unit.substring(0, 2) === 'da') {
-                    to_unit_prefix = ["dekao", 1e+01, "da"];
+                if (to_unit.substring(0, 2) === "da") {
+                    to_unit_prefix = ["dekao", 1e1, "da"];
                 }
 
                 // Handle binary prefixes first (so that 'Yi' is processed before
@@ -9898,7 +11354,7 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Lookup to unit
                 for (var k = 0; k < units.length; k++) {
-                    alt = (units[k][2] === null) ? [] : units[k][2];
+                    alt = units[k][2] === null ? [] : units[k][2];
                     if (units[k][1] === base_to_unit || alt.indexOf(base_to_unit) >= 0) {
                         to = units[k];
                     }
@@ -9916,7 +11372,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return converted number
-            return number * from[6] * from_multiplier / (to[6] * to_multiplier);
+            return (number * from[6] * from_multiplier) / (to[6] * to_multiplier);
         };
 
         exports.DEC2BIN = function(number, places) {
@@ -9934,7 +11390,11 @@ if (!jSuites && typeof(require) === 'function') {
             // Ignore places and return a 10-character binary number if number is
             // negative
             if (number < 0) {
-                return '1' + REPT('0', 9 - (512 + number).toString(2).length) + (512 + number).toString(2);
+                return (
+                    "1" +
+                    REPT("0", 9 - (512 + number).toString(2).length) +
+                    (512 + number).toString(2)
+                );
             }
 
             // Convert decimal number to binary
@@ -9942,7 +11402,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return binary number using the minimum number of characters necessary
             // if places is undefined
-            if (typeof places === 'undefined') {
+            if (typeof places === "undefined") {
                 return result;
             } else {
                 // Return error if places is nonnumeric
@@ -9960,7 +11420,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -9972,7 +11434,10 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return error if number is not decimal, is lower than -549755813888,
             // or is greater than 549755813887
-            if (!/^-?[0-9]{1,12}$/.test(number) || number < -549755813888 || number > 549755813887) {
+            if (!/^-?[0-9]{1,12}$/.test(number) ||
+                number < -549755813888 ||
+                number > 549755813887
+            ) {
                 return error.num;
             }
 
@@ -9987,7 +11452,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return hexadecimal number using the minimum number of characters
             // necessary if places is undefined
-            if (typeof places === 'undefined') {
+            if (typeof places === "undefined") {
                 return result;
             } else {
                 // Return error if places is nonnumeric
@@ -10005,7 +11470,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -10017,7 +11484,10 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return error if number is not decimal, is lower than -549755813888,
             // or is greater than 549755813887
-            if (!/^-?[0-9]{1,9}$/.test(number) || number < -536870912 || number > 536870911) {
+            if (!/^-?[0-9]{1,9}$/.test(number) ||
+                number < -536870912 ||
+                number > 536870911
+            ) {
                 return error.num;
             }
 
@@ -10032,7 +11502,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return octal number using the minimum number of characters necessary
             // if places is undefined
-            if (typeof places === 'undefined') {
+            if (typeof places === "undefined") {
                 return result;
             } else {
                 // Return error if places is nonnumeric
@@ -10050,13 +11520,15 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
         exports.DELTA = function(number1, number2) {
             // Set number2 to zero if undefined
-            number2 = (number2 === undefined) ? 0 : number2;
+            number2 = number2 === undefined ? 0 : number2;
             number1 = utils.parseNumber(number1);
             number2 = utils.parseNumber(number2);
             if (utils.anyIsError(number1, number2)) {
@@ -10064,7 +11536,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return delta
-            return (number1 === number2) ? 1 : 0;
+            return number1 === number2 ? 1 : 0;
         };
 
         exports.ERF = function(lower_bound, upper_bound) {};
@@ -10083,7 +11555,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return delta
-            return (number >= step) ? 1 : 0;
+            return number >= step ? 1 : 0;
         };
 
         exports.HEX2BIN = function(number, places) {
@@ -10094,10 +11566,15 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Check if number is negative
-            var negative = (number.length === 10 && number.substring(0, 1).toLowerCase() === 'f') ? true : false;
+            var negative =
+                number.length === 10 && number.substring(0, 1).toLowerCase() === "f" ?
+                true :
+                false;
 
             // Convert hexadecimal number to decimal
-            var decimal = (negative) ? parseInt(number, 16) - 1099511627776 : parseInt(number, 16);
+            var decimal = negative ?
+                parseInt(number, 16) - 1099511627776 :
+                parseInt(number, 16);
 
             // Return error if number is lower than -512 or greater than 511
             if (decimal < -512 || decimal > 511) {
@@ -10107,7 +11584,11 @@ if (!jSuites && typeof(require) === 'function') {
             // Ignore places and return a 10-character binary number if number is
             // negative
             if (negative) {
-                return '1' + REPT('0', 9 - (512 + decimal).toString(2).length) + (512 + decimal).toString(2);
+                return (
+                    "1" +
+                    REPT("0", 9 - (512 + decimal).toString(2).length) +
+                    (512 + decimal).toString(2)
+                );
             }
 
             // Convert decimal number to binary
@@ -10133,7 +11614,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -10148,7 +11631,7 @@ if (!jSuites && typeof(require) === 'function') {
             var decimal = parseInt(number, 16);
 
             // Return decimal number
-            return (decimal >= 549755813888) ? decimal - 1099511627776 : decimal;
+            return decimal >= 549755813888 ? decimal - 1099511627776 : decimal;
         };
 
         exports.HEX2OCT = function(number, places) {
@@ -10196,7 +11679,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -10221,32 +11706,36 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return 0 if inumber is equal to 0
-            if (inumber === 0 || inumber === '0') {
+            if (inumber === 0 || inumber === "0") {
                 return 0;
             }
 
             // Handle special cases
-            if (['i', 'j'].indexOf(inumber) >= 0) {
+            if (["i", "j"].indexOf(inumber) >= 0) {
                 return 1;
             }
 
             // Normalize imaginary coefficient
-            inumber = inumber.replace('+i', '+1i').replace('-i', '-1i').replace('+j', '+1j').replace('-j', '-1j');
+            inumber = inumber
+                .replace("+i", "+1i")
+                .replace("-i", "-1i")
+                .replace("+j", "+1j")
+                .replace("-j", "-1j");
 
             // Lookup sign
-            var plus = inumber.indexOf('+');
-            var minus = inumber.indexOf('-');
+            var plus = inumber.indexOf("+");
+            var minus = inumber.indexOf("-");
             if (plus === 0) {
-                plus = inumber.indexOf('+', 1);
+                plus = inumber.indexOf("+", 1);
             }
 
             if (minus === 0) {
-                minus = inumber.indexOf('-', 1);
+                minus = inumber.indexOf("-", 1);
             }
 
             // Lookup imaginary unit
             var last = inumber.substring(inumber.length - 1, inumber.length);
-            var unit = (last === 'i' || last === 'j');
+            var unit = last === "i" || last === "j";
 
             if (plus >= 0 || minus >= 0) {
                 // Return error if imaginary unit is neither i nor j
@@ -10256,19 +11745,23 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Return imaginary coefficient of complex number
                 if (plus >= 0) {
-                    return (isNaN(inumber.substring(0, plus)) || isNaN(inumber.substring(plus + 1, inumber.length - 1))) ?
+                    return isNaN(inumber.substring(0, plus)) ||
+                        isNaN(inumber.substring(plus + 1, inumber.length - 1)) ?
                         error.num :
                         Number(inumber.substring(plus + 1, inumber.length - 1));
                 } else {
-                    return (isNaN(inumber.substring(0, minus)) || isNaN(inumber.substring(minus + 1, inumber.length - 1))) ?
+                    return isNaN(inumber.substring(0, minus)) ||
+                        isNaN(inumber.substring(minus + 1, inumber.length - 1)) ?
                         error.num :
                         -Number(inumber.substring(minus + 1, inumber.length - 1));
                 }
             } else {
                 if (unit) {
-                    return (isNaN(inumber.substring(0, inumber.length - 1))) ? error.num : inumber.substring(0, inumber.length - 1);
+                    return isNaN(inumber.substring(0, inumber.length - 1)) ?
+                        error.num :
+                        inumber.substring(0, inumber.length - 1);
                 } else {
-                    return (isNaN(inumber)) ? error.num : 0;
+                    return isNaN(inumber) ? error.num : 0;
                 }
             }
         };
@@ -10331,10 +11824,10 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return conjugate of complex number
-            return (y !== 0) ? exports.COMPLEX(x, -y, unit) : inumber;
+            return y !== 0 ? exports.COMPLEX(x, -y, unit) : inumber;
         };
 
         exports.IMCOS = function(inumber) {
@@ -10349,10 +11842,14 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return cosine of complex number
-            return exports.COMPLEX(Math.cos(x) * (Math.exp(y) + Math.exp(-y)) / 2, -Math.sin(x) * (Math.exp(y) - Math.exp(-y)) / 2, unit);
+            return exports.COMPLEX(
+                (Math.cos(x) * (Math.exp(y) + Math.exp(-y))) / 2,
+                (-Math.sin(x) * (Math.exp(y) - Math.exp(-y))) / 2,
+                unit
+            );
         };
 
         exports.IMCOSH = function(inumber) {
@@ -10367,10 +11864,14 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return hyperbolic cosine of complex number
-            return exports.COMPLEX(Math.cos(y) * (Math.exp(x) + Math.exp(-x)) / 2, Math.sin(y) * (Math.exp(x) - Math.exp(-x)) / 2, unit);
+            return exports.COMPLEX(
+                (Math.cos(y) * (Math.exp(x) + Math.exp(-x))) / 2,
+                (Math.sin(y) * (Math.exp(x) - Math.exp(-x))) / 2,
+                unit
+            );
         };
 
         exports.IMCOT = function(inumber) {
@@ -10402,11 +11903,11 @@ if (!jSuites && typeof(require) === 'function') {
             // Lookup imaginary unit
             var unit1 = inumber1.substring(inumber1.length - 1);
             var unit2 = inumber2.substring(inumber2.length - 1);
-            var unit = 'i';
-            if (unit1 === 'j') {
-                unit = 'j';
-            } else if (unit2 === 'j') {
-                unit = 'j';
+            var unit = "i";
+            if (unit1 === "j") {
+                unit = "j";
+            } else if (unit2 === "j") {
+                unit = "j";
             }
 
             // Return error if inumber2 is null
@@ -10416,7 +11917,11 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return exponential of complex number
             var den = c * c + d * d;
-            return exports.COMPLEX((a * c + b * d) / den, (b * c - a * d) / den, unit);
+            return exports.COMPLEX(
+                (a * c + b * d) / den,
+                (b * c - a * d) / den,
+                unit
+            );
         };
 
         exports.IMEXP = function(inumber) {
@@ -10431,7 +11936,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return exponential of complex number
             var e = Math.exp(x);
@@ -10450,10 +11955,14 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return exponential of complex number
-            return exports.COMPLEX(Math.log(Math.sqrt(x * x + y * y)), Math.atan(y / x), unit);
+            return exports.COMPLEX(
+                Math.log(Math.sqrt(x * x + y * y)),
+                Math.atan(y / x),
+                unit
+            );
         };
 
         exports.IMLOG10 = function(inumber) {
@@ -10468,10 +11977,14 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return exponential of complex number
-            return exports.COMPLEX(Math.log(Math.sqrt(x * x + y * y)) / Math.log(10), Math.atan(y / x) / Math.log(10), unit);
+            return exports.COMPLEX(
+                Math.log(Math.sqrt(x * x + y * y)) / Math.log(10),
+                Math.atan(y / x) / Math.log(10),
+                unit
+            );
         };
 
         exports.IMLOG2 = function(inumber) {
@@ -10486,10 +11999,14 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return exponential of complex number
-            return exports.COMPLEX(Math.log(Math.sqrt(x * x + y * y)) / Math.log(2), Math.atan(y / x) / Math.log(2), unit);
+            return exports.COMPLEX(
+                Math.log(Math.sqrt(x * x + y * y)) / Math.log(2),
+                Math.atan(y / x) / Math.log(2),
+                unit
+            );
         };
 
         exports.IMPOWER = function(inumber, number) {
@@ -10502,7 +12019,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Calculate power of modulus
             var p = Math.pow(exports.IMABS(inumber), number);
@@ -10511,7 +12028,11 @@ if (!jSuites && typeof(require) === 'function') {
             var t = exports.IMARGUMENT(inumber);
 
             // Return exponential of complex number
-            return exports.COMPLEX(p * Math.cos(number * t), p * Math.sin(number * t), unit);
+            return exports.COMPLEX(
+                p * Math.cos(number * t),
+                p * Math.sin(number * t),
+                unit
+            );
         };
 
         exports.IMPRODUCT = function() {
@@ -10544,28 +12065,43 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return 0 if inumber is equal to 0
-            if (inumber === 0 || inumber === '0') {
+            if (inumber === 0 || inumber === "0") {
                 return 0;
             }
 
             // Handle special cases
-            if (['i', '+i', '1i', '+1i', '-i', '-1i', 'j', '+j', '1j', '+1j', '-j', '-1j'].indexOf(inumber) >= 0) {
+            if (
+                [
+                    "i",
+                    "+i",
+                    "1i",
+                    "+1i",
+                    "-i",
+                    "-1i",
+                    "j",
+                    "+j",
+                    "1j",
+                    "+1j",
+                    "-j",
+                    "-1j"
+                ].indexOf(inumber) >= 0
+            ) {
                 return 0;
             }
 
             // Lookup sign
-            var plus = inumber.indexOf('+');
-            var minus = inumber.indexOf('-');
+            var plus = inumber.indexOf("+");
+            var minus = inumber.indexOf("-");
             if (plus === 0) {
-                plus = inumber.indexOf('+', 1);
+                plus = inumber.indexOf("+", 1);
             }
             if (minus === 0) {
-                minus = inumber.indexOf('-', 1);
+                minus = inumber.indexOf("-", 1);
             }
 
             // Lookup imaginary unit
             var last = inumber.substring(inumber.length - 1, inumber.length);
-            var unit = (last === 'i' || last === 'j');
+            var unit = last === "i" || last === "j";
 
             if (plus >= 0 || minus >= 0) {
                 // Return error if imaginary unit is neither i nor j
@@ -10575,19 +12111,23 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Return real coefficient of complex number
                 if (plus >= 0) {
-                    return (isNaN(inumber.substring(0, plus)) || isNaN(inumber.substring(plus + 1, inumber.length - 1))) ?
+                    return isNaN(inumber.substring(0, plus)) ||
+                        isNaN(inumber.substring(plus + 1, inumber.length - 1)) ?
                         error.num :
                         Number(inumber.substring(0, plus));
                 } else {
-                    return (isNaN(inumber.substring(0, minus)) || isNaN(inumber.substring(minus + 1, inumber.length - 1))) ?
+                    return isNaN(inumber.substring(0, minus)) ||
+                        isNaN(inumber.substring(minus + 1, inumber.length - 1)) ?
                         error.num :
                         Number(inumber.substring(0, minus));
                 }
             } else {
                 if (unit) {
-                    return (isNaN(inumber.substring(0, inumber.length - 1))) ? error.num : 0;
+                    return isNaN(inumber.substring(0, inumber.length - 1)) ?
+                        error.num :
+                        0;
                 } else {
-                    return (isNaN(inumber)) ? error.num : inumber;
+                    return isNaN(inumber) ? error.num : inumber;
                 }
             }
         };
@@ -10608,7 +12148,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return secant of complex number
-            return exports.IMDIV('1', exports.IMCOS(inumber));
+            return exports.IMDIV("1", exports.IMCOS(inumber));
         };
 
         exports.IMSECH = function(inumber) {
@@ -10622,7 +12162,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return hyperbolic secant of complex number
-            return exports.IMDIV('1', exports.IMCOSH(inumber));
+            return exports.IMDIV("1", exports.IMCOSH(inumber));
         };
 
         exports.IMSIN = function(inumber) {
@@ -10637,10 +12177,14 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return sine of complex number
-            return exports.COMPLEX(Math.sin(x) * (Math.exp(y) + Math.exp(-y)) / 2, Math.cos(x) * (Math.exp(y) - Math.exp(-y)) / 2, unit);
+            return exports.COMPLEX(
+                (Math.sin(x) * (Math.exp(y) + Math.exp(-y))) / 2,
+                (Math.cos(x) * (Math.exp(y) - Math.exp(-y))) / 2,
+                unit
+            );
         };
 
         exports.IMSINH = function(inumber) {
@@ -10655,10 +12199,14 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Return hyperbolic sine of complex number
-            return exports.COMPLEX(Math.cos(y) * (Math.exp(x) - Math.exp(-x)) / 2, Math.sin(y) * (Math.exp(x) + Math.exp(-x)) / 2, unit);
+            return exports.COMPLEX(
+                (Math.cos(y) * (Math.exp(x) - Math.exp(-x))) / 2,
+                (Math.sin(y) * (Math.exp(x) + Math.exp(-x))) / 2,
+                unit
+            );
         };
 
         exports.IMSQRT = function(inumber) {
@@ -10673,7 +12221,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Lookup imaginary unit
             var unit = inumber.substring(inumber.length - 1);
-            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+            unit = unit === "i" || unit === "j" ? unit : "i";
 
             // Calculate power of modulus
             var s = Math.sqrt(exports.IMABS(inumber));
@@ -10702,7 +12250,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return cosecant of complex number
-            return exports.IMDIV('1', exports.IMSIN(inumber));
+            return exports.IMDIV("1", exports.IMSIN(inumber));
         };
 
         exports.IMCSCH = function(inumber) {
@@ -10722,7 +12270,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return hyperbolic cosecant of complex number
-            return exports.IMDIV('1', exports.IMSINH(inumber));
+            return exports.IMDIV("1", exports.IMSINH(inumber));
         };
 
         exports.IMSUB = function(inumber1, inumber2) {
@@ -10740,11 +12288,11 @@ if (!jSuites && typeof(require) === 'function') {
             // Lookup imaginary unit
             var unit1 = inumber1.substring(inumber1.length - 1);
             var unit2 = inumber2.substring(inumber2.length - 1);
-            var unit = 'i';
-            if (unit1 === 'j') {
-                unit = 'j';
-            } else if (unit2 === 'j') {
-                unit = 'j';
+            var unit = "i";
+            if (unit1 === "j") {
+                unit = "j";
+            } else if (unit2 === "j") {
+                unit = "j";
             }
 
             // Return _ of two complex numbers
@@ -10804,10 +12352,13 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Check if number is negative
-            var negative = (number.length === 10 && number.substring(0, 1) === '7') ? true : false;
+            var negative =
+                number.length === 10 && number.substring(0, 1) === "7" ? true : false;
 
             // Convert octal number to decimal
-            var decimal = (negative) ? parseInt(number, 8) - 1073741824 : parseInt(number, 8);
+            var decimal = negative ?
+                parseInt(number, 8) - 1073741824 :
+                parseInt(number, 8);
 
             // Return error if number is lower than -512 or greater than 511
             if (decimal < -512 || decimal > 511) {
@@ -10817,7 +12368,11 @@ if (!jSuites && typeof(require) === 'function') {
             // Ignore places and return a 10-character binary number if number is
             // negative
             if (negative) {
-                return '1' + REPT('0', 9 - (512 + decimal).toString(2).length) + (512 + decimal).toString(2);
+                return (
+                    "1" +
+                    REPT("0", 9 - (512 + decimal).toString(2).length) +
+                    (512 + decimal).toString(2)
+                );
             }
 
             // Convert decimal number to binary
@@ -10825,7 +12380,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return binary number using the minimum number of characters necessary
             // if places is undefined
-            if (typeof places === 'undefined') {
+            if (typeof places === "undefined") {
                 return result;
             } else {
                 // Return error if places is nonnumeric
@@ -10843,7 +12398,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -10858,7 +12415,7 @@ if (!jSuites && typeof(require) === 'function') {
             var decimal = parseInt(number, 8);
 
             // Return decimal number
-            return (decimal >= 536870912) ? decimal - 1073741824 : decimal;
+            return decimal >= 536870912 ? decimal - 1073741824 : decimal;
         };
 
         exports.OCT2HEX = function(number, places) {
@@ -10874,7 +12431,7 @@ if (!jSuites && typeof(require) === 'function') {
             // Ignore places and return a 10-character octal number if number is
             // negative
             if (decimal >= 536870912) {
-                return 'ff' + (decimal + 3221225472).toString(16);
+                return "ff" + (decimal + 3221225472).toString(16);
             }
 
             // Convert decimal number to hexadecimal
@@ -10900,7 +12457,9 @@ if (!jSuites && typeof(require) === 'function') {
 
                 // Pad return value with leading 0s (zeros) if necessary (using
                 // Underscore.string)
-                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+                return places >= result.length ?
+                    REPT("0", places - result.length) + result :
+                    error.num;
             }
         };
 
@@ -10915,36 +12474,44 @@ if (!jSuites && typeof(require) === 'function') {
         }
 
         function ensureDate(d) {
-            return (d instanceof Date) ? d : new Date(d);
+            return d instanceof Date ? d : new Date(d);
         }
 
-        exports.ACCRINT = function(issue, first, settlement, rate, par, frequency, basis) {
+        exports.ACCRINT = function(
+            issue,
+            first,
+            settlement,
+            rate,
+            par,
+            frequency,
+            basis
+        ) {
             // Return error if either date is invalid
             issue = ensureDate(issue);
             first = ensureDate(first);
             settlement = ensureDate(settlement);
             if (!validDate(issue) || !validDate(first) || !validDate(settlement)) {
-                return '#VALUE!';
+                return "#VALUE!";
             }
 
             // Return error if either rate or par are lower than or equal to zero
             if (rate <= 0 || par <= 0) {
-                return '#NUM!';
+                return "#NUM!";
             }
 
             // Return error if frequency is neither 1, 2, or 4
             if ([1, 2, 4].indexOf(frequency) === -1) {
-                return '#NUM!';
+                return "#NUM!";
             }
 
             // Return error if basis is neither 0, 1, 2, 3, or 4
             if ([0, 1, 2, 3, 4].indexOf(basis) === -1) {
-                return '#NUM!';
+                return "#NUM!";
             }
 
             // Return error if settlement is before or equal to issue
             if (settlement <= issue) {
-                return '#NUM!';
+                return "#NUM!";
             }
 
             // Set default values
@@ -11068,9 +12635,12 @@ if (!jSuites && typeof(require) === 'function') {
             }
             for (var i = start; i <= end; i++) {
                 if (type > 0) {
-                    principal += payment - (exports.FV(rate, i - 2, payment, value, 1) - payment) * rate;
+                    principal +=
+                        payment -
+                        (exports.FV(rate, i - 2, payment, value, 1) - payment) * rate;
                 } else {
-                    principal += payment - exports.FV(rate, i - 1, payment, value, 0) * rate;
+                    principal +=
+                        payment - exports.FV(rate, i - 1, payment, value, 0) * rate;
                 }
             }
 
@@ -11080,7 +12650,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.DB = function(cost, salvage, life, period, month) {
             // Initialize month
-            month = (month === undefined) ? 12 : month;
+            month = month === undefined ? 12 : month;
 
             cost = utils.parseNumber(cost);
             salvage = utils.parseNumber(salvage);
@@ -11115,12 +12685,12 @@ if (!jSuites && typeof(require) === 'function') {
             var rate = (1 - Math.pow(salvage / cost, 1 / life)).toFixed(3);
 
             // Compute initial depreciation
-            var initial = cost * rate * month / 12;
+            var initial = (cost * rate * month) / 12;
 
             // Compute total depreciation
             var total = initial;
             var current = 0;
-            var ceiling = (period === life) ? life - 1 : period;
+            var ceiling = period === life ? life - 1 : period;
             for (var i = 2; i <= ceiling; i++) {
                 current = (cost - total) * rate;
                 total += current;
@@ -11140,7 +12710,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.DDB = function(cost, salvage, life, period, factor) {
             // Initialize factor
-            factor = (factor === undefined) ? 2 : factor;
+            factor = factor === undefined ? 2 : factor;
 
             cost = utils.parseNumber(cost);
             salvage = utils.parseNumber(salvage);
@@ -11171,7 +12741,10 @@ if (!jSuites && typeof(require) === 'function') {
             var total = 0;
             var current = 0;
             for (var i = 1; i <= period; i++) {
-                current = Math.min((cost - total) * (factor / life), (cost - salvage - total));
+                current = Math.min(
+                    (cost - total) * (factor / life),
+                    cost - salvage - total
+                );
                 total += current;
             }
 
@@ -11208,7 +12781,10 @@ if (!jSuites && typeof(require) === 'function') {
             var result = parseInt(dollar, 10);
 
             // Add decimal part
-            result += (dollar % 1) * Math.pow(10, Math.ceil(Math.log(fraction) / Math.LN10)) / fraction;
+            result +=
+                ((dollar % 1) *
+                    Math.pow(10, Math.ceil(Math.log(fraction) / Math.LN10))) /
+                fraction;
 
             // Round result
             var power = Math.pow(10, Math.ceil(Math.log(fraction) / Math.LN2) + 1);
@@ -11245,7 +12821,10 @@ if (!jSuites && typeof(require) === 'function') {
             var result = parseInt(dollar, 10);
 
             // Add decimal part
-            result += (dollar % 1) * Math.pow(10, -Math.ceil(Math.log(fraction) / Math.LN10)) * fraction;
+            result +=
+                (dollar % 1) *
+                Math.pow(10, -Math.ceil(Math.log(fraction) / Math.LN10)) *
+                fraction;
 
             // Return converted dollar price
             return result;
@@ -11294,9 +12873,9 @@ if (!jSuites && typeof(require) === 'function') {
             } else {
                 var term = Math.pow(1 + rate, periods);
                 if (type === 1) {
-                    result = value * term + payment * (1 + rate) * (term - 1) / rate;
+                    result = value * term + (payment * (1 + rate) * (term - 1)) / rate;
                 } else {
-                    result = value * term + payment * (term - 1) / rate;
+                    result = value * term + (payment * (term - 1)) / rate;
                 }
             }
             return -result;
@@ -11353,7 +12932,8 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             } else {
                 if (type === 1) {
-                    interest = exports.FV(rate, period - 2, payment, present, 1) - payment;
+                    interest =
+                        exports.FV(rate, period - 2, payment, present, 1) - payment;
                 } else {
                     interest = exports.FV(rate, period - 1, payment, present, 0);
                 }
@@ -11390,7 +12970,7 @@ if (!jSuites && typeof(require) === 'function') {
                 var result = 0;
                 for (var i = 1; i < values.length; i++) {
                     var frac = (dates[i] - dates[0]) / 365;
-                    result -= frac * values[i] / Math.pow(r, frac + 1);
+                    result -= (frac * values[i]) / Math.pow(r, frac + 1);
                 }
                 return result;
             };
@@ -11401,7 +12981,7 @@ if (!jSuites && typeof(require) === 'function') {
             var positive = false;
             var negative = false;
             for (var i = 0; i < values.length; i++) {
-                dates[i] = (i === 0) ? 0 : dates[i - 1] + 365;
+                dates[i] = i === 0 ? 0 : dates[i - 1] + 365;
                 if (values[i] > 0) {
                     positive = true;
                 }
@@ -11417,7 +12997,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Initialize guess and resultRate
-            guess = (guess === undefined) ? 0.1 : guess;
+            guess = guess === undefined ? 0.1 : guess;
             var resultRate = guess;
 
             // Set maximum epsilon for end of iteration
@@ -11428,10 +13008,11 @@ if (!jSuites && typeof(require) === 'function') {
             var contLoop = true;
             do {
                 resultValue = irrResult(values, dates, resultRate);
-                newRate = resultRate - resultValue / irrResultDeriv(values, dates, resultRate);
+                newRate =
+                    resultRate - resultValue / irrResultDeriv(values, dates, resultRate);
                 epsRate = Math.abs(newRate - resultRate);
                 resultRate = newRate;
-                contLoop = (epsRate > epsMax) && (Math.abs(resultValue) > epsMax);
+                contLoop = epsRate > epsMax && Math.abs(resultValue) > epsMax;
             } while (contLoop);
 
             // Return internal rate of return
@@ -11476,7 +13057,8 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return modified internal rate of return
-            var num = -exports.NPV(reinvest_rate, incomes) * Math.pow(1 + reinvest_rate, n - 1);
+            var num = -exports.NPV(reinvest_rate, incomes) *
+                Math.pow(1 + reinvest_rate, n - 1);
             var den = exports.NPV(finance_rate, payments) * (1 + finance_rate);
             return Math.pow(num / den, 1 / (n - 1)) - 1;
         };
@@ -11501,8 +13083,8 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.NPER = function(rate, payment, present, future, type) {
-            type = (type === undefined) ? 0 : type;
-            future = (future === undefined) ? 0 : future;
+            type = type === undefined ? 0 : type;
+            future = future === undefined ? 0 : future;
 
             rate = utils.parseNumber(rate);
             payment = utils.parseNumber(payment);
@@ -11515,7 +13097,7 @@ if (!jSuites && typeof(require) === 'function') {
 
             // Return number of periods
             var num = payment * (1 + rate * type) - future * rate;
-            var den = (present * rate + payment * (1 + rate * type));
+            var den = present * rate + payment * (1 + rate * type);
             return Math.log(num / den) / Math.log(1 + rate);
         };
 
@@ -11587,9 +13169,12 @@ if (!jSuites && typeof(require) === 'function') {
             } else {
                 var term = Math.pow(1 + rate, periods);
                 if (type === 1) {
-                    result = (future * rate / (term - 1) + present * rate / (1 - 1 / term)) / (1 + rate);
+                    result =
+                        ((future * rate) / (term - 1) + (present * rate) / (1 - 1 / term)) /
+                        (1 + rate);
                 } else {
-                    result = future * rate / (term - 1) + present * rate / (1 - 1 / term);
+                    result =
+                        (future * rate) / (term - 1) + (present * rate) / (1 - 1 / term);
                 }
             }
             return -result;
@@ -11608,7 +13193,10 @@ if (!jSuites && typeof(require) === 'function') {
                 return error.value;
             }
 
-            return exports.PMT(rate, periods, present, future, type) - exports.IPMT(rate, period, periods, present, future, type);
+            return (
+                exports.PMT(rate, periods, present, future, type) -
+                exports.IPMT(rate, period, periods, present, future, type)
+            );
         };
 
         exports.PRICE = null;
@@ -11634,16 +13222,22 @@ if (!jSuites && typeof(require) === 'function') {
             if (rate === 0) {
                 return -payment * periods - future;
             } else {
-                return (((1 - Math.pow(1 + rate, periods)) / rate) * payment * (1 + rate * type) - future) / Math.pow(1 + rate, periods);
+                return (
+                    (((1 - Math.pow(1 + rate, periods)) / rate) *
+                        payment *
+                        (1 + rate * type) -
+                        future) /
+                    Math.pow(1 + rate, periods)
+                );
             }
         };
 
         exports.RATE = function(periods, payment, present, future, type, guess) {
             // Credits: rabugento
 
-            guess = (guess === undefined) ? 0.01 : guess;
-            future = (future === undefined) ? 0 : future;
-            type = (type === undefined) ? 0 : type;
+            guess = guess === undefined ? 0.01 : guess;
+            future = future === undefined ? 0 : future;
+            type = type === undefined ? 0 : type;
 
             periods = utils.parseNumber(periods);
             payment = utils.parseNumber(payment);
@@ -11668,14 +13262,21 @@ if (!jSuites && typeof(require) === 'function') {
                 var t1 = Math.pow(rate + 1, periods);
                 var t2 = Math.pow(rate + 1, periods - 1);
 
-                var f1 = future + t1 * present + payment * (t1 - 1) * (rate * type + 1) / rate;
-                var f2 = periods * t2 * present - payment * (t1 - 1) * (rate * type + 1) / Math.pow(rate, 2);
-                var f3 = periods * payment * t2 * (rate * type + 1) / rate + payment * (t1 - 1) * type / rate;
+                var f1 =
+                    future +
+                    t1 * present +
+                    (payment * (t1 - 1) * (rate * type + 1)) / rate;
+                var f2 =
+                    periods * t2 * present -
+                    (payment * (t1 - 1) * (rate * type + 1)) / Math.pow(rate, 2);
+                var f3 =
+                    (periods * payment * t2 * (rate * type + 1)) / rate +
+                    (payment * (t1 - 1) * type) / rate;
 
                 var newRate = rate - f1 / (f2 + f3);
 
                 if (Math.abs(newRate - rate) < epsMax) close = true;
-                iter++
+                iter++;
                 rate = newRate;
             }
 
@@ -11771,7 +13372,10 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return bond-equivalent yield
-            return (365 * discount) / (360 - discount * DAYS360(settlement, maturity, false));
+            return (
+                (365 * discount) /
+                (360 - discount * DAYS360(settlement, maturity, false))
+            );
         };
 
         exports.TBILLPRICE = function(settlement, maturity, discount) {
@@ -11798,7 +13402,9 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return bond-equivalent yield
-            return 100 * (1 - discount * DAYS360(settlement, maturity, false) / 360);
+            return (
+                100 * (1 - (discount * DAYS360(settlement, maturity, false)) / 360)
+            );
         };
 
         exports.TBILLYIELD = function(settlement, maturity, price) {
@@ -11825,7 +13431,9 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             // Return bond-equivalent yield
-            return (100 - price) * 360 / (price * DAYS360(settlement, maturity, false));
+            return (
+                ((100 - price) * 360) / (price * DAYS360(settlement, maturity, false))
+            );
         };
 
         exports.VDB = null;
@@ -11856,7 +13464,7 @@ if (!jSuites && typeof(require) === 'function') {
                 var result = 0;
                 for (var i = 1; i < values.length; i++) {
                     var frac = DAYS(dates[i], dates[0]) / 365;
-                    result -= frac * values[i] / Math.pow(r, frac + 1);
+                    result -= (frac * values[i]) / Math.pow(r, frac + 1);
                 }
                 return result;
             };
@@ -11892,10 +13500,11 @@ if (!jSuites && typeof(require) === 'function') {
             var contLoop = true;
             do {
                 resultValue = irrResult(values, dates, resultRate);
-                newRate = resultRate - resultValue / irrResultDeriv(values, dates, resultRate);
+                newRate =
+                    resultRate - resultValue / irrResultDeriv(values, dates, resultRate);
                 epsRate = Math.abs(newRate - resultRate);
                 resultRate = newRate;
-                contLoop = (epsRate > epsMax) && (Math.abs(resultValue) > epsMax);
+                contLoop = epsRate > epsMax && Math.abs(resultValue) > epsMax;
             } while (contLoop);
 
             // Return internal rate of return
@@ -11912,7 +13521,8 @@ if (!jSuites && typeof(require) === 'function') {
 
             var result = 0;
             for (var i = 0; i < values.length; i++) {
-                result += values[i] / Math.pow(1 + rate, DAYS(dates[i], dates[0]) / 365);
+                result +=
+                    values[i] / Math.pow(1 + rate, DAYS(dates[i], dates[0]) / 365);
             }
             return result;
         };
@@ -11960,12 +13570,21 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.ISBINARY = function(number) {
-            return (/^[01]{1,10}$/).test(number);
+            return /^[01]{1,10}$/.test(number);
         };
 
         exports.ISERR = function(value) {
-            return ([error.value, error.ref, error.div0, error.num, error.name, error.nil]).indexOf(value) >= 0 ||
-                (typeof value === 'number' && (isNaN(value) || !isFinite(value)));
+            return (
+                [
+                    error.value,
+                    error.ref,
+                    error.div0,
+                    error.num,
+                    error.name,
+                    error.nil
+                ].indexOf(value) >= 0 ||
+                (typeof value === "number" && (isNaN(value) || !isFinite(value)))
+            );
         };
 
         exports.ISERROR = function(value) {
@@ -11973,7 +13592,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.ISEVEN = function(number) {
-            return (Math.floor(Math.abs(number)) & 1) ? false : true;
+            return Math.floor(Math.abs(number)) & 1 ? false : true;
         };
 
         // TODO
@@ -11988,21 +13607,21 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.ISNONTEXT = function(value) {
-            return typeof(value) !== 'string';
+            return typeof value !== "string";
         };
 
         exports.ISNUMBER = function(value) {
-            return typeof(value) === 'number' && !isNaN(value) && isFinite(value);
+            return typeof value === "number" && !isNaN(value) && isFinite(value);
         };
 
         exports.ISODD = function(number) {
-            return (Math.floor(Math.abs(number)) & 1) ? true : false;
+            return Math.floor(Math.abs(number)) & 1 ? true : false;
         };
 
         exports.ISREF = null;
 
         exports.ISTEXT = function(value) {
-            return typeof(value) === 'string';
+            return typeof value === "string";
         };
 
         exports.N = function(value) {
@@ -12130,7 +13749,7 @@ if (!jSuites && typeof(require) === 'function') {
                     result++;
                 }
             }
-            return (Math.floor(Math.abs(result)) & 1) ? true : false;
+            return Math.floor(Math.abs(result)) & 1 ? true : false;
         };
 
         exports.SWITCH = function() {
@@ -12140,7 +13759,8 @@ if (!jSuites && typeof(require) === 'function') {
                 var argc = arguments.length - 1;
                 var switchCount = Math.floor(argc / 2);
                 var switchSatisfied = false;
-                var defaultClause = argc % 2 === 0 ? null : arguments[arguments.length - 1];
+                var defaultClause =
+                    argc % 2 === 0 ? null : arguments[arguments.length - 1];
 
                 if (switchCount) {
                     for (var index = 0; index < switchCount; index++) {
@@ -12206,7 +13826,7 @@ if (!jSuites && typeof(require) === 'function') {
             return 0.5 * Math.log((number + 1) / (number - 1));
         };
 
-        exports.AGGREGATE = null
+        exports.AGGREGATE = null;
 
         exports.ARABIC = function(text) {
             // Credits: Rafa? Kukawski
@@ -12284,14 +13904,17 @@ if (!jSuites && typeof(require) === 'function') {
             if (utils.anyIsError(number, radix, min_length)) {
                 return error.value;
             }
-            min_length = (min_length === undefined) ? 0 : min_length;
+            min_length = min_length === undefined ? 0 : min_length;
             var result = number.toString(radix);
-            return new Array(Math.max(min_length + 1 - result.length, 0)).join('0') + result;
+            return (
+                new Array(Math.max(min_length + 1 - result.length, 0)).join("0") +
+                result
+            );
         };
 
         exports.CEILING = function(number, significance, mode) {
-            significance = (significance === undefined) ? 1 : significance;
-            mode = (mode === undefined) ? 0 : mode;
+            significance = significance === undefined ? 1 : significance;
+            mode = mode === undefined ? 0 : mode;
 
             number = utils.parseNumber(number);
             significance = utils.parseNumber(significance);
@@ -12308,7 +13931,7 @@ if (!jSuites && typeof(require) === 'function') {
                 return Math.ceil(number / significance) * significance;
             } else {
                 if (mode === 0) {
-                    return -1 * Math.floor(Math.abs(number) / significance) * significance;
+                    return (-1 * Math.floor(Math.abs(number) / significance) * significance);
                 } else {
                     return -1 * Math.ceil(Math.abs(number) / significance) * significance;
                 }
@@ -12325,7 +13948,10 @@ if (!jSuites && typeof(require) === 'function') {
             if (utils.anyIsError(number, number_chosen)) {
                 return error.value;
             }
-            return exports.FACT(number) / (exports.FACT(number_chosen) * exports.FACT(number - number_chosen));
+            return (
+                exports.FACT(number) /
+                (exports.FACT(number_chosen) * exports.FACT(number - number_chosen))
+            );
         };
 
         exports.COMBINA = function(number, number_chosen) {
@@ -12334,7 +13960,9 @@ if (!jSuites && typeof(require) === 'function') {
             if (utils.anyIsError(number, number_chosen)) {
                 return error.value;
             }
-            return (number === 0 && number_chosen === 0) ? 1 : exports.COMBIN(number + number_chosen - 1, number - 1);
+            return number === 0 && number_chosen === 0 ?
+                1 :
+                exports.COMBIN(number + number_chosen - 1, number - 1);
         };
 
         exports.COS = function(number) {
@@ -12391,7 +14019,6 @@ if (!jSuites && typeof(require) === 'function') {
                 return error.value;
             }
 
-
             return parseInt(number, radix);
         };
 
@@ -12400,7 +14027,7 @@ if (!jSuites && typeof(require) === 'function') {
             if (number instanceof Error) {
                 return number;
             }
-            return number * 180 / Math.PI;
+            return (number * 180) / Math.PI;
         };
 
         exports.EVEN = function(number) {
@@ -12444,8 +14071,8 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.FLOOR = function(number, significance, mode) {
-            significance = (significance === undefined) ? 1 : significance;
-            mode = (mode === undefined) ? 0 : mode;
+            significance = significance === undefined ? 1 : significance;
+            mode = mode === undefined ? 0 : mode;
 
             number = utils.parseNumber(number);
             significance = utils.parseNumber(significance);
@@ -12464,7 +14091,7 @@ if (!jSuites && typeof(require) === 'function') {
                 if (mode === 0) {
                     return -1 * Math.ceil(Math.abs(number) / significance) * significance;
                 } else {
-                    return -1 * Math.floor(Math.abs(number) / significance) * significance;
+                    return (-1 * Math.floor(Math.abs(number) / significance) * significance);
                 }
             }
         };
@@ -12494,12 +14121,13 @@ if (!jSuites && typeof(require) === 'function') {
                         for (i = 3, j = Math.floor(Math.sqrt(n)); i <= j && n % i; i += 2) {
                             //empty
                         }
-                        d = (i <= j) ? i : n;
+                        d = i <= j ? i : n;
                     } else {
                         d = 2;
                     }
-                    for (n /= d, r *= d, i = o.length; i;
-                        (o[--i] % d) === 0 && (o[i] /= d) === 1 && o.splice(i, 1)) {
+                    for (
+                        n /= d, r *= d, i = o.length; i; o[--i] % d === 0 && (o[i] /= d) === 1 && o.splice(i, 1)
+                    ) {
                         //empty
                     }
                 }
@@ -12517,7 +14145,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.LOG = function(number, base) {
             number = utils.parseNumber(number);
-            base = (base === undefined) ? 10 : utils.parseNumber(base);
+            base = base === undefined ? 10 : utils.parseNumber(base);
 
             if (utils.anyIsError(number, base)) {
                 return error.value;
@@ -12550,7 +14178,7 @@ if (!jSuites && typeof(require) === 'function') {
                 return error.div0;
             }
             var modulus = Math.abs(dividend % divisor);
-            return (divisor > 0) ? modulus : -modulus;
+            return divisor > 0 ? modulus : -modulus;
         };
 
         exports.MROUND = function(number, multiple) {
@@ -12588,8 +14216,8 @@ if (!jSuites && typeof(require) === 'function') {
                 return number;
             }
             var temp = Math.ceil(Math.abs(number));
-            temp = (temp & 1) ? temp : temp + 1;
-            return (number > 0) ? temp : -temp;
+            temp = temp & 1 ? temp : temp + 1;
+            return number > 0 ? temp : -temp;
         };
 
         exports.PI = function() {
@@ -12636,7 +14264,7 @@ if (!jSuites && typeof(require) === 'function') {
             if (number instanceof Error) {
                 return number;
             }
-            return number * Math.PI / 180;
+            return (number * Math.PI) / 180;
         };
 
         exports.RAND = function() {
@@ -12671,8 +14299,11 @@ if (!jSuites && typeof(require) === 'function') {
             if (utils.anyIsError(number, digits)) {
                 return error.value;
             }
-            var sign = (number > 0) ? 1 : -1;
-            return sign * (Math.floor(Math.abs(number) * Math.pow(10, digits))) / Math.pow(10, digits);
+            var sign = number > 0 ? 1 : -1;
+            return (
+                (sign * Math.floor(Math.abs(number) * Math.pow(10, digits))) /
+                Math.pow(10, digits)
+            );
         };
 
         exports.ROUNDUP = function(number, digits) {
@@ -12681,8 +14312,11 @@ if (!jSuites && typeof(require) === 'function') {
             if (utils.anyIsError(number, digits)) {
                 return error.value;
             }
-            var sign = (number > 0) ? 1 : -1;
-            return sign * (Math.ceil(Math.abs(number) * Math.pow(10, digits))) / Math.pow(10, digits);
+            var sign = number > 0 ? 1 : -1;
+            return (
+                (sign * Math.ceil(Math.abs(number) * Math.pow(10, digits))) /
+                Math.pow(10, digits)
+            );
         };
 
         exports.SEC = function(number) {
@@ -12904,9 +14538,9 @@ if (!jSuites && typeof(require) === 'function') {
             var argsKeys = Object.keys(arguments);
             for (var i = 0; i < argsKeys.length; ++i) {
                 var elt = arguments[argsKeys[i]];
-                if (typeof elt === 'number') {
+                if (typeof elt === "number") {
                     result += elt;
-                } else if (typeof elt === 'string') {
+                } else if (typeof elt === "string") {
                     var parsed = parseFloat(elt);
                     !isNaN(parsed) && (result += parsed);
                 } else if (Array.isArray(elt)) {
@@ -12923,7 +14557,7 @@ if (!jSuites && typeof(require) === 'function') {
             }
             var result = 0;
             for (var i = 0; i < range.length; i++) {
-                result += (eval(range[i] + criteria)) ? range[i] : 0; // jshint ignore:line
+                result += eval(range[i] + criteria) ? range[i] : 0; // jshint ignore:line
             }
             return result;
         };
@@ -12942,14 +14576,15 @@ if (!jSuites && typeof(require) === 'function') {
             var result = 0;
             for (var i = 0; i < n_range_elements; i++) {
                 var el = range[i];
-                var condition = '';
+                var condition = "";
                 for (var c = 0; c < n_criterias; c++) {
                     condition += el + criteria[c];
                     if (c !== n_criterias - 1) {
-                        condition += '&&';
+                        condition += "&&";
                     }
                 }
-                if (eval(condition)) { // jshint ignore:line
+                if (eval(condition)) {
+                    // jshint ignore:line
                     result += el;
                 }
             }
@@ -12966,7 +14601,7 @@ if (!jSuites && typeof(require) === 'function') {
             var result = 0;
             var length = numbers.length;
             for (var i = 0; i < length; i++) {
-                result += (ISNUMBER(numbers[i])) ? numbers[i] * numbers[i] : 0;
+                result += ISNUMBER(numbers[i]) ? numbers[i] * numbers[i] : 0;
             }
             return result;
         };
@@ -13032,14 +14667,17 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.TRUNC = function(number, digits) {
-            digits = (digits === undefined) ? 0 : digits;
+            digits = digits === undefined ? 0 : digits;
             number = utils.parseNumber(number);
             digits = utils.parseNumber(digits);
             if (utils.anyIsError(number, digits)) {
                 return error.value;
             }
-            var sign = (number > 0) ? 1 : -1;
-            return sign * (Math.floor(Math.abs(number) * Math.pow(10, digits))) / Math.pow(10, digits);
+            var sign = number > 0 ? 1 : -1;
+            return (
+                (sign * Math.floor(Math.abs(number) * Math.pow(10, digits))) /
+                Math.pow(10, digits)
+            );
         };
 
         return exports;
@@ -13057,7 +14695,9 @@ if (!jSuites && typeof(require) === 'function') {
                 // Check if we've already seen this element.
                 for (var j = 0; j < result.length; ++j) {
                     hasElement = result[j] === element;
-                    if (hasElement) { break; }
+                    if (hasElement) {
+                        break;
+                    }
                 }
 
                 // If we did not find it, add it to the result.
@@ -13076,12 +14716,12 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.REFERENCE = function(context, reference) {
             try {
-                var path = reference.split('.');
+                var path = reference.split(".");
                 var result = context;
                 for (var i = 0; i < path.length; ++i) {
                     var step = path[i];
-                    if (step[step.length - 1] === ']') {
-                        var opening = step.indexOf('[');
+                    if (step[step.length - 1] === "]") {
+                        var opening = step.indexOf("[");
                         var index = step.substring(opening + 1, step.length - 1);
                         result = result[step.substring(0, opening)][index];
                     } else {
@@ -13099,7 +14739,7 @@ if (!jSuites && typeof(require) === 'function') {
         exports.NUMBERS = function() {
             var possibleNumbers = utils.flatten(arguments);
             return possibleNumbers.filter(function(el) {
-                return typeof el === 'number';
+                return typeof el === "number";
             });
         };
 
@@ -13124,13 +14764,13 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.CLEAN = function(text) {
-            text = text || '';
+            text = text || "";
             var re = /[\0-\x1F]/g;
             return text.replace(re, "");
         };
 
         exports.CODE = function(text) {
-            text = text || '';
+            text = text || "";
             return text.charCodeAt(0);
         };
 
@@ -13139,15 +14779,15 @@ if (!jSuites && typeof(require) === 'function') {
 
             var trueFound = 0;
             while ((trueFound = args.indexOf(true)) > -1) {
-                args[trueFound] = 'TRUE';
+                args[trueFound] = "TRUE";
             }
 
             var falseFound = 0;
             while ((falseFound = args.indexOf(false)) > -1) {
-                args[falseFound] = 'FALSE';
+                args[falseFound] = "FALSE";
             }
 
-            return args.join('');
+            return args.join("");
         };
 
         exports.DBCS = null;
@@ -13159,25 +14799,27 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.FIND = function(find_text, within_text, position) {
-            position = (position === undefined) ? 0 : position;
-            return within_text ? within_text.indexOf(find_text, position - 1) + 1 : null;
+            position = position === undefined ? 0 : position;
+            return within_text ?
+                within_text.indexOf(find_text, position - 1) + 1 :
+                null;
         };
 
         exports.FIXED = null;
 
         exports.HTML2TEXT = function(value) {
-            var result = '';
+            var result = "";
 
             if (value) {
                 if (value instanceof Array) {
                     value.forEach(function(line) {
-                        if (result !== '') {
-                            result += '\n';
+                        if (result !== "") {
+                            result += "\n";
                         }
-                        result += (line.replace(/<(?:.|\n)*?>/gm, ''));
+                        result += line.replace(/<(?:.|\n)*?>/gm, "");
                     });
                 } else {
-                    result = value.replace(/<(?:.|\n)*?>/gm, '');
+                    result = value.replace(/<(?:.|\n)*?>/gm, "");
                 }
             }
 
@@ -13185,9 +14827,9 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.LEFT = function(text, number) {
-            number = (number === undefined) ? 1 : number;
+            number = number === undefined ? 1 : number;
             number = utils.parseNumber(number);
-            if (number instanceof Error || typeof text !== 'string') {
+            if (number instanceof Error || typeof text !== "string") {
                 return error.value;
             }
             return text ? text.substring(0, number) : null;
@@ -13198,7 +14840,7 @@ if (!jSuites && typeof(require) === 'function') {
                 return error.error;
             }
 
-            if (typeof text === 'string') {
+            if (typeof text === "string") {
                 return text ? text.length : 0;
             }
 
@@ -13210,7 +14852,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.LOWER = function(text) {
-            if (typeof text !== 'string') {
+            if (typeof text !== "string") {
                 return error.value;
             }
             return text ? text.toLowerCase() : text;
@@ -13219,7 +14861,7 @@ if (!jSuites && typeof(require) === 'function') {
         exports.MID = function(text, start, number) {
             start = utils.parseNumber(start);
             number = utils.parseNumber(number);
-            if (utils.anyIsError(start, number) || typeof text !== 'string') {
+            if (utils.anyIsError(start, number) || typeof text !== "string") {
                 return number;
             }
 
@@ -13238,16 +14880,16 @@ if (!jSuites && typeof(require) === 'function') {
                 return error.value;
             }
             if (text === true) {
-                text = 'TRUE';
+                text = "TRUE";
             }
             if (text === false) {
-                text = 'FALSE';
+                text = "FALSE";
             }
-            if (isNaN(text) && typeof text === 'number') {
+            if (isNaN(text) && typeof text === "number") {
                 return error.value;
             }
-            if (typeof text === 'number') {
-                text = '' + text;
+            if (typeof text === "number") {
+                text = "" + text;
             }
 
             return text.replace(/\w\S*/g, function(txt) {
@@ -13257,7 +14899,7 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.REGEXEXTRACT = function(text, regular_expression) {
             var match = text.match(new RegExp(regular_expression));
-            return match ? (match[match.length > 1 ? match.length - 1 : 0]) : null;
+            return match ? match[match.length > 1 ? match.length - 1 : 0] : null;
         };
 
         exports.REGEXMATCH = function(text, regular_expression, full) {
@@ -13272,12 +14914,18 @@ if (!jSuites && typeof(require) === 'function') {
         exports.REPLACE = function(text, position, length, new_text) {
             position = utils.parseNumber(position);
             length = utils.parseNumber(length);
-            if (utils.anyIsError(position, length) ||
-                typeof text !== 'string' ||
-                typeof new_text !== 'string') {
+            if (
+                utils.anyIsError(position, length) ||
+                typeof text !== "string" ||
+                typeof new_text !== "string"
+            ) {
                 return error.value;
             }
-            return text.substr(0, position - 1) + new_text + text.substr(position - 1 + length);
+            return (
+                text.substr(0, position - 1) +
+                new_text +
+                text.substr(position - 1 + length)
+            );
         };
 
         exports.REPT = function(text, number) {
@@ -13289,7 +14937,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.RIGHT = function(text, number) {
-            number = (number === undefined) ? 1 : number;
+            number = number === undefined ? 1 : number;
             number = utils.parseNumber(number);
             if (number instanceof Error) {
                 return number;
@@ -13299,12 +14947,15 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.SEARCH = function(find_text, within_text, position) {
             var foundAt;
-            if (typeof find_text !== 'string' || typeof within_text !== 'string') {
+            if (typeof find_text !== "string" || typeof within_text !== "string") {
                 return error.value;
             }
-            position = (position === undefined) ? 0 : position;
-            foundAt = within_text.toLowerCase().indexOf(find_text.toLowerCase(), position - 1) + 1;
-            return (foundAt === 0) ? error.value : foundAt;
+            position = position === undefined ? 0 : position;
+            foundAt =
+                within_text
+                .toLowerCase()
+                .indexOf(find_text.toLowerCase(), position - 1) + 1;
+            return foundAt === 0 ? error.value : foundAt;
         };
 
         exports.SPLIT = function(text, separator) {
@@ -13315,7 +14966,7 @@ if (!jSuites && typeof(require) === 'function') {
             if (!text || !old_text || !new_text) {
                 return text;
             } else if (occurrence === undefined) {
-                return text.replace(new RegExp(old_text, 'g'), new_text);
+                return text.replace(new RegExp(old_text, "g"), new_text);
             } else {
                 var index = 0;
                 var i = 0;
@@ -13323,23 +14974,27 @@ if (!jSuites && typeof(require) === 'function') {
                     index = text.indexOf(old_text, index + 1);
                     i++;
                     if (i === occurrence) {
-                        return text.substring(0, index) + new_text + text.substring(index + old_text.length);
+                        return (
+                            text.substring(0, index) +
+                            new_text +
+                            text.substring(index + old_text.length)
+                        );
                     }
                 }
             }
         };
 
         exports.T = function(value) {
-            return (typeof value === "string") ? value : '';
+            return typeof value === "string" ? value : "";
         };
 
         exports.TEXT = null;
 
         exports.TRIM = function(text) {
-            if (typeof text !== 'string') {
+            if (typeof text !== "string") {
                 return error.value;
             }
-            return text.replace(/ +/g, ' ').trim();
+            return text.replace(/ +/g, " ").trim();
         };
 
         exports.UNICHAR = exports.CHAR;
@@ -13347,7 +15002,7 @@ if (!jSuites && typeof(require) === 'function') {
         exports.UNICODE = exports.CODE;
 
         exports.UPPER = function(text) {
-            if (typeof text !== 'string') {
+            if (typeof text !== "string") {
                 return error.value;
             }
             return text.toUpperCase();
@@ -13384,7 +15039,7 @@ if (!jSuites && typeof(require) === 'function') {
             var count = 0;
             for (var i = 0; i < n; i++) {
                 var el = range[i];
-                if (typeof el === 'number') {
+                if (typeof el === "number") {
                     sum += el;
                 }
                 if (el === true) {
@@ -13407,7 +15062,8 @@ if (!jSuites && typeof(require) === 'function') {
             var average_count = 0;
             var result = 0;
             for (var i = 0; i < range.length; i++) {
-                if (eval(range[i] + criteria)) { // jshint ignore:line
+                if (eval(range[i] + criteria)) {
+                    // jshint ignore:line
                     result += average_range[i];
                     average_count++;
                 }
@@ -13442,7 +15098,7 @@ if (!jSuites && typeof(require) === 'function') {
             var element;
             for (var i = 0; i < range.length; i++) {
                 element = range[i];
-                if (element === null || element === '') {
+                if (element === null || element === "") {
                     blanks++;
                 }
             }
@@ -13456,12 +15112,14 @@ if (!jSuites && typeof(require) === 'function') {
             }
             var matches = 0;
             for (var i = 0; i < range.length; i++) {
-                if (typeof range[i] !== 'string') {
-                    if (eval(range[i] + criteria)) { // jshint ignore:line
+                if (typeof range[i] !== "string") {
+                    if (eval(range[i] + criteria)) {
+                        // jshint ignore:line
                         matches++;
                     }
                 } else {
-                    if (eval('"' + range[i] + '"' + criteria)) { // jshint ignore:line
+                    if (eval('"' + range[i] + '"' + criteria)) {
+                        // jshint ignore:line
                         matches++;
                     }
                 }
@@ -13482,7 +15140,7 @@ if (!jSuites && typeof(require) === 'function') {
                     criteria = '=="' + criteria + '"';
                 }
                 for (var j = 0; j < range.length; j++) {
-                    if (typeof range[j] !== 'string') {
+                    if (typeof range[j] !== "string") {
                         results[j] = results[j] && eval(range[j] + criteria); // jshint ignore:line
                     } else {
                         results[j] = results[j] && eval('"' + range[j] + '"' + criteria); // jshint ignore:line
@@ -13562,22 +15220,22 @@ if (!jSuites && typeof(require) === 'function') {
 
         exports.MAX = function() {
             var range = utils.numbers(utils.flatten(arguments));
-            return (range.length === 0) ? 0 : Math.max.apply(Math, range);
+            return range.length === 0 ? 0 : Math.max.apply(Math, range);
         };
 
         exports.MAXA = function() {
             var range = utils.arrayValuesToNumbers(utils.flatten(arguments));
-            return (range.length === 0) ? 0 : Math.max.apply(Math, range);
+            return range.length === 0 ? 0 : Math.max.apply(Math, range);
         };
 
         exports.MIN = function() {
             var range = utils.numbers(utils.flatten(arguments));
-            return (range.length === 0) ? 0 : Math.min.apply(Math, range);
+            return range.length === 0 ? 0 : Math.min.apply(Math, range);
         };
 
         exports.MINA = function() {
             var range = utils.arrayValuesToNumbers(utils.flatten(arguments));
-            return (range.length === 0) ? 0 : Math.min.apply(Math, range);
+            return range.length === 0 ? 0 : Math.min.apply(Math, range);
         };
 
         exports.MODE = {};
@@ -13637,7 +15295,9 @@ if (!jSuites && typeof(require) === 'function') {
             }
             var l = k * (n + 1) - 1;
             var fl = Math.floor(l);
-            return utils.cleanFloat((l === fl) ? array[l] : array[fl] + (l - fl) * (array[fl + 1] - array[fl]));
+            return utils.cleanFloat(
+                l === fl ? array[l] : array[fl] + (l - fl) * (array[fl + 1] - array[fl])
+            );
         };
 
         exports.PERCENTILE.INC = function(array, k) {
@@ -13652,13 +15312,15 @@ if (!jSuites && typeof(require) === 'function') {
             var n = array.length;
             var l = k * (n - 1);
             var fl = Math.floor(l);
-            return utils.cleanFloat((l === fl) ? array[l] : array[fl] + (l - fl) * (array[fl + 1] - array[fl]));
+            return utils.cleanFloat(
+                l === fl ? array[l] : array[fl] + (l - fl) * (array[fl + 1] - array[fl])
+            );
         };
 
         exports.PERCENTRANK = {};
 
         exports.PERCENTRANK.EXC = function(array, x, significance) {
-            significance = (significance === undefined) ? 3 : significance;
+            significance = significance === undefined ? 3 : significance;
             array = utils.parseNumberArray(utils.flatten(array));
             x = utils.parseNumber(x);
             significance = utils.parseNumber(significance);
@@ -13680,7 +15342,11 @@ if (!jSuites && typeof(require) === 'function') {
                     result = (array.indexOf(uniques[i]) + 1) / (n + 1);
                     match = true;
                 } else if (x >= uniques[i] && (x < uniques[i + 1] || i === m - 1)) {
-                    result = (array.indexOf(uniques[i]) + 1 + (x - uniques[i]) / (uniques[i + 1] - uniques[i])) / (n + 1);
+                    result =
+                        (array.indexOf(uniques[i]) +
+                            1 +
+                            (x - uniques[i]) / (uniques[i + 1] - uniques[i])) /
+                        (n + 1);
                     match = true;
                 }
                 i++;
@@ -13689,7 +15355,7 @@ if (!jSuites && typeof(require) === 'function') {
         };
 
         exports.PERCENTRANK.INC = function(array, x, significance) {
-            significance = (significance === undefined) ? 3 : significance;
+            significance = significance === undefined ? 3 : significance;
             array = utils.parseNumberArray(utils.flatten(array));
             x = utils.parseNumber(x);
             significance = utils.parseNumber(significance);
@@ -13711,7 +15377,10 @@ if (!jSuites && typeof(require) === 'function') {
                     result = array.indexOf(uniques[i]) / (n - 1);
                     match = true;
                 } else if (x >= uniques[i] && (x < uniques[i + 1] || i === m - 1)) {
-                    result = (array.indexOf(uniques[i]) + (x - uniques[i]) / (uniques[i + 1] - uniques[i])) / (n - 1);
+                    result =
+                        (array.indexOf(uniques[i]) +
+                            (x - uniques[i]) / (uniques[i + 1] - uniques[i])) /
+                        (n - 1);
                     match = true;
                 }
                 i++;
@@ -13749,7 +15418,7 @@ if (!jSuites && typeof(require) === 'function') {
             if (lower === undefined) {
                 return 0;
             }
-            upper = (upper === undefined) ? lower : upper;
+            upper = upper === undefined ? lower : upper;
 
             range = utils.parseNumberArray(utils.flatten(range));
             probability = utils.parseNumberArray(utils.flatten(probability));
@@ -13760,7 +15429,9 @@ if (!jSuites && typeof(require) === 'function') {
             }
 
             if (lower === upper) {
-                return (range.indexOf(lower) >= 0) ? probability[range.indexOf(lower)] : 0;
+                return range.indexOf(lower) >= 0 ?
+                    probability[range.indexOf(lower)] :
+                    0;
             }
 
             var sorted = range.sort(function(a, b) {
@@ -13824,11 +15495,14 @@ if (!jSuites && typeof(require) === 'function') {
             }
             range = utils.flatten(range);
             order = order || false;
-            var sort = (order) ? function(a, b) {
-                return a - b;
-            } : function(a, b) {
-                return b - a;
-            };
+            var sort = order ?
+
+                function(a, b) {
+                    return a - b;
+                } :
+                function(a, b) {
+                    return b - a;
+                };
             range = range.sort(sort);
 
             var length = range.length;
@@ -13839,7 +15513,9 @@ if (!jSuites && typeof(require) === 'function') {
                 }
             }
 
-            return (count > 1) ? (2 * range.indexOf(number) + count + 1) / 2 : range.indexOf(number) + 1;
+            return count > 1 ?
+                (2 * range.indexOf(number) + count + 1) / 2 :
+                range.indexOf(number) + 1;
         };
 
         exports.RANK.EQ = function(number, range, order) {
@@ -13849,16 +15525,20 @@ if (!jSuites && typeof(require) === 'function') {
                 return error.value;
             }
             order = order || false;
-            var sort = (order) ? function(a, b) {
-                return a - b;
-            } : function(a, b) {
-                return b - a;
-            };
+            var sort = order ?
+
+                function(a, b) {
+                    return a - b;
+                } :
+                function(a, b) {
+                    return b - a;
+                };
             range = range.sort(sort);
             return range.indexOf(number) + 1;
         };
 
-        exports.RSQ = function(data_x, data_y) { // no need to flatten here, PEARSON will take care of that
+        exports.RSQ = function(data_x, data_y) {
+            // no need to flatten here, PEARSON will take care of that
             data_x = utils.parseNumberArray(utils.flatten(data_x));
             data_y = utils.parseNumberArray(utils.flatten(data_y));
             if (utils.anyIsError(data_x, data_y)) {
@@ -13942,7 +15622,7 @@ if (!jSuites && typeof(require) === 'function') {
             var mean = exports.AVERAGEA(range);
             for (var i = 0; i < n; i++) {
                 var el = range[i];
-                if (typeof el === 'number') {
+                if (typeof el === "number") {
                     sigma += Math.pow(el - mean, 2);
                 } else if (el === true) {
                     sigma += Math.pow(1 - mean, 2);
@@ -13965,7 +15645,7 @@ if (!jSuites && typeof(require) === 'function') {
             var mean = exports.AVERAGEA(range);
             for (var i = 0; i < n; i++) {
                 var el = range[i];
-                if (typeof el === 'number') {
+                if (typeof el === "number") {
                     sigma += Math.pow(el - mean, 2);
                 } else if (el === true) {
                     sigma += Math.pow(1 - mean, 2);
@@ -13989,7 +15669,12 @@ if (!jSuites && typeof(require) === 'function') {
             if (utils.anyIsError(x, alpha, beta)) {
                 return error.value;
             }
-            return (cumulative) ? 1 - Math.exp(-Math.pow(x / beta, alpha)) : Math.pow(x, alpha - 1) * Math.exp(-Math.pow(x / beta, alpha)) * alpha / Math.pow(beta, alpha);
+            return cumulative ?
+                1 - Math.exp(-Math.pow(x / beta, alpha)) :
+                (Math.pow(x, alpha - 1) *
+                    Math.exp(-Math.pow(x / beta, alpha)) *
+                    alpha) /
+                Math.pow(beta, alpha);
         };
 
         exports.Z = {};
@@ -14003,7 +15688,13 @@ if (!jSuites && typeof(require) === 'function') {
 
             sd = sd || exports.STDEV.S(range);
             var n = range.length;
-            return 1 - exports.NORM.S.DIST((exports.AVERAGE(range) - x) / (sd / Math.sqrt(n)), true);
+            return (
+                1 -
+                exports.NORM.S.DIST(
+                    (exports.AVERAGE(range) - x) / (sd / Math.sqrt(n)),
+                    true
+                )
+            );
         };
 
         return exports;
@@ -14013,10 +15704,16 @@ if (!jSuites && typeof(require) === 'function') {
         var exports = {};
 
         exports.PROGRESS = function(p, c) {
-            var color = c ? c : 'red';
-            var value = p ? p : '0';
+            var color = c ? c : "red";
+            var value = p ? p : "0";
 
-            return '<div style="width:' + value + '%;height:4px;background-color:' + color + ';margin-top:1px;"></div>';
+            return (
+                '<div style="width:' +
+                value +
+                "%;height:4px;background-color:" +
+                color +
+                ';margin-top:1px;"></div>'
+            );
         };
 
         exports.RATING = function(v) {
@@ -14025,12 +15722,12 @@ if (!jSuites && typeof(require) === 'function') {
                 if (i < v) {
                     html += '<div class="jrating-selected"></div>';
                 } else {
-                    html += '<div></div>';
+                    html += "<div></div>";
                 }
             }
-            html += '</div>';
+            html += "</div>";
             return html;
-        }
+        };
 
         return exports;
     })();
@@ -14038,15 +15735,15 @@ if (!jSuites && typeof(require) === 'function') {
     for (var i = 0; i < Object.keys(jexcel.methods).length; i++) {
         var methods = jexcel.methods[Object.keys(jexcel.methods)[i]];
         for (var j = 0; j < Object.keys(methods).length; j++) {
-            if (typeof(methods[Object.keys(methods)[j]]) == 'function') {
+            if (typeof methods[Object.keys(methods)[j]] == "function") {
                 window[Object.keys(methods)[j]] = methods[Object.keys(methods)[j]];
             } else {
                 window[Object.keys(methods)[j]] = function() {
-                    return Object.keys(methods)[j] + 'Not implemented';
-                }
+                    return Object.keys(methods)[j] + "Not implemented";
+                };
             }
         }
     }
 
     return jexcel;
-})));
+});
