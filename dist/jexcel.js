@@ -5045,7 +5045,7 @@ if (!jSuites && typeof require === "function") {
          *
          * @return array
          */
-        (obj.getSelectedRows = function(asIds) {
+        obj.getSelectedRows = function(asIds) {
             var rows = [];
             // Get all selected rows
             for (var j = 0; j < obj.rows.length; j++) {
@@ -5059,14 +5059,14 @@ if (!jSuites && typeof require === "function") {
             }
 
             return rows;
-        }),
+        };
         /**
          * Get seleted column numbers
          *
          * @param {boolean} asIds if true return only ids otherwise return the columns
          * @return array
          */
-        (obj.getSelectedColumns = function(asIds) {
+        obj.getSelectedColumns = function(asIds) {
             var cols = [];
             // Get all selected cols
             for (var i = 0; i < obj.headers.length; i++) {
@@ -5080,7 +5080,28 @@ if (!jSuites && typeof require === "function") {
             }
 
             return cols;
-        });
+        };
+
+        /**
+         * Get seleted cells
+         *
+         * @return array [x1, y1, x2, y2]
+         */
+        obj.getSelectedCells = function() {
+            return obj.selectedCell;
+        };
+
+        /**
+         * Remove selected merged cells
+         *
+         * Need test
+         */
+        obj.removeSelectedMerge = function() {
+            const selColumns = obj.getSelectedColumns();
+            const selCells = obj.getSelectedCells();
+            const toRemove = selColumns[0].innerText + (Number(selCells[1]) + 1);
+            obj.removeMerge(toRemove);
+        };
 
         /**
          * Get highlighted
