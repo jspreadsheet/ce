@@ -34,7 +34,7 @@
         "jsuites": "^3.4.0"
     },
     "main": "dist/jexcel.js",
-    "version": "4.4.1.1",
+    "version": "4.4.1",
     "bugs": "https://github.com/paulhodel/jexcel/issues",
     "homepage": "https://github.com/paulhodel/jexcel",
     "docs": "https://bossanova.uk/jexcel/v4",
