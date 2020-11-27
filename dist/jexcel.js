@@ -5063,14 +5063,19 @@ if (!jSuites && typeof require === "function") {
         /**
          * Get seleted column numbers
          *
+         * @param {boolean} asIds if true return only ids otherwise return the columns
          * @return array
          */
-        (obj.getSelectedColumns = function() {
+        (obj.getSelectedColumns = function(asIds) {
             var cols = [];
             // Get all selected cols
             for (var i = 0; i < obj.headers.length; i++) {
                 if (obj.headers[i].classList.contains("selected")) {
-                    cols.push(i);
+                    if (asIds) {
+                        cols.push(i);
+                    } else {
+                        cols.push(obj.headers[i]);
+                    }
                 }
             }
 
