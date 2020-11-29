@@ -1,4 +1,4 @@
-![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/logo-jexcel.png)
+![The JavaScript spreadsheet](https://bossanova.uk/templates/jexcel-v4/img/logo.png)
 
 [**jExcel CE**](https://bossanova.uk/jexcel/v4/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
 with Excel or any other spreadsheet software. You can create an online spreadsheet table from a JS array,
@@ -22,7 +22,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ## Screenshot
 
-![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/jexcel.gif)
+![The JavaScript spreadsheet](https://bossanova.uk/templates/jexcel-v2/img/jexcel.gif)
 
 
 ## Installation
@@ -244,6 +244,9 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - [jExcel CE v4 - Javascript Spreasheet](https://bossanova.uk/jexcel/v3)
 - [jExcel CE v3 - Vanilla JavaScript](https://bossanova.uk/jexcel/v3)
 - [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jexcel/v2)
+
+- [jExcel Pro v7 - Javascript Spreasheet](https://jexcel.net/v7)
+- [jExcel Pro v5 - Javascript Spreasheet](https://jexcel.net/v5)
 
 ## Community
 - [GitHub](https://github.com/jspreadsheet/ce/issues)
