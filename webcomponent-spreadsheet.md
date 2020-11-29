@@ -7,7 +7,7 @@ Create a online javascript spreadsheet using jExcel Ce.
 ## Javascript
 
 ```
-class Jexcel extends HTMLElement {
+class Jspreadsheet extends HTMLElement {
     constructor() {
         super();
     }
@@ -17,23 +17,23 @@ class Jexcel extends HTMLElement {
         const shadowRoot = this.attachShadow({mode: 'open'});
 
         // Style
-        const cssJexcel = document.createElement('link');
-        cssJexcel.rel = 'stylesheet';
-        cssJexcel.type = 'text/css'
-        cssJexcel.href = 'https://bossanova.uk/jexcel/v4/jexcel.css';
-        shadowRoot.appendChild(cssJexcel);
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.type = 'text/css'
+        css.href = 'https://bossanova.uk/jexcel/v4/jexcel.css';
+        shadowRoot.appendChild(css);
 
-        const cssJsuites = document.createElement('link');
-        cssJsuites.rel = 'stylesheet';
-        cssJsuites.type = 'text/css'
-        cssJsuites.href = 'https://bossanova.uk/jexcel/v4/jsuites.css';
-        shadowRoot.appendChild(cssJsuites);
+        const css2 = document.createElement('link');
+        css2.rel = 'stylesheet';
+        css2.type = 'text/css'
+        css2.href = 'https://bossanova.uk/jexcel/v4/jsuites.css';
+        shadowRoot.appendChild(css2);
 
         // Jexcel container
         var container = document.createElement('div'); 
         shadowRoot.appendChild(container);
 
-        // Create jexcel element
+        // Create element
         this.el = jexcel(container, {
             root: shadowRoot,
             minDimensions: [10,10]
@@ -51,7 +51,7 @@ class Jexcel extends HTMLElement {
     }
 }
 
-window.customElements.define('jexcel-spreadsheet', Jexcel);
+window.customElements.define('j-spreadsheet', Jspreadsheet);
 ```
 
 ## HTML
@@ -61,7 +61,7 @@ window.customElements.define('jexcel-spreadsheet', Jexcel);
 <script type="text/javascript" src="/jsuites/v3/jsuites.js"></script>
 <script type="text/javascript" src="/jexcel/v4/jexcel.webcomponent.js"></script>
 
-<jexcel-spreadsheet></jexcel-spreadsheet>
+<j-spreadsheet></j-spreadsheet>
 
 </html>
 ```

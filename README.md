@@ -29,7 +29,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 % npm install jexcel
 
-[Download ZIP](https://github.com/paulhodel/jexcel/archive/master.zip)
+[Download ZIP](https://github.com/jspreadsheet/ce/archive/master.zip)
 
 ### Basic demo
 
@@ -246,7 +246,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jexcel/v2)
 
 ## Community
-- [GitHub](https://github.com/paulhodel/jexcel/issues)
+- [GitHub](https://github.com/jspreadsheet/ce/issues)
 
 ## Compilation
 
@@ -260,7 +260,7 @@ docker-compose exec bash php
 
 
 ## Copyright and license
-jExcel CE is released under the [MIT license]. Copyrights belong to Paul Hodel <paul.hodel@gmail.com>
+jExcel CE is released under the [MIT license]. Contact <contact@jspreadsheet.com>
 
-## Other tools by the author
+## Other interesting tools
 - [jSuites JavaScriptWeb Components](https://bossanova.uk/jsuites)

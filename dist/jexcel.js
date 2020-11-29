@@ -1,8 +1,7 @@
 /**
- * jExcel v4.4.2
+ * Jspreadsheet v4.5.0
  *
- * Author: Paul Hodel <paul.hodel@gmail.com>
- * Website: https://bossanova.uk/jexcel/
+ * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
  *
  * This software is distribute under MIT License
@@ -235,7 +234,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"Jspreasheet CE\nVersion 4.5.0\nWebsite: https://bossanova.uk/jspreadsheet/v4",
         };
     
         // Loading initial configuration from user

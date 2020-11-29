@@ -12,10 +12,9 @@ if ($handle = opendir('js')) {
 
     $js = "
 /**
- * jExcel v4.0.0
+ * Jspreadsheet v4
  *
- * Author: Paul Hodel <paul.hodel@gmail.com>
- * Website: https://bossanova.uk/jexcel/
+ * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
  *
  * This software is distribute under MIT License

@@ -10,7 +10,7 @@ Jexcel v4+ can run as a javascript webcomponent.
 <script type="text/javascript" src="/jsuites/v3/jsuites.js"></script>
 
 <!-- The configuration goes as a inline JSON string -->
-<jexcel-spreadsheet>
+<j-spreadsheet>
 {
     "minDimensions": [10,10],
     "columns": [
@@ -20,7 +20,7 @@ Jexcel v4+ can run as a javascript webcomponent.
         }
     ]
 }
-</jexcel-spreadsheet>
+</j-spreadsheet>
 
 
 </html>
