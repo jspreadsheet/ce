@@ -8021,7 +8021,8 @@
                 }
                 var i = this.getAttribute('data-spreadsheet');
                 content.children[i].style.display = 'block';
-                headers.children[i].classList.add('selected')
+                headers.children[i].classList.add('selected');
+                jexcel.current = worksheet;
             }
             headers.appendChild(link[i]);
         }
