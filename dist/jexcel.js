@@ -3630,7 +3630,7 @@
         /**
          * Sort data and reload table
          */
-        obj.orderBy = function(column, order) {
+        obj.orderBy = function(column, order, comparator) {
             if (column >= 0) {
                 // Merged cells
                 if (Object.keys(obj.options.mergeCells).length > 0) {
@@ -3649,18 +3649,19 @@
                     order = order ? 1 : 0;
                 }
     
+                const defaultCompare = (p, o) => function(a, b) {
+                    var valueA = a[p];
+                    var valueB = b[p];
+    
+                    if (! o) {
+                        return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
+                    } else {
+                        return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
+                    }
+                };
                 // Filter
-                Array.prototype.orderBy = function(p, o) {
-                    return this.slice(0).sort(function(a, b) {
-                        var valueA = a[p];
-                        var valueB = b[p];
-
-                        if (! o) {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
-                        } else {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
-                        }
-                    });
+                Array.prototype.orderBy = function(p, o, pred=defaultCompare) {
+                    return this.slice(0).sort(pred(p,o));
                 }
 
                 // Test order
@@ -3678,7 +3679,7 @@
                         temp[j] = [ j, obj.records[j][column].innerText.toLowerCase() ];
                     }
                 }
-                temp = temp.orderBy(1, order);
+                temp = temp.orderBy(1, order, comparator);
     
                 // Save history
                 var newValue = [];
