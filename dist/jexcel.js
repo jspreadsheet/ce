@@ -107,6 +107,8 @@
             wordWrap:false,
             // Image options
             imageOptions: null,
+            // Disables copying of hidden columns
+            copyHidden: false,
             // CSV source
             csv:null,
             // Filename
@@ -5937,19 +5939,25 @@
          * 
          * @return null
          */
-        obj.download = function(includeHeaders) {
+        obj.download = function(includeHeaders, includeHidden=obj.options.copyHidden) {
             if (obj.options.allowExport == false) {
                 console.error('Export not allowed');
             } else {
                 // Data
                 var data = '';
                 if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
-                    data += obj.getHeaders();
+                    const headers = obj.getHeaders()
+                        .split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/)
+                        .filter((_, colIndex) => {
+                            return obj.colgroup[colIndex].style.display !== 'none' || includeHidden;
+                        })
+                        .join(",");
+                    data += headers;
                     data += "\r\n";
                 }
 
                 // Get data
-                data += obj.copy(false, obj.options.csvDelimiter, true);
+                data += obj.copy(false, obj.options.csvDelimiter, true, includeHidden);
 
                 // Download element
                 var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
@@ -5995,7 +6003,7 @@
          * @param delimiter - \t default to keep compatibility with excel
          * @return string value
          */
-        obj.copy = function(highlighted, delimiter, returnData) {
+        obj.copy = function(highlighted, delimiter, returnData, includeHidden) {
             if (! delimiter) {
                 delimiter = "\t";
             }
@@ -6020,6 +6028,7 @@
                 colLabel = [];
     
                 for (var i = 0; i < x; i++) {
+                    if (!includeHidden && obj.colgroup[i].style.display === "none") continue;
                     // If cell is highlighted
                     if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
                         if (copyHeader == true) {
