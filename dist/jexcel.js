@@ -7,7 +7,7 @@
  * This software is distribute under MIT License
  */
 
- if (! jSuites && typeof(require) === 'function') {
+if (! jSuites && typeof(require) === 'function') {
     var jSuites = require('jsuites');
     require('jsuites/dist/jsuites.css');
 }
@@ -453,7 +453,6 @@
                     }
                 }
             }
-
             // Create the table when is ready
             if (! multiple.length) {
                 obj.createTable();
@@ -1027,7 +1026,6 @@
         obj.save = function(url, data) {
             // Parse anything in the data before sending to the server
             var ret = obj.dispatch('onbeforesave', el, obj, data);
-
             if (ret) {
                 var data = ret;
             } else {
@@ -1271,7 +1269,6 @@
                     }
                 }
             }
-
             return td;
         }
     
@@ -1373,7 +1370,6 @@
             } else {
                 var toolbar = obj.options.toolbar;
             }
-
             for (var i = 0; i < toolbar.length; i++) {
                 if (toolbar[i].type == 'i') {
                     var toolbarItem = document.createElement('i');
@@ -1706,19 +1702,24 @@
                 // Reset selection
                 obj.resetSelection();
                 // Load options
-                var options = [];
-                for (var j = 0; j < obj.options.data.length; j++) {
-                    var k = obj.options.data[j][columnId];
-                    var v = obj.records[j][columnId].innerHTML;
-                    if (k && v) {
-                        options[k] = v;
-                    }
-                }
-                var keys = Object.keys(options);
                 var optionsFiltered = [];
-                optionsFiltered.push({ id: '', name: 'Blanks' });
-                for (var j = 0; j < keys.length; j++) {
-                    optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                if (obj.options.columns[columnId].type == 'checkbox') {
+                    optionsFiltered.push({ id: 'false', name: '<input type=checkbox unchecked disabled>'});
+                    optionsFiltered.push({ id: 'true', name: '<input type=checkbox checked disabled>' });
+                } else {
+                    var options = [];
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        var k = obj.options.data[j][columnId];
+                        var v = obj.records[j][columnId].innerHTML;
+                        if (k && v) {
+                            options[k] = v;
+                        }
+                    }
+                    var keys = Object.keys(options);
+                    optionsFiltered.push({ id: '', name: '(Blanks)' });
+                    for (var j = 0; j < keys.length; j++) {
+                        optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                    }
                 }
 
                 // Create dropdown
@@ -1775,7 +1776,7 @@
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
                     if (query[i] == '') {
-                        if (obj.options.data[y][x] == '') {
+                        if (''+obj.options.data[y][x] == '' || obj.options.data[y][x] === false) {
                             return true;
                         }
                     } else {
@@ -1789,14 +1790,15 @@
             }
 
             var query = obj.filters[columnId];
-            obj.results = [];
-            for (var j = 0; j < obj.options.data.length; j++) {
-                if (search(query, columnId, j)) {
-                    obj.results.push(j);
-                }
-            }
-            if (! obj.results.length) {
+            if (query.length == 0) {
                 obj.results = null;
+            } else {
+                obj.results = [];
+                for (var j = 0; j < obj.options.data.length; j++) {
+                    if (search(query, columnId, j)) {
+                        obj.results.push(j);
+                    }
+                }
             }
 
             obj.updateResult();
@@ -2319,7 +2321,6 @@
                 obj.onafterchanges(el, records);
             }
         }
-
         /**
          * Strip tags
          */
@@ -2360,13 +2361,26 @@
                 // On change
                 var val = obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value);
 
-                // If you return something this will overwrite the value
-                if (val != undefined) {
-                    value = val;
+                // Ignore changes if the value is the same
+                if (obj.options.data[y][x] == value) {
+                    cell.innerHTML = obj.edition[1];
+                } else {
+                    obj.setValue(cell, value);
                 }
-
-                if (obj.options.columns[x].editor && typeof(obj.options.columns[x].editor.updateCell) == 'function') {
-                    value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
+            } else {
+                if (obj.options.columns[x].editor) {
+                    // Custom editor
+                    obj.options.columns[x].editor.closeEditor(cell, save);
+                } else {
+                    if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                        cell.children[0].dropdown.close(true);
+                    } else if (obj.options.columns[x].type == 'calendar') {
+                        cell.children[0].calendar.close(true);
+                    } else if (obj.options.columns[x].type == 'color') {
+                        cell.children[0].color.close(true);
+                    } else {
+                        cell.children[0].onblur = null;
+                    }
                 }
 
                 // History format
@@ -3618,12 +3632,9 @@
                 newValue: [ comments, author ],
                 oldValue: oldValue,
             });
-
             // Set comments
             obj.dispatch('oncomments', el, comments, title);
         }
-    
-        /**
          * Get table config information
          */
         obj.getConfig = function() {
@@ -3662,7 +3673,6 @@
                     return this.slice(0).sort(function(a, b) {
                         var valueA = a[p];
                         var valueB = b[p];
-
                         if (! o) {
                             return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
                         } else {
@@ -3670,7 +3680,6 @@
                         }
                     });
                 }
-
                 // Test order
                 var temp = [];
                 if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
@@ -5951,7 +5960,7 @@
                 // Data
                 var data = '';
                 if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
-                    data += obj.getHeaders();
+                    data += obj.getHeaders().replace(/\s+/gm,' ');
                     data += "\r\n";
                 }
 
