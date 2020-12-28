@@ -1,7 +1,7 @@
 /**
- * Jspreadsheet v4.5.0
+ * jExcel v4.5.0
  *
- * Website: https://bossanova.uk/jspreadsheet/
+ * Website: https://bossanova.uk/jexcel/
  * Description: Create amazing web based spreadsheets.
  *
  * This software is distribute under MIT License
@@ -138,6 +138,7 @@
             tableOverflow:false,
             tableHeight:'300px',
             tableWidth:null,
+            textOverflow:false,
             // Meta
             meta: null,
             // Style
@@ -234,7 +235,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"Jspreasheet CE\nVersion 4.5.0\nWebsite: https://bossanova.uk/jspreadsheet/v4",
+            about:"jExcel CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jexcel/v3",
         };
     
         // Loading initial configuration from user
@@ -594,6 +595,10 @@
             obj.table.appendChild(obj.colgroupContainer);
             obj.table.appendChild(obj.thead);
             obj.table.appendChild(obj.tbody);
+
+            if (! obj.options.textOverflow) {
+                obj.table.classList.add('jexcel_overflow');
+            }
 
             // Spreadsheet corner
             obj.corner = document.createElement('div');
@@ -1256,11 +1261,13 @@
     
             // Overflow
             if (i > 0) {
-                if (value || td.innerHTML) {
-                    obj.records[j][i-1].style.overflow = 'hidden';
-                } else {
-                    if (i == obj.options.columns.length - 1) {
-                        td.style.overflow = 'hidden';
+                if (this.options.textOverflow == true) {
+                    if (value || td.innerHTML) {
+                        obj.records[j][i-1].style.overflow = 'hidden';
+                    } else {
+                        if (i == obj.options.columns.length - 1) {
+                            td.style.overflow = 'hidden';
+                        }
                     }
                 }
             }
@@ -1979,6 +1986,7 @@
                         };
                         editor.focus();
                         editor.value = value;
+                        editor.scrollLeft = editor.scrollWidth;
                     }
                 }
             }

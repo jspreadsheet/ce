@@ -172,6 +172,10 @@
     line-height:1em;
 }
 
+.jexcel_overflow > tbody > tr > td {
+    overflow: hidden;
+}
+
 .jexcel > tbody > tr > td:last-child
 {
     overflow:hidden;
@@ -201,6 +205,7 @@
     width:100%;
     margin:0px;
     padding:0px;
+    padding-right:2px;
     background-color:transparent;
     box-sizing: border-box;
 }
