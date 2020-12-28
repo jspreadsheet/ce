@@ -93,7 +93,7 @@
     z-index:2;
 }
 
-.jexcel_container.with-toolbar .jexcel > thead > tr > td {
+.jexcel_container.with-toolbar .jexcel > thead > tr > td
 {
     top:42px;
 }
