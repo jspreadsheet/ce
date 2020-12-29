@@ -46,8 +46,13 @@ if (! jSuites && typeof(require) === 'function') {
         var defaults = {
             // External data
             url:null,
+            // Ajax options
+            method: 'GET',
+            requestVariables: null,
             // Data
             data:null,
+            // Custom sorting handler
+            sorting:null,
             // Copy behavior
             copyCompatibility:false,
             root:null,
@@ -743,7 +748,8 @@ if (! jSuites && typeof(require) === 'function') {
     
                 jSuites.ajax({
                     url: obj.options.url,
-                    method: 'GET',
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
                     dataType: 'json',
                     success: function(result) {
                         // Data
@@ -1287,7 +1293,7 @@ if (! jSuites && typeof(require) === 'function') {
             obj.headers[colNumber].setAttribute('data-x', colNumber);
             obj.headers[colNumber].style.textAlign = colAlign;
             if (obj.options.columns[colNumber].title) {
-                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
+                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].textContent);
             }
     
             // Width control
@@ -1377,6 +1383,8 @@ if (! jSuites && typeof(require) === 'function') {
                     toolbarItem.classList.add('material-icons');
                     toolbarItem.setAttribute('data-k', toolbar[i].k);
                     toolbarItem.setAttribute('data-v', toolbar[i].v);
+                    toolbarItem.setAttribute('id', toolbar[i].id);
+
                     // Tooltip
                     if (toolbar[i].tooltip) {
                         toolbarItem.setAttribute('title', toolbar[i].tooltip);
@@ -1704,21 +1712,28 @@ if (! jSuites && typeof(require) === 'function') {
                 // Load options
                 var optionsFiltered = [];
                 if (obj.options.columns[columnId].type == 'checkbox') {
-                    optionsFiltered.push({ id: 'false', name: '<input type=checkbox unchecked disabled>'});
-                    optionsFiltered.push({ id: 'true', name: '<input type=checkbox checked disabled>' });
+                    optionsFiltered.push({ id: 'true', name: 'True' });
+                    optionsFiltered.push({ id: 'false', name: 'False' });
                 } else {
                     var options = [];
+                    var hasBlanks = false;
                     for (var j = 0; j < obj.options.data.length; j++) {
                         var k = obj.options.data[j][columnId];
                         var v = obj.records[j][columnId].innerHTML;
                         if (k && v) {
                             options[k] = v;
+                        } else {
+                            var hasBlanks = true;
                         }
                     }
                     var keys = Object.keys(options);
-                    optionsFiltered.push({ id: '', name: '(Blanks)' });
+                    var optionsFiltered = [];
                     for (var j = 0; j < keys.length; j++) {
                         optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                    }
+                    // Has blank options
+                    if (hasBlanks) {
+                        optionsFiltered.push({ value: '', id: '', name: '(Blanks)' });
                     }
                 }
 
@@ -1746,6 +1761,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.filter.children[columnId + 1].style.paddingRight = '';
                         obj.filter.children[columnId + 1].style.overflow = '';
                         obj.closeFilter(columnId);
+                        obj.refreshSelection();
                     }
                 };
 
@@ -1775,30 +1791,27 @@ if (! jSuites && typeof(require) === 'function') {
             // Search filter
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
-                    if (query[i] == '') {
-                        if (''+obj.options.data[y][x] == '' || obj.options.data[y][x] === false) {
-                            return true;
-                        }
-                    } else {
-                        if ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
-                            (''+obj.records[y][x].innerHTML).search(query[i]) >= 0) {
-                            return true;
-                        }
+                    if ((query[i] == '' && // Blank matching
+                        ((obj.options.data[y][x] === false) || // Unchecked checkbox
+                        (''+obj.options.data[y][x]) == '')) || // Blank non-checkbox value
+                        ((query[i] != '' && // Normal non-blank filtering
+                        ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
+                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0)))) {
+                        return true;
                     }
                 }
                 return false;
             }
 
             var query = obj.filters[columnId];
-            if (query.length == 0) {
-                obj.results = null;
-            } else {
-                obj.results = [];
-                for (var j = 0; j < obj.options.data.length; j++) {
-                    if (search(query, columnId, j)) {
-                        obj.results.push(j);
-                    }
+            obj.results = [];
+            for (var j = 0; j < obj.options.data.length; j++) {
+                if (search(query, columnId, j)) {
+                    obj.results.push(j);
                 }
+            }
+            if (! obj.results.length) {
+                obj.results = null;
             }
 
             obj.updateResult();
@@ -2361,26 +2374,13 @@ if (! jSuites && typeof(require) === 'function') {
                 // On change
                 var val = obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value);
 
-                // Ignore changes if the value is the same
-                if (obj.options.data[y][x] == value) {
-                    cell.innerHTML = obj.edition[1];
-                } else {
-                    obj.setValue(cell, value);
+                // If you return something this will overwrite the value
+                if (val != undefined) {
+                    value = val;
                 }
-            } else {
-                if (obj.options.columns[x].editor) {
-                    // Custom editor
-                    obj.options.columns[x].editor.closeEditor(cell, save);
-                } else {
-                    if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
-                        cell.children[0].dropdown.close(true);
-                    } else if (obj.options.columns[x].type == 'calendar') {
-                        cell.children[0].calendar.close(true);
-                    } else if (obj.options.columns[x].type == 'color') {
-                        cell.children[0].color.close(true);
-                    } else {
-                        cell.children[0].onblur = null;
-                    }
+
+                if (obj.options.columns[x].editor && typeof(obj.options.columns[x].editor.updateCell) == 'function') {
+                    value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
                 }
 
                 // History format
@@ -2868,11 +2868,11 @@ if (! jSuites && typeof(require) === 'function') {
                 for (var i = borderLeft; i <= borderRight; i++) {
                     if (obj.options.columns[i].type != 'hidden') {
                         // Top border
-                        if (obj.records[borderTop][i]) {
+                        if (obj.records[borderTop] && obj.records[borderTop][i]) {
                             obj.records[borderTop][i].classList.add('highlight-top');
                         }
                         // Bottom border
-                        if (obj.records[borderBottom][i]) {
+                        if (obj.records[borderBottom] && obj.records[borderBottom][i]) {
                             obj.records[borderBottom][i].classList.add('highlight-bottom');
                         }
                         // Add selected from headers
@@ -2881,7 +2881,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
     
                 for (var j = borderTop; j <= borderBottom; j++) {
-                    if (obj.rows[j].style.display != 'none') {
+                    if (obj.rows[j] && obj.rows[j].style.display != 'none') {
                         // Left border
                         obj.records[j][borderLeft].classList.add('highlight-left');
                         // Right border
@@ -3486,7 +3486,7 @@ if (! jSuites && typeof(require) === 'function') {
                 // Position
                 var cell = jexcel.getIdFromColumnName(cellId, true);
     
-                if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]]) {
+                if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]] && (obj.records[cell[1]][cell[0]].classList.contains('readonly')==false || force)) {
                     // Current value
                     var currentValue = obj.records[cell[1]][cell[0]].style[key];
     
@@ -3635,6 +3635,8 @@ if (! jSuites && typeof(require) === 'function') {
             // Set comments
             obj.dispatch('oncomments', el, comments, title);
         }
+    
+        /**
          * Get table config information
          */
         obj.getConfig = function() {
@@ -3668,18 +3670,6 @@ if (! jSuites && typeof(require) === 'function') {
                     order = order ? 1 : 0;
                 }
     
-                // Filter
-                Array.prototype.orderBy = function(p, o) {
-                    return this.slice(0).sort(function(a, b) {
-                        var valueA = a[p];
-                        var valueB = b[p];
-                        if (! o) {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
-                        } else {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
-                        }
-                    });
-                }
                 // Test order
                 var temp = [];
                 if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
@@ -3695,7 +3685,24 @@ if (! jSuites && typeof(require) === 'function') {
                         temp[j] = [ j, obj.records[j][column].innerText.toLowerCase() ];
                     }
                 }
-                temp = temp.orderBy(1, order);
+    
+                // Default sorting method
+                if (typeof(obj.options.sorting) !== 'function') {
+                    obj.options.sorting = function(direction) {
+                        return function(a, b) {
+                            var valueA = a[1];
+                            var valueB = b[1];
+
+                            if (! direction) {
+                                return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
+                            } else {
+                                return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
+                            }
+                        }
+                    }
+                }
+
+                temp = temp.sort(obj.options.sorting(order));
     
                 // Save history
                 var newValue = [];
@@ -4070,6 +4077,12 @@ if (! jSuites && typeof(require) === 'function') {
                             }
     
                             obj.results = null;
+                        }
+    
+                        // If delete all rows, and set allowDeletingAllRows false, will stay one row
+                        if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
+                            numOfRows--;
+                            console.error('JEXCEL. It is not possible to delete the last row');
                         }
     
                         // Remove node
@@ -5030,6 +5043,9 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
     
+                // Range with $ remove $
+                expression = expression.replace(/\$?([A-Z])+\$?([0-9])+/g, "$1$2");
+
                 var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
                 if (tokens && tokens.length) {
                     tokensUpdate(tokens);
@@ -6678,7 +6694,8 @@ if (! jSuites && typeof(require) === 'function') {
                 // Load CSV file
                 jSuites.ajax({
                     url: obj.options.csv,
-                    method: 'GET',
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
                     dataType: 'text',
                     success: function(result) {
                         // Convert data
@@ -6715,7 +6732,8 @@ if (! jSuites && typeof(require) === 'function') {
     
                 jSuites.ajax({
                     url: obj.options.url,
-                    method: 'GET',
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
                     dataType: 'json',
                     success: function(result) {
                         // Data
