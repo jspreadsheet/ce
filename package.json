@@ -7,7 +7,7 @@
         "url": "https://github.com/jspreadsheet/jexcel.git"
     },
     "author": {
-        "name": "Contact <contact@jspreadsheet.net>"
+        "name": "Contact <contact@jexcel.net>"
     },
     "keywords": [
         "spreadsheet",
@@ -24,7 +24,7 @@
         "jsuites": "^3.4.0"
     },
     "main": "dist/jexcel.js",
-    "version": "4.5.0",
+    "version": "4.5.1",
     "bugs": "https://github.com/jspreadsheet/jexcel/issues",
     "homepage": "https://github.com/jspreadsheet/jexcel",
     "download": "https://github.com/jspreadsheet/jexcel/archive/master.zip"
