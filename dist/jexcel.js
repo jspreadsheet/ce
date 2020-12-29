@@ -943,6 +943,27 @@ if (! jSuites && typeof(require) === 'function') {
         }
 
         /**
+        * Get json data by row number
+        *
+        * @param integer row number
+        * @return object
+        */
+        obj.getJsonRow = function(rowNumber) {
+            var rowData = obj.options.data[rowNumber];
+            var x = obj.options.columns.length
+
+            var row = {};
+            for (var i = 0; i < x; i++) {
+                if (! obj.options.columns[i].name) {
+                    obj.options.columns[i].name = i;
+                }
+                row[obj.options.columns[i].name] = rowData[i];
+            }
+
+            return row;
+        }
+
+        /**
          * Get the whole table data
          * 
          * @param bool highlighted cells only
@@ -977,27 +998,6 @@ if (! jSuites && typeof(require) === 'function') {
            }
     
            return data;
-        }
-
-        /**
-        * Get json data by row number
-        *
-        * @param integer row number
-        * @return object
-        */
-        obj.getJsonRow = function(rowNumber) {
-            var rowData = obj.options.data[rowNumber];
-            var x = obj.options.columns.length
-
-            var row = {};
-            for (var i = 0; i < x; i++) {
-                if (! obj.options.columns[i].name) {
-                    obj.options.columns[i].name = i;
-                }
-                row[obj.options.columns[i].name] = rowData[i];
-            }
-
-            return row;
         }
 
         /**
@@ -7948,6 +7948,12 @@ if (! jSuites && typeof(require) === 'function') {
                     var y = e.target.getAttribute('data-y');
     
                     if (x || y) {
+                        if ((x < parseInt(jexcel.current.selectedCell[0])) || (x > parseInt(jexcel.current.selectedCell[2])) ||
+                            (y < parseInt(jexcel.current.selectedCell[1])) || (y > parseInt(jexcel.current.selectedCell[3])))
+                        {
+                            jexcel.current.updateSelectionFromCoords(x, y, x, y);
+                        }
+
                         // Table found
                         var items = jexcel.current.options.contextMenu(jexcel.current, x, y, e);
                         // The id is depending on header and body
