@@ -14,7 +14,7 @@ if ($handle = opendir('js')) {
 /**
  * Jspreadsheet v4
  *
- * Website: https://bossanova.uk/jspreadsheet/
+ * Website: https://bossanova.uk/jexcel/
  * Description: Create amazing web based spreadsheets.
  *
  * This software is distribute under MIT License
