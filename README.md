@@ -29,7 +29,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 % npm install jexcel
 
-[Download ZIP](https://github.com/jspreadsheet/ce/archive/master.zip)
+[Download ZIP](https://github.com/jspreadsheet/jexcel/archive/master.zip)
 
 ### Basic demo
 
@@ -37,8 +37,8 @@ A basic example to integrate the JavaScript spreadsheet in your website to creat
 
 ```html
 <script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
-<script src="https://bossanova.uk/jsuites/v3/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jsuites/v3/jsuites.css" type="text/css" />
+<script src="https://jsuites.net/v3/jsuites.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v3/jsuites.css" type="text/css" />
 <link rel="stylesheet" href="https://bossanova.uk/jexcel/v4/jexcel.css" type="text/css" />
 ```
 
@@ -263,7 +263,7 @@ docker-compose exec bash php
 
 
 ## Copyright and license
-jExcel CE is released under the [MIT license]. Contact <contact@jspreadsheet.com>
+jExcel CE is released under the [MIT license]. Contact <contact@jexcel.net>
 
 ## Other interesting tools
 - [jSuites JavaScriptWeb Components](https://bossanova.uk/jsuites)
