@@ -5044,7 +5044,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
     
                 // Range with $ remove $
-                expression = expression.replace(/\$?([A-Z])+\$?([0-9])+/g, "$1$2");
+                expression = expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g, "$1$2");
 
                 var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
                 if (tokens && tokens.length) {
