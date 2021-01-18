@@ -148,6 +148,7 @@ if (! jSuites && typeof(require) === 'function') {
             meta: null,
             // Style
             style:null,
+            classes:null,
             // Execute formulas
             parseFormulas:true,
             autoIncrement:true,
@@ -731,6 +732,15 @@ if (! jSuites && typeof(require) === 'function') {
             // Style
             if (obj.options.style) {
                 obj.setStyle(obj.options.style, null, null, 1, 1);
+            }
+
+            // Classes
+            if (obj.options.classes) {
+                var k = Object.keys(obj.options.classes);
+                for (var i = 0; i < k.length; i++) {
+                    var cell = jexcel.getIdFromColumnName(k[i], true);
+                    obj.records[cell[1]][cell[0]].classList.add(obj.options.classes[k[i]]);
+                }
             }
         }
 
@@ -8393,11 +8403,12 @@ if (! jSuites && typeof(require) === 'function') {
             var mergeCells = {};
             var rows = {};
             var style = {};
+            var classes = {};
 
             var content = el.querySelectorAll('table > tr, tbody tr');
             for (var j = 0; j < content.length; j++) {
                 options.data[rowNumber] = [];
-                if (options.parseTableFirstRowAsHeader == true && j == 0) {
+                if (options.parseTableFirstRowAsHeader == true && ! headers.length && j == 0) {
                     for (var i = 0; i < content[j].children.length; i++) {
                         parseHeader(content[j].children[i]);
                     }
@@ -8416,6 +8427,12 @@ if (! jSuites && typeof(require) === 'function') {
 
                         // Key
                         var cellName = jexcel.getColumnNameFromId([ i, j ]);
+
+                        // Classes
+                        var tmp = content[j].children[i].getAttribute('class');
+                        if (tmp) {
+                            classes[cellName] = tmp;
+                        }
 
                         // Merged cells
                         var mergedColspan = parseInt(content[j].children[i].getAttribute('colspan')) || 0;
@@ -8464,6 +8481,10 @@ if (! jSuites && typeof(require) === 'function') {
             // Row height
             if (Object.keys(rows).length > 0) {
                 options.rows = rows;
+            }
+            // Classes
+            if (Object.keys(classes).length > 0) {
+                options.classes = classes;
             }
 
             // TODO: data-hiddencolumns="3,4"
