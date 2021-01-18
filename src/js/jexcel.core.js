@@ -6600,7 +6600,8 @@ var jexcel = (function(el, options) {
             if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }  
 
             // If it's just one quotation mark, begin/end quoted field
-            if (cc == '"') { quote = !quote; continue; }
+            if (cc == '"' && arr[row][col] == '' && !quote) { quote = !quote; continue; }
+            if (cc == '"' && nc == delimiter && quote) { quote = !quote; continue; }
 
             // If it's a comma and we're not in a quoted field, move on to the next column
             if (cc == delimiter && !quote) { ++col; continue; }
