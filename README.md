@@ -266,4 +266,5 @@ docker-compose exec bash php
 jExcel CE is released under the [MIT license]. Contact <contact@jexcel.net>
 
 ## Other interesting tools
-- [jSuites JavaScriptWeb Components](https://bossanova.uk/jsuites)
+- [jSuites - JavaScript plugins & Webcomponents](https://jsuites.net)
+- [LemonadeJS](https://lemonadejs.net)
