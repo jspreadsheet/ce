@@ -31,7 +31,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 [Download ZIP](https://github.com/jspreadsheet/jexcel/archive/master.zip)
 
-### Basic demo
+### Basic demo 
 
 A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet.
 
