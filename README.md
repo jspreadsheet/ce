@@ -241,7 +241,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 
 
 ## Officials websites
-- [jExcel CE v4 - Javascript Spreasheet](https://bossanova.uk/jexcel/v3)
+- [jExcel CE v4 - Javascript Spreasheet](https://bossanova.uk/jexcel/v4)
 - [jExcel CE v3 - Vanilla JavaScript](https://bossanova.uk/jexcel/v3)
 - [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jexcel/v2)
 
@@ -249,7 +249,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - [jExcel Pro v5 - Javascript Spreasheet](https://jexcel.net/v5)
 
 ## Community
-- [GitHub](https://github.com/jspreadsheet/ce/issues)
+- [GitHub](https://github.com/jspreadsheet/jexcel/issues)
 
 ## Compilation
 
