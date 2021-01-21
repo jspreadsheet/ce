@@ -1,5 +1,5 @@
 /**
- * jExcel v4.5.0
+ * jExcel v4.5.3
  *
  * Website: https://bossanova.uk/jexcel/
  * Description: Create amazing web based spreadsheets.
