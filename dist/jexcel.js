@@ -2753,7 +2753,13 @@ if (! jSuites && typeof(require) === 'function') {
             // Reset Selection
             var updated = null;
             var previousState = obj.resetSelection();
-    
+            
+            // select column
+            if (y1 == null) {
+                y1 = 0;
+                y2 = obj.rows.length - 1; 
+            }
+            
             // Same element
             if (x2 == null) {
                 x2 = x1;
