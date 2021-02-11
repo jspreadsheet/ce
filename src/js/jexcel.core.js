@@ -6928,7 +6928,9 @@ var jexcel = (function(el, options) {
         if (obj.options.lazyLoading == true) {
             if (jexcel.timeControlLoading == null) {
                 jexcel.timeControlLoading = setTimeout(function() {
-                    if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight) {
+                    //scrollTop+clientHeight is 1-2 pixel is less than scrollHeight when scroll reaches to bottom and new nodes are not added to DOM
+                    //10 px can be considered as margin error for calculation and it fixes scroll down freeze problem
+                    if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight-10) {
                         if (obj.loadDown()) {
                             if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
                                 obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
