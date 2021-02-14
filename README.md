@@ -247,11 +247,11 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 
 
 ## Officials websites
-- [jExcel CE v4 - Javascript Spreasheet](https://bossanova.uk/jspreadsheet/v4)
-- [jExcel CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
-- [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
+- [Jspreadsheet CE v4 - Javascript Spreasheet](https://bossanova.uk/jspreadsheet/v4)
+- [Jspreadsheet CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
+- [Jspreadsheet CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
 
-- [jExcel Pro v7 - Javascript Spreasheet](https://jexcel.net/v7)
+- [Jspreadsheet Pro v7 - Javascript Spreasheet](https://jexcel.net/v7)
 
 ## Community
 - [GitHub](https://github.com/jspreadsheet/ce/issues)
