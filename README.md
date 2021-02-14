@@ -1,4 +1,4 @@
-# The JavaScript spreadsheet
+# Jspreadsheet CE v4: The JavaScript spreadsheet
 
 <b>Jexcel</b> has been renamed to <b>Jspreadsheet</b><br><br>
 
