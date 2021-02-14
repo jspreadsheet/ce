@@ -1,7 +1,7 @@
 /**
- * jExcel v4.5.3
+ * Jspreadsheet v4.6.0
  *
- * Website: https://bossanova.uk/jexcel/
+ * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
  *
  * This software is distribute under MIT License
@@ -15,12 +15,12 @@ if (! jSuites && typeof(require) === 'function') {
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    global.jexcel = factory();
+    global.jspreadsheet = global.jexcel = factory();
 }(this, (function () {
 
     'use strict';
 
-    // Jexcel core object
+    // Jspreadsheet core object
 
     var jexcel = (function(el, options) {
         // Create jexcel object
@@ -28,7 +28,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.options = {};
 
         if (! (el instanceof Element || el instanceof HTMLDocument)) {
-            console.error('JEXCEL: el is not a valid DOM element');
+            console.error('Jspreadsheet: el is not a valid DOM element');
             return false;
         } else if (el.tagName == 'TABLE') {
             if (options = jexcel.createFromTable(el, options)) {
@@ -37,7 +37,7 @@ if (! jSuites && typeof(require) === 'function') {
                 el.remove();
                 el = div;
             } else {
-                console.error('JEXCEL: el is not a valid DOM element');
+                console.error('Jspreadsheet: el is not a valid DOM element');
                 return false;
             }
         }
@@ -308,7 +308,7 @@ if (! jSuites && typeof(require) === 'function') {
     
         // Lazy loading
         if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
-            console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
+            console.error('Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
             obj.options.lazyLoading = false;
         }
         
@@ -698,6 +698,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (obj.options.tableOverflow == true) {
                     if (obj.options.tableHeight) {
                         obj.content.style['overflow-y'] = 'auto';
+                        obj.content.style['box-shadow'] = 'rgb(221 221 221) 2px 2px 5px 0.1px';
                         obj.content.style.maxHeight = obj.options.tableHeight;
                     }
                     if (obj.options.tableWidth) {
@@ -856,7 +857,7 @@ if (! jSuites && typeof(require) === 'function') {
     
                 if (obj.options.pagination) {
                     obj.options.pagination = false;
-                    console.error('JEXCEL: Pagination will be disable due the lazyLoading');
+                    console.error('Jspreadsheet: Pagination will be disable due the lazyLoading');
                 }
             } else if (obj.options.pagination) {
                 // Pagination
@@ -1713,7 +1714,7 @@ if (! jSuites && typeof(require) === 'function') {
          */
         obj.openFilter = function(columnId) {
             if (! obj.options.filters) {
-                console.log('JEXCEL: filters not enabled.');
+                console.log('Jspreadsheet: filters not enabled.');
             } else {
                 // Make sure is integer
                 columnId = parseInt(columnId);
@@ -4359,6 +4360,12 @@ if (! jSuites && typeof(require) === 'function') {
                             var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) + numOfColumns;
                             obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
                             obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+                            var o = obj.thead.children[j].children[obj.thead.children[j].children.length-1].getAttribute('data-column');
+                            o = o.split(',');
+                            for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                                o.push(col);
+                            }
+                            obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('data-column', o);
                         }
                     } else {
                         var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
@@ -7365,7 +7372,7 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         } else if (jexcel.current.options.columnDrag == true && info.height - e.offsetY < 6) {
                             if (jexcel.current.isColMerged(columnId).length) {
-                                console.error('JEXCEL: This column is part of a merged cell.');
+                                console.error('Jspreadsheet: This column is part of a merged cell.');
                             } else {
                                 // Reset selection
                                 jexcel.current.resetSelection();
@@ -7441,9 +7448,9 @@ if (! jSuites && typeof(require) === 'function') {
                             e.target.parentNode.classList.add('resizing');
                         } else if (jexcel.current.options.rowDrag == true && info.width - e.offsetX < 6) {
                             if (jexcel.current.isRowMerged(rowId).length) {
-                                console.error('JEXCEL: This row is part of a merged cell');
+                                console.error('Jspreadsheet: This row is part of a merged cell');
                             } else if (jexcel.current.options.search == true && jexcel.current.results) {
-                                console.error('JEXCEL: Please clear your search before perform this action');
+                                console.error('Jspreadsheet: Please clear your search before perform this action');
                             } else {
                                 // Reset selection
                                 jexcel.current.resetSelection();
@@ -7754,7 +7761,7 @@ if (! jSuites && typeof(require) === 'function') {
                     if (jexcel.current.dragging.column) {
                         if (columnId) {
                             if (jexcel.current.isColMerged(columnId).length) {
-                                console.error('JEXCEL: This column is part of a merged cell.');
+                                console.error('Jspreadsheet: This column is part of a merged cell.');
                             } else {
                                 for (var i = 0; i < jexcel.current.headers.length; i++) {
                                     jexcel.current.headers[i].classList.remove('dragging-left');
@@ -7785,7 +7792,7 @@ if (! jSuites && typeof(require) === 'function') {
                     } else {
                         if (rowId) {
                             if (jexcel.current.isRowMerged(rowId).length) {
-                                console.error('JEXCEL: This row is part of a merged cell.');
+                                console.error('Jspreadsheet: This row is part of a merged cell.');
                             } else {
                                 var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
                                 if (jexcel.current.dragging.element != target) {

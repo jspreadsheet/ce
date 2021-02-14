@@ -1,11 +1,13 @@
-![The JavaScript spreadsheet](https://bossanova.uk/templates/jexcel-v4/img/logo.png)
+![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/logo.png)
 
-[**jExcel CE**](https://bossanova.uk/jexcel/v4/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
-with Excel or any other spreadsheet software. You can create an online spreadsheet table from a JS array,
-JSON, CSV or XSLX files. You can copy from excel and paste straight to your jExcel CE spreadsheet and vice versa.
+<b>Jexcel</b> has been renamed to <b>Jspreadsheet</b><br><br>
+
+[**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
+with other spreadsheet software. You can create an online spreadsheet table from a JS array,
+JSON, CSV or XSLX files. You can copy from excel and paste straight to your Jspreadsheet CE spreadsheet and vice versa.
 It is very easy to integrate any third party JavaScript plugins to create your own custom columns, custom editors, and customize any
-feature into your application. jExcel CE has plenty of different input options through its native column types to cover the most common web-based application
-requirements. It is a complete solution for web data management. Create amazing applications with jExcel CE JavaScript spreadsheet.
+feature into your application. Jspreadsheet CE has plenty of different input options through its native column types to cover the most common web-based application
+requirements. It is a complete solution for web data management. Create amazing applications with Jspreadsheet CE JavaScript spreadsheet.
 
 ## Main advantages
 
@@ -22,24 +24,24 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ## Screenshot
 
-![The JavaScript spreadsheet](https://bossanova.uk/templates/jexcel-v2/img/jexcel.gif)
+![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/jexcel.gif)
 
 
 ## Installation
 
-% npm install jexcel
+% npm install jspreadsheet-ce
 
-[Download ZIP](https://github.com/jspreadsheet/jexcel/archive/master.zip)
+[Download ZIP](https://github.com/jspreadsheet/ce/archive/master.zip)
 
 ### Basic demo 
 
 A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet.
 
 ```html
-<script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
-<script src="https://jsuites.net/v3/jsuites.js"></script>
-<link rel="stylesheet" href="https://jsuites.net/v3/jsuites.css" type="text/css" />
-<link rel="stylesheet" href="https://bossanova.uk/jexcel/v4/jexcel.css" type="text/css" />
+<script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+<script src="https://jsuites.net/v4/jsuites.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+<link rel="stylesheet" href="https://bossanova.uk/Jspreadsheet/v4/jexcel.css" type="text/css" />
 ```
 
 You should initiate your table based on a div container, such as:
@@ -47,14 +49,14 @@ You should initiate your table based on a div container, such as:
 <div id="spreadsheet"></div>
 ```
 
-To initialize a jExcel CE table you should run a JavaScript, such as:
+To initialize a Jspreadsheet CE table you should run a JavaScript, such as:
 ```javascript
 var data = [
     ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
     ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
 ];
 
-jexcel(document.getElementById('spreadsheet'), {
+jspreadsheet(document.getElementById('spreadsheet'), {
     data:data,
     columns: [
         { type: 'text', title:'Car', width:120 },
@@ -70,66 +72,70 @@ jexcel(document.getElementById('spreadsheet'), {
 
 ## Examples
 
-- [React Implementation](https://bossanova.uk/jexcel/v4/examples/react)\
-A full example on how to integrate jExcel CE with React.
+- [React Implementation](https://bossanova.uk/jspreadsheet/v4/examples/react)\
+A full example on how to integrate Jspreadsheet CE with React.
 
-- [VUE Implementation](https://bossanova.uk/jexcel/v4/examples/vue)\
-A full example on how to integrate jExcel CE with Vue.
+- [VUE Implementation](https://bossanova.uk/jspreadsheet/v4/examples/vue)\
+A full example on how to integrate Jspreadsheet CE with Vue.
 
-- [Search and pagination](https://bossanova.uk/jexcel/v4/examples/datatables)\
+- [Search and pagination](https://bossanova.uk/jspreadsheet/v4/examples/datatables)\
 Full spreadsheet example with search and pagination to bring great compatibility for those who love datatables.
 
-- [Column types](https://bossanova.uk/jexcel/v4/examples/column-types)\
+- [Column types](https://bossanova.uk/jspreadsheet/v4/examples/column-types)\
 Learn more about the powerful column types. This example brings all native column types and how to create your own custom type.
 
-- [Javascript dropdown](https://bossanova.uk/jexcel/v4/examples/dropdown-and-autocomplete)\
+- [Javascript dropdown](https://bossanova.uk/jspreadsheet/v4/examples/dropdown-and-autocomplete)\
 Full examples on how to handle simple, advanced, multiple, autocomplete and conditional dropdowns. Create amazing JavaScript tables using categories and images in your dropdowns.
 
-- [Javascript calendar, date and datetime picker](https://bossanova.uk/jexcel/v4/examples/javascript-calendar)\
+- [Javascript calendar, date and datetime picker](https://bossanova.uk/jspreadsheet/v4/examples/javascript-calendar)\
 Example from basic to advanced calendar usage, date and datetime picker.
 
-- [Image upload](https://bossanova.uk/jexcel/v4/examples/image-upload)\
+- [Image upload](https://bossanova.uk/jspreadsheet/v4/examples/image-upload)\
 This examples shows how to upload images to your spreadsheet.
 
-- [Programmatically updates](https://bossanova.uk/jexcel/v4/examples/programmatically-updates)\
+- [Programmatically updates](https://bossanova.uk/jspreadsheet/v4/examples/programmatically-updates)\
 How to update your spreadsheet and its data by JavaScript.
 
-- [Table Style](https://bossanova.uk/jexcel/v4/examples/table-style)\
+- [Table Style](https://bossanova.uk/jspreadsheet/v4/examples/table-style)\
 Bring a very special touch to your applications customizing your JavaScript spreadsheet.
 
-- [Events](https://bossanova.uk/jexcel/v4/examples/events)\
-Learn how to handle events on jExcel CE.
+- [Events](https://bossanova.uk/jspreadsheet/v4/examples/events)\
+Learn how to handle events on Jspreadsheet CE.
 
-- [Importing data](https://bossanova.uk/jexcel/v4/examples/import-data)\
+- [Importing data](https://bossanova.uk/jspreadsheet/v4/examples/import-data)\
 How to import data from an external CSV, json file or XLSX.
 
-- [Formulas](https://bossanova.uk/jexcel/v4/examples/spreadsheet-formulas)\
-Unleash the power of your tables bringing formulas and custom JavaScript methods on your jExcel spreadsheet.
+- [Formulas](https://bossanova.uk/jspreadsheet/v4/examples/spreadsheet-formulas)\
+Unleash the power of your tables bringing formulas and custom JavaScript methods on your Jspreadsheet spreadsheet.
 
-- [Custom toolbars](https://bossanova.uk/jexcel/v4/examples/spreadsheet-toolbars)\
+- [Custom toolbars](https://bossanova.uk/jspreadsheet/v4/examples/spreadsheet-toolbars)\
 Full example on how to enable nor customize your JavaScript spreadsheet toolbar.
 
-- [Column comments](https://bossanova.uk/jexcel/v4/examples/comments)\
+- [Column comments](https://bossanova.uk/jspreadsheet/v4/examples/comments)\
 Allow comments in your table spreadsheet.
 
-- [Headers](https://bossanova.uk/jexcel/v4/examples/headers)\
+- [Headers](https://bossanova.uk/jspreadsheet/v4/examples/headers)\
 Enabled nested headers in your spreadsheet and learn how to set or get header values.
 
-- [Translations](https://bossanova.uk/jexcel/v4/examples/translations)\
-How to translate the default messages from jExcel.
+- [Translations](https://bossanova.uk/jspreadsheet/v4/examples/translations)\
+How to translate the default messages from Jspreadsheet.
 
-- [Merged cells](https://bossanova.uk/jexcel/v4/examples/merged-cells)\
+- [Merged cells](https://bossanova.uk/jspreadsheet/v4/examples/merged-cells)\
 Full example on how to handle merge cells in your JavaScript tables.
 
-- [Sorting columns](https://bossanova.uk/jexcel/v4/examples/sorting)\
+- [Sorting columns](https://bossanova.uk/jspreadsheet/v4/examples/sorting)\
 Example how to sort the table by a column via JavaScript.
 
-- [Lazy loading](https://bossanova.uk/jexcel/v4/examples/lazy-loading)\
+- [Lazy loading](https://bossanova.uk/jspreadsheet/v4/examples/lazy-loading)\
 This example brings a very nice feature to deal with large table datasets.
 
 
 
-## jExcel CE History
+## Jspreadsheet CE History
+
+### Jspreadsheet 4.6
+
+<b>Jexcel</b> has been renamed to <b>Jspreadsheet</b>
 
 ### Jexcel 4.0.0
 
@@ -241,15 +247,14 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 
 
 ## Officials websites
-- [jExcel CE v4 - Javascript Spreasheet](https://bossanova.uk/jexcel/v4)
-- [jExcel CE v3 - Vanilla JavaScript](https://bossanova.uk/jexcel/v3)
-- [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jexcel/v2)
+- [jExcel CE v4 - Javascript Spreasheet](https://bossanova.uk/jspreadsheet/v4)
+- [jExcel CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
+- [jExcel CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
 
 - [jExcel Pro v7 - Javascript Spreasheet](https://jexcel.net/v7)
-- [jExcel Pro v5 - Javascript Spreasheet](https://jexcel.net/v5)
 
 ## Community
-- [GitHub](https://github.com/jspreadsheet/jexcel/issues)
+- [GitHub](https://github.com/jspreadsheet/ce/issues)
 
 ## Compilation
 
@@ -263,7 +268,7 @@ docker-compose exec bash php
 
 
 ## Copyright and license
-jExcel CE is released under the [MIT license]. Contact <contact@jexcel.net>
+Jspreadsheet CE is released under the [MIT license]. Contact <contact@jexcel.net>
 
 ## Other interesting tools
 - [jSuites - JavaScript plugins & Webcomponents](https://jsuites.net)

@@ -1,13 +1,13 @@
-#Jexcel as a webcomponent
+#Jspreadsheet as a webcomponent
 
-Jexcel v4+ can run as a javascript webcomponent.
+Jspreadsheet v4+ can run as a javascript webcomponent.
 
 ```
 <html>
-<script type="text/javascript" src="/jexcel/v4/jexcel.js"></script>
-<script type="text/javascript" src="/jexcel/v4/jexcel.webcomponent.js"></script>
+<script type="text/javascript" src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+<script type="text/javascript" src="https://bossanova.uk/jspreadsheet/v4/jexcel.webcomponent.js"></script>
 
-<script type="text/javascript" src="/jsuites/v3/jsuites.js"></script>
+<script type="text/javascript" src="https://jsuites.net/v4/jsuites.js"></script>
 
 <!-- The configuration goes as a inline JSON string -->
 <j-spreadsheet>
