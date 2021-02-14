@@ -7201,10 +7201,6 @@ jexcel.keyDownControls = function(e) {
                         // Ctrl + C
                         jexcel.current.copy(true);
                         e.preventDefault();
-                    } else if (e.which == 67) {
-                        // Ctrl + C
-                        jexcel.current.copy(true);
-                        e.preventDefault();
                     } else if (e.which == 88) {
                         // Ctrl + X
                         if (jexcel.current.options.editable == true) {
