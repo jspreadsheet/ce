@@ -1,4 +1,4 @@
-![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/logo.png)
+# The JavaScript spreadsheet
 
 <b>Jexcel</b> has been renamed to <b>Jspreadsheet</b><br><br>
 
