@@ -174,6 +174,7 @@ var jexcel = (function(el, options) {
         onchangepage:null,
         onbeforesave:null,
         onsave:null,
+        oncontextmenu: null,
         // Global event dispatcher
         onevent:null,
         // Persistance
@@ -7935,6 +7936,8 @@ jexcel.contextMenuControls = function(e) {
 
                     // Table found
                     var items = jexcel.current.options.contextMenu(jexcel.current, x, y, e);
+                    // give the consumer a chance to modify the context menu.
+                    if (jexcel.current.options.oncontextmenu) items = jexcel.current.options.oncontextmenu(jexcel.current, x, y, e, items)
                     // The id is depending on header and body
                     jexcel.current.contextMenu.contextmenu.open(e, items);
                     // Avoid the real one
