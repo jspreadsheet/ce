@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.6.0
+ * Jspreadsheet v4.6.1
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -8479,7 +8479,7 @@ if (! jSuites && typeof(require) === 'function') {
 
             // Style
             if (Object.keys(style).length > 0) {
-                //options.style = style;
+                options.style = style;
             }
             // Merged
             if (Object.keys(mergeCells).length > 0) {
@@ -8494,6 +8494,20 @@ if (! jSuites && typeof(require) === 'function') {
                 options.classes = classes;
             }
 
+            var content = el.querySelectorAll('tfoot tr');
+            if (content.length) {
+                var footers = [];
+                for (var j = 0; j < content.length; j++) {
+                    var footer = [];
+                    for (var i = 0; i < content[j].children.length; i++) {
+                        footer.push(content[j].children[i].innerText);
+                    }
+                    footers.push(footer);
+                }
+                if (Object.keys(footers).length > 0) {
+                    options.footers = footers;
+                }
+            }
             // TODO: data-hiddencolumns="3,4"
             
             // I guess in terms the better column type
