@@ -23,7 +23,7 @@ if (! jSuites && typeof(require) === 'function') {
     // Jspreadsheet core object
 
     var jexcel = (function(el, options) {
-        // Create jexcel object
+        // Create jspreadsheet object
         var obj = {};
         obj.options = {};
 
@@ -115,7 +115,7 @@ if (! jSuites && typeof(require) === 'function') {
             // CSV source
             csv:null,
             // Filename
-            csvFileName:'jexcel',
+            csvFileName:'jspreadsheet',
             // Consider first line as header
             csvHeaders:true,
             // Delimiters
@@ -241,7 +241,7 @@ if (! jSuites && typeof(require) === 'function') {
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"Jspreadsheet CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jspreadsheet/v4",
         };
     
         // Loading initial configuration from user
@@ -363,7 +363,7 @@ if (! jSuites && typeof(require) === 'function') {
         }
 
         /**
-         * Prepare the jexcel table
+         * Prepare the jspreadsheet table
          * 
          * @Param config
          */
@@ -632,22 +632,22 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             });
     
-            // Powered by jExcel
+            // Powered by Jspreadsheet
             var ads = document.createElement('a');
-            ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
+            ads.setAttribute('href', 'https://bossanova.uk/jspreadsheet/');
             obj.ads = document.createElement('div');
             obj.ads.className = 'jexcel_about';
             try {
                 if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
                     sessionStorage.setItem('jexcel', true);
                     var img = document.createElement('img');
-                    img.src = '//bossanova.uk/jexcel/logo.png';
+                    img.src = '//bossanova.uk/jspreadsheet/logo.png';
                     ads.appendChild(img);
                 }
             } catch (exception) {
             }
             var span = document.createElement('span');
-            span.innerHTML = 'Jexcel spreadsheet';
+            span.innerHTML = 'Jspreadsheet spreadsheet';
             ads.appendChild(span);
             obj.ads.appendChild(ads);
 
@@ -3046,7 +3046,7 @@ if (! jSuites && typeof(require) === 'function') {
          * Update scroll position based on the selection
          */
         obj.updateScroll = function(direction) {
-            // jExcel Container information
+            // Jspreadsheet Container information
             var contentRect = obj.content.getBoundingClientRect();
             var x1 = contentRect.left;
             var y1 = contentRect.top;
@@ -4093,7 +4093,7 @@ if (! jSuites && typeof(require) === 'function') {
                         // If delete all rows, and set allowDeletingAllRows false, will stay one row
                         if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
                             numOfRows--;
-                            console.error('JEXCEL. It is not possible to delete the last row');
+                            console.error('Jspreadsheet. It is not possible to delete the last row');
                         }
     
                         // Remove node
@@ -4135,7 +4135,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
                     }
                 } else {
-                    console.error('JEXCEL. It is not possible to delete the last row');
+                    console.error('Jspreadsheet. It is not possible to delete the last row');
                 }
             }
         }
@@ -4541,7 +4541,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
                     }
                 } else {
-                    console.error('JEXCEL. It is not possible to delete the last column');
+                    console.error('Jspreadsheet. It is not possible to delete the last column');
                 }
             }
         }
@@ -6174,7 +6174,7 @@ if (! jSuites && typeof(require) === 'function') {
         }
     
         /**
-         * jExcel paste method
+         * Jspreadsheet paste method
          * 
          * @param integer row number
          * @return string value
@@ -7036,6 +7036,7 @@ if (! jSuites && typeof(require) === 'function') {
         el.addEventListener("mousewheel", obj.wheelControls);
     
         el.jexcel = obj;
+        el.jspreadsheet = obj;
     
         obj.init();
     
@@ -8554,12 +8555,16 @@ if (! jSuites && typeof(require) === 'function') {
      */
     if (typeof(jQuery) != 'undefined') {
         (function($){
-            $.fn.jexcel = function(method) {
+            $.fn.jspreadsheet = $.fn.jexcel = function(mixed) {
                 var spreadsheetContainer = $(this).get(0);
                 if (! spreadsheetContainer.jexcel) {
                     return jexcel($(this).get(0), arguments[0]);
                 } else {
-                    return spreadsheetContainer.jexcel[method].apply(this, Array.prototype.slice.call( arguments, 1 ));
+                    if (Array.isArray(spreadsheetContainer.jexcel)) {
+                        return spreadsheetContainer.jexcel[mixed][arguments[1]].apply(this, Array.prototype.slice.call( arguments, 2 ));
+                    } else {
+                        return spreadsheetContainer.jexcel[mixed].apply(this, Array.prototype.slice.call( arguments, 1 ));
+                    }
                 }
             };
     
