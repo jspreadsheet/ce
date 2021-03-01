@@ -1,6 +1,6 @@
 # Jspreadsheet CE v4: The JavaScript spreadsheet
 
-<b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br>
+<b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br> 
 
 [**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
 with other spreadsheet software. You can create an online spreadsheet table from a JS array,
