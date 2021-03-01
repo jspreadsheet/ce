@@ -6214,13 +6214,25 @@ if (! jSuites && typeof(require) === 'function') {
                 var colIndex = parseInt(x);
                 var rowIndex = parseInt(y);
                 var row = null;
+
+                var pastedCells = [];
     
                 // Go through the columns to get the data
                 while (row = data[j]) {
                     i = 0;
                     colIndex = parseInt(x);
+
+                    pastedCells.push(rowIndex);
+                    pastedCells[rowIndex] = [];
     
                     while (row[i] != null) {
+                        // Check if column is not rewritten in one paste
+                        if(pastedCells[rowIndex].includes(colIndex)){
+                            i++
+                            continue;
+                        }
+                        pastedCells[rowIndex].push(colIndex);
+
                         // Update and keep history
                         var record = obj.updateCell(colIndex, rowIndex, row[i]);
                         // Keep history
