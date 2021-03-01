@@ -7,10 +7,13 @@
         "url": "https://github.com/jspreadsheet/ce.git"
     },
     "author": {
-        "name": "Contact <contact@spreadsheet.com>"
+        "name": "Contact <contact@jspreadsheet.com>"
     },
     "keywords": [
         "spreadsheet",
+        "online spreadsheet",
+        "jspreadsheet",
+        "jexcel",
         "tables",
         "table",
         "excel",
@@ -23,8 +26,8 @@
     "dependencies": {
         "jsuites": "^4.1.0"
     },
-    "main": "dist/jexcel.js",
-    "version": "4.6.1",
+    "main": "dist/index.js",
+    "version": "4.6.2",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip"
