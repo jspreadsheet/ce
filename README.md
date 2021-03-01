@@ -268,7 +268,7 @@ docker-compose exec bash php
 
 
 ## Copyright and license
-Jspreadsheet CE is released under the [MIT license]. Contact <contact@jexcel.net>
+Jspreadsheet CE is released under the [MIT license]. Contact <contact@jspreadsheet.com>
 
 ## Other interesting tools
 - [jSuites - JavaScript plugins & Webcomponents](https://jsuites.net)
