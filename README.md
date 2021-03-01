@@ -133,11 +133,11 @@ This example brings a very nice feature to deal with large table datasets.
 
 ## Jspreadsheet CE History
 
-### Jspreadsheet 4.6
+### Jspreadsheet CE 4.6
 
 <b>Jexcel</b> has been renamed to <b>Jspreadsheet</b>
 
-### Jexcel 4.0.0
+### Jspreadsheet CE 4.0.0
 
 A special thank to the [FDL - Fonds de Dotation du Libre](https://www.fdl-lef.org/) support and sponsorship that make this version possible with so many nice features.
 
@@ -156,29 +156,29 @@ A special thank to the [FDL - Fonds de Dotation du Libre](https://www.fdl-lef.or
 - New events such as: onevent, onchangepage, onbeforesave, onsave
 - More examples and documentation
 
-### Jexcel 3.9.0
+### Jspreadsheet CE 3.9.0 (Jexcel)
 - New methods
 - General fixes
 
-### Jexcel 3.6.0
+### Jspreadsheet CE 3.6.0 (Jexcel)
 - Better formula parsing
 - New events
 - New initialization options
 - General fixes
 
-### Jexcel 3.2.3
+### Jspreadsheet CE 3.2.3 (Jexcel)
 - getMeta, setMeta methods
 - Npm package with jSuites
 - General fixes
 
 
-### Jexcel CE 3.0.1
+### Jspreadsheet CE 3.0.1 (Jexcel)
 
-jExcel CE v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
+Jspreadsheet CE v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
 complete compatibility with the previous version. If you are upgrating you might need to implement a few updates in your code.
-If you have questions, you can review the article upgrating from jExcel CE v2 or Handsontable.
+If you have questions, you can review the article upgrating from Jspreadsheet CE v2 or Handsontable.
 
-The jExcel CE v3 brings lot of great new features:
+The Jspreadsheet CE v3 brings lot of great new features:
 
 - Drag and drop columns.
 - Resizable rows.
@@ -206,14 +206,14 @@ Big improviments are included, such as:
 - XLXS support using a custom sheetjs (experimental).
 
 
-### Jexcel CE 2.1.0
+### Jspreadsheet CE 2.1.0 (Jexcel)
 
 We are glad to bring you the latest jQuery plugin version, with the following improvements:
 
 - Mobile touch fixes.
 - Paste fixes & New CSV parser.
 
-### Jexcel CE 2.0.0
+### Jspreadsheet CE 2.0.0 (Jexcel)
 
 - New radio column.
 - New dropdown with autocomplete and multiple selection options.
@@ -226,23 +226,23 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - New table custom toolbar.
 - New responsive calendar picker.
 
-### Jexcel CE 1.5.7
+### Jspreadsheet CE 1.5.7 (Jexcel)
 
 - Checkbox column type improvements.
 - Destroy jQuery table updates.
 
-### Jexcel CE 1.5.1
+### Jspreadsheet CE 1.5.1 (Jexcel)
 
 - Spreadsheet data overflow and fixed headers. See an <a href='/jexcel/examples/table-with-fixed-headers'>example</a>.
 - Navigation improvements.
 
 
-### Jexcel CE 1.5.0
+### Jspreadsheet CE 1.5.0 (Jexcel)
 
-- Relative insertRow, deleteRow, insertColumn, deleteColumn. See an <a href='/jexcel/examples/working-with-the-data'>example</a>.
+- Relative insertRow, deleteRow, insertColumn, deleteColumn.
 - Redo, Undo action tracker for insertRow, deleteRow, insertColumn, deleteColumn, moveRow.
 - New formula column recursive chain.
-- New alternative design option bootstrap-like. See an <a href='/jexcel/examples/a-custom-table-design'>example</a>.
+- New alternative design option bootstrap-like.
 - `updateSettings` updates.
 
 
