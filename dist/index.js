@@ -4831,7 +4831,9 @@ if (! jSuites && typeof(require) === 'function') {
         obj.showColumn = function(colNumber) {
             obj.headers[colNumber].style.display = '';
             obj.colgroup[colNumber].style.display = '';
-            obj.filters[colNumber].style.display = '';
+            if (obj.filters.length > colNumber) {
+                obj.filters[colNumber].style.display = '';
+            }
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = '';
             }
@@ -4843,7 +4845,9 @@ if (! jSuites && typeof(require) === 'function') {
         obj.hideColumn = function(colNumber) {
             obj.headers[colNumber].style.display = 'none';
             obj.colgroup[colNumber].style.display = 'none';
-            obj.filters[colNumber].style.display = 'none';
+            if (obj.filters.length > colNumber) {
+                obj.filters[colNumber].style.display = 'none';
+            }
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = 'none';
             }
