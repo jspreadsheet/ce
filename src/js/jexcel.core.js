@@ -4797,8 +4797,8 @@ var jexcel = (function(el, options) {
     obj.showColumn = function(colNumber) {
         obj.headers[colNumber].style.display = '';
         obj.colgroup[colNumber].style.display = '';
-        if (obj.filter.children.length > colNumber) {
-            obj.filter.children[colNumber].style.display = '';
+        if (obj.filter.children.length > colNumber + 1) {
+            obj.filter.children[colNumber + 1].style.display = '';
         }
         for (var j = 0; j < obj.options.data.length; j++) {
             obj.records[j][colNumber].style.display = '';
@@ -4811,8 +4811,8 @@ var jexcel = (function(el, options) {
     obj.hideColumn = function(colNumber) {
         obj.headers[colNumber].style.display = 'none';
         obj.colgroup[colNumber].style.display = 'none';
-        if (obj.filter.children.length > colNumber) {
-            obj.filter.children[colNumber].style.display = 'none';
+        if (obj.filter.children.length > colNumber + 1) {
+            obj.filter.children[colNumber + 1].style.display = 'none';
         }
         for (var j = 0; j < obj.options.data.length; j++) {
             obj.records[j][colNumber].style.display = 'none';
