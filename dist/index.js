@@ -4845,6 +4845,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.hideColumn = function(colNumber) {
             obj.headers[colNumber].style.display = 'none';
             obj.colgroup[colNumber].style.display = 'none';
+            console.log({children: obj.filter.children, colNumber, filters: obj.filters, filter: obj.filter });
             if (obj.filter.children.length > colNumber) {
                 obj.filter.children[colNumber].style.display = 'none';
             }
