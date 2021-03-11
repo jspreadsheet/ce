@@ -4831,7 +4831,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.showColumn = function(colNumber) {
             obj.headers[colNumber].style.display = '';
             obj.colgroup[colNumber].style.display = '';
-            if (obj.filter.children.length > colNumber + 1) {
+            if (obj.filter && obj.filter.children.length > colNumber + 1) {
                 obj.filter.children[colNumber + 1].style.display = '';
             }
             for (var j = 0; j < obj.options.data.length; j++) {
@@ -4845,7 +4845,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.hideColumn = function(colNumber) {
             obj.headers[colNumber].style.display = 'none';
             obj.colgroup[colNumber].style.display = 'none';
-            if (obj.filter.children.length > colNumber + 1) {
+            if (obj.filter && obj.filter.children.length > colNumber + 1) {
                 obj.filter.children[colNumber + 1].style.display = 'none';
             }
             for (var j = 0; j < obj.options.data.length; j++) {
