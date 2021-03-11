@@ -4831,7 +4831,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.showColumn = function(colNumber) {
             obj.headers[colNumber].style.display = '';
             obj.colgroup[colNumber].style.display = '';
-            if obj.filter && (obj.filter.children.length > colNumber + 1) {
+            if (obj.filter && (obj.filter.children.length > colNumber + 1) {
                 obj.filter.children[colNumber + 1].style.display = '';
             }
             for (var j = 0; j < obj.options.data.length; j++) {
