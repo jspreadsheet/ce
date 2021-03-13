@@ -1304,7 +1304,7 @@ if (! jSuites && typeof(require) === 'function') {
             obj.headers[colNumber].setAttribute('data-x', colNumber);
             obj.headers[colNumber].style.textAlign = colAlign;
             if (obj.options.columns[colNumber].title) {
-                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].textContent);
+                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
             }
     
             // Width control
