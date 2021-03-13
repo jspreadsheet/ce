@@ -647,7 +647,7 @@ if (! jSuites && typeof(require) === 'function') {
             } catch (exception) {
             }
             var span = document.createElement('span');
-            span.innerHTML = 'Jspreadsheet spreadsheet';
+            span.innerHTML = 'Jspreadsheet CE';
             ads.appendChild(span);
             obj.ads.appendChild(ads);
 
@@ -4099,7 +4099,7 @@ if (! jSuites && typeof(require) === 'function') {
                         // If delete all rows, and set allowDeletingAllRows false, will stay one row
                         if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
                             numOfRows--;
-                            console.error('Jspreadsheet. It is not possible to delete the last row');
+                            console.error('Jspreadsheet: It is not possible to delete the last row');
                         }
     
                         // Remove node
@@ -4141,7 +4141,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
                     }
                 } else {
-                    console.error('Jspreadsheet. It is not possible to delete the last row');
+                    console.error('Jspreadsheet: It is not possible to delete the last row');
                 }
             }
         }
@@ -4547,7 +4547,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
                     }
                 } else {
-                    console.error('Jspreadsheet. It is not possible to delete the last column');
+                    console.error('Jspreadsheet: It is not possible to delete the last column');
                 }
             }
         }
@@ -6968,7 +6968,7 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.lazyLoading == true) {
                 if (jexcel.timeControlLoading == null) {
                     jexcel.timeControlLoading = setTimeout(function() {
-                        if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight) {
+                        if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight - 10) {
                             if (obj.loadDown()) {
                                 if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
                                     obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
@@ -7242,11 +7242,7 @@ if (! jSuites && typeof(require) === 'function') {
                             // Ctrl + C
                             jexcel.current.copy(true);
                             e.preventDefault();
-                        } else if (e.which == 67) {
-                            // Ctrl + C
-                            jexcel.current.copy(true);
-                            e.preventDefault();
-                        } else if (e.which == 88) {
+                               } else if (e.which == 88) {
                             // Ctrl + X
                             if (jexcel.current.options.editable == true) {
                                 jexcel.cutControls();
@@ -8419,7 +8415,7 @@ if (! jSuites && typeof(require) === 'function') {
             var style = {};
             var classes = {};
 
-            var content = el.querySelectorAll('table > tr, tbody tr');
+            var content = el.querySelectorAll(':scope > tr, :scope > tbody > tr');
             for (var j = 0; j < content.length; j++) {
                 options.data[rowNumber] = [];
                 if (options.parseTableFirstRowAsHeader == true && ! headers.length && j == 0) {
