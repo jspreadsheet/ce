@@ -374,7 +374,7 @@ jexcel.createFromTable = function(el, options) {
         var rows = {};
         var style = {};
 
-        var content = el.querySelectorAll('table > tr, tbody tr');
+        var content = el.querySelectorAll(':scope > tr, :scope > tbody > tr');
         for (var j = 0; j < content.length; j++) {
             options.data[rowNumber] = [];
             if (options.parseTableFirstRowAsHeader == true && j == 0) {
