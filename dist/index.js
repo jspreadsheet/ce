@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.6.2
+ * Jspreadsheet v4.7.0
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -20,8 +20,26 @@ if (! jSuites && typeof(require) === 'function') {
 
     'use strict';
 
-    // Jspreadsheet core object
+    // Basic version information
+    var Version = function() {
+        // Information
+        var info = {
+            title: 'Jspreadsheet',
+            version: '4.7.0',
+            type: 'CE',
+            host: 'https://bossanova.uk/jspreadsheet',
+            license: 'MIT',
+            print: function() {
+                return [ this.title + ' ' + this.type + ' ' + this.version, this.host, this.license ].join('\r\n'); 
+            }
+        }
 
+        return function() {
+            return info;
+        };
+    }();
+
+    // Jspreadsheet core object
     var jexcel = (function(el, options) {
         // Create jspreadsheet object
         var obj = {};
@@ -241,7 +259,7 @@ if (! jSuites && typeof(require) === 'function') {
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"Jspreadsheet CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jspreadsheet/v4",
+            about: true,
         };
     
         // Loading initial configuration from user
@@ -1305,6 +1323,9 @@ if (! jSuites && typeof(require) === 'function') {
             obj.headers[colNumber].style.textAlign = colAlign;
             if (obj.options.columns[colNumber].title) {
                 obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
+            }
+            if (obj.options.columns[colNumber].id) {
+                obj.headers[colNumber].setAttribute('id', obj.options.columns[colNumber].id);
             }
     
             // Width control
@@ -6940,7 +6961,11 @@ if (! jSuites && typeof(require) === 'function') {
                     items.push({
                         title:obj.options.text.about,
                         onclick:function() {
-                            alert(obj.options.about);
+                            if (obj.options.about === true) {
+                                alert(Version().print());
+                            } else {
+                                alert(obj.options.about);
+                            }
                         }
                     });
                 }
@@ -7049,6 +7074,8 @@ if (! jSuites && typeof(require) === 'function') {
         return obj;
     });
     
+    jexcel.version = Version;
+
     jexcel.current = null;
     jexcel.timeControl = null;
     jexcel.timeControlLoading = null;
@@ -8395,11 +8422,30 @@ if (! jSuites && typeof(require) === 'function') {
                 options.columns[i].width = width + 'px';
                 options.columns[i].title = header.innerHTML;
                 options.columns[i].align = header.style.textAlign || 'center';
+
+                if (info = header.getAttribute('name')) {
+                    options.columns[i].name = info;
+            }
+                if (info = header.getAttribute('id')) {
+                    options.columns[i].id = info;
+                }
             }
 
             // Headers
-            var headers = el.querySelectorAll('thead > tr');
+            var nested = [];
+            var headers = el.querySelectorAll(':scope > thead > tr');
             if (headers.length) {
+                for (var j = 0; j < headers.length - 1; j++) {
+                    var cells = [];
+                    for (var i = 0; i < headers[j].children.length; i++) {
+                        var row = {
+                            title: headers[j].children[i].innerText,
+                            colspan: headers[j].children[i].getAttribute('colspan') || 1,
+                        };
+                        cells.push(row);
+                    }
+                    nested.push(cells);
+                }
                 // Get the last row in the thead
                 headers = headers[headers.length-1].children;
                 // Go though the headers
@@ -8480,6 +8526,10 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
 
+            // Nested
+            if (Object.keys(nested).length > 0) {
+                options.nestedHeaders = nested;
+            }
             // Style
             if (Object.keys(style).length > 0) {
                 options.style = style;
