@@ -1,12 +1,12 @@
-// Jexcel core object
+// Jspreadsheet core object
 
 var jexcel = (function(el, options) {
-    // Create jexcel object
+    // Create jspreadsheet object
     var obj = {};
     obj.options = {};
 
     if (! (el instanceof Element || el instanceof HTMLDocument)) {
-        console.error('JEXCEL: el is not a valid DOM element');
+        console.error('Jspreadsheet: el is not a valid DOM element');
         return false;
     } else if (el.tagName == 'TABLE') {
         if (options = jexcel.createFromTable(el, options)) {
@@ -15,7 +15,7 @@ var jexcel = (function(el, options) {
             el.remove();
             el = div;
         } else {
-            console.error('JEXCEL: el is not a valid DOM element');
+            console.error('Jspreadsheet: el is not a valid DOM element');
             return false;
         }
     }
@@ -93,7 +93,7 @@ var jexcel = (function(el, options) {
         // CSV source
         csv:null,
         // Filename
-        csvFileName:'jexcel',
+        csvFileName:'jspreadsheet',
         // Consider first line as header
         csvHeaders:true,
         // Delimiters
@@ -126,6 +126,7 @@ var jexcel = (function(el, options) {
         meta: null,
         // Style
         style:null,
+        classes:null,
         // Execute formulas
         parseFormulas:true,
         autoIncrement:true,
@@ -218,7 +219,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"jExcel CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jexcel/v3",
+        about:"Jspreadsheet CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jspreadsheet/v4",
     };
 
     // Loading initial configuration from user
@@ -285,7 +286,7 @@ var jexcel = (function(el, options) {
 
     // Lazy loading
     if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
-        console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
+        console.error('Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
         obj.options.lazyLoading = false;
     }
     
@@ -340,7 +341,7 @@ var jexcel = (function(el, options) {
     }
 
     /**
-     * Prepare the jexcel table
+     * Prepare the jspreadsheet table
      * 
      * @Param config
      */
@@ -610,22 +611,22 @@ var jexcel = (function(el, options) {
             }
         });
 
-        // Powered by jExcel
+        // Powered by Jspreadsheet
         var ads = document.createElement('a');
-        ads.setAttribute('href', 'https://bossanova.uk/jexcel/');
+        ads.setAttribute('href', 'https://bossanova.uk/jspreadsheet/');
         obj.ads = document.createElement('div');
         obj.ads.className = 'jexcel_about';
         try {
             if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
                 sessionStorage.setItem('jexcel', true);
                 var img = document.createElement('img');
-                img.src = '//bossanova.uk/jexcel/logo.png';
+                img.src = '//bossanova.uk/jspreadsheet/logo.png';
                 ads.appendChild(img);
             }
         } catch (exception) {
         }
         var span = document.createElement('span');
-        span.innerHTML = 'Jexcel spreadsheet';
+        span.innerHTML = 'Jspreadsheet CE';
         ads.appendChild(span);
         obj.ads.appendChild(ads);
 
@@ -676,6 +677,7 @@ var jexcel = (function(el, options) {
             if (obj.options.tableOverflow == true) {
                 if (obj.options.tableHeight) {
                     obj.content.style['overflow-y'] = 'auto';
+                    obj.content.style['box-shadow'] = 'rgb(221 221 221) 2px 2px 5px 0.1px';
                     obj.content.style.maxHeight = obj.options.tableHeight;
                 }
                 if (obj.options.tableWidth) {
@@ -710,6 +712,15 @@ var jexcel = (function(el, options) {
         // Style
         if (obj.options.style) {
             obj.setStyle(obj.options.style, null, null, 1, 1);
+        }
+
+        // Classes
+        if (obj.options.classes) {
+            var k = Object.keys(obj.options.classes);
+            for (var i = 0; i < k.length; i++) {
+                var cell = jexcel.getIdFromColumnName(k[i], true);
+                obj.records[cell[1]][cell[0]].classList.add(obj.options.classes[k[i]]);
+            }
         }
     }
 
@@ -825,7 +836,7 @@ var jexcel = (function(el, options) {
 
             if (obj.options.pagination) {
                 obj.options.pagination = false;
-                console.error('JEXCEL: Pagination will be disable due the lazyLoading');
+                console.error('Jspreadsheet: Pagination will be disable due the lazyLoading');
             }
         } else if (obj.options.pagination) {
             // Pagination
@@ -1273,7 +1284,7 @@ var jexcel = (function(el, options) {
         obj.headers[colNumber].setAttribute('data-x', colNumber);
         obj.headers[colNumber].style.textAlign = colAlign;
         if (obj.options.columns[colNumber].title) {
-            obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].textContent);
+            obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
         }
 
         // Width control
@@ -1684,7 +1695,7 @@ var jexcel = (function(el, options) {
      */
     obj.openFilter = function(columnId) {
         if (! obj.options.filters) {
-            console.log('JEXCEL: filters not enabled.');
+            console.log('Jspreadsheet: filters not enabled.');
         } else {
             // Make sure is integer
             columnId = parseInt(columnId);
@@ -2726,6 +2737,12 @@ var jexcel = (function(el, options) {
         var updated = null;
         var previousState = obj.resetSelection();
 
+        // select column
+        if (y1 == null) {
+            y1 = 0;
+            y2 = obj.rows.length - 1; 
+        }
+
         // Same element
         if (x2 == null) {
             x2 = x1;
@@ -3017,7 +3034,7 @@ var jexcel = (function(el, options) {
      * Update scroll position based on the selection
      */
     obj.updateScroll = function(direction) {
-        // jExcel Container information
+        // Jspreadsheet Container information
         var contentRect = obj.content.getBoundingClientRect();
         var x1 = contentRect.left;
         var y1 = contentRect.top;
@@ -4065,7 +4082,7 @@ var jexcel = (function(el, options) {
                     // If delete all rows, and set allowDeletingAllRows false, will stay one row
                     if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
                         numOfRows--;
-                        console.error('JEXCEL. It is not possible to delete the last row');
+                        console.error('Jspreadsheet: It is not possible to delete the last row');
                     }
 
                     // Remove node
@@ -4107,7 +4124,7 @@ var jexcel = (function(el, options) {
                     obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
                 }
             } else {
-                console.error('JEXCEL. It is not possible to delete the last row');
+                console.error('Jspreadsheet: It is not possible to delete the last row');
             }
         }
     }
@@ -4332,6 +4349,12 @@ var jexcel = (function(el, options) {
                         var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) + numOfColumns;
                         obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
                         obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+                        var o = obj.thead.children[j].children[obj.thead.children[j].children.length-1].getAttribute('data-column');
+                        o = o.split(',');
+                        for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                            o.push(col);
+                        }
+                        obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('data-column', o);
                     }
                 } else {
                     var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
@@ -4507,7 +4530,7 @@ var jexcel = (function(el, options) {
                     obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
                 }
             } else {
-                console.error('JEXCEL. It is not possible to delete the last column');
+                console.error('Jspreadsheet: It is not possible to delete the last column');
             }
         }
     }
@@ -5033,7 +5056,7 @@ var jexcel = (function(el, options) {
             }
 
             // Range with $ remove $
-            expression = expression.replace(/\$?([A-Z])+\$?([0-9])+/g, "$1$2");
+            expression = expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g, "$1$2");
 
             var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
             if (tokens && tokens.length) {
@@ -6146,7 +6169,7 @@ var jexcel = (function(el, options) {
     }
 
     /**
-     * jExcel paste method
+     * Jspreadsheet paste method
      * 
      * @param integer row number
      * @return string value
@@ -6934,7 +6957,7 @@ var jexcel = (function(el, options) {
         if (obj.options.lazyLoading == true) {
             if (jexcel.timeControlLoading == null) {
                 jexcel.timeControlLoading = setTimeout(function() {
-                    if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight) {
+                    if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight - 10) {
                         if (obj.loadDown()) {
                             if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
                                 obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
@@ -7008,6 +7031,7 @@ var jexcel = (function(el, options) {
     el.addEventListener("mousewheel", obj.wheelControls);
 
     el.jexcel = obj;
+    el.jspreadsheet = obj;
 
     obj.init();
 
@@ -7340,7 +7364,7 @@ jexcel.mouseDownControls = function(e) {
                         }
                     } else if (jexcel.current.options.columnDrag == true && info.height - e.offsetY < 6) {
                         if (jexcel.current.isColMerged(columnId).length) {
-                            console.error('JEXCEL: This column is part of a merged cell.');
+                            console.error('Jspreadsheet: This column is part of a merged cell.');
                         } else {
                             // Reset selection
                             jexcel.current.resetSelection();
@@ -7416,9 +7440,9 @@ jexcel.mouseDownControls = function(e) {
                         e.target.parentNode.classList.add('resizing');
                     } else if (jexcel.current.options.rowDrag == true && info.width - e.offsetX < 6) {
                         if (jexcel.current.isRowMerged(rowId).length) {
-                            console.error('JEXCEL: This row is part of a merged cell');
+                            console.error('Jspreadsheet: This row is part of a merged cell');
                         } else if (jexcel.current.options.search == true && jexcel.current.results) {
-                            console.error('JEXCEL: Please clear your search before perform this action');
+                            console.error('Jspreadsheet: Please clear your search before perform this action');
                         } else {
                             // Reset selection
                             jexcel.current.resetSelection();
@@ -7729,7 +7753,7 @@ jexcel.mouseOverControls = function(e) {
                 if (jexcel.current.dragging.column) {
                     if (columnId) {
                         if (jexcel.current.isColMerged(columnId).length) {
-                            console.error('JEXCEL: This column is part of a merged cell.');
+                            console.error('Jspreadsheet: This column is part of a merged cell.');
                         } else {
                             for (var i = 0; i < jexcel.current.headers.length; i++) {
                                 jexcel.current.headers[i].classList.remove('dragging-left');
@@ -7760,7 +7784,7 @@ jexcel.mouseOverControls = function(e) {
                 } else {
                     if (rowId) {
                         if (jexcel.current.isRowMerged(rowId).length) {
-                            console.error('JEXCEL: This row is part of a merged cell.');
+                            console.error('Jspreadsheet: This row is part of a merged cell.');
                         } else {
                             var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
                             if (jexcel.current.dragging.element != target) {

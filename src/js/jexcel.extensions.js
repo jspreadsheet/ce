@@ -373,11 +373,12 @@ jexcel.createFromTable = function(el, options) {
         var mergeCells = {};
         var rows = {};
         var style = {};
+        var classes = {};
 
-        var content = el.querySelectorAll('table > tr, tbody tr');
+        var content = el.querySelectorAll(':scope > tr, :scope > tbody > tr');
         for (var j = 0; j < content.length; j++) {
             options.data[rowNumber] = [];
-            if (options.parseTableFirstRowAsHeader == true && j == 0) {
+                if (options.parseTableFirstRowAsHeader == true && ! headers.length && j == 0) {
                 for (var i = 0; i < content[j].children.length; i++) {
                     parseHeader(content[j].children[i]);
                 }
@@ -396,6 +397,12 @@ jexcel.createFromTable = function(el, options) {
 
                     // Key
                     var cellName = jexcel.getColumnNameFromId([ i, j ]);
+
+                    // Classes
+                    var tmp = content[j].children[i].getAttribute('class');
+                    if (tmp) {
+                        classes[cellName] = tmp;
+                    }
 
                     // Merged cells
                     var mergedColspan = parseInt(content[j].children[i].getAttribute('colspan')) || 0;
@@ -435,7 +442,7 @@ jexcel.createFromTable = function(el, options) {
 
         // Style
         if (Object.keys(style).length > 0) {
-            //options.style = style;
+            options.style = style;
         }
         // Merged
         if (Object.keys(mergeCells).length > 0) {
@@ -445,7 +452,24 @@ jexcel.createFromTable = function(el, options) {
         if (Object.keys(rows).length > 0) {
             options.rows = rows;
         }
-
+        // Classes
+        if (Object.keys(classes).length > 0) {
+            options.classes = classes;
+        }
+        var content = el.querySelectorAll('tfoot tr');
+        if (content.length) {
+            var footers = [];
+            for (var j = 0; j < content.length; j++) {
+                var footer = [];
+                for (var i = 0; i < content[j].children.length; i++) {
+                    footer.push(content[j].children[i].innerText);
+                }
+                footers.push(footer);
+            }
+            if (Object.keys(footers).length > 0) {
+                options.footers = footers;
+            }
+        }
         // TODO: data-hiddencolumns="3,4"
         
         // I guess in terms the better column type
@@ -492,12 +516,16 @@ jexcel.createFromTable = function(el, options) {
  */
 if (typeof(jQuery) != 'undefined') {
     (function($){
-        $.fn.jexcel = function(method) {
+        $.fn.jspreadsheet = $.fn.jexcel = function(mixed) {
             var spreadsheetContainer = $(this).get(0);
             if (! spreadsheetContainer.jexcel) {
                 return jexcel($(this).get(0), arguments[0]);
             } else {
-                return spreadsheetContainer.jexcel[method].apply(this, Array.prototype.slice.call( arguments, 1 ));
+                if (Array.isArray(spreadsheetContainer.jexcel)) {
+                    return spreadsheetContainer.jexcel[mixed][arguments[1]].apply(this, Array.prototype.slice.call( arguments, 2 ));
+                } else {
+                    return spreadsheetContainer.jexcel[mixed].apply(this, Array.prototype.slice.call( arguments, 1 ));
+                }
             }
         };
 

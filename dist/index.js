@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.6.2
+ * Jspreadsheet v4.7.0
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -20,8 +20,26 @@ if (! jSuites && typeof(require) === 'function') {
 
     'use strict';
 
-    // Jspreadsheet core object
+    // Basic version information
+    var Version = function() {
+        // Information
+        var info = {
+            title: 'Jspreadsheet',
+            version: '4.7.0',
+            type: 'CE',
+            host: 'https://bossanova.uk/jspreadsheet',
+            license: 'MIT',
+            print: function() {
+                return [ this.title + ' ' + this.type + ' ' + this.version, this.host, this.license ].join('\r\n'); 
+            }
+        }
 
+        return function() {
+            return info;
+        };
+    }();
+
+    // Jspreadsheet core object
     var jexcel = (function(el, options) {
         // Create jspreadsheet object
         var obj = {};
@@ -241,7 +259,7 @@ if (! jSuites && typeof(require) === 'function') {
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"Jspreadsheet CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jspreadsheet/v4",
+            about: true,
         };
     
         // Loading initial configuration from user
@@ -647,7 +665,7 @@ if (! jSuites && typeof(require) === 'function') {
             } catch (exception) {
             }
             var span = document.createElement('span');
-            span.innerHTML = 'Jspreadsheet spreadsheet';
+            span.innerHTML = 'Jspreadsheet CE';
             ads.appendChild(span);
             obj.ads.appendChild(ads);
 
@@ -1304,7 +1322,10 @@ if (! jSuites && typeof(require) === 'function') {
             obj.headers[colNumber].setAttribute('data-x', colNumber);
             obj.headers[colNumber].style.textAlign = colAlign;
             if (obj.options.columns[colNumber].title) {
-                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].textContent);
+                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
+            }
+            if (obj.options.columns[colNumber].id) {
+                obj.headers[colNumber].setAttribute('id', obj.options.columns[colNumber].id);
             }
     
             // Width control
@@ -2755,6 +2776,12 @@ if (! jSuites && typeof(require) === 'function') {
             var updated = null;
             var previousState = obj.resetSelection();
     
+            // select column
+            if (y1 == null) {
+                y1 = 0;
+                y2 = obj.rows.length - 1; 
+            }
+
             // Same element
             if (x2 == null) {
                 x2 = x1;
@@ -4093,7 +4120,7 @@ if (! jSuites && typeof(require) === 'function') {
                         // If delete all rows, and set allowDeletingAllRows false, will stay one row
                         if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
                             numOfRows--;
-                            console.error('Jspreadsheet. It is not possible to delete the last row');
+                            console.error('Jspreadsheet: It is not possible to delete the last row');
                         }
     
                         // Remove node
@@ -4135,7 +4162,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
                     }
                 } else {
-                    console.error('Jspreadsheet. It is not possible to delete the last row');
+                    console.error('Jspreadsheet: It is not possible to delete the last row');
                 }
             }
         }
@@ -4541,7 +4568,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
                     }
                 } else {
-                    console.error('Jspreadsheet. It is not possible to delete the last column');
+                    console.error('Jspreadsheet: It is not possible to delete the last column');
                 }
             }
         }
@@ -6940,7 +6967,11 @@ if (! jSuites && typeof(require) === 'function') {
                     items.push({
                         title:obj.options.text.about,
                         onclick:function() {
-                            alert(obj.options.about);
+                            if (obj.options.about === true) {
+                                alert(Version().print());
+                            } else {
+                                alert(obj.options.about);
+                            }
                         }
                     });
                 }
@@ -6968,7 +6999,7 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.lazyLoading == true) {
                 if (jexcel.timeControlLoading == null) {
                     jexcel.timeControlLoading = setTimeout(function() {
-                        if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight) {
+                        if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight - 10) {
                             if (obj.loadDown()) {
                                 if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
                                     obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
@@ -7049,6 +7080,8 @@ if (! jSuites && typeof(require) === 'function') {
         return obj;
     });
     
+    jexcel.version = Version;
+
     jexcel.current = null;
     jexcel.timeControl = null;
     jexcel.timeControlLoading = null;
@@ -7242,11 +7275,7 @@ if (! jSuites && typeof(require) === 'function') {
                             // Ctrl + C
                             jexcel.current.copy(true);
                             e.preventDefault();
-                        } else if (e.which == 67) {
-                            // Ctrl + C
-                            jexcel.current.copy(true);
-                            e.preventDefault();
-                        } else if (e.which == 88) {
+                               } else if (e.which == 88) {
                             // Ctrl + X
                             if (jexcel.current.options.editable == true) {
                                 jexcel.cutControls();
@@ -8399,11 +8428,30 @@ if (! jSuites && typeof(require) === 'function') {
                 options.columns[i].width = width + 'px';
                 options.columns[i].title = header.innerHTML;
                 options.columns[i].align = header.style.textAlign || 'center';
+
+                if (info = header.getAttribute('name')) {
+                    options.columns[i].name = info;
+            }
+                if (info = header.getAttribute('id')) {
+                    options.columns[i].id = info;
+                }
             }
 
             // Headers
-            var headers = el.querySelectorAll('thead > tr');
+            var nested = [];
+            var headers = el.querySelectorAll(':scope > thead > tr');
             if (headers.length) {
+                for (var j = 0; j < headers.length - 1; j++) {
+                    var cells = [];
+                    for (var i = 0; i < headers[j].children.length; i++) {
+                        var row = {
+                            title: headers[j].children[i].innerText,
+                            colspan: headers[j].children[i].getAttribute('colspan') || 1,
+                        };
+                        cells.push(row);
+                    }
+                    nested.push(cells);
+                }
                 // Get the last row in the thead
                 headers = headers[headers.length-1].children;
                 // Go though the headers
@@ -8419,7 +8467,7 @@ if (! jSuites && typeof(require) === 'function') {
             var style = {};
             var classes = {};
 
-            var content = el.querySelectorAll('table > tr, tbody tr');
+            var content = el.querySelectorAll(':scope > tr, :scope > tbody > tr');
             for (var j = 0; j < content.length; j++) {
                 options.data[rowNumber] = [];
                 if (options.parseTableFirstRowAsHeader == true && ! headers.length && j == 0) {
@@ -8484,6 +8532,10 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
 
+            // Nested
+            if (Object.keys(nested).length > 0) {
+                options.nestedHeaders = nested;
+            }
             // Style
             if (Object.keys(style).length > 0) {
                 options.style = style;
