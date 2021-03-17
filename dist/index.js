@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.7.0
+ * Jspreadsheet v4.7.1
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -25,7 +25,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.7.0',
+            version: '4.7.1',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -6173,29 +6173,31 @@ if (! jSuites && typeof(require) === 'function') {
             obj.hashString = obj.hash(obj.data);
     
             // Any exiting border should go
-            obj.removeCopyingSelection();
-
-            // Border
-            if (obj.highlighted) {
-                for (var i = 0; i < obj.highlighted.length; i++) {
-                    obj.highlighted[i].classList.add('copying');
-                    if (obj.highlighted[i].classList.contains('highlight-left')) {
-                        obj.highlighted[i].classList.add('copying-left');
-                    }
-                    if (obj.highlighted[i].classList.contains('highlight-right')) {
-                        obj.highlighted[i].classList.add('copying-right');
-                    }
-                    if (obj.highlighted[i].classList.contains('highlight-top')) {
-                        obj.highlighted[i].classList.add('copying-top');
-                    }
-                    if (obj.highlighted[i].classList.contains('highlight-bottom')) {
-                        obj.highlighted[i].classList.add('copying-bottom');
+            if (! returnData) {
+                obj.removeCopyingSelection();
+    
+                // Border
+                if (obj.highlighted) {
+                    for (var i = 0; i < obj.highlighted.length; i++) {
+                        obj.highlighted[i].classList.add('copying');
+                        if (obj.highlighted[i].classList.contains('highlight-left')) {
+                            obj.highlighted[i].classList.add('copying-left');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-right')) {
+                            obj.highlighted[i].classList.add('copying-right');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-top')) {
+                            obj.highlighted[i].classList.add('copying-top');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-bottom')) {
+                            obj.highlighted[i].classList.add('copying-bottom');
+                        }
                     }
                 }
+    
+                // Paste event
+                obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
             }
-
-            // Paste event
-            obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
 
             return obj.data;
         }
