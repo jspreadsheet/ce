@@ -9,7 +9,7 @@ It is very easy to integrate any third party JavaScript plugins to create your o
 feature into your application. Jspreadsheet CE has plenty of different input options through its native column types to cover the most common web-based application
 requirements. It is a complete solution for web data management. Create amazing applications with Jspreadsheet CE JavaScript spreadsheet.
 
-## Main advantages
+## Main advantages 
 
 - Make rich and user-friendly web interfaces and applications.
 - You can easily handle complicated data inputs in a way users are used..
