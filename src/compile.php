@@ -4,6 +4,7 @@ if ($handle = opendir('js')) {
     $js = '';
     $css = '';
     while (false !== ($entry = readdir($handle))) {
+        echo "reading { $entry }\n";
         if ($entry != "." && $entry != ".." && (! isset($modules) || in_array(substr($entry, 0, strpos($entry, '.')), $modules))) {
             $js .= file_get_contents('js/'.$entry) . "\r\n\r\n";
         }
@@ -39,5 +40,5 @@ $js
 
 })));";
 
-    file_put_contents('../dist/jexcel.js', $js);
+    file_put_contents('../dist/index.js', $js);
 }
