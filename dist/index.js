@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.7.1
+ * Jspreadsheet v4.7.2
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -25,7 +25,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.7.1',
+            version: '4.7.2',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -6076,6 +6076,8 @@ if (! jSuites && typeof(require) === 'function') {
                 delimiter = "\t";
             }
     
+            var div = new RegExp(delimiter, 'ig');
+
             // Controls
             var header = [];
             var col = [];
@@ -6103,7 +6105,7 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                         // Values
                         var value = obj.options.data[j][i];
-                        if (value.match && (value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
+                        if (value.match && (value.match(div) || value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
                             value = value.replace(new RegExp('"', 'g'), '""');
                             value = '"' + value + '"';
                         }
@@ -6118,7 +6120,7 @@ if (! jSuites && typeof(require) === 'function') {
                             } else {
                                 var label = obj.records[j][i].innerHTML;
                             }
-                            if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                            if (label.match && (label.match(div) || label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
                                 // Scape double quotes
                                 label = label.replace(new RegExp('"', 'g'), '""');
                                 label = '"' + label + '"';

@@ -27,7 +27,7 @@
         "jsuites": "^4.3.0"
     },
     "main": "dist/index.js",
-    "version": "4.7.1",
+    "version": "4.7.2",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip"
