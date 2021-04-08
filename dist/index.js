@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.7.2
+ * Jspreadsheet v4.7.3
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -25,7 +25,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.7.2',
+            version: '4.7.3',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -6019,13 +6019,9 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 // Data
                 var data = '';
-                if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
-                    data += obj.getHeaders().replace(/\s+/gm,' ');
-                    data += "\r\n";
-                }
 
                 // Get data
-                data += obj.copy(false, obj.options.csvDelimiter, true);
+                data += obj.copy(false, obj.options.csvDelimiter, true, includeHeaders, true);
 
                 // Download element
                 var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
@@ -6071,7 +6067,7 @@ if (! jSuites && typeof(require) === 'function') {
          * @param delimiter - \t default to keep compatibility with excel
          * @return string value
          */
-        obj.copy = function(highlighted, delimiter, returnData) {
+        obj.copy = function(highlighted, delimiter, returnData, includeHeaders, download) {
             if (! delimiter) {
                 delimiter = "\t";
             }
@@ -6087,7 +6083,39 @@ if (! jSuites && typeof(require) === 'function') {
             var x = obj.options.data[0].length
             var y = obj.options.data.length
             var tmp = '';
-            var copyHeader = obj.options.includeHeadersOnCopy;
+            var copyHeader = false;
+            var headers = '';
+            var nestedHeaders = '';
+            var numOfCols = 0;
+            var numOfRows = 0;
+
+            if ((download && obj.options.includeHeadersOnDownload == true) ||
+                (! download && obj.options.includeHeadersOnCopy == true) ||
+                (includeHeaders)) {
+                // Nested headers
+                if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                    // Flexible way to handle nestedheaders
+                    if (! (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0])) {
+                        tmp = [obj.options.nestedHeaders];
+                    } else {
+                        tmp = obj.options.nestedHeaders;
+                    }
+
+                    for (var j = 0; j < tmp.length; j++) {
+                        var nested = [];
+                        for (var i = 0; i < tmp[j].length; i++) {
+                            var colspan = parseInt(tmp[j][i].colspan);
+                            nested.push(tmp[j][i].title);
+                            for (var c = 0; c < colspan - 1; c++) {
+                                nested.push('');
+                            }
+                        }
+                        nestedHeaders += nested.join(delimiter) + "\r\n";
+                    }
+                }
+
+                copyHeader = true;
+            }
 
             // Reset container
             obj.style = [];
@@ -6137,22 +6165,28 @@ if (! jSuites && typeof(require) === 'function') {
     
                 if (col.length) {
                     if (copyHeader) {
+                        numOfCols = col.length;
                         row.push(header.join(delimiter));
                     }
                     row.push(col.join(delimiter));
                 }
                 if (colLabel.length) {
+                    numOfRows++;
                     if (copyHeader) {
                         rowLabel.push(header.join(delimiter));
+                        copyHeader = false;
                     }
                     rowLabel.push(colLabel.join(delimiter));
                 }
-                copyHeader = false;
+            }
+
+            if (x == numOfCols &&  y == numOfRows) {
+                headers = nestedHeaders;
             }
 
             // Final string
-            var str = row.join("\r\n");
-            var strLabel = rowLabel.join("\r\n");
+            var str = headers + row.join("\r\n");
+            var strLabel = headers + rowLabel.join("\r\n");
 
             // Create a hidden textarea to copy the values
             if (! returnData) {
