@@ -35,7 +35,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ### Basic demo 
 
-A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet.
+A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet. 
 
 ```html
 <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
