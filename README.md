@@ -11,7 +11,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ## Main advantages 
 
-- Make rich and user-friendly web interfaces and applications.
+- Make rich and user-friendly web interfaces and applications. 
 - You can easily handle complicated data inputs in a way users are used..
 - Improve your user software experience.
 - Create rich CRUDS and beautiful UI.
