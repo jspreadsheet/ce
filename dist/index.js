@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.7.3
+ * Jspreadsheet v4.7.4
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -9,7 +9,6 @@
 
 if (! jSuites && typeof(require) === 'function') {
     var jSuites = require('jsuites');
-    require('jsuites/dist/jsuites.css');
 }
 
 ;(function (global, factory) {
@@ -25,7 +24,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.7.3',
+            version: '4.7.4',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -3671,7 +3670,7 @@ if (! jSuites && typeof(require) === 'function') {
                 oldValue: oldValue,
             });
             // Set comments
-            obj.dispatch('oncomments', el, comments, title);
+            obj.dispatch('oncomments', el, comments, title, cell, cell[0], cell[1]);
         }
     
         /**
