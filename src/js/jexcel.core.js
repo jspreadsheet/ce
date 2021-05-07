@@ -6992,7 +6992,10 @@ var jexcel = (function(el, options) {
         if (scrollLeft > 50) {
             for (var i = 0; i < obj.options.freezeColumns; i++) {
                 if (i > 0) {
-                    width += parseInt(obj.options.columns[i-1].width);
+                    // Must check if the previous column is hidden or not to determin whether the width shoule be added or not! 
+                    if (obj.options.columns[i - 1].type !== "hidden") {
+                        width += parseInt(obj.options.columns[i - 1].width);
+                    }
                 }
                 obj.headers[i].classList.add('jexcel_freezed');
                 obj.headers[i].style.left = width + 'px';
