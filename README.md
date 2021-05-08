@@ -35,21 +35,21 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ### Basic demo 
 
-A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet. 
+A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet. <https://codepen.io/hchiam/pen/qBRzXKK>
 
 ```html
 <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
 <script src="https://jsuites.net/v4/jsuites.js"></script>
 <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
-<link rel="stylesheet" href="https://bossanova.uk/Jspreadsheet/v4/jexcel.css" type="text/css" />
+<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jexcel.css" type="text/css" />
 ```
 
-You should initiate your table based on a div container, such as:
+You should initialize your table based on a div container, such as:
 ```html
 <div id="spreadsheet"></div>
 ```
 
-To initialize a Jspreadsheet CE table you should run a JavaScript, such as:
+To initialize a Jspreadsheet CE table you should run JavaScript, such as:
 ```javascript
 var data = [
     ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
@@ -175,8 +175,8 @@ A special thank to the [FDL - Fonds de Dotation du Libre](https://www.fdl-lef.or
 ### Jspreadsheet CE 3.0.1 (Jexcel)
 
 Jspreadsheet CE v3 is a complete rebuilt JavaScript Vanilla version. For that reason it was not possible to keep a
-complete compatibility with the previous version. If you are upgrating you might need to implement a few updates in your code.
-If you have questions, you can review the article upgrating from Jspreadsheet CE v2 or Handsontable.
+complete compatibility with the previous version. If you are upgrading you might need to implement a few updates in your code.
+If you have questions, you can review the article upgrading from Jspreadsheet CE v2 or Handsontable.
 
 The Jspreadsheet CE v3 brings lot of great new features:
 
@@ -190,20 +190,20 @@ The Jspreadsheet CE v3 brings lot of great new features:
 - Image upload.
 - Native color picker.
 - Better mobile compatibility.
-- Better nested headers compatibily.
-- Amazing keyboard navegation support.
+- Better nested headers compatibility.
+- Amazing keyboard navigation support.
 - Better hidden column management.
 - Great data picker: dropdown, autocomplete, multiple, group options and icons.
-- Importing from XSLX (experimental).
+- Importing from XLSX (experimental).
 
-Big improviments are included, such as:
+Big improvements are included, such as:
 
-- Complete new formula engine with no external depencies with much faster results.
+- Complete new formula engine with no external dependencies with much faster results.
 - Absolutely no selectors, means a much faster application.
 - New native columns.
 - jQuery is not required anymore.
 - React, Vue and Angular examples.
-- XLXS support using a custom sheetjs (experimental).
+- XLSX support using a custom sheetjs (experimental).
 
 
 ### Jspreadsheet CE 2.1.0 (Jexcel)
@@ -246,7 +246,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - `updateSettings` updates.
 
 
-## Officials websites
+## Official websites
 - [Jspreadsheet CE v4 - Javascript Spreasheet](https://bossanova.uk/jspreadsheet/v4)
 - [Jspreadsheet CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
 - [Jspreadsheet CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
