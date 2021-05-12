@@ -6360,7 +6360,7 @@ if (! jSuites && typeof(require) === 'function') {
          * Process row
          */
         obj.historyProcessRow = function(type, historyRecord) {
-            var rowIndex = (! historyRecord.insertBefore) ? historyRecord.rowNumber + 1 : historyRecord.rowNumber;
+            var rowIndex = (! historyRecord.insertBefore) ? historyRecord.rowNumber + 1 : +historyRecord.rowNumber;
     
             if (obj.options.search == true) {
                 if (obj.results && obj.results.length != obj.rows.length) {
