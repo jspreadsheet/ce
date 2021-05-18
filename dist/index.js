@@ -84,6 +84,8 @@ if (! jSuites && typeof(require) === 'function') {
             // Column width that is used by default
             defaultColWidth:50,
             defaultColAlign:'center',
+            // Row height that is used by default
+            defaultRowHeight: 25,
             // Spare rows and columns
             minSpareRows:0,
             minSpareCols:0,
@@ -155,6 +157,7 @@ if (! jSuites && typeof(require) === 'function') {
             fullscreen:false,
             // Lazy loading
             lazyLoading:false,
+            lazyLoadingOffset: -1,
             loadingSpin:false,
             // Table overflow
             tableOverflow:false,
@@ -328,6 +331,10 @@ if (! jSuites && typeof(require) === 'function') {
             console.error('Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
             obj.options.lazyLoading = false;
         }
+        obj._lastMinimum = null;
+        obj._lastMaximum = null;
+        obj.startSpacingRow = null;
+        obj.endSpacingRow = null;
         
         /**
          * Activate/Disable fullscreen 
@@ -521,6 +528,13 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.resetSelection();
             }
     
+            // Lazy loading
+            obj.startSpacingRow = document.createElement('tr');
+            obj.endSpacingRow = document.createElement('tr');
+
+            obj.startSpacingRow.innerHTML = `<td class="spacer"></td>`;
+            obj.endSpacingRow.innerHTML = `<td class="spacer"></td>`;
+
             // Pagination select option
             var paginationUpdateContainer = document.createElement('div');
     
@@ -608,7 +622,6 @@ if (! jSuites && typeof(require) === 'function') {
             }
 
             // Content table
-            obj.table = document.createElement('table');
             obj.table.classList.add('jexcel');
             obj.table.setAttribute('cellpadding', '0');
             obj.table.setAttribute('cellspacing', '0');
@@ -866,11 +879,28 @@ if (! jSuites && typeof(require) === 'function') {
             // Reset data
             obj.tbody.innerHTML = '';
     
+            let startNumber;
+            let finalNumber;
+
             // Lazy loading
             if (obj.options.lazyLoading == true) {
-                // Load only 100 records
-                var startNumber = 0
-                var finalNumber = obj.options.data.length < 100 ? obj.options.data.length : 100;
+                obj.tbody.classList.add('lazy');
+
+                const contentRect = obj.content.getBoundingClientRect();
+                const tableRect = obj.tbody.getBoundingClientRect();
+                const tableStart = (tableRect.top - contentRect.top);
+
+                const visibleRows = obj.content.clientHeight / obj.options.defaultRowHeight;
+                const rawLastVisibleRow = (obj.content.clientHeight - tableStart) / obj.options.defaultRowHeight;
+
+                const lastVisibleRow = Math.min(Math.ceil(rawLastVisibleRow), obj.options.data.length);
+                const firstVisibleRow = Math.max(Math.floor(rawLastVisibleRow - visibleRows), 0);
+
+                const minimum = Math.max(firstVisibleRow + obj.options.lazyLoadingOffset, 0);
+                const maximum = Math.min(lastVisibleRow - obj.options.lazyLoadingOffset, obj.options.data.length);
+
+                startNumber = minimum;
+                finalNumber = (obj.options.data.length < maximum) ? obj.options.data.length : maximum;
     
                 if (obj.options.pagination) {
                     obj.options.pagination = false;
@@ -889,8 +919,8 @@ if (! jSuites && typeof(require) === 'function') {
                     finalNumber = obj.options.data.length;
                 }
             } else {
-                var startNumber = 0;
-                var finalNumber = obj.options.data.length;
+                startNumber = 0;
+                finalNumber = obj.options.data.length;
             }
     
             // Append nodes to the HTML
@@ -904,7 +934,17 @@ if (! jSuites && typeof(require) === 'function') {
             }
     
             if (obj.options.lazyLoading == true) {
-                // Do not create pagination with lazyloading activated
+                const childrenBeforeHeight = startNumber * obj.options.defaultRowHeight;
+                const childrenAfterHeight = (obj.options.data.length - finalNumber) * obj.options.defaultRowHeight;
+
+                obj.startSpacingRow.children[0].style.height = `${childrenBeforeHeight}px`;
+                obj.endSpacingRow.children[0].style.height = `${childrenAfterHeight}px`;
+
+                obj.tbody.prepend(obj.startSpacingRow);
+                obj.tbody.append(obj.endSpacingRow);
+
+                obj._lastMinimum = startNumber;
+                obj._lastMaximum = finalNumber;
             } else if (obj.options.pagination) {
                 obj.updatePagination();
             }
@@ -5237,19 +5277,33 @@ if (! jSuites && typeof(require) === 'function') {
     
             // Change page
             if (obj.options.lazyLoading == true) {
-                if (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0) {
-                    obj.loadPage(0);
+                if (obj.loadValidation()) {
                     obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
                 } else {
-                    if (obj.loadValidation()) {
-                        obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                    let tableRows;
+
+                    if (obj.options.search == true && obj.results) {
+                        tableRows = obj.results;
                     } else {
-                        var item = parseInt(obj.tbody.firstChild.getAttribute('data-y'));
-                        if (obj.selectedCell[1] - item < 30) {
-                            obj.loadUp();
-                            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
-                        }
+                        tableRows = obj.rows;
                     }
+
+                    const contentRect = obj.content.getBoundingClientRect();
+                    const tableRect = obj.tbody.getBoundingClientRect();
+                    const tableStart = (tableRect.top - contentRect.top);
+
+                    const guessedRowHeight = obj.tbody.clientHeight / tableRows.length;
+                    const visibleRows = obj.content.clientHeight / guessedRowHeight;
+                    const rawLastVisibleRow = (obj.content.clientHeight - tableStart) / guessedRowHeight;
+
+                    const firstVisibleRow = Math.max(Math.floor(rawLastVisibleRow - visibleRows), 0);
+                    const minimum = Math.max(firstVisibleRow, 0);
+
+                    if (obj.selectedCell[1] <= (minimum + 2)) {
+                        obj.content.scrollTop -= Math.max((guessedRowHeight * 4), 0);
+                    }
+
+                    obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
                 }
             } else if (obj.options.pagination > 0) {
                 var pageNumber = obj.whichPage(obj.selectedCell[3]);
@@ -5325,19 +5379,32 @@ if (! jSuites && typeof(require) === 'function') {
     
             // Change page
             if (obj.options.lazyLoading == true) {
-                if ((obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
-                    obj.loadPage(-1);
+                if (obj.loadValidation()) {
                     obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
                 } else {
-                    if (obj.loadValidation()) {
-                        obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                    let tableRows;
+
+                    if (obj.options.search == true && obj.results) {
+                        tableRows = obj.results;
                     } else {
-                        var item = parseInt(obj.tbody.lastChild.getAttribute('data-y'));
-                        if (item - obj.selectedCell[3] < 30) {
-                            obj.loadDown();
-                            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
-                        }
+                        tableRows = obj.rows;
                     }
+
+                    const contentRect = obj.content.getBoundingClientRect();
+                    const tableRect = obj.tbody.getBoundingClientRect();
+                    const tableStart = (tableRect.top - contentRect.top);
+
+                    const guessedRowHeight = obj.tbody.clientHeight / tableRows.length;
+                    const rawLastVisibleRow = (obj.content.clientHeight - tableStart) / guessedRowHeight;
+
+                    const lastVisibleRow = Math.min(Math.ceil(rawLastVisibleRow), tableRows.length);
+                    const maximum = Math.min(lastVisibleRow, obj.options.data.length);
+
+                    if (obj.selectedCell[3] >= (maximum - 2)) {
+                        obj.content.scrollTop += Math.min((guessedRowHeight * 4), obj.tbody.scrollHeight);
+                    }
+
+                    obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
                 }
             } else if (obj.options.pagination > 0) {
                 var pageNumber = obj.whichPage(obj.selectedCell[3]);
@@ -5637,80 +5704,7 @@ if (! jSuites && typeof(require) === 'function') {
                 } else {
                     obj.tbody.appendChild(obj.rows[j]);
                 }
-    
-                if (obj.tbody.children.length > quantityPerPage) {
-                    obj.tbody.removeChild(obj.tbody.firstChild);
-                }
             }
-        }
-    
-        obj.loadUp = function() {
-            // Search
-            if (obj.options.search == true && obj.results) {
-                var results = obj.results;
-            } else {
-                var results = obj.rows;
-            }
-            var test = 0;
-            if (results.length > 100) {
-                // Get the first element in the page
-                var item = parseInt(obj.tbody.firstChild.getAttribute('data-y'));
-                if (obj.options.search == true && obj.results) {
-                    item = results.indexOf(item);
-                }
-                if (item > 0) {
-                    for (var j = 0; j < 30; j++) {
-                        item = item - 1;
-                        if (item > -1) {
-                            if (obj.options.search == true && obj.results) {
-                                obj.tbody.insertBefore(obj.rows[results[item]], obj.tbody.firstChild);
-                            } else {
-                                obj.tbody.insertBefore(obj.rows[item], obj.tbody.firstChild);
-                            }
-                            if (obj.tbody.children.length > 100) {
-                                obj.tbody.removeChild(obj.tbody.lastChild);
-                                test = 1;
-                            }
-                        }
-                    }
-                }
-            }
-            return test;
-        }
-    
-        obj.loadDown = function() {
-            // Search
-            if (obj.options.search == true && obj.results) {
-                var results = obj.results;
-            } else {
-                var results = obj.rows;
-            }
-            var test = 0;
-            if (results.length > 100) {
-                // Get the last element in the page
-                var item = parseInt(obj.tbody.lastChild.getAttribute('data-y'));
-                if (obj.options.search == true && obj.results) {
-                    item = results.indexOf(item);
-                }
-                if (item < obj.rows.length - 1) {
-                    for (var j = 0; j <= 30; j++) {
-                        if (item < results.length) {
-                            if (obj.options.search == true && obj.results) {
-                                obj.tbody.appendChild(obj.rows[results[item]]);
-                            } else {
-                                obj.tbody.appendChild(obj.rows[item]);
-                            }
-                            if (obj.tbody.children.length > 100) {
-                                obj.tbody.removeChild(obj.tbody.firstChild);
-                                test = 1;
-                            }
-                        }
-                        item = item + 1;
-                    }
-                }
-            }
-    
-            return test;
         }
     
         obj.loadValidation = function() {
@@ -5737,6 +5731,11 @@ if (! jSuites && typeof(require) === 'function') {
             obj.searchInput.value = '';
             obj.search('');
             obj.results = null;
+
+            if (obj.options.lazyLoading) {
+                this._lastMinimum = null;
+                this._lastMaximum = null;
+            }
         }
 
         /**
@@ -5842,6 +5841,11 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
     
+            if (obj.options.lazyLoading) {
+                this._lastMinimum = null;
+                this._lastMaximum = null;
+            }
+
             // Update pagination
             if (obj.options.pagination > 0) {
                 obj.updatePagination();
@@ -7028,27 +7032,80 @@ if (! jSuites && typeof(require) === 'function') {
 
         obj.wheelControls = function(e) {
             if (obj.options.lazyLoading == true) {
-                if (jexcel.timeControlLoading == null) {
-                    jexcel.timeControlLoading = setTimeout(function() {
-                        if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight - 10) {
-                            if (obj.loadDown()) {
-                                if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
-                                    obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
-                                }
-                                obj.updateCornerPosition();
-                            }
-                        } else if (obj.content.scrollTop <= obj.content.clientHeight) {
-                            if (obj.loadUp()) {
-                                if (obj.content.scrollTop < 10) {
-                                    obj.content.scrollTop = obj.content.scrollTop + obj.content.clientHeight;
-                                }
-                                obj.updateCornerPosition();
-                            }
-                        }
-    
-                        jexcel.timeControlLoading = null;
-                    }, 100);
+                let tableRows;
+
+                if (obj.options.search == true && obj.results) {
+                    tableRows = obj.results;
+                } else {
+                    tableRows = obj.rows;
                 }
+
+                const contentRect = obj.content.getBoundingClientRect();
+                const tableRect = obj.tbody.getBoundingClientRect();
+                const tableStart = (tableRect.top - contentRect.top);
+
+                const guessedRowHeight = obj.tbody.clientHeight / tableRows.length;
+                const visibleRows = obj.content.clientHeight / guessedRowHeight;
+                const rawLastVisibleRow = (obj.content.clientHeight - tableStart) / guessedRowHeight;
+
+                const lastVisibleRow = Math.min(Math.ceil(rawLastVisibleRow), tableRows.length);
+                const firstVisibleRow = Math.max(Math.floor(rawLastVisibleRow - visibleRows), 0);
+
+                const minimum = Math.max(firstVisibleRow + obj.options.lazyLoadingOffset, 0);
+                const maximum = Math.min(lastVisibleRow - obj.options.lazyLoadingOffset, obj.options.data.length);
+
+                if (obj._lastMinimum === null) {
+                    obj._lastMinimum = tableRows.length;
+                }
+                if (obj._lastMaximum === null) {
+                    obj._lastMaximum = 0;
+                }
+
+                if ((minimum >= obj._lastMaximum) || (maximum <= obj._lastMinimum)) {
+                    const children = tableRows.slice(minimum, maximum);
+
+                    obj.tbody.replaceChildren(obj.startSpacingRow, ...children, obj.endSpacingRow);
+                } else {
+                    obj.tbody.removeChild(obj.startSpacingRow);
+                    obj.tbody.removeChild(obj.endSpacingRow);
+
+                    if (minimum < obj._lastMinimum) {
+                        const beforeChildren = tableRows.slice(minimum, obj._lastMinimum);
+
+                        obj.tbody.prepend(...beforeChildren);
+                    } else if (minimum > obj._lastMinimum) {
+                        const beforeChildren = tableRows.slice(obj._lastMinimum, minimum);
+
+                        beforeChildren.forEach((child) => obj.tbody.removeChild(child));
+                    }
+
+                    if (maximum > obj._lastMaximum) {
+                        const afterChildren = tableRows.slice(obj._lastMaximum, maximum);
+
+                        obj.tbody.append(...afterChildren);
+                    } else if (maximum < obj._lastMaximum) {
+                        const afterChildren = tableRows.slice(maximum, obj._lastMaximum);
+
+                        afterChildren.forEach((child) => obj.tbody.removeChild(child));
+                    }
+    
+                    obj.tbody.prepend(obj.startSpacingRow);
+                    obj.tbody.append(obj.endSpacingRow);
+                }
+
+                const childrenBeforeHeight = minimum * guessedRowHeight;
+                const childrenAfterHeight = (tableRows.length - maximum) * guessedRowHeight;
+
+                const startSpacingCell = obj.startSpacingRow.children[0];
+                const endSpacingCell = obj.endSpacingRow.children[0];
+
+                startSpacingCell.style.height = `${childrenBeforeHeight}px`;
+                endSpacingCell.style.height = `${childrenAfterHeight}px`;
+
+                obj._lastMinimum = minimum;
+                obj._lastMaximum = maximum;
+
+                obj.updateCornerPosition();
             }
         }
 
@@ -7100,8 +7157,10 @@ if (! jSuites && typeof(require) === 'function') {
             obj.updateCornerPosition();
         }
 
-        el.addEventListener("DOMMouseScroll", obj.wheelControls);
-        el.addEventListener("mousewheel", obj.wheelControls);
+        el.addEventListener("DOMMouseScroll", obj.wheelControls, { passive: true });
+        el.addEventListener("mousewheel", obj.wheelControls, { passive: true });
+
+        window.addEventListener("resize", obj.wheelControls, { passive: true });
     
         el.jexcel = obj;
         el.jspreadsheet = obj;
@@ -7120,8 +7179,12 @@ if (! jSuites && typeof(require) === 'function') {
     jexcel.destroy = function(element, destroyEventHandlers) {
         if (element.jexcel) {
             var root = element.jexcel.options.root ? element.jexcel.options.root : document;
-            element.removeEventListener("DOMMouseScroll", element.jexcel.scrollControls);
-            element.removeEventListener("mousewheel", element.jexcel.scrollControls);
+            
+            element.removeEventListener("DOMMouseScroll", element.jexcel.wheelControls);
+            element.removeEventListener("mousewheel", element.jexcel.wheelControls);
+            
+            window.addEventListener("resize", element.jexcel.wheelControls);
+
             element.jexcel = null;
             element.innerHTML = '';
     

@@ -171,6 +171,19 @@
     box-sizing: border-box;
     line-height:1em;
 }
+.jexcel > tbody.lazy > tr > td.spacer
+{
+    border: none;
+    padding: 0px;
+}
+.jexcel > tbody.lazy > tbody > tr:nth-child(2) > td
+{
+    border-top: none;
+}
+.jexcel > tbody.lazy > tbody > tr:nth-last-child(2) > td
+{
+    border-bottom: 1px solid #ccc;
+}
 
 .jexcel_overflow > tbody > tr > td {
     overflow: hidden;
