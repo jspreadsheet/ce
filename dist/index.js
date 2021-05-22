@@ -13115,7 +13115,7 @@ if (! jSuites && typeof(require) === 'function') {
             return result;
         };
     
-        exports.SUMIFS = SUMIFS = function () {
+        exports.SUMIFS = function () {
             var args = utils.argsToArray(arguments);
             var range = utils.parseNumberArray(utils.flatten(args.shift()));
             if (range instanceof Error) {
