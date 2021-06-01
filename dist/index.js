@@ -3944,8 +3944,6 @@ if (! jSuites && typeof(require) === 'function') {
     
                 // Onbeforeinsertrow
                 if (obj.dispatch('onbeforeinsertrow', el, rowNumber, numOfRows, insertBefore) === false) {
-                    console.log('onbeforeinsertrow returned false');
-
                     return false;
                 }
     
@@ -4081,7 +4079,6 @@ if (! jSuites && typeof(require) === 'function') {
 
                     // Onbeforedeleterow
                     if (obj.dispatch('onbeforedeleterow', el, rowNumber, numOfRows) === false) {
-                        console.log('onbeforedeleterow returned false');
                         return false;
                     }
     
@@ -4280,8 +4277,6 @@ if (! jSuites && typeof(require) === 'function') {
     
                 // Onbeforeinsertcolumn
                 if (obj.dispatch('onbeforeinsertcolumn', el, columnNumber, numOfColumns, insertBefore) === false) {
-                    console.log('onbeforeinsertcolumn returned false');
-
                     return false;
                 }
     
@@ -4467,7 +4462,6 @@ if (! jSuites && typeof(require) === 'function') {
     
                     // onbeforedeletecolumn
                    if (obj.dispatch('onbeforedeletecolumn', el, columnNumber, numOfColumns) === false) {
-                      console.log('onbeforedeletecolumn returned false');
                       return false;
                    }
     
