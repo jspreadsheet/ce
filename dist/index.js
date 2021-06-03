@@ -84,6 +84,8 @@ if (! jSuites && typeof(require) === 'function') {
             // Column width that is used by default
             defaultColWidth:50,
             defaultColAlign:'center',
+            // Rows height default
+            defaultRowHeight: 40,
             // Spare rows and columns
             minSpareRows:0,
             minSpareCols:0,
@@ -161,6 +163,7 @@ if (! jSuites && typeof(require) === 'function') {
             tableHeight:'300px',
             tableWidth:null,
             textOverflow:false,
+            tableRelativeWidth:null,
             // Meta
             meta: null,
             // Style
@@ -620,6 +623,9 @@ if (! jSuites && typeof(require) === 'function') {
 
             if (! obj.options.textOverflow) {
                 obj.table.classList.add('jexcel_overflow');
+            }
+            if (obj.options.tableRelativeWidth) {
+                obj.table.style.width = obj.options.tableRelativeWidth + '%'
             }
 
             // Spreadsheet corner
@@ -1145,6 +1151,10 @@ if (! jSuites && typeof(require) === 'function') {
             obj.rows[j].setAttribute('data-y', j);
             // Index
             var index = null;
+
+            // Set default row height
+            obj.rows[j].style.height = obj.options.defaultRowHeight + 'px'
+
             // Definitions
             if (obj.options.rows[j]) {
                 if (obj.options.rows[j].height) {
