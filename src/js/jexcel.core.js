@@ -6227,7 +6227,13 @@ var jexcel = (function(el, options) {
                     i++;
                     if (row[i] != null) {
                         if (colIndex >= obj.headers.length - 1) {
-                            obj.insertColumn();
+                            // If the pasted column is out of range, create it if possible
+                            if (obj.options.allowInsertColumn == true) {
+                                obj.insertColumn();
+                            // Otherwise skip the pasted data that overflows
+                            } else {
+                                break;
+                            }
                         }
                         colIndex = obj.right.get(colIndex, rowIndex);
                     }
@@ -6236,7 +6242,13 @@ var jexcel = (function(el, options) {
                 j++;
                 if (data[j]) {
                     if (rowIndex >= obj.rows.length-1) {
-                        obj.insertRow();
+                        // If the pasted row is out of range, create it if possible
+                        if (obj.options.allowInsertRow == true) {
+                            obj.insertRow();
+                        // Otherwise skip the pasted data that overflows
+                        } else {
+                            break;
+                        }
                     }
                     rowIndex = obj.down.get(x, rowIndex);
                 }
