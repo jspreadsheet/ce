@@ -355,11 +355,29 @@ jexcel.createFromTable = function(el, options) {
             options.columns[i].width = width + 'px';
             options.columns[i].title = header.innerHTML;
             options.columns[i].align = header.style.textAlign || 'center';
+            if (info = header.getAttribute('name')) {
+                options.columns[i].name = info;
+            }
+            if (info = header.getAttribute('id')) {
+                options.columns[i].id = info;
+            }
         }
 
         // Headers
-        var headers = el.querySelectorAll('thead > tr');
+        var nested = [];
+        var headers = el.querySelectorAll(':scope > thead > tr');
         if (headers.length) {
+            for (var j = 0; j < headers.length - 1; j++) {
+                var cells = [];
+                for (var i = 0; i < headers[j].children.length; i++) {
+                    var row = {
+                        title: headers[j].children[i].innerText,
+                        colspan: headers[j].children[i].getAttribute('colspan') || 1,
+                    };
+                    cells.push(row);
+                }
+                nested.push(cells);
+            }
             // Get the last row in the thead
             headers = headers[headers.length-1].children;
             // Go though the headers
@@ -440,6 +458,10 @@ jexcel.createFromTable = function(el, options) {
             }
         }
 
+        // Nested
+        if (Object.keys(nested).length > 0) {
+            options.nestedHeaders = nested;
+        }
         // Style
         if (Object.keys(style).length > 0) {
             options.style = style;

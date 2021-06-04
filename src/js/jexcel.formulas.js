@@ -4452,33 +4452,40 @@ jexcel.methods.math = (function() {
         return result;
     };
 
-    exports.SUMIFS = function() {
-        var args = utils.argsToArray(arguments);
-        var range = utils.parseNumberArray(utils.flatten(args.shift()));
-        if (range instanceof Error) {
-            return range;
-        }
-        var criteria = args;
+    exports.SUMIFS = function () {
+            var args = utils.argsToArray(arguments);
+            var range = utils.parseNumberArray(utils.flatten(args.shift()));
+            if (range instanceof Error) {
+              return range;
+            }
+            var criteria = args;
 
-        var n_range_elements = range.length;
-        var n_criterias = criteria.length;
+            var n_range_elements = range.length;
+            var n_criterias = criteria.length;
 
-        var result = 0;
-        for (var i = 0; i < n_range_elements; i++) {
-            var el = range[i];
-            var condition = '';
-            for (var c = 0; c < n_criterias; c++) {
-                condition += el + criteria[c];
-                if (c !== n_criterias - 1) {
-                    condition += '&&';
+            var result = 0;
+
+            for (var i = 0; i < n_range_elements; i++) {
+              var el = range[i];
+              var condition = '';
+              for (var c = 0; c < n_criterias; c+=2) {
+                if(isNaN(criteria[c][i])){
+                  condition += '"' + criteria[c][i] + '"' + criteria[c+1];
                 }
-            }
-            if (eval(condition)) { // jshint ignore:line
+                else {
+                  condition += criteria[c][i] + criteria[c + 1];
+                }
+                if (c !== n_criterias - 1) {
+                  condition += ' && ';
+                }
+              }
+              condition = condition.slice(0,-4)
+              if (eval(condition)) { // jshint ignore:line
                 result += el;
+              }
             }
-        }
-        return result;
-    };
+            return result;
+        };
 
     exports.SUMPRODUCT = null;
 

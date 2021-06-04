@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.7.4
+ * Jspreadsheet v4.7.5
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -85,7 +85,7 @@ if (! jSuites && typeof(require) === 'function') {
             defaultColWidth:50,
             defaultColAlign:'center',
             // Rows height default
-            defaultRowHeight: 40,
+            defaultRowHeight: null,
             // Spare rows and columns
             minSpareRows:0,
             minSpareCols:0,
@@ -163,7 +163,6 @@ if (! jSuites && typeof(require) === 'function') {
             tableHeight:'300px',
             tableWidth:null,
             textOverflow:false,
-            tableRelativeWidth:null,
             // Meta
             meta: null,
             // Style
@@ -624,9 +623,6 @@ if (! jSuites && typeof(require) === 'function') {
             if (! obj.options.textOverflow) {
                 obj.table.classList.add('jexcel_overflow');
             }
-            if (obj.options.tableRelativeWidth) {
-                obj.table.style.width = obj.options.tableRelativeWidth + '%'
-            }
 
             // Spreadsheet corner
             obj.corner = document.createElement('div');
@@ -721,7 +717,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (obj.options.tableOverflow == true) {
                     if (obj.options.tableHeight) {
                         obj.content.style['overflow-y'] = 'auto';
-                        //obj.content.style['box-shadow'] = 'rgb(221 221 221) 2px 2px 5px 0.1px';
+                        obj.content.style['box-shadow'] = 'rgb(221 221 221) 2px 2px 5px 0.1px';
                         obj.content.style.maxHeight = obj.options.tableHeight;
                     }
                     if (obj.options.tableWidth) {
@@ -1153,7 +1149,9 @@ if (! jSuites && typeof(require) === 'function') {
             var index = null;
 
             // Set default row height
-            obj.rows[j].style.height = obj.options.defaultRowHeight + 'px'
+            if (obj.options.defaultRowHeight) {
+                obj.rows[j].style.height = obj.options.defaultRowHeight + 'px'
+            }
 
             // Definitions
             if (obj.options.rows[j]) {
@@ -6306,7 +6304,13 @@ if (! jSuites && typeof(require) === 'function') {
                         i++;
                         if (row[i] != null) {
                             if (colIndex >= obj.headers.length - 1) {
-                                obj.insertColumn();
+                                // If the pasted column is out of range, create it if possible
+                                if (obj.options.allowInsertColumn == true) {
+                                    obj.insertColumn();
+                                    // Otherwise skip the pasted data that overflows
+                                } else {
+                                    break;
+                                }
                             }
                             colIndex = obj.right.get(colIndex, rowIndex);
                         }
@@ -6315,7 +6319,13 @@ if (! jSuites && typeof(require) === 'function') {
                     j++;
                     if (data[j]) {
                         if (rowIndex >= obj.rows.length-1) {
-                            obj.insertRow();
+                            // If the pasted row is out of range, create it if possible
+                            if (obj.options.allowInsertRow == true) {
+                                obj.insertRow();
+                                // Otherwise skip the pasted data that overflows
+                            } else {
+                                break;
+                            }
                         }
                         rowIndex = obj.down.get(x, rowIndex);
                     }
@@ -8466,7 +8476,7 @@ if (! jSuites && typeof(require) === 'function') {
 
                 if (info = header.getAttribute('name')) {
                     options.columns[i].name = info;
-            }
+                }
                 if (info = header.getAttribute('id')) {
                     options.columns[i].id = info;
                 }

@@ -45,6 +45,8 @@ var jexcel = (function(el, options) {
         // Column width that is used by default
         defaultColWidth:50,
         defaultColAlign:'center',
+        // Rows height default
+        defaultRowHeight: null,
         // Spare rows and columns
         minSpareRows:0,
         minSpareCols:0,
@@ -219,7 +221,7 @@ var jexcel = (function(el, options) {
             noCellsSelected: 'No cells selected',
         },
         // About message
-        about:"Jspreadsheet CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jspreadsheet/v4",
+        about: true,
     };
 
     // Loading initial configuration from user
@@ -1108,6 +1110,12 @@ var jexcel = (function(el, options) {
         obj.rows[j].setAttribute('data-y', j);
         // Index
         var index = null;
+
+        // Set default row height
+        if (obj.options.defaultRowHeight) {
+            obj.rows[j].style.height = obj.options.defaultRowHeight + 'px'
+        }
+
         // Definitions
         if (obj.options.rows[j]) {
             if (obj.options.rows[j].height) {
@@ -1285,6 +1293,9 @@ var jexcel = (function(el, options) {
         obj.headers[colNumber].style.textAlign = colAlign;
         if (obj.options.columns[colNumber].title) {
             obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
+        }
+        if (obj.options.columns[colNumber].id) {
+            obj.headers[colNumber].setAttribute('id', obj.options.columns[colNumber].id);
         }
 
         // Width control
@@ -3633,7 +3644,7 @@ var jexcel = (function(el, options) {
         });
 
         // Set comments
-        obj.dispatch('oncomments', el, comments, title);
+        obj.dispatch('oncomments', el, comments, title, cell, cell[0], cell[1]);
     }
 
     /**
@@ -3907,8 +3918,6 @@ var jexcel = (function(el, options) {
 
             // Onbeforeinsertrow
             if (obj.dispatch('onbeforeinsertrow', el, rowNumber, numOfRows, insertBefore) === false) {
-                console.log('onbeforeinsertrow returned false');
-
                 return false;
             }
 
@@ -4044,7 +4053,6 @@ var jexcel = (function(el, options) {
 
                 // Onbeforedeleterow
                 if (obj.dispatch('onbeforedeleterow', el, rowNumber, numOfRows) === false) {
-                    console.log('onbeforedeleterow returned false');
                     return false;
                 }
 
@@ -4243,8 +4251,6 @@ var jexcel = (function(el, options) {
 
             // Onbeforeinsertcolumn
             if (obj.dispatch('onbeforeinsertcolumn', el, columnNumber, numOfColumns, insertBefore) === false) {
-                console.log('onbeforeinsertcolumn returned false');
-
                 return false;
             }
 
@@ -4430,7 +4436,6 @@ var jexcel = (function(el, options) {
 
                 // onbeforedeletecolumn
                if (obj.dispatch('onbeforedeletecolumn', el, columnNumber, numOfColumns) === false) {
-                  console.log('onbeforedeletecolumn returned false');
                   return false;
                }
 
@@ -5981,13 +5986,9 @@ var jexcel = (function(el, options) {
         } else {
             // Data
             var data = '';
-            if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
-                data += obj.getHeaders().replace(/\s+/gm,' ');
-                data += "\r\n";
-            }
 
             // Get data
-            data += obj.copy(false, obj.options.csvDelimiter, true);
+            data += obj.copy(false, obj.options.csvDelimiter, true, includeHeaders, true);
 
             // Download element
             var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
@@ -6033,134 +6034,176 @@ var jexcel = (function(el, options) {
      * @param delimiter - \t default to keep compatibility with excel
      * @return string value
      */
-    obj.copy = function(highlighted, delimiter, returnData) {
-        if (! delimiter) {
-            delimiter = "\t";
-        }
+    obj.copy = function(highlighted, delimiter, returnData, includeHeaders, download) {
+            if (! delimiter) {
+                delimiter = "\t";
+            }
 
-        // Controls
-        var header = [];
-        var col = [];
-        var colLabel = [];
-        var row = [];
-        var rowLabel = [];
-        var x = obj.options.data[0].length
-        var y = obj.options.data.length
-        var tmp = '';
-        var copyHeader = obj.options.includeHeadersOnCopy;
+            var div = new RegExp(delimiter, 'ig');
 
-        // Reset container
-        obj.style = [];
+            // Controls
+            var header = [];
+            var col = [];
+            var colLabel = [];
+            var row = [];
+            var rowLabel = [];
+            var x = obj.options.data[0].length
+            var y = obj.options.data.length
+            var tmp = '';
+            var copyHeader = false;
+            var headers = '';
+            var nestedHeaders = '';
+            var numOfCols = 0;
+            var numOfRows = 0;
 
-        // Go through the columns to get the data
-        for (var j = 0; j < y; j++) {
-            col = [];
-            colLabel = [];
-
-            for (var i = 0; i < x; i++) {
-                // If cell is highlighted
-                if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
-                    if (copyHeader == true) {
-                        header.push(obj.headers[i].innerText);
-                    }
-                    // Values
-                    var value = obj.options.data[j][i];
-                    if (value.match && (value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
-                        value = value.replace(new RegExp('"', 'g'), '""');
-                        value = '"' + value + '"';
-                    }
-                    col.push(value);
-
-                    // Labels
-                    if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
-                        var label = value;
+            if ((download && obj.options.includeHeadersOnDownload == true) ||
+                (! download && obj.options.includeHeadersOnCopy == true) ||
+                (includeHeaders)) {
+                // Nested headers
+                if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                    // Flexible way to handle nestedheaders
+                    if (! (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0])) {
+                        tmp = [obj.options.nestedHeaders];
                     } else {
-                        if (obj.options.stripHTMLOnCopy == true) {
-                            var label = obj.records[j][i].innerText;
-                        } else {
-                            var label = obj.records[j][i].innerHTML;
+                        tmp = obj.options.nestedHeaders;
+                    }
+
+                    for (var j = 0; j < tmp.length; j++) {
+                        var nested = [];
+                        for (var i = 0; i < tmp[j].length; i++) {
+                            var colspan = parseInt(tmp[j][i].colspan);
+                            nested.push(tmp[j][i].title);
+                            for (var c = 0; c < colspan - 1; c++) {
+                                nested.push('');
+                            }
                         }
-                        if (label.match && (label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
-                            // Scape double quotes
-                            label = label.replace(new RegExp('"', 'g'), '""');
-                            label = '"' + label + '"';
+                        nestedHeaders += nested.join(delimiter) + "\r\n";
+                    }
+                }
+
+                copyHeader = true;
+            }
+
+            // Reset container
+            obj.style = [];
+
+            // Go through the columns to get the data
+            for (var j = 0; j < y; j++) {
+                col = [];
+                colLabel = [];
+
+                for (var i = 0; i < x; i++) {
+                    // If cell is highlighted
+                    if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                        if (copyHeader == true) {
+                            header.push(obj.headers[i].innerText);
+                        }
+                        // Values
+                        var value = obj.options.data[j][i];
+                        if (value.match && (value.match(div) || value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
+                            value = value.replace(new RegExp('"', 'g'), '""');
+                            value = '"' + value + '"';
+                        }
+                        col.push(value);
+
+                        // Labels
+                        if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
+                            var label = value;
+                        } else {
+                            if (obj.options.stripHTMLOnCopy == true) {
+                                var label = obj.records[j][i].innerText;
+                            } else {
+                                var label = obj.records[j][i].innerHTML;
+                            }
+                            if (label.match && (label.match(div) || label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                                // Scape double quotes
+                                label = label.replace(new RegExp('"', 'g'), '""');
+                                label = '"' + label + '"';
+                            }
+                        }
+                        colLabel.push(label);
+
+                        // Get style
+                        tmp = obj.records[j][i].getAttribute('style');
+                        tmp = tmp.replace('display: none;', '');
+                        obj.style.push(tmp ? tmp : '');
+                    }
+                }
+
+                if (col.length) {
+                    if (copyHeader) {
+                        numOfCols = col.length;
+                        row.push(header.join(delimiter));
+                    }
+                    row.push(col.join(delimiter));
+                }
+                if (colLabel.length) {
+                    numOfRows++;
+                    if (copyHeader) {
+                        rowLabel.push(header.join(delimiter));
+                        copyHeader = false;
+                    }
+                    rowLabel.push(colLabel.join(delimiter));
+                }
+            }
+
+            if (x == numOfCols &&  y == numOfRows) {
+                headers = nestedHeaders;
+            }
+
+            // Final string
+            var str = headers + row.join("\r\n");
+            var strLabel = headers + rowLabel.join("\r\n");
+
+            // Create a hidden textarea to copy the values
+            if (! returnData) {
+                if (obj.options.copyCompatibility == true) {
+                    obj.textarea.value = strLabel;
+                } else {
+                    obj.textarea.value = str;
+                }
+                obj.textarea.select();
+                document.execCommand("copy");
+            }
+
+            // Keep data
+            if (obj.options.copyCompatibility == true) {
+                obj.data = strLabel;
+            } else {
+                obj.data = str;
+            }
+            // Keep non visible information
+            obj.hashString = obj.hash(obj.data);
+
+            // Any exiting border should go
+            if (! returnData) {
+                obj.removeCopyingSelection();
+
+                // Border
+                if (obj.highlighted) {
+                    for (var i = 0; i < obj.highlighted.length; i++) {
+                        obj.highlighted[i].classList.add('copying');
+                        if (obj.highlighted[i].classList.contains('highlight-left')) {
+                            obj.highlighted[i].classList.add('copying-left');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-right')) {
+                            obj.highlighted[i].classList.add('copying-right');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-top')) {
+                            obj.highlighted[i].classList.add('copying-top');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-bottom')) {
+                            obj.highlighted[i].classList.add('copying-bottom');
                         }
                     }
-                    colLabel.push(label);
-
-                    // Get style
-                    tmp = obj.records[j][i].getAttribute('style');
-                    tmp = tmp.replace('display: none;', '');
-                    obj.style.push(tmp ? tmp : '');
                 }
+
+                // Paste event
+                obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
             }
 
-            if (col.length) {
-                if (copyHeader) {
-                    row.push(header.join(delimiter));
-                }
-                row.push(col.join(delimiter));
-            }
-            if (colLabel.length) {
-                if (copyHeader) {
-                    rowLabel.push(header.join(delimiter));
-                }
-                rowLabel.push(colLabel.join(delimiter));
-            }
-            copyHeader = false;
+            return obj.data;
         }
-
-        // Final string
-        var str = row.join("\r\n");
-        var strLabel = rowLabel.join("\r\n");
-
-        // Create a hidden textarea to copy the values
-        if (! returnData) {
-            if (obj.options.copyCompatibility == true) {
-                obj.textarea.value = strLabel;
-            } else {
-                obj.textarea.value = str;
-            }
-            obj.textarea.select();
-            document.execCommand("copy");
-        }
-
-        // Keep data
-        if (obj.options.copyCompatibility == true) {
-            obj.data = strLabel;
-        } else {
-            obj.data = str;
-        }
-        // Keep non visible information
-        obj.hashString = obj.hash(obj.data);
-
-        // Any exiting border should go
-        obj.removeCopyingSelection();
-
-        // Border
-        if (obj.highlighted) {
-            for (var i = 0; i < obj.highlighted.length; i++) {
-                obj.highlighted[i].classList.add('copying');
-                if (obj.highlighted[i].classList.contains('highlight-left')) {
-                    obj.highlighted[i].classList.add('copying-left');
-                }
-                if (obj.highlighted[i].classList.contains('highlight-right')) {
-                    obj.highlighted[i].classList.add('copying-right');
-                }
-                if (obj.highlighted[i].classList.contains('highlight-top')) {
-                    obj.highlighted[i].classList.add('copying-top');
-                }
-                if (obj.highlighted[i].classList.contains('highlight-bottom')) {
-                    obj.highlighted[i].classList.add('copying-bottom');
-                }
-            }
-        }
-
-        // Paste event
-        obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
-
-        return obj.data;
-    }
 
     /**
      * Jspreadsheet paste method
@@ -6935,7 +6978,11 @@ var jexcel = (function(el, options) {
                 items.push({
                     title:obj.options.text.about,
                     onclick:function() {
-                        alert(obj.options.about);
+                        if (obj.options.about === true) {
+                            alert(Version().print());
+                        } else {
+                            alert(obj.options.about);
+                        }
                     }
                 });
             }
@@ -7043,6 +7090,8 @@ var jexcel = (function(el, options) {
 
     return obj;
 });
+
+jexcel.version = Version;
 
 jexcel.current = null;
 jexcel.timeControl = null;
