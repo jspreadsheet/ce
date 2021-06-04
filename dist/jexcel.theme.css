@@ -1,20 +1,20 @@
 :root {
-    --jexcel_header_color: #888;
-    --jexcel_header_color_highlighted: #444;
-    --jexcel_header_background: #313131;
-    --jexcel_header_background_highlighted: #777;
-    --jexcel_content_color: #777;
-    --jexcel_content_color_highlighted: #333;
-    --jexcel_content_background: #3e3e3e;
-    --jexcel_content_background_highlighted: #777;
-    --jexcel_menu_background: #7e7e7e;
+    --jexcel_header_color: #212121;
+    --jexcel_header_color_highlighted: #000;
+    --jexcel_header_background: #f2f2f2;
+    --jexcel_header_background_highlighted: #f2f2f2;
+    --jexcel_content_color: #000;
+    --jexcel_content_color_highlighted: #000;
+    --jexcel_content_background: #fff;
+    --jexcel_content_background_highlighted: #fffaf5;
+    --jexcel_menu_background: #fff;
     --jexcel_menu_background_highlighted: #ebebeb;
-    --jexcel_menu_color: #ddd;
-    --jexcel_menu_color_highlighted: #222;
-    --jexcel_border_color: #5f5f5f;
-    --jexcel_border_color_highlighted: #999;
-    --active_color: #eee;
-    --active-color: var(--active_color);
+    --jexcel_menu_color: #555;
+    --jexcel_menu_color_highlighted: #555;
+    --jexcel_menu_box_shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+    --jexcel_border_color: #e8e8e8;;
+    --jexcel_border_color_highlighted: #e8e8e8;;
+    --active_color: #007aff;
 }
 
 .jexcel {
@@ -180,4 +180,7 @@
 .jexcel_border_main, .jexcel .highlight-top.highlight-left, .jexcel .highlight-top, .jexcel .highlight-left {
     -webkit-box-shadow: unset;
     box-shadow: unset;
+}
+.jexcel > tbody > tr > td.readonly {
+    color: inherit;
 }
