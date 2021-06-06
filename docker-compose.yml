@@ -1,16 +1,24 @@
-version: '2'
+version: "3.7"
 services:
-  web:
-    image: aws
-    ports:
-     - 8003:80
-    volumes:
-     - .:/var/www/html
-    links:
-     - php
-  php:
-    image: php
-    ports:
-     - 9000
-    volumes:
-     - .:/var/www/html
+    packages:
+      build:
+        context: .
+        dockerfile: docker/packages.Dockerfile
+      volumes:
+        - .:/var/base
+    test:
+      build:
+        context: .
+        dockerfile: docker/test.Dockerfile
+      volumes:
+        - .:/var/base
+      depends_on:
+        - packages
+    transpile:
+      build:
+        context: .
+        dockerfile: docker/transpile.Dockerfile
+      volumes:
+        - .:/var/base
+      depends_on:
+        - packages
