@@ -3,13 +3,13 @@ services:
     packages:
       build:
         context: .
-        dockerfile: docker/packages.Dockerfile
+        dockerfile: resources/docker/packages.Dockerfile
       volumes:
         - .:/var/base
     test:
       build:
         context: .
-        dockerfile: docker/test.Dockerfile
+        dockerfile: resources/docker/test.Dockerfile
       volumes:
         - .:/var/base
       depends_on:
@@ -17,7 +17,7 @@ services:
     transpile:
       build:
         context: .
-        dockerfile: docker/transpile.Dockerfile
+        dockerfile: resources/docker/transpile.Dockerfile
       volumes:
         - .:/var/base
       depends_on:
