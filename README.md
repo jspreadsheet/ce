@@ -3,7 +3,7 @@
 <b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br> 
 
 ## News
-- <b>Important</b>: Please import jspreadsheet.css (jexcel.css is not longer availble in this package).
+- <b>Important</b>: Please import jspreadsheet.css (jexcel.css is not longer available in this package).
 - New mask system (https://jsfiddle.net/spreadsheet/vmjo34r8/)
 
 
