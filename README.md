@@ -1,6 +1,11 @@
-# Jspreadsheet CE v4: The JavaScript spreadsheet  
+# Jspreadsheet CE v4: The JavaScript spreadsheet 
 
 <b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br> 
+
+--------------------------------------------------------------------------------------------------------
+Important notice: Please refer to jspreadsheet.css (jexcel.css is not longer availble in this package).
+--------------------------------------------------------------------------------------------------------
+
 
 [**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
 with other spreadsheet software. You can create an online spreadsheet table from a JS array,
@@ -251,7 +256,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - [Jspreadsheet CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
 - [Jspreadsheet CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
 
-- [Jspreadsheet Pro v7 - Javascript Spreasheet](https://jexcel.net/v7)
+- [Jspreadsheet Pro v7 - Javascript Spreasheet](https://jspreadsheet.com/v7)
 
 ## Community
 - [GitHub](https://github.com/jspreadsheet/ce/issues)
@@ -260,11 +265,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 
 To create a new distribution based on the source.
 
-docker-compose up
-docker-compose exec bash php
-
-% cd /bitnami/php-fpm/src
-% php compile.php
+docker-compose up transpile
 
 
 ## Copyright and license

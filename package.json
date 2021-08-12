@@ -24,11 +24,20 @@
         "data-spreadsheet"
     ],
     "dependencies": {
-        "jsuites": "^4.3.0"
+        "jsuites": "^4.9.0",
+        "@jspreadsheet/formula": "^1.1.0"
+    },
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "faker": "^5.5.3",
+        "mocha": "^8.4.0"
     },
     "main": "dist/index.js",
-    "version": "4.7.3",
+    "version": "4.9.0",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
-    "download": "https://github.com/jspreadsheet/ce/archive/master.zip"
+    "download": "https://github.com/jspreadsheet/ce/archive/master.zip",
+    "scripts": {
+        "test": "mocha --exit tests/**/*.test.js"
+    }
 }
