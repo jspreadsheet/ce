@@ -2,10 +2,12 @@
 
 <b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br> 
 
---------------------------------------------------------------------------------------------------------
-Important notice: Please refer to jspreadsheet.css (jexcel.css is not longer availble in this package).
---------------------------------------------------------------------------------------------------------
+## News
+- <b>Important</b>: Please import jspreadsheet.css (jexcel.css is not longer availble in this package).
+- New mask system (https://jsfiddle.net/spreadsheet/vmjo34r8/)
 
+
+<br><br>
 
 [**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
 with other spreadsheet software. You can create an online spreadsheet table from a JS array,
