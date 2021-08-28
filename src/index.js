@@ -7253,7 +7253,12 @@ if (! jSuites && typeof(require) === 'function') {
         }
     }
 
-    jexcel.formula = formula;
+    /**
+     * Formulas
+     */
+    if (typeof(formula) !== 'undefined') {
+        jexcel.formula = formula;
+    }
     jexcel.version = Version;
 
     jexcel.current = null;
