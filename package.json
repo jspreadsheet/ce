@@ -24,7 +24,7 @@
         "data-spreadsheet"
     ],
     "dependencies": {
-        "jsuites": "^4.9.0",
+        "jsuites": "^4.9.1",
         "@jspreadsheet/formula": "^1.1.0"
     },
     "devDependencies": {
@@ -33,7 +33,7 @@
         "mocha": "^8.4.0"
     },
     "main": "dist/index.js",
-    "version": "4.9.0",
+    "version": "4.9.2",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip",

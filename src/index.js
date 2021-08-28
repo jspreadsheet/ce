@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.9.0
+ * Jspreadsheet v4.9.2
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -7,12 +7,12 @@
  * This software is distribute under MIT License
  */
 
-if (! jSuites && typeof(require) === 'function') {
-    var jSuites = require('jsuites');
-}
-
 if (! formula && typeof(formula) === 'function') {
     var formula = require('@jspreadsheet/formula');
+}
+
+if (! jSuites && typeof(require) === 'function') {
+    var jSuites = require('jsuites');
 }
 
 ;(function (global, factory) {
@@ -28,7 +28,7 @@ if (! formula && typeof(formula) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.9.0',
+            version: '4.9.2',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -2179,7 +2179,7 @@ if (! formula && typeof(formula) === 'function') {
                         var value = img && img.tagName == 'IMG' ? img.src : '';
                     } else if (obj.options.columns[x].type == 'numeric') {
                         var value = cell.children[0].value;
-                        if (value.substr(0,1) != '=') {
+                        if ((''+value).substr(0,1) != '=') {
                             if (value == '') {
                                 value = obj.options.columns[x].allowEmpty ? '' : 0;
                             }

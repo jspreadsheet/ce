@@ -1,0 +1,95 @@
+table.jexcel
+{
+    border-right:1px solid transparent;
+}
+
+table.jexcel > thead
+{
+    background-color:#fff;
+}
+
+table.jexcel > thead > tr > td
+{
+    border-top:1px solid transparent;
+    border-left:1px solid transparent;
+    border-right:1px solid transparent;
+    border-bottom:1px solid #000;
+    background-color:#fff;
+    padding:10px;
+    font-weight:bold;
+}
+
+table.jexcel > thead > tr > td.selected
+{
+    background-color:#eee;
+}
+
+table.jexcel > tbody > tr > td
+{
+    padding:8px;
+    border-right:1px solid transparent;
+    border-left:1px solid transparent;
+}
+
+table.jexcel > tbody > tr > td:first-child
+{
+    background-color:#fff;
+}
+
+table.jexcel > tbody > tr.selected > td:first-child
+{
+    background-color:#eee;
+}
+
+.jexcel_toolbar {
+    background-color: transparent;
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    margin-bottom: 0px;
+}
+
+.jexcel_pagination > div > div
+{
+    border:1px solid transparent;
+    background-color: #fff;
+}
+
+.jexcel_page_selected
+{
+    background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
+    border:1px solid #979797 !important;
+    font-weight:normal;
+    color: #333 !important;
+    border-radius:2px;
+}
+
+
+/*.jexcel > div > table > tbody > tr,
+.jexcel > div > table > thead
+{
+    border-left:1px solid transparent;
+}
+.jexcel > div > table > tbody > tr > td
+{
+    padding:10px;
+    border-right:1px solid transparent;
+}
+.jexcel > div > table > tbody > td.edition
+{
+    padding:0px;
+    padding-left:4px;
+}
+.jexcel > div > table > tbody > tr > td:first-child
+{
+    background-color:#fff;
+    font-weight:bold;
+}
+.jexcel > div > table > tbody > tr.selected > td:first-child
+{
+    background-color:#eee;
+}
+.jexcel > div > table > thead > tr > td.selected
+{
+    background-color:#eee;
+}*/
