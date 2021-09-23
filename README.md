@@ -255,11 +255,12 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 
 
 ## Official websites
-- [Jspreadsheet CE v4 - Javascript Spreasheet](https://bossanova.uk/jspreadsheet/v4)
+- [Jspreadsheet CE v4 - Javascript Spreadsheet](https://bossanova.uk/jspreadsheet/v4)
 - [Jspreadsheet CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
 - [Jspreadsheet CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
 
-- [Jspreadsheet Pro v7 - Javascript Spreasheet](https://jspreadsheet.com/v7)
+- [Jspreadsheet Pro v7 - Javascript Spreadsheet](https://jspreadsheet.com/v7)
+- [Jspreadsheet Pro v8 - Javascript Spreadsheet](https://jspreadsheet.com/v8)
 
 ## Community
 - [GitHub](https://github.com/jspreadsheet/ce/issues)
