@@ -178,7 +178,7 @@
 
 .jexcel > tbody > tr > td:last-child
 {
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .jexcel > tbody > tr > td > img
@@ -344,7 +344,7 @@
     left:-2000px;
     cursor:crosshair;
     box-sizing: initial;
-    z-index:30;
+    z-index:20;
     padding: 2px;
 }
 
@@ -691,7 +691,7 @@
 }
 
 .jexcel_hidden_index > tbody > tr > td:first-child,
-.jexcel_hidden_index > thead > tr > td:first-child, 
+.jexcel_hidden_index > thead > tr > td:first-child,
 .jexcel_hidden_index > tfoot > tr > td:first-child,
 .jexcel_hidden_index > colgroup > col:first-child
 {
@@ -748,4 +748,8 @@
     box-shadow: 1px 1px 1px 1px #ccc !important;
     -webkit-box-shadow: 2px 4px 4px 0.1px #ccc !important;
     -moz-box-shadow: 2px 4px 4px 0.1px #ccc !important;
+}
+
+.red {
+    color: red;
 }

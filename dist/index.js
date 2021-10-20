@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.9.3
+ * Jspreadsheet v4.9.5
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -5901,7 +5901,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.9.3',
+            version: '4.9.6',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -7144,6 +7144,19 @@ if (! jSuites && typeof(require) === 'function') {
             return value;
         }
 
+        var validDate = function(date) {
+            date = ''+date;
+            if (date.substr(4,1) == '-' && date.substr(7,1) == '-') {
+                return true;
+            } else {
+                date = date.split('-');
+                if ((date[0].length == 4 && date[0] == Number(date[0]) && date[1].length == 2 && date[1] == Number(date[1]))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /**
          * Create cell
          */
@@ -7197,7 +7210,13 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.options.data[j][i] = element.checked;
                 } else if (obj.options.columns[i].type == 'calendar') {
                     // Try formatted date
-                    var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
+                    var formatted = null;
+                    if (! validDate(value)) {
+                        var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
+                        if (tmp) {
+                            formatted = tmp;
+                        }
+                    }
                     // Create calendar cell
                     td.innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
                 } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
@@ -8439,8 +8458,14 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.options.data[y][x] = value;
                         obj.records[y][x].innerText = obj.getDropDownValue(x, value);
                     } else if (obj.options.columns[x].type == 'calendar') {
-                        // Update calendar
-                        var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                        // Try formatted date
+                        var formatted = null;
+                        if (! validDate(value)) {
+                            var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                            if (tmp) {
+                                formatted = tmp;
+                            }
+                        }
                         // Update data and cell
                         obj.options.data[y][x] = value;
                         obj.records[y][x].innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
