@@ -8663,7 +8663,7 @@ if (! jSuites && typeof(require) === 'function') {
         }
     
         /**
-         * Move coords to A1 in case ovelaps with an excluded cell
+         * Move coords to A1 in case overlaps with an excluded cell
          */
         obj.conditionalSelectionUpdate = function(type, o, d) {
             if (type == 1) {
@@ -8727,7 +8727,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
     
-            // Reset highlighed cells
+            // Reset highlighted cells
             obj.highlighted = [];
     
             // Reset
@@ -10066,7 +10066,7 @@ if (! jSuites && typeof(require) === 'function') {
                         numOfRows = 1;
                     }
     
-                    // Do not delete more than the number of recoreds
+                    // Do not delete more than the number of records
                     if (rowNumber + numOfRows >= obj.options.data.length) {
                         numOfRows = obj.options.data.length - rowNumber;
                     }
@@ -10561,7 +10561,7 @@ if (! jSuites && typeof(require) === 'function') {
         }
     
         /**
-         * Get seleted rows numbers
+         * Get selected rows numbers
          * 
          * @return array
          */
@@ -10582,7 +10582,7 @@ if (! jSuites && typeof(require) === 'function') {
         },
     
         /**
-         * Get seleted column numbers
+         * Get selected column numbers
          * 
          * @return array
          */
@@ -12671,7 +12671,7 @@ if (! jSuites && typeof(require) === 'function') {
         }
     
         /**
-         * From starckoverflow contributions
+         * From stack overflow contributions
          */
         obj.parseCSV = function(str, delimiter) {
             // Remove last line break
@@ -13113,7 +13113,7 @@ if (! jSuites && typeof(require) === 'function') {
         jSuites.setDictionary(o);
     }
 
-    // Define extesions
+    // Define extensions
     jexcel.setExtensions = function(o) {
         var k = Object.keys(o);
         for (var i = 0; i < k.length; i++) {
