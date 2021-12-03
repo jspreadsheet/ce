@@ -9314,7 +9314,7 @@ if (! jSuites && typeof(require) === 'function') {
                             var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
                             td.style.textAlign = colAlign;
                         }
-                        td.innerText = obj.parseValue(i, j, obj.options.footers[j][i]);
+                        td.innerText = obj.parseValue(+obj.records.length + i, j, obj.options.footers[j][i]);
                     }
                 }
             }
