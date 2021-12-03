@@ -13467,8 +13467,8 @@ if (! jSuites && typeof(require) === 'function') {
                                 // Drag helper
                                 jexcel.current.dragging = {
                                     element: e.target,
-                                    column:columnId,
-                                    destination:columnId,
+                                    column: +columnId,
+                                    destination: +columnId,
                                 };
                                 // Border indication
                                 jexcel.current.headers[columnId].classList.add('dragging');
@@ -13781,6 +13781,55 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                 }
+                else if (jexcel.current.dragging) {
+                    if (jexcel.current.dragging.column) {
+                        var columnId = e.target.getAttribute('data-x');
+                        if (columnId) {
+
+                            if (jexcel.current.isColMerged(columnId).length) {
+                                console.error('Jspreadsheet: This column is part of a merged cell.');
+                            } else {
+                                for (var i = 0; i < jexcel.current.headers.length; i++) {
+                                    jexcel.current.headers[i].classList.remove('dragging-left');
+                                    jexcel.current.headers[i].classList.remove('dragging-right');
+                                }
+    
+                                if (jexcel.current.dragging.column == columnId) {
+                                    jexcel.current.dragging.destination = parseInt(columnId);
+                                } else {
+                                    if (e.target.clientWidth / 2 > e.offsetX) {
+                                        if (jexcel.current.dragging.column < columnId) {
+                                            jexcel.current.dragging.destination = parseInt(columnId) - 1;
+                                        } else {
+                                            jexcel.current.dragging.destination = parseInt(columnId);
+                                        }
+                                        jexcel.current.headers[columnId].classList.add('dragging-left');
+                                    } else {
+                                        if (jexcel.current.dragging.column < columnId) {
+                                            jexcel.current.dragging.destination = parseInt(columnId);
+                                        } else {
+                                            jexcel.current.dragging.destination = parseInt(columnId) + 1;
+                                        }
+                                        jexcel.current.headers[columnId].classList.add('dragging-right');
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        var rowId = e.target.getAttribute('data-y');
+                        if (rowId) {
+                            if (jexcel.current.isRowMerged(rowId).length) {
+                                console.error('Jspreadsheet: This row is part of a merged cell.');
+                            } else {
+                                var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
+                                if (jexcel.current.dragging.element != target) {
+                                    e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
+                                    jexcel.current.dragging.destination = Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children, jexcel.current.dragging.element);
+                                }
+                            }
+                        }
+                    }
+                }
             } else {
                 var x = e.target.getAttribute('data-x');
                 var y = e.target.getAttribute('data-y');
@@ -13844,53 +13893,7 @@ if (! jSuites && typeof(require) === 'function') {
     
                 var columnId = e.target.getAttribute('data-x');
                 var rowId = e.target.getAttribute('data-y');
-    
-                if (jexcel.current.dragging) {
-                    if (jexcel.current.dragging.column) {
-                        if (columnId) {
-                            if (jexcel.current.isColMerged(columnId).length) {
-                                console.error('Jspreadsheet: This column is part of a merged cell.');
-                            } else {
-                                for (var i = 0; i < jexcel.current.headers.length; i++) {
-                                    jexcel.current.headers[i].classList.remove('dragging-left');
-                                    jexcel.current.headers[i].classList.remove('dragging-right');
-                                }
-    
-                                if (jexcel.current.dragging.column == columnId) {
-                                    jexcel.current.dragging.destination = parseInt(columnId);
-                                } else {
-                                    if (e.target.clientWidth / 2 > e.offsetX) {
-                                        if (jexcel.current.dragging.column < columnId) {
-                                            jexcel.current.dragging.destination = parseInt(columnId) - 1;
-                                        } else {
-                                            jexcel.current.dragging.destination = parseInt(columnId);
-                                        }
-                                        jexcel.current.headers[columnId].classList.add('dragging-left');
-                                    } else {
-                                        if (jexcel.current.dragging.column < columnId) {
-                                            jexcel.current.dragging.destination = parseInt(columnId);
-                                        } else {
-                                            jexcel.current.dragging.destination = parseInt(columnId) + 1;
-                                        }
-                                        jexcel.current.headers[columnId].classList.add('dragging-right');
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        if (rowId) {
-                            if (jexcel.current.isRowMerged(rowId).length) {
-                                console.error('Jspreadsheet: This row is part of a merged cell.');
-                            } else {
-                                var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
-                                if (jexcel.current.dragging.element != target) {
-                                    e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
-                                    jexcel.current.dragging.destination = Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children, jexcel.current.dragging.element);
-                                }
-                            }
-                        }
-                    }
-                } else if (jexcel.current.resizing) {
+                if (jexcel.current.resizing || jexcel.current.dragging) {
                 } else {
                     // Header found
                     if (jexcelTable[1] == 1) {
