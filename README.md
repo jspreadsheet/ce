@@ -271,6 +271,9 @@ To create a new distribution based on the source.
 
 docker-compose up transpile
 
+## Contributing
+
+See [contributing](contributing.md)
 
 ## Copyright and license
 Jspreadsheet CE is released under the [MIT license]. Contact <contact@jspreadsheet.com>
