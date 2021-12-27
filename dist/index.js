@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.9.5
+ * Jspreadsheet v4.9.9
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -5901,7 +5901,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.9.6',
+            version: '4.9.9',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -8147,7 +8147,25 @@ if (! jSuites && typeof(require) === 'function') {
     
             return obj.records[y][x];
         }
-    
+
+        /**
+         * Get the column options
+         * @param x
+         * @param y
+         * @returns {{type: string}}
+         */
+        obj.getColumnOptions = function(x, y) {
+            // Type
+            var options = obj.options.columns[x];
+
+            // Cell type
+            if (! options) {
+                options = { type: 'text' };
+            }
+
+            return options;
+        }
+
         /**
          * Get the cell object from coords
          * 
@@ -14684,6 +14702,212 @@ if (! jSuites && typeof(require) === 'function') {
             return options;
         }
     }
+
+    // Helpers
+    jexcel.helpers = (function() {
+        var component = {};
+
+        /**
+         * Get carret position for one element
+         */
+        component.getCaretIndex = function(e) {
+            if (this.config.root) {
+                var d = this.config.root;
+            } else {
+                var d = window;
+            }
+            var pos = 0;
+            var s = d.getSelection();
+            if (s) {
+                if (s.rangeCount !== 0) {
+                    var r = s.getRangeAt(0);
+                    var p = r.cloneRange();
+                    p.selectNodeContents(e);
+                    p.setEnd(r.endContainer, r.endOffset);
+                    pos = p.toString().length;
+                }
+            }
+            return pos;
+        }
+
+        /**
+         * Invert keys and values
+         */
+        component.invert = function(o) {
+            var d = [];
+            var k = Object.keys(o);
+            for (var i = 0; i < k.length; i++) {
+                d[o[k[i]]] = k[i];
+            }
+            return d;
+        }
+
+        /**
+         * Get letter based on a number
+         *
+         * @param integer i
+         * @return string letter
+         */
+        component.getColumnName = function(i) {
+            var letter = '';
+            if (i > 701) {
+                letter += String.fromCharCode(64 + parseInt(i / 676));
+                letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
+            } else if (i > 25) {
+                letter += String.fromCharCode(64 + parseInt(i / 26));
+            }
+            letter += String.fromCharCode(65 + (i % 26));
+
+            return letter;
+        }
+
+        /**
+         * Get column name from coords
+         */
+        component.getColumnNameFromCoords = function(x, y) {
+            return component.getColumnName(parseInt(x)) + (parseInt(y) + 1);
+        }
+
+        component.getCoordsFromColumnName = function(columnName) {
+            // Get the letters
+            var t = /^[a-zA-Z]+/.exec(columnName);
+
+            if (t) {
+                // Base 26 calculation
+                var code = 0;
+                for (var i = 0; i < t[0].length; i++) {
+                    code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+                }
+                code--;
+                // Make sure jspreadsheet starts on zero
+                if (code < 0) {
+                    code = 0;
+                }
+
+                // Number
+                var number = parseInt(/[0-9]+$/.exec(columnName)) || null;
+                if (number > 0) {
+                    number--;
+                }
+
+                return [ code, number ];
+            }
+        }
+
+        /**
+         * Extract json configuration from a TABLE DOM tag
+         */
+        component.createFromTable = function() {}
+
+        /**
+         * Helper injectArray
+         */
+        component.injectArray = function(o, idx, arr) {
+            return o.slice(0, idx).concat(arr).concat(o.slice(idx));
+        }
+
+        /**
+         * Parse CSV string to JS array
+         */
+        component.parseCSV = function(str, delimiter) {
+            // user-supplied delimeter or default comma
+            delimiter = (delimiter || ",");
+
+            // Final data
+            var col = 0;
+            var row = 0;
+            var num = 0;
+            var data = [[]];
+            var limit = 0;
+            var flag = null;
+            var inside = false;
+            var closed = false;
+
+            // Go over all chars
+            for (var i = 0; i < str.length; i++) {
+                // Create new row
+                if (! data[row]) {
+                    data[row] = [];
+                }
+                // Create new column
+                if (! data[row][col]) {
+                    data[row][col] = '';
+                }
+
+                // Ignore
+                if (str[i] == '\r') {
+                    continue;
+                }
+
+                // New row
+                if ((str[i] == '\n' || str[i] == delimiter) && (inside == false || closed == true || ! flag)) {
+                    // Restart flags
+                    flag = null;
+                    inside = false;
+                    closed = false;
+
+                    if (data[row][col][0] == '"') {
+                        var val = data[row][col].trim();
+                        if (val[val.length-1] == '"') {
+                            data[row][col] = val.substr(1, val.length-2);
+                        }
+                    }
+
+                    // Go to the next cell
+                    if (str[i] == '\n') {
+                        // New line
+                        col = 0;
+                        row++;
+                    } else {
+                        // New column
+                        col++;
+                        if (col > limit) {
+                            // Keep the reference of max column
+                            limit = col;
+                        }
+                    }
+                } else {
+                    // Inside quotes
+                    if (str[i] == '"') {
+                        inside = ! inside;
+                    }
+
+                    if (flag === null) {
+                        flag = inside;
+                        if (flag == true) {
+                            continue;
+                        }
+                    } else if (flag === true && ! closed) {
+                        if (str[i] == '"') {
+                            if (str[i+1] == '"') {
+                                inside = true;
+                                data[row][col] += str[i];
+                                i++;
+                            } else {
+                                closed = true;
+                            }
+                            continue;
+                        }
+                    }
+
+                    data[row][col] += str[i];
+                }
+            }
+
+            // Make sure a square matrix is generated
+            for (var j = 0; j < data.length; j++) {
+                for (var i = 0; i <= limit; i++) {
+                    if (data[j][i] === undefined) {
+                        data[j][i] = '';
+                    }
+                }
+            }
+
+            return data;
+        }
+
+        return component;
+    })();
 
     /**
      * Jquery Support
