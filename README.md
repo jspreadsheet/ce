@@ -265,12 +265,6 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 ## Community
 - [GitHub](https://github.com/jspreadsheet/ce/issues)
 
-## Compilation
-
-To create a new distribution based on the source.
-
-docker-compose up transpile
-
 ## Contributing
 
 See [contributing](contributing.md)
@@ -280,4 +274,5 @@ Jspreadsheet CE is released under the [MIT license]. Contact <contact@jspreadshe
 
 ## Other interesting tools
 - [jSuites - JavaScript plugins & Webcomponents](https://jsuites.net)
-- [LemonadeJS](https://lemonadejs.net)
+- [Jspreadsheet Pro](https://jspreadsheet.com)
+- [LemonadeJS Reactive Library](https://lemonadejs.net)
