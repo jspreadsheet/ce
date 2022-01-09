@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.9.9
+ * Jspreadsheet v4.9.10
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -5901,7 +5901,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.9.9',
+            version: '4.9.10',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -12107,8 +12107,8 @@ if (! jSuites && typeof(require) === 'function') {
             var colLabel = [];
             var row = [];
             var rowLabel = [];
-            var x = obj.options.data[0].length
-            var y = obj.options.data.length
+            var x = obj.options.data[0].length;
+            var y = obj.options.data.length;
             var tmp = '';
             var copyHeader = false;
             var headers = '';
@@ -12116,9 +12116,30 @@ if (! jSuites && typeof(require) === 'function') {
             var numOfCols = 0;
             var numOfRows = 0;
 
+            // Partial copy
+            var copyX = 0;
+            var copyY = 0;
+            var isPartialCopy = true;
+            // Go through the columns to get the data
+            for (var j = 0; j < y; j++) {
+                for (var i = 0; i < x; i++) {
+                    // If cell is highlighted
+                    if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                        if (copyX <= i) {
+                            copyX = i;
+                        }
+                        if (copyY <= j) {
+                            copyY = j;
+                        }
+                    }
+                }
+            }
+            if (x === copyX+1 && y === copyY+1) {
+                isPartialCopy = false;
+            }
+
             if ((download && obj.options.includeHeadersOnDownload == true) ||
-                (! download && obj.options.includeHeadersOnCopy == true) ||
-                (includeHeaders)) {
+                (! download && obj.options.includeHeadersOnCopy == true && ! isPartialCopy) || (includeHeaders)) {
                 // Nested headers
                 if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
                     // Flexible way to handle nestedheaders
