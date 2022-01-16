@@ -28,7 +28,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.9.9',
+            version: '4.9.11',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -1271,6 +1271,19 @@ if (! jSuites && typeof(require) === 'function') {
             return value;
         }
 
+        var validDate = function(date) {
+            date = ''+date;
+            if (date.substr(4,1) == '-' && date.substr(7,1) == '-') {
+                return true;
+            } else {
+                date = date.split('-');
+                if ((date[0].length == 4 && date[0] == Number(date[0]) && date[1].length == 2 && date[1] == Number(date[1]))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /**
          * Create cell
          */
@@ -1324,7 +1337,13 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.options.data[j][i] = element.checked;
                 } else if (obj.options.columns[i].type == 'calendar') {
                     // Try formatted date
-                    var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
+                    var formatted = null;
+                    if (! validDate(value)) {
+                        var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
+                        if (tmp) {
+                            formatted = tmp;
+                        }
+                    }
                     // Create calendar cell
                     td.innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
                 } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
@@ -1891,6 +1910,9 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.filters[i] = null;
                 }
             }
+
+            obj.results = null;
+            obj.updateResult();
         }
 
         obj.closeFilter = function(columnId) {
@@ -2255,7 +2277,25 @@ if (! jSuites && typeof(require) === 'function') {
     
             return obj.records[y][x];
         }
-    
+
+        /**
+         * Get the column options
+         * @param x
+         * @param y
+         * @returns {{type: string}}
+         */
+        obj.getColumnOptions = function(x, y) {
+            // Type
+            var options = obj.options.columns[x];
+
+            // Cell type
+            if (! options) {
+                options = { type: 'text' };
+            }
+
+            return options;
+        }
+
         /**
          * Get the cell object from coords
          * 
@@ -2566,8 +2606,14 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.options.data[y][x] = value;
                         obj.records[y][x].innerText = obj.getDropDownValue(x, value);
                     } else if (obj.options.columns[x].type == 'calendar') {
-                        // Update calendar
-                        var formatted = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                        // Try formatted date
+                        var formatted = null;
+                        if (! validDate(value)) {
+                            var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                            if (tmp) {
+                                formatted = tmp;
+                            }
+                        }
                         // Update data and cell
                         obj.options.data[y][x] = value;
                         obj.records[y][x].innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
@@ -6191,8 +6237,8 @@ if (! jSuites && typeof(require) === 'function') {
             var colLabel = [];
             var row = [];
             var rowLabel = [];
-            var x = obj.options.data[0].length
-            var y = obj.options.data.length
+            var x = obj.options.data[0].length;
+            var y = obj.options.data.length;
             var tmp = '';
             var copyHeader = false;
             var headers = '';
@@ -6200,9 +6246,30 @@ if (! jSuites && typeof(require) === 'function') {
             var numOfCols = 0;
             var numOfRows = 0;
 
+            // Partial copy
+            var copyX = 0;
+            var copyY = 0;
+            var isPartialCopy = true;
+            // Go through the columns to get the data
+            for (var j = 0; j < y; j++) {
+                for (var i = 0; i < x; i++) {
+                    // If cell is highlighted
+                    if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                        if (copyX <= i) {
+                            copyX = i;
+                        }
+                        if (copyY <= j) {
+                            copyY = j;
+                        }
+                    }
+                }
+            }
+            if (x === copyX+1 && y === copyY+1) {
+                isPartialCopy = false;
+            }
+
             if ((download && obj.options.includeHeadersOnDownload == true) ||
-                (! download && obj.options.includeHeadersOnCopy == true) ||
-                (includeHeaders)) {
+                (! download && obj.options.includeHeadersOnCopy == true && ! isPartialCopy) || (includeHeaders)) {
                 // Nested headers
                 if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
                     // Flexible way to handle nestedheaders
