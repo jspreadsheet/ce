@@ -4810,7 +4810,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.rows[j].setAttribute('data-y', j);
                         obj.rows[j].children[0].setAttribute('data-y', j);
                         // Row number
-                        obj.rows[j].children[0].innerHTML = j + 1;
+                        obj.rows[j].children[0].innerHTML = (obj.options.rows[j] && obj.options.rows[j].title) || j + 1;
                     }
                 }
             }
