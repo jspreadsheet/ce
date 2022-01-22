@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.9.10
+ * Jspreadsheet v4.10.1
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -5901,12 +5901,12 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.9.11',
+            version: '4.10.1',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
             print: function() {
-                return [ this.title + ' ' + this.type + ' ' + this.version, this.host, this.license ].join('\r\n'); 
+                return [ this.title + ' ' + this.type + ' ' + this.version, this.host, this.license ].join('\r\n');
             }
         }
 
@@ -6174,7 +6174,7 @@ if (! jSuites && typeof(require) === 'function') {
             // About message
             about: true,
         };
-    
+
         // Loading initial configuration from user
         for (var property in defaults) {
             if (options && options.hasOwnProperty(property)) {
@@ -6211,7 +6211,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.pageNumber = null;
         obj.headerContainer = null;
         obj.colgroupContainer = null;
-    
+
         // Containers
         obj.headers = [];
         obj.records = [];
@@ -6236,15 +6236,15 @@ if (! jSuites && typeof(require) === 'function') {
         obj.hashString = null;
         obj.resizing = null;
         obj.dragging = null;
-    
+
         // Lazy loading
         if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
             console.error('Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
             obj.options.lazyLoading = false;
         }
-        
+
         /**
-         * Activate/Disable fullscreen 
+         * Activate/Disable fullscreen
          * use programmatically : table.fullscreen(); or table.fullscreen(true); or table.fullscreen(false);
          * @Param {boolean} activate
          */
@@ -6253,18 +6253,18 @@ if (! jSuites && typeof(require) === 'function') {
             if (activate == null) {
                 activate = ! obj.options.fullscreen;
             }
-    
+
             // If change
             if (obj.options.fullscreen != activate) {
                 obj.options.fullscreen = activate;
-    
+
                 // Test LazyLoading conflict
                 if (activate == true) {
                     el.classList.add('fullscreen');
                 } else {
                     el.classList.remove('fullscreen');
                 }
-            } 
+            }
         }
 
         /**
@@ -6295,33 +6295,33 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Prepare the jspreadsheet table
-         * 
+         *
          * @Param config
          */
         obj.prepareTable = function() {
             // Loading initial data from remote sources
             var results = [];
-    
+
             // Number of columns
             var size = obj.options.columns.length;
-    
+
             if (obj.options.data && typeof(obj.options.data[0]) !== 'undefined') {
                 // Data keys
                 var keys = Object.keys(obj.options.data[0]);
-    
+
                 if (keys.length > size) {
                     size = keys.length;
                 }
             }
-    
+
             // Minimal dimensions
             if (obj.options.minDimensions[0] > size) {
                 size = obj.options.minDimensions[0];
             }
-    
+
             // Requests
             var multiple = [];
-    
+
             // Preparations
             for (var i = 0; i < size; i++) {
                 // Deprected options. You should use only columns
@@ -6334,7 +6334,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (! obj.options.colAlignments[i]) {
                     obj.options.colAlignments[i] = obj.options.defaultColAlign;
                 }
-    
+
                 // Default column description
                 if (! obj.options.columns[i]) {
                     obj.options.columns[i] = { type:'text' };
@@ -6365,7 +6365,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (! obj.options.columns[i].align) {
                     obj.options.columns[i].align = obj.options.colAlignments[i] ? obj.options.colAlignments[i] : 'center';
                 }
-    
+
                 // Pre-load initial source for json autocomplete
                 if (obj.options.columns[i].type == 'autocomplete' || obj.options.columns[i].type == 'dropdown') {
                     // if remote content
@@ -6399,7 +6399,7 @@ if (! jSuites && typeof(require) === 'function') {
                 });
             }
         }
-    
+
         obj.createTable = function() {
             // Elements
             obj.table = document.createElement('table');
@@ -6409,7 +6409,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Create headers controllers
             obj.headers = [];
             obj.colgroup = [];
-    
+
             // Create table container
             obj.content = document.createElement('div');
             obj.content.classList.add('jexcel_content');
@@ -6423,7 +6423,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Create toolbar object
             obj.toolbar = document.createElement('div');
             obj.toolbar.classList.add('jexcel_toolbar');
-    
+
             // Search
             var searchContainer = document.createElement('div');
             var searchText = document.createTextNode((obj.options.text.search) + ': ');
@@ -6434,10 +6434,10 @@ if (! jSuites && typeof(require) === 'function') {
             obj.searchInput.onfocus = function() {
                 obj.resetSelection();
             }
-    
+
             // Pagination select option
             var paginationUpdateContainer = document.createElement('div');
-    
+
             if (obj.options.pagination > 0 && obj.options.paginationOptions && obj.options.paginationOptions.length > 0) {
                 obj.paginationDropdown = document.createElement('select');
                 obj.paginationDropdown.classList.add('jexcel_pagination_dropdown');
@@ -6445,14 +6445,14 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.options.pagination = parseInt(this.value);
                     obj.page(0);
                 }
-    
+
                 for (var i = 0; i < obj.options.paginationOptions.length; i++) {
                     var temp = document.createElement('option');
                     temp.value = obj.options.paginationOptions[i];
                     temp.innerHTML = obj.options.paginationOptions[i];
                     obj.paginationDropdown.appendChild(temp);
                 }
-    
+
                 // Set initial pagination value
                 obj.paginationDropdown.value = obj.options.pagination;
 
@@ -6460,19 +6460,19 @@ if (! jSuites && typeof(require) === 'function') {
                 paginationUpdateContainer.appendChild(obj.paginationDropdown);
                 paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.entries));
             }
-    
+
             // Filter and pagination container
             var filter = document.createElement('div');
             filter.classList.add('jexcel_filter');
             filter.appendChild(paginationUpdateContainer);
             filter.appendChild(searchContainer);
-    
+
             // Colsgroup
             obj.colgroupContainer = document.createElement('colgroup');
             var tempCol = document.createElement('col');
             tempCol.setAttribute('width', '50');
             obj.colgroupContainer.appendChild(tempCol);
-    
+
             // Nested
             if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
                 // Flexible way to handle nestedheaders
@@ -6484,13 +6484,13 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders));
                 }
             }
-    
+
             // Row
             obj.headerContainer = document.createElement('tr');
             var tempCol = document.createElement('td');
             tempCol.classList.add('jexcel_selectall');
             obj.headerContainer.appendChild(tempCol);
-    
+
             for (var i = 0; i < obj.options.columns.length; i++) {
                 // Create header
                 obj.createCellHeader(i);
@@ -6541,11 +6541,11 @@ if (! jSuites && typeof(require) === 'function') {
             obj.corner.className = 'jexcel_corner';
             obj.corner.setAttribute('unselectable', 'on');
             obj.corner.setAttribute('onselectstart', 'return false');
-    
+
             if (obj.options.selectionCopy == false) {
                 obj.corner.style.display = 'none';
             }
-    
+
             // Textarea helper
             obj.textarea = document.createElement('textarea');
             obj.textarea.className = 'jexcel_textarea';
@@ -6555,14 +6555,14 @@ if (! jSuites && typeof(require) === 'function') {
             // Contextmenu container
             obj.contextMenu = document.createElement('div');
             obj.contextMenu.className = 'jexcel_contextmenu';
-    
+
             // Create element
             jSuites.contextmenu(obj.contextMenu, {
                 onclick:function() {
                     obj.contextMenu.contextmenu.close(false);
                 }
             });
-    
+
             // Powered by Jspreadsheet
             var ads = document.createElement('a');
             ads.setAttribute('href', 'https://bossanova.uk/jspreadsheet/');
@@ -6585,7 +6585,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Create table container TODO: frozen columns
             var container = document.createElement('div');
             container.classList.add('jexcel_table');
-    
+
             // Pagination
             obj.pagination = document.createElement('div');
             obj.pagination.classList.add('jexcel_pagination');
@@ -6603,24 +6603,24 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.search == true) {
                 el.appendChild(filter);
             }
-    
+
             // Elements
             obj.content.appendChild(obj.table);
             obj.content.appendChild(obj.corner);
             obj.content.appendChild(obj.textarea);
-    
+
             el.appendChild(obj.toolbar);
             el.appendChild(obj.content);
             el.appendChild(obj.pagination);
             el.appendChild(obj.contextMenu);
             el.appendChild(obj.ads);
             el.classList.add('jexcel_container');
-    
+
             // Create toolbar
             if (obj.options.toolbar && obj.options.toolbar.length) {
                 obj.createToolbar();
             }
-    
+
             // Fullscreen
             if (obj.options.fullscreen == true) {
                 el.classList.add('fullscreen');
@@ -6638,12 +6638,12 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // With toolbars
             if (obj.options.tableOverflow != true && obj.options.toolbar) {
                 el.classList.add('with-toolbar');
             }
-    
+
             // Actions
             if (obj.options.columnDrag == true) {
                 obj.thead.classList.add('draggable');
@@ -6657,10 +6657,10 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.rowResize == true) {
                 obj.tbody.classList.add('resizable');
             }
-    
+
             // Load data
             obj.setData();
-    
+
             // Style
             if (obj.options.style) {
                 obj.setStyle(obj.options.style, null, null, 1, 1);
@@ -6678,7 +6678,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Refresh the data
-         * 
+         *
          * @return void
          */
         obj.refresh = function() {
@@ -6687,7 +6687,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (obj.options.loadingSpin == true) {
                     jSuites.loading.show();
                 }
-    
+
                 jSuites.ajax({
                     url: obj.options.url,
                     method: obj.options.method,
@@ -6711,7 +6711,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Set data
-         * 
+         *
          * @param array data In case no data is sent, default is reloaded
          * @return void
          */
@@ -6721,15 +6721,15 @@ if (! jSuites && typeof(require) === 'function') {
                 if (typeof(data) == 'string') {
                     data = JSON.parse(data);
                 }
-    
+
                 obj.options.data = data;
             }
-    
+
             // Data
             if (! obj.options.data) {
                 obj.options.data = [];
             }
-    
+
             // Prepare data
             if (obj.options.data && obj.options.data[0]) {
                 if (! Array.isArray(obj.options.data[0])) {
@@ -6755,37 +6755,37 @@ if (! jSuites && typeof(require) === 'function') {
             var min_j = obj.options.minDimensions[1];
             var max_i = min_i > size_i ? min_i : size_i;
             var max_j = min_j > size_j ? min_j : size_j;
-    
+
             for (j = 0; j < max_j; j++) {
                 for (i = 0; i < max_i; i++) {
                     if (obj.options.data[j] == undefined) {
                         obj.options.data[j] = [];
                     }
-    
+
                     if (obj.options.data[j][i] == undefined) {
                         obj.options.data[j][i] = '';
                     }
                 }
             }
-    
+
             // Reset containers
             obj.rows = [];
             obj.results = null;
             obj.records = [];
             obj.history = [];
-    
+
             // Reset internal controllers
             obj.historyIndex = -1;
-    
+
             // Reset data
             obj.tbody.innerHTML = '';
-    
+
             // Lazy loading
             if (obj.options.lazyLoading == true) {
                 // Load only 100 records
                 var startNumber = 0
                 var finalNumber = obj.options.data.length < 100 ? obj.options.data.length : 100;
-    
+
                 if (obj.options.pagination) {
                     obj.options.pagination = false;
                     console.error('Jspreadsheet: Pagination will be disable due the lazyLoading');
@@ -6798,7 +6798,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var quantityPerPage = obj.options.pagination;
                 startNumber = (obj.options.pagination * obj.pageNumber);
                 finalNumber = (obj.options.pagination * obj.pageNumber) + obj.options.pagination;
-    
+
                 if (obj.options.data.length < finalNumber) {
                     finalNumber = obj.options.data.length;
                 }
@@ -6806,7 +6806,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var startNumber = 0;
                 var finalNumber = obj.options.data.length;
             }
-    
+
             // Append nodes to the HTML
             for (j = 0; j < obj.options.data.length; j++) {
                 // Create row
@@ -6816,13 +6816,13 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.tbody.appendChild(tr);
                 }
             }
-    
+
             if (obj.options.lazyLoading == true) {
                 // Do not create pagination with lazyloading activated
             } else if (obj.options.pagination) {
                 obj.updatePagination();
             }
-    
+
             // Merge cells
             if (obj.options.mergeCells) {
                 var keys = Object.keys(obj.options.mergeCells);
@@ -6841,7 +6841,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Get the whole table data
-         * 
+         *
          * @param bool get highlighted cells only
          * @return array data
          */
@@ -6857,7 +6857,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Column and row length
             var x = obj.options.columns.length
             var y = obj.options.data.length
-    
+
             // Go through the columns to get the data
             for (var j = 0; j < y; j++) {
                 px = 0;
@@ -6880,7 +6880,7 @@ if (! jSuites && typeof(require) === 'function') {
                     py++;
                 }
            }
-    
+
            return dataset;
         }
 
@@ -6907,18 +6907,18 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Get the whole table data
-         * 
+         *
          * @param bool highlighted cells only
          * @return string value
          */
         obj.getJson = function(highlighted) {
             // Control vars
             var data = [];
-    
+
             // Column and row length
             var x = obj.options.columns.length
             var y = obj.options.data.length
-    
+
             // Go through the columns to get the data
             for (var j = 0; j < y; j++) {
                 var row = null;
@@ -6933,12 +6933,12 @@ if (! jSuites && typeof(require) === 'function') {
                         row[obj.options.columns[i].name] = obj.options.data[j][i];
                     }
                 }
-    
+
                 if (row != null) {
                     data.push(row);
                 }
            }
-    
+
            return data;
         }
 
@@ -7001,7 +7001,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.getRowData = function(rowNumber) {
             return obj.options.data[rowNumber];
         }
-    
+
         /**
          * Set a row data by rowNumber
          */
@@ -7015,7 +7015,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Get a column data by columnNumber
          */
@@ -7027,7 +7027,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
             return dataset;
         }
-    
+
         /**
          * Set a column data by colNumber
          */
@@ -7041,7 +7041,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Create row
          */
@@ -7083,7 +7083,7 @@ if (! jSuites && typeof(require) === 'function') {
             td.setAttribute('data-y', j);
             td.className = 'jexcel_row';
             obj.rows[j].appendChild(td);
-    
+
             // Data columns
             for (var i = 0; i < obj.options.columns.length; i++) {
                 // New column of data to be append in the line
@@ -7091,11 +7091,11 @@ if (! jSuites && typeof(require) === 'function') {
                 // Add column to the row
                 obj.rows[j].appendChild(obj.records[j][i]);
             }
-    
+
             // Add row to the table body
             return obj.rows[j];
         }
-    
+
         obj.parseValue = function(i, j, value, cell) {
             if ((''+value).substr(0,1) == '=' && obj.options.parseFormulas == true) {
                 value = obj.executeFormula(value, i, j)
@@ -7251,21 +7251,21 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Readonly
             if (obj.options.columns[i].readOnly == true) {
                 td.className = 'readonly';
             }
-    
+
             // Text align
             var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
             td.style.textAlign = colAlign;
-    
+
             // Wrap option
             if (obj.options.columns[i].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200)) {
                 td.style.whiteSpace = 'pre-wrap';
             }
-    
+
             // Overflow
             if (i > 0) {
                 if (this.options.textOverflow == true) {
@@ -7280,12 +7280,12 @@ if (! jSuites && typeof(require) === 'function') {
             }
             return td;
         }
-    
+
         obj.createCellHeader = function(colNumber) {
             // Create col global control
             var colWidth = obj.options.columns[colNumber].width ? obj.options.columns[colNumber].width : obj.options.defaultColWidth;
             var colAlign = obj.options.columns[colNumber].align ? obj.options.columns[colNumber].align : obj.options.defaultColAlign;
-    
+
             // Create header cell
             obj.headers[colNumber] = document.createElement('td');
             if (obj.options.stripHTML) {
@@ -7301,11 +7301,11 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.columns[colNumber].id) {
                 obj.headers[colNumber].setAttribute('id', obj.options.columns[colNumber].id);
             }
-    
+
             // Width control
             obj.colgroup[colNumber] = document.createElement('col');
             obj.colgroup[colNumber].setAttribute('width', colWidth);
-    
+
             // Hidden column
             if (obj.options.columns[colNumber].type == 'hidden') {
                 obj.headers[colNumber].style.display = 'none';
@@ -7333,7 +7333,7 @@ if (! jSuites && typeof(require) === 'function') {
             tr.appendChild(td);
             // Element
             nestedInformation.element = tr;
-    
+
             var headerIndex = 0;
             for (var i = 0; i < nestedInformation.length; i++) {
                 // Default values
@@ -7346,10 +7346,10 @@ if (! jSuites && typeof(require) === 'function') {
                 if (! nestedInformation[i].title) {
                     nestedInformation[i].title = '';
                 }
-    
+
                 // Number of columns
                 var numberOfColumns = nestedInformation[i].colspan;
-    
+
                 // Classes container
                 var column = [];
                 // Header classes for this cell
@@ -7360,7 +7360,7 @@ if (! jSuites && typeof(require) === 'function') {
                     column.push(headerIndex);
                     headerIndex++;
                 }
-    
+
                 // Created the nested cell
                 var td = document.createElement('td');
                 td.setAttribute('data-column', column.join(','));
@@ -7369,10 +7369,10 @@ if (! jSuites && typeof(require) === 'function') {
                 td.innerText = nestedInformation[i].title;
                 tr.appendChild(td);
             }
-    
+
             return tr;
         }
-    
+
         /**
          * Create toolbar
          */
@@ -7459,7 +7459,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Merge cells
          * @param cellName
@@ -7469,7 +7469,7 @@ if (! jSuites && typeof(require) === 'function') {
          */
         obj.setMerge = function(cellName, colspan, rowspan, ignoreHistoryAndEvents) {
             var test = false;
-    
+
             if (! cellName) {
                 if (! obj.highlighted.length) {
                     alert(obj.options.text.noCellsSelected);
@@ -7484,9 +7484,9 @@ if (! jSuites && typeof(require) === 'function') {
                     var rowspan = (y2 - y1) + 1;
                 }
             }
-    
+
             var cell = jexcel.getIdFromColumnName(cellName, true);
-    
+
             if (obj.options.mergeCells[cellName]) {
                 if (obj.records[cell[1]][cell[0]].getAttribute('data-merged')) {
                     test = obj.options.text.cellAlreadyMerged;
@@ -7504,7 +7504,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             if (test) {
                 alert(test);
             } else {
@@ -7541,7 +7541,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
                 // In the initialization is not necessary keep the history
                 obj.updateSelection(obj.records[cell[1]][cell[0]]);
-    
+
                 if (! ignoreHistoryAndEvents) {
                     obj.setHistory({
                         action:'setMerge',
@@ -7550,12 +7550,12 @@ if (! jSuites && typeof(require) === 'function') {
                         rowspan:rowspan,
                         data:data,
                     });
-    
+
                     obj.dispatch('onmerge', el, cellName, colspan, rowspan);
                 }
             }
         }
-    
+
         /**
          * Merge cells
          * @param cellName
@@ -7580,10 +7580,10 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return data;
         }
-    
+
         /**
          * Remove merge by cellname
          * @param cellName
@@ -7595,7 +7595,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.records[cell[1]][cell[0]].removeAttribute('rowspan');
                 obj.records[cell[1]][cell[0]].removeAttribute('data-merged');
                 var info = obj.options.mergeCells[cellName];
-    
+
                 var index = 0;
                 for (var j = 0; j < info[1]; j++) {
                     for (var i = 0; i < info[0]; i++) {
@@ -7610,16 +7610,16 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                 }
-    
+
                 // Update selection
                 obj.updateSelection(obj.records[cell[1]][cell[0]], obj.records[cell[1]+j-1][cell[0]+i-1]);
-    
+
                 if (! keepOptions) {
                     delete(obj.options.mergeCells[cellName]);
                 }
             }
         }
-    
+
         /**
          * Remove all merged cells
          */
@@ -7633,7 +7633,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Is column merged
          */
@@ -7647,7 +7647,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var colspan = obj.options.mergeCells[keys[i]][0];
                     var x1 = info[0];
                     var x2 = info[0] + (colspan > 1 ? colspan - 1 : 0);
-    
+
                     if (insertBefore == null) {
                         if ((x1 <= x && x2 >= x)) {
                             cols.push(keys[i]);
@@ -7665,10 +7665,10 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return cols;
         }
-    
+
         /**
          * Is rows merged
          */
@@ -7682,7 +7682,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var rowspan = obj.options.mergeCells[keys[i]][1];
                     var y1 = info[1];
                     var y2 = info[1] + (rowspan > 1 ? rowspan - 1 : 0);
-    
+
                     if (insertBefore == null) {
                         if ((y1 <= y && y2 >= y)) {
                             rows.push(keys[i]);
@@ -7700,7 +7700,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return rows;
         }
 
@@ -7800,12 +7800,9 @@ if (! jSuites && typeof(require) === 'function') {
             // Search filter
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
-                    if ((query[i] == '' && // Blank matching
-                        ((obj.options.data[y][x] === false) || // Unchecked checkbox
-                        (''+obj.options.data[y][x]) == '')) || // Blank non-checkbox value
-                        ((query[i] != '' && // Normal non-blank filtering
-                        ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
-                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0)))) {
+                    var value = ''+obj.options.data[y][x];
+                    var label = ''+obj.records[y][x].innerHTML;
+                    if (query[i] == value || query[i] == label) {
                         return true;
                     }
                 }
@@ -7828,7 +7825,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Open the editor
-         * 
+         *
          * @param object cell
          * @return void
          */
@@ -7836,44 +7833,44 @@ if (! jSuites && typeof(require) === 'function') {
             // Get cell position
             var y = cell.getAttribute('data-y');
             var x = cell.getAttribute('data-x');
-    
+
             // On edition start
             obj.dispatch('oneditionstart', el, cell, x, y);
-    
+
             // Overflow
             if (x > 0) {
                 obj.records[y][x-1].style.overflow = 'hidden';
             }
-    
+
             // Create editor
             var createEditor = function(type) {
                 // Cell information
                 var info = cell.getBoundingClientRect();
-    
+
                 // Create dropdown
                 var editor = document.createElement(type);
                 editor.style.width = (info.width) + 'px';
                 editor.style.height = (info.height - 2) + 'px';
                 editor.style.minHeight = (info.height - 2) + 'px';
-    
+
                 // Edit cell
                 cell.classList.add('editor');
                 cell.innerHTML = '';
                 cell.appendChild(editor);
-    
+
                 // On edition start
                 obj.dispatch('oncreateeditor', el, cell, x, y, editor);
 
                 return editor;
             }
-    
+
             // Readonly
             if (cell.classList.contains('readonly') == true) {
                 // Do nothing
             } else {
                 // Holder
                 obj.edition = [ obj.records[y][x], obj.records[y][x].innerHTML, x, y ];
-    
+
                 // If there is a custom editor for it
                 if (obj.options.columns[x].editor) {
                     // Custom editors
@@ -7895,14 +7892,14 @@ if (! jSuites && typeof(require) === 'function') {
                         if (obj.options.columns[x].multiple && !Array.isArray(value)) {
                             value = value.split(';');
                         }
-    
+
                         // Create dropdown
                         if (typeof(obj.options.columns[x].filter) == 'function') {
                             var source = obj.options.columns[x].filter(el, cell, x, y, obj.options.columns[x].source);
                         } else {
                             var source = obj.options.columns[x].source;
                         }
-    
+
                         // Do not change the original source
                         var data = [];
                         for (var j = 0; j < source.length; j++) {
@@ -7934,7 +7931,7 @@ if (! jSuites && typeof(require) === 'function') {
                         // Create editor
                         var editor = createEditor('input');
                         editor.value = value;
-    
+
                         if (obj.options.tableOverflow == true || obj.options.fullscreen == true) {
                             obj.options.columns[x].options.position = true;
                         }
@@ -8039,10 +8036,10 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Close the editor and save the information
-         * 
+         *
          * @param object cell
          * @param boolean save
          * @return void
@@ -8121,24 +8118,24 @@ if (! jSuites && typeof(require) === 'function') {
                         cell.children[0].onblur = null;
                     }
                 }
-    
+
                 // Restore value
                 cell.innerHTML = obj.edition && obj.edition[1] ? obj.edition[1] : '';
             }
-    
+
             // On edition end
             obj.dispatch('oneditionend', el, cell, x, y, value, save);
 
             // Remove editor class
             cell.classList.remove('editor');
-    
+
             // Finish edition
             obj.edition = null;
         }
-    
+
         /**
          * Get the cell object
-         * 
+         *
          * @param object cell
          * @return string value
          */
@@ -8147,7 +8144,7 @@ if (! jSuites && typeof(require) === 'function') {
             cell = jexcel.getIdFromColumnName(cell, true);
             var x = cell[0];
             var y = cell[1];
-    
+
             return obj.records[y][x];
         }
 
@@ -8171,17 +8168,17 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Get the cell object from coords
-         * 
+         *
          * @param object cell
          * @return string value
          */
         obj.getCellFromCoords = function(x, y) {
             return obj.records[y][x];
         }
-    
+
         /**
          * Get label
-         * 
+         *
          * @param object cell
          * @return string value
          */
@@ -8190,23 +8187,23 @@ if (! jSuites && typeof(require) === 'function') {
             cell = jexcel.getIdFromColumnName(cell, true);
             var x = cell[0];
             var y = cell[1];
-    
+
             return obj.records[y][x].innerHTML;
         }
-    
+
         /**
          * Get labelfrom coords
-         * 
+         *
          * @param object cell
          * @return string value
          */
         obj.getLabelFromCoords = function(x, y) {
             return obj.records[y][x].innerHTML;
         }
-    
+
         /**
          * Get the value from a cell
-         * 
+         *
          * @param object cell
          * @return string value
          */
@@ -8219,9 +8216,9 @@ if (! jSuites && typeof(require) === 'function') {
                 var x = cell[0];
                 var y = cell[1];
             }
-    
+
             var value = null;
-    
+
             if (x != null && y != null) {
                 if (obj.records[y] && obj.records[y][x] && (processedValue || obj.options.copyCompatibility == true)) {
                     value = obj.records[y][x].innerHTML;
@@ -8231,20 +8228,20 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return value;
         }
-    
+
         /**
          * Get the value from a coords
-         * 
+         *
          * @param int x
          * @param int y
          * @return string value
          */
         obj.getValueFromCoords = function(x, y, processedValue) {
             var value = null;
-    
+
             if (x != null && y != null) {
                 if ((obj.records[y] && obj.records[y][x]) && processedValue || obj.options.copyCompatibility == true) {
                     value = obj.records[y][x].innerHTML;
@@ -8254,28 +8251,28 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return value;
         }
-    
+
         /**
          * Set a cell value
-         * 
+         *
          * @param mixed cell destination cell
          * @param string value value
          * @return void
          */
         obj.setValue = function(cell, value, force) {
             var records = [];
-    
+
             if (typeof(cell) == 'string') {
                 var columnId = jexcel.getIdFromColumnName(cell, true);
                 var x = columnId[0];
                 var y = columnId[1];
-    
+
                 // Update cell
                 records.push(obj.updateCell(x, y, value, force));
-    
+
                 // Update all formulas in the chain
                 obj.updateFormulaChain(x, y, records);
             } else {
@@ -8285,11 +8282,11 @@ if (! jSuites && typeof(require) === 'function') {
                     var x = cell.getAttribute('data-x');
                     var y = cell.getAttribute('data-y');
                 }
-    
+
                 // Update cell
                 if (x != null && y != null) {
                     records.push(obj.updateCell(x, y, value, force));
-    
+
                     // Update all formulas in the chain
                     obj.updateFormulaChain(x, y, records);
                 } else {
@@ -8315,11 +8312,11 @@ if (! jSuites && typeof(require) === 'function') {
                                     var y = cell[i].getAttribute('data-y');
                                 }
                             }
-    
+
                              // Update cell
                             if (x != null && y != null) {
                                 records.push(obj.updateCell(x, y, value, force));
-    
+
                                 // Update all formulas in the chain
                                 obj.updateFormulaChain(x, y, records);
                             }
@@ -8327,24 +8324,24 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Update history
             obj.setHistory({
                 action:'setValue',
                 records:records,
                 selection:obj.selectedCell,
             });
-    
+
             // Update table with custom configurations if applicable
             obj.updateTable();
-    
+
             // On after changes
             obj.onafterchanges(el, records);
         }
-    
+
         /**
          * Set a cell value based on coordinates
-         * 
+         *
          * @param int x destination cell
          * @param int y destination cell
          * @param string value
@@ -8353,24 +8350,24 @@ if (! jSuites && typeof(require) === 'function') {
         obj.setValueFromCoords = function(x, y, value, force) {
             var records = [];
             records.push(obj.updateCell(x, y, value, force));
-    
+
             // Update all formulas in the chain
             obj.updateFormulaChain(x, y, records);
-    
+
             // Update history
             obj.setHistory({
                 action:'setValue',
                 records:records,
                 selection:obj.selectedCell,
             });
-    
+
             // Update table with custom configurations if applicable
             obj.updateTable();
-    
+
             // On after changes
             obj.onafterchanges(el, records);
         }
-    
+
         /**
          * Toogle
          */
@@ -8380,13 +8377,13 @@ if (! jSuites && typeof(require) === 'function') {
             for (var i = 0; i < keys.length; i++) {
                 var x = obj.highlighted[i].getAttribute('data-x');
                 var y = obj.highlighted[i].getAttribute('data-y');
-    
+
                 if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
                     // Update cell
                     records.push(obj.updateCell(x, y, ! obj.options.data[y][x]));
                 }
             }
-    
+
             if (records.length) {
                 // Update history
                 obj.setHistory({
@@ -8394,7 +8391,7 @@ if (! jSuites && typeof(require) === 'function') {
                     records:records,
                     selection:obj.selectedCell,
                 });
-    
+
                 // On after changes
                 obj.onafterchanges(el, records);
             }
@@ -8412,7 +8409,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Update cell content
-         * 
+         *
          * @param object cell
          * @return void
          */
@@ -8623,7 +8620,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 continue;
                             }
                         }
-    
+
                         // Column
                         if (data[posy] == undefined) {
                             posx = 0;
@@ -8633,12 +8630,12 @@ if (! jSuites && typeof(require) === 'function') {
 
                         // Value
                         var value = data[posy][posx];
-    
+
                         if (value && ! data[1] && obj.options.autoIncrement == true) {
                             if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
                                 if ((''+value).substr(0,1) == '=') {
                                     var tokens = value.match(/([A-Z]+[0-9]+)/g);
-    
+
                                     if (tokens) {
                                         var affectedTokens = [];
                                         for (var index = 0; index < tokens.length; index++) {
@@ -8649,7 +8646,7 @@ if (! jSuites && typeof(require) === 'function') {
                                                 position[1] = 0;
                                             }
                                             var token = jexcel.getColumnNameFromId([position[0], position[1]]);
-    
+
                                             if (token != tokens[index]) {
                                                 affectedTokens[tokens[index]] = token;
                                             }
@@ -8670,9 +8667,9 @@ if (! jSuites && typeof(require) === 'function') {
                                 value = date.getFullYear() + '-' + jexcel.doubleDigitFormat(parseInt(date.getMonth() + 1)) + '-' + jexcel.doubleDigitFormat(date.getDate()) + ' ' + '00:00:00';
                             }
                         }
-    
+
                         records.push(obj.updateCell(i, j, value));
-    
+
                         // Update all formulas in the chain
                         obj.updateFormulaChain(i, j, records);
                     }
@@ -8684,21 +8681,21 @@ if (! jSuites && typeof(require) === 'function') {
                 posy++;
                 rowNumber++;
             }
-    
+
             // Update history
             obj.setHistory({
                 action:'setValue',
                 records:records,
                 selection:obj.selectedCell,
             });
-    
+
             // Update table with custom configuration if applicable
             obj.updateTable();
-    
+
             // On after changes
             obj.onafterchanges(el, records);
         }
-    
+
         /**
          * Refresh current selection
          */
@@ -8707,7 +8704,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
             }
         }
-    
+
         /**
          * Move coords to A1 in case overlaps with an excluded cell
          */
@@ -8724,7 +8721,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Clear table selection
          */
@@ -8734,7 +8731,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var previousStatus = 0;
             } else {
                 var previousStatus = 1;
-    
+
                 for (var i = 0; i < obj.highlighted.length; i++) {
                     obj.highlighted[i].classList.remove('highlight');
                     obj.highlighted[i].classList.remove('highlight-left');
@@ -8742,10 +8739,10 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.highlighted[i].classList.remove('highlight-top');
                     obj.highlighted[i].classList.remove('highlight-bottom');
                     obj.highlighted[i].classList.remove('highlight-selected');
-    
+
                     var px = parseInt(obj.highlighted[i].getAttribute('data-x'));
                     var py = parseInt(obj.highlighted[i].getAttribute('data-y'));
-    
+
                     // Check for merged cells
                     if (obj.highlighted[i].getAttribute('data-merged')) {
                         var colspan = parseInt(obj.highlighted[i].getAttribute('colspan'));
@@ -8756,14 +8753,14 @@ if (! jSuites && typeof(require) === 'function') {
                         var ux = px;
                         var uy = py;
                     }
-    
+
                     // Remove selected from headers
                     for (var j = px; j <= ux; j++) {
                         if (obj.headers[j]) {
                             obj.headers[j].classList.remove('selected');
                         }
                     }
-    
+
                     // Remove selected from rows
                     for (var j = py; j <= uy; j++) {
                         if (obj.rows[j]) {
@@ -8772,24 +8769,24 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Reset highlighted cells
             obj.highlighted = [];
-    
+
             // Reset
             obj.selectedCell = null;
-    
+
             // Hide corner
             obj.corner.style.top = '-2000px';
             obj.corner.style.left = '-2000px';
-    
+
             if (blur == true && previousStatus == 1) {
                 obj.dispatch('onblur', el);
             }
-    
+
             return previousStatus;
         }
-    
+
         /**
          * Update selection based on two cells
          */
@@ -8803,10 +8800,10 @@ if (! jSuites && typeof(require) === 'function') {
                 var x2 = x1;
                 var y2 = y1;
             }
-    
+
             obj.updateSelectionFromCoords(x1, y1, x2, y2, origin);
         }
-    
+
         /**
          * Update selection from coords
          */
@@ -8814,11 +8811,11 @@ if (! jSuites && typeof(require) === 'function') {
             // Reset Selection
             var updated = null;
             var previousState = obj.resetSelection();
-    
+
             // select column
             if (y1 == null) {
                 y1 = 0;
-                y2 = obj.rows.length - 1; 
+                y2 = obj.rows.length - 1;
             }
 
             // Same element
@@ -8828,7 +8825,7 @@ if (! jSuites && typeof(require) === 'function') {
             if (y2 == null) {
                 y2 = y1;
             }
-    
+
             // Selection must be within the existing data
             if (x1 >= obj.headers.length) {
                 x1 = obj.headers.length - 1;
@@ -8842,17 +8839,17 @@ if (! jSuites && typeof(require) === 'function') {
             if (y2 >= obj.rows.length) {
                 y2 = obj.rows.length - 1;
             }
-    
+
             // Keep selected cell
             obj.selectedCell = [x1, y1, x2, y2];
-    
+
             // Select cells
             if (x1 != null) {
                 // Add selected cell
                 if (obj.records[y1][x1]) {
                     obj.records[y1][x1].classList.add('highlight-selected');
                 }
-    
+
                 // Origin & Destination
                 if (parseInt(x1) < parseInt(x2)) {
                     var px = parseInt(x1);
@@ -8861,7 +8858,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var px = parseInt(x2);
                     var ux = parseInt(x1);
                 }
-    
+
                 if (parseInt(y1) < parseInt(y2)) {
                     var py = parseInt(y1);
                     var uy = parseInt(y2);
@@ -8869,7 +8866,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var py = parseInt(y2);
                     var uy = parseInt(y1);
                 }
-    
+
                 // Verify merged columns
                 for (var i = px; i <= ux; i++) {
                     for (var j = py; j <= uy; j++) {
@@ -8878,7 +8875,7 @@ if (! jSuites && typeof(require) === 'function') {
                             var y = parseInt(obj.records[j][i].getAttribute('data-y'));
                             var colspan = parseInt(obj.records[j][i].getAttribute('colspan'));
                             var rowspan = parseInt(obj.records[j][i].getAttribute('rowspan'));
-    
+
                             if (colspan > 1) {
                                 if (x < px) {
                                     px = x;
@@ -8887,11 +8884,11 @@ if (! jSuites && typeof(require) === 'function') {
                                     ux = x + colspan - 1;
                                 }
                             }
-    
+
                             if (rowspan) {
                                 if (y < py) {
                                     py = y;
-    
+
                                 }
                                 if (y + rowspan > uy) {
                                     uy = y + rowspan - 1;
@@ -8900,13 +8897,13 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                 }
-    
+
                 // Limits
                 var borderLeft = null;
                 var borderRight = null;
                 var borderTop = null;
                 var borderBottom = null;
-    
+
                 // Vertical limits
                 for (var j = py; j <= uy; j++) {
                     if (obj.rows[j].style.display != 'none') {
@@ -8916,7 +8913,7 @@ if (! jSuites && typeof(require) === 'function') {
                         borderBottom = j;
                     }
                 }
-    
+
                 // Redefining styles
                 for (var i = px; i <= ux; i++) {
                     for (var j = py; j <= uy; j++) {
@@ -8925,7 +8922,7 @@ if (! jSuites && typeof(require) === 'function') {
                             obj.highlighted.push(obj.records[j][i]);
                         }
                     }
-    
+
                     // Horizontal limits
                     if (obj.options.columns[i].type != 'hidden') {
                         if (borderLeft == null) {
@@ -8934,7 +8931,7 @@ if (! jSuites && typeof(require) === 'function') {
                         borderRight = i;
                     }
                 }
-    
+
                 // Create borders
                 if (! borderLeft) {
                     borderLeft = 0;
@@ -8956,7 +8953,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.headers[i].classList.add('selected');
                     }
                 }
-    
+
                 for (var j = borderTop; j <= borderBottom; j++) {
                     if (obj.rows[j] && obj.rows[j].style.display != 'none') {
                         // Left border
@@ -8967,10 +8964,10 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.rows[j].classList.add('selected');
                     }
                 }
-    
+
                 obj.selectedContainer = [ borderLeft, borderTop, borderRight, borderBottom ];
             }
-    
+
             // Handle events
             if (previousState == 0) {
                 obj.dispatch('onfocus', el);
@@ -8983,10 +8980,10 @@ if (! jSuites && typeof(require) === 'function') {
             // Find corner cell
             obj.updateCornerPosition();
         }
-    
+
         /**
          * Remove copy selection
-         * 
+         *
          * @return void
          */
         obj.removeCopySelection = function() {
@@ -8998,26 +8995,26 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selection[i].classList.remove('selection-top');
                 obj.selection[i].classList.remove('selection-bottom');
             }
-    
+
             obj.selection = [];
         }
-    
+
         /**
          * Update copy selection
-         * 
+         *
          * @param int x, y
          * @return void
          */
         obj.updateCopySelection = function(x3, y3) {
             // Remove selection
             obj.removeCopySelection();
-    
+
             // Get elements first and last
             var x1 = obj.selectedContainer[0];
             var y1 = obj.selectedContainer[1];
             var x2 = obj.selectedContainer[2];
             var y2 = obj.selectedContainer[3];
-    
+
             if (x3 != null && y3 != null) {
                 if (x3 - x2 > 0) {
                     var px = parseInt(x2) + 1;
@@ -9026,7 +9023,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var px = parseInt(x3);
                     var ux = parseInt(x1) - 1;
                 }
-    
+
                 if (y3 - y2 > 0) {
                     var py = parseInt(y2) + 1;
                     var uy = parseInt(y3);
@@ -9034,7 +9031,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var py = parseInt(y3);
                     var uy = parseInt(y1) - 1;
                 }
-    
+
                 if (ux - px <= uy - py) {
                     var px = parseInt(x1);
                     var ux = parseInt(x2);
@@ -9042,7 +9039,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var py = parseInt(y1);
                     var uy = parseInt(y2);
                 }
-    
+
                 for (var j = py; j <= uy; j++) {
                     for (var i = px; i <= ux; i++) {
                         if (obj.records[j][i] && obj.rows[j].style.display != 'none' && obj.records[j][i].style.display != 'none') {
@@ -9051,7 +9048,7 @@ if (! jSuites && typeof(require) === 'function') {
                             obj.records[uy][i].classList.add('selection-bottom');
                             obj.records[j][px].classList.add('selection-left');
                             obj.records[j][ux].classList.add('selection-right');
-    
+
                             // Persist selected elements
                             obj.selection.push(obj.records[j][i]);
                         }
@@ -9059,10 +9056,10 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Update corner position
-         * 
+         *
          * @return void
          */
         obj.updateCornerPosition = function() {
@@ -9073,6 +9070,7 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 // Get last cell
                 var last = obj.highlighted[obj.highlighted.length-1];
+                var lastX = last.getAttribute('data-x');
 
                 var contentRect = obj.content.getBoundingClientRect();
                 var x1 = contentRect.left;
@@ -9093,7 +9091,8 @@ if (! jSuites && typeof(require) === 'function') {
 
                 if (obj.options.freezeColumns) {
                     var width = obj.getFreezeWidth();
-                    if (x2 - x1 + w2 < width) {
+                    // Only check if the last column is not part of the merged cells
+                    if (lastX > obj.options.freezeColumns-1 && x2 - x1 + w2 < width) {
                         obj.corner.style.display = 'none';
                     } else {
                         if (obj.options.selectionCopy == true) {
@@ -9107,7 +9106,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Update scroll position based on the selection
          */
@@ -9121,14 +9120,14 @@ if (! jSuites && typeof(require) === 'function') {
 
             // Direction Left or Up
             var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
-    
+
             // Reference
             var referenceRect = reference.getBoundingClientRect();
             var x2 = referenceRect.left;
             var y2 = referenceRect.top;
             var w2 = referenceRect.width;
             var h2 = referenceRect.height;
-    
+
             // Direction
             if (direction == 0 || direction == 1) {
                 var x = (x2 - x1) + obj.content.scrollLeft;
@@ -9137,7 +9136,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var x = (x2 - x1) + obj.content.scrollLeft + w2;
                 var y = (y2 - y1) + obj.content.scrollTop + h2;
             }
-    
+
             // Top position check
             if (y > (obj.content.scrollTop + 30) && y < (obj.content.scrollTop + h1)) {
                 // In the viewport
@@ -9149,8 +9148,8 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.content.scrollTop = y - (h1 - 2);
                 }
             }
-    
-            // Freeze columns? 
+
+            // Freeze columns?
             var freezed = obj.getFreezeWidth();
 
             // Left position check - TODO: change that to the bottom border of the element
@@ -9170,10 +9169,10 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Get the column width
-         * 
+         *
          * @param int column column number (first column is: 0)
          * @return int current width
          */
@@ -9189,17 +9188,17 @@ if (! jSuites && typeof(require) === 'function') {
                 if (typeof(column) == 'object') {
                     column = $(column).getAttribute('data-x');
                 }
-    
+
                 data = obj.colgroup[column].getAttribute('width')
             }
-    
+
             return data;
         }
 
 
         /**
          * Set the column width
-         * 
+         *
          * @param int column number (first column is: 0)
          * @param int new column width
          * @param int old column width
@@ -9248,7 +9247,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Set the row height
-         * 
+         *
          * @param row - row number (first row is: 0)
          * @param height - new row height
          * @param oldHeight - old row height
@@ -9259,7 +9258,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (typeof(row) == 'object') {
                     row = row.getAttribute('data-y');
                 }
-    
+
                 // Oldwidth
                 if (! oldHeight) {
                     oldHeight = obj.rows[row].getAttribute('height');
@@ -9275,13 +9274,13 @@ if (! jSuites && typeof(require) === 'function') {
 
                 // Set width
                 obj.rows[row].style.height = height + 'px';
-    
+
                 // Keep options updated
                 if (! obj.options.rows[row]) {
                     obj.options.rows[row] = {};
                 }
                 obj.options.rows[row].height = height;
-    
+
                 // Keeping history of changes
                 obj.setHistory({
                     action:'setHeight',
@@ -9297,10 +9296,10 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.updateCornerPosition();
             }
         }
-    
+
         /**
          * Get the row height
-         * 
+         *
          * @param row - row number (first row is: 0)
          * @return height - current row height
          */
@@ -9319,13 +9318,13 @@ if (! jSuites && typeof(require) === 'function') {
                 if (typeof(row) == 'object') {
                     row = $(row).getAttribute('data-y');
                 }
-    
+
                 var data = obj.rows[row].style.height;
             }
-    
+
             return data;
         }
-    
+
         obj.setFooter = function(data) {
             if (data) {
                 obj.options.footers = data;
@@ -9335,7 +9334,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (! obj.tfoot) {
                     obj.tfoot = document.createElement('tfoot');
                     obj.table.appendChild(obj.tfoot);
-                } 
+                }
 
                 for (var j = 0; j < obj.options.footers.length; j++) {
                     if (obj.tfoot.children[j]) {
@@ -9368,28 +9367,28 @@ if (! jSuites && typeof(require) === 'function') {
 
         /**
          * Get the column title
-         * 
+         *
          * @param column - column number (first column is: 0)
          * @param title - new column title
          */
         obj.getHeader = function(column) {
             return obj.headers[column].innerText;
         }
-    
+
         /**
          * Set the column title
-         * 
+         *
          * @param column - column number (first column is: 0)
          * @param title - new column title
          */
         obj.setHeader = function(column, newValue) {
             if (obj.headers[column]) {
                 var oldValue = obj.headers[column].innerText;
-    
+
                 if (! newValue) {
                     newValue = prompt(obj.options.text.columnName, oldValue)
                 }
-    
+
                 if (newValue) {
                     obj.headers[column].innerText = newValue;
                     // Keep the title property
@@ -9397,38 +9396,38 @@ if (! jSuites && typeof(require) === 'function') {
                     // Update title
                     obj.options.columns[column].title = newValue;
                 }
-    
+
                 obj.setHistory({
                     action: 'setHeader',
                     column: column,
                     oldValue: oldValue,
                     newValue: newValue
                 });
-    
+
                 // On onchange header
                 obj.dispatch('onchangeheader', el, column, oldValue, newValue);
             }
         }
-    
+
         /**
          * Get the headers
-         * 
+         *
          * @param asArray
          * @return mixed
          */
         obj.getHeaders = function (asArray) {
             var title = [];
-    
+
             for (var i = 0; i < obj.headers.length; i++) {
                 title.push(obj.getHeader(i));
             }
-    
+
             return asArray ? title : title.join(obj.options.csvDelimiter);
         }
-    
+
         /**
          * Get meta information from cell(s)
-         * 
+         *
          * @return integer
          */
         obj.getMeta = function(cell, key) {
@@ -9442,17 +9441,17 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Set meta information to cell(s)
-         * 
+         *
          * @return integer
          */
         obj.setMeta = function(o, k, v) {
             if (! obj.options.meta) {
                 obj.options.meta = {}
             }
-    
+
             if (k && v) {
                 // Set data value
                 if (! obj.options.meta[o]) {
@@ -9466,20 +9465,20 @@ if (! jSuites && typeof(require) === 'function') {
                     if (! obj.options.meta[keys[i]]) {
                         obj.options.meta[keys[i]] = {};
                     }
-    
+
                     var prop = Object.keys(o[keys[i]]);
                     for (var j = 0; j < prop.length; j++) {
                         obj.options.meta[keys[i]][prop[j]] = o[keys[i]][prop[j]];
                     }
                 }
             }
-    
+
             obj.dispatch('onchangemeta', el, o, k, v);
         }
-    
+
         /**
          * Update meta information
-         * 
+         *
          * @return integer
          */
         obj.updateMeta = function(affectedCells) {
@@ -9497,10 +9496,10 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.options.meta = newMeta;
             }
         }
-    
+
         /**
          * Get style information from cell(s)
-         * 
+         *
          * @return integer
          */
         obj.getStyle = function(cell, key) {
@@ -9508,17 +9507,17 @@ if (! jSuites && typeof(require) === 'function') {
             if (! cell) {
                 // Control vars
                 var data = {};
-    
+
                 // Column and row length
                 var x = obj.options.data[0].length;
                 var y = obj.options.data.length;
-    
+
                 // Go through the columns to get the data
                 for (var j = 0; j < y; j++) {
                     for (var i = 0; i < x; i++) {
                         // Value
                         var v = key ? obj.records[j][i].style[key] : obj.records[j][i].getAttribute('style');
-    
+
                         // Any meta data for this column?
                         if (v) {
                             // Column name
@@ -9528,15 +9527,15 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                 }
-    
+
                return data;
             } else {
                 cell = jexcel.getIdFromColumnName(cell, true);
-    
+
                 return key ? obj.records[cell[1]][cell[0]].style[key] : obj.records[cell[1]][cell[0]].getAttribute('style');
             }
         },
-    
+
         obj.resetStyle = function(o, ignoreHistoryAndEvents) {
             var keys = Object.keys(o);
             for (var i = 0; i < keys.length; i++) {
@@ -9548,25 +9547,25 @@ if (! jSuites && typeof(require) === 'function') {
             }
             obj.setStyle(o, null, null, null, ignoreHistoryAndEvents);
         }
-    
+
         /**
          * Set meta information to cell(s)
-         * 
+         *
          * @return integer
          */
         obj.setStyle = function(o, k, v, force, ignoreHistoryAndEvents) {
             var newValue = {};
             var oldValue = {};
-    
+
             // Apply style
             var applyStyle = function(cellId, key, value) {
                 // Position
                 var cell = jexcel.getIdFromColumnName(cellId, true);
-    
+
                 if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]] && (obj.records[cell[1]][cell[0]].classList.contains('readonly')==false || force)) {
                     // Current value
                     var currentValue = obj.records[cell[1]][cell[0]].style[key];
-    
+
                     // Change layout
                     if (currentValue == value && ! force) {
                         value = '';
@@ -9574,7 +9573,7 @@ if (! jSuites && typeof(require) === 'function') {
                     } else {
                         obj.records[cell[1]][cell[0]].style[key] = value;
                     }
-    
+
                     // History
                     if (! oldValue[cellId]) {
                         oldValue[cellId] = [];
@@ -9582,12 +9581,12 @@ if (! jSuites && typeof(require) === 'function') {
                     if (! newValue[cellId]) {
                         newValue[cellId] = [];
                     }
-    
+
                     oldValue[cellId].push([key + ':' + currentValue]);
                     newValue[cellId].push([key + ':' + value]);
                 }
             }
-    
+
             if (k && v) {
                 // Get object from string
                 if (typeof(o) == 'string') {
@@ -9625,7 +9624,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             var keys = Object.keys(oldValue);
             for (var i = 0; i < keys.length; i++) {
                 oldValue[keys[i]] = oldValue[keys[i]].join(';');
@@ -9634,7 +9633,7 @@ if (! jSuites && typeof(require) === 'function') {
             for (var i = 0; i < keys.length; i++) {
                 newValue[keys[i]] = newValue[keys[i]].join(';');
             }
-    
+
             if (! ignoreHistoryAndEvents) {
                 // Keeping history of changes
                 obj.setHistory({
@@ -9685,23 +9684,23 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 var cell = cellId;
             }
-    
+
             // Keep old value
             var title = obj.records[cell[1]][cell[0]].getAttribute('title');
             var author = obj.records[cell[1]][cell[0]].getAttribute('data-author');
             var oldValue = [ title, author ];
-    
+
             // Set new values
             obj.records[cell[1]][cell[0]].setAttribute('title', comments ? comments : '');
             obj.records[cell[1]][cell[0]].setAttribute('data-author', author ? author : '');
-    
+
             // Remove class if there is no comment
             if (comments) {
                 obj.records[cell[1]][cell[0]].classList.add('jexcel_comments');
             } else {
                 obj.records[cell[1]][cell[0]].classList.remove('jexcel_comments');
             }
-    
+
             // Save history
             obj.setHistory({
                 action:'setComments',
@@ -9712,7 +9711,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Set comments
             obj.dispatch('oncomments', el, comments, title, cell, cell[0], cell[1]);
         }
-    
+
         /**
          * Get table config information
          */
@@ -9721,10 +9720,10 @@ if (! jSuites && typeof(require) === 'function') {
             options.style = obj.getStyle();
             options.mergeCells = obj.getMerge();
             options.comments = obj.getComments();
-    
+
             return options;
         }
-    
+
         /**
          * Sort data and reload table
          */
@@ -9739,14 +9738,14 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.destroyMerged();
                     }
                 }
-    
+
                 // Direction
                 if (order == null) {
                     order = obj.headers[column].classList.contains('arrow-down') ? 1 : 0;
                 } else {
                     order = order ? 1 : 0;
                 }
-    
+
                 // Test order
                 var temp = [];
                 if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
@@ -9762,7 +9761,7 @@ if (! jSuites && typeof(require) === 'function') {
                         temp[j] = [ j, obj.records[j][column].innerText.toLowerCase() ];
                     }
                 }
-    
+
                 // Default sorting method
                 if (typeof(obj.options.sorting) !== 'function') {
                     obj.options.sorting = function(direction) {
@@ -9780,13 +9779,13 @@ if (! jSuites && typeof(require) === 'function') {
                 }
 
                 temp = temp.sort(obj.options.sorting(order));
-    
+
                 // Save history
                 var newValue = [];
                 for (var j = 0; j < temp.length; j++) {
                     newValue[j] = temp[j][0];
                 }
-    
+
                 // Save history
                 obj.setHistory({
                     action: 'orderBy',
@@ -9794,18 +9793,18 @@ if (! jSuites && typeof(require) === 'function') {
                     column: column,
                     order: order,
                 });
-    
+
                 // Update order
                 obj.updateOrderArrow(column, order);
                 obj.updateOrder(newValue);
-    
+
                 // On sort event
                 obj.dispatch('onsort', el, column, order);
-    
+
                 return true;
             }
         }
-    
+
         /**
          * Update order arrow
          */
@@ -9815,7 +9814,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.headers[i].classList.remove('arrow-up');
                 obj.headers[i].classList.remove('arrow-down');
             }
-    
+
             // No order specified then toggle order
             if (order) {
                 obj.headers[column].classList.add('arrow-up');
@@ -9823,7 +9822,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.headers[column].classList.add('arrow-down');
             }
         }
-    
+
         /**
          * Update rows position
          */
@@ -9834,22 +9833,22 @@ if (! jSuites && typeof(require) === 'function') {
                 data[j] = obj.options.data[rows[j]];
             }
             obj.options.data = data;
-    
+
             var data = []
             for (var j = 0; j < rows.length; j++) {
                 data[j] = obj.records[rows[j]];
             }
             obj.records = data;
-    
+
             var data = []
             for (var j = 0; j < rows.length; j++) {
                 data[j] = obj.rows[rows[j]];
             }
             obj.rows = data;
-    
+
             // Update references
             obj.updateTableReferences();
-    
+
             // Redo search
             if (obj.results && obj.results.length) {
                 if (obj.searchInput.value) {
@@ -9861,7 +9860,7 @@ if (! jSuites && typeof(require) === 'function') {
                 // Create page
                 obj.results = null;
                 obj.pageNumber = 0;
-    
+
                 if (obj.options.pagination > 0) {
                     obj.page(0);
                 } else if (obj.options.lazyLoading == true) {
@@ -9873,10 +9872,10 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Move row
-         * 
+         *
          * @return void
          */
         obj.moveRow = function(o, d, ignoreDom) {
@@ -9895,7 +9894,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             if (obj.options.search == true) {
                 if (obj.results && obj.results.length != obj.rows.length) {
                     if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
@@ -9904,10 +9903,10 @@ if (! jSuites && typeof(require) === 'function') {
                         return false;
                     }
                 }
-    
+
                 obj.results = null;
             }
-    
+
             if (! ignoreDom) {
                 if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[d]) >= 0) {
                     if (o > d) {
@@ -9919,34 +9918,34 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.tbody.removeChild(obj.rows[o]);
                 }
             }
-    
+
             // Place references in the correct position
             obj.rows.splice(d, 0, obj.rows.splice(o, 1)[0]);
             obj.records.splice(d, 0, obj.records.splice(o, 1)[0]);
             obj.options.data.splice(d, 0, obj.options.data.splice(o, 1)[0]);
-    
+
             // Respect pagination
             if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
                 obj.page(obj.pageNumber);
             }
-    
+
             // Keeping history of changes
             obj.setHistory({
                 action:'moveRow',
                 oldValue: o,
                 newValue: d,
             });
-    
+
             // Update table references
             obj.updateTableReferences();
-    
+
             // Events
             obj.dispatch('onmoverow', el, o, d);
         }
 
         /**
          * Insert a new row
-         * 
+         *
          * @param mixed - number of blank lines to be insert or a single array with the data of the new row
          * @param rowNumber
          * @param insertBefore
@@ -9957,36 +9956,36 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.allowInsertRow == true) {
                 // Records
                 var records = [];
-    
+
                 // Data to be insert
                 var data = [];
-    
+
                 // The insert could be lead by number of rows or the array of data
                 if (mixed > 0) {
                     var numOfRows = mixed;
                 } else {
                     var numOfRows = 1;
-    
+
                     if (mixed) {
                         data = mixed;
                     }
                 }
-    
+
                 // Direction
                 var insertBefore = insertBefore ? true : false;
-    
+
                 // Current column number
                 var lastRow = obj.options.data.length - 1;
-    
+
                 if (rowNumber == undefined || rowNumber >= parseInt(lastRow) || rowNumber < 0) {
                     rowNumber = lastRow;
                 }
-    
+
                 // Onbeforeinsertrow
                 if (obj.dispatch('onbeforeinsertrow', el, rowNumber, numOfRows, insertBefore) === false) {
                     return false;
                 }
-    
+
                 // Merged cells
                 if (Object.keys(obj.options.mergeCells).length > 0) {
                     if (obj.isRowMerged(rowNumber, insertBefore).length) {
@@ -9997,7 +9996,7 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                 }
-    
+
                 // Clear any search
                 if (obj.options.search == true) {
                     if (obj.results && obj.results.length != obj.rows.length) {
@@ -10007,10 +10006,10 @@ if (! jSuites && typeof(require) === 'function') {
                             return false;
                         }
                     }
-    
+
                     obj.results = null;
                 }
-    
+
                 // Insertbefore
                 var rowIndex = (! insertBefore) ? rowNumber + 1 : rowNumber;
 
@@ -10018,7 +10017,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var currentRecords = obj.records.splice(rowIndex);
                 var currentData = obj.options.data.splice(rowIndex);
                 var currentRows = obj.rows.splice(rowIndex);
-    
+
                 // Adding lines
                 var rowRecords = [];
                 var rowData = [];
@@ -10047,17 +10046,17 @@ if (! jSuites && typeof(require) === 'function') {
                     rowData.push(obj.options.data[row]);
                     rowNode.push(tr);
                 }
-    
+
                 // Copy the data back to the main data
                 Array.prototype.push.apply(obj.records, currentRecords);
                 Array.prototype.push.apply(obj.options.data, currentData);
                 Array.prototype.push.apply(obj.rows, currentRows);
-    
+
                 // Respect pagination
                 if (obj.options.pagination > 0) {
                     obj.page(obj.pageNumber);
                 }
-    
+
                 // Keep history
                 obj.setHistory({
                     action: 'insertRow',
@@ -10068,18 +10067,18 @@ if (! jSuites && typeof(require) === 'function') {
                     rowData: rowData,
                     rowNode: rowNode,
                 });
-    
+
                 // Remove table references
                 obj.updateTableReferences();
-    
+
                 // Events
                 obj.dispatch('oninsertrow', el, rowNumber, numOfRows, rowRecords, insertBefore);
             }
         }
-    
+
         /**
          * Delete a row by number
-         * 
+         *
          * @param integer rowNumber - row number to be excluded
          * @param integer numOfRows - number of lines
          * @return void
@@ -10091,7 +10090,7 @@ if (! jSuites && typeof(require) === 'function') {
                     // Delete row definitions
                     if (rowNumber == undefined) {
                         var number = obj.getSelectedRows();
-    
+
                         if (! number[0]) {
                             rowNumber = obj.options.data.length - 1;
                             numOfRows = 1;
@@ -10100,18 +10099,18 @@ if (! jSuites && typeof(require) === 'function') {
                             numOfRows = number.length;
                         }
                     }
-    
+
                     // Last column
                     var lastRow = obj.options.data.length - 1;
-    
+
                     if (rowNumber == undefined || rowNumber > lastRow || rowNumber < 0) {
                         rowNumber = lastRow;
                     }
-    
+
                     if (! numOfRows) {
                         numOfRows = 1;
                     }
-    
+
                     // Do not delete more than the number of records
                     if (rowNumber + numOfRows >= obj.options.data.length) {
                         numOfRows = obj.options.data.length - rowNumber;
@@ -10121,7 +10120,7 @@ if (! jSuites && typeof(require) === 'function') {
                     if (obj.dispatch('onbeforedeleterow', el, rowNumber, numOfRows) === false) {
                         return false;
                     }
-    
+
                     if (parseInt(rowNumber) > -1) {
                         // Merged cells
                         var mergeExists = false;
@@ -10139,7 +10138,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 obj.destroyMerged();
                             }
                         }
-    
+
                         // Clear any search
                         if (obj.options.search == true) {
                             if (obj.results && obj.results.length != obj.rows.length) {
@@ -10149,16 +10148,16 @@ if (! jSuites && typeof(require) === 'function') {
                                     return false;
                                 }
                             }
-    
+
                             obj.results = null;
                         }
-    
+
                         // If delete all rows, and set allowDeletingAllRows false, will stay one row
                         if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
                             numOfRows--;
                             console.error('Jspreadsheet: It is not possible to delete the last row');
                         }
-    
+
                         // Remove node
                         for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
                             if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
@@ -10166,20 +10165,20 @@ if (! jSuites && typeof(require) === 'function') {
                                 obj.rows[row].parentNode.removeChild(obj.rows[row]);
                             }
                         }
-    
+
                         // Remove data
                         var rowRecords = obj.records.splice(rowNumber, numOfRows);
                         var rowData = obj.options.data.splice(rowNumber, numOfRows);
                         var rowNode = obj.rows.splice(rowNumber, numOfRows);
-    
+
                         // Respect pagination
                         if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
                             obj.page(obj.pageNumber);
                         }
-    
+
                         // Remove selection
                         obj.conditionalSelectionUpdate(1, rowNumber, (rowNumber + numOfRows) - 1);
-    
+
                         // Keep history
                         obj.setHistory({
                             action: 'deleteRow',
@@ -10190,10 +10189,10 @@ if (! jSuites && typeof(require) === 'function') {
                             rowData: rowData,
                             rowNode: rowNode
                         });
-    
+
                         // Remove table references
                         obj.updateTableReferences();
-    
+
                         // Events
                         obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
                     }
@@ -10202,11 +10201,11 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
-    
+
+
         /**
          * Move column
-         * 
+         *
          * @return void
          */
         obj.moveColumn = function(o, d) {
@@ -10225,35 +10224,35 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             var o = parseInt(o);
             var d = parseInt(d);
-    
+
             if (o > d) {
                 obj.headerContainer.insertBefore(obj.headers[o], obj.headers[d]);
                 obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d]);
-    
+
                 for (var j = 0; j < obj.rows.length; j++) {
                     obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d]);
                 }
             } else {
                 obj.headerContainer.insertBefore(obj.headers[o], obj.headers[d].nextSibling);
                 obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d].nextSibling);
-    
+
                 for (var j = 0; j < obj.rows.length; j++) {
                     obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d].nextSibling);
                 }
             }
-    
+
             obj.options.columns.splice(d, 0, obj.options.columns.splice(o, 1)[0]);
             obj.headers.splice(d, 0, obj.headers.splice(o, 1)[0]);
             obj.colgroup.splice(d, 0, obj.colgroup.splice(o, 1)[0]);
-    
+
             for (var j = 0; j < obj.rows.length; j++) {
                 obj.options.data[j].splice(d, 0, obj.options.data[j].splice(o, 1)[0]);
                 obj.records[j].splice(d, 0, obj.records[j].splice(o, 1)[0]);
             }
-    
+
             // Update footers position
             if (obj.options.footers) {
                 for (var j = 0; j < obj.options.footers.length; j++) {
@@ -10267,17 +10266,17 @@ if (! jSuites && typeof(require) === 'function') {
                 oldValue: o,
                 newValue: d,
             });
-    
+
             // Update table references
             obj.updateTableReferences();
-    
+
             // Events
             obj.dispatch('onmovecolumn', el, o, d);
         }
 
         /**
          * Insert a new column
-         * 
+         *
          * @param mixed - num of columns to be added or data to be added in one single column
          * @param int columnNumber - number of columns to be created
          * @param bool insertBefore
@@ -10289,37 +10288,37 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.allowInsertColumn == true) {
                 // Records
                 var records = [];
-    
+
                 // Data to be insert
                 var data = [];
-    
+
                 // The insert could be lead by number of rows or the array of data
                 if (mixed > 0) {
                     var numOfColumns = mixed;
                 } else {
                     var numOfColumns = 1;
-    
+
                     if (mixed) {
                         data = mixed;
                     }
                 }
-    
+
                 // Direction
                 var insertBefore = insertBefore ? true : false;
-    
+
                 // Current column number
                 var lastColumn = obj.options.columns.length - 1;
-    
+
                 // Confirm position
                 if (columnNumber == undefined || columnNumber >= parseInt(lastColumn) || columnNumber < 0) {
                     columnNumber = lastColumn;
                 }
-    
+
                 // Onbeforeinsertcolumn
                 if (obj.dispatch('onbeforeinsertcolumn', el, columnNumber, numOfColumns, insertBefore) === false) {
                     return false;
                 }
-    
+
                 // Merged cells
                 if (Object.keys(obj.options.mergeCells).length > 0) {
                     if (obj.isColMerged(columnNumber, insertBefore).length) {
@@ -10330,43 +10329,43 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                 }
-    
+
                 // Create default properties
                 if (! properties) {
                     properties = [];
                 }
-    
+
                 for (var i = 0; i < numOfColumns; i++) {
                     if (! properties[i]) {
                         properties[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:obj.options.defaultColAlign };
                     }
                 }
-    
+
                 // Insert before
                 var columnIndex = (! insertBefore) ? columnNumber + 1 : columnNumber;
                 obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties);
-    
+
                 // Open space in the containers
                 var currentHeaders = obj.headers.splice(columnIndex);
                 var currentColgroup = obj.colgroup.splice(columnIndex);
-    
+
                 // History
                 var historyHeaders = [];
                 var historyColgroup = [];
                 var historyRecords = [];
                 var historyData = [];
                 var historyFooters = [];
-    
+
                 // Add new headers
                 for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
                     obj.createCellHeader(col);
                     obj.headerContainer.insertBefore(obj.headers[col], obj.headerContainer.children[col+1]);
                     obj.colgroupContainer.insertBefore(obj.colgroup[col], obj.colgroupContainer.children[col+1]);
-    
+
                     historyHeaders.push(obj.headers[col]);
                     historyColgroup.push(obj.colgroup[col]);
                 }
-    
+
                 // Add new footer cells
                 if (obj.options.footers) {
                     for (var j = 0; j < obj.options.footers.length; j++) {
@@ -10383,11 +10382,11 @@ if (! jSuites && typeof(require) === 'function') {
                     // Keep the current data
                     var currentData = obj.options.data[row].splice(columnIndex);
                     var currentRecord = obj.records[row].splice(columnIndex);
-    
+
                     // History
                     historyData[row] = [];
                     historyRecords[row] = [];
-    
+
                     for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
                         // New value
                         var value = data[row] ? data[row] : '';
@@ -10399,20 +10398,20 @@ if (! jSuites && typeof(require) === 'function') {
                         if (obj.rows[row]) {
                             obj.rows[row].insertBefore(td, obj.rows[row].children[col+1]);
                         }
-    
+
                         // Record History
                         historyData[row].push(value);
                         historyRecords[row].push(td);
                     }
-    
+
                     // Copy the data back to the main data
                     Array.prototype.push.apply(obj.options.data[row], currentData);
                     Array.prototype.push.apply(obj.records[row], currentRecord);
                 }
-    
+
                 Array.prototype.push.apply(obj.headers, currentHeaders);
                 Array.prototype.push.apply(obj.colgroup, currentColgroup);
-    
+
                 // Adjust nested headers
                 if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
                     // Flexible way to handle nestedheaders
@@ -10434,7 +10433,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
                     }
                 }
-    
+
                 // Keep history
                 obj.setHistory({
                     action: 'insertColumn',
@@ -10448,18 +10447,18 @@ if (! jSuites && typeof(require) === 'function') {
                     footers:historyFooters,
                     data:historyData,
                 });
-    
+
                 // Remove table references
                 obj.updateTableReferences();
-    
+
                 // Events
                 obj.dispatch('oninsertcolumn', el, columnNumber, numOfColumns, historyRecords, insertBefore);
             }
         }
-    
+
         /**
          * Delete a column by number
-         * 
+         *
          * @param integer columnNumber - reference column to be excluded
          * @param integer numOfColumns - number of columns to be excluded from the reference column
          * @return void
@@ -10471,7 +10470,7 @@ if (! jSuites && typeof(require) === 'function') {
                     // Delete column definitions
                     if (columnNumber == undefined) {
                         var number = obj.getSelectedColumns(true);
-    
+
                         if (! number.length) {
                             // Remove last column
                             columnNumber = obj.headers.length - 1;
@@ -10482,29 +10481,29 @@ if (! jSuites && typeof(require) === 'function') {
                             numOfColumns = parseInt(number.length);
                         }
                     }
-    
+
                     // Lasat column
                     var lastColumn = obj.options.data[0].length - 1;
-    
+
                     if (columnNumber == undefined || columnNumber > lastColumn || columnNumber < 0) {
                         columnNumber = lastColumn;
                     }
-    
+
                     // Minimum of columns to be delete is 1
                     if (! numOfColumns) {
                         numOfColumns = 1;
                     }
-    
+
                     // Can't delete more than the limit of the table
                     if (numOfColumns > obj.options.data[0].length - columnNumber) {
                         numOfColumns = obj.options.data[0].length - columnNumber;
                     }
-    
+
                     // onbeforedeletecolumn
                    if (obj.dispatch('onbeforedeletecolumn', el, columnNumber, numOfColumns) === false) {
                       return false;
                    }
-    
+
                     // Can't remove the last column
                     if (parseInt(columnNumber) > -1) {
                         // Merged cells
@@ -10523,17 +10522,17 @@ if (! jSuites && typeof(require) === 'function') {
                                 obj.destroyMerged();
                             }
                         }
-    
+
                         // Delete the column properties
                         var columns = obj.options.columns.splice(columnNumber, numOfColumns);
-    
+
                         for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
                             obj.colgroup[col].className = '';
                             obj.headers[col].className = '';
                             obj.colgroup[col].parentNode.removeChild(obj.colgroup[col]);
                             obj.headers[col].parentNode.removeChild(obj.headers[col]);
                         }
-    
+
                         var historyHeaders = obj.headers.splice(columnNumber, numOfColumns);
                         var historyColgroup = obj.colgroup.splice(columnNumber, numOfColumns);
                         var historyRecords = [];
@@ -10546,7 +10545,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 obj.records[row][col].parentNode.removeChild(obj.records[row][col]);
                             }
                         }
-    
+
                         // Delete headers
                         for (var row = 0; row < obj.options.data.length; row++) {
                             // History
@@ -10563,7 +10562,7 @@ if (! jSuites && typeof(require) === 'function') {
 
                         // Remove selection
                         obj.conditionalSelectionUpdate(0, columnNumber, (columnNumber + numOfColumns) - 1);
-    
+
                         // Adjust nested headers
                         if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
                             // Flexible way to handle nestedheaders
@@ -10579,7 +10578,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
                             }
                         }
-    
+
                         // Keeping history of changes
                         obj.setHistory({
                             action:'deleteColumn',
@@ -10593,10 +10592,10 @@ if (! jSuites && typeof(require) === 'function') {
                             footers:historyFooters,
                             data:historyData,
                         });
-    
+
                         // Update table references
                         obj.updateTableReferences();
-    
+
                         // Delete
                         obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
                     }
@@ -10605,10 +10604,10 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Get selected rows numbers
-         * 
+         *
          * @return array
          */
         obj.getSelectedRows = function(asIds) {
@@ -10623,13 +10622,13 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return rows;
         },
-    
+
         /**
          * Get selected column numbers
-         * 
+         *
          * @return array
          */
         obj.getSelectedColumns = function() {
@@ -10640,29 +10639,29 @@ if (! jSuites && typeof(require) === 'function') {
                     cols.push(i);
                 }
             }
-    
+
             return cols;
         }
-    
+
         /**
          * Get highlighted
-         * 
+         *
          * @return array
          */
         obj.getHighlighted = function() {
             return obj.highlighted;
         }
-    
+
         /**
          * Update cell references
-         * 
+         *
          * @return void
          */
         obj.updateTableReferences = function() {
             // Update headers
             for (var i = 0; i < obj.headers.length; i++) {
                 var x = obj.headers[i].getAttribute('data-x');
-    
+
                 if (x != i) {
                     // Update coords
                     obj.headers[i].setAttribute('data-x', i);
@@ -10672,12 +10671,12 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Update all rows
             for (var j = 0; j < obj.rows.length; j++) {
                 if (obj.rows[j]) {
                     var y = obj.rows[j].getAttribute('data-y');
-    
+
                     if (y != j) {
                         // Update coords
                         obj.rows[j].setAttribute('data-y', j);
@@ -10687,11 +10686,11 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Regular cells affected by this change
             var affectedTokens = [];
             var mergeCellUpdates = [];
-    
+
             // Update cell
             var updatePosition = function(x,y,i,j) {
                 if (x != i) {
@@ -10700,7 +10699,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (y != j) {
                     obj.records[j][i].setAttribute('data-y', j);
                 }
-    
+
                 // Other updates
                 if (x != i || y != j) {
                     var columnIdFrom = jexcel.getColumnNameFromId([x, y]);
@@ -10708,14 +10707,14 @@ if (! jSuites && typeof(require) === 'function') {
                     affectedTokens[columnIdFrom] = columnIdTo;
                 }
             }
-    
+
             for (var j = 0; j < obj.records.length; j++) {
                 for (var i = 0; i < obj.records[0].length; i++) {
                     if (obj.records[j][i]) {
                         // Current values
                         var x = obj.records[j][i].getAttribute('data-x');
                         var y = obj.records[j][i].getAttribute('data-y');
-    
+
                         // Update column
                         if (obj.records[j][i].getAttribute('data-merged')) {
                             var columnIdFrom = jexcel.getColumnNameFromId([x, y]);
@@ -10735,7 +10734,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Update merged if applicable
             var keys = Object.keys(mergeCellUpdates);
             if (keys.length) {
@@ -10745,7 +10744,7 @@ if (! jSuites && typeof(require) === 'function') {
                         var x = info[0];
                         var y = info[1];
                         updatePosition(x,y,x + mergeCellUpdates[keys[i]][1],y + mergeCellUpdates[keys[i]][2]);
-    
+
                         var columnIdFrom = keys[i];
                         var columnIdTo = mergeCellUpdates[keys[i]][0];
                         for (var j = 0; j < obj.options.mergeCells[columnIdFrom][2].length; j++) {
@@ -10754,26 +10753,26 @@ if (! jSuites && typeof(require) === 'function') {
                             obj.options.mergeCells[columnIdFrom][2][j].setAttribute('data-x', x + mergeCellUpdates[keys[i]][1]);
                             obj.options.mergeCells[columnIdFrom][2][j].setAttribute('data-y', y + mergeCellUpdates[keys[i]][2]);
                         }
-    
+
                         obj.options.mergeCells[columnIdTo] = obj.options.mergeCells[columnIdFrom];
                         delete(obj.options.mergeCells[columnIdFrom]);
                     }
                 }
             }
-    
+
             // Update formulas
             obj.updateFormulas(affectedTokens);
-    
+
             // Update meta data
             obj.updateMeta(affectedTokens);
-    
+
             // Refresh selection
             obj.refreshSelection();
-    
+
             // Update table with custom configuration if applicable
             obj.updateTable();
         }
-    
+
         /**
          * Custom settings for the cells
          */
@@ -10794,12 +10793,12 @@ if (! jSuites && typeof(require) === 'function') {
                         numBlankRows++;
                     }
                 }
-    
+
                 if (obj.options.minSpareRows - numBlankRows > 0) {
                     obj.insertRow(obj.options.minSpareRows - numBlankRows)
                 }
             }
-    
+
             if (obj.options.minSpareCols > 0) {
                 var numBlankCols = 0;
                 for (var i = obj.headers.length - 1; i >= 0 ; i--) {
@@ -10815,12 +10814,12 @@ if (! jSuites && typeof(require) === 'function') {
                         numBlankCols++;
                     }
                 }
-    
+
                 if (obj.options.minSpareCols - numBlankCols > 0) {
                     obj.insertColumn(obj.options.minSpareCols - numBlankCols)
                 }
             }
-    
+
             // Customizations by the developer
             if (typeof(obj.options.updateTable) == 'function') {
                 if (obj.options.detachForUpdates) {
@@ -10837,7 +10836,7 @@ if (! jSuites && typeof(require) === 'function') {
                     el.insertBefore(obj.content, obj.pagination);
                 }
             }
-    
+
             // Update footers
             if (obj.options.footers) {
                 obj.setFooter();
@@ -10891,9 +10890,13 @@ if (! jSuites && typeof(require) === 'function') {
         obj.showColumn = function(colNumber) {
             obj.headers[colNumber].style.display = '';
             obj.colgroup[colNumber].style.display = '';
+            if (obj.filter && obj.filter.children.length > colNumber + 1) {
+                obj.filter.children[colNumber + 1].style.display = '';
+            }
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = '';
             }
+            obj.resetSelection();
         }
 
         /**
@@ -10902,9 +10905,13 @@ if (! jSuites && typeof(require) === 'function') {
         obj.hideColumn = function(colNumber) {
             obj.headers[colNumber].style.display = 'none';
             obj.colgroup[colNumber].style.display = 'none';
+            if (obj.filter && obj.filter.children.length > colNumber + 1) {
+                obj.filter.children[colNumber + 1].style.display = 'none';
+            }
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = 'none';
             }
+            obj.resetSelection();
         }
 
         /**
@@ -10913,19 +10920,19 @@ if (! jSuites && typeof(require) === 'function') {
         obj.showIndex = function() {
             obj.table.classList.remove('jexcel_hidden_index');
         }
-    
+
         /**
          * Hide index column
          */
         obj.hideIndex = function() {
             obj.table.classList.add('jexcel_hidden_index');
         }
-    
+
         /**
          * Update all related cells in the chain
          */
         var chainLoopProtection = [];
-    
+
         obj.updateFormulaChain = function(x, y, records) {
             var cellId = jexcel.getColumnNameFromId([x, y]);
             if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
@@ -10935,7 +10942,7 @@ if (! jSuites && typeof(require) === 'function') {
                 } else {
                     // Protection
                     chainLoopProtection[cellId] = true;
-    
+
                     for (var i = 0; i < obj.formula[cellId].length; i++) {
                         var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
                         // Update cell
@@ -10950,10 +10957,10 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             chainLoopProtection = [];
         }
-    
+
         /**
          * Update formulas
          */
@@ -10972,7 +10979,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Update formula chain
             var formula = [];
             var keys = Object.keys(obj.formula);
@@ -10996,19 +11003,19 @@ if (! jSuites && typeof(require) === 'function') {
             }
             obj.formula = formula;
         }
-    
+
         /**
          * Update formula
          */
         obj.updateFormula = function(formula, referencesToUpdate) {
             var testLetter = /[A-Z]/;
             var testNumber = /[0-9]/;
-    
+
             var newFormula = '';
             var letter = null;
             var number = null;
             var token = '';
-    
+
             for (var index = 0; index < formula.length; index++) {
                 if (testLetter.exec(formula[index])) {
                     letter = 1;
@@ -11028,17 +11035,17 @@ if (! jSuites && typeof(require) === 'function') {
                     token = '';
                 }
             }
-    
+
             if (token) {
                 if (letter && number) {
                     token = referencesToUpdate[token] ? referencesToUpdate[token] : token;
                 }
                 newFormula += token;
             }
-    
+
             return newFormula;
         }
-    
+
         /**
          * Secure formula
          */
@@ -11069,23 +11076,23 @@ if (! jSuites && typeof(require) === 'function') {
          * Parse formulas
          */
         obj.executeFormula = function(expression, x, y) {
-    
+
             var formulaResults = [];
             var formulaLoopProtection = [];
-    
+
             // Execute formula with loop protection
             var execute = function(expression, x, y) {
              // Parent column identification
                 var parentId = jexcel.getColumnNameFromId([x, y]);
-    
+
                 // Code protection
                 if (formulaLoopProtection[parentId]) {
                     console.error('Reference loop detected');
                     return '#ERROR';
                 }
-    
+
                 formulaLoopProtection[parentId] = true;
-    
+
                 // Convert range tokens
                 var tokensUpdate = function(tokens) {
                     for (var index = 0; index < tokens.length; index++) {
@@ -11093,7 +11100,7 @@ if (! jSuites && typeof(require) === 'function') {
                         var token = tokens[index].split(':');
                         var e1 = jexcel.getIdFromColumnName(token[0], true);
                         var e2 = jexcel.getIdFromColumnName(token[1], true);
-    
+
                         if (e1[0] <= e2[0]) {
                             var x1 = e1[0];
                             var x2 = e2[0];
@@ -11101,7 +11108,7 @@ if (! jSuites && typeof(require) === 'function') {
                             var x1 = e2[0];
                             var x2 = e1[0];
                         }
-    
+
                         if (e1[1] <= e2[1]) {
                             var y1 = e1[1];
                             var y2 = e2[1];
@@ -11109,17 +11116,17 @@ if (! jSuites && typeof(require) === 'function') {
                             var y1 = e2[1];
                             var y2 = e1[1];
                         }
-    
+
                         for (var j = y1; j <= y2; j++) {
                             for (var i = x1; i <= x2; i++) {
                                 f.push(jexcel.getColumnNameFromId([i, j]));
                             }
                         }
-    
+
                         expression = expression.replace(tokens[index], f.join(','));
                     }
                 }
-    
+
                 // Range with $ remove $
                 expression = expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g, "$1$2");
 
@@ -11130,7 +11137,7 @@ if (! jSuites && typeof(require) === 'function') {
 
                 // Get tokens
                 var tokens = expression.match(/([A-Z]+[0-9]+)/g);
-    
+
                 // Direct self-reference protection
                 if (tokens && tokens.indexOf(parentId) > -1) {
                     console.error('Self Reference detected');
@@ -11149,7 +11156,7 @@ if (! jSuites && typeof(require) === 'function') {
                             if (obj.formula[tokens[i]].indexOf(parentId) < 0) {
                                 obj.formula[tokens[i]].push(parentId);
                             }
-    
+
                             // Do not calculate again
                             if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
                                 // Coords
@@ -11190,7 +11197,7 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         }
                     }
-    
+
                     // Convert formula to javascript
                     try {
                         var res = jexcel.formula(expression.substr(1), formulaExpressions, x, y, obj);
@@ -11198,21 +11205,21 @@ if (! jSuites && typeof(require) === 'function') {
                         var res = '#ERROR';
                         console.log(e)
                     }
-    
+
                     return res;
                 }
             }
-    
+
             return execute(expression, x, y);
         }
-    
+
         /**
          * Trying to extract a number from a string
          */
         obj.parseNumber = function(value, columnNumber) {
             // Decimal point
             var decimal = columnNumber && obj.options.columns[columnNumber].decimal ? obj.options.columns[columnNumber].decimal : '.';
-    
+
             // Parse both parts of the number
             var number = ('' + value);
             number = number.split(decimal);
@@ -11223,7 +11230,7 @@ if (! jSuites && typeof(require) === 'function') {
             if (number[1]) {
                 number[1] = number[1].match(/[0-9]*/g).join('');
             }
-    
+
             // Is a valid number
             if (number[0] && Number(number[0]) >= 0) {
                 if (! number[1]) {
@@ -11234,22 +11241,22 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 var value = null;
             }
-    
+
             return value;
         }
-    
+
         /**
          * Get row number
          */
         obj.row = function(cell) {
         }
-    
+
         /**
          * Get col number
          */
         obj.col = function(cell) {
         }
-    
+
         obj.up = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[3] > 0) {
@@ -11262,10 +11269,10 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
-    
+
             // Update selection
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
-    
+
             // Change page
             if (obj.options.lazyLoading == true) {
                 if (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0) {
@@ -11288,10 +11295,10 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.page(pageNumber);
                 }
             }
-    
+
             obj.updateScroll(1);
         }
-    
+
         obj.up.visible = function(group, direction) {
             if (group == 0) {
                 var x = parseInt(obj.selectedCell[0]);
@@ -11300,7 +11307,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var x = parseInt(obj.selectedCell[2]);
                 var y = parseInt(obj.selectedCell[3]);
             }
-    
+
             if (direction == 0) {
                 for (var j = 0; j < y; j++) {
                     if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
@@ -11311,7 +11318,7 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 y = obj.up.get(x, y);
             }
-    
+
             if (group == 0) {
                 obj.selectedCell[0] = x;
                 obj.selectedCell[1] = y;
@@ -11320,7 +11327,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[3] = y;
             }
         }
-    
+
         obj.up.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
@@ -11335,10 +11342,10 @@ if (! jSuites && typeof(require) === 'function') {
                     break;
                 }
             }
-    
+
             return y;
         }
-    
+
         obj.down = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[3] < obj.records.length - 1) {
@@ -11351,9 +11358,9 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
-    
+
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
-    
+
             // Change page
             if (obj.options.lazyLoading == true) {
                 if ((obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
@@ -11376,10 +11383,10 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.page(pageNumber);
                 }
             }
-    
+
             obj.updateScroll(3);
         }
-    
+
         obj.down.visible = function(group, direction) {
             if (group == 0) {
                 var x = parseInt(obj.selectedCell[0]);
@@ -11388,7 +11395,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var x = parseInt(obj.selectedCell[2]);
                 var y = parseInt(obj.selectedCell[3]);
             }
-    
+
             if (direction == 0) {
                 for (var j = obj.rows.length - 1; j > y; j--) {
                     if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
@@ -11399,7 +11406,7 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 y = obj.down.get(x, y);
             }
-    
+
             if (group == 0) {
                 obj.selectedCell[0] = x;
                 obj.selectedCell[1] = y;
@@ -11408,7 +11415,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[3] = y;
             }
         }
-    
+
         obj.down.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
@@ -11423,10 +11430,10 @@ if (! jSuites && typeof(require) === 'function') {
                     break;
                 }
             }
-    
+
             return y;
         }
-    
+
         obj.right = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[2] < obj.headers.length - 1) {
@@ -11439,11 +11446,11 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
-    
+
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
             obj.updateScroll(2);
         }
-    
+
         obj.right.visible = function(group, direction) {
             if (group == 0) {
                 var x = parseInt(obj.selectedCell[0]);
@@ -11452,7 +11459,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var x = parseInt(obj.selectedCell[2]);
                 var y = parseInt(obj.selectedCell[3]);
             }
-    
+
             if (direction == 0) {
                 for (var i = obj.headers.length - 1; i > x; i--) {
                     if (obj.records[y][i].style.display != 'none') {
@@ -11463,7 +11470,7 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 x = obj.right.get(x, y);
             }
-    
+
             if (group == 0) {
                 obj.selectedCell[0] = x;
                 obj.selectedCell[1] = y;
@@ -11472,11 +11479,11 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[3] = y;
             }
         }
-    
+
         obj.right.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
-    
+
             for (var i = (x + 1); i < obj.headers.length; i++) {
                 if (obj.records[y][i].style.display != 'none') {
                     if (obj.records[y][i].getAttribute('data-merged')) {
@@ -11488,10 +11495,10 @@ if (! jSuites && typeof(require) === 'function') {
                     break;
                 }
             }
-    
+
             return x;
         }
-    
+
         obj.left = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (obj.selectedCell[2] > 0) {
@@ -11504,11 +11511,11 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
-    
+
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
             obj.updateScroll(0);
         }
-    
+
         obj.left.visible = function(group, direction) {
             if (group == 0) {
                 var x = parseInt(obj.selectedCell[0]);
@@ -11517,7 +11524,7 @@ if (! jSuites && typeof(require) === 'function') {
                 var x = parseInt(obj.selectedCell[2]);
                 var y = parseInt(obj.selectedCell[3]);
             }
-    
+
             if (direction == 0) {
                 for (var i = 0; i < x; i++) {
                     if (obj.records[y][i].style.display != 'none') {
@@ -11528,7 +11535,7 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 x = obj.left.get(x, y);
             }
-    
+
             if (group == 0) {
                 obj.selectedCell[0] = x;
                 obj.selectedCell[1] = y;
@@ -11537,7 +11544,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[3] = y;
             }
         }
-    
+
         obj.left.get = function(x, y) {
             var x = parseInt(x);
             var y = parseInt(y);
@@ -11552,10 +11559,10 @@ if (! jSuites && typeof(require) === 'function') {
                     break;
                 }
             }
-    
+
             return x;
         }
-    
+
         obj.first = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (ctrlKey) {
@@ -11572,7 +11579,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
-    
+
             // Change page
             if (obj.options.lazyLoading == true && (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0)) {
                 obj.loadPage(0);
@@ -11582,11 +11589,11 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.page(pageNumber);
                 }
             }
-    
+
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
             obj.updateScroll(1);
         }
-    
+
         obj.last = function(shiftKey, ctrlKey) {
             if (shiftKey) {
                 if (ctrlKey) {
@@ -11603,7 +11610,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.selectedCell[2] = obj.selectedCell[0];
                 obj.selectedCell[3] = obj.selectedCell[1];
             }
-    
+
             // Change page
             if (obj.options.lazyLoading == true && (obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
                 obj.loadPage(-1);
@@ -11613,24 +11620,24 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.page(pageNumber);
                 }
             }
-    
+
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
             obj.updateScroll(3);
         }
-    
+
         obj.selectAll = function() {
             if (! obj.selectedCell) {
                 obj.selectedCell = [];
             }
-    
+
             obj.selectedCell[0] = 0;
             obj.selectedCell[1] = 0;
             obj.selectedCell[2] = obj.headers.length - 1;
             obj.selectedCell[3] = obj.records.length - 1;
-    
+
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
         }
-    
+
         /**
          * Go to a page in a lazyLoading
          */
@@ -11641,16 +11648,16 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 var results = obj.rows;
             }
-    
+
             // Per page
             var quantityPerPage = 100;
-    
+
             // pageNumber
             if (pageNumber == null || pageNumber == -1) {
                 // Last page
-                pageNumber = Math.ceil(results.length / quantityPerPage) - 1; 
+                pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
             }
-    
+
             var startRow = (pageNumber * quantityPerPage);
             var finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
             if (finalRow > results.length) {
@@ -11660,7 +11667,7 @@ if (! jSuites && typeof(require) === 'function') {
             if (startRow < 0) {
                 startRow = 0;
             }
-    
+
             // Appeding items
             for (var j = startRow; j < finalRow; j++) {
                 if (obj.options.search == true && obj.results) {
@@ -11668,13 +11675,13 @@ if (! jSuites && typeof(require) === 'function') {
                 } else {
                     obj.tbody.appendChild(obj.rows[j]);
                 }
-    
+
                 if (obj.tbody.children.length > quantityPerPage) {
                     obj.tbody.removeChild(obj.tbody.firstChild);
                 }
             }
         }
-    
+
         obj.loadUp = function() {
             // Search
             if (obj.options.search == true && obj.results) {
@@ -11708,7 +11715,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
             return test;
         }
-    
+
         obj.loadDown = function() {
             // Search
             if (obj.options.search == true && obj.results) {
@@ -11740,16 +11747,16 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return test;
         }
-    
+
         obj.loadValidation = function() {
             if (obj.selectedCell) {
                 var currentPage = parseInt(obj.tbody.firstChild.getAttribute('data-y')) / 100;
                 var selectedPage = parseInt(obj.selectedCell[3] / 100);
                 var totalPages = parseInt(obj.rows.length / 100);
-    
+
                 if (currentPage != selectedPage && selectedPage <= totalPages) {
                     if (! Array.prototype.indexOf.call(obj.tbody.children, obj.rows[obj.selectedCell[3]])) {
                         obj.loadPage(selectedPage);
@@ -11757,10 +11764,10 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             return false;
         }
-    
+
         /**
          * Reset search
          */
@@ -11778,7 +11785,7 @@ if (! jSuites && typeof(require) === 'function') {
             if (query) {
                 var query = query.toLowerCase();
             }
-    
+
             // Reset any filter
             if (obj.options.filters) {
                 obj.resetFilters();
@@ -11786,11 +11793,11 @@ if (! jSuites && typeof(require) === 'function') {
 
             // Reset selection
             obj.resetSelection();
-    
+
             // Total of results
             obj.pageNumber = 0;
             obj.results = [];
-    
+
             if (query) {
                 // Search filter
                 var search = function(item, query, index) {
@@ -11802,14 +11809,14 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                     return false;
                 }
-    
+
                 // Result
                 var addToResult = function(k) {
                     if (obj.results.indexOf(k) == -1) {
                         obj.results.push(k);
                     }
                 }
-    
+
                 // Filter
                 var data = obj.options.data.filter(function(v, k) {
                     if (search(v, query, k)) {
@@ -11837,11 +11844,11 @@ if (! jSuites && typeof(require) === 'function') {
 
             return obj.updateResult();
         }
-    
+
         obj.updateResult = function() {
             var total = 0;
             var index = 0;
-    
+
             // Page 1
             if (obj.options.lazyLoading == true) {
                 total = 100;
@@ -11854,12 +11861,12 @@ if (! jSuites && typeof(require) === 'function') {
                     total = obj.rows.length;
                 }
             }
-    
+
             // Reset current nodes
             while (obj.tbody.firstChild) {
                 obj.tbody.removeChild(obj.tbody.firstChild);
             }
-    
+
             // Hide all records from the table
             for (var j = 0; j < obj.rows.length; j++) {
                 if (! obj.results || obj.results.indexOf(j) > -1) {
@@ -11872,14 +11879,14 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.rows[j].style.display = 'none';
                 }
             }
-    
+
             // Update pagination
             if (obj.options.pagination > 0) {
                 obj.updatePagination();
             }
 
             obj.updateCornerPosition();
-    
+
             return total;
         }
 
@@ -11891,10 +11898,10 @@ if (! jSuites && typeof(require) === 'function') {
             if (obj.options.search == true && obj.results) {
                 cell = obj.results.indexOf(cell);
             }
-    
+
             return (Math.ceil((parseInt(cell) + 1) / parseInt(obj.options.pagination))) - 1;
         }
-    
+
         /**
          * Go to page
          */
@@ -11907,19 +11914,19 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 var results = obj.rows;
             }
-    
+
             // Per page
             var quantityPerPage = parseInt(obj.options.pagination);
-    
+
             // pageNumber
             if (pageNumber == null || pageNumber == -1) {
                 // Last page
                 pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
             }
-    
+
             // Page number
             obj.pageNumber = pageNumber;
-    
+
             var startRow = (pageNumber * quantityPerPage);
             var finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
             if (finalRow > results.length) {
@@ -11928,12 +11935,12 @@ if (! jSuites && typeof(require) === 'function') {
             if (startRow < 0) {
                 startRow = 0;
             }
-    
+
             // Reset container
             while (obj.tbody.firstChild) {
                 obj.tbody.removeChild(obj.tbody.firstChild);
             }
-    
+
             // Appeding items
             for (var j = startRow; j < finalRow; j++) {
                 if (obj.options.search == true && obj.results) {
@@ -11942,18 +11949,18 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.tbody.appendChild(obj.rows[j]);
                 }
             }
-    
+
             if (obj.options.pagination > 0) {
                 obj.updatePagination();
             }
-    
+
             // Update corner position
             obj.updateCornerPosition();
 
             // Events
             obj.dispatch('onchangepage', el, pageNumber, oldPage);
         }
-    
+
         /**
          * Update the pagination
          */
@@ -11961,7 +11968,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Reset container
             obj.pagination.children[0].innerHTML = '';
             obj.pagination.children[1].innerHTML = '';
-    
+
             // Start pagination
             if (obj.options.pagination) {
                 // Searchable
@@ -11970,14 +11977,14 @@ if (! jSuites && typeof(require) === 'function') {
                 } else {
                     var results = obj.rows.length;
                 }
-    
+
                 if (! results) {
                     // No records found
                     obj.pagination.children[0].innerHTML = obj.options.text.noRecordsFound;
                 } else {
                     // Pagination container
                     var quantyOfPages = Math.ceil(results / obj.options.pagination);
-    
+
                     if (obj.pageNumber < 6) {
                         var startNumber = 1;
                         var finalNumber = quantyOfPages < 10 ? quantyOfPages : 10;
@@ -11991,7 +11998,7 @@ if (! jSuites && typeof(require) === 'function') {
                         var startNumber = obj.pageNumber - 4;
                         var finalNumber = obj.pageNumber + 5;
                     }
-    
+
                     // First
                     if (startNumber > 1) {
                         var paginationItem = document.createElement('div');
@@ -12000,19 +12007,19 @@ if (! jSuites && typeof(require) === 'function') {
                         paginationItem.title = 1;
                         obj.pagination.children[1].appendChild(paginationItem);
                     }
-    
+
                     // Get page links
                     for (var i = startNumber; i <= finalNumber; i++) {
                         var paginationItem = document.createElement('div');
                         paginationItem.className = 'jexcel_page';
                         paginationItem.innerHTML = i;
                         obj.pagination.children[1].appendChild(paginationItem);
-    
+
                         if (obj.pageNumber == (i-1)) {
                             paginationItem.classList.add('jexcel_page_selected');
                         }
                     }
-    
+
                     // Last
                     if (finalNumber < quantyOfPages) {
                         var paginationItem = document.createElement('div');
@@ -12021,7 +12028,7 @@ if (! jSuites && typeof(require) === 'function') {
                         paginationItem.title = quantyOfPages;
                         obj.pagination.children[1].appendChild(paginationItem);
                     }
-    
+
                     // Text
                     var format = function(format) {
                         var args = Array.prototype.slice.call(arguments, 1);
@@ -12032,15 +12039,15 @@ if (! jSuites && typeof(require) === 'function') {
                           ;
                         });
                     };
-    
+
                     obj.pagination.children[0].innerHTML = format(obj.options.text.showingPage, obj.pageNumber + 1, quantyOfPages)
                 }
             }
         }
-    
+
         /**
          * Download CSV table
-         * 
+         *
          * @return null
          */
         obj.download = function(includeHeaders) {
@@ -12071,28 +12078,28 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         /**
          * Initializes a new history record for undo/redo
-         * 
+         *
          * @return null
          */
         obj.setHistory = function(changes) {
             if (obj.ignoreHistory != true) {
                 // Increment and get the current history index
                 var index = ++obj.historyIndex;
-    
+
                 // Slice the array to discard undone changes
                 obj.history = (obj.history = obj.history.slice(0, index + 1));
-    
+
                 // Keep history
                 obj.history[index] = changes;
             }
         }
-    
+
         /**
          * Copy method
-         * 
+         *
          * @param bool highlighted - Get only highlighted cells
          * @param delimiter - \t default to keep compatibility with excel
          * @return string value
@@ -12101,7 +12108,7 @@ if (! jSuites && typeof(require) === 'function') {
             if (! delimiter) {
                 delimiter = "\t";
             }
-    
+
             var div = new RegExp(delimiter, 'ig');
 
             // Controls
@@ -12170,12 +12177,12 @@ if (! jSuites && typeof(require) === 'function') {
 
             // Reset container
             obj.style = [];
-    
+
             // Go through the columns to get the data
             for (var j = 0; j < y; j++) {
                 col = [];
                 colLabel = [];
-    
+
                 for (var i = 0; i < x; i++) {
                     // If cell is highlighted
                     if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
@@ -12206,14 +12213,14 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         }
                         colLabel.push(label);
-    
+
                         // Get style
                         tmp = obj.records[j][i].getAttribute('style');
                         tmp = tmp.replace('display: none;', '');
                         obj.style.push(tmp ? tmp : '');
                     }
                 }
-    
+
                 if (col.length) {
                     if (copyHeader) {
                         numOfCols = col.length;
@@ -12249,7 +12256,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.textarea.select();
                 document.execCommand("copy");
             }
-    
+
             // Keep data
             if (obj.options.copyCompatibility == true) {
                 obj.data = strLabel;
@@ -12258,11 +12265,11 @@ if (! jSuites && typeof(require) === 'function') {
             }
             // Keep non visible information
             obj.hashString = obj.hash(obj.data);
-    
+
             // Any exiting border should go
             if (! returnData) {
                 obj.removeCopyingSelection();
-    
+
                 // Border
                 if (obj.highlighted) {
                     for (var i = 0; i < obj.highlighted.length; i++) {
@@ -12288,10 +12295,10 @@ if (! jSuites && typeof(require) === 'function') {
 
             return obj.data;
         }
-    
+
         /**
          * Jspreadsheet paste method
-         * 
+         *
          * @param integer row number
          * @return string value
          */
@@ -12304,19 +12311,19 @@ if (! jSuites && typeof(require) === 'function') {
             } else if (ret) {
                 var data = ret;
             }
-    
+
             // Controls
             var hash = obj.hash(data);
             var style = (hash == obj.hashString) ? obj.style : null;
-    
+
             // Depending on the behavior
             if (obj.options.copyCompatibility == true && hash == obj.hashString) {
                 var data = obj.data;
             }
-    
+
             // Split new line
             var data = obj.parseCSV(data, "\t");
-    
+
             if (x != null && y != null && data) {
                 // Records
                 var i = 0;
@@ -12325,17 +12332,17 @@ if (! jSuites && typeof(require) === 'function') {
                 var newStyle = {};
                 var oldStyle = {};
                 var styleIndex = 0;
-    
+
                 // Index
                 var colIndex = parseInt(x);
                 var rowIndex = parseInt(y);
                 var row = null;
-    
+
                 // Go through the columns to get the data
                 while (row = data[j]) {
                     i = 0;
                     colIndex = parseInt(x);
-    
+
                     while (row[i] != null) {
                         // Update and keep history
                         var record = obj.updateCell(colIndex, rowIndex, row[i]);
@@ -12365,7 +12372,7 @@ if (! jSuites && typeof(require) === 'function') {
                             colIndex = obj.right.get(colIndex, rowIndex);
                         }
                     }
-    
+
                     j++;
                     if (data[j]) {
                         if (rowIndex >= obj.rows.length-1) {
@@ -12380,10 +12387,10 @@ if (! jSuites && typeof(require) === 'function') {
                         rowIndex = obj.down.get(x, rowIndex);
                     }
                 }
-    
+
                 // Select the new cells
                 obj.updateSelectionFromCoords(x, y, colIndex, rowIndex);
-    
+
                 // Update history
                 obj.setHistory({
                     action:'setValue',
@@ -12392,13 +12399,13 @@ if (! jSuites && typeof(require) === 'function') {
                     newStyle:newStyle,
                     oldStyle:oldStyle,
                 });
-    
+
                 // Update table
                 obj.updateTable();
-    
+
                 // Paste event
                 obj.dispatch('onpaste', el, data);
-    
+
                 // On after changes
                 obj.onafterchanges(el, records);
             }
@@ -12425,13 +12432,13 @@ if (! jSuites && typeof(require) === 'function') {
          */
         obj.historyProcessRow = function(type, historyRecord) {
             var rowIndex = (! historyRecord.insertBefore) ? historyRecord.rowNumber + 1 : +historyRecord.rowNumber;
-    
+
             if (obj.options.search == true) {
                 if (obj.results && obj.results.length != obj.rows.length) {
                     obj.resetSearch();
                 }
             }
-    
+
             // Remove row
             if (type == 1) {
                 var numOfRows = historyRecord.numOfRows;
@@ -12443,7 +12450,7 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.records.splice(rowIndex, numOfRows);
                 obj.options.data.splice(rowIndex, numOfRows);
                 obj.rows.splice(rowIndex, numOfRows);
-    
+
                 obj.conditionalSelectionUpdate(1, rowIndex, (numOfRows + rowIndex) - 1);
             } else {
                 // Insert data
@@ -12457,25 +12464,25 @@ if (! jSuites && typeof(require) === 'function') {
                     index++;
                 }
             }
-    
+
             // Respect pagination
             if (obj.options.pagination > 0) {
                 obj.page(obj.pageNumber);
             }
-    
+
             obj.updateTableReferences();
         }
-    
+
         /**
          * Process column
          */
         obj.historyProcessColumn = function(type, historyRecord) {
             var columnIndex = (! historyRecord.insertBefore) ? historyRecord.columnNumber + 1 : historyRecord.columnNumber;
-    
+
             // Remove column
             if (type == 1) {
                 var numOfColumns = historyRecord.numOfColumns;
-    
+
                 obj.options.columns.splice(columnIndex, numOfColumns);
                 for (var i = columnIndex; i < (numOfColumns + columnIndex); i++) {
                     obj.headers[i].parentNode.removeChild(obj.headers[i]);
@@ -12501,14 +12508,14 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, historyRecord.columns);
                 obj.headers = jexcel.injectArray(obj.headers, columnIndex, historyRecord.headers);
                 obj.colgroup = jexcel.injectArray(obj.colgroup, columnIndex, historyRecord.colgroup);
-    
+
                 var index = 0
                 for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
                     obj.headerContainer.insertBefore(historyRecord.headers[index], obj.headerContainer.children[i+1]);
                     obj.colgroupContainer.insertBefore(historyRecord.colgroup[index], obj.colgroupContainer.children[i+1]);
                     index++;
                 }
-    
+
                 for (var j = 0; j < historyRecord.data.length; j++) {
                     obj.options.data[j] = jexcel.injectArray(obj.options.data[j], columnIndex, historyRecord.data[j]);
                     obj.records[j] = jexcel.injectArray(obj.records[j], columnIndex, historyRecord.records[j]);
@@ -12525,7 +12532,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             // Adjust nested headers
             if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
                 // Flexible way to handle nestedheaders
@@ -12549,10 +12556,10 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
                 }
             }
-    
+
             obj.updateTableReferences();
         }
-    
+
         /**
          * Undo last action
          */
@@ -12560,18 +12567,18 @@ if (! jSuites && typeof(require) === 'function') {
             // Ignore events and history
             var ignoreEvents = obj.ignoreEvents ? true : false;
             var ignoreHistory = obj.ignoreHistory ? true : false;
-    
+
             obj.ignoreEvents = true;
             obj.ignoreHistory = true;
-    
+
             // Records
             var records = [];
-    
+
             // Update cells
             if (obj.historyIndex >= 0) {
                 // History
                 var historyRecord = obj.history[obj.historyIndex--];
-    
+
                 if (historyRecord.action == 'insertRow') {
                     obj.historyProcessRow(1, historyRecord);
                 } else if (historyRecord.action == 'deleteRow') {
@@ -12627,11 +12634,11 @@ if (! jSuites && typeof(require) === 'function') {
             }
             obj.ignoreEvents = ignoreEvents;
             obj.ignoreHistory = ignoreHistory;
-    
+
             // Events
             obj.dispatch('onundo', el, historyRecord);
         }
-    
+
         /**
          * Redo previously undone action
          */
@@ -12639,18 +12646,18 @@ if (! jSuites && typeof(require) === 'function') {
             // Ignore events and history
             var ignoreEvents = obj.ignoreEvents ? true : false;
             var ignoreHistory = obj.ignoreHistory ? true : false;
-    
+
             obj.ignoreEvents = true;
             obj.ignoreHistory = true;
-    
+
             // Records
             var records = [];
-    
+
             // Update cells
             if (obj.historyIndex < obj.history.length - 1) {
                 // History
                 var historyRecord = obj.history[++obj.historyIndex];
-    
+
                 if (historyRecord.action == 'insertRow') {
                     obj.historyProcessRow(0, historyRecord);
                 } else if (historyRecord.action == 'deleteRow') {
@@ -12694,22 +12701,22 @@ if (! jSuites && typeof(require) === 'function') {
             }
             obj.ignoreEvents = ignoreEvents;
             obj.ignoreHistory = ignoreHistory;
-    
+
             // Events
             obj.dispatch('onredo', el, historyRecord);
         }
-    
+
         /**
          * Get dropdown value from key
          */
         obj.getDropDownValue = function(column, key) {
             var value = [];
-    
+
             if (obj.options.columns[column] && obj.options.columns[column].source) {
                 // Create array from source
                 var combo = [];
                 var source = obj.options.columns[column].source;
-    
+
                 for (var i = 0; i < source.length; i++) {
                     if (typeof(source[i]) == 'object') {
                         combo[source[i].id] = source[i].name;
@@ -12717,10 +12724,10 @@ if (! jSuites && typeof(require) === 'function') {
                         combo[source[i]] = source[i];
                     }
                 }
-    
+
                 // Guarantee single multiple compatibility
                 var keys = Array.isArray(key) ? key : ('' + key).split(';');
-    
+
                 for (var i = 0; i < keys.length; i++) {
                     if (typeof(keys[i]) === 'object') {
                         value.push(combo[keys[i].id]);
@@ -12733,10 +12740,10 @@ if (! jSuites && typeof(require) === 'function') {
             } else {
                 console.error('Invalid column');
             }
-    
+
             return (value.length > 0) ? value.join('; ') : '';
         }
-    
+
         /**
          * From stack overflow contributions
          */
@@ -12749,7 +12756,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
             // user-supplied delimeter or default comma
             delimiter = (delimiter || ",");
-    
+
             var arr = [];
             var quote = false;  // true means we're inside a quoted field
             // iterate over each character, keep track of current row and column (of the returned array)
@@ -12757,32 +12764,32 @@ if (! jSuites && typeof(require) === 'function') {
                 var cc = str[c], nc = str[c+1];
                 arr[row] = arr[row] || [];
                 arr[row][col] = arr[row][col] || '';
-    
+
                 // If the current character is a quotation mark, and we're inside a quoted field, and the next character is also a quotation mark, add a quotation mark to the current column and skip the next character
-                if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }  
-    
+                if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+
                 // If it's just one quotation mark, begin/end quoted field
                 if (cc == '"') { quote = !quote; continue; }
-    
+
                 // If it's a comma and we're not in a quoted field, move on to the next column
                 if (cc == delimiter && !quote) { ++col; continue; }
-    
+
                 // If it's a newline (CRLF) and we're not in a quoted field, skip the next character and move on to the next row and move to column 0 of that new row
                 if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
-    
+
                 // If it's a newline (LF or CR) and we're not in a quoted field, move on to the next row and move to column 0 of that new row
                 if (cc == '\n' && !quote) { ++row; col = 0; continue; }
                 if (cc == '\r' && !quote) { ++row; col = 0; continue; }
-    
+
                 // Otherwise, append the current character to the current column
                 arr[row][col] += cc;
             }
             return arr;
         }
-    
+
         obj.hash = function(str) {
             var hash = 0, i, chr;
-    
+
             if (str.length === 0) {
                 return hash;
             } else {
@@ -12794,12 +12801,12 @@ if (! jSuites && typeof(require) === 'function') {
             }
             return hash;
         }
-    
+
         obj.onafterchanges = function(el, records) {
             // Events
             obj.dispatch('onafterchanges', el, records);
         }
-    
+
         obj.destroy = function() {
             jexcel.destroy(el);
         }
@@ -12809,7 +12816,7 @@ if (! jSuites && typeof(require) === 'function') {
          */
         obj.init = function() {
             jexcel.current = obj;
-    
+
             // Build handlers
             if (typeof(jexcel.build) == 'function') {
                 if (obj.options.root) {
@@ -12819,7 +12826,7 @@ if (! jSuites && typeof(require) === 'function') {
                     jexcel.build = null;
                 }
             }
-    
+
             // Event
             el.setAttribute('tabindex', 1);
             el.addEventListener('focus', function(e) {
@@ -12835,7 +12842,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (obj.options.loadingSpin == true) {
                     jSuites.loading.show();
                 }
-    
+
                 // Load CSV file
                 jSuites.ajax({
                     url: obj.options.csv,
@@ -12845,7 +12852,7 @@ if (! jSuites && typeof(require) === 'function') {
                     success: function(result) {
                         // Convert data
                         var newData = obj.parseCSV(result, obj.options.csvDelimiter)
-    
+
                         // Headers
                         if (obj.options.csvHeaders == true && newData.length > 0) {
                             var headers = newData.shift();
@@ -12874,7 +12881,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (obj.options.loadingSpin == true) {
                     jSuites.loading.show();
                 }
-    
+
                 jSuites.ajax({
                     url: obj.options.url,
                     method: obj.options.method,
@@ -12896,14 +12903,14 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.prepareTable();
             }
         }
-    
+
         // Context menu
         if (options && options.contextMenu != null) {
             obj.options.contextMenu = options.contextMenu;
         } else {
             obj.options.contextMenu = function(el, x, y, e) {
                 var items = [];
-    
+
                 if (y == null) {
                     // Insert a new column
                     if (obj.options.allowInsertColumn == true) {
@@ -12914,7 +12921,7 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         });
                     }
-    
+
                     if (obj.options.allowInsertColumn == true) {
                         items.push({
                             title:obj.options.text.insertANewColumnAfter,
@@ -12923,7 +12930,7 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         });
                     }
-    
+
                     // Delete a column
                     if (obj.options.allowDeleteColumn == true) {
                         items.push({
@@ -12933,7 +12940,7 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         });
                     }
-    
+
                     // Rename column
                     if (obj.options.allowRenameColumn == true) {
                         items.push({
@@ -12943,12 +12950,12 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         });
                     }
-    
+
                     // Sorting
                     if (obj.options.columnSorting == true) {
                         // Line
                         items.push({ type:'line' });
-    
+
                         items.push({
                             title:obj.options.text.orderAscending,
                             onclick:function() {
@@ -12971,7 +12978,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 obj.insertRow(1, parseInt(y), 1);
                             }
                         });
-    
+
                         items.push({
                             title:obj.options.text.insertANewRowAfter,
                             onclick:function() {
@@ -12979,7 +12986,7 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         });
                     }
-    
+
                     if (obj.options.allowDeleteRow == true) {
                         items.push({
                             title:obj.options.text.deleteSelectedRows,
@@ -12988,11 +12995,11 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         });
                     }
-    
+
                     if (x) {
                         if (obj.options.allowComments == true) {
                             items.push({ type:'line' });
-    
+
                             var title = obj.records[y][x].getAttribute('title') || '';
 
                             items.push({
@@ -13004,7 +13011,7 @@ if (! jSuites && typeof(require) === 'function') {
                                     }
                                 }
                             });
-    
+
                             if (title) {
                                 items.push({
                                     title:obj.options.text.clearComments,
@@ -13016,10 +13023,10 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                 }
-    
+
                 // Line
                 items.push({ type:'line' });
-    
+
                 // Copy
                 items.push({
                     title:obj.options.text.copy,
@@ -13028,7 +13035,7 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.copy(true);
                     }
                 });
-    
+
                 // Paste
                 if (navigator && navigator.clipboard) {
                     items.push({
@@ -13045,7 +13052,7 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     });
                 }
-    
+
                 // Save
                 if (obj.options.allowExport) {
                     items.push({
@@ -13056,7 +13063,7 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     });
                 }
-    
+
                 // About
                 if (obj.options.about) {
                     items.push({
@@ -13070,11 +13077,11 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     });
                 }
-    
+
                 return items;
             }
         }
-    
+
         obj.scrollControls = function(e) {
             obj.wheelControls();
 
@@ -13109,7 +13116,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 obj.updateCornerPosition();
                             }
                         }
-    
+
                         jexcel.timeControlLoading = null;
                     }, 100);
                 }
@@ -13135,7 +13142,10 @@ if (! jSuites && typeof(require) === 'function') {
             if (scrollLeft > 50) {
                 for (var i = 0; i < obj.options.freezeColumns; i++) {
                     if (i > 0) {
-                        width += parseInt(obj.options.columns[i-1].width);
+                        // Must check if the previous column is hidden or not to determin whether the width shoule be added or not!
+                        if (obj.options.columns[i-1].type !== "hidden") {
+                            width += parseInt(obj.options.columns[i-1].width);
+                        }
                     }
                     obj.headers[i].classList.add('jexcel_freezed');
                     obj.headers[i].style.left = width + 'px';
@@ -13166,12 +13176,12 @@ if (! jSuites && typeof(require) === 'function') {
 
         el.addEventListener("DOMMouseScroll", obj.wheelControls);
         el.addEventListener("mousewheel", obj.wheelControls);
-    
+
         el.jexcel = obj;
         el.jspreadsheet = obj;
-    
+
         obj.init();
-    
+
         return obj;
     });
 
@@ -13204,7 +13214,7 @@ if (! jSuites && typeof(require) === 'function') {
     jexcel.current = null;
     jexcel.timeControl = null;
     jexcel.timeControlLoading = null;
-    
+
     jexcel.destroy = function(element, destroyEventHandlers) {
         if (element.jexcel) {
             var root = element.jexcel.options.root ? element.jexcel.options.root : document;
@@ -13212,7 +13222,7 @@ if (! jSuites && typeof(require) === 'function') {
             element.removeEventListener("mousewheel", element.jexcel.scrollControls);
             element.jexcel = null;
             element.innerHTML = '';
-    
+
             if (destroyEventHandlers) {
                 root.removeEventListener("mouseup", jexcel.mouseUpControls);
                 root.removeEventListener("mousedown", jexcel.mouseDownControls);
@@ -13229,7 +13239,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
         }
     }
-    
+
     jexcel.build = function(root) {
         root.addEventListener("mouseup", jexcel.mouseUpControls);
         root.addEventListener("mousedown", jexcel.mouseDownControls);
@@ -13244,7 +13254,7 @@ if (! jSuites && typeof(require) === 'function') {
         root.addEventListener("touchmove", jexcel.touchEndControls);
         document.addEventListener("keydown", jexcel.keyDownControls);
     }
-    
+
     /**
      * Events
      */
@@ -13292,7 +13302,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             if (! jexcel.current.edition && jexcel.current.selectedCell) {
                 // Which key
                 if (e.which == 37) {
@@ -13351,7 +13361,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 }
                             }
                         }
-    
+
                         jexcel.current.down();
                     }
                     e.preventDefault();
@@ -13368,7 +13378,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 }
                             }
                         }
-    
+
                         jexcel.current.right();
                     }
                     e.preventDefault();
@@ -13411,7 +13421,7 @@ if (! jSuites && typeof(require) === 'function') {
                             if (jexcel.current.options.editable == true) {
                                 var rowId = jexcel.current.selectedCell[1];
                                 var columnId = jexcel.current.selectedCell[0];
-    
+
                                 // If is not readonly
                                 if (jexcel.current.options.columns[columnId].type != 'readonly') {
                                     // Characters able to start a edition
@@ -13449,7 +13459,7 @@ if (! jSuites && typeof(require) === 'function') {
                     if (jexcel.timeControl) {
                         clearTimeout(jexcel.timeControl);
                     }
-    
+
                     jexcel.timeControl = setTimeout(function() {
                         jexcel.current.search(e.target.value);
                     }, 200);
@@ -13457,9 +13467,9 @@ if (! jSuites && typeof(require) === 'function') {
             }
         }
     }
-    
+
     jexcel.isMouseAction = false;
-    
+
     jexcel.mouseDownControls = function(e) {
         e = e || window.event;
         if (e.buttons) {
@@ -13488,12 +13498,12 @@ if (! jSuites && typeof(require) === 'function') {
                 if (jexcel.current.edition) {
                     jexcel.current.closeEditor(jexcel.current.edition[0], true);
                 }
-                
+
                 jexcel.current.resetSelection(true);
                 jexcel.current = null;
             }
         }
-    
+
         if (jexcel.current && mouseButton == 1) {
             if (e.target.classList.contains('jexcel_selectall')) {
                 if (jexcel.current) {
@@ -13517,7 +13527,7 @@ if (! jSuites && typeof(require) === 'function') {
                                 column: columnId,
                                 width: info.width,
                             };
-    
+
                             // Border indication
                             jexcel.current.headers[columnId].classList.add('resizing');
                             for (var j = 0; j < jexcel.current.records.length; j++) {
@@ -13534,8 +13544,8 @@ if (! jSuites && typeof(require) === 'function') {
                                 // Drag helper
                                 jexcel.current.dragging = {
                                     element: e.target,
-                                    column:columnId,
-                                    destination:columnId,
+                                    column: columnId,
+                                    destination: columnId,
                                 };
                                 // Border indication
                                 jexcel.current.headers[columnId].classList.add('dragging');
@@ -13556,15 +13566,15 @@ if (! jSuites && typeof(require) === 'function') {
                                         jexcel.current.setHeader(columnId);
                                     }, 800);
                                 }
-    
+
                                 // Keep track of which header was selected first
                                 jexcel.current.selectedHeader = columnId;
-    
+
                                 // Update selection single column
                                 var o = columnId;
                                 var d = columnId;
                             }
-    
+
                             // Update selection
                             jexcel.current.updateSelectionFromCoords(o, 0, d, jexcel.current.options.data.length - 1);
                         }
@@ -13584,11 +13594,11 @@ if (! jSuites && typeof(require) === 'function') {
                 } else {
                     jexcel.current.selectedHeader = false;
                 }
-    
+
                 // Body found
                 if (jexcelTable[1] == 2) {
                     var rowId = e.target.getAttribute('data-y');
-                    
+
                     if (e.target.classList.contains('jexcel_row')) {
                         var info = e.target.getBoundingClientRect();
                         if (jexcel.current.options.rowResize == true && info.height - e.offsetY < 6) {
@@ -13625,12 +13635,12 @@ if (! jSuites && typeof(require) === 'function') {
                             } else {
                                 // Keep track of which header was selected first
                                 jexcel.current.selectedRow = rowId;
-    
+
                                 // Update selection single column
                                 var o = rowId;
                                 var d = rowId;
                             }
-    
+
                             // Update selection
                             jexcel.current.updateSelectionFromCoords(0, o, jexcel.current.options.data[0].length - 1, d);
                         }
@@ -13681,7 +13691,7 @@ if (! jSuites && typeof(require) === 'function') {
                 } else {
                     jexcel.current.selectedRow = false;
                 }
-    
+
                 // Pagination
                 if (e.target.classList.contains('jexcel_page')) {
                     if (e.target.innerText == '<') {
@@ -13693,7 +13703,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             }
-    
+
             if (jexcel.current.edition) {
                 jexcel.isMouseAction = false;
             } else {
@@ -13703,7 +13713,7 @@ if (! jSuites && typeof(require) === 'function') {
             jexcel.isMouseAction = false;
         }
     }
-    
+
     jexcel.mouseUpControls = function(e) {
         if (jexcel.current) {
             // Update cell size
@@ -13786,12 +13796,12 @@ if (! jSuites && typeof(require) === 'function') {
                 // Close any corner selection
                 if (jexcel.current.selectedCorner) {
                     jexcel.current.selectedCorner = false;
-    
+
                     // Data to be copied
                     if (jexcel.current.selection.length > 0) {
                         // Copy data
                         jexcel.current.copyData(jexcel.current.selection[0], jexcel.current.selection[jexcel.current.selection.length - 1]);
-    
+
                         // Remove selection
                         jexcel.current.removeCopySelection();
                     }
@@ -13804,11 +13814,11 @@ if (! jSuites && typeof(require) === 'function') {
             clearTimeout(jexcel.timeControl);
             jexcel.timeControl = null;
         }
-    
+
         // Mouse up
         jexcel.isMouseAction = false;
     }
-    
+
     // Mouse move controls
     jexcel.mouseMoveControls = function(e) {
         e = e || window.event;
@@ -13819,102 +13829,39 @@ if (! jSuites && typeof(require) === 'function') {
         } else {
             var mouseButton = e.which;
         }
-    
+
         if (! mouseButton) {
             jexcel.isMouseAction = false;
         }
-    
+
         if (jexcel.current) {
             if (jexcel.isMouseAction == true) {
                 // Resizing is ongoing
                 if (jexcel.current.resizing) {
                     if (jexcel.current.resizing.column) {
                         var width = e.pageX - jexcel.current.resizing.mousePosition;
-    
+
                         if (jexcel.current.resizing.width + width > 0) {
                             var tempWidth = jexcel.current.resizing.width + width;
                             jexcel.current.colgroup[jexcel.current.resizing.column].setAttribute('width', tempWidth);
-    
+
                             jexcel.current.updateCornerPosition();
                         }
                     } else {
                         var height = e.pageY - jexcel.current.resizing.mousePosition;
-    
+
                         if (jexcel.current.resizing.height + height > 0) {
                             var tempHeight = jexcel.current.resizing.height + height;
                             jexcel.current.rows[jexcel.current.resizing.row].setAttribute('height', tempHeight);
-    
+
                             jexcel.current.updateCornerPosition();
                         }
                     }
-                }
-            } else {
-                var x = e.target.getAttribute('data-x');
-                var y = e.target.getAttribute('data-y');
-                var rect = e.target.getBoundingClientRect();
-    
-                if (jexcel.current.cursor) {
-                    jexcel.current.cursor.style.cursor = '';
-                    jexcel.current.cursor = null;
-                }
-
-                if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
-                    if (e.target.parentNode.parentNode.classList.contains('resizable')) {
-                        if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
-                            jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'col-resize';
-                        } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
-                            jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'row-resize';
-                        }
-                    }
-    
-                    if (e.target.parentNode.parentNode.classList.contains('draggable')) {
-                        if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
-                            jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'move';
-                        } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
-                            jexcel.current.cursor = e.target;
-                            jexcel.current.cursor.style.cursor = 'move';
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    jexcel.mouseOverControls = function(e) {
-        e = e || window.event;
-        if (e.buttons) {
-            var mouseButton = e.buttons;
-        } else if (e.button) {
-            var mouseButton = e.button;
-        } else {
-            var mouseButton = e.which;
-        }
-    
-        if (! mouseButton) {
-            jexcel.isMouseAction = false;
-        }
-    
-        if (jexcel.current && jexcel.isMouseAction == true) {
-            // Get elements
-            var jexcelTable = jexcel.getElement(e.target);
-    
-            if (jexcelTable[0]) {
-                // Avoid cross reference
-                if (jexcel.current != jexcelTable[0].jexcel) {
-                    if (jexcel.current) {
-                        return false;
-                    }
-                }
-    
-                var columnId = e.target.getAttribute('data-x');
-                var rowId = e.target.getAttribute('data-y');
-    
-                if (jexcel.current.dragging) {
+                } else if (jexcel.current.dragging) {
                     if (jexcel.current.dragging.column) {
+                        var columnId = e.target.getAttribute('data-x');
                         if (columnId) {
+
                             if (jexcel.current.isColMerged(columnId).length) {
                                 console.error('Jspreadsheet: This column is part of a merged cell.');
                             } else {
@@ -13922,7 +13869,7 @@ if (! jSuites && typeof(require) === 'function') {
                                     jexcel.current.headers[i].classList.remove('dragging-left');
                                     jexcel.current.headers[i].classList.remove('dragging-right');
                                 }
-    
+
                                 if (jexcel.current.dragging.column == columnId) {
                                     jexcel.current.dragging.destination = parseInt(columnId);
                                 } else {
@@ -13945,6 +13892,7 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         }
                     } else {
+                        var rowId = e.target.getAttribute('data-y');
                         if (rowId) {
                             if (jexcel.current.isRowMerged(rowId).length) {
                                 console.error('Jspreadsheet: This row is part of a merged cell.');
@@ -13957,7 +13905,71 @@ if (! jSuites && typeof(require) === 'function') {
                             }
                         }
                     }
-                } else if (jexcel.current.resizing) {
+                }
+            } else {
+                var x = e.target.getAttribute('data-x');
+                var y = e.target.getAttribute('data-y');
+                var rect = e.target.getBoundingClientRect();
+
+                if (jexcel.current.cursor) {
+                    jexcel.current.cursor.style.cursor = '';
+                    jexcel.current.cursor = null;
+                }
+
+                if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
+                    if (e.target.parentNode.parentNode.classList.contains('resizable')) {
+                        if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'col-resize';
+                        } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'row-resize';
+                        }
+                    }
+
+                    if (e.target.parentNode.parentNode.classList.contains('draggable')) {
+                        if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'move';
+                        } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'move';
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    jexcel.mouseOverControls = function(e) {
+        e = e || window.event;
+        if (e.buttons) {
+            var mouseButton = e.buttons;
+        } else if (e.button) {
+            var mouseButton = e.button;
+        } else {
+            var mouseButton = e.which;
+        }
+
+        if (! mouseButton) {
+            jexcel.isMouseAction = false;
+        }
+
+        if (jexcel.current && jexcel.isMouseAction == true) {
+            // Get elements
+            var jexcelTable = jexcel.getElement(e.target);
+
+            if (jexcelTable[0]) {
+                // Avoid cross reference
+                if (jexcel.current != jexcelTable[0].jexcel) {
+                    if (jexcel.current) {
+                        return false;
+                    }
+                }
+
+                var columnId = e.target.getAttribute('data-x');
+                var rowId = e.target.getAttribute('data-y');
+                if (jexcel.current.resizing || jexcel.current.dragging) {
                 } else {
                     // Header found
                     if (jexcelTable[1] == 1) {
@@ -13969,7 +13981,7 @@ if (! jSuites && typeof(require) === 'function') {
                             jexcel.current.updateSelectionFromCoords(o, 0, d, jexcel.current.options.data.length - 1);
                         }
                     }
-    
+
                     // Body found
                     if (jexcelTable[1] == 2) {
                         if (e.target.classList.contains('jexcel_row')) {
@@ -13997,14 +14009,14 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
         }
-    
+
         // Clear any time control
         if (jexcel.timeControl) {
             clearTimeout(jexcel.timeControl);
             jexcel.timeControl = null;
         }
     }
-    
+
     /**
      * Double click event handler: controls the double click in the corner, cell edition or column re-ordering.
      */
@@ -14029,11 +14041,11 @@ if (! jSuites && typeof(require) === 'function') {
                 var columnId = e.target.getAttribute('data-x');
                 // Open filter
                 jexcel.current.openFilter(columnId);
-                
+
             } else {
                 // Get table
                 var jexcelTable = jexcel.getElement(e.target);
-    
+
                 // Double click over header
                 if (jexcelTable[1] == 1 && jexcel.current.options.columnSorting == true) {
                     // Check valid column header coords
@@ -14042,7 +14054,7 @@ if (! jSuites && typeof(require) === 'function') {
                         jexcel.current.orderBy(columnId);
                     }
                 }
-    
+
                 // Double click over body
                 if (jexcelTable[1] == 2 && jexcel.current.options.editable == true) {
                     if (! jexcel.current.edition) {
@@ -14066,7 +14078,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
         }
     }
-    
+
     jexcel.copyControls = function(e) {
         if (jexcel.current && jexcel.copyControls.enabled) {
             if (! jexcel.current.edition) {
@@ -14074,7 +14086,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
         }
     }
-    
+
     jexcel.cutControls = function(e) {
         if (jexcel.current) {
             if (! jexcel.current.edition) {
@@ -14085,7 +14097,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
         }
     }
-    
+
     jexcel.pasteControls = function(e) {
         if (jexcel.current && jexcel.current.selectedCell) {
             if (! jexcel.current.edition) {
@@ -14100,7 +14112,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
         }
     }
-    
+
     jexcel.contextMenuControls = function(e) {
         e = e || window.event;
         if ("buttons" in e) {
@@ -14108,17 +14120,17 @@ if (! jSuites && typeof(require) === 'function') {
         } else {
             var mouseButton = e.which || e.button;
         }
-    
+
         if (jexcel.current) {
             if (jexcel.current.edition) {
                 e.preventDefault();
             } else if (jexcel.current.options.contextMenu) {
                 jexcel.current.contextMenu.contextmenu.close();
-    
+
                 if (jexcel.current) {
                     var x = e.target.getAttribute('data-x');
                     var y = e.target.getAttribute('data-y');
-    
+
                     if (x || y) {
                         if ((x < parseInt(jexcel.current.selectedCell[0])) || (x > parseInt(jexcel.current.selectedCell[2])) ||
                             (y < parseInt(jexcel.current.selectedCell[1])) || (y > parseInt(jexcel.current.selectedCell[3])))
@@ -14140,7 +14152,7 @@ if (! jSuites && typeof(require) === 'function') {
 
     jexcel.touchStartControls = function(e) {
         var jexcelTable = jexcel.getElement(e.target);
-    
+
         if (jexcelTable[0]) {
             if (jexcel.current != jexcelTable[0].jexcel) {
                 if (jexcel.current) {
@@ -14154,15 +14166,15 @@ if (! jSuites && typeof(require) === 'function') {
                 jexcel.current = null;
             }
         }
-    
+
         if (jexcel.current) {
             if (! jexcel.current.edition) {
                 var columnId = e.target.getAttribute('data-x');
                 var rowId = e.target.getAttribute('data-y');
-    
+
                 if (columnId && rowId) {
                     jexcel.current.updateSelectionFromCoords(columnId, rowId);
-    
+
                     jexcel.timeControl = setTimeout(function() {
                         // Keep temporary reference to the element
                         if (jexcel.current.options.columns[columnId].type == 'color') {
@@ -14176,7 +14188,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
         }
     }
-    
+
     jexcel.touchEndControls = function(e) {
         // Clear any time control
         if (jexcel.timeControl) {
@@ -14189,11 +14201,11 @@ if (! jSuites && typeof(require) === 'function') {
             jexcel.tmpElement = null;
         }
     }
-    
+
     /**
      * Jexcel extensions
      */
-    
+
     jexcel.tabs = function(tabs, result) {
         var instances = [];
         // Create tab container
@@ -14262,7 +14274,7 @@ if (! jSuites && typeof(require) === 'function') {
                 spreadsheet.data = [];
                 spreadsheet.style = {};
                 spreadsheet.sheetName = sheetName;
-    
+
                 // Column widths
                 var temp = workbook.Sheets[sheetName]['!cols'];
                 if (temp && temp.length) {
@@ -14341,14 +14353,14 @@ if (! jSuites && typeof(require) === 'function') {
                 }
                 spreadsheets.push(spreadsheet);
             });
-    
+
             return spreadsheets;
         }
-    
+
         var oReq;
         oReq = new XMLHttpRequest();
         oReq.open("GET", file, true);
-    
+
         if(typeof Uint8Array !== 'undefined') {
             oReq.responseType = "arraybuffer";
             oReq.onload = function(e) {
@@ -14358,36 +14370,36 @@ if (! jSuites && typeof(require) === 'function') {
                 __callback(convert(wb))
             };
         } else {
-            oReq.setRequestHeader("Accept-Charset", "x-user-defined");  
+            oReq.setRequestHeader("Accept-Charset", "x-user-defined");
             oReq.onreadystatechange = function() { if(oReq.readyState == 4 && oReq.status == 200) {
                 var ff = convertResponseBodyToText(oReq.responseBody);
                 var wb = XLSX.read(ff, {type:"binary", cellFormula:true, cellStyles:true });
                 __callback(convert(wb))
             }};
         }
-    
+
         oReq.send();
     }
-    
+
     /**
      * Valid international letter
      */
-    
+
     jexcel.validLetter = function (text) {
         var regex = /([\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0\u08A2-\u08AC\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097F\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C3D\u0C58\u0C59\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D60\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191C\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19C1-\u19C7\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2183\u2184\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005\u3006\u3031-\u3035\u303B\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FCC\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA697\uA6A0-\uA6E5\uA717-\uA71F\uA722-\uA788\uA78B-\uA78E\uA790-\uA793\uA7A0-\uA7AA\uA7F8-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA80-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uABC0-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC-\u0400-\u04FF']+)/g;
         return text.match(regex) ? 1 : 0;
     }
-    
+
     /**
      * Helper injectArray
      */
     jexcel.injectArray = function(o, idx, arr) {
         return o.slice(0, idx).concat(arr).concat(o.slice(idx));
     }
-    
+
     /**
      * Get letter based on a number
-     * 
+     *
      * @param integer i
      * @return string letter
      */
@@ -14400,20 +14412,20 @@ if (! jSuites && typeof(require) === 'function') {
             letter += String.fromCharCode(64 + parseInt(i / 26));
         }
         letter += String.fromCharCode(65 + (i % 26));
-    
+
         return letter;
     }
-    
+
     /**
      * Convert excel like column to jexcel id
-     * 
+     *
      * @param string id
      * @return string id
      */
     jexcel.getIdFromColumnName = function (id, arr) {
         // Get the letters
         var t = /^[a-zA-Z]+/.exec(id);
-    
+
         if (t) {
             // Base 26 calculation
             var code = 0;
@@ -14425,26 +14437,26 @@ if (! jSuites && typeof(require) === 'function') {
             if (code < 0) {
                 code = 0;
             }
-    
+
             // Number
             var number = parseInt(/[0-9]+$/.exec(id));
             if (number > 0) {
                 number--;
             }
-    
+
             if (arr == true) {
                 id = [ code, number ];
             } else {
                 id = code + '-' + number;
             }
         }
-    
+
         return id;
     }
-    
+
     /**
      * Convert jexcel id to excel like column name
-     * 
+     *
      * @param string id
      * @return string id
      */
@@ -14452,42 +14464,42 @@ if (! jSuites && typeof(require) === 'function') {
         if (! Array.isArray(cellId)) {
             cellId = cellId.split('-');
         }
-    
+
         return jexcel.getColumnName(parseInt(cellId[0])) + (parseInt(cellId[1]) + 1);
     }
-    
+
     /**
      * Verify element inside jexcel table
-     * 
+     *
      * @param string id
      * @return string id
      */
     jexcel.getElement = function(element) {
         var jexcelSection = 0;
         var jexcelElement = 0;
-    
+
         function path (element) {
             if (element.className) {
                 if (element.classList.contains('jexcel_container')) {
                     jexcelElement = element;
                 }
             }
-    
+
             if (element.tagName == 'THEAD') {
                 jexcelSection = 1;
             } else if (element.tagName == 'TBODY') {
                 jexcelSection = 2;
             }
-    
+
             if (element.parentNode) {
                 if (! jexcelElement) {
                     path(element.parentNode);
                 }
             }
         }
-    
+
         path(element);
-    
+
         return [ jexcelElement, jexcelSection ];
     }
 
@@ -14538,7 +14550,7 @@ if (! jSuites && typeof(require) === 'function') {
                 // Create column option
                 if (! options.columns[i]) {
                     options.columns[i] = {};
-                } 
+                }
                 if (header.getAttribute('data-celltype')) {
                     options.columns[i].type = header.getAttribute('data-celltype');
                 } else {
@@ -14687,7 +14699,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
             // TODO: data-hiddencolumns="3,4"
-            
+
             // I guess in terms the better column type
             if (options.parseTableAutoCellType == true) {
                 var pattern = [];
@@ -14950,7 +14962,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 }
             };
-    
+
         })(jQuery);
     }
 
