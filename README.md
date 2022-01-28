@@ -37,13 +37,25 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ## Installation
 
-% npm install jspreadsheet-ce
+### As node package
+`npm install jspreadsheet-ce`
 
+### As standalone library/js plugin
 [Download ZIP](https://github.com/jspreadsheet/ce/archive/master.zip)
 
+put and use the files of `dist` folder in your project (js library and css files)
+
+### With a framework
+
+See examples section for code examples of jspreadsheets with popular frameworks
 ### Basic demo 
 
 A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet. <https://codepen.io/hchiam/pen/qBRzXKK>
+
+
+#### Usage 
+
+Add jexcel/jspreadsheet and jsuites to your html file
 
 ```html
 <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
@@ -78,7 +90,22 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 });
 ```
 
+Serve your html file and then you will get the rendered table in your browser
+
+![sampleTable](./docs/sampleTable.png)
+
+
+## Development
+
+See [development](development.md)
+
 ## Examples
+
+- [Basic demo](./basic-demo.html)\
+Simple demo (as in codepen)
+
+- [Basic demo for developing](./basic-demo.html)\
+Demo using library from `dist` folder, ready to use for development of jspreadsheet
 
 - [React Implementation](https://bossanova.uk/jspreadsheet/v4/examples/react)\
 A full example on how to integrate Jspreadsheet CE with React.
