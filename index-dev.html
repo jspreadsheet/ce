@@ -33,17 +33,13 @@
 <script src="https://use.fontawesome.com/15661cf560.js"></script>
 
 <script>
-  // var data = [
-  //     ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
-  //     ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
-  // ];
-
   var data = [
-    // [ ]
+      ['Jazz', 'Honda', '2019-02-12', '', true, '$ 2.000,00', '#777700'],
+      ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
   ];
 
   jspreadsheet(document.getElementById('spreadsheet'), {
-      //data: data,
+      data: data,
       columns: [
           { type: 'text', title: 'Car', width: 120 },
           { type: 'dropdown', title: 'Make', width: 200, source: ["Alfa Romeo", "Audi", "Bmw"] },
