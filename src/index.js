@@ -7276,6 +7276,12 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                     obj.headers[i].classList.add('jexcel_freezed');
                     obj.headers[i].style.left = width + 'px';
+
+                    if(obj.options.filters){
+                        obj.filter.children[i + 1].classList.add('jexcel_freezed');
+                        obj.filter.children[i + 1].style.left = width + 'px';
+                    }
+
                     for (var j = 0; j < obj.rows.length; j++) {
                         if (obj.rows[j] && obj.records[j][i]) {
                             var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0)) - 51 + 'px';
