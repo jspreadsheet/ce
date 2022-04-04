@@ -6505,7 +6505,8 @@ if (! jSuites && typeof(require) === 'function') {
                         if (rowIndex >= obj.rows.length-1) {
                             // If the pasted row is out of range, create it if possible
                             if (obj.options.allowInsertRow == true) {
-                                obj.insertRow();
+                                // Insert all required rows at once instead
+                                obj.insertRow(data.length - (rowIndex - y) - 1);
                                 // Otherwise skip the pasted data that overflows
                             } else {
                                 break;
