@@ -959,7 +959,7 @@ if (! jSuites && typeof(require) === 'function') {
                 }
             }
 
-            // Updata table with custom configurations if applicable
+            // Update table with custom configurations if applicable
             obj.updateTable();
 
             // Onload
