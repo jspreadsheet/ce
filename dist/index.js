@@ -9360,6 +9360,9 @@ if (! jSuites && typeof(require) === 'function') {
                             td.style.textAlign = colAlign;
                         }
                         td.innerText = obj.parseValue(+obj.records.length + i, j, obj.options.footers[j][i]);
+                        
+                        // Hide/Show with hideColumn()/showColumn()
+                        td.style.display = obj.colgroup[i].style.display;
                     }
                 }
             }
@@ -10896,6 +10899,12 @@ if (! jSuites && typeof(require) === 'function') {
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = '';
             }
+            
+            // Update footers
+            if (obj.options.footers) {
+                obj.setFooter();
+            }
+            
             obj.resetSelection();
         }
 
@@ -10911,6 +10920,12 @@ if (! jSuites && typeof(require) === 'function') {
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = 'none';
             }
+            
+            // Update footers
+            if (obj.options.footers) {
+                obj.setFooter();
+            }
+            
             obj.resetSelection();
         }
 
