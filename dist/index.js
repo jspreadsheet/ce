@@ -6660,6 +6660,9 @@ if (! jSuites && typeof(require) === 'function') {
 
             // Load data
             obj.setData();
+            
+            // Extracted from setData()
+            obj.initializeHistory();
 
             // Style
             if (obj.options.style) {
@@ -6698,6 +6701,10 @@ if (! jSuites && typeof(require) === 'function') {
                         obj.options.data = (result.data) ? result.data : result;
                         // Prepare table
                         obj.setData();
+                        
+                        // Extracted from setData()
+                        obj.initializeHistory();
+                        
                         // Hide spin
                         if (obj.options.loadingSpin == true) {
                             jSuites.loading.hide();
@@ -6706,6 +6713,9 @@ if (! jSuites && typeof(require) === 'function') {
                 });
             } else {
                 obj.setData();
+                
+                // Extracted from setData()
+                obj.initializeHistory();
             }
         }
 
@@ -6772,11 +6782,16 @@ if (! jSuites && typeof(require) === 'function') {
             obj.rows = [];
             obj.results = null;
             obj.records = [];
+            
+            // Extracted to the initializeHistory function
+            /*
             obj.history = [];
 
             // Reset internal controllers
             obj.historyIndex = -1;
-
+            */
+            
+            
             // Reset data
             obj.tbody.innerHTML = '';
 
@@ -10661,6 +10676,9 @@ if (! jSuites && typeof(require) === 'function') {
          * @return void
          */
         obj.updateTableReferences = function() {
+           
+            obj.setData();
+            
             // Update headers
             for (var i = 0; i < obj.headers.length; i++) {
                 var x = obj.headers[i].getAttribute('data-x');
@@ -12111,6 +12129,22 @@ if (! jSuites && typeof(require) === 'function') {
                 obj.history[index] = changes;
             }
         }
+                
+        /**
+         *
+         * Initializes the controllers of history/undo
+         *
+         * @return null
+         */
+        obj.initializeHistory = function() {
+            
+            // Initialize history/undo 
+            obj.history = [];
+
+            // Reset internal controllers
+            obj.historyIndex = -1;
+           
+        }
 
         /**
          * Copy method
@@ -12650,6 +12684,9 @@ if (! jSuites && typeof(require) === 'function') {
             obj.ignoreEvents = ignoreEvents;
             obj.ignoreHistory = ignoreHistory;
 
+            // Force the recognition of new lines
+            obj.setData();
+            
             // Events
             obj.dispatch('onundo', el, historyRecord);
         }
@@ -12716,6 +12753,9 @@ if (! jSuites && typeof(require) === 'function') {
             }
             obj.ignoreEvents = ignoreEvents;
             obj.ignoreHistory = ignoreHistory;
+            
+            // Force the recognition of new lines
+            obj.setData();
 
             // Events
             obj.dispatch('onredo', el, historyRecord);
