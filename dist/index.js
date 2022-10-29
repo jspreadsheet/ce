@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.10.2
+ * Jspreadsheet v4.10.3
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -4746,6 +4746,10 @@ var formula = (function() {
 
             if (text.length) {
                 return text.length;
+            }
+
+            if (text == null) {
+                return 0;
             }
 
             return error.value;
@@ -9751,7 +9755,7 @@ if (! jSuites && typeof(require) === 'function') {
 
                 // Test order
                 var temp = [];
-                if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
+                if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'numeric' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
                     for (var j = 0; j < obj.options.data.length; j++) {
                         temp[j] = [ j, Number(obj.options.data[j][column]) ];
                     }
@@ -11658,7 +11662,7 @@ if (! jSuites && typeof(require) === 'function') {
          */
         obj.loadPage = function(pageNumber) {
             // Search
-            if (obj.options.search == true && obj.results) {
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                 var results = obj.results;
             } else {
                 var results = obj.rows;
@@ -11685,7 +11689,7 @@ if (! jSuites && typeof(require) === 'function') {
 
             // Appeding items
             for (var j = startRow; j < finalRow; j++) {
-                if (obj.options.search == true && obj.results) {
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                     obj.tbody.appendChild(obj.rows[results[j]]);
                 } else {
                     obj.tbody.appendChild(obj.rows[j]);
@@ -11699,7 +11703,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         obj.loadUp = function() {
             // Search
-            if (obj.options.search == true && obj.results) {
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                 var results = obj.results;
             } else {
                 var results = obj.rows;
@@ -11708,14 +11712,14 @@ if (! jSuites && typeof(require) === 'function') {
             if (results.length > 100) {
                 // Get the first element in the page
                 var item = parseInt(obj.tbody.firstChild.getAttribute('data-y'));
-                if (obj.options.search == true && obj.results) {
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                     item = results.indexOf(item);
                 }
                 if (item > 0) {
                     for (var j = 0; j < 30; j++) {
                         item = item - 1;
                         if (item > -1) {
-                            if (obj.options.search == true && obj.results) {
+                            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                                 obj.tbody.insertBefore(obj.rows[results[item]], obj.tbody.firstChild);
                             } else {
                                 obj.tbody.insertBefore(obj.rows[item], obj.tbody.firstChild);
@@ -11733,7 +11737,7 @@ if (! jSuites && typeof(require) === 'function') {
 
         obj.loadDown = function() {
             // Search
-            if (obj.options.search == true && obj.results) {
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                 var results = obj.results;
             } else {
                 var results = obj.rows;
@@ -11742,13 +11746,13 @@ if (! jSuites && typeof(require) === 'function') {
             if (results.length > 100) {
                 // Get the last element in the page
                 var item = parseInt(obj.tbody.lastChild.getAttribute('data-y'));
-                if (obj.options.search == true && obj.results) {
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                     item = results.indexOf(item);
                 }
                 if (item < obj.rows.length - 1) {
                     for (var j = 0; j <= 30; j++) {
                         if (item < results.length) {
-                            if (obj.options.search == true && obj.results) {
+                            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                                 obj.tbody.appendChild(obj.rows[results[item]]);
                             } else {
                                 obj.tbody.appendChild(obj.rows[item]);
@@ -11910,7 +11914,7 @@ if (! jSuites && typeof(require) === 'function') {
          */
         obj.whichPage = function(cell) {
             // Search
-            if (obj.options.search == true && obj.results) {
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                 cell = obj.results.indexOf(cell);
             }
 
@@ -11924,7 +11928,7 @@ if (! jSuites && typeof(require) === 'function') {
             var oldPage = obj.pageNumber;
 
             // Search
-            if (obj.options.search == true && obj.results) {
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                 var results = obj.results;
             } else {
                 var results = obj.rows;
@@ -11958,7 +11962,7 @@ if (! jSuites && typeof(require) === 'function') {
 
             // Appeding items
             for (var j = startRow; j < finalRow; j++) {
-                if (obj.options.search == true && obj.results) {
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                     obj.tbody.appendChild(obj.rows[results[j]]);
                 } else {
                     obj.tbody.appendChild(obj.rows[j]);
@@ -11987,7 +11991,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Start pagination
             if (obj.options.pagination) {
                 // Searchable
-                if (obj.options.search == true && obj.results) {
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
                     var results = obj.results.length;
                 } else {
                     var results = obj.rows.length;
