@@ -1,0 +1,9 @@
+.idea
+.project
+.settings
+.gitignore
+.gitattributes
+docs
+src
+dev
+packages
