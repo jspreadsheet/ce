@@ -2,13 +2,9 @@
 
 <b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br> 
 
-## News
 - <b>Important</b>: Please import jspreadsheet.css (jexcel.css is not longer available in this package).
-- Please use Jsuites v4
-- New mask system (https://jsfiddle.net/spreadsheet/vmjo34r8/)
 
-
-<br><br>
+<br>
 
 [**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript plugin to create amazing web-based interactive HTML tables and spreadsheets compatible
 with other spreadsheet software. You can create an online spreadsheet table from a JS array,
@@ -34,6 +30,7 @@ requirements. It is a complete solution for web data management. Create amazing 
 
 ![The JavaScript spreadsheet](https://bossanova.uk/templates/default/img/jexcel.gif)
 
+<br>
 
 ## Installation
 
@@ -94,10 +91,13 @@ Serve your html file and then you will get the rendered table in your browser
 
 ![sampleTable](./docs/sampleTable.png)
 
+<br>
 
 ## Development
 
 See [development](development.md)
+
+<br>
 
 ## Examples
 
@@ -122,7 +122,7 @@ Learn more about the powerful column types. This example brings all native colum
 - [Javascript dropdown](https://bossanova.uk/jspreadsheet/v4/examples/dropdown-and-autocomplete)\
 Full examples on how to handle simple, advanced, multiple, autocomplete and conditional dropdowns. Create amazing JavaScript tables using categories and images in your dropdowns.
 
-- [Javascript calendar, date and datetime picker](https://bossanova.uk/jspreadsheet/v4/examples/javascript-calendar)\
+- [Javascript calendar](https://bossanova.uk/jspreadsheet/v4/examples/javascript-calendar)\
 Example from basic to advanced calendar usage, date and datetime picker.
 
 - [Image upload](https://bossanova.uk/jspreadsheet/v4/examples/image-upload)\
@@ -164,7 +164,7 @@ Example how to sort the table by a column via JavaScript.
 - [Lazy loading](https://bossanova.uk/jspreadsheet/v4/examples/lazy-loading)\
 This example brings a very nice feature to deal with large table datasets.
 
-
+<br>
 
 ## Jspreadsheet CE History
 
@@ -205,7 +205,6 @@ A special thank to the [FDL - Fonds de Dotation du Libre](https://www.fdl-lef.or
 - getMeta, setMeta methods
 - Npm package with jSuites
 - General fixes
-
 
 ### Jspreadsheet CE 3.0.1 (Jexcel)
 
@@ -280,26 +279,483 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - New alternative design option bootstrap-like.
 - `updateSettings` updates.
 
+<br>
 
 ## Official websites
 - [Jspreadsheet CE v4 - Javascript Spreadsheet](https://bossanova.uk/jspreadsheet/v4)
 - [Jspreadsheet CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
 - [Jspreadsheet CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
-
 - [Jspreadsheet Pro v7 - Javascript Spreadsheet](https://jspreadsheet.com/v7)
 - [Jspreadsheet Pro v8 - Javascript Spreadsheet](https://jspreadsheet.com/v8)
 
+<br>
+
 ## Community
 - [GitHub](https://github.com/jspreadsheet/ce/issues)
+
+<br>
 
 ## Contributing
 
 See [contributing](contributing.md)
 
+<br>
+
 ## Copyright and license
 Jspreadsheet CE is released under the [MIT license]. Contact <contact@jspreadsheet.com>
 
-## Other interesting tools
+<br>
+
+## Other tools
 - [jSuites - JavaScript plugins & Webcomponents](https://jsuites.net)
 - [Jspreadsheet Pro](https://jspreadsheet.com)
 - [LemonadeJS Reactive Library](https://lemonadejs.net)
+
+<br>
+
+## jSuites
+
+<h3>Image cropper</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/image-cropper">Getting started</a></li>
+<li><a href="/v4/image-cropper/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/image-cropper/rotate-and-zoom">Rotate and zoom</a></li>
+<li><a href="/v4/image-cropper/brightness-and-contrast-filters" title='Brightness and contrast'>Brightness and contrast</a></li>
+</ul>
+
+<h4>Integrations</h4>
+<ul>
+<li><a href="/v4/image-cropper/react-component">React integration</a></li>
+<li><a href="/v4/image-cropper/image-cropper-vue-example">Vue integration</a></li>
+<li><a href="/v4/image-cropper/image-cropper-angular-example">Angular integration</a></li>
+</ul>
+</div>
+
+<h3>Javascript Template</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/javascript-template">Getting started</a></li>
+<li><a href="/v4/javascript-template/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/javascript-template/basic">Basic</a></li>
+<li><a href="/v4/javascript-template/pagination-and-searching">Pagination and Searching</a></li>
+<li><a href="/v4/javascript-template/methods">Methods</a></li>
+<li><a href="/v4/javascript-template/event-handling">Event Handling</a></li>
+</ul>
+</div>
+
+<h3>JavaScript Organogram</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/organogram">Getting started</a></li>
+<li><a href="/v4/organogram/quick-reference">Quick Reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/organogram/basic">Basic</a></li>
+<li><a href="/v4/organogram/methods">Methods</a></li>
+</ul>
+
+<h4>Integrations</h4>
+<ul>
+<li><a href="/v4/organogram/organogram-with-react">React organogram</a></li>
+<li><a href="/v4/organogram/organogram-with-vue">Vue organogram</a></li>
+<li><a href="/v4/organogram/organogram-with-angular">Angular organogram</a></li>
+</ul>
+</div>
+
+<h3>Javascript Heatmap</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/heatmap">Getting started</a></li>
+<li><a href="/v4/heatmap/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/heatmap/basic">Basic</a></li>
+<li><a href="/v4/heatmap/colors">Colors</a></li>
+<li><a href="/v4/heatmap/title-and-tooltip">Title and tooltip</a></li>
+</ul>
+</div>
+
+<h3>Core features</h3>
+
+<div>
+<h4>Core</h4>
+<ul>
+<li><a href="/v4/core/ajax">Ajax requests</a></li>
+<li><a href="/v4/core/animations">Animations</a></li>
+<li><a href="/v4/core/javascript-toast">Toast</a></li>
+<li><a href="/v4/core/loading-spin">Loading spin</a></li>
+<li><a href="/v4/core/js-drag-and-drop">Drag and drop</a></li>
+</ul>
+
+<div style='display: none'>
+<h4>Helpers</h4>
+<ul>
+<li><a href="/v4/core/push-to-refresh">Push to refresh</a></li>
+<li><a href="/v4/core/scroll">Custom scroll</a></li>
+<li><a href="/v4/core/lazy-loading">Generic lazy loading</a></li>
+<li><a href="/v4/core/files">File upload</a></li>
+</ul>
+</div>
+</div>
+
+<h3>JavaScript Dropdown</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/dropdown-and-autocomplete">Getting started</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/quick-reference">Quick Reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/dropdown-and-autocomplete/basic">Basic</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/multiple">Multiple options</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/large-sample">Large sample</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/remote-search">Remote search</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/new-options">Add new option</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/images">Images</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/colors">Colors</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/countries">Countries</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/grouping-elements">Grouping elements</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/events">Events</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/methods">Methods</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/mobile">Mobile rendering</a></li>
+</ul>
+
+<h4>Integrations</h4>
+<ul>
+<li><a href="/v4/dropdown-and-autocomplete/javascript-dropdown-with-react">React dropdown</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/javascript-dropdown-with-vue">Vue dropdown</a></li>
+<li><a href="/v4/dropdown-and-autocomplete/javascript-dropdown-with-angular">Angular dropdown</a></li>
+</ul>
+
+</div>
+
+<h3>JavaScript Calendar</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/javascript-calendar">Getting started</a></li>
+<li><a href="/v4/javascript-calendar/quick-reference">Quick Reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/javascript-calendar/basic">Basic</a></li>
+<li><a href="/v4/javascript-calendar/time-picker">Time picker</a></li>
+<li><a href="/v4/javascript-calendar/year-month">Year and month picker</a></li>
+<li><a href="/v4/javascript-calendar/events">Events</a></li>
+<li><a href="/v4/javascript-calendar/valid-range">Valid range</a></li>
+<li><a href="/v4/javascript-calendar/international">International</a></li>
+<li><a href="/v4/javascript-calendar/methods">Methods</a></li>
+<li><a href="/v4/javascript-calendar/inline">Inline calendar</a></li>
+<li><a href="/v4/javascript-calendar/mobile">Mobile rendering</a></li>
+</ul>
+
+<h4>Integrations</h4>
+<ul>
+<li><a href="/v4/javascript-calendar/javascript-calendar-with-react">React calendar</a></li>
+<li><a href="/v4/javascript-calendar/javascript-calendar-with-vue">Vue calendar</a></li>
+<li><a href="/v4/javascript-calendar/javascript-calendar-with-angular">Angular calendar</a></li>
+</ul>
+</div>
+
+
+<h3>Tags and keywords</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/javascript-tags">Getting started</a></li>
+<li><a href="/v4/javascript-tags/quick-reference">Quick Reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/javascript-tags/basic">Basic</a></li>
+<li><a href="/v4/javascript-tags/remote-search">Suggestions</a></li>
+<li><a href="/v4/javascript-tags/events">Events</a></li>
+<li><a href="/v4/javascript-tags/validations">Validations</a></li>
+</ul>
+
+<h4>Integrations</h4>
+<ul>
+<li><a href="/v4/javascript-tags/javascript-tags-with-react">React tags</a></li>
+<li><a href="/v4/javascript-tags/javascript-tags-with-vue">Vue tags</a></li>
+<li><a href="/v4/javascript-tags/javascript-tags-with-angular">Angular tags</a></li>
+</ul>
+</div>
+
+
+<h3>JavaScript tabs plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/javascript-tabs">Getting started</a></li>
+<li><a href="/v4/javascript-tabs/quick-reference">Quick Reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/javascript-tabs/basic">Basic</a></li>
+<li><a href="/v4/javascript-tabs/style">Style</a></li>
+<li><a href="/v4/javascript-tabs/icons">Headers with icons</a></li>
+<li><a href="/v4/javascript-tabs/remote">Remote content</a></li>
+<li><a href="/v4/javascript-tabs/events">Events</a></li>
+<li><a href="/v4/javascript-tabs/methods">Methods</a></li>
+</ul>
+</div>
+
+<h3>Color picker plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/color-picker">Getting started</a></li>
+<li><a href="/v4/color-picker/quick-reference">Quick Reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/color-picker/basic">Basic</a></li>
+<li><a href="/v4/color-picker/events">Events</a></li>
+<li><a href="/v4/color-picker/custom-colors">Custom colors</a></li>
+<li><a href="/v4/color-picker/color-palettes">Palettes</a></li>
+<li><a href="/v4/color-picker/mobile">Responsive</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/color-picker/javascript-color-picker-with-react">React color picker</a></li>
+<li><a href="/v4/color-picker/javascript-color-picker-with-vue">Vue color picker</a></li>
+<li><a href="/v4/color-picker/javascript-color-picker-with-angular">Angular color picker</a></li>
+</ul>
+</div>
+
+<h3>Context menu plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/contextmenu">Getting started</a></li>
+<li><a href="/v4/contextmenu/quick-reference">Quick Reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/contextmenu/basic">Basic</a></li>
+<li><a href="/v4/contextmenu/vanilla">Vanilla example</a></li>
+<li><a href="/v4/contextmenu/icons">Icons</a></li>
+<li><a href="/v4/contextmenu/submenu">Submenu</a></li>
+</ul>
+</div>
+
+<h3>Input mask plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/javascript-mask">Getting started</a></li>
+<li><a href="/v4/javascript-mask/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/javascript-mask/basic">Basic</a></li>
+<li><a href="/v4/javascript-mask/events">Events</a></li>
+<li><a href="/v4/javascript-mask/programmatically-updates">Programmatically updates</a></li>
+</ul>
+</div>
+
+<h3>JavaScript Modal</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/modal">Getting started</a></li>
+<li><a href="/v4/modal/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/modal/basic">Basic</a></li>
+<li><a href="/v4/modal/events">Events</a></li>
+<li><a href="/v4/modal/javascript-modal-with-react">React modal</a></li>
+</ul>
+</div>
+
+<h3>Rich HTML Forms</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/rich-form">Getting started</a></li>
+<li><a href="/v4/rich-form/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/rich-form/tracking-for-form-changes">Tracking changes</a></li>
+<li><a href="/v4/rich-form/methods">Updates</a></li>
+<li><a href="/v4/rich-form/validations">Validations</a></li>
+</ul>
+</div>
+
+<h3>JavaScript rating plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/rating">Getting started</a></li>
+<li><a href="/v4/rating/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/rating/events">Events</a></li>
+</ul>
+
+<h4>Integrations</h4>
+<ul>
+<li><a href="/v4/rating/javascript-rating-with-react">React Rating</a></li>
+<li><a href="/v4/rating/javascript-rating-with-vue">Vue Rating</a></li>
+<li><a href="/v4/rating/javascript-rating-with-angular">Angular Rating</a></li>
+</ul>
+</div>
+
+<h3>JavaScript toolbar</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/toolbar">Getting started</a></li>
+<li><a href="/v4/toolbar/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/toolbar/fontawsome">Fontawsome</a></li>
+<li><a href="/v4/toolbar/custom-icons">Custom icons</a></li>
+</ul>
+</div>
+
+<h3>Text editor plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/text-editor">Getting started</a></li>
+<li><a href="/v4/text-editor/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/text-editor/basic">Basic</a></li>
+<li><a href="/v4/text-editor/custom-toolbar">Custom toolbar</a></li>
+<li><a href="/v4/text-editor/dropping-zone">Dropping zone</a></li>
+<li><a href="/v4/text-editor/website-snippet">URL Snippets</a></li>
+</ul>
+</div>
+
+<h3>Picker plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/picker">Getting started</a></li>
+<li><a href="/v4/picker/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/picker/basic">Basic</a></li>
+<li><a href="/v4/picker/stylize-options">Stylize options</a></li>
+<li><a href="/v4/picker/static-front">Static front</a></li>
+<li><a href="/v4/picker/handle-changes">Handle changes</a></li>
+</ul>
+
+<h4>Integrations</h4>
+<ul>
+<li><a href="/v4/picker/picker-with-react">React Picker</a></li>
+<li><a href="/v4/picker/picker-with-vue">Vue Picker</a></li>
+<li><a href="/v4/picker/picker-with-angular">Angular Picker</a></li>
+</ul>
+</div>
+
+<h3>Image slider plugin</h3>
+
+<div>
+<h4>Documentation</h4>
+<ul>
+<li><a href="/v4/image-slider">Getting started</a></li>
+<li><a href="/v4/image-slider/quick-reference">Quick reference</a></li>
+</ul>
+
+<h4>Examples</h4>
+<ul>
+<li><a href="/v4/image-slider/basic">Basic</a></li>
+</ul>
+</div>
+
+<h3>All Components</h3>
+
+<div>
+<h4>Core</h4>
+<ul>
+<li><a href="/v4/core/ajax">Ajax requests</a></li>
+<li><a href="/v4/core/animations">Animations</a></li>
+<li><a href="/v4/core/javascript-toast">Toast</a></li>
+<li><a href="/v4/core/loading-spin">Loading spin</a></li>
+<li><a href="/v4/core/js-drag-and-drop">Drag and drop</a></li>
+</ul>
+
+<h4>Extensions</h4>
+<ul>
+<li><a href="/v4/image-cropper">Cropper</a></li>
+<li><a href="/v4/javascript-template">Template</a></li>
+<li><a href="/v4/organogram">Organogram</a></li>
+<li><a href="/v4/heatmap">Heatmap</a></li>
+</ul>
+
+<h4>Components</h4>
+<ul>
+<li><a href="/v4/javascript-calendar">Calendar</a></li>
+<li><a href="/v4/color-picker">Color picker</a></li>
+<li><a href="/v4/contextmenu">Context menu</a></li>
+<li><a href="/v4/dropdown-and-autocomplete">Dropdown</a></li>
+<li><a href="/v4/javascript-mask">Mask</a></li>
+<li><a href="/v4/modal">Modal</a></li>
+<li><a href="/v4/picker">Picker</a></li>
+<li><a href="/v4/rating">Rating</a></li>
+<li><a href="/v4/rich-form">Rich forms</a></li>
+<li><a href="/v4/text-editor">Richtext</a></li>
+<li><a href="/v4/image-slider">Slider</a></li>
+<li><a href="/v4/javascript-tags">Tags</a></li>
+<li><a href="/v4/javascript-tabs">Tabs</a></li>
+<li><a href="/v4/toolbar">Toolbars</a></li>
+</ul>
+</div>
