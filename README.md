@@ -1,6 +1,6 @@
-# Jspreadsheet CE v4: The JavaScript spreadsheet 
+# Jspreadsheet CE v4: The JavaScript spreadsheet
 
-<b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br> 
+<b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br>
 
 - <b>Important</b>: Please import jspreadsheet.css (jexcel.css is not longer available in this package).
 
@@ -13,9 +13,14 @@ It is very easy to integrate any third party JavaScript plugins to create your o
 feature into your application. Jspreadsheet CE has plenty of different input options through its native column types to cover the most common web-based application
 requirements. It is a complete solution for web data management. Create amazing applications with Jspreadsheet CE JavaScript spreadsheet.
 
-## Main advantages 
+### Jspreadsheet Pro v9 - Commercial Solutions
+- [Jspreadsheet Pro](https://jspreadsheet.com/v9)
 
-- Make rich and user-friendly web interfaces and applications. 
+<br>
+
+## Main advantages
+
+- Make rich and user-friendly web interfaces and applications.
 - You can easily handle complicated data inputs in a way users are used..
 - Improve your user software experience.
 - Create rich CRUDS and beautiful UI.
@@ -45,12 +50,12 @@ put and use the files of `dist` folder in your project (js library and css files
 ### With a framework
 
 See examples section for code examples of jspreadsheets with popular frameworks
-### Basic demo 
+### Basic demo
 
 A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet. <https://codepen.io/hchiam/pen/qBRzXKK>
 
 
-#### Usage 
+#### Usage
 
 Add jexcel/jspreadsheet and jsuites to your html file
 
@@ -83,7 +88,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
         { type: 'checkbox', title:'Stock', width:80 },
         { type: 'numeric', title:'Price', width:100, mask:'$ #.##,00', decimal:',' },
         { type: 'color', width:100, render:'square', }
-     ]
+    ]
 });
 ```
 
@@ -285,9 +290,9 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - [Jspreadsheet CE v4 - Javascript Spreadsheet](https://bossanova.uk/jspreadsheet/v4)
 - [Jspreadsheet CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
 - [Jspreadsheet CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
-- [Jspreadsheet Pro v7 - Javascript Spreadsheet](https://jspreadsheet.com/v7)
+- [Jspreadsheet Pro v9 - Javascript Spreadsheet](https://jspreadsheet.com/v9)
 - [Jspreadsheet Pro v8 - Javascript Spreadsheet](https://jspreadsheet.com/v8)
-
+- [Jspreadsheet Pro v7 - Javascript Spreadsheet](https://jspreadsheet.com/v7)
 <br>
 
 ## Community
@@ -302,460 +307,364 @@ See [contributing](contributing.md)
 <br>
 
 ## Copyright and license
-Jspreadsheet CE is released under the [MIT license]. Contact <contact@jspreadsheet.com>
+Jspreadsheet CE is released under the [MIT license]. Contact contact@jspreadsheet.com
 
 <br>
 
 ## Other tools
-- [jSuites - JavaScript plugins & Webcomponents](https://jsuites.net)
-- [Jspreadsheet Pro](https://jspreadsheet.com)
 - [LemonadeJS Reactive Library](https://lemonadejs.net)
 
 <br>
 
 ## jSuites
 
-<h3>Image cropper</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/image-cropper">Getting started</a></li>
-<li><a href="/v4/image-cropper/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/image-cropper/rotate-and-zoom">Rotate and zoom</a></li>
-<li><a href="/v4/image-cropper/brightness-and-contrast-filters" title='Brightness and contrast'>Brightness and contrast</a></li>
-</ul>
-
-<h4>Integrations</h4>
-<ul>
-<li><a href="/v4/image-cropper/react-component">React integration</a></li>
-<li><a href="/v4/image-cropper/image-cropper-vue-example">Vue integration</a></li>
-<li><a href="/v4/image-cropper/image-cropper-angular-example">Angular integration</a></li>
-</ul>
-</div>
-
-<h3>Javascript Template</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/javascript-template">Getting started</a></li>
-<li><a href="/v4/javascript-template/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/javascript-template/basic">Basic</a></li>
-<li><a href="/v4/javascript-template/pagination-and-searching">Pagination and Searching</a></li>
-<li><a href="/v4/javascript-template/methods">Methods</a></li>
-<li><a href="/v4/javascript-template/event-handling">Event Handling</a></li>
-</ul>
-</div>
-
-<h3>JavaScript Organogram</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/organogram">Getting started</a></li>
-<li><a href="/v4/organogram/quick-reference">Quick Reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/organogram/basic">Basic</a></li>
-<li><a href="/v4/organogram/methods">Methods</a></li>
-</ul>
-
-<h4>Integrations</h4>
-<ul>
-<li><a href="/v4/organogram/organogram-with-react">React organogram</a></li>
-<li><a href="/v4/organogram/organogram-with-vue">Vue organogram</a></li>
-<li><a href="/v4/organogram/organogram-with-angular">Angular organogram</a></li>
-</ul>
-</div>
-
-<h3>Javascript Heatmap</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/heatmap">Getting started</a></li>
-<li><a href="/v4/heatmap/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/heatmap/basic">Basic</a></li>
-<li><a href="/v4/heatmap/colors">Colors</a></li>
-<li><a href="/v4/heatmap/title-and-tooltip">Title and tooltip</a></li>
-</ul>
-</div>
-
-<h3>Core features</h3>
-
-<div>
-<h4>Core</h4>
-<ul>
-<li><a href="/v4/core/ajax">Ajax requests</a></li>
-<li><a href="/v4/core/animations">Animations</a></li>
-<li><a href="/v4/core/javascript-toast">Toast</a></li>
-<li><a href="/v4/core/loading-spin">Loading spin</a></li>
-<li><a href="/v4/core/js-drag-and-drop">Drag and drop</a></li>
-</ul>
-
-<div style='display: none'>
-<h4>Helpers</h4>
-<ul>
-<li><a href="/v4/core/push-to-refresh">Push to refresh</a></li>
-<li><a href="/v4/core/scroll">Custom scroll</a></li>
-<li><a href="/v4/core/lazy-loading">Generic lazy loading</a></li>
-<li><a href="/v4/core/files">File upload</a></li>
-</ul>
-</div>
-</div>
-
-<h3>JavaScript Dropdown</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/dropdown-and-autocomplete">Getting started</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/quick-reference">Quick Reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/dropdown-and-autocomplete/basic">Basic</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/multiple">Multiple options</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/large-sample">Large sample</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/remote-search">Remote search</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/new-options">Add new option</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/images">Images</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/colors">Colors</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/countries">Countries</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/grouping-elements">Grouping elements</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/events">Events</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/methods">Methods</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/mobile">Mobile rendering</a></li>
-</ul>
-
-<h4>Integrations</h4>
-<ul>
-<li><a href="/v4/dropdown-and-autocomplete/javascript-dropdown-with-react">React dropdown</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/javascript-dropdown-with-vue">Vue dropdown</a></li>
-<li><a href="/v4/dropdown-and-autocomplete/javascript-dropdown-with-angular">Angular dropdown</a></li>
-</ul>
-
-</div>
-
-<h3>JavaScript Calendar</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/javascript-calendar">Getting started</a></li>
-<li><a href="/v4/javascript-calendar/quick-reference">Quick Reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/javascript-calendar/basic">Basic</a></li>
-<li><a href="/v4/javascript-calendar/time-picker">Time picker</a></li>
-<li><a href="/v4/javascript-calendar/year-month">Year and month picker</a></li>
-<li><a href="/v4/javascript-calendar/events">Events</a></li>
-<li><a href="/v4/javascript-calendar/valid-range">Valid range</a></li>
-<li><a href="/v4/javascript-calendar/international">International</a></li>
-<li><a href="/v4/javascript-calendar/methods">Methods</a></li>
-<li><a href="/v4/javascript-calendar/inline">Inline calendar</a></li>
-<li><a href="/v4/javascript-calendar/mobile">Mobile rendering</a></li>
-</ul>
-
-<h4>Integrations</h4>
-<ul>
-<li><a href="/v4/javascript-calendar/javascript-calendar-with-react">React calendar</a></li>
-<li><a href="/v4/javascript-calendar/javascript-calendar-with-vue">Vue calendar</a></li>
-<li><a href="/v4/javascript-calendar/javascript-calendar-with-angular">Angular calendar</a></li>
-</ul>
-</div>
-
-
-<h3>Tags and keywords</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/javascript-tags">Getting started</a></li>
-<li><a href="/v4/javascript-tags/quick-reference">Quick Reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/javascript-tags/basic">Basic</a></li>
-<li><a href="/v4/javascript-tags/remote-search">Suggestions</a></li>
-<li><a href="/v4/javascript-tags/events">Events</a></li>
-<li><a href="/v4/javascript-tags/validations">Validations</a></li>
-</ul>
-
-<h4>Integrations</h4>
-<ul>
-<li><a href="/v4/javascript-tags/javascript-tags-with-react">React tags</a></li>
-<li><a href="/v4/javascript-tags/javascript-tags-with-vue">Vue tags</a></li>
-<li><a href="/v4/javascript-tags/javascript-tags-with-angular">Angular tags</a></li>
-</ul>
-</div>
-
-
-<h3>JavaScript tabs plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/javascript-tabs">Getting started</a></li>
-<li><a href="/v4/javascript-tabs/quick-reference">Quick Reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/javascript-tabs/basic">Basic</a></li>
-<li><a href="/v4/javascript-tabs/style">Style</a></li>
-<li><a href="/v4/javascript-tabs/icons">Headers with icons</a></li>
-<li><a href="/v4/javascript-tabs/remote">Remote content</a></li>
-<li><a href="/v4/javascript-tabs/events">Events</a></li>
-<li><a href="/v4/javascript-tabs/methods">Methods</a></li>
-</ul>
-</div>
-
-<h3>Color picker plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/color-picker">Getting started</a></li>
-<li><a href="/v4/color-picker/quick-reference">Quick Reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/color-picker/basic">Basic</a></li>
-<li><a href="/v4/color-picker/events">Events</a></li>
-<li><a href="/v4/color-picker/custom-colors">Custom colors</a></li>
-<li><a href="/v4/color-picker/color-palettes">Palettes</a></li>
-<li><a href="/v4/color-picker/mobile">Responsive</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/color-picker/javascript-color-picker-with-react">React color picker</a></li>
-<li><a href="/v4/color-picker/javascript-color-picker-with-vue">Vue color picker</a></li>
-<li><a href="/v4/color-picker/javascript-color-picker-with-angular">Angular color picker</a></li>
-</ul>
-</div>
-
-<h3>Context menu plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/contextmenu">Getting started</a></li>
-<li><a href="/v4/contextmenu/quick-reference">Quick Reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/contextmenu/basic">Basic</a></li>
-<li><a href="/v4/contextmenu/vanilla">Vanilla example</a></li>
-<li><a href="/v4/contextmenu/icons">Icons</a></li>
-<li><a href="/v4/contextmenu/submenu">Submenu</a></li>
-</ul>
-</div>
-
-<h3>Input mask plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/javascript-mask">Getting started</a></li>
-<li><a href="/v4/javascript-mask/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/javascript-mask/basic">Basic</a></li>
-<li><a href="/v4/javascript-mask/events">Events</a></li>
-<li><a href="/v4/javascript-mask/programmatically-updates">Programmatically updates</a></li>
-</ul>
-</div>
-
-<h3>JavaScript Modal</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/modal">Getting started</a></li>
-<li><a href="/v4/modal/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/modal/basic">Basic</a></li>
-<li><a href="/v4/modal/events">Events</a></li>
-<li><a href="/v4/modal/javascript-modal-with-react">React modal</a></li>
-</ul>
-</div>
-
-<h3>Rich HTML Forms</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/rich-form">Getting started</a></li>
-<li><a href="/v4/rich-form/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/rich-form/tracking-for-form-changes">Tracking changes</a></li>
-<li><a href="/v4/rich-form/methods">Updates</a></li>
-<li><a href="/v4/rich-form/validations">Validations</a></li>
-</ul>
-</div>
-
-<h3>JavaScript rating plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/rating">Getting started</a></li>
-<li><a href="/v4/rating/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/rating/events">Events</a></li>
-</ul>
-
-<h4>Integrations</h4>
-<ul>
-<li><a href="/v4/rating/javascript-rating-with-react">React Rating</a></li>
-<li><a href="/v4/rating/javascript-rating-with-vue">Vue Rating</a></li>
-<li><a href="/v4/rating/javascript-rating-with-angular">Angular Rating</a></li>
-</ul>
-</div>
-
-<h3>JavaScript toolbar</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/toolbar">Getting started</a></li>
-<li><a href="/v4/toolbar/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/toolbar/fontawsome">Fontawsome</a></li>
-<li><a href="/v4/toolbar/custom-icons">Custom icons</a></li>
-</ul>
-</div>
-
-<h3>Text editor plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/text-editor">Getting started</a></li>
-<li><a href="/v4/text-editor/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/text-editor/basic">Basic</a></li>
-<li><a href="/v4/text-editor/custom-toolbar">Custom toolbar</a></li>
-<li><a href="/v4/text-editor/dropping-zone">Dropping zone</a></li>
-<li><a href="/v4/text-editor/website-snippet">URL Snippets</a></li>
-</ul>
-</div>
-
-<h3>Picker plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/picker">Getting started</a></li>
-<li><a href="/v4/picker/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/picker/basic">Basic</a></li>
-<li><a href="/v4/picker/stylize-options">Stylize options</a></li>
-<li><a href="/v4/picker/static-front">Static front</a></li>
-<li><a href="/v4/picker/handle-changes">Handle changes</a></li>
-</ul>
-
-<h4>Integrations</h4>
-<ul>
-<li><a href="/v4/picker/picker-with-react">React Picker</a></li>
-<li><a href="/v4/picker/picker-with-vue">Vue Picker</a></li>
-<li><a href="/v4/picker/picker-with-angular">Angular Picker</a></li>
-</ul>
-</div>
-
-<h3>Image slider plugin</h3>
-
-<div>
-<h4>Documentation</h4>
-<ul>
-<li><a href="/v4/image-slider">Getting started</a></li>
-<li><a href="/v4/image-slider/quick-reference">Quick reference</a></li>
-</ul>
-
-<h4>Examples</h4>
-<ul>
-<li><a href="/v4/image-slider/basic">Basic</a></li>
-</ul>
-</div>
-
-<h3>All Components</h3>
-
-<div>
-<h4>Core</h4>
-<ul>
-<li><a href="/v4/core/ajax">Ajax requests</a></li>
-<li><a href="/v4/core/animations">Animations</a></li>
-<li><a href="/v4/core/javascript-toast">Toast</a></li>
-<li><a href="/v4/core/loading-spin">Loading spin</a></li>
-<li><a href="/v4/core/js-drag-and-drop">Drag and drop</a></li>
-</ul>
-
-<h4>Extensions</h4>
-<ul>
-<li><a href="/v4/image-cropper">Cropper</a></li>
-<li><a href="/v4/javascript-template">Template</a></li>
-<li><a href="/v4/organogram">Organogram</a></li>
-<li><a href="/v4/heatmap">Heatmap</a></li>
-</ul>
-
-<h4>Components</h4>
-<ul>
-<li><a href="/v4/javascript-calendar">Calendar</a></li>
-<li><a href="/v4/color-picker">Color picker</a></li>
-<li><a href="/v4/contextmenu">Context menu</a></li>
-<li><a href="/v4/dropdown-and-autocomplete">Dropdown</a></li>
-<li><a href="/v4/javascript-mask">Mask</a></li>
-<li><a href="/v4/modal">Modal</a></li>
-<li><a href="/v4/picker">Picker</a></li>
-<li><a href="/v4/rating">Rating</a></li>
-<li><a href="/v4/rich-form">Rich forms</a></li>
-<li><a href="/v4/text-editor">Richtext</a></li>
-<li><a href="/v4/image-slider">Slider</a></li>
-<li><a href="/v4/javascript-tags">Tags</a></li>
-<li><a href="/v4/javascript-tabs">Tabs</a></li>
-<li><a href="/v4/toolbar">Toolbars</a></li>
-</ul>
-</div>
+### Image cropper
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/image-cropper)
+*   [Quick reference](https://jsuites.net/v4/image-cropper/quick-reference)
+
+#### Examples
+
+*   [Rotate and zoom](https://jsuites.net/v4/image-cropper/rotate-and-zoom)
+*   [Brightness and contrast](https://jsuites.net/v4/image-cropper/brightness-and-contrast-filters "Brightness and contrast")
+
+#### Integrations
+
+*   [React integration](https://jsuites.net/v4/image-cropper/react-component)
+*   [Vue integration](https://jsuites.net/v4/image-cropper/image-cropper-vue-example)
+*   [Angular integration](https://jsuites.net/v4/image-cropper/image-cropper-angular-example)
+
+### Javascript Template
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/javascript-template)
+*   [Quick reference](https://jsuites.net/v4/javascript-template/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/javascript-template/basic)
+*   [Pagination and Searching](https://jsuites.net/v4/javascript-template/pagination-and-searching)
+*   [Methods](https://jsuites.net/v4/javascript-template/methods)
+*   [Event Handling](https://jsuites.net/v4/javascript-template/event-handling)
+
+### JavaScript Organogram
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/organogram)
+*   [Quick Reference](https://jsuites.net/v4/organogram/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/organogram/basic)
+*   [Methods](https://jsuites.net/v4/organogram/methods)
+
+#### Integrations
+
+*   [React organogram](https://jsuites.net/v4/organogram/organogram-with-react)
+*   [Vue organogram](https://jsuites.net/v4/organogram/organogram-with-vue)
+*   [Angular organogram](https://jsuites.net/v4/organogram/organogram-with-angular)
+
+### Javascript Heatmap
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/heatmap)
+*   [Quick reference](https://jsuites.net/v4/heatmap/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/heatmap/basic)
+*   [Colors](https://jsuites.net/v4/heatmap/colors)
+*   [Title and tooltip](https://jsuites.net/v4/heatmap/title-and-tooltip)
+
+### Core features
+
+#### Core
+
+*   [Ajax requests](https://jsuites.net/v4/core/ajax)
+*   [Animations](https://jsuites.net/v4/core/animations)
+*   [Toast](https://jsuites.net/v4/core/javascript-toast)
+*   [Loading spin](https://jsuites.net/v4/core/loading-spin)
+*   [Drag and drop](https://jsuites.net/v4/core/js-drag-and-drop)
+
+#### Helpers
+
+*   [Push to refresh](https://jsuites.net/v4/core/push-to-refresh)
+*   [Custom scroll](https://jsuites.net/v4/core/scroll)
+*   [Generic lazy loading](https://jsuites.net/v4/core/lazy-loading)
+*   [File upload](https://jsuites.net/v4/core/files)
+
+### JavaScript Dropdown
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/dropdown-and-autocomplete)
+*   [Quick Reference](https://jsuites.net/v4/dropdown-and-autocomplete/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/dropdown-and-autocomplete/basic)
+*   [Multiple options](https://jsuites.net/v4/dropdown-and-autocomplete/multiple)
+*   [Large sample](https://jsuites.net/v4/dropdown-and-autocomplete/large-sample)
+*   [Remote search](https://jsuites.net/v4/dropdown-and-autocomplete/remote-search)
+*   [Add new option](https://jsuites.net/v4/dropdown-and-autocomplete/new-options)
+*   [Images](https://jsuites.net/v4/dropdown-and-autocomplete/images)
+*   [Colors](https://jsuites.net/v4/dropdown-and-autocomplete/colors)
+*   [Countries](https://jsuites.net/v4/dropdown-and-autocomplete/countries)
+*   [Grouping elements](https://jsuites.net/v4/dropdown-and-autocomplete/grouping-elements)
+*   [Events](https://jsuites.net/v4/dropdown-and-autocomplete/events)
+*   [Methods](https://jsuites.net/v4/dropdown-and-autocomplete/methods)
+*   [Mobile rendering](https://jsuites.net/v4/dropdown-and-autocomplete/mobile)
+
+#### Integrations
+
+*   [React dropdown](https://jsuites.net/v4/dropdown-and-autocomplete/javascript-dropdown-with-react)
+*   [Vue dropdown](https://jsuites.net/v4/dropdown-and-autocomplete/javascript-dropdown-with-vue)
+*   [Angular dropdown](https://jsuites.net/v4/dropdown-and-autocomplete/javascript-dropdown-with-angular)
+
+### JavaScript Calendar
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/javascript-calendar)
+*   [Quick Reference](https://jsuites.net/v4/javascript-calendar/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/javascript-calendar/basic)
+*   [Time picker](https://jsuites.net/v4/javascript-calendar/time-picker)
+*   [Year and month picker](https://jsuites.net/v4/javascript-calendar/year-month)
+*   [Events](https://jsuites.net/v4/javascript-calendar/events)
+*   [Valid range](https://jsuites.net/v4/javascript-calendar/valid-range)
+*   [International](https://jsuites.net/v4/javascript-calendar/international)
+*   [Methods](https://jsuites.net/v4/javascript-calendar/methods)
+*   [Inline calendar](https://jsuites.net/v4/javascript-calendar/inline)
+*   [Mobile rendering](https://jsuites.net/v4/javascript-calendar/mobile)
+
+#### Integrations
+
+*   [React calendar](https://jsuites.net/v4/javascript-calendar/javascript-calendar-with-react)
+*   [Vue calendar](https://jsuites.net/v4/javascript-calendar/javascript-calendar-with-vue)
+*   [Angular calendar](https://jsuites.net/v4/javascript-calendar/javascript-calendar-with-angular)
+
+### Tags and keywords
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/javascript-tags)
+*   [Quick Reference](https://jsuites.net/v4/javascript-tags/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/javascript-tags/basic)
+*   [Suggestions](https://jsuites.net/v4/javascript-tags/remote-search)
+*   [Events](https://jsuites.net/v4/javascript-tags/events)
+*   [Validations](https://jsuites.net/v4/javascript-tags/validations)
+
+#### Integrations
+
+*   [React tags](https://jsuites.net/v4/javascript-tags/javascript-tags-with-react)
+*   [Vue tags](https://jsuites.net/v4/javascript-tags/javascript-tags-with-vue)
+*   [Angular tags](https://jsuites.net/v4/javascript-tags/javascript-tags-with-angular)
+
+### JavaScript tabs plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/javascript-tabs)
+*   [Quick Reference](https://jsuites.net/v4/javascript-tabs/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/javascript-tabs/basic)
+*   [Style](https://jsuites.net/v4/javascript-tabs/style)
+*   [Headers with icons](https://jsuites.net/v4/javascript-tabs/icons)
+*   [Remote content](https://jsuites.net/v4/javascript-tabs/remote)
+*   [Events](https://jsuites.net/v4/javascript-tabs/events)
+*   [Methods](https://jsuites.net/v4/javascript-tabs/methods)
+
+### Color picker plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/color-picker)
+*   [Quick Reference](https://jsuites.net/v4/color-picker/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/color-picker/basic)
+*   [Events](https://jsuites.net/v4/color-picker/events)
+*   [Custom colors](https://jsuites.net/v4/color-picker/custom-colors)
+*   [Palettes](https://jsuites.net/v4/color-picker/color-palettes)
+*   [Responsive](https://jsuites.net/v4/color-picker/mobile)
+
+#### Examples
+
+*   [React color picker](https://jsuites.net/v4/color-picker/javascript-color-picker-with-react)
+*   [Vue color picker](https://jsuites.net/v4/color-picker/javascript-color-picker-with-vue)
+*   [Angular color picker](https://jsuites.net/v4/color-picker/javascript-color-picker-with-angular)
+
+### Context menu plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/contextmenu)
+*   [Quick Reference](https://jsuites.net/v4/contextmenu/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/contextmenu/basic)
+*   [Vanilla example](https://jsuites.net/v4/contextmenu/vanilla)
+*   [Icons](https://jsuites.net/v4/contextmenu/icons)
+*   [Submenu](https://jsuites.net/v4/contextmenu/submenu)
+
+### Input mask plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/javascript-mask)
+*   [Quick reference](https://jsuites.net/v4/javascript-mask/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/javascript-mask/basic)
+*   [Events](https://jsuites.net/v4/javascript-mask/events)
+*   [Programmatically updates](https://jsuites.net/v4/javascript-mask/programmatically-updates)
+
+### JavaScript Modal
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/modal)
+*   [Quick reference](https://jsuites.net/v4/modal/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/modal/basic)
+*   [Events](https://jsuites.net/v4/modal/events)
+*   [React modal](https://jsuites.net/v4/modal/javascript-modal-with-react)
+
+### Rich HTML Forms
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/rich-form)
+*   [Quick reference](https://jsuites.net/v4/rich-form/quick-reference)
+
+#### Examples
+
+*   [Tracking changes](https://jsuites.net/v4/rich-form/tracking-for-form-changes)
+*   [Updates](https://jsuites.net/v4/rich-form/methods)
+*   [Validations](https://jsuites.net/v4/rich-form/validations)
+
+### JavaScript rating plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/rating)
+*   [Quick reference](https://jsuites.net/v4/rating/quick-reference)
+
+#### Examples
+
+*   [Events](https://jsuites.net/v4/rating/events)
+
+#### Integrations
+
+*   [React Rating](https://jsuites.net/v4/rating/javascript-rating-with-react)
+*   [Vue Rating](https://jsuites.net/v4/rating/javascript-rating-with-vue)
+*   [Angular Rating](https://jsuites.net/v4/rating/javascript-rating-with-angular)
+
+### JavaScript toolbar
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/toolbar)
+*   [Quick reference](https://jsuites.net/v4/toolbar/quick-reference)
+
+#### Examples
+
+*   [Fontawsome](https://jsuites.net/v4/toolbar/fontawsome)
+*   [Custom icons](https://jsuites.net/v4/toolbar/custom-icons)
+
+### Text editor plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/text-editor)
+*   [Quick reference](https://jsuites.net/v4/text-editor/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/text-editor/basic)
+*   [Custom toolbar](https://jsuites.net/v4/text-editor/custom-toolbar)
+*   [Dropping zone](https://jsuites.net/v4/text-editor/dropping-zone)
+*   [URL Snippets](https://jsuites.net/v4/text-editor/website-snippet)
+
+### Picker plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/picker)
+*   [Quick reference](https://jsuites.net/v4/picker/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/picker/basic)
+*   [Stylize options](https://jsuites.net/v4/picker/stylize-options)
+*   [Static front](https://jsuites.net/v4/picker/static-front)
+*   [Handle changes](https://jsuites.net/v4/picker/handle-changes)
+
+#### Integrations
+
+*   [React Picker](https://jsuites.net/v4/picker/picker-with-react)
+*   [Vue Picker](https://jsuites.net/v4/picker/picker-with-vue)
+*   [Angular Picker](https://jsuites.net/v4/picker/picker-with-angular)
+
+### Image slider plugin
+
+#### Documentation
+
+*   [Getting started](https://jsuites.net/v4/image-slider)
+*   [Quick reference](https://jsuites.net/v4/image-slider/quick-reference)
+
+#### Examples
+
+*   [Basic](https://jsuites.net/v4/image-slider/basic)
+
+### All Components
+
+#### Core
+
+*   [Ajax requests](https://jsuites.net/v4/core/ajax)
+*   [Animations](https://jsuites.net/v4/core/animations)
+*   [Toast](https://jsuites.net/v4/core/javascript-toast)
+*   [Loading spin](https://jsuites.net/v4/core/loading-spin)
+*   [Drag and drop](https://jsuites.net/v4/core/js-drag-and-drop)
+
+#### Extensions
+
+*   [Cropper](https://jsuites.net/v4/image-cropper)
+*   [Template](https://jsuites.net/v4/javascript-template)
+*   [Organogram](https://jsuites.net/v4/organogram)
+*   [Heatmap](https://jsuites.net/v4/heatmap)
+
+#### Components
+
+*   [Calendar](https://jsuites.net/v4/javascript-calendar)
+*   [Color picker](https://jsuites.net/v4/color-picker)
+*   [Context menu](https://jsuites.net/v4/contextmenu)
+*   [Dropdown](https://jsuites.net/v4/dropdown-and-autocomplete)
+*   [Mask](https://jsuites.net/v4/javascript-mask)
+*   [Modal](https://jsuites.net/v4/modal)
+*   [Picker](https://jsuites.net/v4/picker)
+*   [Rating](https://jsuites.net/v4/rating)
+*   [Rich forms](https://jsuites.net/v4/rich-form)
+*   [Richtext](https://jsuites.net/v4/text-editor)
+*   [Slider](https://jsuites.net/v4/image-slider)
+*   [Tags](https://jsuites.net/v4/javascript-tags)
+*   [Tabs](https://jsuites.net/v4/javascript-tabs)
+*   [Toolbars](https://jsuites.net/v4/toolbar)
