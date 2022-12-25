@@ -11251,7 +11251,7 @@ if (! jSuites && typeof(require) === 'function') {
             }
 
             // Is a valid number
-            if (number[0] && Number(number[0]) >= 0) {
+            if (number[0] && Number.isInteger(Number(number[0]))) {
                 if (! number[1]) {
                     var value = Number(number[0] + '.00');
                 } else {
