@@ -13443,10 +13443,8 @@ if (! jSuites && typeof(require) === 'function') {
                                             // Space
                                             e.preventDefault()
                                             if (
-                                                jspreadsheet.current.options.columns[columnId].type ==
-                                                'checkbox' ||
-                                                jspreadsheet.current.options.columns[columnId].type ==
-                                                'radio'
+                                                jspreadsheet.current.options.columns[columnId].type == 'checkbox' ||
+                                                jspreadsheet.current.options.columns[columnId].type == 'radio'
                                             ) {
                                                 jspreadsheet.current.setCheckRadioValue()
                                             } else {
