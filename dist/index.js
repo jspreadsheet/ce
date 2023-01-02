@@ -13436,27 +13436,27 @@ if (! jSuites && typeof(require) === 'function') {
                                 var rowId = jexcel.current.selectedCell[1];
                                 var columnId = jexcel.current.selectedCell[0];
 
-                                // If is not readonly
-                                if (jexcel.current.options.columns[columnId].type != 'readonly') {
-                                    // Characters able to start a edition
-                                    if (e.keyCode == 32) {
-                                      // Space
-                                      e.preventDefault()
-                                      if (
-                                        jspreadsheet.current.options.columns[columnId].type ==
-                                          'checkbox' ||
-                                        jspreadsheet.current.options.columns[columnId].type ==
-                                          'radio'
-                                      ) {
-                                        jspreadsheet.current.setCheckRadioValue()
-                                      } else {
-                                        // Start edition
-                                        jspreadsheet.current.openEditor(
-                                          jspreadsheet.current.records[rowId][columnId],
-                                          true,
-                                        )
-                                      }
-                                    } else if (e.keyCode == 113) {
+                                    // If is not readonly
+                                    if (jexcel.current.options.columns[columnId].type != 'readonly') {
+                                        // Characters able to start a edition
+                                        if (e.keyCode == 32) {
+                                            // Space
+                                            e.preventDefault()
+                                            if (
+                                                jspreadsheet.current.options.columns[columnId].type ==
+                                                'checkbox' ||
+                                                jspreadsheet.current.options.columns[columnId].type ==
+                                                'radio'
+                                            ) {
+                                                jspreadsheet.current.setCheckRadioValue()
+                                            } else {
+                                                // Start edition
+                                                jspreadsheet.current.openEditor(
+                                                    jspreadsheet.current.records[rowId][columnId],
+                                                    true,
+                                                )
+                                            }
+                                        } else if (e.keyCode == 113) {
                                         // Start edition with current content F2
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
                                     } else if ((e.keyCode == 8) ||
