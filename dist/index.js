@@ -13314,7 +13314,8 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 } else if (e.which == 9) {
                     // Tab
-                    if (jexcel.current.options.columns[jexcel.current.edition[2]].type == 'calendar') {
+                    if (['calendar', 'html'].includes(
+                    jexcel.current.options.columns[jexcel.current.edition[2]].type)) {
                         jexcel.current.closeEditor(jexcel.current.edition[0], true);
                     } else {
                         jexcel.current.edition[0].children[0].blur();
