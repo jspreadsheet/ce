@@ -33,6 +33,7 @@
         "mocha": "^8.4.0"
     },
     "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "version": "4.10.1",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
