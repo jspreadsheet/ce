@@ -9181,7 +9181,7 @@ if (! jSuites && typeof(require) === 'function') {
          * @return int current width
          */
         obj.getWidth = function(column) {
-            if (! column) {
+            if (typeof column === 'undefined') {
                 // Get all headers
                 var data = [];
                 for (var i = 0; i < obj.headers.length; i++) {
@@ -9308,7 +9308,7 @@ if (! jSuites && typeof(require) === 'function') {
          * @return height - current row height
          */
         obj.getHeight = function(row) {
-            if (! row) {
+            if (typeof row === 'undefined') {
                 // Get height of all rows
                 var data = [];
                 for (var j = 0; j < obj.rows.length; j++) {
