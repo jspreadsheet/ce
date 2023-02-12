@@ -13234,6 +13234,20 @@ if (! jSuites && typeof(require) === 'function') {
     jexcel.timeControl = null;
     jexcel.timeControlLoading = null;
 
+    const destroyEvents = function(root) {
+        root.removeEventListener("mouseup", jexcel.mouseUpControls);
+        root.removeEventListener("mousedown", jexcel.mouseDownControls);
+        root.removeEventListener("mousemove", jexcel.mouseMoveControls);
+        root.removeEventListener("mouseover", jexcel.mouseOverControls);
+        root.removeEventListener("dblclick", jexcel.doubleClickControls);
+        root.removeEventListener("paste", jexcel.pasteControls);
+        root.removeEventListener("contextmenu", jexcel.contextMenuControls);
+        root.removeEventListener("touchstart", jexcel.touchStartControls);
+        root.removeEventListener("touchend", jexcel.touchEndControls);
+        root.removeEventListener("touchcancel", jexcel.touchEndControls);
+        document.removeEventListener("keydown", jexcel.keyDownControls);
+    }
+
     jexcel.destroy = function(element, destroyEventHandlers) {
         if (element.jexcel) {
             var root = element.jexcel.options.root ? element.jexcel.options.root : document;
@@ -13243,23 +13257,14 @@ if (! jSuites && typeof(require) === 'function') {
             element.innerHTML = '';
 
             if (destroyEventHandlers) {
-                root.removeEventListener("mouseup", jexcel.mouseUpControls);
-                root.removeEventListener("mousedown", jexcel.mouseDownControls);
-                root.removeEventListener("mousemove", jexcel.mouseMoveControls);
-                root.removeEventListener("mouseover", jexcel.mouseOverControls);
-                root.removeEventListener("dblclick", jexcel.doubleClickControls);
-                root.removeEventListener("paste", jexcel.pasteControls);
-                root.removeEventListener("contextmenu", jexcel.contextMenuControls);
-                root.removeEventListener("touchstart", jexcel.touchStartControls);
-                root.removeEventListener("touchend", jexcel.touchEndControls);
-                root.removeEventListener("touchcancel", jexcel.touchEndControls);
-                document.removeEventListener("keydown", jexcel.keyDownControls);
+                destroyEvents(root);
                 jexcel = null;
             }
         }
     }
 
     jexcel.build = function(root) {
+        destroyEvents(root);
         root.addEventListener("mouseup", jexcel.mouseUpControls);
         root.addEventListener("mousedown", jexcel.mouseDownControls);
         root.addEventListener("mousemove", jexcel.mouseMoveControls);

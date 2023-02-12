@@ -34,7 +34,7 @@
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "version": "4.10.6",
+    "version": "4.10.7",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip",
