@@ -9364,7 +9364,7 @@ if (! jSuites && typeof(require) === 'function') {
                             td.style.textAlign = colAlign;
                         }
                         td.innerText = obj.parseValue(+obj.records.length + i, j, obj.options.footers[j][i]);
-                        
+
                         // Hide/Show with hideColumn()/showColumn()
                         td.style.display = obj.colgroup[i].style.display;
                     }
@@ -10903,12 +10903,12 @@ if (! jSuites && typeof(require) === 'function') {
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = '';
             }
-            
+
             // Update footers
             if (obj.options.footers) {
                 obj.setFooter();
             }
-            
+
             obj.resetSelection();
         }
 
@@ -10924,12 +10924,12 @@ if (! jSuites && typeof(require) === 'function') {
             for (var j = 0; j < obj.options.data.length; j++) {
                 obj.records[j][colNumber].style.display = 'none';
             }
-            
+
             // Update footers
             if (obj.options.footers) {
                 obj.setFooter();
             }
-            
+
             obj.resetSelection();
         }
 
@@ -13343,11 +13343,6 @@ if (! jSuites && typeof(require) === 'function') {
                 } else if (e.which == 35) {
                     jexcel.current.last(e.shiftKey, e.ctrlKey);
                     e.preventDefault();
-                } else if (e.which == 32) {
-                    if (jexcel.current.options.editable == true) {
-                        jexcel.current.setCheckRadioValue();
-                    }
-                    e.preventDefault();
                 } else if (e.which == 46) {
                     // Delete
                     if (jexcel.current.options.editable == true) {
@@ -13442,19 +13437,25 @@ if (! jSuites && typeof(require) === 'function') {
                                 var rowId = jexcel.current.selectedCell[1];
                                 var columnId = jexcel.current.selectedCell[0];
 
-                                // If is not readonly
-                                if (jexcel.current.options.columns[columnId].type != 'readonly') {
-                                    // Characters able to start a edition
-                                    if (e.keyCode == 32) {
-                                        // Space
-                                        if (jexcel.current.options.columns[columnId].type == 'checkbox' ||
-                                            jexcel.current.options.columns[columnId].type == 'radio') {
-                                            e.preventDefault();
-                                        } else {
-                                            // Start edition
-                                            jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
-                                        }
-                                    } else if (e.keyCode == 113) {
+                                    // If is not readonly
+                                    if (jexcel.current.options.columns[columnId].type != 'readonly') {
+                                        // Characters able to start a edition
+                                        if (e.keyCode == 32) {
+                                            // Space
+                                            e.preventDefault()
+                                            if (
+                                                jspreadsheet.current.options.columns[columnId].type == 'checkbox' ||
+                                                jspreadsheet.current.options.columns[columnId].type == 'radio'
+                                            ) {
+                                                jspreadsheet.current.setCheckRadioValue()
+                                            } else {
+                                                // Start edition
+                                                jspreadsheet.current.openEditor(
+                                                    jspreadsheet.current.records[rowId][columnId],
+                                                    true,
+                                                )
+                                            }
+                                        } else if (e.keyCode == 113) {
                                         // Start edition with current content F2
                                         jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
                                     } else if ((e.keyCode == 8) ||
