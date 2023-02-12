@@ -105,12 +105,6 @@ See [development](development.md)
 
 ## Examples
 
-- [Javascript data grid](./basic-demo.html)\
-Simple demo (as in codepen)
-
-- [Basic demo for developing](./basic-demo.html)\
-Demo using library from `dist` folder, ready to use for development of jspreadsheet
-
 - [React Implementation](https://bossanova.uk/jspreadsheet/v4/examples/react)\
 A full example on how to integrate Jspreadsheet CE with React.
 
