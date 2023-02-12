@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.10.6
+ * Jspreadsheet v4.11.0
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -5905,7 +5905,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.10.6',
+            version: '4.11.0',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -7184,7 +7184,7 @@ if (! jSuites && typeof(require) === 'function') {
                 if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
                     td.innerHTML = value;
                 } else {
-                    td.innerText = value;
+                    td.textContent = value;
                 }
                 if (typeof(obj.options.columns[i].editor.createCell) == 'function') {
                     td = obj.options.columns[i].editor.createCell(td);
@@ -7193,7 +7193,7 @@ if (! jSuites && typeof(require) === 'function') {
                 // Hidden column
                 if (obj.options.columns[i].type == 'hidden') {
                     td.style.display = 'none';
-                    td.innerText = value;
+                    td.textContent = value;
                 } else if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
                     // Create input
                     var element = document.createElement('input');
@@ -7222,11 +7222,11 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                     // Create calendar cell
-                    td.innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
+                    td.textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
                 } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
                     // Create dropdown cell
                     td.classList.add('jexcel_dropdown');
-                    td.innerText = obj.getDropDownValue(i, value);
+                    td.textContent = obj.getDropDownValue(i, value);
                 } else if (obj.options.columns[i].type == 'color') {
                     if (obj.options.columns[i].render == 'square') {
                         var color = document.createElement('div');
@@ -7235,7 +7235,7 @@ if (! jSuites && typeof(require) === 'function') {
                         td.appendChild(color);
                     } else {
                         td.style.color = value;
-                        td.innerText = value;
+                        td.textContent = value;
                     }
                 } else if (obj.options.columns[i].type == 'image') {
                     if (value && value.substr(0, 10) == 'data:image') {
@@ -7250,7 +7250,7 @@ if (! jSuites && typeof(require) === 'function') {
                         if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
                             td.innerHTML = stripScript(obj.parseValue(i, j, value, td));
                         } else {
-                            td.innerText = obj.parseValue(i, j, value, td);
+                            td.textContent = obj.parseValue(i, j, value, td);
                         }
                     }
                 }
@@ -7293,7 +7293,7 @@ if (! jSuites && typeof(require) === 'function') {
             // Create header cell
             obj.headers[colNumber] = document.createElement('td');
             if (obj.options.stripHTML) {
-                obj.headers[colNumber].innerText = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+                obj.headers[colNumber].textContent = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
             } else {
                 obj.headers[colNumber].innerHTML = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
             }
@@ -7323,7 +7323,7 @@ if (! jSuites && typeof(require) === 'function') {
         obj.updateNestedHeader = function(x, y, title) {
             if (obj.options.nestedHeaders[y][x].title) {
                 obj.options.nestedHeaders[y][x].title = title;
-                obj.options.nestedHeaders[y].element.children[x+1].innerText = title;
+                obj.options.nestedHeaders[y].element.children[x+1].textContent = title;
             }
         }
 
@@ -7370,7 +7370,7 @@ if (! jSuites && typeof(require) === 'function') {
                 td.setAttribute('data-column', column.join(','));
                 td.setAttribute('colspan', nestedInformation[i].colspan);
                 td.setAttribute('align', nestedInformation[i].align);
-                td.innerText = nestedInformation[i].title;
+                td.textContent = nestedInformation[i].title;
                 tr.appendChild(td);
             }
 
@@ -7415,7 +7415,7 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                     }
                     // Append element
-                    toolbarItem.innerText = toolbar[i].content;
+                    toolbarItem.textContent = toolbar[i].content;
                     obj.toolbar.appendChild(toolbarItem);
                 } else if (toolbar[i].type == 'select') {
                    var toolbarItem = document.createElement('select');
@@ -7438,7 +7438,7 @@ if (! jSuites && typeof(require) === 'function') {
                    for(var j = 0; j < toolbar[i].v.length; j++) {
                         var toolbarDropdownOption = document.createElement('option');
                         toolbarDropdownOption.value = toolbar[i].v[j];
-                        toolbarDropdownOption.innerText = toolbar[i].v[j];
+                        toolbarDropdownOption.textContent = toolbar[i].v[j];
                         toolbarItem.appendChild(toolbarDropdownOption);
                    }
                    obj.toolbar.appendChild(toolbarItem);
@@ -7453,7 +7453,7 @@ if (! jSuites && typeof(require) === 'function') {
                          toolbarItem.setAttribute('title', toolbar[i].tooltip);
                      }
                      obj.toolbar.appendChild(toolbarItem);
-                     toolbarItem.innerText = toolbar[i].content;
+                     toolbarItem.textContent = toolbar[i].content;
                      jSuites.color(toolbarItem, {
                          onchange:function(o, v) {
                              var k = o.getAttribute('data-k');
@@ -8478,7 +8478,7 @@ if (! jSuites && typeof(require) === 'function') {
                     } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
                         // Update data and cell
                         obj.options.data[y][x] = value;
-                        obj.records[y][x].innerText = obj.getDropDownValue(x, value);
+                        obj.records[y][x].textContent = obj.getDropDownValue(x, value);
                     } else if (obj.options.columns[x].type == 'calendar') {
                         // Try formatted date
                         var formatted = null;
@@ -8490,7 +8490,7 @@ if (! jSuites && typeof(require) === 'function') {
                         }
                         // Update data and cell
                         obj.options.data[y][x] = value;
-                        obj.records[y][x].innerText = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
+                        obj.records[y][x].textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
                     } else if (obj.options.columns[x].type == 'color') {
                         // Update color
                         obj.options.data[y][x] = value;
@@ -8499,11 +8499,11 @@ if (! jSuites && typeof(require) === 'function') {
                             var color = document.createElement('div');
                             color.className = 'color';
                             color.style.backgroundColor = value;
-                            obj.records[y][x].innerText = '';
+                            obj.records[y][x].textContent = '';
                             obj.records[y][x].appendChild(color);
                         } else {
                             obj.records[y][x].style.color = value;
-                            obj.records[y][x].innerText = value;
+                            obj.records[y][x].textContent = value;
                         }
                     } else if (obj.options.columns[x].type == 'image') {
                         value = ''+value;
@@ -8524,7 +8524,7 @@ if (! jSuites && typeof(require) === 'function') {
                             if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
                                 obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value, obj.records[y][x]));
                             } else {
-                                obj.records[y][x].innerText = obj.parseValue(x, y, value, obj.records[y][x]);
+                                obj.records[y][x].textContent = obj.parseValue(x, y, value, obj.records[y][x]);
                             }
                         }
                         // Handle big text inside a cell
@@ -9363,7 +9363,7 @@ if (! jSuites && typeof(require) === 'function') {
                             var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
                             td.style.textAlign = colAlign;
                         }
-                        td.innerText = obj.parseValue(+obj.records.length + i, j, obj.options.footers[j][i]);
+                        td.textContent = obj.parseValue(+obj.records.length + i, j, obj.options.footers[j][i]);
 
                         // Hide/Show with hideColumn()/showColumn()
                         td.style.display = obj.colgroup[i].style.display;
@@ -9379,7 +9379,7 @@ if (! jSuites && typeof(require) === 'function') {
          * @param title - new column title
          */
         obj.getHeader = function(column) {
-            return obj.headers[column].innerText;
+            return obj.headers[column].textContent;
         }
 
         /**
@@ -9390,14 +9390,14 @@ if (! jSuites && typeof(require) === 'function') {
          */
         obj.setHeader = function(column, newValue) {
             if (obj.headers[column]) {
-                var oldValue = obj.headers[column].innerText;
+                var oldValue = obj.headers[column].textContent;
 
                 if (! newValue) {
                     newValue = prompt(obj.options.text.columnName, oldValue)
                 }
 
                 if (newValue) {
-                    obj.headers[column].innerText = newValue;
+                    obj.headers[column].textContent = newValue;
                     // Keep the title property
                     obj.headers[column].setAttribute('title', newValue);
                     // Update title
@@ -9765,7 +9765,7 @@ if (! jSuites && typeof(require) === 'function') {
                     }
                 } else {
                     for (var j = 0; j < obj.options.data.length; j++) {
-                        temp[j] = [ j, obj.records[j][column].innerText.toLowerCase() ];
+                        temp[j] = [ j, obj.records[j][column].textContent.toLowerCase() ];
                     }
                 }
 
@@ -10835,7 +10835,7 @@ if (! jSuites && typeof(require) === 'function') {
 
                 for (var j = 0; j < obj.rows.length; j++) {
                     for (var i = 0; i < obj.headers.length; i++) {
-                        obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].innerText, jexcel.getColumnNameFromId([i, j]));
+                        obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].textContent, jexcel.getColumnNameFromId([i, j]));
                     }
                 }
 
@@ -12206,7 +12206,7 @@ if (! jSuites && typeof(require) === 'function') {
                     // If cell is highlighted
                     if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
                         if (copyHeader == true) {
-                            header.push(obj.headers[i].innerText);
+                            header.push(obj.headers[i].textContent);
                         }
                         // Values
                         var value = obj.options.data[j][i];
@@ -12221,7 +12221,7 @@ if (! jSuites && typeof(require) === 'function') {
                             var label = value;
                         } else {
                             if (obj.options.stripHTMLOnCopy == true) {
-                                var label = obj.records[j][i].innerText;
+                                var label = obj.records[j][i].textContent;
                             } else {
                                 var label = obj.records[j][i].innerHTML;
                             }
@@ -13715,12 +13715,12 @@ if (! jSuites && typeof(require) === 'function') {
 
                 // Pagination
                 if (e.target.classList.contains('jexcel_page')) {
-                    if (e.target.innerText == '<') {
+                    if (e.target.textContent == '<') {
                         jexcel.current.page(0);
-                    } else if (e.target.innerText == '>') {
+                    } else if (e.target.textContent == '>') {
                         jexcel.current.page(e.target.getAttribute('title') - 1);
                     } else {
-                        jexcel.current.page(e.target.innerText - 1);
+                        jexcel.current.page(e.target.textContent - 1);
                     }
                 }
             }
@@ -14597,7 +14597,7 @@ if (! jSuites && typeof(require) === 'function') {
                     var cells = [];
                     for (var i = 0; i < headers[j].children.length; i++) {
                         var row = {
-                            title: headers[j].children[i].innerText,
+                            title: headers[j].children[i].textContent,
                             colspan: headers[j].children[i].getAttribute('colspan') || 1,
                         };
                         cells.push(row);
@@ -14711,7 +14711,7 @@ if (! jSuites && typeof(require) === 'function') {
                 for (var j = 0; j < content.length; j++) {
                     var footer = [];
                     for (var i = 0; i < content[j].children.length; i++) {
-                        footer.push(content[j].children[i].innerText);
+                        footer.push(content[j].children[i].textContent);
                     }
                     footers.push(footer);
                 }
