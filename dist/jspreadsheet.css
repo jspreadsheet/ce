@@ -753,3 +753,9 @@
 .red {
     color: red;
 }
+
+.jexcel > tbody > tr > td.readonly > input[type=checkbox],
+.jexcel > tbody > tr > td.readonly > input[type=radio] {
+    pointer-events: none;
+    opacity: 0.5;
+}
