@@ -4739,6 +4739,9 @@ var formula = (function() {
             if (arguments.length === 0) {
                 return error.error;
             }
+            if (text == null) {
+                return 0;
+            }
 
             if (typeof text === 'string') {
                 return text ? text.length : 0;
@@ -4748,9 +4751,7 @@ var formula = (function() {
                 return text.length;
             }
 
-            if (text == null) {
-                return 0;
-            }
+            
 
             return error.value;
         };
