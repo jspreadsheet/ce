@@ -5905,7 +5905,7 @@ if (! jSuites && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.11.1',
+            version: '4.11.3',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -7300,7 +7300,7 @@ if (! jSuites && typeof(require) === 'function') {
             obj.headers[colNumber].setAttribute('data-x', colNumber);
             obj.headers[colNumber].style.textAlign = colAlign;
             if (obj.options.columns[colNumber].title) {
-                obj.headers[colNumber].setAttribute('title', obj.options.columns[colNumber].title);
+                obj.headers[colNumber].setAttribute('title', obj.headers[colNumber].innerText);
             }
             if (obj.options.columns[colNumber].id) {
                 obj.headers[colNumber].setAttribute('id', obj.options.columns[colNumber].id);
