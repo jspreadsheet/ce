@@ -14587,6 +14587,9 @@ if (! jSuites && typeof(require) === 'function') {
                 if (info = header.getAttribute('id')) {
                     options.columns[i].id = info;
                 }
+                if (info = header.getAttribute('data-mask')) {
+                    options.columns[i].mask = info;
+                }
             }
 
             // Headers
