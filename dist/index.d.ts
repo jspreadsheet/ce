@@ -247,7 +247,7 @@ declare namespace jspreadsheet {
     k?: string;
 
     /** Tooltip shown when hovering over this option. */
-    tooltip?: "string";
+    tooltip?: string;
   }
 
   interface ToolbarIconItem extends ToolbarItemBase {
