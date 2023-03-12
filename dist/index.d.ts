@@ -283,6 +283,7 @@ declare namespace jspreadsheet {
   type ToolbarItem = ToolbarIconItem | ToolbarSelectItem | ToolbarColorItem;
 
   interface NestedHeaderCell {
+    id?: string,
     colspan?: number;
     title?: string;
     align?: string;
