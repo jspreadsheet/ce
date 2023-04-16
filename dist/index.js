@@ -7350,6 +7350,9 @@ if (! jSuites && typeof(require) === 'function') {
                 if (! nestedInformation[i].title) {
                     nestedInformation[i].title = '';
                 }
+                if (! nestedInformation[i].id) {
+                    nestedInformation[i].id = '';
+                }
 
                 // Number of columns
                 var numberOfColumns = nestedInformation[i].colspan;
@@ -7370,6 +7373,7 @@ if (! jSuites && typeof(require) === 'function') {
                 td.setAttribute('data-column', column.join(','));
                 td.setAttribute('colspan', nestedInformation[i].colspan);
                 td.setAttribute('align', nestedInformation[i].align);
+                td.setAttribute('id', nestedInformation[i].id);
                 td.textContent = nestedInformation[i].title;
                 tr.appendChild(td);
             }
