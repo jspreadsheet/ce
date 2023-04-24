@@ -251,6 +251,7 @@ declare namespace jspreadsheet {
   }
 
   interface ToolbarIconItem extends ToolbarItemBase {
+    id: string;
     type: "i";
 
     /** Defines the icon (from material icons). */
