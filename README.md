@@ -283,6 +283,7 @@ We are glad to bring you the latest jQuery plugin version, with the following im
 - [Jspreadsheet CE v4 - Javascript Spreadsheet](https://bossanova.uk/jspreadsheet/v4)
 - [Jspreadsheet CE v3 - Vanilla JavaScript](https://bossanova.uk/jspreadsheet/v3)
 - [Jspreadsheet CE v2 - jQuery Plugin](https://bossanova.uk/jspreadsheet/v2)
+- [Jspreadsheet Pro v10 - Javascript Spreadsheet](https://jspreadsheet.com/v10)
 - [Jspreadsheet Pro v9 - Javascript Spreadsheet](https://jspreadsheet.com/v9)
 - [Jspreadsheet Pro v8 - Javascript Spreadsheet](https://jspreadsheet.com/v8)
 - [Jspreadsheet Pro v7 - Javascript Spreadsheet](https://jspreadsheet.com/v7)
@@ -305,7 +306,9 @@ Jspreadsheet CE is released under the [MIT license]. Contact contact@jspreadshee
 <br>
 
 ## Other tools
-- [LemonadeJS Reactive Library](https://lemonadejs.net/v3/)
+- [LemonadeJS v1 Reactive Library](https://lemonadejs.net/v1/)
+- [LemonadeJS v2 Reactive Library](https://lemonadejs.net/v2/)
+- [LemonadeJS v3 Reactive Library](https://lemonadejs.net/v3/)
 
 <br>
 
