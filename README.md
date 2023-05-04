@@ -305,7 +305,7 @@ Jspreadsheet CE is released under the [MIT license]. Contact contact@jspreadshee
 <br>
 
 ## Other tools
-- [LemonadeJS Reactive Library](https://lemonadejs.net)
+- [LemonadeJS Reactive Library](https://lemonadejs.net/v3/)
 
 <br>
 
