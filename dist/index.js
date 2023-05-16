@@ -7423,6 +7423,7 @@ if (! jSuites && typeof(require) === 'function') {
                     obj.toolbar.appendChild(toolbarItem);
                 } else if (toolbar[i].type == 'select') {
                    var toolbarItem = document.createElement('select');
+                   var raiseInitialOnChange = false
                    toolbarItem.classList.add('jexcel_toolbar_item');
                    toolbarItem.setAttribute('data-k', toolbar[i].k);
                    // Tooltip
@@ -7432,6 +7433,7 @@ if (! jSuites && typeof(require) === 'function') {
                    // Handle onchange
                    if (toolbar[i].onchange && typeof(toolbar[i].onchange)) {
                        toolbarItem.onchange = toolbar[i].onchange;
+                       raiseInitialOnChange = true
                    } else {
                        toolbarItem.onchange = function() {
                            var k = this.getAttribute('data-k');
@@ -7443,7 +7445,13 @@ if (! jSuites && typeof(require) === 'function') {
                         var toolbarDropdownOption = document.createElement('option');
                         toolbarDropdownOption.value = toolbar[i].v[j];
                         toolbarDropdownOption.textContent = toolbar[i].v[j];
+                        if (toolbar[i].selectedValue && toolbarDropdownOption.value === toolbar[i].selectedValue) {
+                            toolbarDropdownOption.selected = true
+                        }
                         toolbarItem.appendChild(toolbarDropdownOption);
+                   }
+                   if (raiseInitialOnChange) {
+                       toolbarItem.dispatchEvent(new Event('change'));
                    }
                    obj.toolbar.appendChild(toolbarItem);
                 } else if (toolbar[i].type == 'color') {
