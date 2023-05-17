@@ -13460,12 +13460,12 @@ if (! jSuites && typeof(require) === 'function') {
                                     if (e.keyCode == 32) {
                                         // Space
                                         e.preventDefault()
-                                        if (jspreadsheet.current.options.columns[columnId].type == 'checkbox' ||
-                                            jspreadsheet.current.options.columns[columnId].type == 'radio') {
-                                            jspreadsheet.current.setCheckRadioValue();
+                                        if (jexcel.current.options.columns[columnId].type == 'checkbox' ||
+                                            jexcel.current.options.columns[columnId].type == 'radio') {
+                                            jexcel.current.setCheckRadioValue();
                                         } else {
                                             // Start edition
-                                            jspreadsheet.current.openEditor(jspreadsheet.current.records[rowId][columnId], true);
+                                            jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
                                         }
                                     } else if (e.keyCode == 113) {
                                         // Start edition with current content F2
