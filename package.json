@@ -1,7 +1,7 @@
 {
     "name": "jspreadsheet-ce",
     "title": "The Javascript Spreadsheet",
-    "description": "Jspreadsheet is a lightweight, vanilla javascript plugin to create amazing web-based interactive tables and spreadsheets compatible with Excel, Google Spreadsheets and any other spreadsheet software.",
+    "description": "Jspreadsheet is a lightweight, vanilla javascript plugin to create amazing web-based interactive data grids with spreadsheet like controls compatible with Excel, Google Spreadsheets and any other spreadsheet software.",
     "repository": {
         "type": "git",
         "url": "https://github.com/jspreadsheet/ce.git"
@@ -18,27 +18,36 @@
         "table",
         "excel",
         "grid",
+        "javascript grid",
         "grid-editor",
-        "data-table",
-        "data-grid",
-        "data-spreadsheet"
+        "data tables",
+        "data grid",
+        "spreadsheet"
     ],
     "dependencies": {
         "jsuites": "^5.0.17",
         "@jspreadsheet/formula": "^2.0.2"
     },
     "devDependencies": {
-        "chai": "^4.3.4",
+        "c8": "^7.13.0",
+        "chai": "^4.3.7",
         "faker": "^5.5.3",
-        "mocha": "^8.4.0"
+        "mocha": "^8.4.0",
+        "webpack": "^5.70.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.7.2"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "version": "4.12.1",
+    "version": "4.13.0",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip",
     "scripts": {
-        "test": "mocha --exit tests/**/*.test.js"
+        "test": "mocha --recursive",
+        "test:watch": "mocha --recursive --watch --parallel --reporter min",
+        "test:coverage": "c8 mocha --recursive",
+        "build": "npx webpack --config webpack.config.cjs",
+        "start": "npx webpack serve --history-api-fallback"
     }
 }

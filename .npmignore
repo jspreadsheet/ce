@@ -7,3 +7,5 @@ docs
 src
 dev
 packages
+webpack.config.cjs
+dist/index.html

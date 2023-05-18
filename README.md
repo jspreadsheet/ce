@@ -2,8 +2,6 @@
 
 <b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br>
 
-- <b>Important</b>: Please import jspreadsheet.css (jexcel.css is not longer available in this package).
-
 <br>
 
 [**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript data grid plugin to create amazing web-based interactive HTML tables, and spreadsheets compatible data grid with other spreadsheet software. You can create an online spreadsheet table from a JS array,
@@ -99,7 +97,11 @@ Serve your html file and then you will get the rendered table in your browser
 
 ## Development
 
-See [development](development.md)
+### Build your package
+% npm run build
+
+### Start a web service
+% npm run start
 
 <br>
 
@@ -165,6 +167,11 @@ This example brings a very nice feature to deal with large table datasets.
 <br>
 
 ## Jspreadsheet CE History
+
+### Jspreadsheet CE 4.13.0
+
+- FormulaJS integration
+- Webpack integration
 
 ### Jspreadsheet CE 4.6
 
