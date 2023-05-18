@@ -32,10 +32,14 @@
         "c8": "^7.13.0",
         "chai": "^4.3.7",
         "faker": "^5.5.3",
+        "imports-loader": "^4.0.1",
+        "jsdom": "^20.0.3",
+        "jsdom-global": "^3.0.2",
         "mocha": "^8.4.0",
         "webpack": "^5.70.0",
         "webpack-cli": "^4.9.2",
-        "webpack-dev-server": "^4.7.2"
+        "webpack-dev-server": "^4.7.2",
+        "webpack-sources": "^3.2.3"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -44,7 +48,7 @@
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip",
     "scripts": {
-        "test": "mocha --recursive",
+        "test": "mocha --recursive --require=mocha.config.cjs",
         "test:watch": "mocha --recursive --watch --parallel --reporter min",
         "test:coverage": "c8 mocha --recursive",
         "build": "npx webpack --config webpack.config.cjs",
