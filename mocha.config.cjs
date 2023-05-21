@@ -1,7 +1,10 @@
 #! /usr/bin/env node
 
 require('jsdom-global')(undefined, { url: 'https://localhost' });
-const jspreadsheet = require("./dist/index.js");
+const jSuites = require("jsuites");
+global.jSuites = jSuites;
+
+const jspreadsheet = require("./src/index.js");
 
 global.jspreadsheet = jspreadsheet;
 global.root =  document.createElement('div');
