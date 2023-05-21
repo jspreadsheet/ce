@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.13.0
+ * Jspreadsheet v4.13.2
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -24,7 +24,7 @@ if (! formula && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.13.0',
+            version: '4.13.2',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -1541,30 +1541,38 @@ if (! formula && typeof(require) === 'function') {
                     toolbarItem.textContent = toolbar[i].content;
                     obj.toolbar.appendChild(toolbarItem);
                 } else if (toolbar[i].type == 'select') {
-                   var toolbarItem = document.createElement('select');
-                   toolbarItem.classList.add('jexcel_toolbar_item');
-                   toolbarItem.setAttribute('data-k', toolbar[i].k);
-                   // Tooltip
-                   if (toolbar[i].tooltip) {
-                       toolbarItem.setAttribute('title', toolbar[i].tooltip);
-                   }
-                   // Handle onchange
-                   if (toolbar[i].onchange && typeof(toolbar[i].onchange)) {
-                       toolbarItem.onchange = toolbar[i].onchange;
-                   } else {
-                       toolbarItem.onchange = function() {
-                           var k = this.getAttribute('data-k');
-                           obj.setStyle(obj.highlighted, k, this.value);
-                       }
-                   }
-                   // Add options to the dropdown
-                   for(var j = 0; j < toolbar[i].v.length; j++) {
+                    var toolbarItem = document.createElement('select');
+                    var raiseInitialOnChange = false;
+                    toolbarItem.classList.add('jexcel_toolbar_item');
+                    toolbarItem.setAttribute('data-k', toolbar[i].k);
+                    // Tooltip
+                    if (toolbar[i].tooltip) {
+                        toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                    }
+                    // Handle onchange
+                    if (toolbar[i].onchange && typeof(toolbar[i].onchange)) {
+                        toolbarItem.onchange = toolbar[i].onchange;
+                        raiseInitialOnChange = true;
+                    } else {
+                        toolbarItem.onchange = function() {
+                            var k = this.getAttribute('data-k');
+                            obj.setStyle(obj.highlighted, k, this.value);
+                        }
+                    }
+                    // Add options to the dropdown
+                    for(var j = 0; j < toolbar[i].v.length; j++) {
                         var toolbarDropdownOption = document.createElement('option');
                         toolbarDropdownOption.value = toolbar[i].v[j];
                         toolbarDropdownOption.textContent = toolbar[i].v[j];
+                        if (toolbar[i].selectedValue && toolbarDropdownOption.value === toolbar[i].selectedValue) {
+                            toolbarDropdownOption.selected = true
+                        }
                         toolbarItem.appendChild(toolbarDropdownOption);
-                   }
-                   obj.toolbar.appendChild(toolbarItem);
+                    }
+                    if (raiseInitialOnChange) {
+                        toolbarItem.dispatchEvent(new Event('change'));
+                    }
+                    obj.toolbar.appendChild(toolbarItem);
                 } else if (toolbar[i].type == 'color') {
                      var toolbarItem = document.createElement('i');
                      toolbarItem.classList.add('jexcel_toolbar_item');
