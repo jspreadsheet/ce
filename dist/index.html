@@ -1,24 +1,64 @@
-<script src="https://jsuites.net/v4/jsuites.js"></script>
-<script src="index.js"></script>
+<script type="text/javascript" src="index.js"></script>
 <link rel="stylesheet" href="jspreadsheet.css" type="text/css" />
+
+<script src="https://jsuites.net/v4/jsuites.js"></script>
 <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
+<link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
 
 <div id="spreadsheet"></div>
 
 <script>
-jspreadsheet(document.getElementById('spreadsheet'), {
-    minDimensions: [11, 11],
-    data: [
-        [ 'Crayons Crayola only (No Rose Art)', '', 5.01, 0.01, '=B1*C1*(1-D1)' ],
-        [ 'Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)' ],
-        [ 'Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)' ],
-        [ 'Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)' ],
-        [ 'Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)' ],
-        [ 'Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)' ],
-        [ 'Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)' ],
-        [ 'Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)' ],
-        [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
+
+var data2 = [
+    ['PHP', '14:00'],
+    ['Javascript', '16:30'],
+];
+
+var customColumn = {
+    // Methods
+    closeEditor : function(cell, save) {
+        var value = cell.children[0].value;
+        cell.innerHTML = value;
+        return value;
+    },
+    openEditor : function(cell) {
+        // Create input
+        var element = document.createElement('input');
+        element.value = cell.innerHTML;
+        // Update cell
+        cell.classList.add('editor');
+        cell.innerHTML = '';
+        cell.appendChild(element);
+        $(element).clockpicker({
+            afterHide:function() {
+                setTimeout(function() {
+                    // To avoid double call
+                    if (cell.children[0]) {
+                        myTable.closeEditor(cell, true);
+                    }
+                });
+            }
+        });
+        // Focus on the element
+        element.focus();
+    },
+    getValue : function(cell) {
+        return cell.innerHTML;
+    },
+    setValue : function(cell, value) {
+        cell.innerHTML = value;
+    },
+}
+
+myTable = jspreadsheet(document.getElementById('spreadsheet'), {
+    data:data2,
+    columns: [
+        { type: 'text', title:'Course Title', width:300 },
+        { type: 'text', title:'Time', width:100, editor:customColumn },
     ]
 });
 </script>

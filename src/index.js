@@ -2590,9 +2590,13 @@ if (! formula && typeof(require) === 'function') {
                     oldValue: obj.options.data[y][x],
                 }
 
-                if (obj.options.columns[x].editor) {
+                let editor = obj.options.columns[x].editor;
+                if (editor) {
                     // Update data and cell
                     obj.options.data[y][x] = value;
+                    if (typeof(editor.setValue) === 'function') {
+                        editor.setValue(obj.records[y][x], value);
+                    }
                 } else {
                     // Native functions
                     if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
