@@ -272,6 +272,9 @@ declare namespace jspreadsheet {
 
     /** Select tag onchange event. */
     onchange?: (event: Event) => void;
+
+    /** Initial value of the selectbox. */
+    selectedValue?: string;
   }
 
   interface ToolbarColorItem extends ToolbarItemBase {
