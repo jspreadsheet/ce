@@ -10,21 +10,20 @@ It is very easy to integrate any third party JavaScript plugins to create your o
 feature into your application. Jspreadsheet CE has plenty of different input options through its native column types to cover the most common web-based application
 requirements. It is a complete solution for web data management. Create amazing applications with Jspreadsheet CE JavaScript spreadsheet.
 
-### Jspreadsheet Pro v9 - Commercial Solutions
-- [Jspreadsheet Pro](https://jspreadsheet.com/v9)
+### Jspreadsheet Pro - Enterprise Solution
+- [Jspreadsheet Pro](https://jspreadsheet.com/)
 
 <br>
 
 ## Main advantages
 
-- Make rich and user-friendly web interfaces and applications.
-- You can easily handle complicated data inputs in a way users are used..
+- Make rich and user-friendly data grid interfaces with excel controls.
+- You can easily handle complicated data inputs in a way users are used.
 - Improve your user software experience.
 - Create rich CRUDS and beautiful UI.
 - Compatibility with excel: users can move data around with common copy and paste shortcuts.
 - Easy customizations with easy third-party plugin integrations.
 - Lean, fast and simple to use.
-- Thousands of successful user cases.
 - Speed up your work dealing with difficult data entry in a web-based software.
 
 
@@ -49,7 +48,7 @@ put and use the files of `dist` folder in your project (js library and css files
 See examples section for code examples of jspreadsheets with popular frameworks
 ### Basic demo
 
-A basic example to integrate the JavaScript spreadsheet in your website to create your first online spreadsheet. <https://codepen.io/hchiam/pen/qBRzXKK>
+A basic example to integrate the Jspreadsheet in your website to create your first rich data grid. <https://codepen.io/hchiam/pen/qBRzXKK>
 
 
 #### Usage
@@ -105,7 +104,7 @@ Serve your html file and then you will get the rendered table in your browser
 
 <br>
 
-## Examples
+## Data grid examples
 
 - [React Implementation](https://bossanova.uk/jspreadsheet/v4/examples/react)\
 A full example on how to integrate Jspreadsheet CE with React.
