@@ -2164,7 +2164,7 @@ declare namespace jspreadsheet {
      * @param str - Data.
      * @param delimiter - CSV delimiter. Defaut: ",".
      */
-    parseCSV: (str: number, delimiter?: number) => string[][];
+    parseCSV: (str: string, delimiter?: number) => string[][];
 
     /**
      * Extract a number from a string.
