@@ -607,7 +607,7 @@ declare namespace jspreadsheet {
       colIndex: string | null,
       rowIndex: string | null,
       event: PointerEvent
-    ) => object[];
+    ) => object[] | null;
 
     /**
      * If true, copy and export will bring formula results. If false, it will bring formulas.
