@@ -3325,7 +3325,7 @@ if (! formula && typeof(require) === 'function') {
             } else {
                 // In case the column is an object
                 if (typeof(column) == 'object') {
-                    column = $(column).getAttribute('data-x');
+                    column = column.getAttribute('data-x');
                 }
 
                 data = obj.colgroup[column].getAttribute('width')
@@ -5323,7 +5323,7 @@ if (! formula && typeof(require) === 'function') {
                                 }
                                 // Get column data
                                 if ((''+value).substr(0,1) == '=') {
-                                    if (formulaResults[tokens[i]]) {
+                                    if (typeof formulaResults[tokens[i]] !== 'undefined') {
                                         value = formulaResults[tokens[i]];
                                     } else {
                                         value = execute(value, position[0], position[1]);
