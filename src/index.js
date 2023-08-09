@@ -5935,11 +5935,6 @@ if (! formula && typeof(require) === 'function') {
          * Search
          */
         obj.search = function(query) {
-            // Query
-            if (query) {
-                var query = query.toLowerCase();
-            }
-
             // Reset any filter
             if (obj.options.filters) {
                 obj.resetFilters();
@@ -5971,9 +5966,12 @@ if (! formula && typeof(require) === 'function') {
                     }
                 }
 
+                var parsedQuery = query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+                parsedQuery = new RegExp(parsedQuery, "i");
+
                 // Filter
-                var data = obj.options.data.filter(function(v, k) {
-                    if (search(v, query, k)) {
+                obj.options.data.forEach(function(v, k) {
+                    if (search(v, parsedQuery, k)) {
                         // Merged rows found
                         var rows = obj.isRowMerged(k);
                         if (rows.length) {
@@ -5987,9 +5985,6 @@ if (! formula && typeof(require) === 'function') {
                             // Normal row found
                             addToResult(k);
                         }
-                        return true;
-                    } else {
-                        return false;
                     }
                 });
             } else {
