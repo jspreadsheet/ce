@@ -3079,7 +3079,7 @@ if (! formula && typeof(require) === 'function') {
                     borderRight = 0;
                 }
                 for (var i = borderLeft; i <= borderRight; i++) {
-                    if (obj.options.columns[i].type != 'hidden') {
+                    if (obj.options.columns[i].type != 'hidden' && obj.colgroup[i].style && obj.colgroup[i].style.display != 'none') {
                         // Top border
                         if (obj.records[borderTop] && obj.records[borderTop][i]) {
                             obj.records[borderTop][i].classList.add('highlight-top');
