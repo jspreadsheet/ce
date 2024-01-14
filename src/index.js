@@ -8554,17 +8554,18 @@ if (! formula && typeof(require) === 'function') {
      * @param integer i
      * @return string letter
      */
-    jexcel.getColumnName = function(i) {
-        var letter = '';
-        if (i > 701) {
-            letter += String.fromCharCode(64 + parseInt(i / 676));
-            letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
-        } else if (i > 25) {
-            letter += String.fromCharCode(64 + parseInt(i / 26));
-        }
-        letter += String.fromCharCode(65 + (i % 26));
-
-        return letter;
+    jexcel.getColumnName = function (columnNumber){
+        var dividend = columnNumber+1;
+        var columnName = "";
+        var modulo;
+    
+        while (dividend > 0)
+        {
+            modulo = (dividend - 1) % 26;
+            columnName = String.fromCharCode(65 + modulo).toString() + columnName;
+            dividend = parseInt((dividend - modulo) / 26);
+        } 
+        return  columnName;
     }
 
     /**
@@ -8938,17 +8939,18 @@ if (! formula && typeof(require) === 'function') {
          * @param integer i
          * @return string letter
          */
-        component.getColumnName = function(i) {
-            var letter = '';
-            if (i > 701) {
-                letter += String.fromCharCode(64 + parseInt(i / 676));
-                letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
-            } else if (i > 25) {
-                letter += String.fromCharCode(64 + parseInt(i / 26));
-            }
-            letter += String.fromCharCode(65 + (i % 26));
-
-            return letter;
+        component.getColumnName = function (columnNumber){
+            var dividend = columnNumber+1;
+            var columnName = "";
+            var modulo;
+        
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                columnName = String.fromCharCode(65 + modulo).toString() + columnName;
+                dividend = parseInt((dividend - modulo) / 26);
+            } 
+            return  columnName;
         }
 
         /**
