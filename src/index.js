@@ -1096,26 +1096,27 @@ if (! formula && typeof(require) === 'function') {
          */
         obj.save = function(url, data) {
             // Parse anything in the data before sending to the server
-            var ret = obj.dispatch('onbeforesave', el, obj, data);
-            if (ret) {
-                var data = ret;
-            } else {
-                if (ret === false) {
-                    return false;
+            Promise.resolve(obj.dispatch('onbeforesave', el, obj, data)).then(ret => { 
+                if (ret) {
+                    var data = ret;
+                } else {
+                    if (ret === false) {
+                        return false;
+                    }
                 }
-            }
-
-            // Remove update
-            jSuites.ajax({
-                url: url,
-                method: 'POST',
-                dataType: 'json',
-                data: { data: JSON.stringify(data) },
-                success: function(result) {
-                    // Event
-                    obj.dispatch('onsave', el, obj, data);
-                }
-            });
+            
+                // Remove update
+                jSuites.ajax({
+                    url: url,
+                    method: 'POST',
+                    dataType: 'json',
+                    data: { data: JSON.stringify(data) },
+                    success: function(result) {
+                        // Event
+                        obj.dispatch('onsave', el, obj, data);
+                    }
+                })
+            })
         }
 
         /**
@@ -2232,12 +2233,14 @@ if (! formula && typeof(require) === 'function') {
                     }
                 }
 
-                // Ignore changes if the value is the same
-                if (obj.options.data[y][x] == value) {
-                    cell.innerHTML = obj.edition[1];
-                } else {
-                    obj.setValue(cell, value);
-                }
+                Promise.resolve(value).then(v => {
+                    // Ignore changes if the value is the same
+                    if (obj.options.data[y][x] == v) {
+                        cell.innerHTML = obj.edition[1];
+                    } else {
+                        obj.setValue(cell, v);
+                    }
+                });
             } else {
                 if (obj.options.columns[x].editor) {
                     // Custom editor
@@ -2258,14 +2261,16 @@ if (! formula && typeof(require) === 'function') {
                 cell.innerHTML = obj.edition && obj.edition[1] ? obj.edition[1] : '';
             }
 
-            // On edition end
-            obj.dispatch('oneditionend', el, cell, x, y, value, save);
+            Promise.resolve(value).then(v => {
+                // On edition end
+                obj.dispatch('oneditionend', el, cell, x, y, v, save);
 
-            // Remove editor class
-            cell.classList.remove('editor');
+                // Remove editor class
+                cell.classList.remove('editor');
 
-            // Finish edition
-            obj.edition = null;
+                // Finish edition
+                obj.edition = null;
+            });
         }
 
         /**
@@ -2460,18 +2465,23 @@ if (! formula && typeof(require) === 'function') {
                 }
             }
 
-            // Update history
-            obj.setHistory({
-                action:'setValue',
-                records:records,
-                selection:obj.selectedCell,
-            });
 
-            // Update table with custom configurations if applicable
-            obj.updateTable();
+            return Promise.all(records.map(r => Promise.resolve(r))).then(_records => {
 
-            // On after changes
-            obj.onafterchanges(el, records);
+                // Update history
+                obj.setHistory({
+                    action: 'setValue',
+                    records: _records,
+                    selection: obj.selectedCell,
+                });
+
+                // Update table with custom configurations if applicable
+                obj.updateTable();
+
+                // On after changes
+                obj.onafterchanges(el, _records);
+                true
+            })
         }
 
         /**
@@ -2486,21 +2496,24 @@ if (! formula && typeof(require) === 'function') {
             var records = [];
             records.push(obj.updateCell(x, y, value, force));
 
-            // Update all formulas in the chain
-            obj.updateFormulaChain(x, y, records);
+            Promise.all(records.map(r => Promise.resolve(r))).then(_records => {
 
-            // Update history
-            obj.setHistory({
-                action:'setValue',
-                records:records,
-                selection:obj.selectedCell,
+                // Update all formulas in the chain
+                obj.updateFormulaChain(x, y, _records);
+
+                // Update history
+                obj.setHistory({
+                    action: 'setValue',
+                    records: _records,
+                    selection: obj.selectedCell,
+                });
+
+                // Update table with custom configurations if applicable
+                obj.updateTable();
+
+                // On after changes
+                obj.onafterchanges(el, _records);
             });
-
-            // Update table with custom configurations if applicable
-            obj.updateTable();
-
-            // On after changes
-            obj.onafterchanges(el, records);
         }
 
         /**
@@ -2520,15 +2533,18 @@ if (! formula && typeof(require) === 'function') {
             }
 
             if (records.length) {
-                // Update history
-                obj.setHistory({
-                    action:'setValue',
-                    records:records,
-                    selection:obj.selectedCell,
-                });
 
-                // On after changes
-                obj.onafterchanges(el, records);
+                Promise.all(records.map(r => Promise.resolve(r))).then(_records => {
+                    // Update history
+                    obj.setHistory({
+                        action: 'setValue',
+                        records: _recordsrecords,
+                        selection: obj.selectedCell,
+                    });
+
+                    // On after changes
+                    obj.onafterchanges(el, _records);
+                });
             }
         }
         /**
@@ -2568,120 +2584,121 @@ if (! formula && typeof(require) === 'function') {
                     }
                 }
 
-                // On change
-                var val = obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value);
-
-                // If you return something this will overwrite the value
-                if (val != undefined) {
-                    value = val;
-                }
-
-                if (obj.options.columns[x].editor && typeof(obj.options.columns[x].editor.updateCell) == 'function') {
-                    value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
-                }
-
-                // History format
-                var record = {
-                    x: x,
-                    y: y,
-                    col: x,
-                    row: y,
-                    newValue: value,
-                    oldValue: obj.options.data[y][x],
-                }
-
-                let editor = obj.options.columns[x].editor;
-                if (editor) {
-                    // Update data and cell
-                    obj.options.data[y][x] = value;
-                    if (typeof(editor.setValue) === 'function') {
-                        editor.setValue(obj.records[y][x], value);
+                // On change                
+                var record = Promise.resolve(obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value)).then(val => {
+                    // If you return something this will overwrite the value
+                    if (val != undefined) {
+                        value = val;
                     }
-                } else {
-                    // Native functions
-                    if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
-                        // Unchecked all options
-                        if (obj.options.columns[x].type == 'radio') {
-                            for (var j = 0; j < obj.options.data.length; j++) {
-                                obj.options.data[j][x] = false;
-                            }
-                        }
 
+                    if (obj.options.columns[x].editor && typeof (obj.options.columns[x].editor.updateCell) == 'function') {
+                        value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
+                    }
+
+                    // History format
+                    var record = {
+                        x: x,
+                        y: y,
+                        col: x,
+                        row: y,
+                        newValue: value,
+                        oldValue: obj.options.data[y][x],
+                    }
+
+                    let editor = obj.options.columns[x].editor;
+                    if (editor) {
                         // Update data and cell
-                        obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true' || value == 'TRUE') ? true : false;
-                        obj.options.data[y][x] = obj.records[y][x].children[0].checked;
-                    } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
-                        // Update data and cell
                         obj.options.data[y][x] = value;
-                        obj.records[y][x].textContent = obj.getDropDownValue(x, value);
-                    } else if (obj.options.columns[x].type == 'calendar') {
-                        // Try formatted date
-                        var formatted = null;
-                        if (! validDate(value)) {
-                            var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
-                            if (tmp) {
-                                formatted = tmp;
-                            }
-                        }
-                        // Update data and cell
-                        obj.options.data[y][x] = value;
-                        obj.records[y][x].textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
-                    } else if (obj.options.columns[x].type == 'color') {
-                        // Update color
-                        obj.options.data[y][x] = value;
-                        // Render
-                        if (obj.options.columns[x].render == 'square') {
-                            var color = document.createElement('div');
-                            color.className = 'color';
-                            color.style.backgroundColor = value;
-                            obj.records[y][x].textContent = '';
-                            obj.records[y][x].appendChild(color);
-                        } else {
-                            obj.records[y][x].style.color = value;
-                            obj.records[y][x].textContent = value;
-                        }
-                    } else if (obj.options.columns[x].type == 'image') {
-                        value = ''+value;
-                        obj.options.data[y][x] = value;
-                        obj.records[y][x].innerHTML = '';
-                        if (value && value.substr(0, 10) == 'data:image') {
-                            var img = document.createElement('img');
-                            img.src = value;
-                            obj.records[y][x].appendChild(img);
+                        if (typeof (editor.setValue) === 'function') {
+                            editor.setValue(obj.records[y][x], value);
                         }
                     } else {
-                        // Update data and cell
-                        obj.options.data[y][x] = value;
-                        // Label
-                        if (obj.options.columns[x].type == 'html') {
-                            obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
-                        } else {
-                            if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
-                                obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value, obj.records[y][x]));
+                        // Native functions
+                        if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
+                            // Unchecked all options
+                            if (obj.options.columns[x].type == 'radio') {
+                                for (var j = 0; j < obj.options.data.length; j++) {
+                                    obj.options.data[j][x] = false;
+                                }
+                            }
+
+                            // Update data and cell
+                            obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true' || value == 'TRUE') ? true : false;
+                            obj.options.data[y][x] = obj.records[y][x].children[0].checked;
+                        } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                            // Update data and cell
+                            obj.options.data[y][x] = value;
+                            obj.records[y][x].textContent = obj.getDropDownValue(x, value);
+                        } else if (obj.options.columns[x].type == 'calendar') {
+                            // Try formatted date
+                            var formatted = null;
+                            if (!validDate(value)) {
+                                var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                                if (tmp) {
+                                    formatted = tmp;
+                                }
+                            }
+                            // Update data and cell
+                            obj.options.data[y][x] = value;
+                            obj.records[y][x].textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
+                        } else if (obj.options.columns[x].type == 'color') {
+                            // Update color
+                            obj.options.data[y][x] = value;
+                            // Render
+                            if (obj.options.columns[x].render == 'square') {
+                                var color = document.createElement('div');
+                                color.className = 'color';
+                                color.style.backgroundColor = value;
+                                obj.records[y][x].textContent = '';
+                                obj.records[y][x].appendChild(color);
                             } else {
-                                obj.records[y][x].textContent = obj.parseValue(x, y, value, obj.records[y][x]);
+                                obj.records[y][x].style.color = value;
+                                obj.records[y][x].textContent = value;
+                            }
+                        } else if (obj.options.columns[x].type == 'image') {
+                            value = '' + value;
+                            obj.options.data[y][x] = value;
+                            obj.records[y][x].innerHTML = '';
+                            if (value && value.substr(0, 10) == 'data:image') {
+                                var img = document.createElement('img');
+                                img.src = value;
+                                obj.records[y][x].appendChild(img);
+                            }
+                        } else {
+                            // Update data and cell
+                            obj.options.data[y][x] = value;
+                            // Label
+                            if (obj.options.columns[x].type == 'html') {
+                                obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                            } else {
+                                if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
+                                    obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value, obj.records[y][x]));
+                                } else {
+                                    obj.records[y][x].textContent = obj.parseValue(x, y, value, obj.records[y][x]);
+                                }
+                            }
+                            // Handle big text inside a cell
+                            if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
+                                obj.records[y][x].style.whiteSpace = 'pre-wrap';
+                            } else {
+                                obj.records[y][x].style.whiteSpace = '';
                             }
                         }
-                        // Handle big text inside a cell
-                        if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
-                            obj.records[y][x].style.whiteSpace = 'pre-wrap';
+                    }
+
+                    // Overflow
+                    if (x > 0) {
+                        if (value) {
+                            obj.records[y][x - 1].style.overflow = 'hidden';
                         } else {
-                            obj.records[y][x].style.whiteSpace = '';
+                            obj.records[y][x - 1].style.overflow = '';
                         }
                     }
-                }
 
-                // Overflow
-                if (x > 0) {
-                    if (value) {
-                        obj.records[y][x-1].style.overflow = 'hidden';
-                    } else {
-                        obj.records[y][x-1].style.overflow = '';
-                    }
-                }
-
-                // On change
-                obj.dispatch('onchange', el, (obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null), x, y, value, record.oldValue);
+                    // On change
+                    obj.dispatch('onchange', el, (obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null), x, y, value, record.oldValue);
+                    return record;
+                });
             }
 
             return record;
@@ -2821,18 +2838,21 @@ if (! formula && typeof(require) === 'function') {
                 rowNumber++;
             }
 
-            // Update history
-            obj.setHistory({
-                action:'setValue',
-                records:records,
-                selection:obj.selectedCell,
-            });
+            Promise.all(records.map(r => Promise.resolve(r))).then(_records => {
 
-            // Update table with custom configuration if applicable
-            obj.updateTable();
+                // Update history
+                obj.setHistory({
+                    action:'setValue',
+                    records:_records,
+                    selection:obj.selectedCell,
+                });
 
-            // On after changes
-            obj.onafterchanges(el, records);
+                // Update table with custom configuration if applicable
+                obj.updateTable();
+
+                // On after changes
+                obj.onafterchanges(el, _records);
+            })
         }
 
         /**
@@ -4123,98 +4143,100 @@ if (! formula && typeof(require) === 'function') {
                     rowNumber = lastRow;
                 }
 
-                // Onbeforeinsertrow
-                if (obj.dispatch('onbeforeinsertrow', el, rowNumber, numOfRows, insertBefore) === false) {
-                    return false;
-                }
+                Promise.resolve(obj.dispatch('onbeforeinsertrow', el, rowNumber, numOfRows, insertBefore)).then(beforeInsert => {
+                    // Onbeforeinsertrow
+                    if (beforeInsert === false) {
+                        return false;
+                    }
 
-                // Merged cells
-                if (Object.keys(obj.options.mergeCells).length > 0) {
-                    if (obj.isRowMerged(rowNumber, insertBefore).length) {
-                        if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
-                            return false;
+                    // Merged cells
+                    if (Object.keys(obj.options.mergeCells).length > 0) {
+                        if (obj.isRowMerged(rowNumber, insertBefore).length) {
+                            if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                                return false;
+                            } else {
+                                obj.destroyMerged();
+                            }
+                        }
+                    }
+
+                    // Clear any search
+                    if (obj.options.search == true) {
+                        if (obj.results && obj.results.length != obj.rows.length) {
+                            if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                                obj.resetSearch();
+                            } else {
+                                return false;
+                            }
+                        }
+
+                        obj.results = null;
+                    }
+
+                    // Insertbefore
+                    var rowIndex = (!insertBefore) ? rowNumber + 1 : rowNumber;
+
+                    // Keep the current data
+                    var currentRecords = obj.records.splice(rowIndex);
+                    var currentData = obj.options.data.splice(rowIndex);
+                    var currentRows = obj.rows.splice(rowIndex);
+
+                    // Adding lines
+                    var rowRecords = [];
+                    var rowData = [];
+                    var rowNode = [];
+
+                    for (var row = rowIndex; row < (numOfRows + rowIndex); row++) {
+                        // Push data to the data container
+                        obj.options.data[row] = [];
+                        for (var col = 0; col < obj.options.columns.length; col++) {
+                            obj.options.data[row][col] = data[col] ? data[col] : '';
+                        }
+                        // Create row
+                        var tr = obj.createRow(row, obj.options.data[row]);
+                        // Append node
+                        if (currentRows[0]) {
+                            if (Array.prototype.indexOf.call(obj.tbody.children, currentRows[0]) >= 0) {
+                                obj.tbody.insertBefore(tr, currentRows[0]);
+                            }
                         } else {
-                            obj.destroyMerged();
+                            if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[rowNumber]) >= 0) {
+                                obj.tbody.appendChild(tr);
+                            }
                         }
-                    }
-                }
-
-                // Clear any search
-                if (obj.options.search == true) {
-                    if (obj.results && obj.results.length != obj.rows.length) {
-                        if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
-                            obj.resetSearch();
-                        } else {
-                            return false;
-                        }
+                        // Record History
+                        rowRecords.push(obj.records[row]);
+                        rowData.push(obj.options.data[row]);
+                        rowNode.push(tr);
                     }
 
-                    obj.results = null;
-                }
+                    // Copy the data back to the main data
+                    Array.prototype.push.apply(obj.records, currentRecords);
+                    Array.prototype.push.apply(obj.options.data, currentData);
+                    Array.prototype.push.apply(obj.rows, currentRows);
 
-                // Insertbefore
-                var rowIndex = (! insertBefore) ? rowNumber + 1 : rowNumber;
-
-                // Keep the current data
-                var currentRecords = obj.records.splice(rowIndex);
-                var currentData = obj.options.data.splice(rowIndex);
-                var currentRows = obj.rows.splice(rowIndex);
-
-                // Adding lines
-                var rowRecords = [];
-                var rowData = [];
-                var rowNode = [];
-
-                for (var row = rowIndex; row < (numOfRows + rowIndex); row++) {
-                    // Push data to the data container
-                    obj.options.data[row] = [];
-                    for (var col = 0; col < obj.options.columns.length; col++) {
-                        obj.options.data[row][col]  = data[col] ? data[col] : '';
+                    // Respect pagination
+                    if (obj.options.pagination > 0) {
+                        obj.page(obj.pageNumber);
                     }
-                    // Create row
-                    var tr = obj.createRow(row, obj.options.data[row]);
-                    // Append node
-                    if (currentRows[0]) {
-                        if (Array.prototype.indexOf.call(obj.tbody.children, currentRows[0]) >= 0) {
-                            obj.tbody.insertBefore(tr, currentRows[0]);
-                        }
-                    } else {
-                        if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[rowNumber]) >= 0) {
-                            obj.tbody.appendChild(tr);
-                        }
-                    }
-                    // Record History
-                    rowRecords.push(obj.records[row]);
-                    rowData.push(obj.options.data[row]);
-                    rowNode.push(tr);
-                }
 
-                // Copy the data back to the main data
-                Array.prototype.push.apply(obj.records, currentRecords);
-                Array.prototype.push.apply(obj.options.data, currentData);
-                Array.prototype.push.apply(obj.rows, currentRows);
+                    // Keep history
+                    obj.setHistory({
+                        action: 'insertRow',
+                        rowNumber: rowNumber,
+                        numOfRows: numOfRows,
+                        insertBefore: insertBefore,
+                        rowRecords: rowRecords,
+                        rowData: rowData,
+                        rowNode: rowNode,
+                    });
 
-                // Respect pagination
-                if (obj.options.pagination > 0) {
-                    obj.page(obj.pageNumber);
-                }
+                    // Remove table references
+                    obj.updateTableReferences();
 
-                // Keep history
-                obj.setHistory({
-                    action: 'insertRow',
-                    rowNumber: rowNumber,
-                    numOfRows: numOfRows,
-                    insertBefore: insertBefore,
-                    rowRecords: rowRecords,
-                    rowData: rowData,
-                    rowNode: rowNode,
+                    // Events
+                    obj.dispatch('oninsertrow', el, rowNumber, numOfRows, rowRecords, insertBefore);
                 });
-
-                // Remove table references
-                obj.updateTableReferences();
-
-                // Events
-                obj.dispatch('oninsertrow', el, rowNumber, numOfRows, rowRecords, insertBefore);
             }
         }
 
@@ -4258,86 +4280,89 @@ if (! formula && typeof(require) === 'function') {
                         numOfRows = obj.options.data.length - rowNumber;
                     }
 
-                    // Onbeforedeleterow
-                    if (obj.dispatch('onbeforedeleterow', el, rowNumber, numOfRows) === false) {
-                        return false;
-                    }
 
-                    if (parseInt(rowNumber) > -1) {
-                        // Merged cells
-                        var mergeExists = false;
-                        if (Object.keys(obj.options.mergeCells).length > 0) {
-                            for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
-                                if (obj.isRowMerged(row, false).length) {
-                                    mergeExists = true;
+                    Promise.resolve(obj.dispatch('onbeforedeleterow', el, rowNumber, numOfRows)).then(beforeDelete => {
+                        // Onbeforedeleterow
+                        if (beforeDelete === false) {
+                            return false;
+                        }
+
+                        if (parseInt(rowNumber) > -1) {
+                            // Merged cells
+                            var mergeExists = false;
+                            if (Object.keys(obj.options.mergeCells).length > 0) {
+                                for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                                    if (obj.isRowMerged(row, false).length) {
+                                        mergeExists = true;
+                                    }
                                 }
                             }
-                        }
-                        if (mergeExists) {
-                            if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
-                                return false;
-                            } else {
-                                obj.destroyMerged();
-                            }
-                        }
-
-                        // Clear any search
-                        if (obj.options.search == true) {
-                            if (obj.results && obj.results.length != obj.rows.length) {
-                                if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
-                                    obj.resetSearch();
-                                } else {
+                            if (mergeExists) {
+                                if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
                                     return false;
+                                } else {
+                                    obj.destroyMerged();
                                 }
                             }
 
-                            obj.results = null;
-                        }
+                            // Clear any search
+                            if (obj.options.search == true) {
+                                if (obj.results && obj.results.length != obj.rows.length) {
+                                    if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                                        obj.resetSearch();
+                                    } else {
+                                        return false;
+                                    }
+                                }
 
-                        // If delete all rows, and set allowDeletingAllRows false, will stay one row
-                        if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
-                            numOfRows--;
-                            console.error('Jspreadsheet: It is not possible to delete the last row');
-                        }
-
-                        // Remove node
-                        for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
-                            if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
-                                obj.rows[row].className = '';
-                                obj.rows[row].parentNode.removeChild(obj.rows[row]);
+                                obj.results = null;
                             }
+
+                            // If delete all rows, and set allowDeletingAllRows false, will stay one row
+                            if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
+                                numOfRows--;
+                                console.error('Jspreadsheet: It is not possible to delete the last row');
+                            }
+
+                            // Remove node
+                            for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                                if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
+                                    obj.rows[row].className = '';
+                                    obj.rows[row].parentNode.removeChild(obj.rows[row]);
+                                }
+                            }
+
+                            // Remove data
+                            var rowRecords = obj.records.splice(rowNumber, numOfRows);
+                            var rowData = obj.options.data.splice(rowNumber, numOfRows);
+                            var rowNode = obj.rows.splice(rowNumber, numOfRows);
+
+                            // Respect pagination
+                            if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
+                                obj.page(obj.pageNumber);
+                            }
+
+                            // Remove selection
+                            obj.conditionalSelectionUpdate(1, rowNumber, (rowNumber + numOfRows) - 1);
+
+                            // Keep history
+                            obj.setHistory({
+                                action: 'deleteRow',
+                                rowNumber: rowNumber,
+                                numOfRows: numOfRows,
+                                insertBefore: 1,
+                                rowRecords: rowRecords,
+                                rowData: rowData,
+                                rowNode: rowNode
+                            });
+
+                            // Remove table references
+                            obj.updateTableReferences();
+
+                            // Events
+                            obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
                         }
-
-                        // Remove data
-                        var rowRecords = obj.records.splice(rowNumber, numOfRows);
-                        var rowData = obj.options.data.splice(rowNumber, numOfRows);
-                        var rowNode = obj.rows.splice(rowNumber, numOfRows);
-
-                        // Respect pagination
-                        if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
-                            obj.page(obj.pageNumber);
-                        }
-
-                        // Remove selection
-                        obj.conditionalSelectionUpdate(1, rowNumber, (rowNumber + numOfRows) - 1);
-
-                        // Keep history
-                        obj.setHistory({
-                            action: 'deleteRow',
-                            rowNumber: rowNumber,
-                            numOfRows: numOfRows,
-                            insertBefore: 1,
-                            rowRecords: rowRecords,
-                            rowData: rowData,
-                            rowNode: rowNode
-                        });
-
-                        // Remove table references
-                        obj.updateTableReferences();
-
-                        // Events
-                        obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
-                    }
+                    });
                 } else {
                     console.error('Jspreadsheet: It is not possible to delete the last row');
                 }
@@ -4456,145 +4481,148 @@ if (! formula && typeof(require) === 'function') {
                     columnNumber = lastColumn;
                 }
 
-                // Onbeforeinsertcolumn
-                if (obj.dispatch('onbeforeinsertcolumn', el, columnNumber, numOfColumns, insertBefore) === false) {
-                    return false;
-                }
 
-                // Merged cells
-                if (Object.keys(obj.options.mergeCells).length > 0) {
-                    if (obj.isColMerged(columnNumber, insertBefore).length) {
-                        if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
-                            return false;
-                        } else {
-                            obj.destroyMerged();
+                Promise.resolve(obj.dispatch('onbeforeinsertcolumn', el, columnNumber, numOfColumns, insertBefore)).then(beforeInsert => {
+                    // Onbeforeinsertcolumn
+                    if (beforeInsert === false) {
+                        return false;
+                    }
+
+                    // Merged cells
+                    if (Object.keys(obj.options.mergeCells).length > 0) {
+                        if (obj.isColMerged(columnNumber, insertBefore).length) {
+                            if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                                return false;
+                            } else {
+                                obj.destroyMerged();
+                            }
                         }
                     }
-                }
 
-                // Create default properties
-                if (! properties) {
-                    properties = [];
-                }
-
-                for (var i = 0; i < numOfColumns; i++) {
-                    if (! properties[i]) {
-                        properties[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:obj.options.defaultColAlign };
+                    // Create default properties
+                    if (!properties) {
+                        properties = [];
                     }
-                }
 
-                // Insert before
-                var columnIndex = (! insertBefore) ? columnNumber + 1 : columnNumber;
-                obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties);
-
-                // Open space in the containers
-                var currentHeaders = obj.headers.splice(columnIndex);
-                var currentColgroup = obj.colgroup.splice(columnIndex);
-
-                // History
-                var historyHeaders = [];
-                var historyColgroup = [];
-                var historyRecords = [];
-                var historyData = [];
-                var historyFooters = [];
-
-                // Add new headers
-                for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
-                    obj.createCellHeader(col);
-                    obj.headerContainer.insertBefore(obj.headers[col], obj.headerContainer.children[col+1]);
-                    obj.colgroupContainer.insertBefore(obj.colgroup[col], obj.colgroupContainer.children[col+1]);
-
-                    historyHeaders.push(obj.headers[col]);
-                    historyColgroup.push(obj.colgroup[col]);
-                }
-
-                // Add new footer cells
-                if (obj.options.footers) {
-                    for (var j = 0; j < obj.options.footers.length; j++) {
-                        historyFooters[j] = [];
-                        for (var i = 0; i < numOfColumns; i++) {
-                            historyFooters[j].push('');
+                    for (var i = 0; i < numOfColumns; i++) {
+                        if (!properties[i]) {
+                            properties[i] = { type: 'text', source: [], options: [], width: obj.options.defaultColWidth, align: obj.options.defaultColAlign };
                         }
-                        obj.options.footers[j].splice(columnIndex, 0, historyFooters[j]);
                     }
-                }
 
-                // Adding visual columns
-                for (var row = 0; row < obj.options.data.length; row++) {
-                    // Keep the current data
-                    var currentData = obj.options.data[row].splice(columnIndex);
-                    var currentRecord = obj.records[row].splice(columnIndex);
+                    // Insert before
+                    var columnIndex = (!insertBefore) ? columnNumber + 1 : columnNumber;
+                    obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties);
+
+                    // Open space in the containers
+                    var currentHeaders = obj.headers.splice(columnIndex);
+                    var currentColgroup = obj.colgroup.splice(columnIndex);
 
                     // History
-                    historyData[row] = [];
-                    historyRecords[row] = [];
+                    var historyHeaders = [];
+                    var historyColgroup = [];
+                    var historyRecords = [];
+                    var historyData = [];
+                    var historyFooters = [];
 
+                    // Add new headers
                     for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
-                        // New value
-                        var value = data[row] ? data[row] : '';
-                        obj.options.data[row][col] = value;
-                        // New cell
-                        var td = obj.createCell(col, row, obj.options.data[row][col]);
-                        obj.records[row][col] = td;
-                        // Add cell to the row
-                        if (obj.rows[row]) {
-                            obj.rows[row].insertBefore(td, obj.rows[row].children[col+1]);
-                        }
+                        obj.createCellHeader(col);
+                        obj.headerContainer.insertBefore(obj.headers[col], obj.headerContainer.children[col + 1]);
+                        obj.colgroupContainer.insertBefore(obj.colgroup[col], obj.colgroupContainer.children[col + 1]);
 
-                        // Record History
-                        historyData[row].push(value);
-                        historyRecords[row].push(td);
+                        historyHeaders.push(obj.headers[col]);
+                        historyColgroup.push(obj.colgroup[col]);
                     }
 
-                    // Copy the data back to the main data
-                    Array.prototype.push.apply(obj.options.data[row], currentData);
-                    Array.prototype.push.apply(obj.records[row], currentRecord);
-                }
-
-                Array.prototype.push.apply(obj.headers, currentHeaders);
-                Array.prototype.push.apply(obj.colgroup, currentColgroup);
-
-                // Adjust nested headers
-                if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
-                    // Flexible way to handle nestedheaders
-                    if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
-                        for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
-                            var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) + numOfColumns;
-                            obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
-                            obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
-                            var o = obj.thead.children[j].children[obj.thead.children[j].children.length-1].getAttribute('data-column');
-                            o = o.split(',');
-                            for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
-                                o.push(col);
+                    // Add new footer cells
+                    if (obj.options.footers) {
+                        for (var j = 0; j < obj.options.footers.length; j++) {
+                            historyFooters[j] = [];
+                            for (var i = 0; i < numOfColumns; i++) {
+                                historyFooters[j].push('');
                             }
-                            obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('data-column', o);
+                            obj.options.footers[j].splice(columnIndex, 0, historyFooters[j]);
                         }
-                    } else {
-                        var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
-                        obj.options.nestedHeaders[0].colspan = colspan;
-                        obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
                     }
-                }
 
-                // Keep history
-                obj.setHistory({
-                    action: 'insertColumn',
-                    columnNumber:columnNumber,
-                    numOfColumns:numOfColumns,
-                    insertBefore:insertBefore,
-                    columns:properties,
-                    headers:historyHeaders,
-                    colgroup:historyColgroup,
-                    records:historyRecords,
-                    footers:historyFooters,
-                    data:historyData,
+                    // Adding visual columns
+                    for (var row = 0; row < obj.options.data.length; row++) {
+                        // Keep the current data
+                        var currentData = obj.options.data[row].splice(columnIndex);
+                        var currentRecord = obj.records[row].splice(columnIndex);
+
+                        // History
+                        historyData[row] = [];
+                        historyRecords[row] = [];
+
+                        for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                            // New value
+                            var value = data[row] ? data[row] : '';
+                            obj.options.data[row][col] = value;
+                            // New cell
+                            var td = obj.createCell(col, row, obj.options.data[row][col]);
+                            obj.records[row][col] = td;
+                            // Add cell to the row
+                            if (obj.rows[row]) {
+                                obj.rows[row].insertBefore(td, obj.rows[row].children[col + 1]);
+                            }
+
+                            // Record History
+                            historyData[row].push(value);
+                            historyRecords[row].push(td);
+                        }
+
+                        // Copy the data back to the main data
+                        Array.prototype.push.apply(obj.options.data[row], currentData);
+                        Array.prototype.push.apply(obj.records[row], currentRecord);
+                    }
+
+                    Array.prototype.push.apply(obj.headers, currentHeaders);
+                    Array.prototype.push.apply(obj.colgroup, currentColgroup);
+
+                    // Adjust nested headers
+                    if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                        // Flexible way to handle nestedheaders
+                        if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                            for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
+                                var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) + numOfColumns;
+                                obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan = colspan;
+                                obj.thead.children[j].children[obj.thead.children[j].children.length - 1].setAttribute('colspan', colspan);
+                                var o = obj.thead.children[j].children[obj.thead.children[j].children.length - 1].getAttribute('data-column');
+                                o = o.split(',');
+                                for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                                    o.push(col);
+                                }
+                                obj.thead.children[j].children[obj.thead.children[j].children.length - 1].setAttribute('data-column', o);
+                            }
+                        } else {
+                            var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
+                            obj.options.nestedHeaders[0].colspan = colspan;
+                            obj.thead.children[0].children[obj.thead.children[0].children.length - 1].setAttribute('colspan', colspan);
+                        }
+                    }
+
+                    // Keep history
+                    obj.setHistory({
+                        action: 'insertColumn',
+                        columnNumber: columnNumber,
+                        numOfColumns: numOfColumns,
+                        insertBefore: insertBefore,
+                        columns: properties,
+                        headers: historyHeaders,
+                        colgroup: historyColgroup,
+                        records: historyRecords,
+                        footers: historyFooters,
+                        data: historyData,
+                    });
+
+                    // Remove table references
+                    obj.updateTableReferences();
+
+                    // Events
+                    obj.dispatch('oninsertcolumn', el, columnNumber, numOfColumns, historyRecords, insertBefore);
                 });
-
-                // Remove table references
-                obj.updateTableReferences();
-
-                // Events
-                obj.dispatch('oninsertcolumn', el, columnNumber, numOfColumns, historyRecords, insertBefore);
             }
         }
 
@@ -4642,105 +4670,107 @@ if (! formula && typeof(require) === 'function') {
                     }
 
                     // onbeforedeletecolumn
-                   if (obj.dispatch('onbeforedeletecolumn', el, columnNumber, numOfColumns) === false) {
-                      return false;
-                   }
+                    Promise.resolve(obj.dispatch('onbeforedeletecolumn', el, columnNumber, numOfColumns)).then(beforeDelete => {
+                        if (beforeDelete === false) {
+                            return false;
+                        }
 
-                    // Can't remove the last column
-                    if (parseInt(columnNumber) > -1) {
-                        // Merged cells
-                        var mergeExists = false;
-                        if (Object.keys(obj.options.mergeCells).length > 0) {
-                            for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
-                                if (obj.isColMerged(col, false).length) {
-                                    mergeExists = true;
+                        // Can't remove the last column
+                        if (parseInt(columnNumber) > -1) {
+                            // Merged cells
+                            var mergeExists = false;
+                            if (Object.keys(obj.options.mergeCells).length > 0) {
+                                for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                                    if (obj.isColMerged(col, false).length) {
+                                        mergeExists = true;
+                                    }
                                 }
                             }
-                        }
-                        if (mergeExists) {
-                            if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
-                                return false;
-                            } else {
-                                obj.destroyMerged();
-                            }
-                        }
-
-                        // Delete the column properties
-                        var columns = obj.options.columns.splice(columnNumber, numOfColumns);
-
-                        for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
-                            obj.colgroup[col].className = '';
-                            obj.headers[col].className = '';
-                            obj.colgroup[col].parentNode.removeChild(obj.colgroup[col]);
-                            obj.headers[col].parentNode.removeChild(obj.headers[col]);
-                        }
-
-                        var historyHeaders = obj.headers.splice(columnNumber, numOfColumns);
-                        var historyColgroup = obj.colgroup.splice(columnNumber, numOfColumns);
-                        var historyRecords = [];
-                        var historyData = [];
-                        var historyFooters = [];
-
-                        for (var row = 0; row < obj.options.data.length; row++) {
-                            for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
-                                obj.records[row][col].className = '';
-                                obj.records[row][col].parentNode.removeChild(obj.records[row][col]);
-                            }
-                        }
-
-                        // Delete headers
-                        for (var row = 0; row < obj.options.data.length; row++) {
-                            // History
-                            historyData[row] = obj.options.data[row].splice(columnNumber, numOfColumns);
-                            historyRecords[row] = obj.records[row].splice(columnNumber, numOfColumns);
-                        }
-
-                        // Delete footers
-                        if (obj.options.footers) {
-                            for (var row = 0; row < obj.options.footers.length; row++) {
-                                historyFooters[row] = obj.options.footers[row].splice(columnNumber, numOfColumns);
-                            }
-                        }
-
-                        // Remove selection
-                        obj.conditionalSelectionUpdate(0, columnNumber, (columnNumber + numOfColumns) - 1);
-
-                        // Adjust nested headers
-                        if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
-                            // Flexible way to handle nestedheaders
-                            if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
-                                for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
-                                    var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) - numOfColumns;
-                                    obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
-                                    obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+                            if (mergeExists) {
+                                if (!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                                    return false;
+                                } else {
+                                    obj.destroyMerged();
                                 }
-                            } else {
-                                var colspan = parseInt(obj.options.nestedHeaders[0].colspan) - numOfColumns;
-                                obj.options.nestedHeaders[0].colspan = colspan;
-                                obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
                             }
+
+                            // Delete the column properties
+                            var columns = obj.options.columns.splice(columnNumber, numOfColumns);
+
+                            for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                                obj.colgroup[col].className = '';
+                                obj.headers[col].className = '';
+                                obj.colgroup[col].parentNode.removeChild(obj.colgroup[col]);
+                                obj.headers[col].parentNode.removeChild(obj.headers[col]);
+                            }
+
+                            var historyHeaders = obj.headers.splice(columnNumber, numOfColumns);
+                            var historyColgroup = obj.colgroup.splice(columnNumber, numOfColumns);
+                            var historyRecords = [];
+                            var historyData = [];
+                            var historyFooters = [];
+
+                            for (var row = 0; row < obj.options.data.length; row++) {
+                                for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                                    obj.records[row][col].className = '';
+                                    obj.records[row][col].parentNode.removeChild(obj.records[row][col]);
+                                }
+                            }
+
+                            // Delete headers
+                            for (var row = 0; row < obj.options.data.length; row++) {
+                                // History
+                                historyData[row] = obj.options.data[row].splice(columnNumber, numOfColumns);
+                                historyRecords[row] = obj.records[row].splice(columnNumber, numOfColumns);
+                            }
+
+                            // Delete footers
+                            if (obj.options.footers) {
+                                for (var row = 0; row < obj.options.footers.length; row++) {
+                                    historyFooters[row] = obj.options.footers[row].splice(columnNumber, numOfColumns);
+                                }
+                            }
+
+                            // Remove selection
+                            obj.conditionalSelectionUpdate(0, columnNumber, (columnNumber + numOfColumns) - 1);
+
+                            // Adjust nested headers
+                            if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                                // Flexible way to handle nestedheaders
+                                if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                                    for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
+                                        var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) - numOfColumns;
+                                        obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan = colspan;
+                                        obj.thead.children[j].children[obj.thead.children[j].children.length - 1].setAttribute('colspan', colspan);
+                                    }
+                                } else {
+                                    var colspan = parseInt(obj.options.nestedHeaders[0].colspan) - numOfColumns;
+                                    obj.options.nestedHeaders[0].colspan = colspan;
+                                    obj.thead.children[0].children[obj.thead.children[0].children.length - 1].setAttribute('colspan', colspan);
+                                }
+                            }
+
+                            // Keeping history of changes
+                            obj.setHistory({
+                                action: 'deleteColumn',
+                                columnNumber: columnNumber,
+                                numOfColumns: numOfColumns,
+                                insertBefore: 1,
+                                columns: columns,
+                                headers: historyHeaders,
+                                colgroup: historyColgroup,
+                                records: historyRecords,
+                                footers: historyFooters,
+                                data: historyData,
+                            });
+
+                            // Update table references
+                            obj.updateTableReferences();
+
+                            // Delete
+                            obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
                         }
-
-                        // Keeping history of changes
-                        obj.setHistory({
-                            action:'deleteColumn',
-                            columnNumber:columnNumber,
-                            numOfColumns:numOfColumns,
-                            insertBefore: 1,
-                            columns:columns,
-                            headers:historyHeaders,
-                            colgroup:historyColgroup,
-                            records:historyRecords,
-                            footers:historyFooters,
-                            data:historyData,
-                        });
-
-                        // Update table references
-                        obj.updateTableReferences();
-
-                        // Delete
-                        obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
-                    }
+                    });
                 } else {
                     console.error('Jspreadsheet: It is not possible to delete the last column');
                 }
@@ -6453,113 +6483,118 @@ if (! formula && typeof(require) === 'function') {
          */
         obj.paste = function(x, y, data) {
             // Paste filter
-            var ret = obj.dispatch('onbeforepaste', el, data, x, y);
+            obj.dispatch('onbeforepaste', el, data, x, y).then(ret => {
 
-            if (ret === false) {
-                return false;
-            } else if (ret) {
-                var data = ret;
-            }
+                if (ret === false) {
+                    return false;
+                } else if (ret) {
+                    var data = ret;
+                }
 
-            // Controls
-            var hash = obj.hash(data);
-            var style = (hash == obj.hashString) ? obj.style : null;
+                // Controls
+                var hash = obj.hash(data);
+                var style = (hash == obj.hashString) ? obj.style : null;
 
-            // Depending on the behavior
-            if (obj.options.copyCompatibility == true && hash == obj.hashString) {
-                var data = obj.data;
-            }
+                // Depending on the behavior
+                if (obj.options.copyCompatibility == true && hash == obj.hashString) {
+                    var data = obj.data;
+                }
 
-            // Split new line
-            var data = obj.parseCSV(data, "\t");
+                // Split new line
+                var data = obj.parseCSV(data, "\t");
 
-            if (x != null && y != null && data) {
-                // Records
-                var i = 0;
-                var j = 0;
-                var records = [];
-                var newStyle = {};
-                var oldStyle = {};
-                var styleIndex = 0;
+                if (x != null && y != null && data) {
+                    // Records
+                    var i = 0;
+                    var j = 0;
+                    var records = [];
+                    var newStyle = {};
+                    var oldStyle = {};
+                    var styleIndex = 0;
 
-                // Index
-                var colIndex = parseInt(x);
-                var rowIndex = parseInt(y);
-                var row = null;
+                    // Index
+                    var colIndex = parseInt(x);
+                    var rowIndex = parseInt(y);
+                    var row = null;
 
-                // Go through the columns to get the data
-                while (row = data[j]) {
-                    i = 0;
-                    colIndex = parseInt(x);
+                    // Go through the columns to get the data
+                    while (row = data[j]) {
+                        i = 0;
+                        colIndex = parseInt(x);
 
-                    while (row[i] != null) {
-                        // Update and keep history
-                        var record = obj.updateCell(colIndex, rowIndex, row[i]);
-                        // Keep history
-                        records.push(record);
-                        // Update all formulas in the chain
-                        obj.updateFormulaChain(colIndex, rowIndex, records);
-                        // Style
-                        if (style && style[styleIndex]) {
-                            var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
-                            newStyle[columnName] = style[styleIndex];
-                            oldStyle[columnName] = obj.getStyle(columnName);
-                            obj.records[rowIndex][colIndex].setAttribute('style', style[styleIndex]);
-                            styleIndex++
+                        while (row[i] != null) {
+                            // Update and keep history
+                            var record = obj.updateCell(colIndex, rowIndex, row[i]);
+                            // Keep history
+                            records.push(record);
+                            // Update all formulas in the chain
+                            obj.updateFormulaChain(colIndex, rowIndex, records);
+                            // Style
+                            if (style && style[styleIndex]) {
+                                var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
+                                newStyle[columnName] = style[styleIndex];
+                                oldStyle[columnName] = obj.getStyle(columnName);
+                                obj.records[rowIndex][colIndex].setAttribute('style', style[styleIndex]);
+                                styleIndex++
+                            }
+                            i++;
+                            if (row[i] != null) {
+                                if (colIndex >= obj.headers.length - 1) {
+                                    // If the pasted column is out of range, create it if possible
+                                    if (obj.options.allowInsertColumn == true) {
+                                        obj.insertColumn();
+                                        // Otherwise skip the pasted data that overflows
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                colIndex = obj.right.get(colIndex, rowIndex);
+                            }
                         }
-                        i++;
-                        if (row[i] != null) {
-                            if (colIndex >= obj.headers.length - 1) {
-                                // If the pasted column is out of range, create it if possible
-                                if (obj.options.allowInsertColumn == true) {
-                                    obj.insertColumn();
+
+                        j++;
+                        if (data[j]) {
+                            if (rowIndex >= obj.rows.length - 1) {
+                                // If the pasted row is out of range, create it if possible
+                                if (obj.options.allowInsertRow == true) {
+                                    obj.insertRow();
                                     // Otherwise skip the pasted data that overflows
                                 } else {
                                     break;
                                 }
                             }
-                            colIndex = obj.right.get(colIndex, rowIndex);
+                            rowIndex = obj.down.get(x, rowIndex);
                         }
                     }
 
-                    j++;
-                    if (data[j]) {
-                        if (rowIndex >= obj.rows.length-1) {
-                            // If the pasted row is out of range, create it if possible
-                            if (obj.options.allowInsertRow == true) {
-                                obj.insertRow();
-                                // Otherwise skip the pasted data that overflows
-                            } else {
-                                break;
-                            }
-                        }
-                        rowIndex = obj.down.get(x, rowIndex);
-                    }
+
+                    Promise.all(records.map(r => Promise.resolve(r))).then(_records => {
+
+                        // Select the new cells
+                        obj.updateSelectionFromCoords(x, y, colIndex, rowIndex);
+
+                        // Update history
+                        obj.setHistory({
+                            action: 'setValue',
+                            records: _records,
+                            selection: obj.selectedCell,
+                            newStyle: newStyle,
+                            oldStyle: oldStyle,
+                        });
+
+                        // Update table
+                        obj.updateTable();
+
+                        // Paste event
+                        obj.dispatch('onpaste', el, data);
+
+                        // On after changes
+                        obj.onafterchanges(el, _records);
+                    });
                 }
 
-                // Select the new cells
-                obj.updateSelectionFromCoords(x, y, colIndex, rowIndex);
-
-                // Update history
-                obj.setHistory({
-                    action:'setValue',
-                    records:records,
-                    selection:obj.selectedCell,
-                    newStyle:newStyle,
-                    oldStyle:oldStyle,
-                });
-
-                // Update table
-                obj.updateTable();
-
-                // Paste event
-                obj.dispatch('onpaste', el, data);
-
-                // On after changes
-                obj.onafterchanges(el, records);
-            }
-
-            obj.removeCopyingSelection();
+                obj.removeCopyingSelection();
+            });
         }
 
         /**

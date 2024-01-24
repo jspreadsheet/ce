@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 
 describe("Data", () => {
-  it("Testing data", () => {
+  it("Testing data", async () => {
     let test = jspreadsheet(root, {
       data: [
         ["Mazda", 2001, 2000, 1],
@@ -11,7 +11,7 @@ describe("Data", () => {
       ],
     });
 
-    test.setValue("D1", "=B1+C1");
+    await test.setValue("D1", "=B1+C1");
     expect(test.getValue("D1")).to.equal("=B1+C1");
     expect(test.getValue("D1", true)).to.equal("4001");
 
