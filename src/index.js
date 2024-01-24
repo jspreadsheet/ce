@@ -2538,7 +2538,7 @@ if (! formula && typeof(require) === 'function') {
                     // Update history
                     obj.setHistory({
                         action: 'setValue',
-                        records: _recordsrecords,
+                        records: _records,
                         selection: obj.selectedCell,
                     });
 
@@ -2586,118 +2586,125 @@ if (! formula && typeof(require) === 'function') {
 
                 // On change                
                 var record = Promise.resolve(obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value)).then(val => {
+                    
+                    var tempValue = Promise.resolve(value)
+
                     // If you return something this will overwrite the value
                     if (val != undefined) {
-                        value = val;
+                        tempValue = Promise.resolve(val);
                     }
 
                     if (obj.options.columns[x].editor && typeof (obj.options.columns[x].editor.updateCell) == 'function') {
-                        value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
+                        tempValue = Promise.resolve(obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force));
                     }
 
-                    // History format
-                    var record = {
-                        x: x,
-                        y: y,
-                        col: x,
-                        row: y,
-                        newValue: value,
-                        oldValue: obj.options.data[y][x],
-                    }
+                    tempValue.then(v => { 
+                        value = v;
 
-                    let editor = obj.options.columns[x].editor;
-                    if (editor) {
-                        // Update data and cell
-                        obj.options.data[y][x] = value;
-                        if (typeof (editor.setValue) === 'function') {
-                            editor.setValue(obj.records[y][x], value);
+                        // History format
+                        var record = {
+                            x: x,
+                            y: y,
+                            col: x,
+                            row: y,
+                            newValue: value,
+                            oldValue: obj.options.data[y][x],
                         }
-                    } else {
-                        // Native functions
-                        if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
-                            // Unchecked all options
-                            if (obj.options.columns[x].type == 'radio') {
-                                for (var j = 0; j < obj.options.data.length; j++) {
-                                    obj.options.data[j][x] = false;
-                                }
-                            }
 
-                            // Update data and cell
-                            obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true' || value == 'TRUE') ? true : false;
-                            obj.options.data[y][x] = obj.records[y][x].children[0].checked;
-                        } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                        let editor = obj.options.columns[x].editor;
+                        if (editor) {
                             // Update data and cell
                             obj.options.data[y][x] = value;
-                            obj.records[y][x].textContent = obj.getDropDownValue(x, value);
-                        } else if (obj.options.columns[x].type == 'calendar') {
-                            // Try formatted date
-                            var formatted = null;
-                            if (!validDate(value)) {
-                                var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
-                                if (tmp) {
-                                    formatted = tmp;
-                                }
-                            }
-                            // Update data and cell
-                            obj.options.data[y][x] = value;
-                            obj.records[y][x].textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
-                        } else if (obj.options.columns[x].type == 'color') {
-                            // Update color
-                            obj.options.data[y][x] = value;
-                            // Render
-                            if (obj.options.columns[x].render == 'square') {
-                                var color = document.createElement('div');
-                                color.className = 'color';
-                                color.style.backgroundColor = value;
-                                obj.records[y][x].textContent = '';
-                                obj.records[y][x].appendChild(color);
-                            } else {
-                                obj.records[y][x].style.color = value;
-                                obj.records[y][x].textContent = value;
-                            }
-                        } else if (obj.options.columns[x].type == 'image') {
-                            value = '' + value;
-                            obj.options.data[y][x] = value;
-                            obj.records[y][x].innerHTML = '';
-                            if (value && value.substr(0, 10) == 'data:image') {
-                                var img = document.createElement('img');
-                                img.src = value;
-                                obj.records[y][x].appendChild(img);
+                            if (typeof (editor.setValue) === 'function') {
+                                editor.setValue(obj.records[y][x], value);
                             }
                         } else {
-                            // Update data and cell
-                            obj.options.data[y][x] = value;
-                            // Label
-                            if (obj.options.columns[x].type == 'html') {
-                                obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
-                            } else {
-                                if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
-                                    obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value, obj.records[y][x]));
+                            // Native functions
+                            if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
+                                // Unchecked all options
+                                if (obj.options.columns[x].type == 'radio') {
+                                    for (var j = 0; j < obj.options.data.length; j++) {
+                                        obj.options.data[j][x] = false;
+                                    }
+                                }
+
+                                // Update data and cell
+                                obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true' || value == 'TRUE') ? true : false;
+                                obj.options.data[y][x] = obj.records[y][x].children[0].checked;
+                            } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                                // Update data and cell
+                                obj.options.data[y][x] = value;
+                                obj.records[y][x].textContent = obj.getDropDownValue(x, value);
+                            } else if (obj.options.columns[x].type == 'calendar') {
+                                // Try formatted date
+                                var formatted = null;
+                                if (!validDate(value)) {
+                                    var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                                    if (tmp) {
+                                        formatted = tmp;
+                                    }
+                                }
+                                // Update data and cell
+                                obj.options.data[y][x] = value;
+                                obj.records[y][x].textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
+                            } else if (obj.options.columns[x].type == 'color') {
+                                // Update color
+                                obj.options.data[y][x] = value;
+                                // Render
+                                if (obj.options.columns[x].render == 'square') {
+                                    var color = document.createElement('div');
+                                    color.className = 'color';
+                                    color.style.backgroundColor = value;
+                                    obj.records[y][x].textContent = '';
+                                    obj.records[y][x].appendChild(color);
                                 } else {
-                                    obj.records[y][x].textContent = obj.parseValue(x, y, value, obj.records[y][x]);
+                                    obj.records[y][x].style.color = value;
+                                    obj.records[y][x].textContent = value;
+                                }
+                            } else if (obj.options.columns[x].type == 'image') {
+                                value = '' + value;
+                                obj.options.data[y][x] = value;
+                                obj.records[y][x].innerHTML = '';
+                                if (value && value.substr(0, 10) == 'data:image') {
+                                    var img = document.createElement('img');
+                                    img.src = value;
+                                    obj.records[y][x].appendChild(img);
+                                }
+                            } else {
+                                // Update data and cell
+                                obj.options.data[y][x] = value;
+                                // Label
+                                if (obj.options.columns[x].type == 'html') {
+                                    obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                                } else {
+                                    if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
+                                        obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value, obj.records[y][x]));
+                                    } else {
+                                        obj.records[y][x].textContent = obj.parseValue(x, y, value, obj.records[y][x]);
+                                    }
+                                }
+                                // Handle big text inside a cell
+                                if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
+                                    obj.records[y][x].style.whiteSpace = 'pre-wrap';
+                                } else {
+                                    obj.records[y][x].style.whiteSpace = '';
                                 }
                             }
-                            // Handle big text inside a cell
-                            if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
-                                obj.records[y][x].style.whiteSpace = 'pre-wrap';
+                        }
+
+                        // Overflow
+                        if (x > 0) {
+                            if (value) {
+                                obj.records[y][x - 1].style.overflow = 'hidden';
                             } else {
-                                obj.records[y][x].style.whiteSpace = '';
+                                obj.records[y][x - 1].style.overflow = '';
                             }
                         }
-                    }
 
-                    // Overflow
-                    if (x > 0) {
-                        if (value) {
-                            obj.records[y][x - 1].style.overflow = 'hidden';
-                        } else {
-                            obj.records[y][x - 1].style.overflow = '';
-                        }
-                    }
-
-                    // On change
-                    obj.dispatch('onchange', el, (obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null), x, y, value, record.oldValue);
-                    return record;
+                        // On change
+                        obj.dispatch('onchange', el, (obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null), x, y, value, record.oldValue);
+                        return record;
+                    })
                 });
             }
 
