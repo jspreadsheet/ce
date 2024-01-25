@@ -6488,10 +6488,11 @@ if (! formula && typeof(require) === 'function') {
          * @param integer row number
          * @return string value
          */
-        obj.paste = function(x, y, data) {
+        obj.paste = function (x, y, data) {
+            var context = { data: data }
             // Paste filter
-            obj.dispatch('onbeforepaste', el, data, x, y).then(ret => {
-
+            Promise.resolve(obj.dispatch('onbeforepaste', el, data, x, y)).then(function(ret) {
+                var data = context.data
                 if (ret === false) {
                     return false;
                 } else if (ret) {
