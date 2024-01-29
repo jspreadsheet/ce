@@ -1,1 +1,15109 @@
-if(!jSuites&&"function"==typeof require)var jSuites=require("jsuites");!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.jspreadsheet=t():e.jspreadsheet=t()}(self,(function(){return function(){var __webpack_modules__={243:function(e){var t;e.exports=(function(){var e={765:function(e,t){var o;o=function(e){e.version="1.0.2";var t=Math;function o(e,t){for(var o=0,n=0;o<e.length;++o)n=t*n+e[o];return n}function n(e,t,o,n,r){if(0===t)return o;if(1===t)return n;for(var l=2/e,i=n,s=1;s<t;++s)i=n*s*l+r*o,o=n,n=i;return i}function r(e,t,o,r,l){return function(o,i){if(r){if(0===o)return 1==r?-1/0:1/0;if(o<0)return NaN}return 0===i?e(o):1===i?t(o):i<0?NaN:n(o,i|=0,e(o),t(o),l)}}var l,i,s,a,u,c,f,d,p,b,j,h,g,m=function(){var e=.636619772,r=[57568490574,-13362590354,651619640.7,-11214424.18,77392.33017,-184.9052456].reverse(),l=[57568490411,1029532985,9494680.718,59272.64853,267.8532712,1].reverse(),i=[1,-.001098628627,2734510407e-14,-2073370639e-15,2.093887211e-7].reverse(),s=[-.01562499995,.0001430488765,-6911147651e-15,7.621095161e-7,-9.34935152e-8].reverse();function a(n){var a=0,u=0,c=0,f=n*n;if(n<8)a=(u=o(r,f))/(c=o(l,f));else{var d=n-.785398164;u=o(i,f=64/f),c=o(s,f),a=t.sqrt(e/n)*(t.cos(d)*u-t.sin(d)*c*8/n)}return a}var u=[72362614232,-7895059235,242396853.1,-2972611.439,15704.4826,-30.16036606].reverse(),c=[144725228442,2300535178,18583304.74,99447.43394,376.9991397,1].reverse(),f=[1,.00183105,-3516396496e-14,2457520174e-15,-2.40337019e-7].reverse(),d=[.04687499995,-.0002002690873,8449199096e-15,-8.8228987e-7,1.05787412e-7].reverse();function p(n){var r=0,l=0,i=0,s=n*n,a=t.abs(n)-2.356194491;return Math.abs(n)<8?r=(l=n*o(u,s))/(i=o(c,s)):(l=o(f,s=64/s),i=o(d,s),r=t.sqrt(e/t.abs(n))*(t.cos(a)*l-t.sin(a)*i*8/t.abs(n)),n<0&&(r=-r)),r}return function e(o,r){if(r=Math.round(r),!isFinite(o))return isNaN(o)?o:0;if(r<0)return(r%2?-1:1)*e(o,-r);if(o<0)return(r%2?-1:1)*e(-o,r);if(0===r)return a(o);if(1===r)return p(o);if(0===o)return 0;var l=0;if(o>r)l=n(o,r,a(o),p(o),-1);else{for(var i=!1,s=0,u=0,c=1,f=0,d=2/o,b=2*t.floor((r+t.floor(t.sqrt(40*r)))/2);b>0;b--)f=b*d*c-s,s=c,c=f,t.abs(c)>1e10&&(c*=1e-10,s*=1e-10,l*=1e-10,u*=1e-10),i&&(u+=c),i=!i,b==r&&(l=s);l/=u=2*u-c}return l}}(),v=(l=.636619772,i=[-2957821389,7062834065,-512359803.6,10879881.29,-86327.92757,228.4622733].reverse(),s=[40076544269,745249964.8,7189466.438,47447.2647,226.1030244,1].reverse(),a=[1,-.001098628627,2734510407e-14,-2073370639e-15,2.093887211e-7].reverse(),u=[-.01562499995,.0001430488765,-6911147651e-15,7.621095161e-7,-9.34945152e-8].reverse(),c=[-4900604943e3,127527439e4,-51534381390,734926455.1,-4237922.726,8511.937935].reverse(),f=[249958057e5,424441966400,3733650367,22459040.02,102042.605,354.9632885,1].reverse(),d=[1,.00183105,-3516396496e-14,2457520174e-15,-2.40337019e-7].reverse(),p=[.04687499995,-.0002002690873,8449199096e-15,-8.8228987e-7,1.05787412e-7].reverse(),r((function(e){var n=0,r=0,c=0,f=e*e,d=e-.785398164;return e<8?n=(r=o(i,f))/(c=o(s,f))+l*m(e,0)*t.log(e):(r=o(a,f=64/f),c=o(u,f),n=t.sqrt(l/e)*(t.sin(d)*r+t.cos(d)*c*8/e)),n}),(function(e){var n=0,r=0,i=0,s=e*e,a=e-2.356194491;return e<8?n=(r=e*o(c,s))/(i=o(f,s))+l*(m(e,1)*t.log(e)-1/e):(r=o(d,s=64/s),i=o(p,s),n=t.sqrt(l/e)*(t.sin(a)*r+t.cos(a)*i*8/e)),n}),0,1,-1)),y=(b=[1,3.5156229,3.0899424,1.2067492,.2659732,.0360768,.0045813].reverse(),j=[.39894228,.01328592,.00225319,-.00157565,.00916281,-.02057706,.02635537,-.01647633,.00392377].reverse(),h=[.5,.87890594,.51498869,.15084934,.02658733,.00301532,32411e-8].reverse(),g=[.39894228,-.03988024,-.00362018,.00163801,-.01031555,.02282967,-.02895312,.01787654,-.00420059].reverse(),function e(n,r){if(0===(r=Math.round(r)))return function(e){return e<=3.75?o(b,e*e/14.0625):t.exp(t.abs(e))/t.sqrt(t.abs(e))*o(j,3.75/t.abs(e))}(n);if(1===r)return function(e){return e<3.75?e*o(h,e*e/14.0625):(e<0?-1:1)*t.exp(t.abs(e))/t.sqrt(t.abs(e))*o(g,3.75/t.abs(e))}(n);if(r<0)return NaN;if(0===t.abs(n))return 0;if(n==1/0)return 1/0;var l,i=0,s=2/t.abs(n),a=0,u=1,c=0;for(l=2*t.round((r+t.round(t.sqrt(40*r)))/2);l>0;l--)c=l*s*u+a,a=u,u=c,t.abs(u)>1e10&&(u*=1e-10,a*=1e-10,i*=1e-10),l==r&&(i=a);return i*=e(n,0)/u,n<0&&r%2?-i:i}),C=function(){var e=[-.57721566,.4227842,.23069756,.0348859,.00262698,1075e-7,74e-7].reverse(),n=[1.25331414,-.07832358,.02189568,-.01062446,.00587872,-.0025154,53208e-8].reverse(),l=[1,.15443144,-.67278579,-.18156897,-.01919402,-.00110404,-4686e-8].reverse(),i=[1.25331414,.23498619,-.0365562,.01504268,-.00780353,.00325614,-68245e-8].reverse();return r((function(r){return r<=2?-t.log(r/2)*y(r,0)+o(e,r*r/4):t.exp(-r)/t.sqrt(r)*o(n,2/r)}),(function(e){return e<=2?t.log(e/2)*y(e,1)+1/e*o(l,e*e/4):t.exp(-e)/t.sqrt(e)*o(i,2/e)}),0,2,1)}();e.besselj=m,e.bessely=v,e.besseli=y,e.besselk=C},"undefined"==typeof DO_NOT_EXPORT_BESSEL?o(t):o({})},162:function(e){var t;e.exports=(t=function(e,t){var o=Array.prototype.concat,n=Array.prototype.slice,r=Object.prototype.toString;function l(t,o){var n=t>o?t:o;return e.pow(10,17-~~(e.log(n>0?n:-n)*e.LOG10E))}var i=Array.isArray||function(e){return"[object Array]"===r.call(e)};function s(e){return"[object Function]"===r.call(e)}function a(e){return"number"==typeof e&&e-e==0}function u(){return new u._init(arguments)}function c(){return 0}function f(){return 1}function d(e,t){return e===t?1:0}u.fn=u.prototype,u._init=function(e){if(i(e[0]))if(i(e[0][0])){s(e[1])&&(e[0]=u.map(e[0],e[1]));for(var t=0;t<e[0].length;t++)this[t]=e[0][t];this.length=e[0].length}else this[0]=s(e[1])?u.map(e[0],e[1]):e[0],this.length=1;else if(a(e[0]))this[0]=u.seq.apply(null,e),this.length=1;else{if(e[0]instanceof u)return u(e[0].toArray());this[0]=[],this.length=1}return this},u._init.prototype=u.prototype,u._init.constructor=u,u.utils={calcRdx:l,isArray:i,isFunction:s,isNumber:a,toVector:function(e){return o.apply([],e)}},u._random_fn=e.random,u.setRandom=function(e){if("function"!=typeof e)throw new TypeError("fn is not a function");u._random_fn=e},u.extend=function(e){var t,o;if(1===arguments.length){for(o in e)u[o]=e[o];return this}for(t=1;t<arguments.length;t++)for(o in arguments[t])e[o]=arguments[t][o];return e},u.rows=function(e){return e.length||1},u.cols=function(e){return e[0].length||1},u.dimensions=function(e){return{rows:u.rows(e),cols:u.cols(e)}},u.row=function(e,t){return i(t)?t.map((function(t){return u.row(e,t)})):e[t]},u.rowa=function(e,t){return u.row(e,t)},u.col=function(e,t){if(i(t)){var o=u.arange(e.length).map((function(){return new Array(t.length)}));return t.forEach((function(t,n){u.arange(e.length).forEach((function(r){o[r][n]=e[r][t]}))})),o}for(var n=new Array(e.length),r=0;r<e.length;r++)n[r]=[e[r][t]];return n},u.cola=function(e,t){return u.col(e,t).map((function(e){return e[0]}))},u.diag=function(e){for(var t=u.rows(e),o=new Array(t),n=0;n<t;n++)o[n]=[e[n][n]];return o},u.antidiag=function(e){for(var t=u.rows(e)-1,o=new Array(t),n=0;t>=0;t--,n++)o[n]=[e[n][t]];return o},u.transpose=function(e){var t,o,n,r,l,s=[];for(i(e[0])||(e=[e]),o=e.length,n=e[0].length,l=0;l<n;l++){for(t=new Array(o),r=0;r<o;r++)t[r]=e[r][l];s.push(t)}return 1===s.length?s[0]:s},u.map=function(e,t,o){var n,r,l,s,a;for(i(e[0])||(e=[e]),r=e.length,l=e[0].length,s=o?e:new Array(r),n=0;n<r;n++)for(s[n]||(s[n]=new Array(l)),a=0;a<l;a++)s[n][a]=t(e[n][a],n,a);return 1===s.length?s[0]:s},u.cumreduce=function(e,t,o){var n,r,l,s,a;for(i(e[0])||(e=[e]),r=e.length,l=e[0].length,s=o?e:new Array(r),n=0;n<r;n++)for(s[n]||(s[n]=new Array(l)),l>0&&(s[n][0]=e[n][0]),a=1;a<l;a++)s[n][a]=t(s[n][a-1],e[n][a]);return 1===s.length?s[0]:s},u.alter=function(e,t){return u.map(e,t,!0)},u.create=function(e,t,o){var n,r,l=new Array(e);for(s(t)&&(o=t,t=e),n=0;n<e;n++)for(l[n]=new Array(t),r=0;r<t;r++)l[n][r]=o(n,r);return l},u.zeros=function(e,t){return a(t)||(t=e),u.create(e,t,c)},u.ones=function(e,t){return a(t)||(t=e),u.create(e,t,f)},u.rand=function(e,t){return a(t)||(t=e),u.create(e,t,u._random_fn)},u.identity=function(e,t){return a(t)||(t=e),u.create(e,t,d)},u.symmetric=function(e){var t,o,n=e.length;if(e.length!==e[0].length)return!1;for(t=0;t<n;t++)for(o=0;o<n;o++)if(e[o][t]!==e[t][o])return!1;return!0},u.clear=function(e){return u.alter(e,c)},u.seq=function(e,t,o,n){s(n)||(n=!1);var r,i=[],a=l(e,t),u=(t*a-e*a)/((o-1)*a),c=e;for(r=0;c<=t&&r<o;c=(e*a+u*a*++r)/a)i.push(n?n(c,r):c);return i},u.arange=function(e,o,n){var r,l=[];if(n=n||1,o===t&&(o=e,e=0),e===o||0===n)return[];if(e<o&&n<0)return[];if(e>o&&n>0)return[];if(n>0)for(r=e;r<o;r+=n)l.push(r);else for(r=e;r>o;r+=n)l.push(r);return l},u.slice=function(){function e(e,o,n,r){var l,i=[],s=e.length;if(o===t&&n===t&&r===t)return u.copy(e);if(r=r||1,(o=(o=o||0)>=0?o:s+o)===(n=(n=n||e.length)>=0?n:s+n)||0===r)return[];if(o<n&&r<0)return[];if(o>n&&r>0)return[];if(r>0)for(l=o;l<n;l+=r)i.push(e[l]);else for(l=o;l>n;l+=r)i.push(e[l]);return i}return function(t,o){var n,r;return a((o=o||{}).row)?a(o.col)?t[o.row][o.col]:e(u.rowa(t,o.row),(n=o.col||{}).start,n.end,n.step):a(o.col)?e(u.cola(t,o.col),(r=o.row||{}).start,r.end,r.step):(r=o.row||{},n=o.col||{},e(t,r.start,r.end,r.step).map((function(t){return e(t,n.start,n.end,n.step)})))}}(),u.sliceAssign=function(o,n,r){var l,i;if(a(n.row)){if(a(n.col))return o[n.row][n.col]=r;n.col=n.col||{},n.col.start=n.col.start||0,n.col.end=n.col.end||o[0].length,n.col.step=n.col.step||1,l=u.arange(n.col.start,e.min(o.length,n.col.end),n.col.step);var s=n.row;return l.forEach((function(e,t){o[s][e]=r[t]})),o}if(a(n.col)){n.row=n.row||{},n.row.start=n.row.start||0,n.row.end=n.row.end||o.length,n.row.step=n.row.step||1,i=u.arange(n.row.start,e.min(o[0].length,n.row.end),n.row.step);var c=n.col;return i.forEach((function(e,t){o[e][c]=r[t]})),o}return r[0].length===t&&(r=[r]),n.row.start=n.row.start||0,n.row.end=n.row.end||o.length,n.row.step=n.row.step||1,n.col.start=n.col.start||0,n.col.end=n.col.end||o[0].length,n.col.step=n.col.step||1,i=u.arange(n.row.start,e.min(o.length,n.row.end),n.row.step),l=u.arange(n.col.start,e.min(o[0].length,n.col.end),n.col.step),i.forEach((function(e,t){l.forEach((function(n,l){o[e][n]=r[t][l]}))})),o},u.diagonal=function(e){var t=u.zeros(e.length,e.length);return e.forEach((function(e,o){t[o][o]=e})),t},u.copy=function(e){return e.map((function(e){return a(e)?e:e.map((function(e){return e}))}))};var p=u.prototype;return p.length=0,p.push=Array.prototype.push,p.sort=Array.prototype.sort,p.splice=Array.prototype.splice,p.slice=Array.prototype.slice,p.toArray=function(){return this.length>1?n.call(this):n.call(this)[0]},p.map=function(e,t){return u(u.map(this,e,t))},p.cumreduce=function(e,t){return u(u.cumreduce(this,e,t))},p.alter=function(e){return u.alter(this,e),this},function(e){for(var t=0;t<e.length;t++)!function(e){p[e]=function(t){var o,n=this;return t?(setTimeout((function(){t.call(n,p[e].call(n))})),this):(o=u[e](this),i(o)?u(o):o)}}(e[t])}("transpose clear symmetric rows cols dimensions diag antidiag".split(" ")),function(e){for(var t=0;t<e.length;t++)!function(e){p[e]=function(t,o){var n=this;return o?(setTimeout((function(){o.call(n,p[e].call(n,t))})),this):u(u[e](this,t))}}(e[t])}("row col".split(" ")),function(e){for(var t=0;t<e.length;t++)!function(e){p[e]=function(){return u(u[e].apply(null,arguments))}}(e[t])}("create zeros ones rand identity".split(" ")),u}(Math),function(e,t){var o=e.utils.isFunction;function n(e,t){return e-t}function r(e,o,n){return t.max(o,t.min(e,n))}e.sum=function(e){for(var t=0,o=e.length;--o>=0;)t+=e[o];return t},e.sumsqrd=function(e){for(var t=0,o=e.length;--o>=0;)t+=e[o]*e[o];return t},e.sumsqerr=function(t){for(var o,n=e.mean(t),r=0,l=t.length;--l>=0;)r+=(o=t[l]-n)*o;return r},e.sumrow=function(e){for(var t=0,o=e.length;--o>=0;)t+=e[o];return t},e.product=function(e){for(var t=1,o=e.length;--o>=0;)t*=e[o];return t},e.min=function(e){for(var t=e[0],o=0;++o<e.length;)e[o]<t&&(t=e[o]);return t},e.max=function(e){for(var t=e[0],o=0;++o<e.length;)e[o]>t&&(t=e[o]);return t},e.unique=function(e){for(var t={},o=[],n=0;n<e.length;n++)t[e[n]]||(t[e[n]]=!0,o.push(e[n]));return o},e.mean=function(t){return e.sum(t)/t.length},e.meansqerr=function(t){return e.sumsqerr(t)/t.length},e.geomean=function(o){var n=o.map(t.log),r=e.mean(n);return t.exp(r)},e.median=function(e){var t=e.length,o=e.slice().sort(n);return 1&t?o[t/2|0]:(o[t/2-1]+o[t/2])/2},e.cumsum=function(t){return e.cumreduce(t,(function(e,t){return e+t}))},e.cumprod=function(t){return e.cumreduce(t,(function(e,t){return e*t}))},e.diff=function(e){var t,o=[],n=e.length;for(t=1;t<n;t++)o.push(e[t]-e[t-1]);return o},e.rank=function(e){var t,o=[],r={};for(t=0;t<e.length;t++)r[a=e[t]]?r[a]++:(r[a]=1,o.push(a));var l=o.sort(n),i={},s=1;for(t=0;t<l.length;t++){var a,u=r[a=l[t]],c=(s+(s+u-1))/2;i[a]=c,s+=u}return e.map((function(e){return i[e]}))},e.mode=function(e){var t,o=e.length,r=e.slice().sort(n),l=1,i=0,s=0,a=[];for(t=0;t<o;t++)r[t]===r[t+1]?l++:(l>i?(a=[r[t]],i=l,s=0):l===i&&(a.push(r[t]),s++),l=1);return 0===s?a[0]:a},e.range=function(t){return e.max(t)-e.min(t)},e.variance=function(t,o){return e.sumsqerr(t)/(t.length-(o?1:0))},e.pooledvariance=function(t){return t.reduce((function(t,o){return t+e.sumsqerr(o)}),0)/(t.reduce((function(e,t){return e+t.length}),0)-t.length)},e.deviation=function(t){for(var o=e.mean(t),n=t.length,r=new Array(n),l=0;l<n;l++)r[l]=t[l]-o;return r},e.stdev=function(o,n){return t.sqrt(e.variance(o,n))},e.pooledstdev=function(o){return t.sqrt(e.pooledvariance(o))},e.meandev=function(o){for(var n=e.mean(o),r=[],l=o.length-1;l>=0;l--)r.push(t.abs(o[l]-n));return e.mean(r)},e.meddev=function(o){for(var n=e.median(o),r=[],l=o.length-1;l>=0;l--)r.push(t.abs(o[l]-n));return e.median(r)},e.coeffvar=function(t){return e.stdev(t)/e.mean(t)},e.quartiles=function(e){var o=e.length,r=e.slice().sort(n);return[r[t.round(o/4)-1],r[t.round(o/2)-1],r[t.round(3*o/4)-1]]},e.quantiles=function(e,o,l,i){var s,a,u,c,f,d=e.slice().sort(n),p=[o.length],b=e.length;for(void 0===l&&(l=3/8),void 0===i&&(i=3/8),s=0;s<o.length;s++)u=b*(a=o[s])+(l+a*(1-l-i)),c=t.floor(r(u,1,b-1)),f=r(u-c,0,1),p[s]=(1-f)*d[c-1]+f*d[c];return p},e.percentile=function(e,t,o){var r=e.slice().sort(n),l=t*(r.length+(o?1:-1))+(o?0:1),i=parseInt(l),s=l-i;return i+1<r.length?r[i-1]+s*(r[i]-r[i-1]):r[i-1]},e.percentileOfScore=function(e,t,o){var n,r,l=0,i=e.length,s=!1;for("strict"===o&&(s=!0),r=0;r<i;r++)n=e[r],(s&&n<t||!s&&n<=t)&&l++;return l/i},e.histogram=function(o,n){n=n||4;var r,l=e.min(o),i=(e.max(o)-l)/n,s=o.length,a=[];for(r=0;r<n;r++)a[r]=0;for(r=0;r<s;r++)a[t.min(t.floor((o[r]-l)/i),n-1)]+=1;return a},e.covariance=function(t,o){var n,r=e.mean(t),l=e.mean(o),i=t.length,s=new Array(i);for(n=0;n<i;n++)s[n]=(t[n]-r)*(o[n]-l);return e.sum(s)/(i-1)},e.corrcoeff=function(t,o){return e.covariance(t,o)/e.stdev(t,1)/e.stdev(o,1)},e.spearmancoeff=function(t,o){return t=e.rank(t),o=e.rank(o),e.corrcoeff(t,o)},e.stanMoment=function(o,n){for(var r=e.mean(o),l=e.stdev(o),i=o.length,s=0,a=0;a<i;a++)s+=t.pow((o[a]-r)/l,n);return s/o.length},e.skewness=function(t){return e.stanMoment(t,3)},e.kurtosis=function(t){return e.stanMoment(t,4)-3};var l=e.prototype;!function(t){for(var n=0;n<t.length;n++)!function(t){l[t]=function(n,r){var i=[],s=0,a=this;if(o(n)&&(r=n,n=!1),r)return setTimeout((function(){r.call(a,l[t].call(a,n))})),this;if(this.length>1){for(a=!0===n?this:this.transpose();s<a.length;s++)i[s]=e[t](a[s]);return i}return e[t](this[0],n)}}(t[n])}("cumsum cumprod".split(" ")),function(t){for(var n=0;n<t.length;n++)!function(t){l[t]=function(n,r){var i=[],s=0,a=this;if(o(n)&&(r=n,n=!1),r)return setTimeout((function(){r.call(a,l[t].call(a,n))})),this;if(this.length>1){for("sumrow"!==t&&(a=!0===n?this:this.transpose());s<a.length;s++)i[s]=e[t](a[s]);return!0===n?e[t](e.utils.toVector(i)):i}return e[t](this[0],n)}}(t[n])}("sum sumsqrd sumsqerr sumrow product min max unique mean meansqerr geomean median diff rank mode range variance deviation stdev meandev meddev coeffvar quartiles histogram skewness kurtosis".split(" ")),function(t){for(var n=0;n<t.length;n++)!function(t){l[t]=function(){var n,r=[],i=0,s=this,a=Array.prototype.slice.call(arguments);if(o(a[a.length-1])){n=a[a.length-1];var u=a.slice(0,a.length-1);return setTimeout((function(){n.call(s,l[t].apply(s,u))})),this}n=void 0;var c=function(o){return e[t].apply(s,[o].concat(a))};if(this.length>1){for(s=s.transpose();i<s.length;i++)r[i]=c(s[i]);return r}return c(this[0])}}(t[n])}("quantiles percentileOfScore".split(" "))}(t,Math),function(e,t){e.gammaln=function(e){var o,n,r,l=0,i=[76.18009172947146,-86.50532032941678,24.01409824083091,-1.231739572450155,.001208650973866179,-5395239384953e-18],s=1.000000000190015;for(r=(n=o=e)+5.5,r-=(o+.5)*t.log(r);l<6;l++)s+=i[l]/++n;return t.log(2.5066282746310007*s/o)-r},e.loggam=function(e){var o,n,r,l,i,s,a,u=[.08333333333333333,-.002777777777777778,.0007936507936507937,-.0005952380952380952,.0008417508417508418,-.001917526917526918,.00641025641025641,-.02955065359477124,.1796443723688307,-1.3924322169059];if(o=e,a=0,1==e||2==e)return 0;for(e<=7&&(o=e+(a=t.floor(7-e))),n=1/(o*o),r=2*t.PI,i=u[9],s=8;s>=0;s--)i*=n,i+=u[s];if(l=i/o+.5*t.log(r)+(o-.5)*t.log(o)-o,e<=7)for(s=1;s<=a;s++)l-=t.log(o-1),o-=1;return l},e.gammafn=function(e){var o,n,r,l,i=[-1.716185138865495,24.76565080557592,-379.80425647094563,629.3311553128184,866.9662027904133,-31451.272968848367,-36144.413418691176,66456.14382024054],s=[-30.8402300119739,315.35062697960416,-1015.1563674902192,-3107.771671572311,22538.11842098015,4755.846277527881,-134659.9598649693,-115132.2596755535],a=!1,u=0,c=0,f=0,d=e;if(e>171.6243769536076)return 1/0;if(d<=0){if(!(l=d%1+36e-17))return 1/0;a=(1&d?-1:1)*t.PI/t.sin(t.PI*l),d=1-d}for(r=d,n=d<1?d++:(d-=u=(0|d)-1)-1,o=0;o<8;++o)f=(f+i[o])*n,c=c*n+s[o];if(l=f/c+1,r<d)l/=r;else if(r>d)for(o=0;o<u;++o)l*=d,d++;return a&&(l=a/l),l},e.gammap=function(t,o){return e.lowRegGamma(t,o)*e.gammafn(t)},e.lowRegGamma=function(o,n){var r,l=e.gammaln(o),i=o,s=1/o,a=s,u=n+1-o,c=1/1e-30,f=1/u,d=f,p=1,b=-~(8.5*t.log(o>=1?o:1/o)+.4*o+17);if(n<0||o<=0)return NaN;if(n<o+1){for(;p<=b;p++)s+=a*=n/++i;return s*t.exp(-n+o*t.log(n)-l)}for(;p<=b;p++)d*=(f=1/(f=(r=-p*(p-o))*f+(u+=2)))*(c=u+r/c);return 1-d*t.exp(-n+o*t.log(n)-l)},e.factorialln=function(t){return t<0?NaN:e.gammaln(t+1)},e.factorial=function(t){return t<0?NaN:e.gammafn(t+1)},e.combination=function(o,n){return o>170||n>170?t.exp(e.combinationln(o,n)):e.factorial(o)/e.factorial(n)/e.factorial(o-n)},e.combinationln=function(t,o){return e.factorialln(t)-e.factorialln(o)-e.factorialln(t-o)},e.permutation=function(t,o){return e.factorial(t)/e.factorial(t-o)},e.betafn=function(o,n){if(!(o<=0||n<=0))return o+n>170?t.exp(e.betaln(o,n)):e.gammafn(o)*e.gammafn(n)/e.gammafn(o+n)},e.betaln=function(t,o){return e.gammaln(t)+e.gammaln(o)-e.gammaln(t+o)},e.betacf=function(e,o,n){var r,l,i,s,a=1e-30,u=1,c=o+n,f=o+1,d=o-1,p=1,b=1-c*e/f;for(t.abs(b)<a&&(b=a),s=b=1/b;u<=100&&(b=1+(l=u*(n-u)*e/((d+(r=2*u))*(o+r)))*b,t.abs(b)<a&&(b=a),p=1+l/p,t.abs(p)<a&&(p=a),s*=(b=1/b)*p,b=1+(l=-(o+u)*(c+u)*e/((o+r)*(f+r)))*b,t.abs(b)<a&&(b=a),p=1+l/p,t.abs(p)<a&&(p=a),s*=i=(b=1/b)*p,!(t.abs(i-1)<3e-7));u++);return s},e.gammapinv=function(o,n){var r,l,i,s,a,u,c=0,f=n-1,d=e.gammaln(n);if(o>=1)return t.max(100,n+100*t.sqrt(n));if(o<=0)return 0;for(n>1?(a=t.log(f),u=t.exp(f*(a-1)-d),s=o<.5?o:1-o,r=(2.30753+.27061*(l=t.sqrt(-2*t.log(s))))/(1+l*(.99229+.04481*l))-l,o<.5&&(r=-r),r=t.max(.001,n*t.pow(1-1/(9*n)-r/(3*t.sqrt(n)),3))):r=o<(l=1-n*(.253+.12*n))?t.pow(o/l,1/n):1-t.log(1-(o-l)/(1-l));c<12;c++){if(r<=0)return 0;if((r-=l=(i=(e.lowRegGamma(n,r)-o)/(l=n>1?u*t.exp(-(r-f)+f*(t.log(r)-a)):t.exp(-r+f*t.log(r)-d)))/(1-.5*t.min(1,i*((n-1)/r-1))))<=0&&(r=.5*(r+l)),t.abs(l)<1e-8*r)break}return r},e.erf=function(e){var o,n,r,l,i=[-1.3026537197817094,.6419697923564902,.019476473204185836,-.00956151478680863,-.000946595344482036,.000366839497852761,42523324806907e-18,-20278578112534e-18,-1624290004647e-18,130365583558e-17,1.5626441722e-8,-8.5238095915e-8,6.529054439e-9,5.059343495e-9,-9.91364156e-10,-2.27365122e-10,96467911e-18,2394038e-18,-6886027e-18,894487e-18,313092e-18,-112708e-18,381e-18,7106e-18,-1523e-18,-94e-18,121e-18,-28e-18],s=i.length-1,a=!1,u=0,c=0;for(e<0&&(e=-e,a=!0),n=4*(o=2/(2+e))-2;s>0;s--)r=u,u=n*u-c+i[s],c=r;return l=o*t.exp(-e*e+.5*(i[0]+n*u)-c),a?l-1:1-l},e.erfc=function(t){return 1-e.erf(t)},e.erfcinv=function(o){var n,r,l,i,s=0;if(o>=2)return-100;if(o<=0)return 100;for(i=o<1?o:2-o,n=-.70711*((2.30753+.27061*(l=t.sqrt(-2*t.log(i/2))))/(1+l*(.99229+.04481*l))-l);s<2;s++)n+=(r=e.erfc(n)-i)/(1.1283791670955126*t.exp(-n*n)-n*r);return o<1?n:-n},e.ibetainv=function(o,n,r){var l,i,s,a,u,c,f,d,p,b,j=n-1,h=r-1,g=0;if(o<=0)return 0;if(o>=1)return 1;for(n>=1&&r>=1?(s=o<.5?o:1-o,c=(2.30753+.27061*(a=t.sqrt(-2*t.log(s))))/(1+a*(.99229+.04481*a))-a,o<.5&&(c=-c),f=(c*c-3)/6,d=2/(1/(2*n-1)+1/(2*r-1)),p=c*t.sqrt(f+d)/d-(1/(2*r-1)-1/(2*n-1))*(f+5/6-2/(3*d)),c=n/(n+r*t.exp(2*p))):(l=t.log(n/(n+r)),i=t.log(r/(n+r)),c=o<(a=t.exp(n*l)/n)/(p=a+(u=t.exp(r*i)/r))?t.pow(n*p*o,1/n):1-t.pow(r*p*(1-o),1/r)),b=-e.gammaln(n)-e.gammaln(r)+e.gammaln(n+r);g<10;g++){if(0===c||1===c)return c;if((c-=a=(u=(e.ibeta(c,n,r)-o)/(a=t.exp(j*t.log(c)+h*t.log(1-c)+b)))/(1-.5*t.min(1,u*(j/c-h/(1-c)))))<=0&&(c=.5*(c+a)),c>=1&&(c=.5*(c+a+1)),t.abs(a)<1e-8*c&&g>0)break}return c},e.ibeta=function(o,n,r){var l=0===o||1===o?0:t.exp(e.gammaln(n+r)-e.gammaln(n)-e.gammaln(r)+n*t.log(o)+r*t.log(1-o));return!(o<0||o>1)&&(o<(n+1)/(n+r+2)?l*e.betacf(o,n,r)/n:1-l*e.betacf(1-o,r,n)/r)},e.randn=function(o,n){var r,l,i,s,a;if(n||(n=o),o)return e.create(o,n,(function(){return e.randn()}));do{r=e._random_fn(),l=1.7156*(e._random_fn()-.5),a=(i=r-.449871)*i+(s=t.abs(l)+.386595)*(.196*s-.25472*i)}while(a>.27597&&(a>.27846||l*l>-4*t.log(r)*r*r));return l/r},e.randg=function(o,n,r){var l,i,s,a,u,c,f=o;if(r||(r=n),o||(o=1),n)return(c=e.zeros(n,r)).alter((function(){return e.randg(o)})),c;o<1&&(o+=1),l=o-1/3,i=1/t.sqrt(9*l);do{do{a=1+i*(u=e.randn())}while(a<=0);a*=a*a,s=e._random_fn()}while(s>1-.331*t.pow(u,4)&&t.log(s)>.5*u*u+l*(1-a+t.log(a)));if(o==f)return l*a;do{s=e._random_fn()}while(0===s);return t.pow(s,1/f)*l*a},function(t){for(var o=0;o<t.length;o++)!function(t){e.fn[t]=function(){return e(e.map(this,(function(o){return e[t](o)})))}}(t[o])}("gammaln gammafn factorial factorialln".split(" ")),function(t){for(var o=0;o<t.length;o++)!function(t){e.fn[t]=function(){return e(e[t].apply(null,arguments))}}(t[o])}("randn".split(" "))}(t,Math),function(e,t){function o(e,o,n,r){for(var l,i=0,s=1,a=1,u=1,c=0,f=0;t.abs((a-f)/a)>r;)f=a,s=u+(l=-(o+c)*(o+n+c)*e/(o+2*c)/(o+2*c+1))*s,a=(i=a+l*i)+(l=(c+=1)*(n-c)*e/(o+2*c-1)/(o+2*c))*a,i/=u=s+l*u,s/=u,a/=u,u=1;return a/o}function n(o,n,r){var l=[.9815606342467192,.9041172563704749,.7699026741943047,.5873179542866175,.3678314989981802,.1252334085114689],i=[.04717533638651183,.10693932599531843,.16007832854334622,.20316742672306592,.2334925365383548,.24914704581340277],s=.5*o;if(s>=8)return 1;var a,u=2*e.normal.cdf(s,0,1,1,0)-1;u=u>=t.exp(-50/r)?t.pow(u,r):0;for(var c=s,f=(8-s)/(a=o>3?2:3),d=c+f,p=0,b=r-1,j=1;j<=a;j++){for(var h=0,g=.5*(d+c),m=.5*(d-c),v=1;v<=12;v++){var y,C=g+m*(6<v?l[(y=12-v+1)-1]:-l[(y=v)-1]),x=C*C;if(x>60)break;var w=2*e.normal.cdf(C,0,1,1,0)*.5-2*e.normal.cdf(C,o,1,1,0)*.5;w>=t.exp(-30/b)&&(h+=w=i[y-1]*t.exp(-.5*x)*t.pow(w,b))}p+=h*=2*m*r/t.sqrt(2*t.PI),c=d,d+=f}return(u+=p)<=t.exp(-30/n)?0:(u=t.pow(u,n))>=1?1:u}!function(t){for(var o=0;o<t.length;o++)!function(t){e[t]=function e(t,o,n){return this instanceof e?(this._a=t,this._b=o,this._c=n,this):new e(t,o,n)},e.fn[t]=function(o,n,r){var l=e[t](o,n,r);return l.data=this,l},e[t].prototype.sample=function(o){var n=this._a,r=this._b,l=this._c;return o?e.alter(o,(function(){return e[t].sample(n,r,l)})):e[t].sample(n,r,l)},function(o){for(var n=0;n<o.length;n++)!function(o){e[t].prototype[o]=function(n){var r=this._a,l=this._b,i=this._c;return n||0===n||(n=this.data),"number"!=typeof n?e.fn.map.call(n,(function(n){return e[t][o](n,r,l,i)})):e[t][o](n,r,l,i)}}(o[n])}("pdf cdf inv".split(" ")),function(o){for(var n=0;n<o.length;n++)!function(o){e[t].prototype[o]=function(){return e[t][o](this._a,this._b,this._c)}}(o[n])}("mean median mode variance".split(" "))}(t[o])}("beta centralF cauchy chisquare exponential gamma invgamma kumaraswamy laplace lognormal noncentralt normal pareto studentt weibull uniform binomial negbin hypgeom poisson triangular tukey arcsine".split(" ")),e.extend(e.beta,{pdf:function(o,n,r){return o>1||o<0?0:1==n&&1==r?1:n<512&&r<512?t.pow(o,n-1)*t.pow(1-o,r-1)/e.betafn(n,r):t.exp((n-1)*t.log(o)+(r-1)*t.log(1-o)-e.betaln(n,r))},cdf:function(t,o,n){return t>1||t<0?1*(t>1):e.ibeta(t,o,n)},inv:function(t,o,n){return e.ibetainv(t,o,n)},mean:function(e,t){return e/(e+t)},median:function(t,o){return e.ibetainv(.5,t,o)},mode:function(e,t){return(e-1)/(e+t-2)},sample:function(t,o){var n=e.randg(t);return n/(n+e.randg(o))},variance:function(e,o){return e*o/(t.pow(e+o,2)*(e+o+1))}}),e.extend(e.centralF,{pdf:function(o,n,r){var l;return o<0?0:n<=2?0===o&&n<2?1/0:0===o&&2===n?1:1/e.betafn(n/2,r/2)*t.pow(n/r,n/2)*t.pow(o,n/2-1)*t.pow(1+n/r*o,-(n+r)/2):(l=n*o/(r+o*n),n*(r/(r+o*n))/2*e.binomial.pdf((n-2)/2,(n+r-2)/2,l))},cdf:function(t,o,n){return t<0?0:e.ibeta(o*t/(o*t+n),o/2,n/2)},inv:function(t,o,n){return n/(o*(1/e.ibetainv(t,o/2,n/2)-1))},mean:function(e,t){return t>2?t/(t-2):void 0},mode:function(e,t){return e>2?t*(e-2)/(e*(t+2)):void 0},sample:function(t,o){return 2*e.randg(t/2)/t/(2*e.randg(o/2)/o)},variance:function(e,t){if(!(t<=4))return 2*t*t*(e+t-2)/(e*(t-2)*(t-2)*(t-4))}}),e.extend(e.cauchy,{pdf:function(e,o,n){return n<0?0:n/(t.pow(e-o,2)+t.pow(n,2))/t.PI},cdf:function(e,o,n){return t.atan((e-o)/n)/t.PI+.5},inv:function(e,o,n){return o+n*t.tan(t.PI*(e-.5))},median:function(e){return e},mode:function(e){return e},sample:function(o,n){return e.randn()*t.sqrt(1/(2*e.randg(.5)))*n+o}}),e.extend(e.chisquare,{pdf:function(o,n){return o<0?0:0===o&&2===n?.5:t.exp((n/2-1)*t.log(o)-o/2-n/2*t.log(2)-e.gammaln(n/2))},cdf:function(t,o){return t<0?0:e.lowRegGamma(o/2,t/2)},inv:function(t,o){return 2*e.gammapinv(t,.5*o)},mean:function(e){return e},median:function(e){return e*t.pow(1-2/(9*e),3)},mode:function(e){return e-2>0?e-2:0},sample:function(t){return 2*e.randg(t/2)},variance:function(e){return 2*e}}),e.extend(e.exponential,{pdf:function(e,o){return e<0?0:o*t.exp(-o*e)},cdf:function(e,o){return e<0?0:1-t.exp(-o*e)},inv:function(e,o){return-t.log(1-e)/o},mean:function(e){return 1/e},median:function(e){return 1/e*t.log(2)},mode:function(){return 0},sample:function(o){return-1/o*t.log(e._random_fn())},variance:function(e){return t.pow(e,-2)}}),e.extend(e.gamma,{pdf:function(o,n,r){return o<0?0:0===o&&1===n?1/r:t.exp((n-1)*t.log(o)-o/r-e.gammaln(n)-n*t.log(r))},cdf:function(t,o,n){return t<0?0:e.lowRegGamma(o,t/n)},inv:function(t,o,n){return e.gammapinv(t,o)*n},mean:function(e,t){return e*t},mode:function(e,t){if(e>1)return(e-1)*t},sample:function(t,o){return e.randg(t)*o},variance:function(e,t){return e*t*t}}),e.extend(e.invgamma,{pdf:function(o,n,r){return o<=0?0:t.exp(-(n+1)*t.log(o)-r/o-e.gammaln(n)+n*t.log(r))},cdf:function(t,o,n){return t<=0?0:1-e.lowRegGamma(o,n/t)},inv:function(t,o,n){return n/e.gammapinv(1-t,o)},mean:function(e,t){return e>1?t/(e-1):void 0},mode:function(e,t){return t/(e+1)},sample:function(t,o){return o/e.randg(t)},variance:function(e,t){if(!(e<=2))return t*t/((e-1)*(e-1)*(e-2))}}),e.extend(e.kumaraswamy,{pdf:function(e,o,n){return 0===e&&1===o?n:1===e&&1===n?o:t.exp(t.log(o)+t.log(n)+(o-1)*t.log(e)+(n-1)*t.log(1-t.pow(e,o)))},cdf:function(e,o,n){return e<0?0:e>1?1:1-t.pow(1-t.pow(e,o),n)},inv:function(e,o,n){return t.pow(1-t.pow(1-e,1/n),1/o)},mean:function(t,o){return o*e.gammafn(1+1/t)*e.gammafn(o)/e.gammafn(1+1/t+o)},median:function(e,o){return t.pow(1-t.pow(2,-1/o),1/e)},mode:function(e,o){if(e>=1&&o>=1&&1!==e&&1!==o)return t.pow((e-1)/(e*o-1),1/e)},variance:function(){throw new Error("variance not yet implemented")}}),e.extend(e.lognormal,{pdf:function(e,o,n){return e<=0?0:t.exp(-t.log(e)-.5*t.log(2*t.PI)-t.log(n)-t.pow(t.log(e)-o,2)/(2*n*n))},cdf:function(o,n,r){return o<0?0:.5+.5*e.erf((t.log(o)-n)/t.sqrt(2*r*r))},inv:function(o,n,r){return t.exp(-1.4142135623730951*r*e.erfcinv(2*o)+n)},mean:function(e,o){return t.exp(e+o*o/2)},median:function(e){return t.exp(e)},mode:function(e,o){return t.exp(e-o*o)},sample:function(o,n){return t.exp(e.randn()*n+o)},variance:function(e,o){return(t.exp(o*o)-1)*t.exp(2*e+o*o)}}),e.extend(e.noncentralt,{pdf:function(o,n,r){return t.abs(r)<1e-14?e.studentt.pdf(o,n):t.abs(o)<1e-14?t.exp(e.gammaln((n+1)/2)-r*r/2-.5*t.log(t.PI*n)-e.gammaln(n/2)):n/o*(e.noncentralt.cdf(o*t.sqrt(1+2/n),n+2,r)-e.noncentralt.cdf(o,n,r))},cdf:function(o,n,r){var l=1e-14;if(t.abs(r)<l)return e.studentt.cdf(o,n);var i=!1;o<0&&(i=!0,r=-r);for(var s=e.normal.cdf(-r,0,1),a=l+1,u=a,c=o*o/(o*o+n),f=0,d=t.exp(-r*r/2),p=t.exp(-r*r/2-.5*t.log(2)-e.gammaln(1.5))*r;f<200||u>l||a>l;)u=a,f>0&&(d*=r*r/(2*f),p*=r*r/(2*(f+.5))),s+=.5*(a=d*e.beta.cdf(c,f+.5,n/2)+p*e.beta.cdf(c,f+1,n/2)),f++;return i?1-s:s}}),e.extend(e.normal,{pdf:function(e,o,n){return t.exp(-.5*t.log(2*t.PI)-t.log(n)-t.pow(e-o,2)/(2*n*n))},cdf:function(o,n,r){return.5*(1+e.erf((o-n)/t.sqrt(2*r*r)))},inv:function(t,o,n){return-1.4142135623730951*n*e.erfcinv(2*t)+o},mean:function(e){return e},median:function(e){return e},mode:function(e){return e},sample:function(t,o){return e.randn()*o+t},variance:function(e,t){return t*t}}),e.extend(e.pareto,{pdf:function(e,o,n){return e<o?0:n*t.pow(o,n)/t.pow(e,n+1)},cdf:function(e,o,n){return e<o?0:1-t.pow(o/e,n)},inv:function(e,o,n){return o/t.pow(1-e,1/n)},mean:function(e,o){if(!(o<=1))return o*t.pow(e,o)/(o-1)},median:function(e,o){return e*(o*t.SQRT2)},mode:function(e){return e},variance:function(e,o){if(!(o<=2))return e*e*o/(t.pow(o-1,2)*(o-2))}}),e.extend(e.studentt,{pdf:function(o,n){return n=n>1e100?1e100:n,1/(t.sqrt(n)*e.betafn(.5,n/2))*t.pow(1+o*o/n,-(n+1)/2)},cdf:function(o,n){var r=n/2;return e.ibeta((o+t.sqrt(o*o+n))/(2*t.sqrt(o*o+n)),r,r)},inv:function(o,n){var r=e.ibetainv(2*t.min(o,1-o),.5*n,.5);return r=t.sqrt(n*(1-r)/r),o>.5?r:-r},mean:function(e){return e>1?0:void 0},median:function(){return 0},mode:function(){return 0},sample:function(o){return e.randn()*t.sqrt(o/(2*e.randg(o/2)))},variance:function(e){return e>2?e/(e-2):e>1?1/0:void 0}}),e.extend(e.weibull,{pdf:function(e,o,n){return e<0||o<0||n<0?0:n/o*t.pow(e/o,n-1)*t.exp(-t.pow(e/o,n))},cdf:function(e,o,n){return e<0?0:1-t.exp(-t.pow(e/o,n))},inv:function(e,o,n){return o*t.pow(-t.log(1-e),1/n)},mean:function(t,o){return t*e.gammafn(1+1/o)},median:function(e,o){return e*t.pow(t.log(2),1/o)},mode:function(e,o){return o<=1?0:e*t.pow((o-1)/o,1/o)},sample:function(o,n){return o*t.pow(-t.log(e._random_fn()),1/n)},variance:function(o,n){return o*o*e.gammafn(1+2/n)-t.pow(e.weibull.mean(o,n),2)}}),e.extend(e.uniform,{pdf:function(e,t,o){return e<t||e>o?0:1/(o-t)},cdf:function(e,t,o){return e<t?0:e<o?(e-t)/(o-t):1},inv:function(e,t,o){return t+e*(o-t)},mean:function(e,t){return.5*(e+t)},median:function(t,o){return e.mean(t,o)},mode:function(){throw new Error("mode is not yet implemented")},sample:function(t,o){return t/2+o/2+(o/2-t/2)*(2*e._random_fn()-1)},variance:function(e,o){return t.pow(o-e,2)/12}}),e.extend(e.binomial,{pdf:function(o,n,r){return 0===r||1===r?n*r===o?1:0:e.combination(n,o)*t.pow(r,o)*t.pow(1-r,n-o)},cdf:function(n,r,l){var i,s=1e-10;if(n<0)return 0;if(n>=r)return 1;if(l<0||l>1||r<=0)return NaN;var a=l,u=(n=t.floor(n))+1,c=r-n,f=u+c,d=t.exp(e.gammaln(f)-e.gammaln(c)-e.gammaln(u)+u*t.log(a)+c*t.log(1-a));return i=a<(u+1)/(f+2)?d*o(a,u,c,s):1-d*o(1-a,c,u,s),t.round(1/s*(1-i))/(1/s)}}),e.extend(e.negbin,{pdf:function(o,n,r){return o===o>>>0&&(o<0?0:e.combination(o+n-1,n-1)*t.pow(1-r,o)*t.pow(r,n))},cdf:function(t,o,n){var r=0,l=0;if(t<0)return 0;for(;l<=t;l++)r+=e.negbin.pdf(l,o,n);return r}}),e.extend(e.hypgeom,{pdf:function(o,n,r,l){if(o!=o|0)return!1;if(o<0||o<r-(n-l))return 0;if(o>l||o>r)return 0;if(2*r>n)return 2*l>n?e.hypgeom.pdf(n-r-l+o,n,n-r,n-l):e.hypgeom.pdf(l-o,n,n-r,l);if(2*l>n)return e.hypgeom.pdf(r-o,n,r,n-l);if(r<l)return e.hypgeom.pdf(o,n,l,r);for(var i=1,s=0,a=0;a<o;a++){for(;i>1&&s<l;)i*=1-r/(n-s),s++;i*=(l-a)*(r-a)/((a+1)*(n-r-l+a+1))}for(;s<l;s++)i*=1-r/(n-s);return t.min(1,t.max(0,i))},cdf:function(o,n,r,l){if(o<0||o<r-(n-l))return 0;if(o>=l||o>=r)return 1;if(2*r>n)return 2*l>n?e.hypgeom.cdf(n-r-l+o,n,n-r,n-l):1-e.hypgeom.cdf(l-o-1,n,n-r,l);if(2*l>n)return 1-e.hypgeom.cdf(r-o-1,n,r,n-l);if(r<l)return e.hypgeom.cdf(o,n,l,r);for(var i=1,s=1,a=0,u=0;u<o;u++){for(;i>1&&a<l;){var c=1-r/(n-a);s*=c,i*=c,a++}i+=s*=(l-u)*(r-u)/((u+1)*(n-r-l+u+1))}for(;a<l;a++)i*=1-r/(n-a);return t.min(1,t.max(0,i))}}),e.extend(e.poisson,{pdf:function(o,n){return n<0||o%1!=0||o<0?0:t.pow(n,o)*t.exp(-n)/e.factorial(o)},cdf:function(t,o){var n=[],r=0;if(t<0)return 0;for(;r<=t;r++)n.push(e.poisson.pdf(r,o));return e.sum(n)},mean:function(e){return e},variance:function(e){return e},sampleSmall:function(o){var n=1,r=0,l=t.exp(-o);do{r++,n*=e._random_fn()}while(n>l);return r-1},sampleLarge:function(o){var n,r,l,i,s,a,u,c,f,d,p=o;for(i=t.sqrt(p),s=t.log(p),a=.02483*(u=.931+2.53*i)-.059,c=1.1239+1.1328/(u-3.4),f=.9277-3.6224/(u-2);;){if(r=t.random()-.5,l=t.random(),d=.5-t.abs(r),n=t.floor((2*a/d+u)*r+p+.43),d>=.07&&l<=f)return n;if(!(n<0||d<.013&&l>d)&&t.log(l)+t.log(c)-t.log(a/(d*d)+u)<=n*s-p-e.loggam(n+1))return n}},sample:function(e){return e<10?this.sampleSmall(e):this.sampleLarge(e)}}),e.extend(e.triangular,{pdf:function(e,t,o,n){return o<=t||n<t||n>o?NaN:e<t||e>o?0:e<n?2*(e-t)/((o-t)*(n-t)):e===n?2/(o-t):2*(o-e)/((o-t)*(o-n))},cdf:function(e,o,n,r){return n<=o||r<o||r>n?NaN:e<=o?0:e>=n?1:e<=r?t.pow(e-o,2)/((n-o)*(r-o)):1-t.pow(n-e,2)/((n-o)*(n-r))},inv:function(e,o,n,r){return n<=o||r<o||r>n?NaN:e<=(r-o)/(n-o)?o+(n-o)*t.sqrt(e*((r-o)/(n-o))):o+(n-o)*(1-t.sqrt((1-e)*(1-(r-o)/(n-o))))},mean:function(e,t,o){return(e+t+o)/3},median:function(e,o,n){return n<=(e+o)/2?o-t.sqrt((o-e)*(o-n))/t.sqrt(2):n>(e+o)/2?e+t.sqrt((o-e)*(n-e))/t.sqrt(2):void 0},mode:function(e,t,o){return o},sample:function(o,n,r){var l=e._random_fn();return l<(r-o)/(n-o)?o+t.sqrt(l*(n-o)*(r-o)):n-t.sqrt((1-l)*(n-o)*(n-r))},variance:function(e,t,o){return(e*e+t*t+o*o-e*t-e*o-t*o)/18}}),e.extend(e.arcsine,{pdf:function(e,o,n){return n<=o?NaN:e<=o||e>=n?0:2/t.PI*t.pow(t.pow(n-o,2)-t.pow(2*e-o-n,2),-.5)},cdf:function(e,o,n){return e<o?0:e<n?2/t.PI*t.asin(t.sqrt((e-o)/(n-o))):1},inv:function(e,o,n){return o+(.5-.5*t.cos(t.PI*e))*(n-o)},mean:function(e,t){return t<=e?NaN:(e+t)/2},median:function(e,t){return t<=e?NaN:(e+t)/2},mode:function(){throw new Error("mode is not yet implemented")},sample:function(o,n){return(o+n)/2+(n-o)/2*t.sin(2*t.PI*e.uniform.sample(0,1))},variance:function(e,o){return o<=e?NaN:t.pow(o-e,2)/8}}),e.extend(e.laplace,{pdf:function(e,o,n){return n<=0?0:t.exp(-t.abs(e-o)/n)/(2*n)},cdf:function(e,o,n){return n<=0?0:e<o?.5*t.exp((e-o)/n):1-.5*t.exp(-(e-o)/n)},mean:function(e){return e},median:function(e){return e},mode:function(e){return e},variance:function(e,t){return 2*t*t},sample:function(o,n){var r,l=e._random_fn()-.5;return o-n*((r=l)/t.abs(r))*t.log(1-2*t.abs(l))}}),e.extend(e.tukey,{cdf:function(o,r,l){var i=r,s=[.9894009349916499,.9445750230732326,.8656312023878318,.755404408355003,.6178762444026438,.45801677765722737,.2816035507792589,.09501250983763744],a=[.027152459411754096,.062253523938647894,.09515851168249279,.12462897125553388,.14959598881657674,.16915651939500254,.18260341504492358,.1894506104550685];if(o<=0)return 0;if(l<2||i<2)return NaN;if(!Number.isFinite(o))return 1;if(l>25e3)return n(o,1,i);var u,c=.5*l,f=c*t.log(l)-l*t.log(2)-e.gammaln(c),d=c-1,p=.25*l;u=l<=100?1:l<=800?.5:l<=5e3?.25:.125,f+=t.log(u);for(var b=0,j=1;j<=50;j++){for(var h=0,g=(2*j-1)*u,m=1;m<=16;m++){var v,y;8<m?(v=m-8-1,y=f+d*t.log(g+s[v]*u)-(s[v]*u+g)*p):(v=m-1,y=f+d*t.log(g-s[v]*u)+(s[v]*u-g)*p),y>=-30&&(h+=n(8<m?o*t.sqrt(.5*(s[v]*u+g)):o*t.sqrt(.5*(-s[v]*u+g)),1,i)*a[v]*t.exp(y))}if(j*u>=1&&h<=1e-14)break;b+=h}if(h>1e-14)throw new Error("tukey.cdf failed to converge");return b>1&&(b=1),b},inv:function(o,n,r){if(r<2||n<2)return NaN;if(o<0||o>1)return NaN;if(0===o)return 0;if(1===o)return 1/0;var l,i=function(e,o,n){var r=.5-.5*e,l=t.sqrt(t.log(1/(r*r))),i=l+((((-453642210148e-16*l-.204231210125)*l-.342242088547)*l-1)*l+.322232421088)/((((.0038560700634*l+.10353775285)*l+.531103462366)*l+.588581570495)*l+.099348462606);n<120&&(i+=(i*i*i+i)/n/4);var s=.8832-.2368*i;return n<120&&(s+=-1.214/n+1.208*i/n),i*(s*t.log(o-1)+1.4142)}(o,n,r),s=e.tukey.cdf(i,n,r)-o;l=s>0?t.max(0,i-1):i+1;for(var a,u=e.tukey.cdf(l,n,r)-o,c=1;c<50;c++)if(a=l-u*(l-i)/(u-s),s=u,i=l,a<0&&(a=0,u=-o),u=e.tukey.cdf(a,n,r)-o,l=a,t.abs(l-i)<1e-4)return a;throw new Error("tukey.inv failed to converge")}})}(t,Math),function(e,t){var o,n,r=Array.prototype.push,l=e.utils.isArray;function i(t){return l(t)||t instanceof e}e.extend({add:function(t,o){return i(o)?(i(o[0])||(o=[o]),e.map(t,(function(e,t,n){return e+o[t][n]}))):e.map(t,(function(e){return e+o}))},subtract:function(t,o){return i(o)?(i(o[0])||(o=[o]),e.map(t,(function(e,t,n){return e-o[t][n]||0}))):e.map(t,(function(e){return e-o}))},divide:function(t,o){return i(o)?(i(o[0])||(o=[o]),e.multiply(t,e.inv(o))):e.map(t,(function(e){return e/o}))},multiply:function(t,o){var n,r,l,s,a,u,c,f;if(void 0===t.length&&void 0===o.length)return t*o;if(a=t.length,u=t[0].length,c=e.zeros(a,l=i(o)?o[0].length:u),f=0,i(o)){for(;f<l;f++)for(n=0;n<a;n++){for(s=0,r=0;r<u;r++)s+=t[n][r]*o[r][f];c[n][f]=s}return 1===a&&1===f?c[0][0]:c}return e.map(t,(function(e){return e*o}))},outer:function(t,o){return e.multiply(t.map((function(e){return[e]})),[o])},dot:function(t,o){i(t[0])||(t=[t]),i(o[0])||(o=[o]);for(var n,r,l=1===t[0].length&&1!==t.length?e.transpose(t):t,s=1===o[0].length&&1!==o.length?e.transpose(o):o,a=[],u=0,c=l.length,f=l[0].length;u<c;u++){for(a[u]=[],n=0,r=0;r<f;r++)n+=l[u][r]*s[u][r];a[u]=n}return 1===a.length?a[0]:a},pow:function(o,n){return e.map(o,(function(e){return t.pow(e,n)}))},exp:function(o){return e.map(o,(function(e){return t.exp(e)}))},log:function(o){return e.map(o,(function(e){return t.log(e)}))},abs:function(o){return e.map(o,(function(e){return t.abs(e)}))},norm:function(e,o){var n=0,r=0;for(isNaN(o)&&(o=2),i(e[0])&&(e=e[0]);r<e.length;r++)n+=t.pow(t.abs(e[r]),o);return t.pow(n,1/o)},angle:function(o,n){return t.acos(e.dot(o,n)/(e.norm(o)*e.norm(n)))},aug:function(e,t){var o,n=[];for(o=0;o<e.length;o++)n.push(e[o].slice());for(o=0;o<n.length;o++)r.apply(n[o],t[o]);return n},inv:function(t){for(var o,n=t.length,r=t[0].length,l=e.identity(n,r),i=e.gauss_jordan(t,l),s=[],a=0;a<n;a++)for(s[a]=[],o=r;o<i[0].length;o++)s[a][o-r]=i[a][o];return s},det:function e(t){if(2===t.length)return t[0][0]*t[1][1]-t[0][1]*t[1][0];for(var o=0,n=0;n<t.length;n++){for(var r=[],l=1;l<t.length;l++){r[l-1]=[];for(var i=0;i<t.length;i++)i<n?r[l-1][i]=t[l][i]:i>n&&(r[l-1][i-1]=t[l][i])}var s=n%2?-1:1;o+=e(r)*t[0][n]*s}return o},gauss_elimination:function(o,n){var r,l,i,s,a=0,u=0,c=o.length,f=o[0].length,d=1,p=0,b=[];for(r=(o=e.aug(o,n))[0].length,a=0;a<c;a++){for(l=o[a][a],u=a,s=a+1;s<f;s++)l<t.abs(o[s][a])&&(l=o[s][a],u=s);if(u!=a)for(s=0;s<r;s++)i=o[a][s],o[a][s]=o[u][s],o[u][s]=i;for(u=a+1;u<c;u++)for(d=o[u][a]/o[a][a],s=a;s<r;s++)o[u][s]=o[u][s]-d*o[a][s]}for(a=c-1;a>=0;a--){for(p=0,u=a+1;u<=c-1;u++)p+=b[u]*o[a][u];b[a]=(o[a][r-1]-p)/o[a][a]}return b},gauss_jordan:function(o,n){var r,l,i,s=e.aug(o,n),a=s.length,u=s[0].length,c=0;for(l=0;l<a;l++){var f=l;for(i=l+1;i<a;i++)t.abs(s[i][l])>t.abs(s[f][l])&&(f=i);var d=s[l];for(s[l]=s[f],s[f]=d,i=l+1;i<a;i++)for(c=s[i][l]/s[l][l],r=l;r<u;r++)s[i][r]-=s[l][r]*c}for(l=a-1;l>=0;l--){for(c=s[l][l],i=0;i<l;i++)for(r=u-1;r>l-1;r--)s[i][r]-=s[l][r]*s[i][l]/c;for(s[l][l]/=c,r=a;r<u;r++)s[l][r]/=c}return s},triaUpSolve:function(t,o){var n,r=t[0].length,l=e.zeros(1,r)[0],i=!1;return null!=o[0].length&&(o=o.map((function(e){return e[0]})),i=!0),e.arange(r-1,-1,-1).forEach((function(i){n=e.arange(i+1,r).map((function(e){return l[e]*t[i][e]})),l[i]=(o[i]-e.sum(n))/t[i][i]})),i?l.map((function(e){return[e]})):l},triaLowSolve:function(t,o){var n,r=t[0].length,l=e.zeros(1,r)[0],i=!1;return null!=o[0].length&&(o=o.map((function(e){return e[0]})),i=!0),e.arange(r).forEach((function(r){n=e.arange(r).map((function(e){return t[r][e]*l[e]})),l[r]=(o[r]-e.sum(n))/t[r][r]})),i?l.map((function(e){return[e]})):l},lu:function(t){var o,n=t.length,r=e.identity(n),l=e.zeros(t.length,t[0].length);return e.arange(n).forEach((function(e){l[0][e]=t[0][e]})),e.arange(1,n).forEach((function(i){e.arange(i).forEach((function(n){o=e.arange(n).map((function(e){return r[i][e]*l[e][n]})),r[i][n]=(t[i][n]-e.sum(o))/l[n][n]})),e.arange(i,n).forEach((function(n){o=e.arange(i).map((function(e){return r[i][e]*l[e][n]})),l[i][n]=t[o.length][n]-e.sum(o)}))})),[r,l]},cholesky:function(o){var n,r=o.length,l=e.zeros(o.length,o[0].length);return e.arange(r).forEach((function(i){n=e.arange(i).map((function(e){return t.pow(l[i][e],2)})),l[i][i]=t.sqrt(o[i][i]-e.sum(n)),e.arange(i+1,r).forEach((function(t){n=e.arange(i).map((function(e){return l[i][e]*l[t][e]})),l[t][i]=(o[i][t]-e.sum(n))/l[i][i]}))})),l},gauss_jacobi:function(o,n,r,l){for(var i,s,a,u,c=0,f=0,d=o.length,p=[],b=[],j=[];c<d;c++)for(p[c]=[],b[c]=[],j[c]=[],f=0;f<d;f++)c>f?(p[c][f]=o[c][f],b[c][f]=j[c][f]=0):c<f?(b[c][f]=o[c][f],p[c][f]=j[c][f]=0):(j[c][f]=o[c][f],p[c][f]=b[c][f]=0);for(a=e.multiply(e.multiply(e.inv(j),e.add(p,b)),-1),s=e.multiply(e.inv(j),n),i=r,u=e.add(e.multiply(a,r),s),c=2;t.abs(e.norm(e.subtract(u,i)))>l;)i=u,u=e.add(e.multiply(a,i),s),c++;return u},gauss_seidel:function(o,n,r,l){for(var i,s,a,u,c,f=0,d=o.length,p=[],b=[],j=[];f<d;f++)for(p[f]=[],b[f]=[],j[f]=[],i=0;i<d;i++)f>i?(p[f][i]=o[f][i],b[f][i]=j[f][i]=0):f<i?(b[f][i]=o[f][i],p[f][i]=j[f][i]=0):(j[f][i]=o[f][i],p[f][i]=b[f][i]=0);for(u=e.multiply(e.multiply(e.inv(e.add(j,p)),b),-1),a=e.multiply(e.inv(e.add(j,p)),n),s=r,c=e.add(e.multiply(u,r),a),f=2;t.abs(e.norm(e.subtract(c,s)))>l;)s=c,c=e.add(e.multiply(u,s),a),f+=1;return c},SOR:function(o,n,r,l,i){for(var s,a,u,c,f,d=0,p=o.length,b=[],j=[],h=[];d<p;d++)for(b[d]=[],j[d]=[],h[d]=[],s=0;s<p;s++)d>s?(b[d][s]=o[d][s],j[d][s]=h[d][s]=0):d<s?(j[d][s]=o[d][s],b[d][s]=h[d][s]=0):(h[d][s]=o[d][s],b[d][s]=j[d][s]=0);for(c=e.multiply(e.inv(e.add(h,e.multiply(b,i))),e.subtract(e.multiply(h,1-i),e.multiply(j,i))),u=e.multiply(e.multiply(e.inv(e.add(h,e.multiply(b,i))),n),i),a=r,f=e.add(e.multiply(c,r),u),d=2;t.abs(e.norm(e.subtract(f,a)))>l;)a=f,f=e.add(e.multiply(c,a),u),d++;return f},householder:function(o){for(var n,r,l,i,s=o.length,a=o[0].length,u=0,c=[],f=[];u<s-1;u++){for(n=0,i=u+1;i<a;i++)n+=o[i][u]*o[i][u];for(n=(o[u+1][u]>0?-1:1)*t.sqrt(n),r=t.sqrt((n*n-o[u+1][u]*n)/2),(c=e.zeros(s,1))[u+1][0]=(o[u+1][u]-n)/(2*r),l=u+2;l<s;l++)c[l][0]=o[l][u]/(2*r);f=e.subtract(e.identity(s,a),e.multiply(e.multiply(c,e.transpose(c)),2)),o=e.multiply(f,e.multiply(o,f))}return o},QR:(o=e.sum,n=e.arange,function(r){var l,i,s,a=r.length,u=r[0].length,c=e.zeros(u,u);for(r=e.copy(r),i=0;i<u;i++){for(c[i][i]=t.sqrt(o(n(a).map((function(e){return r[e][i]*r[e][i]})))),l=0;l<a;l++)r[l][i]=r[l][i]/c[i][i];for(s=i+1;s<u;s++)for(c[i][s]=o(n(a).map((function(e){return r[e][i]*r[e][s]}))),l=0;l<a;l++)r[l][s]=r[l][s]-r[l][i]*c[i][s]}return[r,c]}),lstsq:function(t,o){var n=!1;void 0===o[0].length&&(o=o.map((function(e){return[e]})),n=!0);var r=e.QR(t),l=r[0],i=r[1],s=t[0].length,a=e.slice(l,{col:{end:s}}),u=function(t){var o=(t=e.copy(t)).length,n=e.identity(o);return e.arange(o-1,-1,-1).forEach((function(o){e.sliceAssign(n,{row:o},e.divide(e.slice(n,{row:o}),t[o][o])),e.sliceAssign(t,{row:o},e.divide(e.slice(t,{row:o}),t[o][o])),e.arange(o).forEach((function(r){var l=e.multiply(t[r][o],-1),i=e.slice(t,{row:r}),s=e.multiply(e.slice(t,{row:o}),l);e.sliceAssign(t,{row:r},e.add(i,s));var a=e.slice(n,{row:r}),u=e.multiply(e.slice(n,{row:o}),l);e.sliceAssign(n,{row:r},e.add(a,u))}))})),n}(e.slice(i,{row:{end:s}})),c=e.transpose(a);void 0===c[0].length&&(c=[c]);var f=e.multiply(e.multiply(u,c),o);return void 0===f.length&&(f=[[f]]),n?f.map((function(e){return e[0]})):f},jacobi:function(o){for(var n,r,l,i,s,a,u,c=1,f=o.length,d=e.identity(f,f),p=[];1===c;){for(s=o[0][1],l=0,i=1,n=0;n<f;n++)for(r=0;r<f;r++)n!=r&&s<t.abs(o[n][r])&&(s=t.abs(o[n][r]),l=n,i=r);for(a=o[l][l]===o[i][i]?o[l][i]>0?t.PI/4:-t.PI/4:t.atan(2*o[l][i]/(o[l][l]-o[i][i]))/2,(u=e.identity(f,f))[l][l]=t.cos(a),u[l][i]=-t.sin(a),u[i][l]=t.sin(a),u[i][i]=t.cos(a),d=e.multiply(d,u),o=e.multiply(e.multiply(e.inv(u),o),u),c=0,n=1;n<f;n++)for(r=1;r<f;r++)n!=r&&t.abs(o[n][r])>.001&&(c=1)}for(n=0;n<f;n++)p.push(o[n][n]);return[d,p]},rungekutta:function(e,t,o,n,r,l){var i,s,a;if(2===l)for(;n<=o;)r+=((i=t*e(n,r))+(s=t*e(n+t,r+i)))/2,n+=t;if(4===l)for(;n<=o;)r+=((i=t*e(n,r))+2*(s=t*e(n+t/2,r+i/2))+2*(a=t*e(n+t/2,r+s/2))+t*e(n+t,r+a))/6,n+=t;return r},romberg:function(e,o,n,r){for(var l,i,s,a,u,c=0,f=(n-o)/2,d=[],p=[],b=[];c<r/2;){for(u=e(o),s=o,a=0;s<=n;s+=f,a++)d[a]=s;for(l=d.length,s=1;s<l-1;s++)u+=(s%2!=0?4:2)*e(d[s]);u=f/3*(u+e(n)),b[c]=u,f/=2,c++}for(i=b.length,l=1;1!==i;){for(s=0;s<i-1;s++)p[s]=(t.pow(4,l)*b[s+1]-b[s])/(t.pow(4,l)-1);i=p.length,b=p,p=[],l++}return b},richardson:function(e,o,n,r){function l(e,t){for(var o,n=0,r=e.length;n<r;n++)e[n]===t&&(o=n);return o}for(var i,s,a,u,c,f=t.abs(n-e[l(e,n)+1]),d=0,p=[],b=[];r>=f;)i=l(e,n+r),s=l(e,n),p[d]=(o[i]-2*o[s]+o[2*s-i])/(r*r),r/=2,d++;for(u=p.length,a=1;1!=u;){for(c=0;c<u-1;c++)b[c]=(t.pow(4,a)*p[c+1]-p[c])/(t.pow(4,a)-1);u=b.length,p=b,b=[],a++}return p},simpson:function(e,t,o,n){for(var r,l=(o-t)/n,i=e(t),s=[],a=t,u=0,c=1;a<=o;a+=l,u++)s[u]=a;for(r=s.length;c<r-1;c++)i+=(c%2!=0?4:2)*e(s[c]);return l/3*(i+e(o))},hermite:function(e,t,o,n){for(var r,l=e.length,i=0,s=0,a=[],u=[],c=[],f=[];s<l;s++){for(a[s]=1,r=0;r<l;r++)s!=r&&(a[s]*=(n-e[r])/(e[s]-e[r]));for(u[s]=0,r=0;r<l;r++)s!=r&&(u[s]+=1/(e[s]-e[r]));c[s]=(1-2*(n-e[s])*u[s])*(a[s]*a[s]),f[s]=(n-e[s])*(a[s]*a[s]),i+=c[s]*t[s]+f[s]*o[s]}return i},lagrange:function(e,t,o){for(var n,r,l=0,i=0,s=e.length;i<s;i++){for(r=t[i],n=0;n<s;n++)i!=n&&(r*=(o-e[n])/(e[i]-e[n]));l+=r}return l},cubic_spline:function(t,o,n){for(var r,l,i=t.length,s=0,a=[],u=[],c=[],f=[],d=[],p=[];s<i-1;s++)f[s]=t[s+1]-t[s];for(c[0]=0,s=1;s<i-1;s++)c[s]=3/f[s]*(o[s+1]-o[s])-3/f[s-1]*(o[s]-o[s-1]);for(s=1;s<i-1;s++)a[s]=[],u[s]=[],a[s][s-1]=f[s-1],a[s][s]=2*(f[s-1]+f[s]),a[s][s+1]=f[s],u[s][0]=c[s];for(l=e.multiply(e.inv(a),u),r=0;r<i-1;r++)d[r]=(o[r+1]-o[r])/f[r]-f[r]*(l[r+1][0]+2*l[r][0])/3,p[r]=(l[r+1][0]-l[r][0])/(3*f[r]);for(r=0;r<i&&!(t[r]>n);r++);return o[r-=1]+(n-t[r])*d[r]+e.sq(n-t[r])*l[r]+(n-t[r])*e.sq(n-t[r])*p[r]},gauss_quadrature:function(){throw new Error("gauss_quadrature not yet implemented")},PCA:function(t){var o,n,r,l,i,s=t.length,a=t[0].length,u=0,c=[],f=[],d=[],p=[],b=[],j=[],h=[];for(u=0;u<s;u++)c[u]=e.sum(t[u])/a;for(u=0;u<a;u++)for(b[u]=[],o=0;o<s;o++)b[u][o]=t[o][u]-c[o];for(b=e.transpose(b),u=0;u<s;u++)for(j[u]=[],o=0;o<s;o++)j[u][o]=e.dot([b[u]],[b[o]])/(a-1);for(i=(r=e.jacobi(j))[0],f=r[1],h=e.transpose(i),u=0;u<f.length;u++)for(o=u;o<f.length;o++)f[u]<f[o]&&(n=f[u],f[u]=f[o],f[o]=n,d=h[u],h[u]=h[o],h[o]=d);for(l=e.transpose(b),u=0;u<s;u++)for(p[u]=[],o=0;o<l.length;o++)p[u][o]=e.dot([h[u]],[l[o]]);return[t,f,h,p]}}),function(t){for(var o=0;o<t.length;o++)!function(t){e.fn[t]=function(o,n){var r=this;return n?(setTimeout((function(){n.call(r,e.fn[t].call(r,o))}),15),this):"number"==typeof e[t](this,o)?e[t](this,o):e(e[t](this,o))}}(t[o])}("add divide multiply subtract dot pow exp log abs norm angle".split(" "))}(t,Math),function(e,t){var o=[].slice,n=e.utils.isNumber,r=e.utils.isArray;function l(e,o,n,r){if(e>1||n>1||e<=0||n<=0)throw new Error("Proportions should be greater than 0 and less than 1");var l=(e*o+n*r)/(o+r);return(e-n)/t.sqrt(l*(1-l)*(1/o+1/r))}e.extend({zscore:function(){var t=o.call(arguments);return n(t[1])?(t[0]-t[1])/t[2]:(t[0]-e.mean(t[1]))/e.stdev(t[1],t[2])},ztest:function(){var n,l=o.call(arguments);return r(l[1])?(n=e.zscore(l[0],l[1],l[3]),1===l[2]?e.normal.cdf(-t.abs(n),0,1):2*e.normal.cdf(-t.abs(n),0,1)):l.length>2?(n=e.zscore(l[0],l[1],l[2]),1===l[3]?e.normal.cdf(-t.abs(n),0,1):2*e.normal.cdf(-t.abs(n),0,1)):(n=l[0],1===l[1]?e.normal.cdf(-t.abs(n),0,1):2*e.normal.cdf(-t.abs(n),0,1))}}),e.extend(e.fn,{zscore:function(e,t){return(e-this.mean())/this.stdev(t)},ztest:function(o,n,r){var l=t.abs(this.zscore(o,r));return 1===n?e.normal.cdf(-l,0,1):2*e.normal.cdf(-l,0,1)}}),e.extend({tscore:function(){var n=o.call(arguments);return 4===n.length?(n[0]-n[1])/(n[2]/t.sqrt(n[3])):(n[0]-e.mean(n[1]))/(e.stdev(n[1],!0)/t.sqrt(n[1].length))},ttest:function(){var r,l=o.call(arguments);return 5===l.length?(r=t.abs(e.tscore(l[0],l[1],l[2],l[3])),1===l[4]?e.studentt.cdf(-r,l[3]-1):2*e.studentt.cdf(-r,l[3]-1)):n(l[1])?(r=t.abs(l[0]),1==l[2]?e.studentt.cdf(-r,l[1]-1):2*e.studentt.cdf(-r,l[1]-1)):(r=t.abs(e.tscore(l[0],l[1])),1==l[2]?e.studentt.cdf(-r,l[1].length-1):2*e.studentt.cdf(-r,l[1].length-1))}}),e.extend(e.fn,{tscore:function(e){return(e-this.mean())/(this.stdev(!0)/t.sqrt(this.cols()))},ttest:function(o,n){return 1===n?1-e.studentt.cdf(t.abs(this.tscore(o)),this.cols()-1):2*e.studentt.cdf(-t.abs(this.tscore(o)),this.cols()-1)}}),e.extend({anovafscore:function(){var n,r,l,i,s,a,u,c,f=o.call(arguments);if(1===f.length){for(s=new Array(f[0].length),u=0;u<f[0].length;u++)s[u]=f[0][u];f=s}for(r=new Array,u=0;u<f.length;u++)r=r.concat(f[u]);for(l=e.mean(r),n=0,u=0;u<f.length;u++)n+=f[u].length*t.pow(e.mean(f[u])-l,2);for(n/=f.length-1,a=0,u=0;u<f.length;u++)for(i=e.mean(f[u]),c=0;c<f[u].length;c++)a+=t.pow(f[u][c]-i,2);return n/(a/(r.length-f.length))},anovaftest:function(){var t,r,l,i,s=o.call(arguments);if(n(s[0]))return 1-e.centralF.cdf(s[0],s[1],s[2]);var a=e.anovafscore(s);for(t=s.length-1,l=0,i=0;i<s.length;i++)l+=s[i].length;return r=l-t-1,1-e.centralF.cdf(a,t,r)},ftest:function(t,o,n){return 1-e.centralF.cdf(t,o,n)}}),e.extend(e.fn,{anovafscore:function(){return e.anovafscore(this.toArray())},anovaftes:function(){var t,o=0;for(t=0;t<this.length;t++)o+=this[t].length;return e.ftest(this.anovafscore(),this.length-1,o-this.length)}}),e.extend({qscore:function(){var r,l,i,s,a,u=o.call(arguments);return n(u[0])?(r=u[0],l=u[1],i=u[2],s=u[3],a=u[4]):(r=e.mean(u[0]),l=e.mean(u[1]),i=u[0].length,s=u[1].length,a=u[2]),t.abs(r-l)/(a*t.sqrt((1/i+1/s)/2))},qtest:function(){var t,n=o.call(arguments);3===n.length?(t=n[0],n=n.slice(1)):7===n.length?(t=e.qscore(n[0],n[1],n[2],n[3],n[4]),n=n.slice(5)):(t=e.qscore(n[0],n[1],n[2]),n=n.slice(3));var r=n[0],l=n[1];return 1-e.tukey.cdf(t,l,r-l)},tukeyhsd:function(t){for(var o=e.pooledstdev(t),n=t.map((function(t){return e.mean(t)})),r=t.reduce((function(e,t){return e+t.length}),0),l=[],i=0;i<t.length;++i)for(var s=i+1;s<t.length;++s){var a=e.qtest(n[i],n[s],t[i].length,t[s].length,o,r,t.length);l.push([[i,s],a])}return l}}),e.extend({normalci:function(){var n,r=o.call(arguments),l=new Array(2);return n=4===r.length?t.abs(e.normal.inv(r[1]/2,0,1)*r[2]/t.sqrt(r[3])):t.abs(e.normal.inv(r[1]/2,0,1)*e.stdev(r[2])/t.sqrt(r[2].length)),l[0]=r[0]-n,l[1]=r[0]+n,l},tci:function(){var n,r=o.call(arguments),l=new Array(2);return n=4===r.length?t.abs(e.studentt.inv(r[1]/2,r[3]-1)*r[2]/t.sqrt(r[3])):t.abs(e.studentt.inv(r[1]/2,r[2].length-1)*e.stdev(r[2],!0)/t.sqrt(r[2].length)),l[0]=r[0]-n,l[1]=r[0]+n,l},significant:function(e,t){return e<t}}),e.extend(e.fn,{normalci:function(t,o){return e.normalci(t,o,this.toArray())},tci:function(t,o){return e.tci(t,o,this.toArray())}}),e.extend(e.fn,{oneSidedDifferenceOfProportions:function(t,o,n,r){var i=l(t,o,n,r);return e.ztest(i,1)},twoSidedDifferenceOfProportions:function(t,o,n,r){var i=l(t,o,n,r);return e.ztest(i,2)}})}(t,Math),t.models=function(){function e(e,o){var n=e.length,r=o[0].length-1,l=n-r-1,i=t.lstsq(o,e),s=t.multiply(o,i.map((function(e){return[e]}))).map((function(e){return e[0]})),a=t.subtract(e,s),u=t.mean(e),c=t.sum(s.map((function(e){return Math.pow(e-u,2)}))),f=t.sum(e.map((function(e,t){return Math.pow(e-s[t],2)}))),d=c+f;return{exog:o,endog:e,nobs:n,df_model:r,df_resid:l,coef:i,predict:s,resid:a,ybar:u,SST:d,SSE:c,SSR:f,R2:c/d}}return{ols:function(o,n){var r=e(o,n),l=function(o){var n,r,l=(n=o.exog,r=n[0].length,t.arange(r).map((function(o){var l=t.arange(r).filter((function(e){return e!==o}));return e(t.col(n,o).map((function(e){return e[0]})),t.col(n,l))}))),i=Math.sqrt(o.SSR/o.df_resid),s=l.map((function(e){var t=e.SST,o=e.R2;return i/Math.sqrt(t*(1-o))})),a=o.coef.map((function(e,t){return(e-0)/s[t]})),u=a.map((function(e){var n=t.studentt.cdf(e,o.df_resid);return 2*(n>.5?1-n:n)})),c=t.studentt.inv(.975,o.df_resid),f=o.coef.map((function(e,t){var o=c*s[t];return[e-o,e+o]}));return{se:s,t:a,p:u,sigmaHat:i,interval95:f}}(r),i=function(e){var o,n,r,l=e.R2/e.df_model/((1-e.R2)/e.df_resid);return{F_statistic:l,pvalue:1-(o=l,n=e.df_model,r=e.df_resid,t.beta.cdf(o/(r/n+o),n/2,r/2))}}(r),s=1-(1-r.R2)*((r.nobs-1)/r.df_resid);return r.t=l,r.f=i,r.adjust_R2=s,r}}}(),t.extend({buildxmatrix:function(){for(var e=new Array(arguments.length),o=0;o<arguments.length;o++)e[o]=[1].concat(arguments[o]);return t(e)},builddxmatrix:function(){for(var e=new Array(arguments[0].length),o=0;o<arguments[0].length;o++)e[o]=[1].concat(arguments[0][o]);return t(e)},buildjxmatrix:function(e){for(var o=new Array(e.length),n=0;n<e.length;n++)o[n]=e[n];return t.builddxmatrix(o)},buildymatrix:function(e){return t(e).transpose()},buildjymatrix:function(e){return e.transpose()},matrixmult:function(e,o){var n,r,l,i,s;if(e.cols()==o.rows()){if(o.rows()>1){for(i=[],n=0;n<e.rows();n++)for(i[n]=[],r=0;r<o.cols();r++){for(s=0,l=0;l<e.cols();l++)s+=e.toArray()[n][l]*o.toArray()[l][r];i[n][r]=s}return t(i)}for(i=[],n=0;n<e.rows();n++)for(i[n]=[],r=0;r<o.cols();r++){for(s=0,l=0;l<e.cols();l++)s+=e.toArray()[n][l]*o.toArray()[r];i[n][r]=s}return t(i)}},regress:function(e,o){var n=t.xtranspxinv(e),r=e.transpose(),l=t.matrixmult(t(n),r);return t.matrixmult(l,o)},regresst:function(e,o,n){var r=t.regress(e,o),l={anova:{}},i=t.jMatYBar(e,r);l.yBar=i;var s=o.mean();l.anova.residuals=t.residuals(o,i),l.anova.ssr=t.ssr(i,s),l.anova.msr=l.anova.ssr/(e[0].length-1),l.anova.sse=t.sse(o,i),l.anova.mse=l.anova.sse/(o.length-(e[0].length-1)-1),l.anova.sst=t.sst(o,s),l.anova.mst=l.anova.sst/(o.length-1),l.anova.r2=1-l.anova.sse/l.anova.sst,l.anova.r2<0&&(l.anova.r2=0),l.anova.fratio=l.anova.msr/l.anova.mse,l.anova.pvalue=t.anovaftest(l.anova.fratio,e[0].length-1,o.length-(e[0].length-1)-1),l.anova.rmse=Math.sqrt(l.anova.mse),l.anova.r2adj=1-l.anova.mse/l.anova.mst,l.anova.r2adj<0&&(l.anova.r2adj=0),l.stats=new Array(e[0].length);for(var a,u,c,f=t.xtranspxinv(e),d=0;d<r.length;d++)a=Math.sqrt(l.anova.mse*Math.abs(f[d][d])),u=Math.abs(r[d]/a),c=t.ttest(u,o.length-e[0].length-1,n),l.stats[d]=[r[d],a,u,c];return l.regress=r,l},xtranspx:function(e){return t.matrixmult(e.transpose(),e)},xtranspxinv:function(e){var o=t.matrixmult(e.transpose(),e);return t.inv(o)},jMatYBar:function(e,o){var n=t.matrixmult(e,o);return new t(n)},residuals:function(e,o){return t.matrixsubtract(e,o)},ssr:function(e,t){for(var o=0,n=0;n<e.length;n++)o+=Math.pow(e[n]-t,2);return o},sse:function(e,t){for(var o=0,n=0;n<e.length;n++)o+=Math.pow(e[n]-t[n],2);return o},sst:function(e,t){for(var o=0,n=0;n<e.length;n++)o+=Math.pow(e[n]-t,2);return o},matrixsubtract:function(e,o){for(var n=new Array(e.length),r=0;r<e.length;r++){n[r]=new Array(e[r].length);for(var l=0;l<e[r].length;l++)n[r][l]=e[r][l]-o[r][l]}return t(n)}}),t.jStat=t,t)},960:function(e,t,o){const n=o(592);e.exports=function(e){function t(e,t){const o=t.split(".");let n=e;for(const e of o){if(null==n)return;n=n[e]}return n}for(let o=0;o<Object.keys(n).length;o++){let r,l=Object.keys(n)[o],i=[];if("object"==typeof n[l]){i=Object.keys(n[l]),r=Object.values(n[l]);for(let e=0;e<r.length;e++)if("object"==typeof r[e]){let t=i[e];n[l][t]&&(i=[...i,...Object.keys(n[l][t]).map((e=>t+"."+e))],i.splice(i.indexOf(t),1))}}if(i.length<1)e[l]=n[l];else for(let o=0;o<i.length;o++)"function"==typeof t(n[l],i[o])&&(e[l]=t(n[l],i[o]))}let o=function(e){return"number"==typeof e&&(e=parseInt(e)),e},r=null,l=null,i=null;e.TABLE=function(){return i},e.COLUMN=e.COL=function(){return i.tracking&&i.tracking.push(u.getColumnNameFromCoords(o(r),o(l))),o(r)+1},e.ROW=function(){return i.tracking&&i.tracking.push(u.getColumnNameFromCoords(o(r),o(l))),o(l)+1},e.CELL=function(){return u.getColumnNameFromCoords(r,l)},e.VALUE=function(e,t,n){return i.getValueFromCoords(o(e)-1,o(t)-1,n)},e.THISROWCELL=function(e){return i.getValueFromCoords(o(e)-1,o(l))};const s=function(e,t){for(let o=0;o<e.length;o++){let n=u.getTokensFromRange(e[o]);t=t.replace(e[o],"["+n.join(",")+"]")}return t},a=function(e){return"string"==typeof e&&(e=e.trim()),!isNaN(e)&&null!==e&&""!==e},u=function(e,t,o,n,u){i=u,r=o,l=n;let c="",f={};if(t)if(t.size){let e,o=null;t.forEach((function(t,o){e=o.replace(/!/g,"."),-1!==e.indexOf(".")&&(e=e.split("."),f[e[0]]=!0)})),e=Object.keys(f);for(let t=0;t<e.length;t++)c+="var "+e[t]+" = {};";t.forEach((function(n,r){e=r.replace(/!/g,"."),null===n||a(n)||(o=n.match(/(('.*?'!)|(\w*!))?(\$?[A-Z]+\$?[0-9]*):(\$?[A-Z]+\$?[0-9]*)?/g),o&&o.length&&(n=updateRanges(o,n))),e.indexOf(".")>0?c+=e+" = "+t.get(r)+";\n":c+="var "+e+" = "+n+";\n"}))}else{let e=Object.keys(t);if(e.length){let o,n={};for(let t=0;t<e.length;t++)if(o=e[t].replace(/\!/g,"."),o.indexOf(".")>0){let e=e.split(".");n[e[0]]={}}o=Object.keys(n);for(let e=0;e<o.length;e++)c+="var "+o[e]+" = {};";for(let n=0;n<e.length;n++){if(o=e[n].replace(/!/g,"."),null!==t[e[n]]&&!a(t[e[n]])){let o=t[e[n]].match(/(('.*?'!)|(\w*!))?(\$?[A-Z]+\$?[0-9]*):(\$?[A-Z]+\$?[0-9]*)?/g);o&&o.length&&(t[e[n]]=s(o,t[e[n]]))}o.indexOf(".")>0?c+=o+" = "+t[e[n]]+";\n":c+="var "+o+" = "+t[e[n]]+";\n"}}}let d=(e=function(e,t){let o="",n=0,r=["=","!",">","<"];for(let t=0;t<e.length;t++)'"'===e[t]&&(n=0===n?1:0),1===n?o+=e[t]:(o+=e[t].toUpperCase(),t>0&&"="===e[t]&&-1===r.indexOf(e[t-1])&&-1===r.indexOf(e[t+1])&&(o+="="));return o=o.replace(/\^/g,"**"),o=o.replace(/<>/g,"!="),o=o.replace(/&/g,"+"),o=o.replace(/\$/g,""),o}(e=(e=e.replace(/\$/g,"")).replace(/!/g,"."))).match(/(('.*?'!)|(\w*!))?(\$?[A-Z]+\$?[0-9]*):(\$?[A-Z]+\$?[0-9]*)?/g);d&&d.length&&(e=s(d,e));let p=new Function(c+"; return "+e)();return null===p&&(p=0),p};return u.getColumnNameFromCoords=function(e,t){return n="",(o=parseInt(e))>701?(n+=String.fromCharCode(64+parseInt(o/676)),n+=String.fromCharCode(64+parseInt(o%676/26))):o>25&&(n+=String.fromCharCode(64+parseInt(o/26))),n+String.fromCharCode(65+o%26)+(parseInt(t)+1);var o,n},u.getCoordsFromColumnName=function(e){var t=/^[a-zA-Z]+/.exec(e);if(t){for(var o=0,n=0;n<t[0].length;n++)o+=parseInt(t[0].charCodeAt(n)-64)*Math.pow(26,t[0].length-1-n);--o<0&&(o=0);var r=parseInt(/[0-9]+$/.exec(e))||null;return r>0&&r--,[o,r]}},u.getRangeFromTokens=function(e){e=e.filter((function(e){return"#REF!"!=e}));for(var t="",o="",n=0;n<e.length;n++)e[n].indexOf(".")>=0?t=".":e[n].indexOf("!")>=0&&(t="!"),t&&(o=e[n].split(t),e[n]=o[1],o=o[0]+t);return e.sort((function(e,t){var o=Helpers.getCoordsFromColumnName(e),n=Helpers.getCoordsFromColumnName(t);return o[1]>n[1]?1:o[1]<n[1]?-1:o[0]>n[0]?1:o[0]<n[0]?-1:0})),e.length?o+(e[0]+":")+e[e.length-1]:"#REF!"},u.getTokensFromRange=function(e){if(e.indexOf(".")>0){var t=e.split(".");e=t[1],t=t[0]+"."}else e.indexOf("!")>0?(t=e.split("!"),e=t[1],t=t[0]+"!"):t="";e=e.split(":");var o=u.getCoordsFromColumnName(e[0]),n=u.getCoordsFromColumnName(e[1]);if(o[0]<=n[0])var r=o[0],l=n[0];else r=n[0],l=o[0];if(null===o[1]&&null==n[1])for(var i=null,s=null,a=Object.keys(vars),c=0;c<a.length;c++){var f=u.getCoordsFromColumnName(a[c]);f[0]===o[0]&&(null===i||f[1]<i)&&(i=f[1]),f[0]===n[0]&&(null===s||f[1]>s)&&(s=f[1])}else o[1]<=n[1]?(i=o[1],s=n[1]):(i=n[1],s=o[1]);for(var d=[],p=i;p<=s;p++){var b=[];for(c=r;c<=l;c++)b.push(t+u.getColumnNameFromCoords(c,p));d.push(b)}return d},u.setFormula=function(t){let o=Object.keys(t);for(let n=0;n<o.length;n++)"function"==typeof t[o[n]]&&(e[o[n]]=t[o[n]])},u.basic=!0,u}("undefined"==typeof window?o.g:window)},592:function(e,t,o){"use strict";var n=o(162),r=o(765);const l=new Error("#NULL!"),i=new Error("#DIV/0!"),s=new Error("#VALUE!"),a=new Error("#REF!"),u=new Error("#NAME?"),c=new Error("#NUM!"),f=new Error("#N/A"),d=new Error("#ERROR!"),p=new Error("#GETTING_DATA");var b=Object.freeze({__proto__:null,data:p,div0:i,error:d,na:f,name:u,nil:l,num:c,ref:a,value:s});function j(e){const t=[];return h(e,(e=>{t.push(e)})),t}function h(e,t){let o=-1;const n=e.length;for(;++o<n&&!1!==t(e[o],o,e););return e}function g(e){let t,o=e.length;for(;o--;)if(t=e[o],"number"!=typeof t)if(!0!==t)if(!1!==t){if("string"==typeof t){const n=F(t);e[o]=n instanceof Error?0:n}}else e[o]=0;else e[o]=1;return e}function m(e,t){if(!e)return s;e.every((e=>Array.isArray(e)))&&0!==e.length||(e=[[...e]]),e.map(((t,o)=>{t.map(((t,n)=>{t||(e[o][n]=0)}))}));const o=e.reduce(((t,o,n)=>o.length>e[t].length?n:t),0),n=e[o].length;return e.map((e=>[...e,...Array(n-e.length).fill(t||0)]))}function v(){let e;if(1===arguments.length){const o=arguments[0];e=null!=(t=o)&&"number"==typeof t.length&&"string"!=typeof t?j.apply(null,arguments):[o]}else e=Array.from(arguments);for(var t;!C(e);)e=y(e);return e}function y(e){return e&&e.reduce?e.reduce(((e,t)=>{const o=Array.isArray(e),n=Array.isArray(t);return o&&n?e.concat(t):o?(e.push(t),e):n?[e].concat(t):[e,t]})):[e]}function C(e){if(!e)return!1;for(let t=0;t<e.length;++t)if(Array.isArray(e[t]))return!1;return!0}function x(e,t){return t=t||1,e&&"function"==typeof e.slice?e.slice(t):e}function w(e){return e?e[0].map(((t,o)=>e.map((e=>e[o])))):s}function A(e,t){let o=null;return h(e,((e,n)=>{if(e[0]===t)return o=n,!1})),null==o?s:o}function E(){for(let e=0;e<arguments.length;e++)if(arguments[e]instanceof Error)return arguments[e]}function M(){let e=arguments.length;for(;e--;)if(arguments[e]instanceof Error)return!0;return!1}function I(e){const t=1e14;return Math.round(e*t)/t}function N(){return v.apply(null,arguments).filter((e=>"number"==typeof e))}function S(e){if("boolean"==typeof e)return e;if(e instanceof Error)return e;if("number"==typeof e)return 0!==e;if("string"==typeof e){const t=e.toUpperCase();if("TRUE"===t)return!0;if("FALSE"===t)return!1}return e instanceof Date&&!isNaN(e)||s}function D(e){if(!isNaN(e)){if(e instanceof Date)return new Date(e);const t=parseFloat(e);return t<0||t>=2958466?c:function(e){e<60&&(e+=1);const t=Math.floor(e-25569),o=new Date(86400*t*1e3),n=e-Math.floor(e)+1e-7;let r=Math.floor(86400*n);const l=r%60;r-=l;const i=Math.floor(r/3600),s=Math.floor(r/60)%60;let a=o.getUTCDate(),u=o.getUTCMonth();return e>=60&&e<61&&(a=29,u=1),new Date(o.getUTCFullYear(),u,a,i,s,l)}(t)}return"string"!=typeof e||(e=/(\d{4})-(\d\d?)-(\d\d?)$/.test(e)?new Date(e+"T00:00:00.000"):new Date(e),isNaN(e))?s:e}function T(e){let t,o=e.length;for(;o--;){if(t=D(e[o]),t===s)return t;e[o]=t}return e}function F(e){return e instanceof Error?e:null==e?0:("boolean"==typeof e&&(e=+e),isNaN(e)||""===e?s:parseFloat(e))}function L(e){let t,o;if(!e||0===(t=e.length))return s;for(;t--;){if(e[t]instanceof Error)return e[t];if(o=F(e[t]),o instanceof Error)return o;e[t]=o}return e}function R(e){return e instanceof Error?e:null==e?"":e.toString()}function O(){let e=arguments.length;for(;e--;)if("string"==typeof arguments[e])return!0;return!1}function k(e){return null!=e}const H="=",B=[">",">=","<","<=","=","<>"],P="operator",_="literal",V=[P,_],q=P,U=_;function z(e,t){if(-1===V.indexOf(t))throw new Error("Unsupported token type: "+t);return{value:e,type:t}}function Y(e){return function(e){let t="";const o=[];for(let n=0;n<e.length;n++){const r=e[n];0===n&&B.indexOf(r)>=0?o.push(z(r,q)):t+=r}return t.length>0&&o.push(z(function(e){return"string"!=typeof e||/^\d+(\.\d+)?$/.test(e)&&(e=-1===e.indexOf(".")?parseInt(e,10):parseFloat(e)),e}(t),U)),o.length>0&&o[0].type!==q&&o.unshift(z(H,q)),o}(function(e){const t=e.length,o=[];let n=0,r="",l="";for(;n<t;){const t=e.charAt(n);switch(t){case">":case"<":case"=":l+=t,r.length>0&&(o.push(r),r="");break;default:l.length>0&&(o.push(l),l=""),r+=t}n++}return r.length>0&&o.push(r),l.length>0&&o.push(l),o}(e))}const W=function(e){const t=[];let o;for(let n=0;n<e.length;n++){const r=e[n];switch(r.type){case q:o=r.value;break;case U:t.push(r.value)}}return function(e,t){let o=!1;switch(t){case">":o=e[0]>e[1];break;case">=":o=e[0]>=e[1];break;case"<":o=e[0]<e[1];break;case"<=":o=e[0]<=e[1];break;case"=":o=e[0]==e[1];break;case"<>":o=e[0]!=e[1]}return o}(t,o)},X={};function G(e){return[s,a,i,c,u,l].indexOf(e)>=0||"number"==typeof e&&(isNaN(e)||!isFinite(e))}function K(e){return G(e)||e===f}function $(e){return!0===e||!1===e}function J(e){return"number"==typeof e&&!isNaN(e)&&isFinite(e)}function Q(e){return"string"==typeof e}function Z(){const e=[];for(let t=0;t<arguments.length;++t){let o=!1;const n=arguments[t];for(let t=0;t<e.length&&(o=e[t]===n,!o);++t);o||e.push(n)}return e}function ee(e,t,o,n){if(!t||!o)return f;n=!(0===n||!1===n);let r=f;const l="number"==typeof e;let i=!1;for(let s=0;s<t.length;s++){const u=t[s];if(u[0]===e){r=o<u.length+1?u[o-1]:a;break}!i&&(l&&n&&u[0]<=e||n&&"string"==typeof u[0]&&u[0].localeCompare(e)<0)&&(r=o<u.length+1?u[o-1]:a),l&&u[0]>e&&(i=!0)}return r}function te(){const e=v(arguments).filter(k);if(0===e.length)return i;const t=E.apply(void 0,e);if(t)return t;const o=N(e),n=o.length;let r,l=0,s=0;for(let e=0;e<n;e++)l+=o[e],s+=1;return r=l/s,isNaN(r)&&(r=c),r}function oe(){const e=v(arguments).filter(k);if(0===e.length)return i;const t=E.apply(void 0,e);if(t)return t;const o=e,n=o.length;let r,l=0,s=0;for(let e=0;e<n;e++){const t=o[e];"number"==typeof t&&(l+=t),!0===t&&l++,null!==t&&s++}return r=l/s,isNaN(r)&&(r=c),r}X.TYPE=e=>{switch(e){case l:return 1;case i:return 2;case s:return 3;case a:return 4;case u:return 5;case c:return 6;case f:return 7;case p:return 8}return f};const ne={DIST:function(e,t,o,r,l,i){return arguments.length<4?s:(l=void 0===l?0:l,i=void 0===i?1:i,M(e=F(e),t=F(t),o=F(o),l=F(l),i=F(i))?s:(e=(e-l)/(i-l),r?n.beta.cdf(e,t,o):n.beta.pdf(e,t,o)))},INV:(e,t,o,r,l)=>(r=void 0===r?0:r,l=void 0===l?1:l,M(e=F(e),t=F(t),o=F(o),r=F(r),l=F(l))?s:n.beta.inv(e,t,o)*(l-r)+r)},re={DIST:(e,t,o,r)=>M(e=F(e),t=F(t),o=F(o),r=F(r))?s:r?n.binomial.cdf(e,t,o):n.binomial.pdf(e,t,o)};re.DIST.RANGE=(e,t,o,n)=>{if(n=void 0===n?o:n,M(e=F(e),t=F(t),o=F(o),n=F(n)))return s;let r=0;for(let l=o;l<=n;l++)r+=qe(e,l)*Math.pow(t,l)*Math.pow(1-t,e-l);return r},re.INV=(e,t,o)=>{if(M(e=F(e),t=F(t),o=F(o)))return s;let r=0;for(;r<=e;){if(n.binomial.cdf(r,e,t)>=o)return r;r++}};const le={DIST:(e,t,o)=>M(e=F(e),t=F(t))?s:o?n.chisquare.cdf(e,t):n.chisquare.pdf(e,t)};le.DIST.RT=(e,t)=>!e|!t?f:e<1||t>Math.pow(10,10)?c:"number"!=typeof e||"number"!=typeof t?s:1-n.chisquare.cdf(e,t),le.INV=(e,t)=>M(e=F(e),t=F(t))?s:n.chisquare.inv(e,t),le.INV.RT=(e,t)=>!e|!t?f:e<0||e>1||t<1||t>Math.pow(10,10)?c:"number"!=typeof e||"number"!=typeof t?s:n.chisquare.inv(1-e,t),le.TEST=function(e,t){if(2!==arguments.length)return f;if(!(e instanceof Array&&t instanceof Array))return s;if(e.length!==t.length)return s;if(e[0]&&t[0]&&e[0].length!==t[0].length)return s;const o=e.length;let n,r,l;for(r=0;r<o;r++)e[r]instanceof Array||(n=e[r],e[r]=[],e[r].push(n)),t[r]instanceof Array||(n=t[r],t[r]=[],t[r].push(n));const i=e[0].length,a=1===i?o-1:(o-1)*(i-1);let u=0;const c=Math.PI;for(r=0;r<o;r++)for(l=0;l<i;l++)u+=Math.pow(e[r][l]-t[r][l],2)/t[r][l];return Math.round(1e6*function(e,t){let o=Math.exp(-.5*e);t%2==1&&(o*=Math.sqrt(2*e/c));let n=t;for(;n>=2;)o=o*e/n,n-=2;let r=o,l=t;for(;r>1e-10*o;)l+=2,r=r*e/l,o+=r;return 1-o}(u,a))/1e6};const ie={};function se(){return N(v(arguments)).length}function ae(){const e=v(arguments);return e.length-ue(e)}function ue(){const e=v(arguments);let t,o=0;for(let n=0;n<e.length;n++)t=e[n],null!=t&&""!==t||o++;return o}ie.NORM=(e,t,o)=>M(e=F(e),t=F(t),o=F(o))?s:n.normalci(1,e,t,o)[1]-1,ie.T=(e,t,o)=>M(e=F(e),t=F(t),o=F(o))?s:n.tci(1,e,t,o)[1]-1;const ce={P:(e,t)=>{if(M(e=L(v(e)),t=L(v(t))))return s;const o=n.mean(e),r=n.mean(t);let l=0;const i=e.length;for(let n=0;n<i;n++)l+=(e[n]-o)*(t[n]-r);return l/i},S:(e,t)=>M(e=L(v(e)),t=L(v(t)))?s:n.covariance(e,t)},fe={DIST:(e,t,o)=>M(e=F(e),t=F(t))?s:o?n.exponential.cdf(e,t):n.exponential.pdf(e,t)},de={};function pe(e,t,o){if(M(e=F(e),t=L(v(t)),o=L(v(o))))return s;const r=n.mean(o),l=n.mean(t),i=o.length;let a=0,u=0;for(let e=0;e<i;e++)a+=(o[e]-r)*(t[e]-l),u+=Math.pow(o[e]-r,2);const c=a/u;return l-c*r+c*e}function be(e){return(e=F(e))instanceof Error?e:0===e||parseInt(e,10)===e&&e<0?c:n.gammafn(e)}function je(e){return(e=F(e))instanceof Error?e:n.gammaln(e)}de.DIST=(e,t,o,r)=>M(e=F(e),t=F(t),o=F(o))?s:r?n.centralF.cdf(e,t,o):n.centralF.pdf(e,t,o),de.DIST.RT=function(e,t,o){return 3!==arguments.length?f:e<0||t<1||o<1?c:"number"!=typeof e||"number"!=typeof t||"number"!=typeof o?s:1-n.centralF.cdf(e,t,o)},de.INV=(e,t,o)=>M(e=F(e),t=F(t),o=F(o))?s:e<=0||e>1?c:n.centralF.inv(e,t,o),de.INV.RT=function(e,t,o){return 3!==arguments.length?f:e<0||e>1||t<1||t>Math.pow(10,10)||o<1||o>Math.pow(10,10)?c:"number"!=typeof e||"number"!=typeof t||"number"!=typeof o?s:n.centralF.inv(1-e,t,o)},de.TEST=(e,t)=>{if(!e||!t)return f;if(!(e instanceof Array&&t instanceof Array))return f;if(e.length<2||t.length<2)return i;const o=(e,t)=>{let o=0;for(let n=0;n<e.length;n++)o+=Math.pow(e[n]-t,2);return o},n=$e(e)/e.length,r=$e(t)/t.length;return o(e,n)/(e.length-1)/(o(t,r)/(t.length-1))},be.DIST=function(e,t,o,r){return 4!==arguments.length?f:e<0||t<=0||o<=0||"number"!=typeof e||"number"!=typeof t||"number"!=typeof o?s:r?n.gamma.cdf(e,t,o,!0):n.gamma.pdf(e,t,o,!1)},be.INV=function(e,t,o){return 3!==arguments.length?f:e<0||e>1||t<=0||o<=0?c:"number"!=typeof e||"number"!=typeof t||"number"!=typeof o?s:n.gamma.inv(e,t,o)},je.PRECISE=function(e){return 1!==arguments.length?f:e<=0?c:"number"!=typeof e?s:n.gammaln(e)};const he={};function ge(e,t){return M(e=L(v(e)),t=F(t))?e:t<0||e.length<t?s:e.sort(((e,t)=>t-e))[t-1]}function me(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;const o=n.mean(e),r=n.mean(t),l=t.length;let i=0,a=0;for(let n=0;n<l;n++)i+=(t[n]-r)*(e[n]-o),a+=Math.pow(t[n]-r,2);const u=i/a;return[u,o-u*r]}he.DIST=(e,t,o,n,r)=>{if(M(e=F(e),t=F(t),o=F(o),n=F(n)))return s;function l(e,t,o,n){return qe(o,e)*qe(n-o,t-e)/qe(n,t)}return r?function(e,t,o,n){let r=0;for(let i=0;i<=e;i++)r+=l(i,t,o,n);return r}(e,t,o,n):l(e,t,o,n)};const ve={};function ye(){const e=v(arguments),t=E.apply(void 0,e);if(t)return t;const o=N(e);return 0===o.length?0:Math.max.apply(Math,o)}function Ce(){const e=v(arguments),t=E.apply(void 0,e);if(t)return t;const o=g(e);let r=n.median(o);return isNaN(r)&&(r=c),r}function xe(){const e=v(arguments),t=E.apply(void 0,e);if(t)return t;const o=N(e);return 0===o.length?0:Math.min.apply(Math,o)}ve.DIST=(e,t,o,r)=>M(e=F(e),t=F(t),o=F(o))?s:r?n.lognormal.cdf(e,t,o):n.lognormal.pdf(e,t,o),ve.INV=(e,t,o)=>M(e=F(e),t=F(t),o=F(o))?s:n.lognormal.inv(e,t,o);const we={MULT:function(){const e=L(v(arguments));if(e instanceof Error)return e;const t=e.length,o={};let n,r=[],l=0;for(let i=0;i<t;i++)n=e[i],o[n]=o[n]?o[n]+1:1,o[n]>l&&(l=o[n],r=[]),o[n]===l&&(r[r.length]=n);return r},SNGL:function(){const e=L(v(arguments));return e instanceof Error?e:we.MULT(e).sort(((e,t)=>e-t))[0]}},Ae={DIST:(e,t,o,r)=>M(e=F(e),t=F(t),o=F(o))?s:r?n.negbin.cdf(e,t,o):n.negbin.pdf(e,t,o)},Ee={};function Me(e,t){if(M(t=L(v(t)),e=L(v(e))))return s;const o=n.mean(e),r=n.mean(t),l=e.length;let i=0,a=0,u=0;for(let n=0;n<l;n++)i+=(e[n]-o)*(t[n]-r),a+=Math.pow(e[n]-o,2),u+=Math.pow(t[n]-r,2);return i/Math.sqrt(a*u)}Ee.DIST=(e,t,o,r)=>M(e=F(e),t=F(t),o=F(o))?s:o<=0?c:r?n.normal.cdf(e,t,o):n.normal.pdf(e,t,o),Ee.INV=(e,t,o)=>M(e=F(e),t=F(t),o=F(o))?s:n.normal.inv(e,t,o),Ee.S={},Ee.S.DIST=(e,t)=>(e=F(e))instanceof Error?s:t?n.normal.cdf(e,0,1):n.normal.pdf(e,0,1),Ee.S.INV=e=>(e=F(e))instanceof Error?s:n.normal.inv(e,0,1);const Ie={EXC:(e,t)=>{if(M(e=L(v(e)),t=F(t)))return s;const o=(e=e.sort(((e,t)=>e-t))).length;if(t<1/(o+1)||t>1-1/(o+1))return c;const n=t*(o+1)-1,r=Math.floor(n);return I(n===r?e[n]:e[r]+(n-r)*(e[r+1]-e[r]))},INC:(e,t)=>{if(M(e=L(v(e)),t=F(t)))return s;const o=t*((e=e.sort(((e,t)=>e-t))).length-1),n=Math.floor(o);return I(o===n?e[o]:e[n]+(o-n)*(e[n+1]-e[n]))}},Ne={EXC:(e,t,o)=>{if(o=void 0===o?3:o,M(e=L(v(e)),t=F(t),o=F(o)))return s;e=e.sort(((e,t)=>e-t));const n=Z.apply(null,e),r=e.length,l=n.length,i=Math.pow(10,o);let a=0,u=!1,c=0;for(;!u&&c<l;)t===n[c]?(a=(e.indexOf(n[c])+1)/(r+1),u=!0):t>=n[c]&&(t<n[c+1]||c===l-1)&&(a=(e.indexOf(n[c])+1+(t-n[c])/(n[c+1]-n[c]))/(r+1),u=!0),c++;return Math.floor(a*i)/i},INC:(e,t,o)=>{if(o=void 0===o?3:o,M(e=L(v(e)),t=F(t),o=F(o)))return s;e=e.sort(((e,t)=>e-t));const n=Z.apply(null,e),r=e.length,l=n.length,i=Math.pow(10,o);let a=0,u=!1,c=0;for(;!u&&c<l;)t===n[c]?(a=e.indexOf(n[c])/(r-1),u=!0):t>=n[c]&&(t<n[c+1]||c===l-1)&&(a=(e.indexOf(n[c])+(t-n[c])/(n[c+1]-n[c]))/(r-1),u=!0),c++;return Math.floor(a*i)/i}},Se={DIST:(e,t,o)=>M(e=F(e),t=F(t))?s:o?n.poisson.cdf(e,t):n.poisson.pdf(e,t)},De={EXC:(e,t)=>{if(M(e=L(v(e)),t=F(t)))return s;switch(t){case 1:return Ie.EXC(e,.25);case 2:return Ie.EXC(e,.5);case 3:return Ie.EXC(e,.75);default:return c}},INC:(e,t)=>{if(M(e=L(v(e)),t=F(t)))return s;switch(t){case 1:return Ie.INC(e,.25);case 2:return Ie.INC(e,.5);case 3:return Ie.INC(e,.75);default:return c}}},Te={};function Fe(){const e=L(v(arguments));if(e instanceof Error)return e;const t=n.mean(e),o=e.length;let r=0;for(let n=0;n<o;n++)r+=Math.pow(e[n]-t,3);return o*r/((o-1)*(o-2)*Math.pow(n.stdev(e,!0),3))}function Le(e,t){return M(e=L(v(e)),t=F(t))?e:e.sort(((e,t)=>e-t))[t-1]}Te.AVG=(e,t,o)=>{if(M(e=F(e),t=L(v(t))))return s;const n=(o=o||!1)?(e,t)=>e-t:(e,t)=>t-e,r=(t=(t=v(t)).sort(n)).length;let l=0;for(let o=0;o<r;o++)t[o]===e&&l++;return l>1?(2*t.indexOf(e)+l+1)/2:t.indexOf(e)+1},Te.EQ=(e,t,o)=>{if(M(e=F(e),t=L(v(t))))return s;const n=(o=o||!1)?(e,t)=>e-t:(e,t)=>t-e;return(t=t.sort(n)).indexOf(e)+1},Fe.P=function(){const e=L(v(arguments));if(e instanceof Error)return e;const t=n.mean(e),o=e.length;let r=0,l=0;for(let n=0;n<o;n++)l+=Math.pow(e[n]-t,3),r+=Math.pow(e[n]-t,2);return l/=o,r/=o,l/Math.pow(r,1.5)};const Re={P:function(){const e=ke.P.apply(this,arguments);let t=Math.sqrt(e);return isNaN(t)&&(t=c),t},S:function(){const e=ke.S.apply(this,arguments);return Math.sqrt(e)}},Oe={DIST:(e,t,o)=>1!==o&&2!==o?c:1===o?Oe.DIST.RT(e,t):Oe.DIST["2T"](e,t)};Oe.DIST["2T"]=function(e,t){return 2!==arguments.length?f:e<0||t<1?c:"number"!=typeof e||"number"!=typeof t?s:2*(1-n.studentt.cdf(e,t))},Oe.DIST.RT=function(e,t){return 2!==arguments.length?f:e<0||t<1?c:"number"!=typeof e||"number"!=typeof t?s:1-n.studentt.cdf(e,t)},Oe.INV=(e,t)=>M(e=F(e),t=F(t))?s:n.studentt.inv(e,t),Oe.INV["2T"]=(e,t)=>(e=F(e),t=F(t),e<=0||e>1||t<1?c:M(e,t)?s:Math.abs(n.studentt.inv(e/2,t))),Oe.TEST=(e,t)=>{if(M(e=L(v(e)),t=L(v(t))))return s;const o=n.mean(e),r=n.mean(t);let l,i=0,a=0;for(l=0;l<e.length;l++)i+=Math.pow(e[l]-o,2);for(l=0;l<t.length;l++)a+=Math.pow(t[l]-r,2);i/=e.length-1,a/=t.length-1;const u=Math.abs(o-r)/Math.sqrt(i/e.length+a/t.length);return Oe.DIST["2T"](u,e.length+t.length-2)};const ke={};function He(){const e=v(arguments),t=e.length;let o=0,n=0;const r=oe(e);for(let l=0;l<t;l++){const t=e[l];o+="number"==typeof t?Math.pow(t-r,2):!0===t?Math.pow(1-r,2):Math.pow(0-r,2),null!==t&&n++}return o/(n-1)}function Be(){const e=v(arguments),t=e.length;let o=0,n=0;const r=oe(e);let l;for(let l=0;l<t;l++){const t=e[l];o+="number"==typeof t?Math.pow(t-r,2):!0===t?Math.pow(1-r,2):Math.pow(0-r,2),null!==t&&n++}return l=o/n,isNaN(l)&&(l=c),l}ke.P=function(){const e=N(v(arguments)),t=e.length;let o=0;const n=te(e);let r;for(let r=0;r<t;r++)o+=Math.pow(e[r]-n,2);return r=o/t,isNaN(r)&&(r=c),r},ke.S=function(){const e=N(v(arguments)),t=e.length;let o=0;const n=te(e);for(let r=0;r<t;r++)o+=Math.pow(e[r]-n,2);return o/(t-1)};const Pe={DIST:(e,t,o,n)=>M(e=F(e),t=F(t),o=F(o))?s:n?1-Math.exp(-Math.pow(e/o,t)):Math.pow(e,t-1)*Math.exp(-Math.pow(e/o,t))*t/Math.pow(o,t)},_e={};function Ve(e,t,o){const n=E(e=F(e),t=F(t),o=F(o));if(n)return n;if(0===t)return 0;t=Math.abs(t);const r=-Math.floor(Math.log(t)/Math.log(10));return e>=0?Ke(Math.ceil(e/t)*t,r):0===o?-Ke(Math.floor(Math.abs(e)/t)*t,r):-Ke(Math.ceil(Math.abs(e)/t)*t,r)}function qe(e,t){return E(e=F(e),t=F(t))||(e<t?c:ze(e)/(ze(t)*ze(e-t)))}_e.TEST=(e,t,o)=>{if(M(e=L(v(e)),t=F(t)))return s;o=o||Re.S(e);const n=e.length;return 1-Ee.S.DIST((te(e)-t)/(o/Math.sqrt(n)),!0)},Ve.MATH=Ve,Ve.PRECISE=Ve;const Ue=[];function ze(e){if((e=F(e))instanceof Error)return e;const t=Math.floor(e);return 0===t||1===t?1:(Ue[t]>0||(Ue[t]=ze(t-1)*t),Ue[t])}function Ye(e,t){const o=E(e=F(e),t=F(t));if(o)return o;if(0===t)return 0;if(!(e>=0&&t>0||e<=0&&t<0))return c;t=Math.abs(t);const n=-Math.floor(Math.log(t)/Math.log(10));return e>=0?Ke(Math.floor(e/t)*t,n):-Ke(Math.ceil(Math.abs(e)/t),n)}Ye.MATH=(e,t,o)=>{if(t instanceof Error)return t;t=void 0===t?0:t;const n=E(e=F(e),t=F(t),o=F(o));if(n)return n;if(0===t)return 0;t=t?Math.abs(t):1;const r=-Math.floor(Math.log(t)/Math.log(10));return e>=0?Ke(Math.floor(e/t)*t,r):0===o||void 0===o?-Ke(Math.ceil(Math.abs(e)/t)*t,r):-Ke(Math.floor(Math.abs(e)/t)*t,r)},Ye.PRECISE=Ye.MATH;const We={CEILING:Ve};function Xe(e,t){const o=E(e=F(e),t=F(t));if(o)return o;if(0===e&&0===t)return c;const n=Math.pow(e,t);return isNaN(n)?c:n}function Ge(){const e=v(arguments).filter((e=>null!=e));if(0===e.length)return 0;const t=L(e);if(t instanceof Error)return t;let o=1;for(let e=0;e<t.length;e++)o*=t[e];return o}function Ke(e,t){return E(e=F(e),t=F(t))||Number(Math.round(Number(e+"e"+t))+"e"+-1*t)}function $e(){let e=0;return h(j(arguments),(t=>{if(e instanceof Error)return!1;if(t instanceof Error)e=t;else if("number"==typeof t)e+=t;else if("string"==typeof t){const o=parseFloat(t);!isNaN(o)&&(e+=o)}else if(Array.isArray(t)){const o=$e.apply(null,t);o instanceof Error?e=o:e+=o}})),e}var Je=Object.freeze({__proto__:null,ADD:function(e,t){return 2!==arguments.length?f:E(e=F(e),t=F(t))||e+t},DIVIDE:function(e,t){return 2!==arguments.length?f:E(e=F(e),t=F(t))||(0===t?i:e/t)},EQ:function(e,t){return 2!==arguments.length?f:e instanceof Error?e:t instanceof Error?t:(null===e&&(e=void 0),null===t&&(t=void 0),e===t)},GT:function(e,t){return 2!==arguments.length?f:e instanceof Error?e:t instanceof Error?t:(O(e,t)?(e=R(e),t=R(t)):(e=F(e),t=F(t)),E(e,t)||e>t)},GTE:function(e,t){return 2!==arguments.length?f:(O(e,t)?(e=R(e),t=R(t)):(e=F(e),t=F(t)),E(e,t)||e>=t)},LT:function(e,t){return 2!==arguments.length?f:(O(e,t)?(e=R(e),t=R(t)):(e=F(e),t=F(t)),E(e,t)||e<t)},LTE:function(e,t){return 2!==arguments.length?f:(O(e,t)?(e=R(e),t=R(t)):(e=F(e),t=F(t)),E(e,t)||e<=t)},MINUS:function(e,t){return 2!==arguments.length?f:E(e=F(e),t=F(t))||e-t},MULTIPLY:function(e,t){return 2!==arguments.length?f:E(e=F(e),t=F(t))||e*t},NE:function(e,t){return 2!==arguments.length?f:e instanceof Error?e:t instanceof Error?t:(null===e&&(e=void 0),null===t&&(t=void 0),e!==t)},POW:function(e,t){return 2!==arguments.length?f:Xe(e,t)}});const Qe=new Date(Date.UTC(1900,0,1)),Ze=[void 0,0,1,void 0,void 0,void 0,void 0,void 0,void 0,void 0,void 0,void 0,1,2,3,4,5,6,0],et=[[],[1,2,3,4,5,6,7],[7,1,2,3,4,5,6],[6,0,1,2,3,4,5],[],[],[],[],[],[],[],[7,1,2,3,4,5,6],[6,7,1,2,3,4,5],[5,6,7,1,2,3,4],[4,5,6,7,1,2,3],[3,4,5,6,7,1,2],[2,3,4,5,6,7,1],[1,2,3,4,5,6,7]],tt=[[],[6,0],[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],void 0,void 0,void 0,[0,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6]];function ot(e,t,o){o=o.toUpperCase(),e=D(e),t=D(t);const n=e.getFullYear(),r=e.getMonth(),l=e.getDate(),i=t.getFullYear(),s=t.getMonth(),a=t.getDate();let u;switch(o){case"Y":u=Math.floor(ft(e,t));break;case"D":u=rt(t,e);break;case"M":u=s-r+12*(i-n),a<l&&u--;break;case"MD":l<=a?u=a-l:(0===s?(e.setFullYear(i-1),e.setMonth(12)):(e.setFullYear(i),e.setMonth(s-1)),u=rt(t,e));break;case"YM":u=s-r+12*(i-n),a<l&&u--,u%=12;break;case"YD":s>r||s===r&&a<l?e.setFullYear(i):e.setFullYear(i-1),u=rt(t,e)}return u}function nt(e){const t=new Date(e);return t.setHours(0,0,0,0),t}function rt(e,t){return e=D(e),t=D(t),e instanceof Error?e:t instanceof Error?t:dt(nt(e))-dt(nt(t))}function lt(e,t,o){if(o=S(o||"false"),e=D(e),t=D(t),e instanceof Error)return e;if(t instanceof Error)return t;if(o instanceof Error)return o;const n=e.getMonth();let r,l,i=t.getMonth();if(o)r=31===e.getDate()?30:e.getDate(),l=31===t.getDate()?30:t.getDate();else{const o=new Date(e.getFullYear(),n+1,0).getDate(),s=new Date(t.getFullYear(),i+1,0).getDate();r=e.getDate()===o?30:e.getDate(),t.getDate()===s?r<30?(i++,l=1):l=30:l=t.getDate()}return 360*(t.getFullYear()-e.getFullYear())+30*(i-n)+(l-r)}function it(e){if((e=D(e))instanceof Error)return e;(e=nt(e)).setDate(e.getDate()+4-(e.getDay()||7));const t=new Date(e.getFullYear(),0,1);return Math.ceil(((e-t)/864e5+1)/7)}function st(e,t,o){return st.INTL(e,t,1,o)}function at(e,t,o){return at.INTL(e,t,1,o)}function ut(e){return 1===new Date(e,1,29).getMonth()}function ct(e,t){return Math.ceil((t-e)/1e3/60/60/24)}function ft(e,t,o){if((e=D(e))instanceof Error)return e;if((t=D(t))instanceof Error)return t;o=o||0;let n=e.getDate();const r=e.getMonth()+1,l=e.getFullYear();let i=t.getDate();const s=t.getMonth()+1,a=t.getFullYear();switch(o){case 0:return 31===n&&31===i?(n=30,i=30):31===n?n=30:30===n&&31===i&&(i=30),(i+30*s+360*a-(n+30*r+360*l))/360;case 1:{const o=(e,t)=>{const o=e.getFullYear(),n=new Date(o,2,1);if(ut(o)&&e<n&&t>=n)return!0;const r=t.getFullYear(),l=new Date(r,2,1);return ut(r)&&t>=l&&e<l};let u=365;if(l===a||l+1===a&&(r>s||r===s&&n>=i))return(l===a&&ut(l)||o(e,t)||1===s&&29===i)&&(u=366),ct(e,t)/u;const c=a-l+1,f=(new Date(a+1,0,1)-new Date(l,0,1))/1e3/60/60/24/c;return ct(e,t)/f}case 2:return ct(e,t)/360;case 3:return ct(e,t)/365;case 4:return(i+30*s+360*a-(n+30*r+360*l))/360}}function dt(e){const t=e>-22038912e5?2:1;return Math.ceil((e-Qe)/864e5)+t}function pt(e){return 0===(e=F(e))?s:e instanceof Error?e:String.fromCharCode(e)}function bt(e){if(M(e))return e;let t=(e=e||"").charCodeAt(0);return isNaN(t)&&(t=s),t}function jt(){const e=v(arguments),t=E.apply(void 0,e);if(t)return t;let o=0;for(;(o=e.indexOf(!0))>-1;)e[o]="TRUE";let n=0;for(;(n=e.indexOf(!1))>-1;)e[n]="FALSE";return e.join("")}st.INTL=(e,t,o,n)=>{if((e=D(e))instanceof Error)return e;if((t=D(t))instanceof Error)return t;let r=!1;const l=[],i=[1,2,3,4,5,6,0],a=new RegExp("^[0|1]{7}$");if(void 0===o)o=tt[1];else if("string"==typeof o&&a.test(o)){r=!0,o=o.split("");for(let e=0;e<o.length;e++)"1"===o[e]&&l.push(i[e])}else o=tt[o];if(!(o instanceof Array))return s;void 0===n?n=[]:n instanceof Array||(n=[n]);for(let e=0;e<n.length;e++){const t=D(n[e]);if(t instanceof Error)return t;n[e]=t}const u=Math.round((t-e)/864e5)+1;let c=u;const f=e;for(let e=0;e<u;e++){const e=(new Date).getTimezoneOffset()>0?f.getUTCDay():f.getDay();let t=r?l.includes(e):e===o[0]||e===o[1];for(let e=0;e<n.length;e++){const o=n[e];if(o.getDate()===f.getDate()&&o.getMonth()===f.getMonth()&&o.getFullYear()===f.getFullYear()){t=!0;break}}t&&c--,f.setDate(f.getDate()+1)}return c},at.INTL=(e,t,o,n)=>{if((e=D(e))instanceof Error)return e;if((t=F(t))instanceof Error)return t;if(t<0)return c;if(!((o=void 0===o?tt[1]:tt[o])instanceof Array))return s;void 0===n?n=[]:n instanceof Array||(n=[n]);for(let e=0;e<n.length;e++){const t=D(n[e]);if(t instanceof Error)return t;n[e]=t}let r=0;for(;r<t;){e.setDate(e.getDate()+1);const t=e.getDay();if(t!==o[0]&&t!==o[1]){for(let t=0;t<n.length;t++){const o=n[t];if(o.getDate()===e.getDate()&&o.getMonth()===e.getMonth()&&o.getFullYear()===e.getFullYear()){r--;break}}r++}}return e};const ht=jt;function gt(e,t=2,o=!1){if(e=F(e),isNaN(e))return s;if(t=F(t),isNaN(t))return s;if(t<0){const o=Math.pow(10,-t);e=Math.round(e/o)*o}else e=e.toFixed(t);if(o)e=e.toString().replace(/,/g,"");else{const t=e.toString().split(".");t[0]=t[0].replace(/\B(?=(\d{3})+$)/g,","),e=t.join(".")}return e}function mt(e,t){return E(e,t)||(e=R(e),(t=F(t))instanceof Error?t:new Array(t+1).join(e))}const vt=pt,yt=bt;function Ct(e){return/^[01]{1,10}$/.test(e)}function xt(e,t,o){if(M(e=F(e),t=F(t)))return e;if("i"!==(o=void 0===o?"i":o)&&"j"!==o)return s;if(0===e&&0===t)return 0;if(0===e)return 1===t?o:t.toString()+o;if(0===t)return e.toString();{const n=t>0?"+":"";return e.toString()+n+(1===t?o:t.toString()+o)}}function wt(e,t){return t=void 0===t?0:t,M(e=F(e),t=F(t))?s:n.erf(e)}function At(e){return isNaN(e)?s:n.erfc(e)}function Et(e){const t=Tt(e),o=Mt(e);return M(t,o)?s:Math.sqrt(Math.pow(t,2)+Math.pow(o,2))}function Mt(e){if(void 0===e||!0===e||!1===e)return s;if(0===e||"0"===e)return 0;if(["i","j"].indexOf(e)>=0)return 1;let t=(e=(e+="").replace("+i","+1i").replace("-i","-1i").replace("+j","+1j").replace("-j","-1j")).indexOf("+"),o=e.indexOf("-");0===t&&(t=e.indexOf("+",1)),0===o&&(o=e.indexOf("-",1));const n=e.substring(e.length-1,e.length),r="i"===n||"j"===n;return t>=0||o>=0?r?t>=0?isNaN(e.substring(0,t))||isNaN(e.substring(t+1,e.length-1))?c:Number(e.substring(t+1,e.length-1)):isNaN(e.substring(0,o))||isNaN(e.substring(o+1,e.length-1))?c:-Number(e.substring(o+1,e.length-1)):c:r?isNaN(e.substring(0,e.length-1))?c:e.substring(0,e.length-1):isNaN(e)?c:0}function It(e){const t=Tt(e),o=Mt(e);return M(t,o)?s:0===t&&0===o?i:0===t&&o>0?Math.PI/2:0===t&&o<0?-Math.PI/2:0===o&&t>0?0:0===o&&t<0?-Math.PI:t>0?Math.atan(o/t):t<0&&o>=0?Math.atan(o/t)+Math.PI:Math.atan(o/t)-Math.PI}function Nt(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",xt(Math.cos(t)*(Math.exp(o)+Math.exp(-o))/2,-Math.sin(t)*(Math.exp(o)-Math.exp(-o))/2,n)}function St(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",xt(Math.cos(o)*(Math.exp(t)+Math.exp(-t))/2,Math.sin(o)*(Math.exp(t)-Math.exp(-t))/2,n)}function Dt(e,t){const o=Tt(e),n=Mt(e),r=Tt(t),l=Mt(t);if(M(o,n,r,l))return s;const i=e.substring(e.length-1),a=t.substring(t.length-1);let u="i";if(("j"===i||"j"===a)&&(u="j"),0===r&&0===l)return c;const f=r*r+l*l;return xt((o*r+n*l)/f,(n*r-o*l)/f,u)}function Tt(e){if(void 0===e||!0===e||!1===e)return s;if(0===e||"0"===e)return 0;if(["i","+i","1i","+1i","-i","-1i","j","+j","1j","+1j","-j","-1j"].indexOf(e)>=0)return 0;let t=(e+="").indexOf("+"),o=e.indexOf("-");0===t&&(t=e.indexOf("+",1)),0===o&&(o=e.indexOf("-",1));const n=e.substring(e.length-1,e.length),r="i"===n||"j"===n;return t>=0||o>=0?r?t>=0?isNaN(e.substring(0,t))||isNaN(e.substring(t+1,e.length-1))?c:Number(e.substring(0,t)):isNaN(e.substring(0,o))||isNaN(e.substring(o+1,e.length-1))?c:Number(e.substring(0,o)):c:r?isNaN(e.substring(0,e.length-1))?c:0:isNaN(e)?c:e}function Ft(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",xt(Math.sin(t)*(Math.exp(o)+Math.exp(-o))/2,Math.cos(t)*(Math.exp(o)-Math.exp(-o))/2,n)}function Lt(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",xt(Math.cos(o)*(Math.exp(t)-Math.exp(-t))/2,Math.sin(o)*(Math.exp(t)+Math.exp(-t))/2,n)}wt.PRECISE=()=>{throw new Error("ERF.PRECISE is not implemented")},At.PRECISE=()=>{throw new Error("ERFC.PRECISE is not implemented")};const Rt=ne.DIST,Ot=ne.INV,kt=re.DIST,Ht=Ve.MATH,Bt=Ve.PRECISE,Pt=le.DIST,_t=le.DIST.RT,Vt=le.INV,qt=le.INV.RT,Ut=le.TEST,zt=ce.P,Yt=ce.P,Wt=ce.S,Xt=re.INV,Gt=At.PRECISE,Kt=wt.PRECISE,$t=fe.DIST,Jt=de.DIST,Qt=de.DIST.RT,Zt=de.INV,eo=de.INV.RT,to=Ye.MATH,oo=Ye.PRECISE,no=de.TEST,ro=be.DIST,lo=be.INV,io=je.PRECISE,so=he.DIST,ao=ve.INV,uo=ve.DIST,co=ve.INV,fo=we.MULT,po=we.SNGL,bo=Ae.DIST,jo=st.INTL,ho=Ee.DIST,go=Ee.INV,mo=Ee.S.DIST,vo=Ee.S.INV,yo=Ie.EXC,Co=Ie.INC,xo=Ne.EXC,wo=Ne.INC,Ao=Se.DIST,Eo=De.EXC,Mo=De.INC,Io=Te.AVG,No=Te.EQ,So=Fe.P,Do=Re.P,To=Re.S,Fo=Oe.DIST,Lo=Oe.DIST.RT,Ro=Oe.INV,Oo=Oe.TEST,ko=ke.P,Ho=ke.S,Bo=Pe.DIST,Po=at.INTL,_o=_e.TEST;function Vo(e){const t=[];return h(e,(e=>{e&&t.push(e)})),t}function qo(e,t){const o={};for(let t=1;t<e[0].length;++t)o[t]=!0;let n=t[0].length;for(let e=1;e<t.length;++e)t[e].length>n&&(n=t[e].length);for(let r=1;r<e.length;++r)for(let l=1;l<e[r].length;++l){let i=!1,s=!1;for(let o=0;o<t.length;++o){const a=t[o];if(a.length<n)continue;const u=a[0];if(e[r][0]===u){s=!0;for(let t=1;t<a.length;++t)if(!i)if(void 0===a[t]||"*"===a[t])i=!0;else{const o=Y(a[t]+""),n=[z(e[r][l],U)].concat(o);i=W(n)}}}s&&(o[l]=o[l]&&i)}const r=[];for(let t=0;t<e[0].length;++t)o[t]&&r.push(t-1);return r}function Uo(e){return e&&e.getTime&&!isNaN(e.getTime())}function zo(e){return e instanceof Date?e:new Date(e)}function Yo(e,t,o,n,r){if(n=n||0,r=r||0,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r)))return s;let l;if(0===e)l=n+o*t;else{const i=Math.pow(1+e,t);l=1===r?n*i+o*(1+e)*(i-1)/e:n*i+o*(i-1)/e}return-l}function Wo(e,t,o,n,r,l){if(r=r||0,l=l||0,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r),l=F(l)))return s;const i=Go(e,o,n,r,l);return(1===t?1===l?0:-n:1===l?Yo(e,t-2,i,n,1)-i:Yo(e,t-1,i,n,0))*e}function Xo(){const e=L(v(arguments));if(e instanceof Error)return e;const t=e[0];let o=0;for(let n=1;n<e.length;n++)o+=e[n]/Math.pow(1+t,n);return o}function Go(e,t,o,n,r){if(n=n||0,r=r||0,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r)))return s;let l;if(0===e)l=(o+n)/t;else{const i=Math.pow(1+e,t);l=1===r?(n*e/(i-1)+o*e/(1-1/i))/(1+e):n*e/(i-1)+o*e/(1-1/i)}return-l}const Ko={errors:b,symbols:Je};t.ABS=function(e){return(e=F(e))instanceof Error?e:Math.abs(e)},t.ACCRINT=function(e,t,o,n,r,l,i){return e=zo(e),t=zo(t),o=zo(o),Uo(e)&&Uo(t)&&Uo(o)?n<=0||r<=0||-1===[1,2,4].indexOf(l)||-1===[0,1,2,3,4].indexOf(i)||o<=e?c:(r=r||0)*n*ft(e,o,i=i||0):s},t.ACCRINTM=function(){throw new Error("ACCRINTM is not implemented")},t.ACOS=function(e){if((e=F(e))instanceof Error)return e;let t=Math.acos(e);return isNaN(t)&&(t=c),t},t.ACOSH=function(e){if((e=F(e))instanceof Error)return e;let t=Math.log(e+Math.sqrt(e*e-1));return isNaN(t)&&(t=c),t},t.ACOT=function(e){return(e=F(e))instanceof Error?e:Math.atan(1/e)},t.ACOTH=function(e){if((e=F(e))instanceof Error)return e;let t=.5*Math.log((e+1)/(e-1));return isNaN(t)&&(t=c),t},t.AGGREGATE=function(e,t,o,n){if(M(e=F(e),F(e)))return s;switch(e){case 1:return te(o);case 2:return se(o);case 3:return ae(o);case 4:return ye(o);case 5:return xe(o);case 6:return Ge(o);case 7:return Re.S(o);case 8:return Re.P(o);case 9:return $e(o);case 10:return ke.S(o);case 11:return ke.P(o);case 12:return Ce(o);case 13:return we.SNGL(o);case 14:return ge(o,n);case 15:return Le(o,n);case 16:return Ie.INC(o,n);case 17:return De.INC(o,n);case 18:return Ie.EXC(o,n);case 19:return De.EXC(o,n)}},t.AMORDEGRC=function(){throw new Error("AMORDEGRC is not implemented")},t.AMORLINC=function(){throw new Error("AMORLINC is not implemented")},t.AND=function(){const e=v(arguments);let t=s;for(let o=0;o<e.length;o++){if(e[o]instanceof Error)return e[o];void 0!==e[o]&&null!==e[o]&&"string"!=typeof e[o]&&(t===s&&(t=!0),e[o]||(t=!1))}return t},t.ARABIC=function(e){if(null==e)return 0;if(e instanceof Error)return e;if(!/^M*(?:D?C{0,3}|C[MD])(?:L?X{0,3}|X[CL])(?:V?I{0,3}|I[XV])$/.test(e))return s;let t=0;return e.replace(/[MDLV]|C[MD]?|X[CL]?|I[XV]?/g,(e=>{t+={M:1e3,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1}[e]})),t},t.ASC=function(){throw new Error("ASC is not implemented")},t.ASIN=function(e){if((e=F(e))instanceof Error)return e;let t=Math.asin(e);return isNaN(t)&&(t=c),t},t.ASINH=function(e){return(e=F(e))instanceof Error?e:Math.log(e+Math.sqrt(e*e+1))},t.ATAN=function(e){return(e=F(e))instanceof Error?e:Math.atan(e)},t.ATAN2=function(e,t){return E(e=F(e),t=F(t))||Math.atan2(e,t)},t.ATANH=function(e){if((e=F(e))instanceof Error)return e;let t=Math.log((1+e)/(1-e))/2;return isNaN(t)&&(t=c),t},t.AVEDEV=function(){const e=v(arguments).filter(k);if(0===e.length)return c;const t=L(e);return t instanceof Error?t:n.sum(n(t).subtract(n.mean(t)).abs()[0])/t.length},t.AVERAGE=te,t.AVERAGEA=oe,t.AVERAGEIF=function(e,t,o){if(arguments.length<=1)return f;if(o=L(v(o=o||e).filter(k)),e=v(e),o instanceof Error)return o;let n=0,r=0;const l=void 0===t||"*"===t,i=l?null:Y(t+"");for(let t=0;t<e.length;t++){const s=e[t];if(l)r+=o[t],n++;else{const e=[z(s,U)].concat(i);W(e)&&(r+=o[t],n++)}}return r/n},t.AVERAGEIFS=function(){const e=j(arguments),t=(e.length-1)/2,o=v(e[0]);let n=0,r=0;for(let l=0;l<o.length;l++){let i=!1;for(let o=0;o<t;o++){const t=e[2*o+1][l],n=e[2*o+2];let r=!1;if(void 0===n||"*"===n)r=!0;else{const e=Y(n+""),o=[z(t,U)].concat(e);r=W(o)}if(!r){i=!1;break}i=!0}i&&(r+=o[l],n++)}const l=r/n;return isNaN(l)?0:l},t.BAHTTEXT=function(){throw new Error("BAHTTEXT is not implemented")},t.BASE=function(e,t,o){const n=E(e=F(e),t=F(t),o=F(o));if(n)return n;if(0===t)return c;const r=e.toString(t);return new Array(Math.max(o+1-r.length,0)).join("0")+r},t.BESSELI=function(e,t){return M(e=F(e),t=F(t))?s:r.besseli(e,t)},t.BESSELJ=function(e,t){return M(e=F(e),t=F(t))?s:r.besselj(e,t)},t.BESSELK=function(e,t){return M(e=F(e),t=F(t))?s:r.besselk(e,t)},t.BESSELY=function(e,t){return M(e=F(e),t=F(t))?s:r.bessely(e,t)},t.BETA=ne,t.BETADIST=Rt,t.BETAINV=Ot,t.BIN2DEC=function(e){if(!Ct(e))return c;const t=parseInt(e,2),o=e.toString();return 10===o.length&&"1"===o.substring(0,1)?parseInt(o.substring(1),2)-512:t},t.BIN2HEX=function(e,t){if(!Ct(e))return c;const o=e.toString();if(10===o.length&&"1"===o.substring(0,1))return(0xfffffffe00+parseInt(o.substring(1),2)).toString(16);const n=parseInt(e,2).toString(16);return void 0===t?n:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=n.length?mt("0",t-n.length)+n:c},t.BIN2OCT=function(e,t){if(!Ct(e))return c;const o=e.toString();if(10===o.length&&"1"===o.substring(0,1))return(1073741312+parseInt(o.substring(1),2)).toString(8);const n=parseInt(e,2).toString(8);return void 0===t?n:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=n.length?mt("0",t-n.length)+n:c},t.BINOM=re,t.BINOMDIST=kt,t.BITAND=function(e,t){return M(e=F(e),t=F(t))?s:e<0||t<0||Math.floor(e)!==e||Math.floor(t)!==t||e>0xffffffffffff||t>0xffffffffffff?c:e&t},t.BITLSHIFT=function(e,t){return M(e=F(e),t=F(t))?s:e<0||Math.floor(e)!==e||e>0xffffffffffff||Math.abs(t)>53?c:t>=0?e<<t:e>>-t},t.BITOR=function(e,t){return M(e=F(e),t=F(t))?s:e<0||t<0||Math.floor(e)!==e||Math.floor(t)!==t||e>0xffffffffffff||t>0xffffffffffff?c:e|t},t.BITRSHIFT=function(e,t){return M(e=F(e),t=F(t))?s:e<0||Math.floor(e)!==e||e>0xffffffffffff||Math.abs(t)>53?c:t>=0?e>>t:e<<-t},t.BITXOR=function(e,t){return M(e=F(e),t=F(t))?s:e<0||t<0||Math.floor(e)!==e||Math.floor(t)!==t||e>0xffffffffffff||t>0xffffffffffff?c:e^t},t.CEILING=Ve,t.CEILINGMATH=Ht,t.CEILINGPRECISE=Bt,t.CELL=function(){throw new Error("CELL is not implemented")},t.CHAR=pt,t.CHIDIST=Pt,t.CHIDISTRT=_t,t.CHIINV=Vt,t.CHIINVRT=qt,t.CHISQ=le,t.CHITEST=Ut,t.CHOOSE=function(){if(arguments.length<2)return f;const e=arguments[0];return e<1||e>254||arguments.length<e+1?s:arguments[e]},t.CLEAN=function(e){return M(e)?e:(e=e||"").replace(/[\0-\x1F]/g,"")},t.CODE=bt,t.COLUMN=function(e,t){return 2!==arguments.length?f:t<0?c:e instanceof Array&&"number"==typeof t?0!==e.length?n.col(e,t):void 0:s},t.COLUMNS=function(e){return 1!==arguments.length?f:e instanceof Array?0===e.length?0:n.cols(e):s},t.COMBIN=qe,t.COMBINA=function(e,t){return E(e=F(e),t=F(t))||(e<t?c:0===e&&0===t?1:qe(e+t-1,e-1))},t.COMPLEX=xt,t.CONCAT=ht,t.CONCATENATE=jt,t.CONFIDENCE=ie,t.CONVERT=function(e,t,o){if((e=F(e))instanceof Error)return e;const n=[["a.u. of action","?",null,"action",!1,!1,105457168181818e-48],["a.u. of charge","e",null,"electric_charge",!1,!1,160217653141414e-33],["a.u. of energy","Eh",null,"energy",!1,!1,435974417757576e-32],["a.u. of length","a?",null,"length",!1,!1,529177210818182e-25],["a.u. of mass","m?",null,"mass",!1,!1,910938261616162e-45],["a.u. of time","?/Eh",null,"time",!1,!1,241888432650516e-31],["admiralty knot","admkn",null,"speed",!1,!0,.514773333],["ampere","A",null,"electric_current",!0,!1,1],["ampere per meter","A/m",null,"magnetic_field_intensity",!0,!1,1],["ångström","Å",["ang"],"length",!1,!0,1e-10],["are","ar",null,"area",!1,!0,100],["astronomical unit","ua",null,"length",!1,!1,149597870691667e-25],["bar","bar",null,"pressure",!1,!1,1e5],["barn","b",null,"area",!1,!1,1e-28],["becquerel","Bq",null,"radioactivity",!0,!1,1],["bit","bit",["b"],"information",!1,!0,1],["btu","BTU",["btu"],"energy",!1,!0,1055.05585262],["byte","byte",null,"information",!1,!0,8],["candela","cd",null,"luminous_intensity",!0,!1,1],["candela per square metre","cd/m?",null,"luminance",!0,!1,1],["coulomb","C",null,"electric_charge",!0,!1,1],["cubic ångström","ang3",["ang^3"],"volume",!1,!0,1e-30],["cubic foot","ft3",["ft^3"],"volume",!1,!0,.028316846592],["cubic inch","in3",["in^3"],"volume",!1,!0,16387064e-12],["cubic light-year","ly3",["ly^3"],"volume",!1,!0,846786664623715e-61],["cubic metre","m?",null,"volume",!0,!0,1],["cubic mile","mi3",["mi^3"],"volume",!1,!0,4168181825.44058],["cubic nautical mile","Nmi3",["Nmi^3"],"volume",!1,!0,6352182208],["cubic Pica","Pica3",["Picapt3","Pica^3","Picapt^3"],"volume",!1,!0,7.58660370370369e-8],["cubic yard","yd3",["yd^3"],"volume",!1,!0,.764554857984],["cup","cup",null,"volume",!1,!0,.0002365882365],["dalton","Da",["u"],"mass",!1,!1,166053886282828e-41],["day","d",["day"],"time",!1,!0,86400],["degree","°",null,"angle",!1,!1,.0174532925199433],["degrees Rankine","Rank",null,"temperature",!1,!0,.555555555555556],["dyne","dyn",["dy"],"force",!1,!0,1e-5],["electronvolt","eV",["ev"],"energy",!1,!0,1.60217656514141],["ell","ell",null,"length",!1,!0,1.143],["erg","erg",["e"],"energy",!1,!0,1e-7],["farad","F",null,"electric_capacitance",!0,!1,1],["fluid ounce","oz",null,"volume",!1,!0,295735295625e-16],["foot","ft",null,"length",!1,!0,.3048],["foot-pound","flb",null,"energy",!1,!0,1.3558179483314],["gal","Gal",null,"acceleration",!1,!1,.01],["gallon","gal",null,"volume",!1,!0,.003785411784],["gauss","G",["ga"],"magnetic_flux_density",!1,!0,1],["grain","grain",null,"mass",!1,!0,647989e-10],["gram","g",null,"mass",!1,!0,.001],["gray","Gy",null,"absorbed_dose",!0,!1,1],["gross registered ton","GRT",["regton"],"volume",!1,!0,2.8316846592],["hectare","ha",null,"area",!1,!0,1e4],["henry","H",null,"inductance",!0,!1,1],["hertz","Hz",null,"frequency",!0,!1,1],["horsepower","HP",["h"],"power",!1,!0,745.69987158227],["horsepower-hour","HPh",["hh","hph"],"energy",!1,!0,2684519.538],["hour","h",["hr"],"time",!1,!0,3600],["imperial gallon (U.K.)","uk_gal",null,"volume",!1,!0,.00454609],["imperial hundredweight","lcwt",["uk_cwt","hweight"],"mass",!1,!0,50.802345],["imperial quart (U.K)","uk_qt",null,"volume",!1,!0,.0011365225],["imperial ton","brton",["uk_ton","LTON"],"mass",!1,!0,1016.046909],["inch","in",null,"length",!1,!0,.0254],["international acre","uk_acre",null,"area",!1,!0,4046.8564224],["IT calorie","cal",null,"energy",!1,!0,4.1868],["joule","J",null,"energy",!0,!0,1],["katal","kat",null,"catalytic_activity",!0,!1,1],["kelvin","K",["kel"],"temperature",!0,!0,1],["kilogram","kg",null,"mass",!0,!0,1],["knot","kn",null,"speed",!1,!0,.514444444444444],["light-year","ly",null,"length",!1,!0,9460730472580800],["litre","L",["l","lt"],"volume",!1,!0,.001],["lumen","lm",null,"luminous_flux",!0,!1,1],["lux","lx",null,"illuminance",!0,!1,1],["maxwell","Mx",null,"magnetic_flux",!1,!1,1e-18],["measurement ton","MTON",null,"volume",!1,!0,1.13267386368],["meter per hour","m/h",["m/hr"],"speed",!1,!0,.00027777777777778],["meter per second","m/s",["m/sec"],"speed",!0,!0,1],["meter per second squared","m?s??",null,"acceleration",!0,!1,1],["parsec","pc",["parsec"],"length",!1,!0,0x6da012f958ee1c],["meter squared per second","m?/s",null,"kinematic_viscosity",!0,!1,1],["metre","m",null,"length",!0,!0,1],["miles per hour","mph",null,"speed",!1,!0,.44704],["millimetre of mercury","mmHg",null,"pressure",!1,!1,133.322],["minute","?",null,"angle",!1,!1,.000290888208665722],["minute","min",["mn"],"time",!1,!0,60],["modern teaspoon","tspm",null,"volume",!1,!0,5e-6],["mole","mol",null,"amount_of_substance",!0,!1,1],["morgen","Morgen",null,"area",!1,!0,2500],["n.u. of action","?",null,"action",!1,!1,105457168181818e-48],["n.u. of mass","m?",null,"mass",!1,!1,910938261616162e-45],["n.u. of speed","c?",null,"speed",!1,!1,299792458],["n.u. of time","?/(me?c??)",null,"time",!1,!1,128808866778687e-35],["nautical mile","M",["Nmi"],"length",!1,!0,1852],["newton","N",null,"force",!0,!0,1],["œrsted","Oe ",null,"magnetic_field_intensity",!1,!1,79.5774715459477],["ohm","Ω",null,"electric_resistance",!0,!1,1],["ounce mass","ozm",null,"mass",!1,!0,.028349523125],["pascal","Pa",null,"pressure",!0,!1,1],["pascal second","Pa?s",null,"dynamic_viscosity",!0,!1,1],["pferdestärke","PS",null,"power",!1,!0,735.49875],["phot","ph",null,"illuminance",!1,!1,1e-4],["pica (1/6 inch)","pica",null,"length",!1,!0,.00035277777777778],["pica (1/72 inch)","Pica",["Picapt"],"length",!1,!0,.00423333333333333],["poise","P",null,"dynamic_viscosity",!1,!1,.1],["pond","pond",null,"force",!1,!0,.00980665],["pound force","lbf",null,"force",!1,!0,4.4482216152605],["pound mass","lbm",null,"mass",!1,!0,.45359237],["quart","qt",null,"volume",!1,!0,.000946352946],["radian","rad",null,"angle",!0,!1,1],["second","?",null,"angle",!1,!1,484813681109536e-20],["second","s",["sec"],"time",!0,!0,1],["short hundredweight","cwt",["shweight"],"mass",!1,!0,45.359237],["siemens","S",null,"electrical_conductance",!0,!1,1],["sievert","Sv",null,"equivalent_dose",!0,!1,1],["slug","sg",null,"mass",!1,!0,14.59390294],["square ångström","ang2",["ang^2"],"area",!1,!0,1e-20],["square foot","ft2",["ft^2"],"area",!1,!0,.09290304],["square inch","in2",["in^2"],"area",!1,!0,64516e-8],["square light-year","ly2",["ly^2"],"area",!1,!0,895054210748189e17],["square meter","m?",null,"area",!0,!0,1],["square mile","mi2",["mi^2"],"area",!1,!0,2589988.110336],["square nautical mile","Nmi2",["Nmi^2"],"area",!1,!0,3429904],["square Pica","Pica2",["Picapt2","Pica^2","Picapt^2"],"area",!1,!0,1792111111111e-17],["square yard","yd2",["yd^2"],"area",!1,!0,.83612736],["statute mile","mi",null,"length",!1,!0,1609.344],["steradian","sr",null,"solid_angle",!0,!1,1],["stilb","sb",null,"luminance",!1,!1,1e-4],["stokes","St",null,"kinematic_viscosity",!1,!1,1e-4],["stone","stone",null,"mass",!1,!0,6.35029318],["tablespoon","tbs",null,"volume",!1,!0,147868e-10],["teaspoon","tsp",null,"volume",!1,!0,492892e-11],["tesla","T",null,"magnetic_flux_density",!0,!0,1],["thermodynamic calorie","c",null,"energy",!1,!0,4.184],["ton","ton",null,"mass",!1,!0,907.18474],["tonne","t",null,"mass",!1,!1,1e3],["U.K. pint","uk_pt",null,"volume",!1,!0,.00056826125],["U.S. bushel","bushel",null,"volume",!1,!0,.03523907],["U.S. oil barrel","barrel",null,"volume",!1,!0,.158987295],["U.S. pint","pt",["us_pt"],"volume",!1,!0,.000473176473],["U.S. survey mile","survey_mi",null,"length",!1,!0,1609.347219],["U.S. survey/statute acre","us_acre",null,"area",!1,!0,4046.87261],["volt","V",null,"voltage",!0,!1,1],["watt","W",null,"power",!0,!0,1],["watt-hour","Wh",["wh"],"energy",!1,!0,3600],["weber","Wb",null,"magnetic_flux",!0,!1,1],["yard","yd",null,"length",!1,!0,.9144],["year","yr",null,"time",!1,!0,31557600]],r={Yi:["yobi",80,12089258196146292e8,"Yi","yotta"],Zi:["zebi",70,11805916207174113e5,"Zi","zetta"],Ei:["exbi",60,0x1000000000000000,"Ei","exa"],Pi:["pebi",50,0x4000000000000,"Pi","peta"],Ti:["tebi",40,1099511627776,"Ti","tera"],Gi:["gibi",30,1073741824,"Gi","giga"],Mi:["mebi",20,1048576,"Mi","mega"],ki:["kibi",10,1024,"ki","kilo"]},l={Y:["yotta",1e24,"Y"],Z:["zetta",1e21,"Z"],E:["exa",1e18,"E"],P:["peta",1e15,"P"],T:["tera",1e12,"T"],G:["giga",1e9,"G"],M:["mega",1e6,"M"],k:["kilo",1e3,"k"],h:["hecto",100,"h"],e:["dekao",10,"e"],d:["deci",.1,"d"],c:["centi",.01,"c"],m:["milli",.001,"m"],u:["micro",1e-6,"u"],n:["nano",1e-9,"n"],p:["pico",1e-12,"p"],f:["femto",1e-15,"f"],a:["atto",1e-18,"a"],z:["zepto",1e-21,"z"],y:["yocto",1e-24,"y"]};let i,s=null,a=null,u=t,c=o,d=1,p=1;for(let e=0;e<n.length;e++)i=null===n[e][2]?[]:n[e][2],(n[e][1]===u||i.indexOf(u)>=0)&&(s=n[e]),(n[e][1]===c||i.indexOf(c)>=0)&&(a=n[e]);if(null===s){const e=r[t.substring(0,2)];let o=l[t.substring(0,1)];"da"===t.substring(0,2)&&(o=["dekao",10,"da"]),e?(d=e[2],u=t.substring(2)):o&&(d=o[1],u=t.substring(o[2].length));for(let e=0;e<n.length;e++)i=null===n[e][2]?[]:n[e][2],(n[e][1]===u||i.indexOf(u)>=0)&&(s=n[e])}if(null===a){const e=r[o.substring(0,2)];let t=l[o.substring(0,1)];"da"===o.substring(0,2)&&(t=["dekao",10,"da"]),e?(p=e[2],c=o.substring(2)):t&&(p=t[1],c=o.substring(t[2].length));for(let e=0;e<n.length;e++)i=null===n[e][2]?[]:n[e][2],(n[e][1]===c||i.indexOf(c)>=0)&&(a=n[e])}return null===s||null===a||s[3]!==a[3]?f:e*s[6]*d/(a[6]*p)},t.CORREL=function(e,t){return M(e=L(v(e)),t=L(v(t)))?s:n.corrcoeff(e,t)},t.COS=function(e){return(e=F(e))instanceof Error?e:Math.cos(e)},t.COSH=function(e){return(e=F(e))instanceof Error?e:(Math.exp(e)+Math.exp(-e))/2},t.COT=function(e){return(e=F(e))instanceof Error?e:0===e?i:1/Math.tan(e)},t.COTH=function(e){if((e=F(e))instanceof Error)return e;if(0===e)return i;const t=Math.exp(2*e);return(t+1)/(t-1)},t.COUNT=se,t.COUNTA=ae,t.COUNTBLANK=ue,t.COUNTIF=function(e,t){if(e=v(e),void 0===t||"*"===t)return e.length;let o=0;const n=Y(t+"");for(let t=0;t<e.length;t++){const r=[z(e[t],U)].concat(n);W(r)&&o++}return o},t.COUNTIFS=function(){const e=j(arguments),t=new Array(v(e[0]).length);for(let e=0;e<t.length;e++)t[e]=!0;for(let o=0;o<e.length;o+=2){const n=v(e[o]),r=e[o+1];if(void 0!==r&&"*"!==r){const e=Y(r+"");for(let o=0;o<n.length;o++){const r=[z(n[o],U)].concat(e);t[o]=t[o]&&W(r)}}}let o=0;for(let e=0;e<t.length;e++)t[e]&&o++;return o},t.COUPDAYBS=function(){throw new Error("COUPDAYBS is not implemented")},t.COUPDAYS=function(){throw new Error("COUPDAYS is not implemented")},t.COUPDAYSNC=function(){throw new Error("COUPDAYSNC is not implemented")},t.COUPNCD=function(){throw new Error("COUPNCD is not implemented")},t.COUPNUM=function(){throw new Error("COUPNUM is not implemented")},t.COUPPCD=function(){throw new Error("COUPPCD is not implemented")},t.COVAR=zt,t.COVARIANCE=ce,t.COVARIANCEP=Yt,t.COVARIANCES=Wt,t.CRITBINOM=Xt,t.CSC=function(e){return(e=F(e))instanceof Error?e:0===e?i:1/Math.sin(e)},t.CSCH=function(e){return(e=F(e))instanceof Error?e:0===e?i:2/(Math.exp(e)-Math.exp(-e))},t.CUMIPMT=function(e,t,o,n,r,l){if(M(e=F(e),t=F(t),o=F(o)))return s;if(e<=0||t<=0||o<=0)return c;if(n<1||r<1||n>r)return c;if(0!==l&&1!==l)return c;const i=Go(e,t,o,0,l);let a=0;1===n&&(0===l&&(a=-o),n++);for(let t=n;t<=r;t++)a+=1===l?Yo(e,t-2,i,o,1)-i:Yo(e,t-1,i,o,0);return a*=e,a},t.CUMPRINC=function(e,t,o,n,r,l){if(M(e=F(e),t=F(t),o=F(o)))return s;if(e<=0||t<=0||o<=0)return c;if(n<1||r<1||n>r)return c;if(0!==l&&1!==l)return c;const i=Go(e,t,o,0,l);let a=0;1===n&&(a=0===l?i+o*e:i,n++);for(let t=n;t<=r;t++)a+=l>0?i-(Yo(e,t-2,i,o,1)-i)*e:i-Yo(e,t-1,i,o,0)*e;return a},t.DATE=function(e,t,o){let n;return M(e=F(e),t=F(t),o=F(o))?n=s:(n=new Date(e,t-1,o),n.getFullYear()<0&&(n=c)),n},t.DATEDIF=ot,t.DATEVALUE=function(e){if("string"!=typeof e)return s;const t=Date.parse(e);return isNaN(t)?s:new Date(e)},t.DAVERAGE=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);let l=0;return h(n,(e=>{l+=r[e]})),0===n.length?i:l/n.length},t.DAY=function(e){const t=D(e);return t instanceof Error?t:t.getDate()},t.DAYS=rt,t.DAYS360=lt,t.DB=function(e,t,o,n,r){if(r=void 0===r?12:r,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r)))return s;if(e<0||t<0||o<0||n<0)return c;if(-1===[1,2,3,4,5,6,7,8,9,10,11,12].indexOf(r))return c;if(n>o)return c;if(t>=e)return 0;const l=(1-Math.pow(t/e,1/o)).toFixed(3),i=e*l*r/12;let a=i,u=0;const f=n===o?o-1:n;for(let t=2;t<=f;t++)u=(e-a)*l,a+=u;return 1===n?i:n===o?(e-a)*l:u},t.DBCS=function(){throw new Error("DBCS is not implemented")},t.DCOUNT=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);const l=[];return h(n,(e=>{l.push(r[e])})),se(l)},t.DCOUNTA=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);const l=[];return h(n,(e=>{l.push(r[e])})),ae(l)},t.DDB=function(e,t,o,n,r){if(r=void 0===r?2:r,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r)))return s;if(e<0||t<0||o<0||n<0||r<=0)return c;if(n>o)return c;if(t>=e)return 0;let l=0,i=0;for(let s=1;s<=n;s++)i=Math.min(r/o*(e-l),e-t-l),l+=i;return i},t.DEC2BIN=function(e,t){if((e=F(e))instanceof Error)return e;if(!/^-?[0-9]{1,3}$/.test(e)||e<-512||e>511)return c;if(e<0)return"1"+mt("0",9-(512+e).toString(2).length)+(512+e).toString(2);const o=parseInt(e,10).toString(2);return void 0===t?o:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=o.length?mt("0",t-o.length)+o:c},t.DEC2HEX=function(e,t){if((e=F(e))instanceof Error)return e;if(!/^-?[0-9]{1,12}$/.test(e)||e<-549755813888||e>549755813887)return c;if(e<0)return(1099511627776+e).toString(16);const o=parseInt(e,10).toString(16);return void 0===t?o:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=o.length?mt("0",t-o.length)+o:c},t.DEC2OCT=function(e,t){if((e=F(e))instanceof Error)return e;if(!/^-?[0-9]{1,9}$/.test(e)||e<-536870912||e>536870911)return c;if(e<0)return(1073741824+e).toString(8);const o=parseInt(e,10).toString(8);return void 0===t?o:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=o.length?mt("0",t-o.length)+o:c},t.DECIMAL=function(e,t){return arguments.length<1?s:E(e=F(e),t=F(t))||(0===t?c:parseInt(e,t))},t.DEGREES=function(e){return(e=F(e))instanceof Error?e:180*e/Math.PI},t.DELTA=function(e,t){return t=void 0===t?0:t,M(e=F(e),t=F(t))?s:e===t?1:0},t.DEVSQ=function(){const e=L(v(arguments));if(e instanceof Error)return e;const t=n.mean(e);let o=0;for(let n=0;n<e.length;n++)o+=Math.pow(e[n]-t,2);return o},t.DGET=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];return r=x("string"==typeof t?e[A(e,t)]:e[t]),0===n.length?s:n.length>1?c:r[n[0]]},t.DISC=function(e,t,o,n,r){if(M(e=D(e),t=D(t),o=F(o),n=F(n),r=(r=F(r))||0))return s;if(o<=0||n<=0)return c;if(e>=t)return s;let l,i;switch(r){case 0:l=360,i=lt(e,t,!1);break;case 1:case 3:l=365,i=ot(e,t,"D");break;case 2:l=360,i=ot(e,t,"D");break;case 4:l=360,i=lt(e,t,!0);break;default:return c}return(n-o)/n*l/i},t.DMAX=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);let l=r[n[0]];return h(n,(e=>{l<r[e]&&(l=r[e])})),l},t.DMIN=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);let l=r[n[0]];return h(n,(e=>{l>r[e]&&(l=r[e])})),l},t.DOLLAR=function(e,t=2){if(e=F(e),isNaN(e))return s;const o={style:"currency",currency:"USD",minimumFractionDigits:t>=0?t:0,maximumFractionDigits:t>=0?t:0},n=(e=Ke(e,t)).toLocaleString("en-US",o);return e<0?"$("+n.slice(2)+")":n},t.DOLLARDE=function(e,t){if(M(e=F(e),t=F(t)))return s;if(t<0)return c;if(t>=0&&t<1)return i;t=parseInt(t,10);let o=parseInt(e,10);o+=e%1*Math.pow(10,Math.ceil(Math.log(t)/Math.LN10))/t;const n=Math.pow(10,Math.ceil(Math.log(t)/Math.LN2)+1);return o=Math.round(o*n)/n,o},t.DOLLARFR=function(e,t){if(M(e=F(e),t=F(t)))return s;if(t<0)return c;if(t>=0&&t<1)return i;t=parseInt(t,10);let o=parseInt(e,10);return o+=e%1*Math.pow(10,-Math.ceil(Math.log(t)/Math.LN10))*t,o},t.DPRODUCT=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);let l=[];h(n,(e=>{l.push(r[e])})),l=Vo(l);let i=1;return h(l,(e=>{i*=e})),i},t.DSTDEV=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);let l=[];return h(n,(e=>{l.push(r[e])})),l=Vo(l),Re.S(l)},t.DSTDEVP=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);let l=[];return h(n,(e=>{l.push(r[e])})),l=Vo(l),Re.P(l)},t.DSUM=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);const l=[];return h(n,(e=>{l.push(r[e])})),$e(l)},t.DURATION=function(){throw new Error("DURATION is not implemented")},t.DVAR=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);const l=[];return h(n,(e=>{l.push(r[e])})),ke.S(l)},t.DVARP=function(e,t,o){if(isNaN(t)&&"string"!=typeof t)return s;const n=qo(e,o);let r=[];if("string"==typeof t){const o=A(e,t);r=x(e[o])}else r=x(e[t]);const l=[];return h(n,(e=>{l.push(r[e])})),ke.P(l)},t.EDATE=function(e,t){return(e=D(e))instanceof Error?e:isNaN(t)?s:(t=parseInt(t,10),e.setMonth(e.getMonth()+t),e)},t.EFFECT=function(e,t){return M(e=F(e),t=F(t))?s:e<=0||t<1?c:(t=parseInt(t,10),Math.pow(1+e/t,t)-1)},t.EOMONTH=function(e,t){return(e=D(e))instanceof Error?e:isNaN(t)?s:(t=parseInt(t,10),new Date(e.getFullYear(),e.getMonth()+t+1,0))},t.ERF=wt,t.ERFC=At,t.ERFCPRECISE=Gt,t.ERFPRECISE=Kt,t.ERROR=X,t.EVEN=function(e){return(e=F(e))instanceof Error?e:Ve(e,-2,-1)},t.EXACT=function(e,t){return 2!==arguments.length?f:E(e,t)||(e=R(e))===R(t)},t.EXP=function(e){return arguments.length<1?f:arguments.length>1?d:(e=F(e))instanceof Error?e:e=Math.exp(e)},t.EXPON=fe,t.EXPONDIST=$t,t.F=de,t.FACT=ze,t.FACTDOUBLE=function e(t){if((t=F(t))instanceof Error)return t;const o=Math.floor(t);return o<=0?1:o*e(o-2)},t.FALSE=function(){return!1},t.FDIST=Jt,t.FDISTRT=Qt,t.FIND=function(e,t,o){if(arguments.length<2)return f;e=R(e),o=void 0===o?0:o;const n=(t=R(t)).indexOf(e,o-1);return-1===n?s:n+1},t.FINV=Zt,t.FINVRT=eo,t.FISHER=function(e){return(e=F(e))instanceof Error?e:Math.log((1+e)/(1-e))/2},t.FISHERINV=function(e){if((e=F(e))instanceof Error)return e;const t=Math.exp(2*e);return(t-1)/(t+1)},t.FIXED=gt,t.FLOOR=Ye,t.FLOORMATH=to,t.FLOORPRECISE=oo,t.FORECAST=pe,t.FREQUENCY=function(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;const o=e.length,n=t.length,r=[];for(let l=0;l<=n;l++){r[l]=0;for(let i=0;i<o;i++)0===l?e[i]<=t[0]&&(r[0]+=1):l<n?e[i]>t[l-1]&&e[i]<=t[l]&&(r[l]+=1):l===n&&e[i]>t[n-1]&&(r[n]+=1)}return r},t.FTEST=no,t.FV=Yo,t.FVSCHEDULE=function(e,t){if(M(e=F(e),t=L(v(t))))return s;const o=t.length;let n=e;for(let e=0;e<o;e++)n*=1+t[e];return n},t.GAMMA=be,t.GAMMADIST=ro,t.GAMMAINV=lo,t.GAMMALN=je,t.GAMMALNPRECISE=io,t.GAUSS=function(e){return(e=F(e))instanceof Error?e:n.normal.cdf(e,0,1)-.5},t.GCD=function(){const e=L(v(arguments));if(e instanceof Error)return e;const t=e.length,o=e[0];let n=o<0?-o:o;for(let o=1;o<t;o++){const t=e[o];let r=t<0?-t:t;for(;n&&r;)n>r?n%=r:r%=n;n+=r}return n},t.GEOMEAN=function(){const e=L(v(arguments));return e instanceof Error?e:n.geomean(e)},t.GESTEP=function(e,t){return M(t=t||0,e=F(e))?e:e>=t?1:0},t.GROWTH=function(e,t,o,n){if((e=L(e))instanceof Error)return e;let r;if(void 0===t)for(t=[],r=1;r<=e.length;r++)t.push(r);if(void 0===o)for(o=[],r=1;r<=e.length;r++)o.push(r);if(M(t=L(t),o=L(o)))return s;void 0===n&&(n=!0);const l=e.length;let i,a,u=0,c=0,f=0,d=0;for(r=0;r<l;r++){const o=t[r],n=Math.log(e[r]);u+=o,c+=n,f+=o*n,d+=o*o}u/=l,c/=l,f/=l,d/=l,n?(i=(f-u*c)/(d-u*u),a=c-i*u):(i=f/d,a=0);const p=[];for(r=0;r<o.length;r++)p.push(Math.exp(a+i*o[r]));return p},t.HARMEAN=function(){const e=L(v(arguments));if(e instanceof Error)return e;const t=e.length;let o=0;for(let n=0;n<t;n++)o+=1/e[n];return t/o},t.HEX2BIN=function(e,t){if(!/^[0-9A-Fa-f]{1,10}$/.test(e))return c;const o=!(10!==e.length||"f"!==e.substring(0,1).toLowerCase()),n=o?parseInt(e,16)-1099511627776:parseInt(e,16);if(n<-512||n>511)return c;if(o)return"1"+mt("0",9-(512+n).toString(2).length)+(512+n).toString(2);const r=n.toString(2);return void 0===t?r:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=r.length?mt("0",t-r.length)+r:c},t.HEX2DEC=function(e){if(!/^[0-9A-Fa-f]{1,10}$/.test(e))return c;const t=parseInt(e,16);return t>=549755813888?t-1099511627776:t},t.HEX2OCT=function(e,t){if(!/^[0-9A-Fa-f]{1,10}$/.test(e))return c;const o=parseInt(e,16);if(o>536870911&&o<0xffe0000000)return c;if(o>=0xffe0000000)return(o-0xffc0000000).toString(8);const n=o.toString(8);return void 0===t?n:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=n.length?mt("0",t-n.length)+n:c},t.HLOOKUP=function(e,t,o,n){return ee(e,w(t),o,n)},t.HOUR=function(e){return(e=D(e))instanceof Error?e:e.getHours()},t.HYPGEOM=he,t.HYPGEOMDIST=so,t.IF=function(e,t,o){return e instanceof Error?e:(null==(t=!(arguments.length>=2)||t)&&(t=0),null==(o=3===arguments.length&&o)&&(o=0),e?t:o)},t.IFERROR=function(e,t){return K(e)?t:e},t.IFNA=function(e,t){return e===f?t:e},t.IFS=function(){for(let e=0;e<arguments.length/2;e++)if(arguments[2*e])return arguments[2*e+1];return f},t.IMABS=Et,t.IMAGINARY=Mt,t.IMARGUMENT=It,t.IMCONJUGATE=function(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",0!==o?xt(t,-o,n):e},t.IMCOS=Nt,t.IMCOSH=St,t.IMCOT=function(e){return M(Tt(e),Mt(e))?s:Dt(Nt(e),Ft(e))},t.IMCSC=function(e){return!0===e||!1===e?s:M(Tt(e),Mt(e))?c:Dt("1",Ft(e))},t.IMCSCH=function(e){return!0===e||!1===e?s:M(Tt(e),Mt(e))?c:Dt("1",Lt(e))},t.IMDIV=Dt,t.IMEXP=function(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);n="i"===n||"j"===n?n:"i";const r=Math.exp(t);return xt(r*Math.cos(o),r*Math.sin(o),n)},t.IMLN=function(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",xt(Math.log(Math.sqrt(t*t+o*o)),Math.atan(o/t),n)},t.IMLOG10=function(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",xt(Math.log(Math.sqrt(t*t+o*o))/Math.log(10),Math.atan(o/t)/Math.log(10),n)},t.IMLOG2=function(e){const t=Tt(e),o=Mt(e);if(M(t,o))return s;let n=e.substring(e.length-1);return n="i"===n||"j"===n?n:"i",xt(Math.log(Math.sqrt(t*t+o*o))/Math.log(2),Math.atan(o/t)/Math.log(2),n)},t.IMPOWER=function(e,t){if(M(t=F(t),Tt(e),Mt(e)))return s;let o=e.substring(e.length-1);o="i"===o||"j"===o?o:"i";const n=Math.pow(Et(e),t),r=It(e);return xt(n*Math.cos(t*r),n*Math.sin(t*r),o)},t.IMPRODUCT=function(){let e=arguments[0];if(!arguments.length)return s;for(let t=1;t<arguments.length;t++){const o=Tt(e),n=Mt(e),r=Tt(arguments[t]),l=Mt(arguments[t]);if(M(o,n,r,l))return s;e=xt(o*r-n*l,o*l+n*r)}return e},t.IMREAL=Tt,t.IMSEC=function(e){return!0===e||!1===e||M(Tt(e),Mt(e))?s:Dt("1",Nt(e))},t.IMSECH=function(e){return M(Tt(e),Mt(e))?s:Dt("1",St(e))},t.IMSIN=Ft,t.IMSINH=Lt,t.IMSQRT=function(e){if(M(Tt(e),Mt(e)))return s;let t=e.substring(e.length-1);t="i"===t||"j"===t?t:"i";const o=Math.sqrt(Et(e)),n=It(e);return xt(o*Math.cos(n/2),o*Math.sin(n/2),t)},t.IMSUB=function(e,t){const o=Tt(e),n=Mt(e),r=Tt(t),l=Mt(t);if(M(o,n,r,l))return s;const i=e.substring(e.length-1),a=t.substring(t.length-1);let u="i";return("j"===i||"j"===a)&&(u="j"),xt(o-r,n-l,u)},t.IMSUM=function(){if(!arguments.length)return s;const e=v(arguments);let t=e[0];for(let o=1;o<e.length;o++){const n=Tt(t),r=Mt(t),l=Tt(e[o]),i=Mt(e[o]);if(M(n,r,l,i))return s;t=xt(n+l,r+i)}return t},t.IMTAN=function(e){return!0===e||!1===e||M(Tt(e),Mt(e))?s:Dt(Ft(e),Nt(e))},t.INDEX=function(e,t,o){const n=E(e,t,o);if(n)return n;if(!Array.isArray(e))return s;const r=e.length>0&&!Array.isArray(e[0]);return r&&!o?(o=t,t=1):(o=o||1,t=t||1),o<0||t<0?s:r&&1===t&&o<=e.length?e[o-1]:t<=e.length&&o<=e[t-1].length?e[t-1][o-1]:a},t.INFO=function(){throw new Error("INFO is not implemented")},t.INT=function(e){return(e=F(e))instanceof Error?e:Math.floor(e)},t.INTERCEPT=function(e,t){return M(e=L(e),t=L(t))?s:e.length!==t.length?f:pe(0,e,t)},t.INTRATE=function(){throw new Error("INTRATE is not implemented")},t.IPMT=Wo,t.IRR=function(e,t){if(t=t||0,M(e=L(v(e)),t=F(t)))return s;const o=(e,t,o)=>{const n=o+1;let r=e[0];for(let o=1;o<e.length;o++)r+=e[o]/Math.pow(n,(t[o]-t[0])/365);return r},n=(e,t,o)=>{const n=o+1;let r=0;for(let o=1;o<e.length;o++){const l=(t[o]-t[0])/365;r-=l*e[o]/Math.pow(n,l+1)}return r},r=[];let l=!1,i=!1;for(let t=0;t<e.length;t++)r[t]=0===t?0:r[t-1]+365,e[t]>0&&(l=!0),e[t]<0&&(i=!0);if(!l||!i)return c;let a,u,f,d=t=void 0===t?.1:t,p=!0;do{f=o(e,r,d),a=d-f/n(e,r,d),u=Math.abs(a-d),d=a,p=u>1e-10&&Math.abs(f)>1e-10}while(p);return d},t.ISBLANK=function(e){return null===e},t.ISERR=G,t.ISERROR=K,t.ISEVEN=function(e){return!(1&Math.floor(Math.abs(e)))},t.ISFORMULA=function(){throw new Error("ISFORMULA is not implemented")},t.ISLOGICAL=$,t.ISNA=function(e){return e===f},t.ISNONTEXT=function(e){return"string"!=typeof e},t.ISNUMBER=J,t.ISO=We,t.ISODD=function(e){return!!(1&Math.floor(Math.abs(e)))},t.ISOWEEKNUM=it,t.ISPMT=function(e,t,o,n){return M(e=F(e),t=F(t),o=F(o),n=F(n))?s:n*e*(t/o-1)},t.ISREF=function(){throw new Error("ISREF is not implemented")},t.ISTEXT=Q,t.KURT=function(){const e=L(v(arguments));if(e instanceof Error)return e;const t=n.mean(e),o=e.length;let r=0;for(let n=0;n<o;n++)r+=Math.pow(e[n]-t,4);return r/=Math.pow(n.stdev(e,!0),4),o*(o+1)/((o-1)*(o-2)*(o-3))*r-3*(o-1)*(o-1)/((o-2)*(o-3))},t.LARGE=ge,t.LCM=function(){const e=L(v(arguments));if(e instanceof Error)return e;for(var t,o,n,r,l=1;void 0!==(n=e.pop());){if(0===n)return 0;for(;n>1;){if(n%2){for(t=3,o=Math.floor(Math.sqrt(n));t<=o&&n%t;t+=2);r=t<=o?t:n}else r=2;for(n/=r,l*=r,t=e.length;t;e[--t]%r==0&&1==(e[t]/=r)&&e.splice(t,1));}}return l},t.LEFT=function(e,t){return E(e,t)||(e=R(e),(t=F(t=void 0===t?1:t))instanceof Error||"string"!=typeof e?s:e.substring(0,t))},t.LEN=function(e){return 0===arguments.length?d:e instanceof Error?e:Array.isArray(e)?s:R(e).length},t.LINEST=me,t.LN=function(e){return(e=F(e))instanceof Error?e:0===e?c:Math.log(e)},t.LOG=function(e,t){return E(e=F(e),t=F(t))||(0===e||0===t?c:Math.log(e)/Math.log(t))},t.LOG10=function(e){return(e=F(e))instanceof Error?e:0===e?c:Math.log(e)/Math.log(10)},t.LOGEST=function(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;if(e.length!==t.length)return s;for(let t=0;t<e.length;t++)e[t]=Math.log(e[t]);const o=me(e,t);return o[0]=Math.round(1e6*Math.exp(o[0]))/1e6,o[1]=Math.round(1e6*Math.exp(o[1]))/1e6,o},t.LOGINV=ao,t.LOGNORM=ve,t.LOGNORMDIST=uo,t.LOGNORMINV=co,t.LOOKUP=function(e,t,o){t=v(t),o=o?v(o):t;const n="number"==typeof e;let r=f;for(let l=0;l<t.length;l++){if(t[l]===e)return o[l];if(n&&t[l]<=e||"string"==typeof t[l]&&t[l].localeCompare(e)<0)r=o[l];else if(n&&t[l]>e)return r}return r},t.LOWER=function(e){return 1!==arguments.length?s:M(e=R(e))?e:e.toLowerCase()},t.MATCH=function(e,t,o){if(!e||!t)return f;if(2===arguments.length&&(o=1),!((t=v(t))instanceof Array))return f;if(-1!==o&&0!==o&&1!==o)return f;let n,r;for(let l=0;l<t.length;l++)if(1===o){if(t[l]===e)return l+1;t[l]<e&&(r?t[l]>r&&(n=l+1,r=t[l]):(n=l+1,r=t[l]))}else if(0===o){if("string"==typeof e&&"string"==typeof t[l]){const o=e.toLowerCase().replace(/\?/g,".").replace(/\*/g,".*").replace(/~/g,"\\");if(new RegExp("^"+o+"$").test(t[l].toLowerCase()))return l+1}else if(t[l]===e)return l+1}else if(-1===o){if(t[l]===e)return l+1;t[l]>e&&(r?t[l]<r&&(n=l+1,r=t[l]):(n=l+1,r=t[l]))}return n||f},t.MAX=ye,t.MAXA=function(){const e=v(arguments),t=E.apply(void 0,e);if(t)return t;let o=g(e);return o=o.map((e=>null==e?0:e)),0===o.length?0:Math.max.apply(Math,o)},t.MDURATION=function(){throw new Error("MDURATION is not implemented")},t.MEDIAN=Ce,t.MID=function(e,t,o){if(null==t)return s;if(M(t=F(t),o=F(o))||"string"!=typeof e)return o;const n=t-1,r=n+o;return e.substring(n,r)},t.MIN=xe,t.MINA=function(){const e=v(arguments),t=E.apply(void 0,e);if(t)return t;let o=g(e);return o=o.map((e=>null==e?0:e)),0===o.length?0:Math.min.apply(Math,o)},t.MINUTE=function(e){return(e=D(e))instanceof Error?e:e.getMinutes()},t.MIRR=function(e,t,o){if(M(e=L(v(e)),t=F(t),o=F(o)))return s;const n=e.length,r=[],l=[];for(let t=0;t<n;t++)e[t]<0?r.push(e[t]):l.push(e[t]);const i=-Xo(o,l)*Math.pow(1+o,n-1),a=Xo(t,r)*(1+t);return Math.pow(i/a,1/(n-1))-1},t.MMULT=function(e,t){return!Array.isArray(e)||!Array.isArray(t)||e.some((e=>!e.length))||t.some((e=>!e.length))||y(e).some((e=>"number"!=typeof e))||y(t).some((e=>"number"!=typeof e))||e[0].length!==t.length?s:Array(e.length).fill(0).map((()=>Array(t[0].length).fill(0))).map(((o,n)=>o.map(((o,r)=>e[n].reduce(((e,o,n)=>e+o*t[n][r]),0)))))},t.MOD=function(e,t){const o=E(e=F(e),t=F(t));if(o)return o;if(0===t)return i;let n=Math.abs(e%t);return n=e<0?t-n:n,t>0?n:-n},t.MODE=we,t.MODEMULT=fo,t.MODESNGL=po,t.MONTH=function(e){return(e=D(e))instanceof Error?e:e.getMonth()+1},t.MROUND=function(e,t){return E(e=F(e),t=F(t))||(e*t==0?0:e*t<0?c:Math.round(e/t)*t)},t.MULTINOMIAL=function(){const e=L(v(arguments));if(e instanceof Error)return e;let t=0,o=1;for(let n=0;n<e.length;n++)t+=e[n],o*=ze(e[n]);return ze(t)/o},t.MUNIT=function(e){return arguments.length>1?f:!(e=parseInt(e))||e<=0?s:Array(e).fill(0).map((()=>Array(e).fill(0))).map(((e,t)=>(e[t]=1,e)))},t.N=function(e){return J(e)?e:e instanceof Date?e.getTime():!0===e?1:!1===e?0:K(e)?e:0},t.NA=function(){return f},t.NEGBINOM=Ae,t.NEGBINOMDIST=bo,t.NETWORKDAYS=st,t.NETWORKDAYSINTL=jo,t.NOMINAL=function(e,t){return M(e=F(e),t=F(t))?s:e<=0||t<1?c:(t=parseInt(t,10),(Math.pow(e+1,1/t)-1)*t)},t.NORM=Ee,t.NORMDIST=ho,t.NORMINV=go,t.NORMSDIST=mo,t.NORMSINV=vo,t.NOT=function(e){return"string"==typeof e?s:e instanceof Error?e:!e},t.NOW=function(){return new Date},t.NPER=function(e,t,o,n,r){if(r=void 0===r?0:r,n=void 0===n?0:n,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r)))return s;if(0===e)return-(o+n)/t;{const l=t*(1+e*r)-n*e,i=o*e+t*(1+e*r);return Math.log(l/i)/Math.log(1+e)}},t.NPV=Xo,t.NUMBERVALUE=function(e,t,o){return"number"==typeof(e=k(e)?e:"")?e:"string"!=typeof e?f:(t=void 0===t?".":t,o=void 0===o?",":o,Number(e.replace(t,".").replace(o,"")))},t.OCT2BIN=function(e,t){if(!/^[0-7]{1,10}$/.test(e))return c;const o=!(10!==e.length||"7"!==e.substring(0,1)),n=o?parseInt(e,8)-1073741824:parseInt(e,8);if(n<-512||n>511)return c;if(o)return"1"+mt("0",9-(512+n).toString(2).length)+(512+n).toString(2);const r=n.toString(2);return void 0===t?r:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=r.length?mt("0",t-r.length)+r:c},t.OCT2DEC=function(e){if(!/^[0-7]{1,10}$/.test(e))return c;const t=parseInt(e,8);return t>=536870912?t-1073741824:t},t.OCT2HEX=function(e,t){if(!/^[0-7]{1,10}$/.test(e))return c;const o=parseInt(e,8);if(o>=536870912)return"ff"+(o+3221225472).toString(16);const n=o.toString(16);return void 0===t?n:isNaN(t)?s:t<0?c:(t=Math.floor(t))>=n.length?mt("0",t-n.length)+n:c},t.ODD=function(e){if((e=F(e))instanceof Error)return e;let t=Math.ceil(Math.abs(e));return t=1&t?t:t+1,e>=0?t:-t},t.ODDFPRICE=function(){throw new Error("ODDFPRICE is not implemented")},t.ODDFYIELD=function(){throw new Error("ODDFYIELD is not implemented")},t.ODDLPRICE=function(){throw new Error("ODDLPRICE is not implemented")},t.ODDLYIELD=function(){throw new Error("ODDLYIELD is not implemented")},t.OR=function(){const e=v(arguments);let t=s;for(let o=0;o<e.length;o++){if(e[o]instanceof Error)return e[o];void 0!==e[o]&&null!==e[o]&&"string"!=typeof e[o]&&(t===s&&(t=!1),e[o]&&(t=!0))}return t},t.PDURATION=function(e,t,o){return M(e=F(e),t=F(t),o=F(o))?s:e<=0?c:(Math.log(o)-Math.log(t))/Math.log(1+e)},t.PEARSON=Me,t.PERCENTILE=Ie,t.PERCENTILEEXC=yo,t.PERCENTILEINC=Co,t.PERCENTRANK=Ne,t.PERCENTRANKEXC=xo,t.PERCENTRANKINC=wo,t.PERMUT=function(e,t){return M(e=F(e),t=F(t))?s:ze(e)/ze(e-t)},t.PERMUTATIONA=function(e,t){return M(e=F(e),t=F(t))?s:Math.pow(e,t)},t.PHI=function(e){return(e=F(e))instanceof Error?s:Math.exp(-.5*e*e)/2.5066282746310002},t.PI=function(){return Math.PI},t.PMT=Go,t.POISSON=Se,t.POISSONDIST=Ao,t.POWER=Xe,t.PPMT=function(e,t,o,n,r,l){return r=r||0,l=l||0,M(e=F(e),o=F(o),n=F(n),r=F(r),l=F(l))?s:Go(e,o,n,r,l)-Wo(e,t,o,n,r,l)},t.PRICE=function(){throw new Error("PRICE is not implemented")},t.PRICEDISC=function(e,t,o,n,r){if(M(e=D(e),t=D(t),o=F(o),n=F(n),r=(r=F(r))||0))return s;if(o<=0||n<=0)return c;if(e>=t)return s;let l,i;switch(r){case 0:l=360,i=lt(e,t,!1);break;case 1:case 3:l=365,i=ot(e,t,"D");break;case 2:l=360,i=ot(e,t,"D");break;case 4:l=360,i=lt(e,t,!0);break;default:return c}return n-o*n*i/l},t.PRICEMAT=function(){throw new Error("PRICEMAT is not implemented")},t.PROB=function(e,t,o,n){if(void 0===o)return 0;if(n=void 0===n?o:n,M(e=L(v(e)),t=L(v(t)),o=F(o),n=F(n)))return s;if(o===n)return e.indexOf(o)>=0?t[e.indexOf(o)]:0;const r=e.sort(((e,t)=>e-t)),l=r.length;let i=0;for(let s=0;s<l;s++)r[s]>=o&&r[s]<=n&&(i+=t[e.indexOf(r[s])]);return i},t.PRODUCT=Ge,t.PRONETIC=function(){throw new Error("PRONETIC is not implemented")},t.PROPER=function(e){return M(e)?e:isNaN(e)&&"number"==typeof e?s:(e=R(e)).replace(/\w\S*/g,(e=>e.charAt(0).toUpperCase()+e.substr(1).toLowerCase()))},t.PV=function(e,t,o,n,r){return n=n||0,r=r||0,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r))?s:0===e?-o*t-n:((1-Math.pow(1+e,t))/e*o*(1+e*r)-n)/Math.pow(1+e,t)},t.QUARTILE=De,t.QUARTILEEXC=Eo,t.QUARTILEINC=Mo,t.QUOTIENT=function(e,t){return E(e=F(e),t=F(t))||parseInt(e/t,10)},t.RADIANS=function(e){return(e=F(e))instanceof Error?e:e*Math.PI/180},t.RAND=function(){return Math.random()},t.RANDBETWEEN=function(e,t){return E(e=F(e),t=F(t))||e+Math.ceil((t-e+1)*Math.random())-1},t.RANK=Te,t.RANKAVG=Io,t.RANKEQ=No,t.RATE=function(e,t,o,n,r,l){if(l=void 0===l?.01:l,n=void 0===n?0:n,r=void 0===r?0:r,M(e=F(e),t=F(t),o=F(o),n=F(n),r=F(r),l=F(l)))return s;const i=1e-10;let a=l;r=r?1:0;for(let l=0;l<20;l++){if(a<=-1)return c;let l,s,u;if(Math.abs(a)<i?l=o*(1+e*a)+t*(1+a*r)*e+n:(s=Math.pow(1+a,e),l=o*s+t*(1/a+r)*(s-1)+n),Math.abs(l)<i)return a;if(Math.abs(a)<i)u=o*e+t*r*e;else{s=Math.pow(1+a,e);const n=e*Math.pow(1+a,e-1);u=o*n+t*(1/a+r)*n+t*(-1/(a*a))*(s-1)}a-=l/u}return a},t.RECEIVED=function(){throw new Error("RECEIVED is not implemented")},t.REPLACE=function(e,t,o,n){return M(t=F(t),o=F(o))||"string"!=typeof e||"string"!=typeof n?s:e.substr(0,t-1)+n+e.substr(t-1+o)},t.REPT=mt,t.RIGHT=function(e,t){return E(e,t)||(e=R(e),(t=F(t=void 0===t?1:t))instanceof Error?t:e.substring(e.length-t))},t.ROMAN=function(e){if((e=F(e))instanceof Error)return e;const t=String(e).split(""),o=["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM","","X","XX","XXX","XL","L","LX","LXX","LXXX","XC","","I","II","III","IV","V","VI","VII","VIII","IX"];let n="",r=3;for(;r--;)n=(o[+t.pop()+10*r]||"")+n;return new Array(+t.join("")+1).join("M")+n},t.ROUND=Ke,t.ROUNDDOWN=function(e,t){return E(e=F(e),t=F(t))||(e>0?1:-1)*Math.floor(Math.abs(e)*Math.pow(10,t))/Math.pow(10,t)},t.ROUNDUP=function(e,t){return E(e=F(e),t=F(t))||(e>0?1:-1)*Math.ceil(Math.abs(e)*Math.pow(10,t))/Math.pow(10,t)},t.ROW=function(e,t){return 2!==arguments.length?f:t<0?c:e instanceof Array&&"number"==typeof t?0!==e.length?n.row(e,t):void 0:s},t.ROWS=function(e){return 1!==arguments.length?f:e instanceof Array?0===e.length?0:n.rows(e):s},t.RRI=function(e,t,o){return M(e=F(e),t=F(t),o=F(o))?s:0===e||0===t?c:Math.pow(o/t,1/e)-1},t.RSQ=function(e,t){return M(e=L(v(e)),t=L(v(t)))?s:Math.pow(Me(e,t),2)},t.SEARCH=function(e,t,o){let n;return"string"!=typeof e||"string"!=typeof t?s:(o=void 0===o?0:o,n=t.toLowerCase().indexOf(e.toLowerCase(),o-1)+1,0===n?s:n)},t.SEC=function(e){return(e=F(e))instanceof Error?e:1/Math.cos(e)},t.SECH=function(e){return(e=F(e))instanceof Error?e:2/(Math.exp(e)+Math.exp(-e))},t.SECOND=function(e){return(e=D(e))instanceof Error?e:e.getSeconds()},t.SERIESSUM=function(e,t,o,n){if(M(e=F(e),t=F(t),o=F(o),n=L(n)))return s;let r=n[0]*Math.pow(e,t);for(let l=1;l<n.length;l++)r+=n[l]*Math.pow(e,t+l*o);return r},t.SHEET=function(){throw new Error("SHEET is not implemented")},t.SHEETS=function(){throw new Error("SHEETS is not implemented")},t.SIGN=function(e){return(e=F(e))instanceof Error?e:e<0?-1:0===e?0:1},t.SIN=function(e){return(e=F(e))instanceof Error?e:Math.sin(e)},t.SINH=function(e){return(e=F(e))instanceof Error?e:(Math.exp(e)-Math.exp(-e))/2},t.SKEW=Fe,t.SKEWP=So,t.SLN=function(e,t,o){return M(e=F(e),t=F(t),o=F(o))?s:0===o?c:(e-t)/o},t.SLOPE=function(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;const o=n.mean(t),r=n.mean(e),l=t.length;let i=0,a=0;for(let n=0;n<l;n++)i+=(t[n]-o)*(e[n]-r),a+=Math.pow(t[n]-o,2);return i/a},t.SMALL=Le,t.SORT=function(e,t=1,o=1,n=!1){if(!e||!Array.isArray(e))return f;if(0===e.length)return 0;if(!(t=F(t))||t<1)return s;if(1!==(o=F(o))&&-1!==o)return s;if("boolean"!=typeof(n=S(n)))return u;const r=e=>e.sort(((e,n)=>(e=R(e[t-1]),n=R(n[t-1]),1===o?e<n?-1*o:o:e>n?o:-1*o))),l=m(e),i=n?w(l):l;return t>=1&&t<=i[0].length?n?w(r(i)):r(i):s},t.SQRT=function(e){return(e=F(e))instanceof Error?e:e<0?c:Math.sqrt(e)},t.SQRTPI=function(e){return(e=F(e))instanceof Error?e:Math.sqrt(e*Math.PI)},t.STANDARDIZE=function(e,t,o){return M(e=F(e),t=F(t),o=F(o))?s:(e-t)/o},t.STDEV=Re,t.STDEVA=function(){const e=He.apply(this,arguments);return Math.sqrt(e)},t.STDEVP=Do,t.STDEVPA=function(){const e=Be.apply(this,arguments);let t=Math.sqrt(e);return isNaN(t)&&(t=c),t},t.STDEVS=To,t.STEYX=function(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;const o=n.mean(t),r=n.mean(e),l=t.length;let i=0,a=0,u=0;for(let n=0;n<l;n++)i+=Math.pow(e[n]-r,2),a+=(t[n]-o)*(e[n]-r),u+=Math.pow(t[n]-o,2);return Math.sqrt((i-a*a/u)/(l-2))},t.SUBSTITUTE=function(e,t,o,n){if(arguments.length<3)return f;if(e&&t){if(void 0===n)return e.split(t).join(o);{if(n=Math.floor(Number(n)),Number.isNaN(n)||n<=0)return s;let r=0,l=0;for(;r>-1&&e.indexOf(t,r)>-1;)if(r=e.indexOf(t,r+1),l++,r>-1&&l===n)return e.substring(0,r)+o+e.substring(r+t.length);return e}}return e},t.SUBTOTAL=function(e,t){if((e=F(e))instanceof Error)return e;switch(e){case 1:case 101:return te(t);case 2:case 102:return se(t);case 3:case 103:return ae(t);case 4:case 104:return ye(t);case 5:case 105:return xe(t);case 6:case 106:return Ge(t);case 7:case 107:return Re.S(t);case 8:case 108:return Re.P(t);case 9:case 109:return $e(t);case 10:case 110:return ke.S(t);case 11:case 111:return ke.P(t)}},t.SUM=$e,t.SUMIF=function(e,t,o){if(e=v(e),o=o?v(o):e,e instanceof Error)return e;if(null==t||t instanceof Error)return 0;let n=0;const r="*"===t,l=r?null:Y(t+"");for(let t=0;t<e.length;t++){const i=e[t],s=o[t];if(r)n+=i;else{const e=[z(i,U)].concat(l);n+=W(e)?s:0}}return n},t.SUMIFS=function(){const e=j(arguments),t=L(v(e.shift()));if(t instanceof Error)return t;const o=e,n=o.length/2;for(let e=0;e<n;e++)o[2*e]=v(o[2*e]);let r=0;for(let e=0;e<t.length;e++){let l=!1;for(let t=0;t<n;t++){const n=o[2*t][e],r=o[2*t+1];let i=!1;if(void 0===r||"*"===r)i=!0;else{const e=Y(r+""),t=[z(n,U)].concat(e);i=W(t)}if(!i){l=!1;break}l=!0}l&&(r+=t[e])}return r},t.SUMPRODUCT=function(){if(!arguments||0===arguments.length)return s;const e=arguments.length+1;let t,o,n,r,l=0;for(let i=0;i<arguments[0].length;i++)if(arguments[0][i]instanceof Array)for(let n=0;n<arguments[0][i].length;n++){for(t=1,o=1;o<e;o++){const e=arguments[o-1][i][n];if(e instanceof Error)return e;if(r=F(e),r instanceof Error)return r;t*=r}l+=t}else{for(t=1,o=1;o<e;o++){const e=arguments[o-1][i];if(e instanceof Error)return e;if(n=F(e),n instanceof Error)return n;t*=n}l+=t}return l},t.SUMSQ=function(){const e=L(v(arguments));if(e instanceof Error)return e;let t=0;const o=e.length;for(let n=0;n<o;n++)t+=J(e[n])?e[n]*e[n]:0;return t},t.SUMX2MY2=function(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;let o=0;for(let n=0;n<e.length;n++)o+=e[n]*e[n]-t[n]*t[n];return o},t.SUMX2PY2=function(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;let o=0;e=L(v(e)),t=L(v(t));for(let n=0;n<e.length;n++)o+=e[n]*e[n]+t[n]*t[n];return o},t.SUMXMY2=function(e,t){if(M(e=L(v(e)),t=L(v(t))))return s;let o=0;e=v(e),t=v(t);for(let n=0;n<e.length;n++)o+=Math.pow(e[n]-t[n],2);return o},t.SWITCH=function(){let e;if(arguments.length>0){const t=arguments[0],o=arguments.length-1,n=Math.floor(o/2);let r=!1;const l=o%2!=0,i=o%2==0?null:arguments[arguments.length-1];if(n)for(let o=0;o<n;o++)if(t===arguments[2*o+1]){e=arguments[2*o+2],r=!0;break}r||(e=l?i:f)}else e=s;return e},t.SYD=function(e,t,o,n){return M(e=F(e),t=F(t),o=F(o),n=F(n))?s:0===o||n<1||n>o?c:(e-t)*(o-(n=parseInt(n,10))+1)*2/(o*(o+1))},t.T=function(e){return e instanceof Error||"string"==typeof e?e:""},t.TAN=function(e){return(e=F(e))instanceof Error?e:Math.tan(e)},t.TANH=function(e){if((e=F(e))instanceof Error)return e;const t=Math.exp(2*e);return(t-1)/(t+1)},t.TBILLEQ=function(e,t,o){return M(e=D(e),t=D(t),o=F(o))?s:o<=0||e>t||t-e>31536e6?c:365*o/(360-o*lt(e,t,!1))},t.TBILLPRICE=function(e,t,o){return M(e=D(e),t=D(t),o=F(o))?s:o<=0||e>t||t-e>31536e6?c:100*(1-o*lt(e,t,!1)/360)},t.TBILLYIELD=function(e,t,o){return M(e=D(e),t=D(t),o=F(o))?s:o<=0||e>t||t-e>31536e6?c:360*(100-o)/(o*lt(e,t,!1))},t.TDIST=Fo,t.TDISTRT=Lo,t.TEXT=function(e,t){if(void 0===e||e instanceof Error||t instanceof Error)return f;if(null==t)return"";if("number"==typeof t)return String(t);if("string"!=typeof t)return s;const o=t.startsWith("$")?"$":"",n=t.endsWith("%");return n&&(e*=100),e=(e=gt(e,(t=t.replace(/%/g,"").replace(/\$/g,"")).split(".")[1].match(/0/g).length,!t.includes(","))).startsWith("-")?"-"+o+(e=e.replace("-","")):o+e,n&&(e+="%"),e},t.TEXTJOIN=function(e,t,...o){if("boolean"!=typeof t&&(t=S(t)),arguments.length<3)return f;e=null!=e?e:"";let n=v(o),r=t?n.filter((e=>e)):n;if(Array.isArray(e)){e=v(e);let t=r.map((e=>[e])),o=0;for(let n=0;n<t.length-1;n++)t[n].push(e[o]),o++,o===e.length&&(o=0);return r=v(t),r.join("")}return r.join(e)},t.TIME=function(e,t,o){return M(e=F(e),t=F(t),o=F(o))?s:e<0||t<0||o<0?c:(3600*e+60*t+o)/86400},t.TIMEVALUE=function(e){return(e=D(e))instanceof Error?e:(3600*e.getHours()+60*e.getMinutes()+e.getSeconds())/86400},t.TINV=Ro,t.TODAY=function(){return nt(new Date)},t.TRANSPOSE=function(e){return e?w(m(e)):f},t.TREND=function(e,t,o){if(M(e=L(v(e)),t=L(v(t)),o=L(v(o))))return s;const n=me(e,t),r=n[0],l=n[1],i=[];return o.forEach((e=>{i.push(r*e+l)})),i},t.TRIM=function(e){return(e=R(e))instanceof Error?e:e.replace(/\s+/g," ").trim()},t.TRIMMEAN=function(e,t){if(M(e=L(v(e)),t=F(t)))return s;const o=Ye(e.length*t,2)/2;return n.mean((l=(l=o)||1,(r=x(e.sort(((e,t)=>e-t)),o))&&"function"==typeof r.slice?r.slice(0,r.length-l):r));var r,l},t.TRUE=function(){return!0},t.TRUNC=function(e,t){return E(e=F(e),t=F(t))||(e>0?1:-1)*Math.floor(Math.abs(e)*Math.pow(10,t))/Math.pow(10,t)},t.TTEST=Oo,t.TYPE=function(e){return J(e)?1:Q(e)?2:$(e)?4:K(e)?16:Array.isArray(e)?64:void 0},t.UNICHAR=vt,t.UNICODE=yt,t.UNIQUE=Z,t.UPPER=function(e){return(e=R(e))instanceof Error?e:e.toUpperCase()},t.VALUE=function(e){const t=E(e);if(t)return t;if("number"==typeof e)return e;if(k(e)||(e=""),"string"!=typeof e)return s;const o=/(%)$/.test(e)||/^(%)/.test(e);if(""===(e=(e=(e=e.replace(/^[^0-9-]{0,3}/,"")).replace(/[^0-9]{0,3}$/,"")).replace(/[ ,]/g,"")))return 0;let n=Number(e);return isNaN(n)?s:(n=n||0,o&&(n*=.01),n)},t.VAR=ke,t.VARA=He,t.VARP=ko,t.VARPA=Be,t.VARS=Ho,t.VDB=function(){throw new Error("VDB is not implemented")},t.VLOOKUP=ee,t.WEEKDAY=function(e,t){if((e=D(e))instanceof Error)return e;void 0===t&&(t=1);const o=e.getDay();return et[t][o]},t.WEEKNUM=function(e,t){if((e=D(e))instanceof Error)return e;if(void 0===t&&(t=1),21===t)return it(e);const o=Ze[t];let n=new Date(e.getFullYear(),0,1);const r=n.getDay()<o?1:0;return n-=24*Math.abs(n.getDay()-o)*60*60*1e3,Math.floor((e-n)/864e5/7+1)+r},t.WEIBULL=Pe,t.WEIBULLDIST=Bo,t.WORKDAY=at,t.WORKDAYINTL=Po,t.XIRR=function(e,t,o){if(M(e=L(v(e)),t=T(v(t)),o=F(o)))return s;const n=(e,t,o)=>{const n=o+1;let r=e[0];for(let o=1;o<e.length;o++)r+=e[o]/Math.pow(n,rt(t[o],t[0])/365);return r},r=(e,t,o)=>{const n=o+1;let r=0;for(let o=1;o<e.length;o++){const l=rt(t[o],t[0])/365;r-=l*e[o]/Math.pow(n,l+1)}return r};let l=!1,i=!1;for(let t=0;t<e.length;t++)e[t]>0&&(l=!0),e[t]<0&&(i=!0);if(!l||!i)return c;let a,u,f,d=o=o||.1,p=!0;do{f=n(e,t,d),a=d-f/r(e,t,d),u=Math.abs(a-d),d=a,p=u>1e-10&&Math.abs(f)>1e-10}while(p);return d},t.XNPV=function(e,t,o){if(M(e=F(e),t=L(v(t)),o=T(v(o))))return s;let n=0;for(let r=0;r<t.length;r++)n+=t[r]/Math.pow(1+e,rt(o[r],o[0])/365);return n},t.XOR=function(){const e=v(arguments);let t=s;for(let o=0;o<e.length;o++){if(e[o]instanceof Error)return e[o];void 0!==e[o]&&null!==e[o]&&"string"!=typeof e[o]&&(t===s&&(t=0),e[o]&&t++)}return t===s?t:!!(1&Math.floor(Math.abs(t)))},t.YEAR=function(e){return(e=D(e))instanceof Error?e:e.getFullYear()},t.YEARFRAC=ft,t.YIELD=function(){throw new Error("YIELD is not implemented")},t.YIELDDISC=function(){throw new Error("YIELDDISC is not implemented")},t.YIELDMAT=function(){throw new Error("YIELDMAT is not implemented")},t.Z=_e,t.ZTEST=_o,t.utils=Ko}},o={};function n(t){var r=o[t];if(void 0!==r)return r.exports;var l=o[t]={exports:{}};return e[t].call(l.exports,l,l.exports,n),l.exports}n.g=function(){if("object"==typeof globalThis)return globalThis;try{return this||new Function("return this")()}catch(e){if("object"==typeof window)return window}}();var r=n(960);t=r}(),t)},138:function(module,__unused_webpack_exports,__webpack_require__){if(!formula)var formula=__webpack_require__(243);var factory;factory=function(){"use strict";var Version=(info={title:"Jspreadsheet",version:"4.13.2",type:"CE",host:"https://bossanova.uk/jspreadsheet",license:"MIT",print:function(){return[this.title+" "+this.type+" "+this.version,this.host,this.license].join("\r\n")}},function(){return info}),info,isFormula=function(e){var t=(""+e)[0];return"="==t||"#"==t},getMask=function(e){if(e.format||e.mask||e.locale){var t={};return e.mask?t.mask=e.mask:e.format?t.mask=e.format:(t.locale=e.locale,t.options=e.options),e.decimal&&(t.options||(t.options={}),t.options={decimal:e.decimal}),t}return null},jexcel=function(el,options){var obj={options:{}};if(!(el instanceof Element||el instanceof HTMLDocument))return console.error("Jspreadsheet: el is not a valid DOM element"),!1;if("TABLE"==el.tagName){if(!(options=jexcel.createFromTable(el,options)))return console.error("Jspreadsheet: el is not a valid DOM element"),!1;var div=document.createElement("div");el.parentNode.insertBefore(div,el),el.remove(),el=div}var defaults={url:null,method:"GET",requestVariables:null,data:null,sorting:null,copyCompatibility:!1,root:null,rows:[],columns:[],colHeaders:[],colWidths:[],colAlignments:[],nestedHeaders:null,defaultColWidth:50,defaultColAlign:"center",defaultRowHeight:null,minSpareRows:0,minSpareCols:0,minDimensions:[0,0],allowExport:!0,includeHeadersOnDownload:!1,includeHeadersOnCopy:!1,columnSorting:!0,columnDrag:!1,columnResize:!0,rowResize:!1,rowDrag:!0,editable:!0,allowInsertRow:!0,allowManualInsertRow:!0,allowInsertColumn:!0,allowManualInsertColumn:!0,allowDeleteRow:!0,allowDeletingAllRows:!1,allowDeleteColumn:!0,allowRenameColumn:!0,allowComments:!1,wordWrap:!1,imageOptions:null,csv:null,csvFileName:"jspreadsheet",csvHeaders:!0,csvDelimiter:",",parseTableFirstRowAsHeader:!1,parseTableAutoCellType:!1,selectionCopy:!0,mergeCells:{},toolbar:null,search:!1,pagination:!1,paginationOptions:null,fullscreen:!1,lazyLoading:!1,loadingSpin:!1,tableOverflow:!1,tableHeight:"300px",tableWidth:null,textOverflow:!1,meta:null,style:null,classes:null,parseFormulas:!0,autoIncrement:!0,autoCasting:!0,secureFormulas:!0,stripHTML:!0,stripHTMLOnCopy:!1,filters:!1,footers:null,onundo:null,onredo:null,onload:null,onchange:null,oncomments:null,onbeforechange:null,onafterchanges:null,onbeforeinsertrow:null,oninsertrow:null,onbeforeinsertcolumn:null,oninsertcolumn:null,onbeforedeleterow:null,ondeleterow:null,onbeforedeletecolumn:null,ondeletecolumn:null,onmoverow:null,onmovecolumn:null,onresizerow:null,onresizecolumn:null,onsort:null,onselection:null,oncopy:null,onpaste:null,onbeforepaste:null,onmerge:null,onfocus:null,onblur:null,onchangeheader:null,oncreateeditor:null,oneditionstart:null,oneditionend:null,onchangestyle:null,onchangemeta:null,onchangepage:null,onbeforesave:null,onsave:null,onevent:null,persistance:!1,updateTable:null,detachForUpdates:!1,freezeColumns:null,text:{noRecordsFound:"No records found",showingPage:"Showing page {0} of {1} entries",show:"Show ",search:"Search",entries:" entries",columnName:"Column name",insertANewColumnBefore:"Insert a new column before",insertANewColumnAfter:"Insert a new column after",deleteSelectedColumns:"Delete selected columns",renameThisColumn:"Rename this column",orderAscending:"Order ascending",orderDescending:"Order descending",insertANewRowBefore:"Insert a new row before",insertANewRowAfter:"Insert a new row after",deleteSelectedRows:"Delete selected rows",editComments:"Edit comments",addComments:"Add comments",comments:"Comments",clearComments:"Clear comments",copy:"Copy...",paste:"Paste...",saveAs:"Save as...",about:"About",areYouSureToDeleteTheSelectedRows:"Are you sure to delete the selected rows?",areYouSureToDeleteTheSelectedColumns:"Are you sure to delete the selected columns?",thisActionWillDestroyAnyExistingMergedCellsAreYouSure:"This action will destroy any existing merged cells. Are you sure?",thisActionWillClearYourSearchResultsAreYouSure:"This action will clear your search results. Are you sure?",thereIsAConflictWithAnotherMergedCell:"There is a conflict with another merged cell",invalidMergeProperties:"Invalid merged properties",cellAlreadyMerged:"Cell already merged",noCellsSelected:"No cells selected"},about:!0};for(var property in defaults)if(options&&options.hasOwnProperty(property))if("text"===property)for(var textKey in obj.options[property]=defaults[property],options[property])options[property].hasOwnProperty(textKey)&&(obj.options[property][textKey]=options[property][textKey]);else obj.options[property]=options[property];else obj.options[property]=defaults[property];obj.el=el,obj.corner=null,obj.contextMenu=null,obj.textarea=null,obj.ads=null,obj.content=null,obj.table=null,obj.thead=null,obj.tbody=null,obj.rows=[],obj.results=null,obj.searchInput=null,obj.toolbar=null,obj.pagination=null,obj.pageNumber=null,obj.headerContainer=null,obj.colgroupContainer=null,obj.headers=[],obj.records=[],obj.history=[],obj.formula=[],obj.colgroup=[],obj.selection=[],obj.highlighted=[],obj.selectedCell=null,obj.selectedContainer=null,obj.style=[],obj.data=null,obj.filter=null,obj.filters=[],obj.cursor=null,obj.historyIndex=-1,obj.ignoreEvents=!1,obj.ignoreHistory=!1,obj.edition=null,obj.hashString=null,obj.resizing=null,obj.dragging=null,1==obj.options.lazyLoading&&0==obj.options.tableOverflow&&0==obj.options.fullscreen&&(console.error("Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes"),obj.options.lazyLoading=!1),obj.fullscreen=function(e){null==e&&(e=!obj.options.fullscreen),obj.options.fullscreen!=e&&(obj.options.fullscreen=e,1==e?el.classList.add("fullscreen"):el.classList.remove("fullscreen"))},obj.dispatch=function(e){if(!obj.ignoreEvents){if("function"==typeof obj.options.onevent)var t=obj.options.onevent.apply(this,arguments);"function"==typeof obj.options[e]&&(t=obj.options[e].apply(this,Array.prototype.slice.call(arguments,1)))}if("onafterchanges"==e&&obj.options.persistance){var o=1==obj.options.persistance?obj.options.url:obj.options.persistance,n=obj.prepareJson(arguments[2]);obj.save(o,n)}return t},obj.prepareTable=function(){var e=obj.options.columns.length;if(obj.options.data&&void 0!==obj.options.data[0]){var t=Object.keys(obj.options.data[0]);t.length>e&&(e=t.length)}obj.options.minDimensions[0]>e&&(e=obj.options.minDimensions[0]);for(var o=[],n=0;n<e;n++)obj.options.colHeaders[n]||(obj.options.colHeaders[n]=""),obj.options.colWidths[n]||(obj.options.colWidths[n]=obj.options.defaultColWidth),obj.options.colAlignments[n]||(obj.options.colAlignments[n]=obj.options.defaultColAlign),obj.options.columns[n]?obj.options.columns[n].type||(obj.options.columns[n].type="text"):obj.options.columns[n]={type:"text"},obj.options.columns[n].name||(obj.options.columns[n].name=t&&t[n]?t[n]:n),obj.options.columns[n].source||(obj.options.columns[n].source=[]),obj.options.columns[n].options||(obj.options.columns[n].options=[]),obj.options.columns[n].editor||(obj.options.columns[n].editor=null),obj.options.columns[n].allowEmpty||(obj.options.columns[n].allowEmpty=!1),obj.options.columns[n].title||(obj.options.columns[n].title=obj.options.colHeaders[n]?obj.options.colHeaders[n]:""),obj.options.columns[n].width||(obj.options.columns[n].width=obj.options.colWidths[n]?obj.options.colWidths[n]:obj.options.defaultColWidth),obj.options.columns[n].align||(obj.options.columns[n].align=obj.options.colAlignments[n]?obj.options.colAlignments[n]:"center"),"autocomplete"==obj.options.columns[n].type||"dropdown"==obj.options.columns[n].type?obj.options.columns[n].url&&o.push({url:obj.options.columns[n].url,index:n,method:"GET",dataType:"json",success:function(e){for(var t=0;t<e.length;t++)obj.options.columns[this.index].source.push(e[t])}}):"calendar"==obj.options.columns[n].type&&(obj.options.columns[n].options.format||(obj.options.columns[n].options.format="DD/MM/YYYY"));o.length?jSuites.ajax(o,(function(){obj.createTable()})):obj.createTable()},obj.createTable=function(){obj.table=document.createElement("table"),obj.thead=document.createElement("thead"),obj.tbody=document.createElement("tbody"),obj.headers=[],obj.colgroup=[],obj.content=document.createElement("div"),obj.content.classList.add("jexcel_content"),obj.content.onscroll=function(e){obj.scrollControls(e)},obj.content.onwheel=function(e){obj.wheelControls(e)},obj.toolbar=document.createElement("div"),obj.toolbar.classList.add("jexcel_toolbar");var e=document.createElement("div"),t=document.createTextNode(obj.options.text.search+": ");obj.searchInput=document.createElement("input"),obj.searchInput.classList.add("jexcel_search"),e.appendChild(t),e.appendChild(obj.searchInput),obj.searchInput.onfocus=function(){obj.resetSelection()};var o=document.createElement("div");if(obj.options.pagination>0&&obj.options.paginationOptions&&obj.options.paginationOptions.length>0){obj.paginationDropdown=document.createElement("select"),obj.paginationDropdown.classList.add("jexcel_pagination_dropdown"),obj.paginationDropdown.onchange=function(){obj.options.pagination=parseInt(this.value),obj.page(0)};for(var n=0;n<obj.options.paginationOptions.length;n++){var r=document.createElement("option");r.value=obj.options.paginationOptions[n],r.innerHTML=obj.options.paginationOptions[n],obj.paginationDropdown.appendChild(r)}obj.paginationDropdown.value=obj.options.pagination,o.appendChild(document.createTextNode(obj.options.text.show)),o.appendChild(obj.paginationDropdown),o.appendChild(document.createTextNode(obj.options.text.entries))}var l,i=document.createElement("div");if(i.classList.add("jexcel_filter"),i.appendChild(o),i.appendChild(e),obj.colgroupContainer=document.createElement("colgroup"),(l=document.createElement("col")).setAttribute("width","50"),obj.colgroupContainer.appendChild(l),obj.options.nestedHeaders&&obj.options.nestedHeaders.length>0)if(obj.options.nestedHeaders[0]&&obj.options.nestedHeaders[0][0])for(var s=0;s<obj.options.nestedHeaders.length;s++)obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders[s]));else obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders));for(obj.headerContainer=document.createElement("tr"),(l=document.createElement("td")).classList.add("jexcel_selectall"),obj.headerContainer.appendChild(l),n=0;n<obj.options.columns.length;n++)obj.createCellHeader(n),obj.headerContainer.appendChild(obj.headers[n]),obj.colgroupContainer.appendChild(obj.colgroup[n]);if(obj.thead.appendChild(obj.headerContainer),1==obj.options.filters){obj.filter=document.createElement("tr");var a=document.createElement("td");for(obj.filter.appendChild(a),n=0;n<obj.options.columns.length;n++)(a=document.createElement("td")).innerHTML="&nbsp;",a.setAttribute("data-x",n),a.className="jexcel_column_filter","hidden"==obj.options.columns[n].type&&(a.style.display="none"),obj.filter.appendChild(a);obj.thead.appendChild(obj.filter)}obj.table=document.createElement("table"),obj.table.classList.add("jexcel"),obj.table.setAttribute("cellpadding","0"),obj.table.setAttribute("cellspacing","0"),obj.table.setAttribute("unselectable","yes"),obj.table.appendChild(obj.colgroupContainer),obj.table.appendChild(obj.thead),obj.table.appendChild(obj.tbody),obj.options.textOverflow||obj.table.classList.add("jexcel_overflow"),obj.corner=document.createElement("div"),obj.corner.className="jexcel_corner",obj.corner.setAttribute("unselectable","on"),obj.corner.setAttribute("onselectstart","return false"),0==obj.options.selectionCopy&&(obj.corner.style.display="none"),obj.textarea=document.createElement("textarea"),obj.textarea.className="jexcel_textarea",obj.textarea.id="jexcel_textarea",obj.textarea.tabIndex="-1",obj.contextMenu=document.createElement("div"),obj.contextMenu.className="jexcel_contextmenu",jSuites.contextmenu(obj.contextMenu,{onclick:function(){obj.contextMenu.contextmenu.close(!1)}});var u=document.createElement("a");u.setAttribute("href","https://bossanova.uk/jspreadsheet/"),obj.ads=document.createElement("div"),obj.ads.className="jexcel_about";try{if("undefined"!=typeof sessionStorage&&!sessionStorage.getItem("jexcel")){sessionStorage.setItem("jexcel",!0);var c=document.createElement("img");c.src="//bossanova.uk/jspreadsheet/logo.png",u.appendChild(c)}}catch(e){}var f=document.createElement("span");f.innerHTML="Jspreadsheet CE",u.appendChild(f),obj.ads.appendChild(u),document.createElement("div").classList.add("jexcel_table"),obj.pagination=document.createElement("div"),obj.pagination.classList.add("jexcel_pagination");var d=document.createElement("div"),p=document.createElement("div");if(obj.pagination.appendChild(d),obj.pagination.appendChild(p),obj.options.pagination||(obj.pagination.style.display="none"),1==obj.options.search&&el.appendChild(i),obj.content.appendChild(obj.table),obj.content.appendChild(obj.corner),obj.content.appendChild(obj.textarea),el.appendChild(obj.toolbar),el.appendChild(obj.content),el.appendChild(obj.pagination),el.appendChild(obj.contextMenu),el.appendChild(obj.ads),el.classList.add("jexcel_container"),obj.options.toolbar&&obj.options.toolbar.length&&obj.createToolbar(),1==obj.options.fullscreen?el.classList.add("fullscreen"):1==obj.options.tableOverflow&&(obj.options.tableHeight&&(obj.content.style["overflow-y"]="auto",obj.content.style["box-shadow"]="rgb(221 221 221) 2px 2px 5px 0.1px",obj.content.style.maxHeight=obj.options.tableHeight),obj.options.tableWidth&&(obj.content.style["overflow-x"]="auto",obj.content.style.width=obj.options.tableWidth)),1!=obj.options.tableOverflow&&obj.options.toolbar&&el.classList.add("with-toolbar"),1==obj.options.columnDrag&&obj.thead.classList.add("draggable"),1==obj.options.columnResize&&obj.thead.classList.add("resizable"),1==obj.options.rowDrag&&obj.tbody.classList.add("draggable"),1==obj.options.rowResize&&obj.tbody.classList.add("resizable"),obj.setData(),obj.options.style&&obj.setStyle(obj.options.style,null,null,1,1),obj.options.classes){var b=Object.keys(obj.options.classes);for(n=0;n<b.length;n++){var j=jexcel.getIdFromColumnName(b[n],!0);obj.records[j[1]][j[0]].classList.add(obj.options.classes[b[n]])}}},obj.refresh=function(){obj.options.url?(1==obj.options.loadingSpin&&jSuites.loading.show(),jSuites.ajax({url:obj.options.url,method:obj.options.method,data:obj.options.requestVariables,dataType:"json",success:function(e){obj.options.data=e.data?e.data:e,obj.setData(),1==obj.options.loadingSpin&&jSuites.loading.hide()}})):obj.setData()},obj.setData=function(e){if(e&&("string"==typeof e&&(e=JSON.parse(e)),obj.options.data=e),obj.options.data||(obj.options.data=[]),obj.options.data&&obj.options.data[0]&&!Array.isArray(obj.options.data[0])){e=[];for(var t=0;t<obj.options.data.length;t++){for(var o=[],n=0;n<obj.options.columns.length;n++)o[n]=obj.options.data[t][obj.options.columns[n].name];e.push(o)}obj.options.data=e}t=0,n=0;var r=obj.options.columns.length,l=obj.options.data.length,i=obj.options.minDimensions[0],s=obj.options.minDimensions[1],a=i>r?i:r,u=s>l?s:l;for(t=0;t<u;t++)for(n=0;n<a;n++)null==obj.options.data[t]&&(obj.options.data[t]=[]),null==obj.options.data[t][n]&&(obj.options.data[t][n]="");if(obj.rows=[],obj.results=null,obj.records=[],obj.history=[],obj.historyIndex=-1,obj.tbody.innerHTML="",1==obj.options.lazyLoading){var c=0,f=obj.options.data.length<100?obj.options.data.length:100;obj.options.pagination&&(obj.options.pagination=!1,console.error("Jspreadsheet: Pagination will be disable due the lazyLoading"))}else obj.options.pagination?(obj.pageNumber||(obj.pageNumber=0),obj.options.pagination,c=obj.options.pagination*obj.pageNumber,f=obj.options.pagination*obj.pageNumber+obj.options.pagination,obj.options.data.length<f&&(f=obj.options.data.length)):(c=0,f=obj.options.data.length);for(t=0;t<obj.options.data.length;t++){var d=obj.createRow(t,obj.options.data[t]);t>=c&&t<f&&obj.tbody.appendChild(d)}if(1==obj.options.lazyLoading||obj.options.pagination&&obj.updatePagination(),obj.options.mergeCells){var p=Object.keys(obj.options.mergeCells);for(n=0;n<p.length;n++){var b=obj.options.mergeCells[p[n]];obj.setMerge(p[n],b[0],b[1],1)}}obj.updateTable(),obj.dispatch("onload",el,obj)},obj.getData=function(e,t){for(var o=[],n=0,r=0,l=1==t||0==obj.options.copyCompatibility,i=obj.options.columns.length,s=obj.options.data.length,a=0;a<s;a++){n=0;for(var u=0;u<i;u++)e&&!obj.records[a][u].classList.contains("highlight")||(o[r]||(o[r]=[]),o[r][n]=l?obj.options.data[a][u]:obj.records[a][u].innerHTML,n++);n>0&&r++}return o},obj.getJsonRow=function(e){for(var t=obj.options.data[e],o=obj.options.columns.length,n={},r=0;r<o;r++)obj.options.columns[r].name||(obj.options.columns[r].name=r),n[obj.options.columns[r].name]=t[r];return n},obj.getJson=function(e){for(var t=[],o=obj.options.columns.length,n=obj.options.data.length,r=0;r<n;r++){for(var l=null,i=0;i<o;i++)e&&!obj.records[r][i].classList.contains("highlight")||(null==l&&(l={}),obj.options.columns[i].name||(obj.options.columns[i].name=i),l[obj.options.columns[i].name]=obj.options.data[r][i]);null!=l&&t.push(l)}return t},obj.prepareJson=function(e){for(var t=[],o=0;o<e.length;o++){var n=e[o].x,r=e[o].y,l=obj.options.columns[n].name?obj.options.columns[n].name:n;t[r]||(t[r]={row:r,data:{}}),t[r].data[l]=e[o].newValue}return t.filter((function(e){return null!=e}))},obj.save=function(e,t){var o=obj.dispatch("onbeforesave",el,obj,t);if(o)t=o;else if(!1===o)return!1;jSuites.ajax({url:e,method:"POST",dataType:"json",data:{data:JSON.stringify(t)},success:function(e){obj.dispatch("onsave",el,obj,t)}})},obj.getRowData=function(e){return obj.options.data[e]},obj.setRowData=function(e,t){for(var o=0;o<obj.headers.length;o++){var n=jexcel.getColumnNameFromId([o,e]);null!=t[o]&&obj.setValue(n,t[o])}},obj.getColumnData=function(e){for(var t=[],o=0;o<obj.options.data.length;o++)t.push(obj.options.data[o][e]);return t},obj.setColumnData=function(e,t){for(var o=0;o<obj.rows.length;o++){var n=jexcel.getColumnNameFromId([e,o]);null!=t[o]&&obj.setValue(n,t[o])}},obj.createRow=function(e,t){obj.records[e]||(obj.records[e]=[]),t||(t=obj.options.data[e]),obj.rows[e]=document.createElement("tr"),obj.rows[e].setAttribute("data-y",e);var o=null;obj.options.defaultRowHeight&&(obj.rows[e].style.height=obj.options.defaultRowHeight+"px"),obj.options.rows[e]&&(obj.options.rows[e].height&&(obj.rows[e].style.height=obj.options.rows[e].height),obj.options.rows[e].title&&(o=obj.options.rows[e].title)),o||(o=parseInt(e+1));var n=document.createElement("td");n.innerHTML=o,n.setAttribute("data-y",e),n.className="jexcel_row",obj.rows[e].appendChild(n);for(var r=0;r<obj.options.columns.length;r++)obj.records[e][r]=obj.createCell(r,e,t[r]),obj.rows[e].appendChild(obj.records[e][r]);return obj.rows[e]},obj.parseValue=function(e,t,o,n){"="==(""+o).substr(0,1)&&1==obj.options.parseFormulas&&(o=obj.executeFormula(o,e,t));var r=obj.options.columns[e];if(r&&!isFormula(o)){var l=null;if(l=getMask(r)){o&&o==Number(o)&&(o=Number(o));var i=jSuites.mask.render(o,l,!0);if(n&&l.mask){var s=l.mask.split(";");s[1]&&(s[1].match(new RegExp("\\[Red\\]","gi"))&&(o<0?n.classList.add("red"):n.classList.remove("red")),s[1].match(new RegExp("\\(","gi"))&&o<0&&(i="("+i+")"))}i&&(o=i)}}return o};var validDate=function(e){return"-"==(e=""+e).substr(4,1)&&"-"==e.substr(7,1)||4==(e=e.split("-"))[0].length&&e[0]==Number(e[0])&&2==e[1].length&&e[1]==Number(e[1])};obj.createCell=function(e,t,o){var n=document.createElement("td");if(n.setAttribute("data-x",e),n.setAttribute("data-y",t),"="==(""+o).substr(0,1)&&1==obj.options.secureFormulas){var r=secureFormula(o);r!=o&&(o=r)}if(obj.options.columns[e].editor)!1===obj.options.stripHTML||!1===obj.options.columns[e].stripHTML?n.innerHTML=o:n.textContent=o,"function"==typeof obj.options.columns[e].editor.createCell&&(n=obj.options.columns[e].editor.createCell(n));else if("hidden"==obj.options.columns[e].type)n.style.display="none",n.textContent=o;else if("checkbox"==obj.options.columns[e].type||"radio"==obj.options.columns[e].type){var l=document.createElement("input");l.type=obj.options.columns[e].type,l.name="c"+e,l.checked=1==o||1==o||"true"==o,l.onclick=function(){obj.setValue(n,this.checked)},1!=obj.options.columns[e].readOnly&&0!=obj.options.editable||l.setAttribute("disabled","disabled"),n.appendChild(l),obj.options.data[t][e]=l.checked}else if("calendar"==obj.options.columns[e].type){var i=null;if(!validDate(o)){var s=jSuites.calendar.extractDateFromString(o,obj.options.columns[e].options.format);s&&(i=s)}n.textContent=jSuites.calendar.getDateString(i||o,obj.options.columns[e].options.format)}else if("dropdown"==obj.options.columns[e].type||"autocomplete"==obj.options.columns[e].type)n.classList.add("jexcel_dropdown"),n.textContent=obj.getDropDownValue(e,o);else if("color"==obj.options.columns[e].type)if("square"==obj.options.columns[e].render){var a=document.createElement("div");a.className="color",a.style.backgroundColor=o,n.appendChild(a)}else n.style.color=o,n.textContent=o;else if("image"==obj.options.columns[e].type){if(o&&"data:image"==o.substr(0,10)){var u=document.createElement("img");u.src=o,n.appendChild(u)}}else"html"==obj.options.columns[e].type||!1===obj.options.stripHTML||!1===obj.options.columns[e].stripHTML?n.innerHTML=stripScript(obj.parseValue(e,t,o,n)):n.textContent=obj.parseValue(e,t,o,n);1==obj.options.columns[e].readOnly&&(n.className="readonly");var c=obj.options.columns[e].align?obj.options.columns[e].align:"center";return n.style.textAlign=c,0!=obj.options.columns[e].wordWrap&&(1==obj.options.wordWrap||1==obj.options.columns[e].wordWrap||n.innerHTML.length>200)&&(n.style.whiteSpace="pre-wrap"),e>0&&1==this.options.textOverflow&&(o||n.innerHTML?obj.records[t][e-1].style.overflow="hidden":e==obj.options.columns.length-1&&(n.style.overflow="hidden")),n},obj.createCellHeader=function(e){var t=obj.options.columns[e].width?obj.options.columns[e].width:obj.options.defaultColWidth,o=obj.options.columns[e].align?obj.options.columns[e].align:obj.options.defaultColAlign;obj.headers[e]=document.createElement("td"),obj.options.stripHTML?obj.headers[e].textContent=obj.options.columns[e].title?obj.options.columns[e].title:jexcel.getColumnName(e):obj.headers[e].innerHTML=obj.options.columns[e].title?obj.options.columns[e].title:jexcel.getColumnName(e),obj.headers[e].setAttribute("data-x",e),obj.headers[e].style.textAlign=o,obj.options.columns[e].title&&obj.headers[e].setAttribute("title",obj.headers[e].innerText),obj.options.columns[e].id&&obj.headers[e].setAttribute("id",obj.options.columns[e].id),obj.colgroup[e]=document.createElement("col"),obj.colgroup[e].setAttribute("width",t),"hidden"==obj.options.columns[e].type&&(obj.headers[e].style.display="none",obj.colgroup[e].style.display="none")},obj.updateNestedHeader=function(e,t,o){obj.options.nestedHeaders[t][e].title&&(obj.options.nestedHeaders[t][e].title=o,obj.options.nestedHeaders[t].element.children[e+1].textContent=o)},obj.createNestedHeader=function(e){var t=document.createElement("tr");t.classList.add("jexcel_nested");var o=document.createElement("td");t.appendChild(o),e.element=t;for(var n=0,r=0;r<e.length;r++){e[r].colspan||(e[r].colspan=1),e[r].align||(e[r].align="center"),e[r].title||(e[r].title=""),e[r].id||(e[r].id="");for(var l=e[r].colspan,i=[],s=0;s<l;s++)obj.options.columns[n]&&"hidden"==obj.options.columns[n].type&&l++,i.push(n),n++;(o=document.createElement("td")).setAttribute("data-column",i.join(",")),o.setAttribute("colspan",e[r].colspan),o.setAttribute("align",e[r].align),o.setAttribute("id",e[r].id),o.textContent=e[r].title,t.appendChild(o)}return t},obj.createToolbar=function(e){e?obj.options.toolbar=e:e=obj.options.toolbar;for(var t=0;t<e.length;t++)if("i"==e[t].type)(l=document.createElement("i")).classList.add("jexcel_toolbar_item"),l.classList.add("material-icons"),l.setAttribute("data-k",e[t].k),l.setAttribute("data-v",e[t].v),l.setAttribute("id",e[t].id),e[t].tooltip&&l.setAttribute("title",e[t].tooltip),e[t].onclick&&(e[t].onclick,1)?l.onclick=function(t){var o=t;return function(){e[o].onclick(el,obj,this)}}(t):l.onclick=function(){var e=this.getAttribute("data-k"),t=this.getAttribute("data-v");obj.setStyle(obj.highlighted,e,t)},l.textContent=e[t].content,obj.toolbar.appendChild(l);else if("select"==e[t].type){var o=!1;(l=document.createElement("select")).classList.add("jexcel_toolbar_item"),l.setAttribute("data-k",e[t].k),e[t].tooltip&&l.setAttribute("title",e[t].tooltip),e[t].onchange&&(e[t].onchange,1)?(l.onchange=e[t].onchange,o=!0):l.onchange=function(){var e=this.getAttribute("data-k");obj.setStyle(obj.highlighted,e,this.value)};for(var n=0;n<e[t].v.length;n++){var r=document.createElement("option");r.value=e[t].v[n],r.textContent=e[t].v[n],e[t].selectedValue&&r.value===e[t].selectedValue&&(r.selected=!0),l.appendChild(r)}o&&l.dispatchEvent(new Event("change")),obj.toolbar.appendChild(l)}else if("color"==e[t].type){var l;(l=document.createElement("i")).classList.add("jexcel_toolbar_item"),l.classList.add("material-icons"),l.setAttribute("data-k",e[t].k),l.setAttribute("data-v",""),e[t].tooltip&&l.setAttribute("title",e[t].tooltip),obj.toolbar.appendChild(l),l.textContent=e[t].content,jSuites.color(l,{onchange:function(e,t){var o=e.getAttribute("data-k");obj.setStyle(obj.highlighted,o,t)}})}},obj.setMerge=function(e,t,o,n){var r=!1;if(!e){if(!obj.highlighted.length)return alert(obj.options.text.noCellsSelected),null;var l=parseInt(obj.highlighted[0].getAttribute("data-x")),i=parseInt(obj.highlighted[0].getAttribute("data-y")),s=parseInt(obj.highlighted[obj.highlighted.length-1].getAttribute("data-x")),a=parseInt(obj.highlighted[obj.highlighted.length-1].getAttribute("data-y"));e=jexcel.getColumnNameFromId([l,i]),t=s-l+1,o=a-i+1}var u=jexcel.getIdFromColumnName(e,!0);if(obj.options.mergeCells[e])obj.records[u[1]][u[0]].getAttribute("data-merged")&&(r=obj.options.text.cellAlreadyMerged);else if((!t||t<2)&&(!o||o<2))r=obj.options.text.invalidMergeProperties;else for(var c=u[1];c<u[1]+o;c++)for(var f=u[0];f<u[0]+t;f++)jexcel.getColumnNameFromId([f,c]),obj.records[c][f].getAttribute("data-merged")&&(r=obj.options.text.thereIsAConflictWithAnotherMergedCell);if(r)alert(r);else{t>1?obj.records[u[1]][u[0]].setAttribute("colspan",t):t=1,o>1?obj.records[u[1]][u[0]].setAttribute("rowspan",o):o=1,obj.options.mergeCells[e]=[t,o,[]],obj.records[u[1]][u[0]].setAttribute("data-merged","true"),obj.records[u[1]][u[0]].style.overflow="hidden";for(var d=[],p=u[1];p<u[1]+o;p++)for(var b=u[0];b<u[0]+t;b++)u[0]==b&&u[1]==p||(d.push(obj.options.data[p][b]),obj.updateCell(b,p,"",!0),obj.options.mergeCells[e][2].push(obj.records[p][b]),obj.records[p][b].style.display="none",obj.records[p][b]=obj.records[u[1]][u[0]]);obj.updateSelection(obj.records[u[1]][u[0]]),n||(obj.setHistory({action:"setMerge",column:e,colspan:t,rowspan:o,data:d}),obj.dispatch("onmerge",el,e,t,o))}},obj.getMerge=function(e){var t={};if(e)t=obj.options.mergeCells[e]?[obj.options.mergeCells[e][0],obj.options.mergeCells[e][1]]:null;else if(obj.options.mergeCells){obj.options.mergeCells;for(var o=Object.keys(obj.options.mergeCells),n=0;n<o.length;n++)t[o[n]]=[obj.options.mergeCells[o[n]][0],obj.options.mergeCells[o[n]][1]]}return t},obj.removeMerge=function(e,t,o){if(obj.options.mergeCells[e]){var n=jexcel.getIdFromColumnName(e,!0);obj.records[n[1]][n[0]].removeAttribute("colspan"),obj.records[n[1]][n[0]].removeAttribute("rowspan"),obj.records[n[1]][n[0]].removeAttribute("data-merged");for(var r=obj.options.mergeCells[e],l=0,i=0;i<r[1];i++)for(var s=0;s<r[0];s++)(i>0||s>0)&&(obj.records[n[1]+i][n[0]+s]=r[2][l],obj.records[n[1]+i][n[0]+s].style.display="",t&&t[l]&&obj.updateCell(n[0]+s,n[1]+i,t[l]),l++);obj.updateSelection(obj.records[n[1]][n[0]],obj.records[n[1]+i-1][n[0]+s-1]),o||delete obj.options.mergeCells[e]}},obj.destroyMerged=function(e){if(obj.options.mergeCells){obj.options.mergeCells;for(var t=Object.keys(obj.options.mergeCells),o=0;o<t.length;o++)obj.removeMerge(t[o],null,e)}},obj.isColMerged=function(e,t){var o=[];if(obj.options.mergeCells)for(var n=Object.keys(obj.options.mergeCells),r=0;r<n.length;r++){var l=jexcel.getIdFromColumnName(n[r],!0),i=obj.options.mergeCells[n[r]][0],s=l[0],a=l[0]+(i>1?i-1:0);null==t?s<=e&&a>=e&&o.push(n[r]):t?s<e&&a>=e&&o.push(n[r]):s<=e&&a>e&&o.push(n[r])}return o},obj.isRowMerged=function(e,t){var o=[];if(obj.options.mergeCells)for(var n=Object.keys(obj.options.mergeCells),r=0;r<n.length;r++){var l=jexcel.getIdFromColumnName(n[r],!0),i=obj.options.mergeCells[n[r]][1],s=l[1],a=l[1]+(i>1?i-1:0);null==t?s<=e&&a>=e&&o.push(n[r]):t?s<e&&a>=e&&o.push(n[r]):s<=e&&a>e&&o.push(n[r])}return o},obj.openFilter=function(e){if(obj.options.filters){e=parseInt(e),obj.resetSelection();var t=[];if("checkbox"==obj.options.columns[e].type)t.push({id:"true",name:"True"}),t.push({id:"false",name:"False"});else{for(var o=[],n=!1,r=0;r<obj.options.data.length;r++){var l=obj.options.data[r][e],i=obj.records[r][e].innerHTML;l&&i?o[l]=i:n=!0}var s=Object.keys(o);for(t=[],r=0;r<s.length;r++)t.push({id:s[r],name:o[s[r]]});n&&t.push({value:"",id:"",name:"(Blanks)"})}var a=document.createElement("div");obj.filter.children[e+1].innerHTML="",obj.filter.children[e+1].appendChild(a),obj.filter.children[e+1].style.paddingLeft="0px",obj.filter.children[e+1].style.paddingRight="0px",obj.filter.children[e+1].style.overflow="initial";var u={data:t,multiple:!0,autocomplete:!0,opened:!0,value:void 0!==obj.filters[e]?obj.filters[e]:null,width:"100%",position:1==obj.options.tableOverflow||1==obj.options.fullscreen,onclose:function(t){obj.resetFilters(),obj.filters[e]=t.dropdown.getValue(!0),obj.filter.children[e+1].innerHTML=t.dropdown.getText(),obj.filter.children[e+1].style.paddingLeft="",obj.filter.children[e+1].style.paddingRight="",obj.filter.children[e+1].style.overflow="",obj.closeFilter(e),obj.refreshSelection()}};jSuites.dropdown(a,u)}else console.log("Jspreadsheet: filters not enabled.")},obj.resetFilters=function(){if(obj.options.filters)for(var e=0;e<obj.filter.children.length;e++)obj.filter.children[e].innerHTML="&nbsp;",obj.filters[e]=null;obj.results=null,obj.updateResult()},obj.closeFilter=function(e){if(!e)for(var t=0;t<obj.filter.children.length;t++)obj.filters[t]&&(e=t);var o=function(e,t,o){for(var n=0;n<e.length;n++){var r=""+obj.options.data[o][t],l=""+obj.records[o][t].innerHTML;if(e[n]==r||e[n]==l)return!0}return!1},n=obj.filters[e];obj.results=[];for(var r=0;r<obj.options.data.length;r++)o(n,e,r)&&obj.results.push(r);obj.results.length||(obj.results=null),obj.updateResult()},obj.openEditor=function(e,t,o){var n=e.getAttribute("data-y"),r=e.getAttribute("data-x");obj.dispatch("oneditionstart",el,e,r,n),r>0&&(obj.records[n][r-1].style.overflow="hidden");var l=function(t){var o=e.getBoundingClientRect(),l=document.createElement(t);return l.style.width=o.width+"px",l.style.height=o.height-2+"px",l.style.minHeight=o.height-2+"px",e.classList.add("editor"),e.innerHTML="",e.appendChild(l),obj.dispatch("oncreateeditor",el,e,r,n,l),l};if(1==e.classList.contains("readonly"));else if(obj.edition=[obj.records[n][r],obj.records[n][r].innerHTML,r,n],obj.options.columns[r].editor)obj.options.columns[r].editor.openEditor(e,el,t,o);else if("hidden"==obj.options.columns[r].type);else if("checkbox"==obj.options.columns[r].type||"radio"==obj.options.columns[r].type){var i=!e.children[0].checked;obj.setValue(e,i),obj.edition=null}else if("dropdown"==obj.options.columns[r].type||"autocomplete"==obj.options.columns[r].type){if(i=obj.options.data[n][r],obj.options.columns[r].multiple&&!Array.isArray(i)&&(i=i.split(";")),"function"==typeof obj.options.columns[r].filter)var s=obj.options.columns[r].filter(el,e,r,n,obj.options.columns[r].source);else s=obj.options.columns[r].source;for(var a=[],u=0;u<s.length;u++)a.push(s[u]);var c=l("div"),f={data:a,multiple:!!obj.options.columns[r].multiple,autocomplete:!(!obj.options.columns[r].autocomplete&&"autocomplete"!=obj.options.columns[r].type),opened:!0,value:i,width:"100%",height:c.style.minHeight,position:1==obj.options.tableOverflow||1==obj.options.fullscreen,onclose:function(){obj.closeEditor(e,!0)}};obj.options.columns[r].options&&obj.options.columns[r].options.type&&(f.type=obj.options.columns[r].options.type),jSuites.dropdown(c,f)}else if("calendar"==obj.options.columns[r].type||"color"==obj.options.columns[r].type)i=obj.options.data[n][r],(c=l("input")).value=i,1!=obj.options.tableOverflow&&1!=obj.options.fullscreen||(obj.options.columns[r].options.position=!0),obj.options.columns[r].options.value=obj.options.data[n][r],obj.options.columns[r].options.opened=!0,obj.options.columns[r].options.onclose=function(t,o){obj.closeEditor(e,!0)},"color"==obj.options.columns[r].type?jSuites.color(c,obj.options.columns[r].options):jSuites.calendar(c,obj.options.columns[r].options),c.focus();else if("html"==obj.options.columns[r].type){i=obj.options.data[n][r],(c=l("div")).style.position="relative",(b=document.createElement("div")).classList.add("jexcel_richtext"),c.appendChild(b),jSuites.editor(b,{focus:!0,value:i});var d=e.getBoundingClientRect(),p=b.getBoundingClientRect();window.innerHeight<d.bottom+p.height?b.style.top=d.top-(p.height+2)+"px":b.style.top=d.top+"px"}else if("image"==obj.options.columns[r].type){var b,j=e.children[0];(c=l("div")).style.position="relative",(b=document.createElement("div")).classList.add("jclose"),j&&j.src&&b.appendChild(j),c.appendChild(b),jSuites.image(b,obj.options.imageOptions),d=e.getBoundingClientRect(),p=b.getBoundingClientRect(),window.innerHeight<d.bottom+p.height?b.style.top=d.top-(p.height+2)+"px":b.style.top=d.top+"px"}else{if(i=1==t?"":obj.options.data[n][r],0==obj.options.columns[r].wordWrap||1!=obj.options.wordWrap&&1!=obj.options.columns[r].wordWrap)c=l("input");else c=l("textarea");c.focus(),c.value=i,f=obj.options.columns[r];var h=null;if(!isFormula(i)&&(h=getMask(f))){if(!f.disabledMaskOnEdition)if(f.mask){var g=f.mask.split(";");c.setAttribute("data-mask",g[0])}else f.locale&&c.setAttribute("data-locale",f.locale);h.input=c,c.mask=h,jSuites.mask.render(i,h,!1)}c.onblur=function(){obj.closeEditor(e,!0)},c.scrollLeft=c.scrollWidth}},obj.closeEditor=function(e,t){var o=parseInt(e.getAttribute("data-x")),n=parseInt(e.getAttribute("data-y"));if(1==t){if(obj.options.columns[o].editor)var r=obj.options.columns[o].editor.closeEditor(e,t);else if("checkbox"==obj.options.columns[o].type||"radio"==obj.options.columns[o].type||"hidden"==obj.options.columns[o].type);else if("dropdown"==obj.options.columns[o].type||"autocomplete"==obj.options.columns[o].type)r=e.children[0].dropdown.close(!0);else if("calendar"==obj.options.columns[o].type)r=e.children[0].calendar.close(!0);else if("color"==obj.options.columns[o].type)r=e.children[0].color.close(!0);else if("html"==obj.options.columns[o].type)r=e.children[0].children[0].editor.getData();else if("image"==obj.options.columns[o].type){var l=e.children[0].children[0].children[0];r=l&&"IMG"==l.tagName?l.src:""}else if("numeric"==obj.options.columns[o].type)"="!=(""+(r=e.children[0].value)).substr(0,1)&&""==r&&(r=obj.options.columns[o].allowEmpty?"":0),e.children[0].onblur=null;else{r=e.children[0].value,e.children[0].onblur=null;var i,s=obj.options.columns[o];if((i=getMask(s))&&""!==r&&!isFormula(r)&&"number"!=typeof r){var a=jSuites.mask.extract(r,i,!0);a&&""!==a.value&&(r=a.value)}}obj.options.data[n][o]==r?e.innerHTML=obj.edition[1]:obj.setValue(e,r)}else obj.options.columns[o].editor?obj.options.columns[o].editor.closeEditor(e,t):"dropdown"==obj.options.columns[o].type||"autocomplete"==obj.options.columns[o].type?e.children[0].dropdown.close(!0):"calendar"==obj.options.columns[o].type?e.children[0].calendar.close(!0):"color"==obj.options.columns[o].type?e.children[0].color.close(!0):e.children[0].onblur=null,e.innerHTML=obj.edition&&obj.edition[1]?obj.edition[1]:"";obj.dispatch("oneditionend",el,e,o,n,r,t),e.classList.remove("editor"),obj.edition=null},obj.getCell=function(e){var t=(e=jexcel.getIdFromColumnName(e,!0))[0],o=e[1];return obj.records[o][t]},obj.getColumnOptions=function(e,t){var o=obj.options.columns[e];return o||(o={type:"text"}),o},obj.getCellFromCoords=function(e,t){return obj.records[t][e]},obj.getLabel=function(e){var t=(e=jexcel.getIdFromColumnName(e,!0))[0],o=e[1];return obj.records[o][t].innerHTML},obj.getLabelFromCoords=function(e,t){return obj.records[t][e].innerHTML},obj.getValue=function(e,t){if("object"==typeof e)var o=e.getAttribute("data-x"),n=e.getAttribute("data-y");else o=(e=jexcel.getIdFromColumnName(e,!0))[0],n=e[1];var r=null;return null!=o&&null!=n&&(obj.records[n]&&obj.records[n][o]&&(t||1==obj.options.copyCompatibility)?r=obj.records[n][o].innerHTML:obj.options.data[n]&&"undefined"!=obj.options.data[n][o]&&(r=obj.options.data[n][o])),r},obj.getValueFromCoords=function(e,t,o){var n=null;return null!=e&&null!=t&&(obj.records[t]&&obj.records[t][e]&&o||1==obj.options.copyCompatibility?n=obj.records[t][e].innerHTML:obj.options.data[t]&&"undefined"!=obj.options.data[t][e]&&(n=obj.options.data[t][e])),n},obj.setValue=function(e,t,o){var n=[];if("string"==typeof e){var r=(a=jexcel.getIdFromColumnName(e,!0))[0],l=a[1];n.push(obj.updateCell(r,l,t,o)),obj.updateFormulaChain(r,l,n)}else if(r=null,l=null,e&&e.getAttribute&&(r=e.getAttribute("data-x"),l=e.getAttribute("data-y")),null!=r&&null!=l)n.push(obj.updateCell(r,l,t,o)),obj.updateFormulaChain(r,l,n);else{var i=Object.keys(e);if(i.length>0)for(var s=0;s<i.length;s++){var a;"string"==typeof e[s]?(r=(a=jexcel.getIdFromColumnName(e[s],!0))[0],l=a[1]):null!=e[s].x&&null!=e[s].y?(r=e[s].x,l=e[s].y,null!=e[s].newValue?t=e[s].newValue:null!=e[s].value&&(t=e[s].value)):(r=e[s].getAttribute("data-x"),l=e[s].getAttribute("data-y")),null!=r&&null!=l&&(n.push(obj.updateCell(r,l,t,o)),obj.updateFormulaChain(r,l,n))}}obj.setHistory({action:"setValue",records:n,selection:obj.selectedCell}),obj.updateTable(),obj.onafterchanges(el,n)},obj.setValueFromCoords=function(e,t,o,n){var r=[];r.push(obj.updateCell(e,t,o,n)),obj.updateFormulaChain(e,t,r),obj.setHistory({action:"setValue",records:r,selection:obj.selectedCell}),obj.updateTable(),obj.onafterchanges(el,r)},obj.setCheckRadioValue=function(){for(var e=[],t=Object.keys(obj.highlighted),o=0;o<t.length;o++){var n=obj.highlighted[o].getAttribute("data-x"),r=obj.highlighted[o].getAttribute("data-y");"checkbox"!=obj.options.columns[n].type&&"radio"!=obj.options.columns[n].type||e.push(obj.updateCell(n,r,!obj.options.data[r][n]))}e.length&&(obj.setHistory({action:"setValue",records:e,selection:obj.selectedCell}),obj.onafterchanges(el,e))};var stripScript=function(e){var t=new Option;t.innerHTML=e;var o=null;for(e=t.getElementsByTagName("script");o=e[0];)o.parentNode.removeChild(o);return t.innerHTML};obj.updateCell=function(e,t,o,n){if(1!=obj.records[t][e].classList.contains("readonly")||n){var r;"="==(""+o).substr(0,1)&&1==obj.options.secureFormulas&&(r=secureFormula(o))!=o&&(o=r),null!=(r=obj.dispatch("onbeforechange",el,obj.records[t][e],e,t,o))&&(o=r),obj.options.columns[e].editor&&"function"==typeof obj.options.columns[e].editor.updateCell&&(o=obj.options.columns[e].editor.updateCell(obj.records[t][e],o,n)),c={x:e,y:t,col:e,row:t,newValue:o,oldValue:obj.options.data[t][e]};let f=obj.options.columns[e].editor;if(f)obj.options.data[t][e]=o,"function"==typeof f.setValue&&f.setValue(obj.records[t][e],o);else if("checkbox"==obj.options.columns[e].type||"radio"==obj.options.columns[e].type){if("radio"==obj.options.columns[e].type)for(var l=0;l<obj.options.data.length;l++)obj.options.data[l][e]=!1;obj.records[t][e].children[0].checked=1==o||1==o||"true"==o||"TRUE"==o,obj.options.data[t][e]=obj.records[t][e].children[0].checked}else if("dropdown"==obj.options.columns[e].type||"autocomplete"==obj.options.columns[e].type)obj.options.data[t][e]=o,obj.records[t][e].textContent=obj.getDropDownValue(e,o);else if("calendar"==obj.options.columns[e].type){var i=null;if(!validDate(o)){var s=jSuites.calendar.extractDateFromString(o,obj.options.columns[e].options.format);s&&(i=s)}obj.options.data[t][e]=o,obj.records[t][e].textContent=jSuites.calendar.getDateString(i||o,obj.options.columns[e].options.format)}else if("color"==obj.options.columns[e].type)if(obj.options.data[t][e]=o,"square"==obj.options.columns[e].render){var a=document.createElement("div");a.className="color",a.style.backgroundColor=o,obj.records[t][e].textContent="",obj.records[t][e].appendChild(a)}else obj.records[t][e].style.color=o,obj.records[t][e].textContent=o;else if("image"==obj.options.columns[e].type){if(o=""+o,obj.options.data[t][e]=o,obj.records[t][e].innerHTML="",o&&"data:image"==o.substr(0,10)){var u=document.createElement("img");u.src=o,obj.records[t][e].appendChild(u)}}else obj.options.data[t][e]=o,"html"==obj.options.columns[e].type?obj.records[t][e].innerHTML=stripScript(obj.parseValue(e,t,o)):!1===obj.options.stripHTML||!1===obj.options.columns[e].stripHTML?obj.records[t][e].innerHTML=stripScript(obj.parseValue(e,t,o,obj.records[t][e])):obj.records[t][e].textContent=obj.parseValue(e,t,o,obj.records[t][e]),0!=obj.options.columns[e].wordWrap&&(1==obj.options.wordWrap||1==obj.options.columns[e].wordWrap||obj.records[t][e].innerHTML.length>200)?obj.records[t][e].style.whiteSpace="pre-wrap":obj.records[t][e].style.whiteSpace="";e>0&&(obj.records[t][e-1].style.overflow=o?"hidden":""),obj.dispatch("onchange",el,obj.records[t]&&obj.records[t][e]?obj.records[t][e]:null,e,t,o,c.oldValue)}else var c={x:e,y:t,col:e,row:t};return c},obj.copyData=function(e,t){var o=obj.getData(!0,!0),n=obj.selectedContainer,r=parseInt(e.getAttribute("data-x")),l=parseInt(e.getAttribute("data-y")),i=parseInt(t.getAttribute("data-x")),s=parseInt(t.getAttribute("data-y")),a=[],u=!1;if(n[0]==r){if(l<n[1])var c=l-n[1];else c=1;var f=0}else f=r<n[0]?r-n[0]:1,c=0;for(var d=0,p=0,b=l;b<=s;b++)if(!obj.rows[b]||"none"!=obj.rows[b].style.display){null==o[p]&&(p=0),d=0,n[0]!=r&&(f=r<n[0]?r-n[0]:1);for(var j=r;j<=i;j++){if(obj.records[b][j]&&!obj.records[b][j].classList.contains("readonly")&&"none"!=obj.records[b][j].style.display&&0==u){if(!obj.selection.length&&""!=obj.options.data[b][j]){u=!0;continue}(null==o[p]||null==o[p][d])&&(d=0);var h=o[p][d];if(h&&!o[1]&&1==obj.options.autoIncrement)if("text"==obj.options.columns[j].type||"number"==obj.options.columns[j].type)if("="==(""+h).substr(0,1)){var g=h.match(/([A-Z]+[0-9]+)/g);if(g){for(var m=[],v=0;v<g.length;v++){var y=jexcel.getIdFromColumnName(g[v],1);y[0]+=f,y[1]+=c,y[1]<0&&(y[1]=0);var C=jexcel.getColumnNameFromId([y[0],y[1]]);C!=g[v]&&(m[g[v]]=C)}m&&(h=obj.updateFormula(h,m))}}else h==Number(h)&&(h=Number(h)+c);else if("calendar"==obj.options.columns[j].type){var x=new Date(h);x.setDate(x.getDate()+c),h=x.getFullYear()+"-"+jexcel.doubleDigitFormat(parseInt(x.getMonth()+1))+"-"+jexcel.doubleDigitFormat(x.getDate())+" 00:00:00"}a.push(obj.updateCell(j,b,h)),obj.updateFormulaChain(j,b,a)}d++,n[0]!=r&&f++}p++,c++}obj.setHistory({action:"setValue",records:a,selection:obj.selectedCell}),obj.updateTable(),obj.onafterchanges(el,a)},obj.refreshSelection=function(){obj.selectedCell&&obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3])},obj.conditionalSelectionUpdate=function(e,t,o){if(1==e){if(obj.selectedCell&&(t>=obj.selectedCell[1]&&t<=obj.selectedCell[3]||o>=obj.selectedCell[1]&&o<=obj.selectedCell[3]))return void obj.resetSelection()}else if(obj.selectedCell&&(t>=obj.selectedCell[0]&&t<=obj.selectedCell[2]||o>=obj.selectedCell[0]&&o<=obj.selectedCell[2]))return void obj.resetSelection()},obj.resetSelection=function(e){if(obj.highlighted.length){u=1;for(var t=0;t<obj.highlighted.length;t++){obj.highlighted[t].classList.remove("highlight"),obj.highlighted[t].classList.remove("highlight-left"),obj.highlighted[t].classList.remove("highlight-right"),obj.highlighted[t].classList.remove("highlight-top"),obj.highlighted[t].classList.remove("highlight-bottom"),obj.highlighted[t].classList.remove("highlight-selected");var o=parseInt(obj.highlighted[t].getAttribute("data-x")),n=parseInt(obj.highlighted[t].getAttribute("data-y"));if(obj.highlighted[t].getAttribute("data-merged"))var r=parseInt(obj.highlighted[t].getAttribute("colspan")),l=parseInt(obj.highlighted[t].getAttribute("rowspan")),i=r>0?o+(r-1):o,s=l>0?n+(l-1):n;else i=o,s=n;for(var a=o;a<=i;a++)obj.headers[a]&&obj.headers[a].classList.remove("selected");for(a=n;a<=s;a++)obj.rows[a]&&obj.rows[a].classList.remove("selected")}}else var u=0;return obj.highlighted=[],obj.selectedCell=null,obj.corner.style.top="-2000px",obj.corner.style.left="-2000px",1==e&&1==u&&obj.dispatch("onblur",el),u},obj.updateSelection=function(e,t,o){var n=e.getAttribute("data-x"),r=e.getAttribute("data-y");if(t)var l=t.getAttribute("data-x"),i=t.getAttribute("data-y");else l=n,i=r;obj.updateSelectionFromCoords(n,r,l,i,o)},obj.updateSelectionFromCoords=function(e,t,o,n,r){var l=obj.resetSelection();if(null==t&&(t=0,n=obj.rows.length-1),null==o&&(o=e),null==n&&(n=t),e>=obj.headers.length&&(e=obj.headers.length-1),t>=obj.rows.length&&(t=obj.rows.length-1),o>=obj.headers.length&&(o=obj.headers.length-1),n>=obj.rows.length&&(n=obj.rows.length-1),obj.selectedCell=[e,t,o,n],null!=e){if(obj.records[t][e]&&obj.records[t][e].classList.add("highlight-selected"),parseInt(e)<parseInt(o))var i=parseInt(e),s=parseInt(o);else i=parseInt(o),s=parseInt(e);if(parseInt(t)<parseInt(n))var a=parseInt(t),u=parseInt(n);else a=parseInt(n),u=parseInt(t);for(var c=i;c<=s;c++)for(var f=a;f<=u;f++)if(obj.records[f][c]&&obj.records[f][c].getAttribute("data-merged")){var d=parseInt(obj.records[f][c].getAttribute("data-x")),p=parseInt(obj.records[f][c].getAttribute("data-y")),b=parseInt(obj.records[f][c].getAttribute("colspan")),j=parseInt(obj.records[f][c].getAttribute("rowspan"));b>1&&(d<i&&(i=d),d+b>s&&(s=d+b-1)),j&&(p<a&&(a=p),p+j>u&&(u=p+j-1))}var h=null,g=null,m=null,v=null;for(f=a;f<=u;f++)"none"!=obj.rows[f].style.display&&(null==m&&(m=f),v=f);for(c=i;c<=s;c++){for(f=a;f<=u;f++)"none"!=obj.rows[f].style.display&&"none"!=obj.records[f][c].style.display&&(obj.records[f][c].classList.add("highlight"),obj.highlighted.push(obj.records[f][c]));"hidden"!=obj.options.columns[c].type&&(null==h&&(h=c),g=c)}for(h||(h=0),g||(g=0),c=h;c<=g;c++)"hidden"!=obj.options.columns[c].type&&(obj.records[m]&&obj.records[m][c]&&obj.records[m][c].classList.add("highlight-top"),obj.records[v]&&obj.records[v][c]&&obj.records[v][c].classList.add("highlight-bottom"),obj.headers[c].classList.add("selected"));for(f=m;f<=v;f++)obj.rows[f]&&"none"!=obj.rows[f].style.display&&(obj.records[f][h].classList.add("highlight-left"),obj.records[f][g].classList.add("highlight-right"),obj.rows[f].classList.add("selected"));obj.selectedContainer=[h,m,g,v]}0==l&&(obj.dispatch("onfocus",el),obj.removeCopyingSelection()),obj.dispatch("onselection",el,h,m,g,v,r),obj.updateCornerPosition()},obj.removeCopySelection=function(){for(var e=0;e<obj.selection.length;e++)obj.selection[e].classList.remove("selection"),obj.selection[e].classList.remove("selection-left"),obj.selection[e].classList.remove("selection-right"),obj.selection[e].classList.remove("selection-top"),obj.selection[e].classList.remove("selection-bottom");obj.selection=[]},obj.updateCopySelection=function(e,t){obj.removeCopySelection();var o=obj.selectedContainer[0],n=obj.selectedContainer[1],r=obj.selectedContainer[2],l=obj.selectedContainer[3];if(null!=e&&null!=t){if(e-r>0)var i=parseInt(r)+1,s=parseInt(e);else i=parseInt(e),s=parseInt(o)-1;if(t-l>0)var a=parseInt(l)+1,u=parseInt(t);else a=parseInt(t),u=parseInt(n)-1;s-i<=u-a?(i=parseInt(o),s=parseInt(r)):(a=parseInt(n),u=parseInt(l));for(var c=a;c<=u;c++)for(var f=i;f<=s;f++)obj.records[c][f]&&"none"!=obj.rows[c].style.display&&"none"!=obj.records[c][f].style.display&&(obj.records[c][f].classList.add("selection"),obj.records[a][f].classList.add("selection-top"),obj.records[u][f].classList.add("selection-bottom"),obj.records[c][i].classList.add("selection-left"),obj.records[c][s].classList.add("selection-right"),obj.selection.push(obj.records[c][f]))}},obj.updateCornerPosition=function(){if(obj.highlighted.length){var e=obj.highlighted[obj.highlighted.length-1],t=e.getAttribute("data-x"),o=obj.content.getBoundingClientRect(),n=o.left,r=o.top,l=e.getBoundingClientRect(),i=l.left,s=l.top,a=l.width,u=l.height,c=i-n+obj.content.scrollLeft+a-4,f=s-r+obj.content.scrollTop+u-4;if(obj.corner.style.top=f+"px",obj.corner.style.left=c+"px",obj.options.freezeColumns){var d=obj.getFreezeWidth();t>obj.options.freezeColumns-1&&i-n+a<d?obj.corner.style.display="none":1==obj.options.selectionCopy&&(obj.corner.style.display="")}else 1==obj.options.selectionCopy&&(obj.corner.style.display="")}else obj.corner.style.top="-2000px",obj.corner.style.left="-2000px"},obj.updateScroll=function(e){var t=obj.content.getBoundingClientRect(),o=t.left,n=t.top,r=t.width,l=t.height,i=obj.records[obj.selectedCell[3]][obj.selectedCell[2]].getBoundingClientRect(),s=i.left,a=i.top,u=i.width,c=i.height;if(0==e||1==e)var f=s-o+obj.content.scrollLeft,d=a-n+obj.content.scrollTop-2;else f=s-o+obj.content.scrollLeft+u,d=a-n+obj.content.scrollTop+c;d>obj.content.scrollTop+30&&d<obj.content.scrollTop+l||(d<obj.content.scrollTop+30?obj.content.scrollTop=d-c:obj.content.scrollTop=d-(l-2));var p=obj.getFreezeWidth();f>obj.content.scrollLeft+p&&f<obj.content.scrollLeft+r||(f<obj.content.scrollLeft+30?(obj.content.scrollLeft=f,obj.content.scrollLeft<50&&(obj.content.scrollLeft=0)):f<obj.content.scrollLeft+p?obj.content.scrollLeft=f-p-1:obj.content.scrollLeft=f-(r-20))},obj.getWidth=function(e){if(void 0===e)for(var t=[],o=0;o<obj.headers.length;o++)t.push(obj.options.columns[o].width);else"object"==typeof e&&(e=e.getAttribute("data-x")),t=obj.colgroup[e].getAttribute("width");return t},obj.setWidth=function(e,t,o){if(t){if(Array.isArray(e)){o||(o=[]);for(var n=0;n<e.length;n++){o[n]||(o[n]=obj.colgroup[e[n]].getAttribute("width"));var r=Array.isArray(t)&&t[n]?t[n]:t;obj.colgroup[e[n]].setAttribute("width",r),obj.options.columns[e[n]].width=r}}else o||(o=obj.colgroup[e].getAttribute("width")),obj.colgroup[e].setAttribute("width",t),obj.options.columns[e].width=t;obj.setHistory({action:"setWidth",column:e,oldValue:o,newValue:t}),obj.dispatch("onresizecolumn",el,e,t,o),obj.updateCornerPosition()}},obj.setHeight=function(e,t,o){t>0&&("object"==typeof e&&(e=e.getAttribute("data-y")),o||(o=obj.rows[e].getAttribute("height"))||(o=obj.rows[e].getBoundingClientRect().height),t=parseInt(t),obj.rows[e].style.height=t+"px",obj.options.rows[e]||(obj.options.rows[e]={}),obj.options.rows[e].height=t,obj.setHistory({action:"setHeight",row:e,oldValue:o,newValue:t}),obj.dispatch("onresizerow",el,e,t,o),obj.updateCornerPosition())},obj.getHeight=function(e){if(void 0===e)for(var t=[],o=0;o<obj.rows.length;o++){var n=obj.rows[o].style.height;n&&(t[o]=n)}else"object"==typeof e&&(e=$(e).getAttribute("data-y")),t=obj.rows[e].style.height;return t},obj.setFooter=function(e){if(e&&(obj.options.footers=e),obj.options.footers){obj.tfoot||(obj.tfoot=document.createElement("tfoot"),obj.table.appendChild(obj.tfoot));for(var t=0;t<obj.options.footers.length;t++){if(obj.tfoot.children[t])var o=obj.tfoot.children[t];else{o=document.createElement("tr");var n=document.createElement("td");o.appendChild(n),obj.tfoot.appendChild(o)}for(var r=0;r<obj.headers.length;r++){if(obj.options.footers[t][r]||(obj.options.footers[t][r]=""),obj.tfoot.children[t].children[r+1])n=obj.tfoot.children[t].children[r+1];else{n=document.createElement("td"),o.appendChild(n);var l=obj.options.columns[r].align?obj.options.columns[r].align:"center";n.style.textAlign=l}n.textContent=obj.parseValue(+obj.records.length+r,t,obj.options.footers[t][r]),n.style.display=obj.colgroup[r].style.display}}}},obj.getHeader=function(e){return obj.headers[e].textContent},obj.setHeader=function(e,t){if(obj.headers[e]){var o=obj.headers[e].textContent;t||(t=prompt(obj.options.text.columnName,o)),t&&(obj.headers[e].textContent=t,obj.headers[e].setAttribute("title",t),obj.options.columns[e].title=t),obj.setHistory({action:"setHeader",column:e,oldValue:o,newValue:t}),obj.dispatch("onchangeheader",el,e,o,t)}},obj.getHeaders=function(e){for(var t=[],o=0;o<obj.headers.length;o++)t.push(obj.getHeader(o));return e?t:t.join(obj.options.csvDelimiter)},obj.getMeta=function(e,t){return e?t?obj.options.meta[e]&&obj.options.meta[e][t]?obj.options.meta[e][t]:null:obj.options.meta[e]?obj.options.meta[e]:null:obj.options.meta},obj.setMeta=function(e,t,o){if(obj.options.meta||(obj.options.meta={}),t&&o)obj.options.meta[e]||(obj.options.meta[e]={}),obj.options.meta[e][t]=o;else for(var n=Object.keys(e),r=0;r<n.length;r++){obj.options.meta[n[r]]||(obj.options.meta[n[r]]={});for(var l=Object.keys(e[n[r]]),i=0;i<l.length;i++)obj.options.meta[n[r]][l[i]]=e[n[r]][l[i]]}obj.dispatch("onchangemeta",el,e,t,o)},obj.updateMeta=function(e){if(obj.options.meta){for(var t={},o=Object.keys(obj.options.meta),n=0;n<o.length;n++)e[o[n]]?t[e[o[n]]]=obj.options.meta[o[n]]:t[o[n]]=obj.options.meta[o[n]];obj.options.meta=t}},obj.getStyle=function(e,t){if(e)return e=jexcel.getIdFromColumnName(e,!0),t?obj.records[e[1]][e[0]].style[t]:obj.records[e[1]][e[0]].getAttribute("style");for(var o={},n=obj.options.data[0].length,r=obj.options.data.length,l=0;l<r;l++)for(var i=0;i<n;i++){var s=t?obj.records[l][i].style[t]:obj.records[l][i].getAttribute("style");s&&(o[jexcel.getColumnNameFromId([i,l])]=s)}return o},obj.resetStyle=function(e,t){for(var o=Object.keys(e),n=0;n<o.length;n++){var r=jexcel.getIdFromColumnName(o[n],!0);obj.records[r[1]]&&obj.records[r[1]][r[0]]&&obj.records[r[1]][r[0]].setAttribute("style","")}obj.setStyle(e,null,null,null,t)},obj.setStyle=function(e,t,o,n,r){var l={},i={},s=function(e,t,o){var r=jexcel.getIdFromColumnName(e,!0);if(obj.records[r[1]]&&obj.records[r[1]][r[0]]&&(0==obj.records[r[1]][r[0]].classList.contains("readonly")||n)){var s=obj.records[r[1]][r[0]].style[t];s!=o||n?obj.records[r[1]][r[0]].style[t]=o:(o="",obj.records[r[1]][r[0]].style[t]=""),i[e]||(i[e]=[]),l[e]||(l[e]=[]),i[e].push([t+":"+s]),l[e].push([t+":"+o])}};if(t&&o)if("string"==typeof e)s(e,t,o);else for(var a=[],u=0;u<e.length;u++){var c=e[u].getAttribute("data-x"),f=e[u].getAttribute("data-y"),d=jexcel.getColumnNameFromId([c,f]);a[d]||(s(d,t,o),a[d]=!0)}else{var p=Object.keys(e);for(u=0;u<p.length;u++){var b=e[p[u]];"string"==typeof b&&(b=b.split(";"));for(var j=0;j<b.length;j++)"string"==typeof b[j]&&(b[j]=b[j].split(":")),b[j][0].trim()&&s(p[u],b[j][0].trim(),b[j][1])}}for(p=Object.keys(i),u=0;u<p.length;u++)i[p[u]]=i[p[u]].join(";");for(p=Object.keys(l),u=0;u<p.length;u++)l[p[u]]=l[p[u]].join(";");r||obj.setHistory({action:"setStyle",oldValue:i,newValue:l}),obj.dispatch("onchangestyle",el,e,t,o)},obj.getComments=function(e,t){if(e)return"string"==typeof e&&(e=jexcel.getIdFromColumnName(e,!0)),t?[obj.records[e[1]][e[0]].getAttribute("title"),obj.records[e[1]][e[0]].getAttribute("author")]:obj.records[e[1]][e[0]].getAttribute("title")||"";for(var o={},n=0;n<obj.options.data.length;n++)for(var r=0;r<obj.options.columns.length;r++){var l=obj.records[n][r].getAttribute("title");l&&(o[e=jexcel.getColumnNameFromId([r,n])]=l)}return o},obj.setComments=function(e,t,o){if("string"==typeof e)var n=jexcel.getIdFromColumnName(e,!0);else n=e;var r=obj.records[n[1]][n[0]].getAttribute("title"),l=[r,o=obj.records[n[1]][n[0]].getAttribute("data-author")];obj.records[n[1]][n[0]].setAttribute("title",t||""),obj.records[n[1]][n[0]].setAttribute("data-author",o||""),t?obj.records[n[1]][n[0]].classList.add("jexcel_comments"):obj.records[n[1]][n[0]].classList.remove("jexcel_comments"),obj.setHistory({action:"setComments",column:e,newValue:[t,o],oldValue:l}),obj.dispatch("oncomments",el,t,r,n,n[0],n[1])},obj.getConfig=function(){var e=obj.options;return e.style=obj.getStyle(),e.mergeCells=obj.getMerge(),e.comments=obj.getComments(),e},obj.orderBy=function(e,t){if(e>=0){if(Object.keys(obj.options.mergeCells).length>0){if(!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure))return!1;obj.destroyMerged()}t=null==t?obj.headers[e].classList.contains("arrow-down")?1:0:t?1:0;var o=[];if("number"==obj.options.columns[e].type||"numeric"==obj.options.columns[e].type||"percentage"==obj.options.columns[e].type||"autonumber"==obj.options.columns[e].type||"color"==obj.options.columns[e].type)for(var n=0;n<obj.options.data.length;n++)o[n]=[n,Number(obj.options.data[n][e])];else if("calendar"==obj.options.columns[e].type||"checkbox"==obj.options.columns[e].type||"radio"==obj.options.columns[e].type)for(n=0;n<obj.options.data.length;n++)o[n]=[n,obj.options.data[n][e]];else for(n=0;n<obj.options.data.length;n++)o[n]=[n,obj.records[n][e].textContent.toLowerCase()];"function"!=typeof obj.options.sorting&&(obj.options.sorting=function(e){return function(t,o){var n=t[1],r=o[1];return e?""===n&&""!==r?1:""!==n&&""===r||n>r?-1:n<r?1:0:""===n&&""!==r?1:""!==n&&""===r?-1:n>r?1:n<r?-1:0}}),o=o.sort(obj.options.sorting(t));var r=[];for(n=0;n<o.length;n++)r[n]=o[n][0];return obj.setHistory({action:"orderBy",rows:r,column:e,order:t}),obj.updateOrderArrow(e,t),obj.updateOrder(r),obj.dispatch("onsort",el,e,t),!0}},obj.updateOrderArrow=function(e,t){for(var o=0;o<obj.headers.length;o++)obj.headers[o].classList.remove("arrow-up"),obj.headers[o].classList.remove("arrow-down");t?obj.headers[e].classList.add("arrow-up"):obj.headers[e].classList.add("arrow-down")},obj.updateOrder=function(e){for(var t=[],o=0;o<e.length;o++)t[o]=obj.options.data[e[o]];for(obj.options.data=t,t=[],o=0;o<e.length;o++)t[o]=obj.records[e[o]];for(obj.records=t,t=[],o=0;o<e.length;o++)t[o]=obj.rows[e[o]];if(obj.rows=t,obj.updateTableReferences(),obj.results&&obj.results.length)obj.searchInput.value?obj.search(obj.searchInput.value):obj.closeFilter();else if(obj.results=null,obj.pageNumber=0,obj.options.pagination>0)obj.page(0);else if(1==obj.options.lazyLoading)obj.loadPage(0);else for(o=0;o<obj.rows.length;o++)obj.tbody.appendChild(obj.rows[o])},obj.moveRow=function(e,t,o){if(Object.keys(obj.options.mergeCells).length>0){if(e>t)var n=1;else n=0;if(obj.isRowMerged(e).length||obj.isRowMerged(t,n).length){if(!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure))return!1;obj.destroyMerged()}}if(1==obj.options.search){if(obj.results&&obj.results.length!=obj.rows.length){if(!confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure))return!1;obj.resetSearch()}obj.results=null}o||(Array.prototype.indexOf.call(obj.tbody.children,obj.rows[t])>=0?e>t?obj.tbody.insertBefore(obj.rows[e],obj.rows[t]):obj.tbody.insertBefore(obj.rows[e],obj.rows[t].nextSibling):obj.tbody.removeChild(obj.rows[e])),obj.rows.splice(t,0,obj.rows.splice(e,1)[0]),obj.records.splice(t,0,obj.records.splice(e,1)[0]),obj.options.data.splice(t,0,obj.options.data.splice(e,1)[0]),obj.options.pagination>0&&obj.tbody.children.length!=obj.options.pagination&&obj.page(obj.pageNumber),obj.setHistory({action:"moveRow",oldValue:e,newValue:t}),obj.updateTableReferences(),obj.dispatch("onmoverow",el,e,t)},obj.insertRow=function(e,t,o){if(1==obj.options.allowInsertRow){var n=[];if(e>0)var r=e;else r=1,e&&(n=e);o=!!o;var l=obj.options.data.length-1;if((null==t||t>=parseInt(l)||t<0)&&(t=l),!1===obj.dispatch("onbeforeinsertrow",el,t,r,o))return!1;if(Object.keys(obj.options.mergeCells).length>0&&obj.isRowMerged(t,o).length){if(!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure))return!1;obj.destroyMerged()}if(1==obj.options.search){if(obj.results&&obj.results.length!=obj.rows.length){if(!confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure))return!1;obj.resetSearch()}obj.results=null}for(var i=o?t:t+1,s=obj.records.splice(i),a=obj.options.data.splice(i),u=obj.rows.splice(i),c=[],f=[],d=[],p=i;p<r+i;p++){obj.options.data[p]=[];for(var b=0;b<obj.options.columns.length;b++)obj.options.data[p][b]=n[b]?n[b]:"";var j=obj.createRow(p,obj.options.data[p]);u[0]?Array.prototype.indexOf.call(obj.tbody.children,u[0])>=0&&obj.tbody.insertBefore(j,u[0]):Array.prototype.indexOf.call(obj.tbody.children,obj.rows[t])>=0&&obj.tbody.appendChild(j),c.push(obj.records[p]),f.push(obj.options.data[p]),d.push(j)}Array.prototype.push.apply(obj.records,s),Array.prototype.push.apply(obj.options.data,a),Array.prototype.push.apply(obj.rows,u),obj.options.pagination>0&&obj.page(obj.pageNumber),obj.setHistory({action:"insertRow",rowNumber:t,numOfRows:r,insertBefore:o,rowRecords:c,rowData:f,rowNode:d}),obj.updateTableReferences(),obj.dispatch("oninsertrow",el,t,r,c,o)}},obj.deleteRow=function(e,t){if(1==obj.options.allowDeleteRow)if(1==obj.options.allowDeletingAllRows||obj.options.data.length>1){if(null==e){var o=obj.getSelectedRows();o[0]?(e=parseInt(o[0].getAttribute("data-y")),t=o.length):(e=obj.options.data.length-1,t=1)}var n=obj.options.data.length-1;if((null==e||e>n||e<0)&&(e=n),t||(t=1),e+t>=obj.options.data.length&&(t=obj.options.data.length-e),!1===obj.dispatch("onbeforedeleterow",el,e,t))return!1;if(parseInt(e)>-1){var r=!1;if(Object.keys(obj.options.mergeCells).length>0)for(var l=e;l<e+t;l++)obj.isRowMerged(l,!1).length&&(r=!0);if(r){if(!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure))return!1;obj.destroyMerged()}if(1==obj.options.search){if(obj.results&&obj.results.length!=obj.rows.length){if(!confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure))return!1;obj.resetSearch()}obj.results=null}for(0==obj.options.allowDeletingAllRows&&n+1===t&&(t--,console.error("Jspreadsheet: It is not possible to delete the last row")),l=e;l<e+t;l++)Array.prototype.indexOf.call(obj.tbody.children,obj.rows[l])>=0&&(obj.rows[l].className="",obj.rows[l].parentNode.removeChild(obj.rows[l]));var i=obj.records.splice(e,t),s=obj.options.data.splice(e,t),a=obj.rows.splice(e,t);obj.options.pagination>0&&obj.tbody.children.length!=obj.options.pagination&&obj.page(obj.pageNumber),obj.conditionalSelectionUpdate(1,e,e+t-1),obj.setHistory({action:"deleteRow",rowNumber:e,numOfRows:t,insertBefore:1,rowRecords:i,rowData:s,rowNode:a}),obj.updateTableReferences(),obj.dispatch("ondeleterow",el,e,t,i)}}else console.error("Jspreadsheet: It is not possible to delete the last row")},obj.moveColumn=function(e,t){if(Object.keys(obj.options.mergeCells).length>0){if(e>t)var o=1;else o=0;if(obj.isColMerged(e).length||obj.isColMerged(t,o).length){if(!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure))return!1;obj.destroyMerged()}}if((e=parseInt(e))>(t=parseInt(t))){obj.headerContainer.insertBefore(obj.headers[e],obj.headers[t]),obj.colgroupContainer.insertBefore(obj.colgroup[e],obj.colgroup[t]);for(var n=0;n<obj.rows.length;n++)obj.rows[n].insertBefore(obj.records[n][e],obj.records[n][t])}else for(obj.headerContainer.insertBefore(obj.headers[e],obj.headers[t].nextSibling),obj.colgroupContainer.insertBefore(obj.colgroup[e],obj.colgroup[t].nextSibling),n=0;n<obj.rows.length;n++)obj.rows[n].insertBefore(obj.records[n][e],obj.records[n][t].nextSibling);for(obj.options.columns.splice(t,0,obj.options.columns.splice(e,1)[0]),obj.headers.splice(t,0,obj.headers.splice(e,1)[0]),obj.colgroup.splice(t,0,obj.colgroup.splice(e,1)[0]),n=0;n<obj.rows.length;n++)obj.options.data[n].splice(t,0,obj.options.data[n].splice(e,1)[0]),obj.records[n].splice(t,0,obj.records[n].splice(e,1)[0]);if(obj.options.footers)for(n=0;n<obj.options.footers.length;n++)obj.options.footers[n].splice(t,0,obj.options.footers[n].splice(e,1)[0]);obj.setHistory({action:"moveColumn",oldValue:e,newValue:t}),obj.updateTableReferences(),obj.dispatch("onmovecolumn",el,e,t)},obj.insertColumn=function(e,t,o,n){if(1==obj.options.allowInsertColumn){var r=[];if(e>0)var l=e;else l=1,e&&(r=e);o=!!o;var i=obj.options.columns.length-1;if((null==t||t>=parseInt(i)||t<0)&&(t=i),!1===obj.dispatch("onbeforeinsertcolumn",el,t,l,o))return!1;if(Object.keys(obj.options.mergeCells).length>0&&obj.isColMerged(t,o).length){if(!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure))return!1;obj.destroyMerged()}n||(n=[]);for(var s=0;s<l;s++)n[s]||(n[s]={type:"text",source:[],options:[],width:obj.options.defaultColWidth,align:obj.options.defaultColAlign});var a=o?t:t+1;obj.options.columns=jexcel.injectArray(obj.options.columns,a,n);for(var u=obj.headers.splice(a),c=obj.colgroup.splice(a),f=[],d=[],p=[],b=[],j=[],h=a;h<l+a;h++)obj.createCellHeader(h),obj.headerContainer.insertBefore(obj.headers[h],obj.headerContainer.children[h+1]),obj.colgroupContainer.insertBefore(obj.colgroup[h],obj.colgroupContainer.children[h+1]),f.push(obj.headers[h]),d.push(obj.colgroup[h]);if(obj.options.footers)for(var g=0;g<obj.options.footers.length;g++){for(j[g]=[],s=0;s<l;s++)j[g].push("");obj.options.footers[g].splice(a,0,j[g])}for(var m=0;m<obj.options.data.length;m++){var v=obj.options.data[m].splice(a),y=obj.records[m].splice(a);for(b[m]=[],p[m]=[],h=a;h<l+a;h++){var C=r[m]?r[m]:"";obj.options.data[m][h]=C;var x=obj.createCell(h,m,obj.options.data[m][h]);obj.records[m][h]=x,obj.rows[m]&&obj.rows[m].insertBefore(x,obj.rows[m].children[h+1]),b[m].push(C),p[m].push(x)}Array.prototype.push.apply(obj.options.data[m],v),Array.prototype.push.apply(obj.records[m],y)}if(Array.prototype.push.apply(obj.headers,u),Array.prototype.push.apply(obj.colgroup,c),obj.options.nestedHeaders&&obj.options.nestedHeaders.length>0)if(obj.options.nestedHeaders[0]&&obj.options.nestedHeaders[0][0])for(g=0;g<obj.options.nestedHeaders.length;g++){var w=parseInt(obj.options.nestedHeaders[g][obj.options.nestedHeaders[g].length-1].colspan)+l;obj.options.nestedHeaders[g][obj.options.nestedHeaders[g].length-1].colspan=w,obj.thead.children[g].children[obj.thead.children[g].children.length-1].setAttribute("colspan",w);var A=obj.thead.children[g].children[obj.thead.children[g].children.length-1].getAttribute("data-column");for(A=A.split(","),h=a;h<l+a;h++)A.push(h);obj.thead.children[g].children[obj.thead.children[g].children.length-1].setAttribute("data-column",A)}else w=parseInt(obj.options.nestedHeaders[0].colspan)+l,obj.options.nestedHeaders[0].colspan=w,obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute("colspan",w);obj.setHistory({action:"insertColumn",columnNumber:t,numOfColumns:l,insertBefore:o,columns:n,headers:f,colgroup:d,records:p,footers:j,data:b}),obj.updateTableReferences(),obj.dispatch("oninsertcolumn",el,t,l,p,o)}},obj.deleteColumn=function(e,t){if(1==obj.options.allowDeleteColumn)if(obj.headers.length>1){if(null==e){var o=obj.getSelectedColumns(!0);o.length?(e=parseInt(o[0]),t=parseInt(o.length)):(e=obj.headers.length-1,t=1)}var n=obj.options.data[0].length-1;if((null==e||e>n||e<0)&&(e=n),t||(t=1),t>obj.options.data[0].length-e&&(t=obj.options.data[0].length-e),!1===obj.dispatch("onbeforedeletecolumn",el,e,t))return!1;if(parseInt(e)>-1){var r=!1;if(Object.keys(obj.options.mergeCells).length>0)for(var l=e;l<e+t;l++)obj.isColMerged(l,!1).length&&(r=!0);if(r){if(!confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure))return!1;obj.destroyMerged()}var i=obj.options.columns.splice(e,t);for(l=e;l<e+t;l++)obj.colgroup[l].className="",obj.headers[l].className="",obj.colgroup[l].parentNode.removeChild(obj.colgroup[l]),obj.headers[l].parentNode.removeChild(obj.headers[l]);for(var s=obj.headers.splice(e,t),a=obj.colgroup.splice(e,t),u=[],c=[],f=[],d=0;d<obj.options.data.length;d++)for(l=e;l<e+t;l++)obj.records[d][l].className="",obj.records[d][l].parentNode.removeChild(obj.records[d][l]);for(d=0;d<obj.options.data.length;d++)c[d]=obj.options.data[d].splice(e,t),u[d]=obj.records[d].splice(e,t);if(obj.options.footers)for(d=0;d<obj.options.footers.length;d++)f[d]=obj.options.footers[d].splice(e,t);if(obj.conditionalSelectionUpdate(0,e,e+t-1),obj.options.nestedHeaders&&obj.options.nestedHeaders.length>0)if(obj.options.nestedHeaders[0]&&obj.options.nestedHeaders[0][0])for(var p=0;p<obj.options.nestedHeaders.length;p++){var b=parseInt(obj.options.nestedHeaders[p][obj.options.nestedHeaders[p].length-1].colspan)-t;obj.options.nestedHeaders[p][obj.options.nestedHeaders[p].length-1].colspan=b,obj.thead.children[p].children[obj.thead.children[p].children.length-1].setAttribute("colspan",b)}else b=parseInt(obj.options.nestedHeaders[0].colspan)-t,obj.options.nestedHeaders[0].colspan=b,obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute("colspan",b);obj.setHistory({action:"deleteColumn",columnNumber:e,numOfColumns:t,insertBefore:1,columns:i,headers:s,colgroup:a,records:u,footers:f,data:c}),obj.updateTableReferences(),obj.dispatch("ondeletecolumn",el,e,t,u)}}else console.error("Jspreadsheet: It is not possible to delete the last column")},obj.getSelectedRows=function(e){for(var t=[],o=0;o<obj.rows.length;o++)obj.rows[o].classList.contains("selected")&&(e?t.push(o):t.push(obj.rows[o]));return t},obj.getSelectedColumns=function(){for(var e=[],t=0;t<obj.headers.length;t++)obj.headers[t].classList.contains("selected")&&e.push(t);return e},obj.getHighlighted=function(){return obj.highlighted},obj.updateTableReferences=function(){for(var e=0;e<obj.headers.length;e++)(l=obj.headers[e].getAttribute("data-x"))!=e&&(obj.headers[e].setAttribute("data-x",e),obj.headers[e].getAttribute("title")||(obj.headers[e].innerHTML=jexcel.getColumnName(e)));for(var t=0;t<obj.rows.length;t++)obj.rows[t]&&(i=obj.rows[t].getAttribute("data-y"))!=t&&(obj.rows[t].setAttribute("data-y",t),obj.rows[t].children[0].setAttribute("data-y",t),obj.rows[t].children[0].innerHTML=t+1);var o=[],n=[],r=function(e,t,n,r){if(e!=n&&obj.records[r][n].setAttribute("data-x",n),t!=r&&obj.records[r][n].setAttribute("data-y",r),e!=n||t!=r){var l=jexcel.getColumnNameFromId([e,t]),i=jexcel.getColumnNameFromId([n,r]);o[l]=i}};for(t=0;t<obj.records.length;t++)for(e=0;e<obj.records[0].length;e++)if(obj.records[t][e]){var l=obj.records[t][e].getAttribute("data-x"),i=obj.records[t][e].getAttribute("data-y");if(obj.records[t][e].getAttribute("data-merged")){var s=jexcel.getColumnNameFromId([l,i]),a=jexcel.getColumnNameFromId([e,t]);if(null==n[s])if(s==a)n[s]=!1;else{var u=parseInt(e-l),c=parseInt(t-i);n[s]=[a,u,c]}}else r(l,i,e,t)}var f=Object.keys(n);if(f.length)for(e=0;e<f.length;e++)if(n[f[e]]){var d=jexcel.getIdFromColumnName(f[e],!0);for(r(l=d[0],i=d[1],l+n[f[e]][1],i+n[f[e]][2]),s=f[e],a=n[f[e]][0],t=0;t<obj.options.mergeCells[s][2].length;t++)l=parseInt(obj.options.mergeCells[s][2][t].getAttribute("data-x")),i=parseInt(obj.options.mergeCells[s][2][t].getAttribute("data-y")),obj.options.mergeCells[s][2][t].setAttribute("data-x",l+n[f[e]][1]),obj.options.mergeCells[s][2][t].setAttribute("data-y",i+n[f[e]][2]);obj.options.mergeCells[a]=obj.options.mergeCells[s],delete obj.options.mergeCells[s]}obj.updateFormulas(o),obj.updateMeta(o),obj.refreshSelection(),obj.updateTable()},obj.updateTable=function(){if(obj.options.minSpareRows>0){for(var e=0,t=obj.rows.length-1;t>=0;t--){for(var o=!1,n=0;n<obj.headers.length;n++)obj.options.data[t][n]&&(o=!0);if(o)break;e++}obj.options.minSpareRows-e>0&&obj.insertRow(obj.options.minSpareRows-e)}if(obj.options.minSpareCols>0){var r=0;for(n=obj.headers.length-1;n>=0;n--){for(o=!1,t=0;t<obj.rows.length;t++)obj.options.data[t][n]&&(o=!0);if(o)break;r++}obj.options.minSpareCols-r>0&&obj.insertColumn(obj.options.minSpareCols-r)}if("function"==typeof obj.options.updateTable){for(obj.options.detachForUpdates&&el.removeChild(obj.content),t=0;t<obj.rows.length;t++)for(n=0;n<obj.headers.length;n++)obj.options.updateTable(el,obj.records[t][n],n,t,obj.options.data[t][n],obj.records[t][n].textContent,jexcel.getColumnNameFromId([n,t]));obj.options.detachForUpdates&&el.insertBefore(obj.content,obj.pagination)}obj.options.footers&&obj.setFooter(),setTimeout((function(){obj.updateCornerPosition()}),0)},obj.isReadOnly=function(e){if(e=obj.getCell(e))return!!e.classList.contains("readonly")},obj.setReadOnly=function(e,t){(e=obj.getCell(e))&&(t?e.classList.add("readonly"):e.classList.remove("readonly"))},obj.showRow=function(e){obj.rows[e].style.display=""},obj.hideRow=function(e){obj.rows[e].style.display="none"},obj.showColumn=function(e){obj.headers[e].style.display="",obj.colgroup[e].style.display="",obj.filter&&obj.filter.children.length>e+1&&(obj.filter.children[e+1].style.display="");for(var t=0;t<obj.options.data.length;t++)obj.records[t][e].style.display="";obj.options.footers&&obj.setFooter(),obj.resetSelection()},obj.hideColumn=function(e){obj.headers[e].style.display="none",obj.colgroup[e].style.display="none",obj.filter&&obj.filter.children.length>e+1&&(obj.filter.children[e+1].style.display="none");for(var t=0;t<obj.options.data.length;t++)obj.records[t][e].style.display="none";obj.options.footers&&obj.setFooter(),obj.resetSelection()},obj.showIndex=function(){obj.table.classList.remove("jexcel_hidden_index")},obj.hideIndex=function(){obj.table.classList.add("jexcel_hidden_index")};var chainLoopProtection=[];obj.updateFormulaChain=function(e,t,o){var n=jexcel.getColumnNameFromId([e,t]);if(obj.formula[n]&&obj.formula[n].length>0)if(chainLoopProtection[n])obj.records[t][e].innerHTML="#ERROR",obj.formula[n]="";else{chainLoopProtection[n]=!0;for(var r=0;r<obj.formula[n].length;r++){var l=jexcel.getIdFromColumnName(obj.formula[n][r],!0),i=""+obj.options.data[l[1]][l[0]];"="==i.substr(0,1)?o.push(obj.updateCell(l[0],l[1],i,!0)):Object.keys(obj.formula)[r]=null,obj.updateFormulaChain(l[0],l[1],o)}}chainLoopProtection=[]},obj.updateFormulas=function(e){for(var t=0;t<obj.options.data.length;t++)for(var o=0;o<obj.options.data[0].length;o++)if("="==(s=""+obj.options.data[t][o]).substr(0,1)){var n=obj.updateFormula(s,e);n!=s&&(obj.options.data[t][o]=n)}var r=[],l=Object.keys(obj.formula);for(t=0;t<l.length;t++){var i=l[t],s=obj.formula[i];for(e[i]&&(i=e[i]),r[i]=[],o=0;o<s.length;o++){var a=s[o];e[a]&&(a=e[a]),r[i].push(a)}}obj.formula=r},obj.updateFormula=function(e,t){for(var o=/[A-Z]/,n=/[0-9]/,r="",l=null,i=null,s="",a=0;a<e.length;a++)o.exec(e[a])?(l=1,i=0,s+=e[a]):n.exec(e[a])?(i=l?1:0,s+=e[a]):(l&&i&&(s=t[s]?t[s]:s),r+=s,r+=e[a],l=0,i=0,s="");return s&&(l&&i&&(s=t[s]?t[s]:s),r+=s),r};var secureFormula=function(e){for(var t="",o=0,n=0;n<e.length;n++)'"'==e[n]&&(o=0==o?1:0),t+=1==o?e[n]:e[n].toUpperCase();return t};obj.executeFormula=function(expression,x,y){var formulaResults=[],formulaLoopProtection=[],execute=function(expression,x,y){var parentId=jexcel.getColumnNameFromId([x,y]);if(formulaLoopProtection[parentId])return console.error("Reference loop detected"),"#ERROR";formulaLoopProtection[parentId]=!0;var tokensUpdate=function(e){for(var t=0;t<e.length;t++){var o=[],n=e[t].split(":"),r=jexcel.getIdFromColumnName(n[0],!0),l=jexcel.getIdFromColumnName(n[1],!0);if(r[0]<=l[0])var i=r[0],s=l[0];else i=l[0],s=r[0];if(r[1]<=l[1])var a=r[1],u=l[1];else a=l[1],u=r[1];for(var c=a;c<=u;c++)for(var f=i;f<=s;f++)o.push(jexcel.getColumnNameFromId([f,c]));expression=expression.replace(e[t],o.join(","))}};expression=expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g,"$1$2");var tokens=expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);tokens&&tokens.length&&tokensUpdate(tokens);var tokens=expression.match(/([A-Z]+[0-9]+)/g);if(tokens&&tokens.indexOf(parentId)>-1)return console.error("Self Reference detected"),"#ERROR";var formulaExpressions={};if(tokens)for(var i=0;i<tokens.length;i++)if(obj.formula[tokens[i]]||(obj.formula[tokens[i]]=[]),obj.formula[tokens[i]].indexOf(parentId)<0&&obj.formula[tokens[i]].push(parentId),eval("typeof("+tokens[i]+') == "undefined"')){var position=jexcel.getIdFromColumnName(tokens[i],1);if(void 0!==obj.options.data[position[1]]&&void 0!==obj.options.data[position[1]][position[0]])var value=obj.options.data[position[1]][position[0]];else var value="";if("="==(""+value).substr(0,1)&&(void 0!==formulaResults[tokens[i]]?value=formulaResults[tokens[i]]:(value=execute(value,position[0],position[1]),formulaResults[tokens[i]]=value)),""==(""+value).trim())formulaExpressions[tokens[i]]=null;else if(value==Number(value)&&1==obj.options.autoCasting)formulaExpressions[tokens[i]]=Number(value);else{var number=obj.parseNumber(value,position[0]);1==obj.options.autoCasting&&number?formulaExpressions[tokens[i]]=number:formulaExpressions[tokens[i]]='"'+value+'"'}}try{var res=jexcel.formula(expression.substr(1),formulaExpressions,x,y,obj)}catch(e){var res="#ERROR";console.log(e)}return res};return execute(expression,x,y)},obj.parseNumber=function(e,t){var o=t&&obj.options.columns[t].decimal?obj.options.columns[t].decimal:".",n=""+e;if((n=n.split(o))[0]=n[0].match(/[+-]?[0-9]/g),n[0]&&(n[0]=n[0].join("")),n[1]&&(n[1]=n[1].match(/[0-9]*/g).join("")),n[0]&&Number.isInteger(Number(n[0])))if(n[1])e=Number(n[0]+"."+n[1]);else e=Number(n[0]+".00");else e=null;return e},obj.row=function(e){},obj.col=function(e){},obj.up=function(e,t){if(e?obj.selectedCell[3]>0&&obj.up.visible(1,t?0:1):(obj.selectedCell[1]>0&&obj.up.visible(0,t?0:1),obj.selectedCell[2]=obj.selectedCell[0],obj.selectedCell[3]=obj.selectedCell[1]),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]),1==obj.options.lazyLoading)if(0==obj.selectedCell[1]||0==obj.selectedCell[3])obj.loadPage(0),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]);else if(obj.loadValidation())obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]);else{var o=parseInt(obj.tbody.firstChild.getAttribute("data-y"));obj.selectedCell[1]-o<30&&(obj.loadUp(),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]))}else if(obj.options.pagination>0){var n=obj.whichPage(obj.selectedCell[3]);n!=obj.pageNumber&&obj.page(n)}obj.updateScroll(1)},obj.up.visible=function(e,t){if(0==e)var o=parseInt(obj.selectedCell[0]),n=parseInt(obj.selectedCell[1]);else o=parseInt(obj.selectedCell[2]),n=parseInt(obj.selectedCell[3]);if(0==t){for(var r=0;r<n;r++)if("none"!=obj.records[r][o].style.display&&"none"!=obj.rows[r].style.display){n=r;break}}else n=obj.up.get(o,n);0==e?(obj.selectedCell[0]=o,obj.selectedCell[1]=n):(obj.selectedCell[2]=o,obj.selectedCell[3]=n)},obj.up.get=function(e,t){e=parseInt(e);for(var o=(t=parseInt(t))-1;o>=0;o--)if("none"!=obj.records[o][e].style.display&&"none"!=obj.rows[o].style.display){if(obj.records[o][e].getAttribute("data-merged")&&obj.records[o][e]==obj.records[t][e])continue;t=o;break}return t},obj.down=function(e,t){if(e?obj.selectedCell[3]<obj.records.length-1&&obj.down.visible(1,t?0:1):(obj.selectedCell[1]<obj.records.length-1&&obj.down.visible(0,t?0:1),obj.selectedCell[2]=obj.selectedCell[0],obj.selectedCell[3]=obj.selectedCell[1]),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]),1==obj.options.lazyLoading)obj.selectedCell[1]==obj.records.length-1||obj.selectedCell[3]==obj.records.length-1?(obj.loadPage(-1),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3])):obj.loadValidation()?obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]):parseInt(obj.tbody.lastChild.getAttribute("data-y"))-obj.selectedCell[3]<30&&(obj.loadDown(),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]));else if(obj.options.pagination>0){var o=obj.whichPage(obj.selectedCell[3]);o!=obj.pageNumber&&obj.page(o)}obj.updateScroll(3)},obj.down.visible=function(e,t){if(0==e)var o=parseInt(obj.selectedCell[0]),n=parseInt(obj.selectedCell[1]);else o=parseInt(obj.selectedCell[2]),n=parseInt(obj.selectedCell[3]);if(0==t){for(var r=obj.rows.length-1;r>n;r--)if("none"!=obj.records[r][o].style.display&&"none"!=obj.rows[r].style.display){n=r;break}}else n=obj.down.get(o,n);0==e?(obj.selectedCell[0]=o,obj.selectedCell[1]=n):(obj.selectedCell[2]=o,obj.selectedCell[3]=n)},obj.down.get=function(e,t){e=parseInt(e);for(var o=(t=parseInt(t))+1;o<obj.rows.length;o++)if("none"!=obj.records[o][e].style.display&&"none"!=obj.rows[o].style.display){if(obj.records[o][e].getAttribute("data-merged")&&obj.records[o][e]==obj.records[t][e])continue;t=o;break}return t},obj.right=function(e,t){e?obj.selectedCell[2]<obj.headers.length-1&&obj.right.visible(1,t?0:1):(obj.selectedCell[0]<obj.headers.length-1&&obj.right.visible(0,t?0:1),obj.selectedCell[2]=obj.selectedCell[0],obj.selectedCell[3]=obj.selectedCell[1]),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]),obj.updateScroll(2)},obj.right.visible=function(e,t){if(0==e)var o=parseInt(obj.selectedCell[0]),n=parseInt(obj.selectedCell[1]);else o=parseInt(obj.selectedCell[2]),n=parseInt(obj.selectedCell[3]);if(0==t){for(var r=obj.headers.length-1;r>o;r--)if("none"!=obj.records[n][r].style.display){o=r;break}}else o=obj.right.get(o,n);0==e?(obj.selectedCell[0]=o,obj.selectedCell[1]=n):(obj.selectedCell[2]=o,obj.selectedCell[3]=n)},obj.right.get=function(e,t){e=parseInt(e),t=parseInt(t);for(var o=e+1;o<obj.headers.length;o++)if("none"!=obj.records[t][o].style.display){if(obj.records[t][o].getAttribute("data-merged")&&obj.records[t][o]==obj.records[t][e])continue;e=o;break}return e},obj.left=function(e,t){e?obj.selectedCell[2]>0&&obj.left.visible(1,t?0:1):(obj.selectedCell[0]>0&&obj.left.visible(0,t?0:1),obj.selectedCell[2]=obj.selectedCell[0],obj.selectedCell[3]=obj.selectedCell[1]),obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]),obj.updateScroll(0)},obj.left.visible=function(e,t){if(0==e)var o=parseInt(obj.selectedCell[0]),n=parseInt(obj.selectedCell[1]);else o=parseInt(obj.selectedCell[2]),n=parseInt(obj.selectedCell[3]);if(0==t){for(var r=0;r<o;r++)if("none"!=obj.records[n][r].style.display){o=r;break}}else o=obj.left.get(o,n);0==e?(obj.selectedCell[0]=o,obj.selectedCell[1]=n):(obj.selectedCell[2]=o,obj.selectedCell[3]=n)},obj.left.get=function(e,t){e=parseInt(e),t=parseInt(t);for(var o=e-1;o>=0;o--)if("none"!=obj.records[t][o].style.display){if(obj.records[t][o].getAttribute("data-merged")&&obj.records[t][o]==obj.records[t][e])continue;e=o;break}return e},obj.first=function(e,t){if(e?t?obj.selectedCell[3]=0:obj.left.visible(1,0):(t?obj.selectedCell[1]=0:obj.left.visible(0,0),obj.selectedCell[2]=obj.selectedCell[0],obj.selectedCell[3]=obj.selectedCell[1]),1!=obj.options.lazyLoading||0!=obj.selectedCell[1]&&0!=obj.selectedCell[3]){if(obj.options.pagination>0){var o=obj.whichPage(obj.selectedCell[3]);o!=obj.pageNumber&&obj.page(o)}}else obj.loadPage(0);obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]),obj.updateScroll(1)},obj.last=function(e,t){if(e?t?obj.selectedCell[3]=obj.records.length-1:obj.right.visible(1,0):(t?obj.selectedCell[1]=obj.records.length-1:obj.right.visible(0,0),obj.selectedCell[2]=obj.selectedCell[0],obj.selectedCell[3]=obj.selectedCell[1]),1!=obj.options.lazyLoading||obj.selectedCell[1]!=obj.records.length-1&&obj.selectedCell[3]!=obj.records.length-1){if(obj.options.pagination>0){var o=obj.whichPage(obj.selectedCell[3]);o!=obj.pageNumber&&obj.page(o)}}else obj.loadPage(-1);obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3]),obj.updateScroll(3)},obj.selectAll=function(){obj.selectedCell||(obj.selectedCell=[]),obj.selectedCell[0]=0,obj.selectedCell[1]=0,obj.selectedCell[2]=obj.headers.length-1,obj.selectedCell[3]=obj.records.length-1,obj.updateSelectionFromCoords(obj.selectedCell[0],obj.selectedCell[1],obj.selectedCell[2],obj.selectedCell[3])},obj.loadPage=function(e){if(1!=obj.options.search&&1!=obj.options.filters||!obj.results)t=obj.rows;else var t=obj.results;var o=100;null!=e&&-1!=e||(e=Math.ceil(t.length/o)-1);var n=e*o,r=e*o+o;r>t.length&&(r=t.length),(n=r-100)<0&&(n=0);for(var l=n;l<r;l++)1!=obj.options.search&&1!=obj.options.filters||!obj.results?obj.tbody.appendChild(obj.rows[l]):obj.tbody.appendChild(obj.rows[t[l]]),obj.tbody.children.length>o&&obj.tbody.removeChild(obj.tbody.firstChild)},obj.loadUp=function(){if(1!=obj.options.search&&1!=obj.options.filters||!obj.results)e=obj.rows;else var e=obj.results;var t=0;if(e.length>100){var o=parseInt(obj.tbody.firstChild.getAttribute("data-y"));if(1!=obj.options.search&&1!=obj.options.filters||!obj.results||(o=e.indexOf(o)),o>0)for(var n=0;n<30;n++)(o-=1)>-1&&(1!=obj.options.search&&1!=obj.options.filters||!obj.results?obj.tbody.insertBefore(obj.rows[o],obj.tbody.firstChild):obj.tbody.insertBefore(obj.rows[e[o]],obj.tbody.firstChild),obj.tbody.children.length>100&&(obj.tbody.removeChild(obj.tbody.lastChild),t=1))}return t},obj.loadDown=function(){if(1!=obj.options.search&&1!=obj.options.filters||!obj.results)e=obj.rows;else var e=obj.results;var t=0;if(e.length>100){var o=parseInt(obj.tbody.lastChild.getAttribute("data-y"));if(1!=obj.options.search&&1!=obj.options.filters||!obj.results||(o=e.indexOf(o)),o<obj.rows.length-1)for(var n=0;n<=30;n++)o<e.length&&(1!=obj.options.search&&1!=obj.options.filters||!obj.results?obj.tbody.appendChild(obj.rows[o]):obj.tbody.appendChild(obj.rows[e[o]]),obj.tbody.children.length>100&&(obj.tbody.removeChild(obj.tbody.firstChild),t=1)),o+=1}return t},obj.loadValidation=function(){if(obj.selectedCell){var e=parseInt(obj.tbody.firstChild.getAttribute("data-y"))/100,t=parseInt(obj.selectedCell[3]/100),o=parseInt(obj.rows.length/100);if(e!=t&&t<=o&&!Array.prototype.indexOf.call(obj.tbody.children,obj.rows[obj.selectedCell[3]]))return obj.loadPage(t),!0}return!1},obj.resetSearch=function(){obj.searchInput.value="",obj.search(""),obj.results=null},obj.search=function(e){if(obj.options.filters&&obj.resetFilters(),obj.resetSelection(),obj.pageNumber=0,obj.results=[],e){var t=function(e){-1==obj.results.indexOf(e)&&obj.results.push(e)},o=e.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&");o=new RegExp(o,"i"),obj.options.data.forEach((function(e,n){if(function(e,t,o){for(var n=0;n<e.length;n++)if((""+e[n]).toLowerCase().search(t)>=0||(""+obj.records[o][n].innerHTML).toLowerCase().search(t)>=0)return!0;return!1}(e,o,n)){var r=obj.isRowMerged(n);if(r.length)for(var l=0;l<r.length;l++)for(var i=jexcel.getIdFromColumnName(r[l],!0),s=0;s<obj.options.mergeCells[r[l]][1];s++)t(i[1]+s);else t(n)}}))}else obj.results=null;return obj.updateResult()},obj.updateResult=function(){var e,t=0;for(e=1==obj.options.lazyLoading?100:obj.options.pagination>0?obj.options.pagination:obj.results?obj.results.length:obj.rows.length;obj.tbody.firstChild;)obj.tbody.removeChild(obj.tbody.firstChild);for(var o=0;o<obj.rows.length;o++)!obj.results||obj.results.indexOf(o)>-1?(t<e&&(obj.tbody.appendChild(obj.rows[o]),t++),obj.rows[o].style.display=""):obj.rows[o].style.display="none";return obj.options.pagination>0&&obj.updatePagination(),obj.updateCornerPosition(),e},obj.whichPage=function(e){return 1!=obj.options.search&&1!=obj.options.filters||!obj.results||(e=obj.results.indexOf(e)),Math.ceil((parseInt(e)+1)/parseInt(obj.options.pagination))-1},obj.page=function(e){var t=obj.pageNumber;if(1!=obj.options.search&&1!=obj.options.filters||!obj.results)o=obj.rows;else var o=obj.results;var n=parseInt(obj.options.pagination);null!=e&&-1!=e||(e=Math.ceil(o.length/n)-1),obj.pageNumber=e;var r=e*n,l=e*n+n;for(l>o.length&&(l=o.length),r<0&&(r=0);obj.tbody.firstChild;)obj.tbody.removeChild(obj.tbody.firstChild);for(var i=r;i<l;i++)1!=obj.options.search&&1!=obj.options.filters||!obj.results?obj.tbody.appendChild(obj.rows[i]):obj.tbody.appendChild(obj.rows[o[i]]);obj.options.pagination>0&&obj.updatePagination(),obj.updateCornerPosition(),obj.dispatch("onchangepage",el,e,t)},obj.updatePagination=function(){if(obj.pagination.children[0].innerHTML="",obj.pagination.children[1].innerHTML="",obj.options.pagination){if(1!=obj.options.search&&1!=obj.options.filters||!obj.results)e=obj.rows.length;else var e=obj.results.length;if(e){var t=Math.ceil(e/obj.options.pagination);if(obj.pageNumber<6)var o=1,n=t<10?t:10;else t-obj.pageNumber<5?(n=t,(o=t-9)<1&&(o=1)):(o=obj.pageNumber-4,n=obj.pageNumber+5);o>1&&((l=document.createElement("div")).className="jexcel_page",l.innerHTML="<",l.title=1,obj.pagination.children[1].appendChild(l));for(var r=o;r<=n;r++){var l;(l=document.createElement("div")).className="jexcel_page",l.innerHTML=r,obj.pagination.children[1].appendChild(l),obj.pageNumber==r-1&&l.classList.add("jexcel_page_selected")}n<t&&((l=document.createElement("div")).className="jexcel_page",l.innerHTML=">",l.title=t,obj.pagination.children[1].appendChild(l)),obj.pagination.children[0].innerHTML=function(e){var t=Array.prototype.slice.call(arguments,1);return e.replace(/{(\d+)}/g,(function(e,o){return void 0!==t[o]?t[o]:e}))}(obj.options.text.showingPage,obj.pageNumber+1,t)}else obj.pagination.children[0].innerHTML=obj.options.text.noRecordsFound}},obj.download=function(e){if(0==obj.options.allowExport)console.error("Export not allowed");else{var t="";t+=obj.copy(!1,obj.options.csvDelimiter,!0,e,!0);var o=new Blob(["\ufeff"+t],{type:"text/csv;charset=utf-8;"});if(window.navigator&&window.navigator.msSaveOrOpenBlob)window.navigator.msSaveOrOpenBlob(o,obj.options.csvFileName+".csv");else{var n=document.createElement("a"),r=URL.createObjectURL(o);n.href=r,n.setAttribute("download",obj.options.csvFileName+".csv"),document.body.appendChild(n),n.click(),n.parentNode.removeChild(n)}}},obj.setHistory=function(e){if(1!=obj.ignoreHistory){var t=++obj.historyIndex;obj.history=obj.history=obj.history.slice(0,t+1),obj.history[t]=e}},obj.copy=function(e,t,o,n,r){t||(t="\t");for(var l=new RegExp(t,"ig"),i=[],s=[],a=[],u=[],c=[],f=obj.options.data[0].length,d=obj.options.data.length,p="",b=!1,j="",h="",g=0,m=0,v=0,y=0,C=!0,x=0;x<d;x++)for(var w=0;w<f;w++)e&&!obj.records[x][w].classList.contains("highlight")||(v<=w&&(v=w),y<=x&&(y=x));if(f===v+1&&d===y+1&&(C=!1),r&&1==obj.options.includeHeadersOnDownload||!r&&1==obj.options.includeHeadersOnCopy&&!C||n){if(obj.options.nestedHeaders&&obj.options.nestedHeaders.length>0)for(p=obj.options.nestedHeaders[0]&&obj.options.nestedHeaders[0][0]?obj.options.nestedHeaders:[obj.options.nestedHeaders],x=0;x<p.length;x++){var A=[];for(w=0;w<p[x].length;w++){var E=parseInt(p[x][w].colspan);A.push(p[x][w].title);for(var M=0;M<E-1;M++)A.push("")}h+=A.join(t)+"\r\n"}b=!0}for(obj.style=[],x=0;x<d;x++){for(s=[],a=[],w=0;w<f;w++)if(!e||obj.records[x][w].classList.contains("highlight")){1==b&&i.push(obj.headers[w].textContent);var I=obj.options.data[x][w];if(I.match&&(I.match(l)||I.match(/,/g)||I.match(/\n/)||I.match(/\"/))&&(I='"'+(I=I.replace(new RegExp('"',"g"),'""'))+'"'),s.push(I),"checkbox"==obj.options.columns[w].type||"radio"==obj.options.columns[w].type)var N=I;else(N=1==obj.options.stripHTMLOnCopy?obj.records[x][w].textContent:obj.records[x][w].innerHTML).match&&(N.match(l)||N.match(/,/g)||N.match(/\n/)||N.match(/\"/))&&(N='"'+(N=N.replace(new RegExp('"',"g"),'""'))+'"');a.push(N),p=(p=obj.records[x][w].getAttribute("style")).replace("display: none;",""),obj.style.push(p||"")}s.length&&(b&&(g=s.length,u.push(i.join(t))),u.push(s.join(t))),a.length&&(m++,b&&(c.push(i.join(t)),b=!1),c.push(a.join(t)))}f==g&&d==m&&(j=h);var S=j+u.join("\r\n"),D=j+c.join("\r\n");if(o||(1==obj.options.copyCompatibility?obj.textarea.value=D:obj.textarea.value=S,obj.textarea.select(),document.execCommand("copy")),1==obj.options.copyCompatibility?obj.data=D:obj.data=S,obj.hashString=obj.hash(obj.data),!o){if(obj.removeCopyingSelection(),obj.highlighted)for(w=0;w<obj.highlighted.length;w++)obj.highlighted[w].classList.add("copying"),obj.highlighted[w].classList.contains("highlight-left")&&obj.highlighted[w].classList.add("copying-left"),obj.highlighted[w].classList.contains("highlight-right")&&obj.highlighted[w].classList.add("copying-right"),obj.highlighted[w].classList.contains("highlight-top")&&obj.highlighted[w].classList.add("copying-top"),obj.highlighted[w].classList.contains("highlight-bottom")&&obj.highlighted[w].classList.add("copying-bottom");obj.dispatch("oncopy",el,1==obj.options.copyCompatibility?c:u,obj.hashString)}return obj.data},obj.paste=function(e,t,o){var n=obj.dispatch("onbeforepaste",el,o,e,t);if(!1===n)return!1;n&&(o=n);var r=obj.hash(o),l=r==obj.hashString?obj.style:null;if(1==obj.options.copyCompatibility&&r==obj.hashString&&(o=obj.data),o=obj.parseCSV(o,"\t"),null!=e&&null!=t&&o){for(var i=0,s=0,a=[],u={},c={},f=0,d=parseInt(e),p=parseInt(t),b=null;b=o[s];){for(i=0,d=parseInt(e);null!=b[i];){var j=obj.updateCell(d,p,b[i]);if(a.push(j),obj.updateFormulaChain(d,p,a),l&&l[f]){var h=jexcel.getColumnNameFromId([d,p]);u[h]=l[f],c[h]=obj.getStyle(h),obj.records[p][d].setAttribute("style",l[f]),f++}if(null!=b[++i]){if(d>=obj.headers.length-1){if(1!=obj.options.allowInsertColumn)break;obj.insertColumn()}d=obj.right.get(d,p)}}if(o[++s]){if(p>=obj.rows.length-1){if(1!=obj.options.allowInsertRow)break;obj.insertRow()}p=obj.down.get(e,p)}}obj.updateSelectionFromCoords(e,t,d,p),obj.setHistory({action:"setValue",records:a,selection:obj.selectedCell,newStyle:u,oldStyle:c}),obj.updateTable(),obj.dispatch("onpaste",el,o),obj.onafterchanges(el,a)}obj.removeCopyingSelection()},obj.removeCopyingSelection=function(){for(var e=document.querySelectorAll(".jexcel .copying"),t=0;t<e.length;t++)e[t].classList.remove("copying"),e[t].classList.remove("copying-left"),e[t].classList.remove("copying-right"),e[t].classList.remove("copying-top"),e[t].classList.remove("copying-bottom")},obj.historyProcessRow=function(e,t){var o=t.insertBefore?+t.rowNumber:t.rowNumber+1;if(1==obj.options.search&&obj.results&&obj.results.length!=obj.rows.length&&obj.resetSearch(),1==e){for(var n=t.numOfRows,r=o;r<n+o;r++)obj.rows[r].parentNode.removeChild(obj.rows[r]);obj.records.splice(o,n),obj.options.data.splice(o,n),obj.rows.splice(o,n),obj.conditionalSelectionUpdate(1,o,n+o-1)}else{obj.records=jexcel.injectArray(obj.records,o,t.rowRecords),obj.options.data=jexcel.injectArray(obj.options.data,o,t.rowData),obj.rows=jexcel.injectArray(obj.rows,o,t.rowNode);var l=0;for(r=o;r<t.numOfRows+o;r++)obj.tbody.insertBefore(t.rowNode[l],obj.tbody.children[r]),l++}obj.options.pagination>0&&obj.page(obj.pageNumber),obj.updateTableReferences()},obj.historyProcessColumn=function(e,t){var o=t.insertBefore?t.columnNumber:t.columnNumber+1;if(1==e){var n=t.numOfColumns;obj.options.columns.splice(o,n);for(var r=o;r<n+o;r++)obj.headers[r].parentNode.removeChild(obj.headers[r]),obj.colgroup[r].parentNode.removeChild(obj.colgroup[r]);obj.headers.splice(o,n),obj.colgroup.splice(o,n);for(var l=0;l<t.data.length;l++){for(r=o;r<n+o;r++)obj.records[l][r].parentNode.removeChild(obj.records[l][r]);obj.records[l].splice(o,n),obj.options.data[l].splice(o,n)}if(obj.options.footers)for(l=0;l<obj.options.footers.length;l++)obj.options.footers[l].splice(o,n)}else{obj.options.columns=jexcel.injectArray(obj.options.columns,o,t.columns),obj.headers=jexcel.injectArray(obj.headers,o,t.headers),obj.colgroup=jexcel.injectArray(obj.colgroup,o,t.colgroup);var i=0;for(r=o;r<t.numOfColumns+o;r++)obj.headerContainer.insertBefore(t.headers[i],obj.headerContainer.children[r+1]),obj.colgroupContainer.insertBefore(t.colgroup[i],obj.colgroupContainer.children[r+1]),i++;for(l=0;l<t.data.length;l++)for(obj.options.data[l]=jexcel.injectArray(obj.options.data[l],o,t.data[l]),obj.records[l]=jexcel.injectArray(obj.records[l],o,t.records[l]),i=0,r=o;r<t.numOfColumns+o;r++)obj.rows[l].insertBefore(t.records[l][i],obj.rows[l].children[r+1]),i++;if(obj.options.footers)for(l=0;l<obj.options.footers.length;l++)obj.options.footers[l]=jexcel.injectArray(obj.options.footers[l],o,t.footers[l])}if(obj.options.nestedHeaders&&obj.options.nestedHeaders.length>0)if(obj.options.nestedHeaders[0]&&obj.options.nestedHeaders[0][0])for(l=0;l<obj.options.nestedHeaders.length;l++){if(1==e)var s=parseInt(obj.options.nestedHeaders[l][obj.options.nestedHeaders[l].length-1].colspan)-t.numOfColumns;else s=parseInt(obj.options.nestedHeaders[l][obj.options.nestedHeaders[l].length-1].colspan)+t.numOfColumns;obj.options.nestedHeaders[l][obj.options.nestedHeaders[l].length-1].colspan=s,obj.thead.children[l].children[obj.thead.children[l].children.length-1].setAttribute("colspan",s)}else s=1==e?parseInt(obj.options.nestedHeaders[0].colspan)-t.numOfColumns:parseInt(obj.options.nestedHeaders[0].colspan)+t.numOfColumns,obj.options.nestedHeaders[0].colspan=s,obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute("colspan",s);obj.updateTableReferences()},obj.undo=function(){var e=!!obj.ignoreEvents,t=!!obj.ignoreHistory;obj.ignoreEvents=!0,obj.ignoreHistory=!0;var o=[];if(obj.historyIndex>=0){var n=obj.history[obj.historyIndex--];if("insertRow"==n.action)obj.historyProcessRow(1,n);else if("deleteRow"==n.action)obj.historyProcessRow(0,n);else if("insertColumn"==n.action)obj.historyProcessColumn(1,n);else if("deleteColumn"==n.action)obj.historyProcessColumn(0,n);else if("moveRow"==n.action)obj.moveRow(n.newValue,n.oldValue);else if("moveColumn"==n.action)obj.moveColumn(n.newValue,n.oldValue);else if("setMerge"==n.action)obj.removeMerge(n.column,n.data);else if("setStyle"==n.action)obj.setStyle(n.oldValue,null,null,1);else if("setWidth"==n.action)obj.setWidth(n.column,n.oldValue);else if("setHeight"==n.action)obj.setHeight(n.row,n.oldValue);else if("setHeader"==n.action)obj.setHeader(n.column,n.oldValue);else if("setComments"==n.action)obj.setComments(n.column,n.oldValue[0],n.oldValue[1]);else if("orderBy"==n.action){for(var r=[],l=0;l<n.rows.length;l++)r[n.rows[l]]=l;obj.updateOrderArrow(n.column,n.order?0:1),obj.updateOrder(r)}else if("setValue"==n.action){for(var i=0;i<n.records.length;i++)o.push({x:n.records[i].x,y:n.records[i].y,newValue:n.records[i].oldValue}),n.oldStyle&&obj.resetStyle(n.oldStyle);obj.setValue(o),n.selection&&obj.updateSelectionFromCoords(n.selection[0],n.selection[1],n.selection[2],n.selection[3])}}obj.ignoreEvents=e,obj.ignoreHistory=t,obj.dispatch("onundo",el,n)},obj.redo=function(){var e=!!obj.ignoreEvents,t=!!obj.ignoreHistory;if(obj.ignoreEvents=!0,obj.ignoreHistory=!0,obj.historyIndex<obj.history.length-1){var o=obj.history[++obj.historyIndex];if("insertRow"==o.action)obj.historyProcessRow(0,o);else if("deleteRow"==o.action)obj.historyProcessRow(1,o);else if("insertColumn"==o.action)obj.historyProcessColumn(0,o);else if("deleteColumn"==o.action)obj.historyProcessColumn(1,o);else if("moveRow"==o.action)obj.moveRow(o.oldValue,o.newValue);else if("moveColumn"==o.action)obj.moveColumn(o.oldValue,o.newValue);else if("setMerge"==o.action)obj.setMerge(o.column,o.colspan,o.rowspan,1);else if("setStyle"==o.action)obj.setStyle(o.newValue,null,null,1);else if("setWidth"==o.action)obj.setWidth(o.column,o.newValue);else if("setHeight"==o.action)obj.setHeight(o.row,o.newValue);else if("setHeader"==o.action)obj.setHeader(o.column,o.newValue);else if("setComments"==o.action)obj.setComments(o.column,o.newValue[0],o.newValue[1]);else if("orderBy"==o.action)obj.updateOrderArrow(o.column,o.order),obj.updateOrder(o.rows);else if("setValue"==o.action){obj.setValue(o.records);for(var n=0;n<o.records.length;n++)o.oldStyle&&obj.resetStyle(o.newStyle);o.selection&&obj.updateSelectionFromCoords(o.selection[0],o.selection[1],o.selection[2],o.selection[3])}}obj.ignoreEvents=e,obj.ignoreHistory=t,obj.dispatch("onredo",el,o)},obj.getDropDownValue=function(e,t){var o=[];if(obj.options.columns[e]&&obj.options.columns[e].source){for(var n=[],r=obj.options.columns[e].source,l=0;l<r.length;l++)"object"==typeof r[l]?n[r[l].id]=r[l].name:n[r[l]]=r[l];var i=Array.isArray(t)?t:(""+t).split(";");for(l=0;l<i.length;l++)"object"==typeof i[l]?o.push(n[i[l].id]):n[i[l]]&&o.push(n[i[l]])}else console.error("Invalid column");return o.length>0?o.join("; "):""},obj.parseCSV=function(e,t){9==(e=e.replace(/\r?\n$|\r$|\n$/g,"")).charCodeAt(e.length-1)&&(e+="\0"),t=t||",";for(var o=[],n=!1,r=0,l=0,i=0;i<e.length;i++){var s=e[i],a=e[i+1];o[r]=o[r]||[],o[r][l]=o[r][l]||"",'"'==s&&n&&'"'==a?(o[r][l]+=s,++i):'"'!=s?s!=t||n?"\r"!=s||"\n"!=a||n?"\n"==s&&!n||"\r"==s&&!n?(++r,l=0):o[r][l]+=s:(++r,l=0,++i):++l:n=!n}return o},obj.hash=function(e){var t,o=0;if(0===e.length)return o;for(t=0;t<e.length;t++)o=(o<<5)-o+e.charCodeAt(t),o|=0;return o},obj.onafterchanges=function(e,t){obj.dispatch("onafterchanges",e,t)},obj.destroy=function(){jexcel.destroy(el)},obj.init=function(){jexcel.current=obj,"function"==typeof jexcel.build&&(obj.options.root?jexcel.build(obj.options.root):(jexcel.build(document),jexcel.build=null)),el.setAttribute("tabindex",1),el.addEventListener("focus",(function(e){jexcel.current&&!obj.selectedCell&&(obj.updateSelectionFromCoords(0,0,0,0),obj.left())})),obj.options.csv?(1==obj.options.loadingSpin&&jSuites.loading.show(),jSuites.ajax({url:obj.options.csv,method:obj.options.method,data:obj.options.requestVariables,dataType:"text",success:function(e){var t=obj.parseCSV(e,obj.options.csvDelimiter);if(1==obj.options.csvHeaders&&t.length>0)for(var o=t.shift(),n=0;n<o.length;n++)obj.options.columns[n]||(obj.options.columns[n]={type:"text",align:obj.options.defaultColAlign,width:obj.options.defaultColWidth}),void 0===obj.options.columns[n].title&&(obj.options.columns[n].title=o[n]);obj.options.data=t,obj.prepareTable(),1==obj.options.loadingSpin&&jSuites.loading.hide()}})):obj.options.url?(1==obj.options.loadingSpin&&jSuites.loading.show(),jSuites.ajax({url:obj.options.url,method:obj.options.method,data:obj.options.requestVariables,dataType:"json",success:function(e){obj.options.data=e.data?e.data:e,obj.prepareTable(),1==obj.options.loadingSpin&&jSuites.loading.hide()}})):obj.prepareTable()},options&&null!=options.contextMenu?obj.options.contextMenu=options.contextMenu:obj.options.contextMenu=function(e,t,o,n){var r=[];if(null==o)1==obj.options.allowInsertColumn&&r.push({title:obj.options.text.insertANewColumnBefore,onclick:function(){obj.insertColumn(1,parseInt(t),1)}}),1==obj.options.allowInsertColumn&&r.push({title:obj.options.text.insertANewColumnAfter,onclick:function(){obj.insertColumn(1,parseInt(t),0)}}),1==obj.options.allowDeleteColumn&&r.push({title:obj.options.text.deleteSelectedColumns,onclick:function(){obj.deleteColumn(obj.getSelectedColumns().length?void 0:parseInt(t))}}),1==obj.options.allowRenameColumn&&r.push({title:obj.options.text.renameThisColumn,onclick:function(){obj.setHeader(t)}}),1==obj.options.columnSorting&&(r.push({type:"line"}),r.push({title:obj.options.text.orderAscending,onclick:function(){obj.orderBy(t,0)}}),r.push({title:obj.options.text.orderDescending,onclick:function(){obj.orderBy(t,1)}}));else if(1==obj.options.allowInsertRow&&(r.push({title:obj.options.text.insertANewRowBefore,onclick:function(){obj.insertRow(1,parseInt(o),1)}}),r.push({title:obj.options.text.insertANewRowAfter,onclick:function(){obj.insertRow(1,parseInt(o))}})),1==obj.options.allowDeleteRow&&r.push({title:obj.options.text.deleteSelectedRows,onclick:function(){obj.deleteRow(obj.getSelectedRows().length?void 0:parseInt(o))}}),t&&1==obj.options.allowComments){r.push({type:"line"});var l=obj.records[o][t].getAttribute("title")||"";r.push({title:l?obj.options.text.editComments:obj.options.text.addComments,onclick:function(){var e=prompt(obj.options.text.comments,l);e&&obj.setComments([t,o],e)}}),l&&r.push({title:obj.options.text.clearComments,onclick:function(){obj.setComments([t,o],"")}})}return r.push({type:"line"}),r.push({title:obj.options.text.copy,shortcut:"Ctrl + C",onclick:function(){obj.copy(!0)}}),navigator&&navigator.clipboard&&r.push({title:obj.options.text.paste,shortcut:"Ctrl + V",onclick:function(){obj.selectedCell&&navigator.clipboard.readText().then((function(e){e&&jexcel.current.paste(obj.selectedCell[0],obj.selectedCell[1],e)}))}}),obj.options.allowExport&&r.push({title:obj.options.text.saveAs,shortcut:"Ctrl + S",onclick:function(){obj.download()}}),obj.options.about&&r.push({title:obj.options.text.about,onclick:function(){!0===obj.options.about?alert(Version().print()):alert(obj.options.about)}}),r},obj.scrollControls=function(e){obj.wheelControls(),obj.options.freezeColumns>0&&obj.content.scrollLeft!=scrollLeft&&obj.updateFreezePosition(),1!=obj.options.lazyLoading&&1!=obj.options.tableOverflow||obj.edition&&"jdropdown"!=e.target.className.substr(0,9)&&obj.closeEditor(obj.edition[0],!0)},obj.wheelControls=function(e){1==obj.options.lazyLoading&&null==jexcel.timeControlLoading&&(jexcel.timeControlLoading=setTimeout((function(){obj.content.scrollTop+obj.content.clientHeight>=obj.content.scrollHeight-10?obj.loadDown()&&(obj.content.scrollTop+obj.content.clientHeight>obj.content.scrollHeight-10&&(obj.content.scrollTop=obj.content.scrollTop-obj.content.clientHeight),obj.updateCornerPosition()):obj.content.scrollTop<=obj.content.clientHeight&&obj.loadUp()&&(obj.content.scrollTop<10&&(obj.content.scrollTop=obj.content.scrollTop+obj.content.clientHeight),obj.updateCornerPosition()),jexcel.timeControlLoading=null}),100))},obj.getFreezeWidth=function(){var e=0;if(obj.options.freezeColumns>0)for(var t=0;t<obj.options.freezeColumns;t++)e+=parseInt(obj.options.columns[t].width);return e};var scrollLeft=0;return obj.updateFreezePosition=function(){var e=0;if((scrollLeft=obj.content.scrollLeft)>50)for(var t=0;t<obj.options.freezeColumns;t++){t>0&&"hidden"!==obj.options.columns[t-1].type&&(e+=parseInt(obj.options.columns[t-1].width)),obj.headers[t].classList.add("jexcel_freezed"),obj.headers[t].style.left=e+"px";for(var o=0;o<obj.rows.length;o++)if(obj.rows[o]&&obj.records[o][t]){var n=scrollLeft+(t>0?obj.records[o][t-1].style.width:0)-51+"px";obj.records[o][t].classList.add("jexcel_freezed"),obj.records[o][t].style.left=n}}else for(t=0;t<obj.options.freezeColumns;t++)for(obj.headers[t].classList.remove("jexcel_freezed"),obj.headers[t].style.left="",o=0;o<obj.rows.length;o++)obj.records[o][t]&&(obj.records[o][t].classList.remove("jexcel_freezed"),obj.records[o][t].style.left="");obj.updateCornerPosition()},el.addEventListener("DOMMouseScroll",obj.wheelControls),el.addEventListener("mousewheel",obj.wheelControls),el.jexcel=obj,el.jspreadsheet=obj,obj.init(),obj};jexcel.setDictionary=function(e){jSuites.setDictionary(e)},jexcel.setExtensions=function(e){for(var t=Object.keys(e),o=0;o<t.length;o++)"function"==typeof e[t[o]]&&(jexcel[t[o]]=e[t[o]],jexcel.license&&"function"==typeof e[t[o]].license&&e[t[o]].license(jexcel.license))},void 0!==formula&&(jexcel.formula=formula),jexcel.version=Version,jexcel.current=null,jexcel.timeControl=null,jexcel.timeControlLoading=null;const destroyEvents=function(e){e.removeEventListener("mouseup",jexcel.mouseUpControls),e.removeEventListener("mousedown",jexcel.mouseDownControls),e.removeEventListener("mousemove",jexcel.mouseMoveControls),e.removeEventListener("mouseover",jexcel.mouseOverControls),e.removeEventListener("dblclick",jexcel.doubleClickControls),e.removeEventListener("paste",jexcel.pasteControls),e.removeEventListener("contextmenu",jexcel.contextMenuControls),e.removeEventListener("touchstart",jexcel.touchStartControls),e.removeEventListener("touchend",jexcel.touchEndControls),e.removeEventListener("touchcancel",jexcel.touchEndControls),document.removeEventListener("keydown",jexcel.keyDownControls)};var component;return jexcel.destroy=function(e,t){if(e.jexcel){var o=e.jexcel.options.root?e.jexcel.options.root:document;e.removeEventListener("DOMMouseScroll",e.jexcel.scrollControls),e.removeEventListener("mousewheel",e.jexcel.scrollControls),e.jexcel=null,e.innerHTML="",t&&(destroyEvents(o),jexcel=null)}},jexcel.build=function(e){destroyEvents(e),e.addEventListener("mouseup",jexcel.mouseUpControls),e.addEventListener("mousedown",jexcel.mouseDownControls),e.addEventListener("mousemove",jexcel.mouseMoveControls),e.addEventListener("mouseover",jexcel.mouseOverControls),e.addEventListener("dblclick",jexcel.doubleClickControls),e.addEventListener("paste",jexcel.pasteControls),e.addEventListener("contextmenu",jexcel.contextMenuControls),e.addEventListener("touchstart",jexcel.touchStartControls),e.addEventListener("touchend",jexcel.touchEndControls),e.addEventListener("touchcancel",jexcel.touchEndControls),e.addEventListener("touchmove",jexcel.touchEndControls),document.addEventListener("keydown",jexcel.keyDownControls)},jexcel.keyDownControls=function(e){if(jexcel.current){if(jexcel.current.edition)if(27==e.which)jexcel.current.edition&&jexcel.current.closeEditor(jexcel.current.edition[0],!1),e.preventDefault();else if(13==e.which)if("calendar"==jexcel.current.options.columns[jexcel.current.edition[2]].type)jexcel.current.closeEditor(jexcel.current.edition[0],!0);else if("dropdown"==jexcel.current.options.columns[jexcel.current.edition[2]].type||"autocomplete"==jexcel.current.options.columns[jexcel.current.edition[2]].type);else if((1==jexcel.current.options.wordWrap||1==jexcel.current.options.columns[jexcel.current.edition[2]].wordWrap||jexcel.current.options.data[jexcel.current.edition[3]][jexcel.current.edition[2]].length>200)&&e.altKey){var t=jexcel.current.edition[0].children[0],o=jexcel.current.edition[0].children[0].value,n=t.selectionStart;o=o.slice(0,n)+"\n"+o.slice(n),t.value=o,t.focus(),t.selectionStart=n+1,t.selectionEnd=n+1}else jexcel.current.edition[0].children[0].blur();else 9==e.which&&(["calendar","html"].includes(jexcel.current.options.columns[jexcel.current.edition[2]].type)?jexcel.current.closeEditor(jexcel.current.edition[0],!0):jexcel.current.edition[0].children[0].blur());if(!jexcel.current.edition&&jexcel.current.selectedCell)if(37==e.which)jexcel.current.left(e.shiftKey,e.ctrlKey),e.preventDefault();else if(39==e.which)jexcel.current.right(e.shiftKey,e.ctrlKey),e.preventDefault();else if(38==e.which)jexcel.current.up(e.shiftKey,e.ctrlKey),e.preventDefault();else if(40==e.which)jexcel.current.down(e.shiftKey,e.ctrlKey),e.preventDefault();else if(36==e.which)jexcel.current.first(e.shiftKey,e.ctrlKey),e.preventDefault();else if(35==e.which)jexcel.current.last(e.shiftKey,e.ctrlKey),e.preventDefault();else if(46==e.which)1==jexcel.current.options.editable&&(jexcel.current.selectedRow?1==jexcel.current.options.allowDeleteRow&&confirm(jexcel.current.options.text.areYouSureToDeleteTheSelectedRows)&&jexcel.current.deleteRow():jexcel.current.selectedHeader?1==jexcel.current.options.allowDeleteColumn&&confirm(jexcel.current.options.text.areYouSureToDeleteTheSelectedColumns)&&jexcel.current.deleteColumn():jexcel.current.setValue(jexcel.current.highlighted,""));else if(13==e.which)e.shiftKey?jexcel.current.up():(1==jexcel.current.options.allowInsertRow&&1==jexcel.current.options.allowManualInsertRow&&jexcel.current.selectedCell[1]==jexcel.current.options.data.length-1&&jexcel.current.insertRow(),jexcel.current.down()),e.preventDefault();else if(9==e.which)e.shiftKey?jexcel.current.left():(1==jexcel.current.options.allowInsertColumn&&1==jexcel.current.options.allowManualInsertColumn&&jexcel.current.selectedCell[0]==jexcel.current.options.data[0].length-1&&jexcel.current.insertColumn(),jexcel.current.right()),e.preventDefault();else if(!e.ctrlKey&&!e.metaKey||e.shiftKey){if(jexcel.current.selectedCell&&1==jexcel.current.options.editable){var r=jexcel.current.selectedCell[1],l=jexcel.current.selectedCell[0];"readonly"!=jexcel.current.options.columns[l].type&&(32==e.keyCode?(e.preventDefault(),"checkbox"==jexcel.current.options.columns[l].type||"radio"==jexcel.current.options.columns[l].type?jexcel.current.setCheckRadioValue():jexcel.current.openEditor(jexcel.current.records[r][l],!0)):113==e.keyCode?jexcel.current.openEditor(jexcel.current.records[r][l],!1):(8==e.keyCode||e.keyCode>=48&&e.keyCode<=57||e.keyCode>=96&&e.keyCode<=111||e.keyCode>=187&&e.keyCode<=190||(String.fromCharCode(e.keyCode)==e.key||String.fromCharCode(e.keyCode).toLowerCase()==e.key.toLowerCase())&&jexcel.validLetter(String.fromCharCode(e.keyCode)))&&(jexcel.current.openEditor(jexcel.current.records[r][l],!0),"calendar"==jexcel.current.options.columns[l].type&&e.preventDefault()))}}else 65==e.which?(jexcel.current.selectAll(),e.preventDefault()):83==e.which?(jexcel.current.download(),e.preventDefault()):89==e.which?(jexcel.current.redo(),e.preventDefault()):90==e.which?(jexcel.current.undo(),e.preventDefault()):67==e.which?(jexcel.current.copy(!0),e.preventDefault()):88==e.which?(1==jexcel.current.options.editable?jexcel.cutControls():jexcel.copyControls(),e.preventDefault()):86==e.which&&jexcel.pasteControls();else e.target.classList.contains("jexcel_search")&&(jexcel.timeControl&&clearTimeout(jexcel.timeControl),jexcel.timeControl=setTimeout((function(){jexcel.current.search(e.target.value)}),200))}},jexcel.isMouseAction=!1,jexcel.mouseDownControls=function(e){if((e=e||window.event).buttons)var t=e.buttons;else t=e.button?e.button:e.which;var o=jexcel.getElement(e.target);if(o[0]?jexcel.current!=o[0].jexcel&&(jexcel.current&&(jexcel.current.edition&&jexcel.current.closeEditor(jexcel.current.edition[0],!0),jexcel.current.resetSelection()),jexcel.current=o[0].jexcel):jexcel.current&&(jexcel.current.edition&&jexcel.current.closeEditor(jexcel.current.edition[0],!0),jexcel.current.resetSelection(!0),jexcel.current=null),jexcel.current&&1==t){if(e.target.classList.contains("jexcel_selectall"))jexcel.current&&jexcel.current.selectAll();else if(e.target.classList.contains("jexcel_corner"))1==jexcel.current.options.editable&&(jexcel.current.selectedCorner=!0);else{if(1==o[1]){if(p=e.target.getAttribute("data-x")){var n=e.target.getBoundingClientRect();if(1==jexcel.current.options.columnResize&&n.width-e.offsetX<6){jexcel.current.resizing={mousePosition:e.pageX,column:p,width:n.width},jexcel.current.headers[p].classList.add("resizing");for(var r=0;r<jexcel.current.records.length;r++)jexcel.current.records[r][p]&&jexcel.current.records[r][p].classList.add("resizing")}else if(1==jexcel.current.options.columnDrag&&n.height-e.offsetY<6)if(jexcel.current.isColMerged(p).length)console.error("Jspreadsheet: This column is part of a merged cell.");else for(jexcel.current.resetSelection(),jexcel.current.dragging={element:e.target,column:p,destination:p},jexcel.current.headers[p].classList.add("dragging"),r=0;r<jexcel.current.records.length;r++)jexcel.current.records[r][p]&&jexcel.current.records[r][p].classList.add("dragging");else{if(jexcel.current.selectedHeader&&(e.shiftKey||e.ctrlKey))var l=jexcel.current.selectedHeader,i=p;else jexcel.current.selectedHeader==p&&1==jexcel.current.options.allowRenameColumn&&(jexcel.timeControl=setTimeout((function(){jexcel.current.setHeader(p)}),800)),jexcel.current.selectedHeader=p,l=p,i=p;jexcel.current.updateSelectionFromCoords(l,0,i,jexcel.current.options.data.length-1)}}else if(e.target.parentNode.classList.contains("jexcel_nested")){if(e.target.getAttribute("data-column"))var s=e.target.getAttribute("data-column").split(","),a=parseInt(s[0]),u=parseInt(s[s.length-1]);else a=0,u=jexcel.current.options.columns.length-1;jexcel.current.updateSelectionFromCoords(a,0,u,jexcel.current.options.data.length-1)}}else jexcel.current.selectedHeader=!1;if(2==o[1]){var c=e.target.getAttribute("data-y");if(e.target.classList.contains("jexcel_row"))n=e.target.getBoundingClientRect(),1==jexcel.current.options.rowResize&&n.height-e.offsetY<6?(jexcel.current.resizing={element:e.target.parentNode,mousePosition:e.pageY,row:c,height:n.height},e.target.parentNode.classList.add("resizing")):1==jexcel.current.options.rowDrag&&n.width-e.offsetX<6?jexcel.current.isRowMerged(c).length?console.error("Jspreadsheet: This row is part of a merged cell"):1==jexcel.current.options.search&&jexcel.current.results?console.error("Jspreadsheet: Please clear your search before perform this action"):(jexcel.current.resetSelection(),jexcel.current.dragging={element:e.target.parentNode,row:c,destination:c},e.target.parentNode.classList.add("dragging")):(jexcel.current.selectedRow&&(e.shiftKey||e.ctrlKey)?(l=jexcel.current.selectedRow,i=c):(jexcel.current.selectedRow=c,l=c,i=c),jexcel.current.updateSelectionFromCoords(0,l,jexcel.current.options.data[0].length-1,i));else if(e.target.classList.contains("jclose")&&e.target.clientWidth-e.offsetX<50&&e.offsetY<50)jexcel.current.closeEditor(jexcel.current.edition[0],!0);else{var f=function(e){var t=e.getAttribute("data-x"),o=e.getAttribute("data-y");return t&&o?[t,o]:e.parentNode?f(e.parentNode):void 0},d=f(e.target);if(d){var p=d[0];c=d[1],jexcel.current.edition&&(jexcel.current.edition[2]==p&&jexcel.current.edition[3]==c||jexcel.current.closeEditor(jexcel.current.edition[0],!0)),jexcel.current.edition||(e.shiftKey?jexcel.current.updateSelectionFromCoords(jexcel.current.selectedCell[0],jexcel.current.selectedCell[1],p,c):jexcel.current.updateSelectionFromCoords(p,c)),jexcel.current.selectedHeader=null,jexcel.current.selectedRow=null}}}else jexcel.current.selectedRow=!1;e.target.classList.contains("jexcel_page")&&("<"==e.target.textContent?jexcel.current.page(0):">"==e.target.textContent?jexcel.current.page(e.target.getAttribute("title")-1):jexcel.current.page(e.target.textContent-1))}jexcel.current.edition?jexcel.isMouseAction=!1:jexcel.isMouseAction=!0}else jexcel.isMouseAction=!1},jexcel.mouseUpControls=function(e){if(jexcel.current)if(jexcel.current.resizing){if(jexcel.current.resizing.column){var t=jexcel.current.colgroup[jexcel.current.resizing.column].getAttribute("width"),o=jexcel.current.getSelectedColumns();if(o.length>1){for(var n=[],r=0;r<o.length;r++)n.push(parseInt(jexcel.current.colgroup[o[r]].getAttribute("width")));n[o.indexOf(parseInt(jexcel.current.resizing.column))]=jexcel.current.resizing.width,jexcel.current.setWidth(o,t,n)}else jexcel.current.setWidth(jexcel.current.resizing.column,t,jexcel.current.resizing.width);jexcel.current.headers[jexcel.current.resizing.column].classList.remove("resizing");for(var l=0;l<jexcel.current.records.length;l++)jexcel.current.records[l][jexcel.current.resizing.column]&&jexcel.current.records[l][jexcel.current.resizing.column].classList.remove("resizing")}else{jexcel.current.rows[jexcel.current.resizing.row].children[0].classList.remove("resizing");var i=jexcel.current.rows[jexcel.current.resizing.row].getAttribute("height");jexcel.current.setHeight(jexcel.current.resizing.row,i,jexcel.current.resizing.height),jexcel.current.resizing.element.classList.remove("resizing")}jexcel.current.resizing=null}else if(jexcel.current.dragging){if(jexcel.current.dragging){if(jexcel.current.dragging.column){var s=e.target.getAttribute("data-x");for(jexcel.current.headers[jexcel.current.dragging.column].classList.remove("dragging"),l=0;l<jexcel.current.rows.length;l++)jexcel.current.records[l][jexcel.current.dragging.column]&&jexcel.current.records[l][jexcel.current.dragging.column].classList.remove("dragging");for(r=0;r<jexcel.current.headers.length;r++)jexcel.current.headers[r].classList.remove("dragging-left"),jexcel.current.headers[r].classList.remove("dragging-right");s&&jexcel.current.dragging.column!=jexcel.current.dragging.destination&&jexcel.current.moveColumn(jexcel.current.dragging.column,jexcel.current.dragging.destination)}else{if(jexcel.current.dragging.element.nextSibling){var a=parseInt(jexcel.current.dragging.element.nextSibling.getAttribute("data-y"));jexcel.current.dragging.row<a&&(a-=1)}else a=parseInt(jexcel.current.dragging.element.previousSibling.getAttribute("data-y"));jexcel.current.dragging.row!=jexcel.current.dragging.destination&&jexcel.current.moveRow(jexcel.current.dragging.row,a,!0),jexcel.current.dragging.element.classList.remove("dragging")}jexcel.current.dragging=null}}else jexcel.current.selectedCorner&&(jexcel.current.selectedCorner=!1,jexcel.current.selection.length>0&&(jexcel.current.copyData(jexcel.current.selection[0],jexcel.current.selection[jexcel.current.selection.length-1]),jexcel.current.removeCopySelection()));jexcel.timeControl&&(clearTimeout(jexcel.timeControl),jexcel.timeControl=null),jexcel.isMouseAction=!1},jexcel.mouseMoveControls=function(e){if((e=e||window.event).buttons)var t=e.buttons;else t=e.button?e.button:e.which;if(t||(jexcel.isMouseAction=!1),jexcel.current)if(1==jexcel.isMouseAction){if(jexcel.current.resizing)if(jexcel.current.resizing.column){var o=e.pageX-jexcel.current.resizing.mousePosition;if(jexcel.current.resizing.width+o>0){var n=jexcel.current.resizing.width+o;jexcel.current.colgroup[jexcel.current.resizing.column].setAttribute("width",n),jexcel.current.updateCornerPosition()}}else{var r=e.pageY-jexcel.current.resizing.mousePosition;if(jexcel.current.resizing.height+r>0){var l=jexcel.current.resizing.height+r;jexcel.current.rows[jexcel.current.resizing.row].setAttribute("height",l),jexcel.current.updateCornerPosition()}}else if(jexcel.current.dragging)if(jexcel.current.dragging.column){var i=e.target.getAttribute("data-x");if(i)if(jexcel.current.isColMerged(i).length)console.error("Jspreadsheet: This column is part of a merged cell.");else{for(var s=0;s<jexcel.current.headers.length;s++)jexcel.current.headers[s].classList.remove("dragging-left"),jexcel.current.headers[s].classList.remove("dragging-right");jexcel.current.dragging.column==i?jexcel.current.dragging.destination=parseInt(i):e.target.clientWidth/2>e.offsetX?(jexcel.current.dragging.column<i?jexcel.current.dragging.destination=parseInt(i)-1:jexcel.current.dragging.destination=parseInt(i),jexcel.current.headers[i].classList.add("dragging-left")):(jexcel.current.dragging.column<i?jexcel.current.dragging.destination=parseInt(i):jexcel.current.dragging.destination=parseInt(i)+1,jexcel.current.headers[i].classList.add("dragging-right"))}}else{var a=e.target.getAttribute("data-y");if(a)if(jexcel.current.isRowMerged(a).length)console.error("Jspreadsheet: This row is part of a merged cell.");else{var u=e.target.clientHeight/2>e.offsetY?e.target.parentNode.nextSibling:e.target.parentNode;jexcel.current.dragging.element!=u&&(e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element,u),jexcel.current.dragging.destination=Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children,jexcel.current.dragging.element))}}}else{var c=e.target.getAttribute("data-x"),f=e.target.getAttribute("data-y"),d=e.target.getBoundingClientRect();jexcel.current.cursor&&(jexcel.current.cursor.style.cursor="",jexcel.current.cursor=null),e.target.parentNode.parentNode&&e.target.parentNode.parentNode.className&&(e.target.parentNode.parentNode.classList.contains("resizable")&&(e.target&&c&&!f&&d.width-(e.clientX-d.left)<6?(jexcel.current.cursor=e.target,jexcel.current.cursor.style.cursor="col-resize"):e.target&&!c&&f&&d.height-(e.clientY-d.top)<6&&(jexcel.current.cursor=e.target,jexcel.current.cursor.style.cursor="row-resize")),e.target.parentNode.parentNode.classList.contains("draggable")&&(e.target&&!c&&f&&d.width-(e.clientX-d.left)<6||e.target&&c&&!f&&d.height-(e.clientY-d.top)<6)&&(jexcel.current.cursor=e.target,jexcel.current.cursor.style.cursor="move"))}},jexcel.mouseOverControls=function(e){if((e=e||window.event).buttons)var t=e.buttons;else t=e.button?e.button:e.which;if(t||(jexcel.isMouseAction=!1),jexcel.current&&1==jexcel.isMouseAction){var o=jexcel.getElement(e.target);if(o[0]){if(jexcel.current!=o[0].jexcel&&jexcel.current)return!1;var n=e.target.getAttribute("data-x"),r=e.target.getAttribute("data-y");if(jexcel.current.resizing||jexcel.current.dragging);else{if(1==o[1]&&jexcel.current.selectedHeader){n=e.target.getAttribute("data-x");var l=jexcel.current.selectedHeader,i=n;jexcel.current.updateSelectionFromCoords(l,0,i,jexcel.current.options.data.length-1)}2==o[1]&&(e.target.classList.contains("jexcel_row")?jexcel.current.selectedRow&&(l=jexcel.current.selectedRow,i=r,jexcel.current.updateSelectionFromCoords(0,l,jexcel.current.options.data[0].length-1,i)):jexcel.current.edition||n&&r&&(jexcel.current.selectedCorner?jexcel.current.updateCopySelection(n,r):jexcel.current.selectedCell&&jexcel.current.updateSelectionFromCoords(jexcel.current.selectedCell[0],jexcel.current.selectedCell[1],n,r)))}}}jexcel.timeControl&&(clearTimeout(jexcel.timeControl),jexcel.timeControl=null)},jexcel.doubleClickControls=function(e){if(jexcel.current)if(e.target.classList.contains("jexcel_corner")){if(jexcel.current.highlighted.length>0){var t=jexcel.current.highlighted[0].getAttribute("data-x"),o=parseInt(jexcel.current.highlighted[jexcel.current.highlighted.length-1].getAttribute("data-y"))+1,n=jexcel.current.highlighted[jexcel.current.highlighted.length-1].getAttribute("data-x"),r=jexcel.current.records.length-1;jexcel.current.copyData(jexcel.current.records[o][t],jexcel.current.records[r][n])}}else if(e.target.classList.contains("jexcel_column_filter")){var l=e.target.getAttribute("data-x");jexcel.current.openFilter(l)}else{var i=jexcel.getElement(e.target);if(1==i[1]&&1==jexcel.current.options.columnSorting&&(l=e.target.getAttribute("data-x"))&&jexcel.current.orderBy(l),2==i[1]&&1==jexcel.current.options.editable&&!jexcel.current.edition){var s=function(e){if(e.parentNode){var t=e.getAttribute("data-x"),o=e.getAttribute("data-y");return t&&o?e:s(e.parentNode)}},a=s(e.target);a&&a.classList.contains("highlight")&&jexcel.current.openEditor(a)}}},jexcel.copyControls=function(e){jexcel.current&&jexcel.copyControls.enabled&&(jexcel.current.edition||jexcel.current.copy(!0))},jexcel.cutControls=function(e){jexcel.current&&(jexcel.current.edition||(jexcel.current.copy(!0),1==jexcel.current.options.editable&&jexcel.current.setValue(jexcel.current.highlighted,"")))},jexcel.pasteControls=function(e){jexcel.current&&jexcel.current.selectedCell&&(jexcel.current.edition||1==jexcel.current.options.editable&&(e&&e.clipboardData?(jexcel.current.paste(jexcel.current.selectedCell[0],jexcel.current.selectedCell[1],e.clipboardData.getData("text")),e.preventDefault()):window.clipboardData&&jexcel.current.paste(jexcel.current.selectedCell[0],jexcel.current.selectedCell[1],window.clipboardData.getData("text"))))},jexcel.contextMenuControls=function(e){if("buttons"in(e=e||window.event)?e.buttons:e.which||e.button,jexcel.current)if(jexcel.current.edition)e.preventDefault();else if(jexcel.current.options.contextMenu&&(jexcel.current.contextMenu.contextmenu.close(),jexcel.current)){var t=e.target.getAttribute("data-x"),o=e.target.getAttribute("data-y");if(t||o){(t<parseInt(jexcel.current.selectedCell[0])||t>parseInt(jexcel.current.selectedCell[2])||o<parseInt(jexcel.current.selectedCell[1])||o>parseInt(jexcel.current.selectedCell[3]))&&jexcel.current.updateSelectionFromCoords(t,o,t,o);var n=jexcel.current.options.contextMenu(jexcel.current,t,o,e);jexcel.current.contextMenu.contextmenu.open(e,n),e.preventDefault()}}},jexcel.touchStartControls=function(e){var t=jexcel.getElement(e.target);if(t[0]?jexcel.current!=t[0].jexcel&&(jexcel.current&&jexcel.current.resetSelection(),jexcel.current=t[0].jexcel):jexcel.current&&(jexcel.current.resetSelection(),jexcel.current=null),jexcel.current&&!jexcel.current.edition){var o=e.target.getAttribute("data-x"),n=e.target.getAttribute("data-y");o&&n&&(jexcel.current.updateSelectionFromCoords(o,n),jexcel.timeControl=setTimeout((function(){"color"==jexcel.current.options.columns[o].type?jexcel.tmpElement=null:jexcel.tmpElement=e.target,jexcel.current.openEditor(e.target,!1,e)}),500))}},jexcel.touchEndControls=function(e){jexcel.timeControl&&(clearTimeout(jexcel.timeControl),jexcel.timeControl=null,jexcel.tmpElement&&"INPUT"==jexcel.tmpElement.children[0].tagName&&jexcel.tmpElement.children[0].focus(),jexcel.tmpElement=null)},jexcel.tabs=function(e,t){var o=[];if(e.classList.contains("jexcel_tabs"))r=e.children[0],l=e.children[1];else{e.innerHTML="",e.classList.add("jexcel_tabs"),e.jexcel=[];var n=document.createElement("div"),r=e.appendChild(n),l=(n=document.createElement("div"),e.appendChild(n))}for(var i=[],s=[],a=0;a<t.length;a++){i[a]=document.createElement("div"),i[a].classList.add("jexcel_tab");var u=jexcel(i[a],t[a]);l.appendChild(i[a]),o[a]=e.jexcel.push(u),s[a]=document.createElement("div"),s[a].classList.add("jexcel_tab_link"),s[a].setAttribute("data-spreadsheet",e.jexcel.length-1),s[a].innerHTML=t[a].sheetName,s[a].onclick=function(){for(var e=0;e<r.children.length;e++)r.children[e].classList.remove("selected"),l.children[e].style.display="none";var t=this.getAttribute("data-spreadsheet");l.children[t].style.display="block",r.children[t].classList.add("selected")},r.appendChild(s[a])}for(var c=0;c<r.children.length;c++)r.children[c].classList.remove("selected"),l.children[c].style.display="none";return r.children[r.children.length-1].classList.add("selected"),l.children[r.children.length-1].style.display="block",o},jexcel.createTabs=jexcel.tabs,jexcel.fromSpreadsheet=function(e,t){var o,n=function(e){var t=[];return e.SheetNames.forEach((function(o){var n={rows:[],columns:[],data:[],style:{}};if(n.sheetName=o,(d=e.Sheets[o]["!cols"])&&d.length)for(var r=0;r<d.length;r++)n.columns[r]={},d[r]&&d[r].wpx&&(n.columns[r].width=d[r].wpx+"px");if((d=e.Sheets[o]["!rows"])&&d.length)for(r=0;r<d.length;r++)d[r]&&d[r].hpx&&(n.rows[r]={},n.rows[r].height=d[r].hpx+"px");if((d=e.Sheets[o]["!merges"])&&d.length>0)for(n.mergeCells=[],r=0;r<d.length;r++){var l=d[r].s.c,i=d[r].s.r,s=d[r].e.c,a=d[r].e.r,u=jexcel.getColumnNameFromId([l,i]);n.mergeCells[u]=[s-l+1,a-i+1]}var c=0,f=0,d=Object.keys(e.Sheets[o]);for(r=0;r<d.length;r++)if("!"!=d[r].substr(0,1)){var p=e.Sheets[o][d[r]],b=jexcel.getIdFromColumnName(d[r],!0);n.data[b[1]]||(n.data[b[1]]=[]),n.data[b[1]][b[0]]=p.f?"="+p.f:p.w,c<b[0]&&(c=b[0]),f<b[1]&&(f=b[1]),p.style&&Object.keys(p.style).length>0&&(n.style[d[r]]=p.style),p.s&&p.s.fgColor&&(n.style[d[r]]&&(n.style[d[r]]+=";"),n.style[d[r]]+="background-color:#"+p.s.fgColor.rgb)}for(var j=n.columns,h=0;h<=f;h++)for(r=0;r<=c;r++)n.data[h]||(n.data[h]=[]),n.data[h][r]||j<r&&(n.data[h][r]="");t.push(n)})),t};(o=new XMLHttpRequest).open("GET",e,!0),"undefined"!=typeof Uint8Array?(o.responseType="arraybuffer",o.onload=function(e){var r=o.response,l=new Uint8Array(r),i=XLSX.read(l,{type:"array",cellFormula:!0,cellStyles:!0});t(n(i))}):(o.setRequestHeader("Accept-Charset","x-user-defined"),o.onreadystatechange=function(){if(4==o.readyState&&200==o.status){var e=convertResponseBodyToText(o.responseBody),r=XLSX.read(e,{type:"binary",cellFormula:!0,cellStyles:!0});t(n(r))}}),o.send()},jexcel.validLetter=function(e){return e.match(/([\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0\u08A2-\u08AC\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097F\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C3D\u0C58\u0C59\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D60\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191C\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19C1-\u19C7\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2183\u2184\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005\u3006\u3031-\u3035\u303B\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FCC\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA697\uA6A0-\uA6E5\uA717-\uA71F\uA722-\uA788\uA78B-\uA78E\uA790-\uA793\uA7A0-\uA7AA\uA7F8-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA80-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uABC0-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC-\u0400-\u04FF']+)/g)?1:0},jexcel.injectArray=function(e,t,o){return e.slice(0,t).concat(o).concat(e.slice(t))},jexcel.getColumnName=function(e){var t="";return e>701?(t+=String.fromCharCode(64+parseInt(e/676)),t+=String.fromCharCode(64+parseInt(e%676/26))):e>25&&(t+=String.fromCharCode(64+parseInt(e/26))),t+String.fromCharCode(65+e%26)},jexcel.getIdFromColumnName=function(e,t){var o=/^[a-zA-Z]+/.exec(e);if(o){for(var n=0,r=0;r<o[0].length;r++)n+=parseInt(o[0].charCodeAt(r)-64)*Math.pow(26,o[0].length-1-r);--n<0&&(n=0);var l=parseInt(/[0-9]+$/.exec(e));l>0&&l--,e=1==t?[n,l]:n+"-"+l}return e},jexcel.getColumnNameFromId=function(e){return Array.isArray(e)||(e=e.split("-")),jexcel.getColumnName(parseInt(e[0]))+(parseInt(e[1])+1)},jexcel.getElement=function(e){var t=0,o=0;return function e(n){n.className&&n.classList.contains("jexcel_container")&&(o=n),"THEAD"==n.tagName?t=1:"TBODY"==n.tagName&&(t=2),n.parentNode&&(o||e(n.parentNode))}(e),[o,t]},jexcel.doubleDigitFormat=function(e){return 1==(e=""+e).length&&(e="0"+e),e},jexcel.createFromTable=function(e,t){if("TABLE"==e.tagName){t||(t={}),t.columns=[],t.data=[];var o=e.querySelectorAll("colgroup > col");if(o.length)for(var n=0;n<o.length;n++){if(!(r=o[n].style.width))var r=o[n].getAttribute("width");r&&(t.columns[n]||(t.columns[n]={}),t.columns[n].width=r)}var l=function(e){var o=e.getBoundingClientRect(),r=o.width>50?o.width:50;t.columns[n]||(t.columns[n]={}),e.getAttribute("data-celltype")?t.columns[n].type=e.getAttribute("data-celltype"):t.columns[n].type="text",t.columns[n].width=r+"px",t.columns[n].title=e.innerHTML,t.columns[n].align=e.style.textAlign||"center",(o=e.getAttribute("name"))&&(t.columns[n].name=o),(o=e.getAttribute("id"))&&(t.columns[n].id=o),(o=e.getAttribute("data-mask"))&&(t.columns[n].mask=o)},i=[],s=e.querySelectorAll(":scope > thead > tr");if(s.length){for(var a=0;a<s.length-1;a++){var u=[];for(n=0;n<s[a].children.length;n++){var c={title:s[a].children[n].textContent,colspan:s[a].children[n].getAttribute("colspan")||1};u.push(c)}i.push(u)}for(s=s[s.length-1].children,n=0;n<s.length;n++)l(s[n])}var f=0,d={},p={},b={},j={},h=e.querySelectorAll(":scope > tr, :scope > tbody > tr");for(a=0;a<h.length;a++)if(t.data[f]=[],1!=t.parseTableFirstRowAsHeader||s.length||0!=a){for(n=0;n<h[a].children.length;n++){if(g=h[a].children[n].getAttribute("data-formula"))"="!=g.substr(0,1)&&(g="="+g);else var g=h[a].children[n].innerHTML;t.data[f].push(g);var m=jexcel.getColumnNameFromId([n,a]),v=h[a].children[n].getAttribute("class");v&&(j[m]=v);var y=parseInt(h[a].children[n].getAttribute("colspan"))||0,C=parseInt(h[a].children[n].getAttribute("rowspan"))||0;(y||C)&&(d[m]=[y||1,C||1]),h[a].children[n].style&&"none"==h[a].children[n].style.display&&(h[a].children[n].style.display="");var x=h[a].children[n].getAttribute("style");x&&(b[m]=x),h[a].children[n].classList.contains("styleBold")&&(b[m]?b[m]+="; font-weight:bold;":b[m]="font-weight:bold;")}h[a].style&&h[a].style.height&&(p[a]={height:h[a].style.height}),f++}else for(n=0;n<h[a].children.length;n++)l(h[a].children[n]);if(Object.keys(i).length>0&&(t.nestedHeaders=i),Object.keys(b).length>0&&(t.style=b),Object.keys(d).length>0&&(t.mergeCells=d),Object.keys(p).length>0&&(t.rows=p),Object.keys(j).length>0&&(t.classes=j),(h=e.querySelectorAll("tfoot tr")).length){var w=[];for(a=0;a<h.length;a++){var A=[];for(n=0;n<h[a].children.length;n++)A.push(h[a].children[n].textContent);w.push(A)}Object.keys(w).length>0&&(t.footers=w)}if(1==t.parseTableAutoCellType){var E=[];for(n=0;n<t.columns.length;n++){var M=!0,I=!0;for(E[n]=[],a=0;a<t.data.length;a++)g=t.data[a][n],E[n][g]||(E[n][g]=0),E[n][g]++,g.length>25&&(M=!1),10==g.length&&"-"==g.substr(4,1)&&"-"==g.substr(7,1)||(I=!1);var N=Object.keys(E[n]).length;I?t.columns[n].type="calendar":1==M&&N>1&&N<=parseInt(.1*t.data.length)&&(t.columns[n].type="dropdown",t.columns[n].source=Object.keys(E[n]))}}return t}console.log("Element is not a table")},jexcel.helpers=(component={getCaretIndex:function(e){if(this.config.root)var t=this.config.root;else t=window;var o=0,n=t.getSelection();if(n&&0!==n.rangeCount){var r=n.getRangeAt(0),l=r.cloneRange();l.selectNodeContents(e),l.setEnd(r.endContainer,r.endOffset),o=l.toString().length}return o},invert:function(e){for(var t=[],o=Object.keys(e),n=0;n<o.length;n++)t[e[o[n]]]=o[n];return t},getColumnName:function(e){var t="";return e>701?(t+=String.fromCharCode(64+parseInt(e/676)),t+=String.fromCharCode(64+parseInt(e%676/26))):e>25&&(t+=String.fromCharCode(64+parseInt(e/26))),t+String.fromCharCode(65+e%26)},getColumnNameFromCoords:function(e,t){return component.getColumnName(parseInt(e))+(parseInt(t)+1)},getCoordsFromColumnName:function(e){var t=/^[a-zA-Z]+/.exec(e);if(t){for(var o=0,n=0;n<t[0].length;n++)o+=parseInt(t[0].charCodeAt(n)-64)*Math.pow(26,t[0].length-1-n);--o<0&&(o=0);var r=parseInt(/[0-9]+$/.exec(e))||null;return r>0&&r--,[o,r]}},createFromTable:function(){},injectArray:function(e,t,o){return e.slice(0,t).concat(o).concat(e.slice(t))},parseCSV:function(e,t){t=t||",";for(var o=0,n=0,r=[[]],l=0,i=null,s=!1,a=!1,u=0;u<e.length;u++)if(r[n]||(r[n]=[]),r[n][o]||(r[n][o]=""),"\r"!=e[u])if("\n"!=e[u]&&e[u]!=t||0!=s&&1!=a&&i){if('"'==e[u]&&(s=!s),null===i){if(1==(i=s))continue}else if(!0===i&&!a&&'"'==e[u]){'"'==e[u+1]?(s=!0,r[n][o]+=e[u],u++):a=!0;continue}r[n][o]+=e[u]}else{if(i=null,s=!1,a=!1,'"'==r[n][o][0]){var c=r[n][o].trim();'"'==c[c.length-1]&&(r[n][o]=c.substr(1,c.length-2))}"\n"==e[u]?(o=0,n++):++o>l&&(l=o)}for(var f=0;f<r.length;f++)for(u=0;u<=l;u++)void 0===r[f][u]&&(r[f][u]="");return r}},component),"undefined"!=typeof jQuery&&function(e){e.fn.jspreadsheet=e.fn.jexcel=function(t){var o=e(this).get(0);return o.jexcel?Array.isArray(o.jexcel)?o.jexcel[t][arguments[1]].apply(this,Array.prototype.slice.call(arguments,2)):o.jexcel[t].apply(this,Array.prototype.slice.call(arguments,1)):jexcel(e(this).get(0),arguments[0])}}(jQuery),jexcel},module.exports=factory()}},__webpack_module_cache__={};function __webpack_require__(e){var t=__webpack_module_cache__[e];if(void 0!==t)return t.exports;var o=__webpack_module_cache__[e]={exports:{}};return __webpack_modules__[e].call(o.exports,o,o.exports,__webpack_require__),o.exports}var __webpack_exports__=__webpack_require__(138);return __webpack_exports__}()}));
+/**
+ * Jspreadsheet v4.11.1
+ *
+ * Website: https://bossanova.uk/jspreadsheet/
+ * Description: Create amazing web based spreadsheets.
+ *
+ * This software is distribute under MIT License
+ */
+
+var formula = (function() {
+    // Based on sutoiku work (https://github.com/sutoiku)
+    var error = (function() {
+        var exports = {};
+
+        exports.nil = new Error('#NULL!');
+        exports.div0 = new Error('#DIV/0!');
+        exports.value = new Error('#VALUE!');
+        exports.ref = new Error('#REF!');
+        exports.name = new Error('#NAME?');
+        exports.num = new Error('#NUM!');
+        exports.na = new Error('#N/A');
+        exports.error = new Error('#ERROR!');
+        exports.data = new Error('#GETTING_DATA');
+
+        return exports;
+    })();
+
+    var utils = (function() {
+        var exports = {};
+
+        exports.flattenShallow = function(array) {
+            if (!array || !array.reduce) {
+                return array;
+            }
+
+            return array.reduce(function(a, b) {
+                var aIsArray = Array.isArray(a);
+                var bIsArray = Array.isArray(b);
+
+                if (aIsArray && bIsArray) {
+                    return a.concat(b);
+                }
+                if (aIsArray) {
+                    a.push(b);
+
+                    return a;
+                }
+                if (bIsArray) {
+                    return [ a ].concat(b);
+                }
+
+                return [ a, b ];
+            });
+        };
+
+        exports.isFlat = function(array) {
+            if (!array) {
+                return false;
+            }
+
+            for (var i = 0; i < array.length; ++i) {
+                if (Array.isArray(array[i])) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        exports.flatten = function() {
+            var result = exports.argsToArray.apply(null, arguments);
+
+            while (!exports.isFlat(result)) {
+                result = exports.flattenShallow(result);
+            }
+
+            return result;
+        };
+
+        exports.argsToArray = function(args) {
+            var result = [];
+
+            exports.arrayEach(args, function(value) {
+                result.push(value);
+            });
+
+            return result;
+        };
+
+        exports.numbers = function() {
+            var possibleNumbers = this.flatten.apply(null, arguments);
+            return possibleNumbers.filter(function(el) {
+                return typeof el === 'number';
+            });
+        };
+
+        exports.cleanFloat = function(number) {
+            var power = 1e14;
+            return Math.round(number * power) / power;
+        };
+
+        exports.parseBool = function(bool) {
+            if (typeof bool === 'boolean') {
+                return bool;
+            }
+
+            if (bool instanceof Error) {
+                return bool;
+            }
+
+            if (typeof bool === 'number') {
+                return bool !== 0;
+            }
+
+            if (typeof bool === 'string') {
+                var up = bool.toUpperCase();
+                if (up === 'TRUE') {
+                    return true;
+                }
+
+                if (up === 'FALSE') {
+                    return false;
+                }
+            }
+
+            if (bool instanceof Date && !isNaN(bool)) {
+                return true;
+            }
+
+            return error.value;
+        };
+
+        exports.parseNumber = function(string) {
+            if (string === undefined || string === '') {
+                return error.value;
+            }
+            if (!isNaN(string)) {
+                return parseFloat(string);
+            }
+
+            return error.value;
+        };
+
+        exports.parseNumberArray = function(arr) {
+            var len;
+
+            if (!arr || (len = arr.length) === 0) {
+                return error.value;
+            }
+
+            var parsed;
+
+            while (len--) {
+                parsed = exports.parseNumber(arr[len]);
+                if (parsed === error.value) {
+                    return parsed;
+                }
+                arr[len] = parsed;
+            }
+
+            return arr;
+        };
+
+        exports.parseMatrix = function(matrix) {
+            var n;
+
+            if (!matrix || (n = matrix.length) === 0) {
+                return error.value;
+            }
+            var pnarr;
+
+            for (var i = 0; i < matrix.length; i++) {
+                pnarr = exports.parseNumberArray(matrix[i]);
+                matrix[i] = pnarr;
+
+                if (pnarr instanceof Error) {
+                    return pnarr;
+                }
+            }
+
+            return matrix;
+        };
+
+        var d1900 = new Date(Date.UTC(1900, 0, 1));
+        exports.parseDate = function(date) {
+            if (!isNaN(date)) {
+                if (date instanceof Date) {
+                    return new Date(date);
+                }
+                var d = parseInt(date, 10);
+                if (d < 0) {
+                    return error.num;
+                }
+                if (d <= 60) {
+                    return new Date(d1900.getTime() + (d - 1) * 86400000);
+                }
+                return new Date(d1900.getTime() + (d - 2) * 86400000);
+            }
+            if (typeof date === 'string') {
+                date = new Date(date);
+                if (!isNaN(date)) {
+                    return date;
+                }
+            }
+            return error.value;
+        };
+
+        exports.parseDateArray = function(arr) {
+            var len = arr.length;
+            var parsed;
+            while (len--) {
+                parsed = this.parseDate(arr[len]);
+                if (parsed === error.value) {
+                    return parsed;
+                }
+                arr[len] = parsed;
+            }
+            return arr;
+        };
+
+        exports.anyIsError = function() {
+            var n = arguments.length;
+            while (n--) {
+                if (arguments[n] instanceof Error) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        exports.arrayValuesToNumbers = function(arr) {
+            var n = arr.length;
+            var el;
+            while (n--) {
+                el = arr[n];
+                if (typeof el === 'number') {
+                    continue;
+                }
+                if (el === true) {
+                    arr[n] = 1;
+                    continue;
+                }
+                if (el === false) {
+                    arr[n] = 0;
+                    continue;
+                }
+                if (typeof el === 'string') {
+                    var number = this.parseNumber(el);
+                    if (number instanceof Error) {
+                        arr[n] = 0;
+                    } else {
+                        arr[n] = number;
+                    }
+                }
+            }
+            return arr;
+        };
+
+        exports.rest = function(array, idx) {
+            idx = idx || 1;
+            if (!array || typeof array.slice !== 'function') {
+                return array;
+            }
+            return array.slice(idx);
+        };
+
+        exports.initial = function(array, idx) {
+            idx = idx || 1;
+            if (!array || typeof array.slice !== 'function') {
+                return array;
+            }
+            return array.slice(0, array.length - idx);
+        };
+
+        exports.arrayEach = function(array, iteratee) {
+            var index = -1, length = array.length;
+
+            while (++index < length) {
+                if (iteratee(array[index], index, array) === false) {
+                    break;
+                }
+            }
+
+            return array;
+        };
+
+        exports.transpose = function(matrix) {
+            if (!matrix) {
+                return error.value;
+            }
+
+            return matrix[0].map(function(col, i) {
+                return matrix.map(function(row) {
+                    return row[i];
+                });
+            });
+        };
+
+        return exports;
+    })();
+
+    var met = {};
+
+    met.datetime = (function() {
+        var exports = {};
+
+        var d1900 = new Date(1900, 0, 1);
+        var WEEK_STARTS = [
+            undefined,
+            0,
+            1,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            0
+        ];
+        var WEEK_TYPES = [
+            [],
+            [1, 2, 3, 4, 5, 6, 7],
+            [7, 1, 2, 3, 4, 5, 6],
+            [6, 0, 1, 2, 3, 4, 5],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [7, 1, 2, 3, 4, 5, 6],
+            [6, 7, 1, 2, 3, 4, 5],
+            [5, 6, 7, 1, 2, 3, 4],
+            [4, 5, 6, 7, 1, 2, 3],
+            [3, 4, 5, 6, 7, 1, 2],
+            [2, 3, 4, 5, 6, 7, 1],
+            [1, 2, 3, 4, 5, 6, 7]
+        ];
+        var WEEKEND_TYPES = [
+            [],
+            [6, 0],
+            [0, 1],
+            [1, 2],
+            [2, 3],
+            [3, 4],
+            [4, 5],
+            [5, 6],
+            undefined,
+            undefined,
+            undefined, [0, 0],
+            [1, 1],
+            [2, 2],
+            [3, 3],
+            [4, 4],
+            [5, 5],
+            [6, 6]
+        ];
+
+        exports.DATE = function(year, month, day) {
+            year = utils.parseNumber(year);
+            month = utils.parseNumber(month);
+            day = utils.parseNumber(day);
+            if (utils.anyIsError(year, month, day)) {
+                return error.value;
+            }
+            if (year < 0 || month < 0 || day < 0) {
+                return error.num;
+            }
+            var date = new Date(year, month - 1, day);
+            return date;
+        };
+
+        exports.DATEVALUE = function(date_text) {
+            if (typeof date_text !== 'string') {
+                return error.value;
+            }
+            var date = Date.parse(date_text);
+            if (isNaN(date)) {
+                return error.value;
+            }
+            if (date <= -2203891200000) {
+                return (date - d1900) / 86400000 + 1;
+            }
+            return (date - d1900) / 86400000 + 2;
+        };
+
+        exports.DAY = function(serial_number) {
+            var date = utils.parseDate(serial_number);
+            if (date instanceof Error) {
+                return date;
+            }
+            return date.getDate();
+        };
+
+        exports.DAYS = function(end_date, start_date) {
+            end_date = utils.parseDate(end_date);
+            start_date = utils.parseDate(start_date);
+            if (end_date instanceof Error) {
+                return end_date;
+            }
+            if (start_date instanceof Error) {
+                return start_date;
+            }
+            return serial(end_date) - serial(start_date);
+        };
+
+        exports.DAYS360 = function(start_date, end_date, method) {
+        };
+
+        exports.EDATE = function(start_date, months) {
+            start_date = utils.parseDate(start_date);
+            if (start_date instanceof Error) {
+                return start_date;
+            }
+            if (isNaN(months)) {
+                return error.value;
+            }
+            months = parseInt(months, 10);
+            start_date.setMonth(start_date.getMonth() + months);
+            return serial(start_date);
+        };
+
+        exports.EOMONTH = function(start_date, months) {
+            start_date = utils.parseDate(start_date);
+            if (start_date instanceof Error) {
+                return start_date;
+            }
+            if (isNaN(months)) {
+                return error.value;
+            }
+            months = parseInt(months, 10);
+            return serial(new Date(start_date.getFullYear(), start_date.getMonth() + months + 1, 0));
+        };
+
+        exports.HOUR = function(serial_number) {
+            serial_number = utils.parseDate(serial_number);
+            if (serial_number instanceof Error) {
+                return serial_number;
+            }
+            return serial_number.getHours();
+        };
+
+        exports.INTERVAL = function(second) {
+            if (typeof second !== 'number' && typeof second !== 'string') {
+                return error.value;
+            } else {
+                second = parseInt(second, 10);
+            }
+
+            var year  = Math.floor(second/946080000);
+            second    = second%946080000;
+            var month = Math.floor(second/2592000);
+            second    = second%2592000;
+            var day   = Math.floor(second/86400);
+            second    = second%86400;
+
+            var hour  = Math.floor(second/3600);
+            second    = second%3600;
+            var min   = Math.floor(second/60);
+            second    = second%60;
+            var sec   = second;
+
+            year  = (year  > 0) ? year  + 'Y' : '';
+            month = (month > 0) ? month + 'M' : '';
+            day   = (day   > 0) ? day   + 'D' : '';
+            hour  = (hour  > 0) ? hour  + 'H' : '';
+            min   = (min   > 0) ? min   + 'M' : '';
+            sec   = (sec   > 0) ? sec   + 'S' : '';
+
+            return 'P' + year + month + day + 'T' + hour + min + sec;
+        };
+
+        exports.ISOWEEKNUM = function(date) {
+            date = utils.parseDate(date);
+            if (date instanceof Error) {
+                return date;
+            }
+
+            date.setHours(0, 0, 0);
+            date.setDate(date.getDate() + 4 - (date.getDay() || 7));
+            var yearStart = new Date(date.getFullYear(), 0, 1);
+            return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+        };
+
+        exports.MINUTE = function(serial_number) {
+            serial_number = utils.parseDate(serial_number);
+            if (serial_number instanceof Error) {
+                return serial_number;
+            }
+            return serial_number.getMinutes();
+        };
+
+        exports.MONTH = function(serial_number) {
+            serial_number = utils.parseDate(serial_number);
+            if (serial_number instanceof Error) {
+                return serial_number;
+            }
+            return serial_number.getMonth() + 1;
+        };
+
+        exports.NETWORKDAYS = function(start_date, end_date, holidays) {
+        };
+
+        exports.NETWORKDAYS.INTL = function(start_date, end_date, weekend, holidays) {
+        };
+
+        exports.NOW = function() {
+            return new Date();
+        };
+
+        exports.SECOND = function(serial_number) {
+            serial_number = utils.parseDate(serial_number);
+            if (serial_number instanceof Error) {
+                return serial_number;
+            }
+            return serial_number.getSeconds();
+        };
+
+        exports.TIME = function(hour, minute, second) {
+            hour = utils.parseNumber(hour);
+            minute = utils.parseNumber(minute);
+            second = utils.parseNumber(second);
+            if (utils.anyIsError(hour, minute, second)) {
+                return error.value;
+            }
+            if (hour < 0 || minute < 0 || second < 0) {
+                return error.num;
+            }
+            return (3600 * hour + 60 * minute + second) / 86400;
+        };
+
+        exports.TIMEVALUE = function(time_text) {
+            time_text = utils.parseDate(time_text);
+            if (time_text instanceof Error) {
+                return time_text;
+            }
+            return (3600 * time_text.getHours() + 60 * time_text.getMinutes() + time_text.getSeconds()) / 86400;
+        };
+
+        exports.TODAY = function() {
+            return new Date();
+        };
+
+        exports.WEEKDAY = function(serial_number, return_type) {
+            serial_number = utils.parseDate(serial_number);
+            if (serial_number instanceof Error) {
+                return serial_number;
+            }
+            if (return_type === undefined) {
+                return_type = 1;
+            }
+            var day = serial_number.getDay();
+            return WEEK_TYPES[return_type][day];
+        };
+
+        exports.WEEKNUM = function(serial_number, return_type) {
+        };
+
+        exports.WORKDAY = function(start_date, days, holidays) {
+        };
+
+        exports.WORKDAY.INTL = function(start_date, days, weekend, holidays) {
+        };
+
+        exports.YEAR = function(serial_number) {
+            serial_number = utils.parseDate(serial_number);
+            if (serial_number instanceof Error) {
+                return serial_number;
+            }
+            return serial_number.getFullYear();
+        };
+
+        function isLeapYear(year) {
+            return new Date(year, 1, 29).getMonth() === 1;
+        }
+
+        exports.YEARFRAC = function(start_date, end_date, basis) {
+        };
+
+        function serial(date) {
+            var addOn = (date > -2203891200000)?2:1;
+            return (date - d1900) / 86400000 + addOn;
+        }
+
+        return exports;
+    })();
+
+    met.database = (function() {
+        var exports = {};
+
+        function compact(array) {
+            if (!array) {
+                return array;
+            }
+            var result = [];
+            for (var i = 0; i < array.length; ++i) {
+                if (!array[i]) {
+                    continue;
+                }
+                result.push(array[i]);
+            }
+            return result;
+        }
+
+        exports.FINDFIELD = function(database, title) {
+            var index = null;
+            for (var i = 0; i < database.length; i++) {
+                if (database[i][0] === title) {
+                    index = i;
+                    break;
+                }
+            }
+
+            // Return error if the input field title is incorrect
+            if (index == null) {
+                return error.value;
+            }
+            return index;
+        };
+
+        function findResultIndex(database, criterias) {
+            var matches = {};
+            for (var i = 1; i < database[0].length; ++i) {
+                matches[i] = true;
+            }
+            var maxCriteriaLength = criterias[0].length;
+            for (i = 1; i < criterias.length; ++i) {
+                if (criterias[i].length > maxCriteriaLength) {
+                    maxCriteriaLength = criterias[i].length;
+                }
+            }
+
+            for (var k = 1; k < database.length; ++k) {
+                for (var l = 1; l < database[k].length; ++l) {
+                    var currentCriteriaResult = false;
+                    var hasMatchingCriteria = false;
+                    for (var j = 0; j < criterias.length; ++j) {
+                        var criteria = criterias[j];
+                        if (criteria.length < maxCriteriaLength) {
+                            continue;
+                        }
+
+                        var criteriaField = criteria[0];
+                        if (database[k][0] !== criteriaField) {
+                            continue;
+                        }
+                        hasMatchingCriteria = true;
+                        for (var p = 1; p < criteria.length; ++p) {
+                            currentCriteriaResult = currentCriteriaResult
+                                || eval(database[k][l] + criteria[p]); // jshint
+                            // ignore:line
+                        }
+                    }
+                    if (hasMatchingCriteria) {
+                        matches[l] = matches[l] && currentCriteriaResult;
+                    }
+                }
+            }
+
+            var result = [];
+            for (var n = 0; n < database[0].length; ++n) {
+                if (matches[n]) {
+                    result.push(n - 1);
+                }
+            }
+            return result;
+        }
+
+        // Database functions
+        exports.DAVERAGE = function(database, field, criteria) {
+            // Return error if field is not a number and not a string
+            if (isNaN(field) && (typeof field !== "string")) {
+                return error.value;
+            }
+            var resultIndexes = findResultIndex(database, criteria);
+            var targetFields = [];
+            if (typeof field === "string") {
+                var index = exports.FINDFIELD(database, field);
+                targetFields = utils.rest(database[index]);
+            } else {
+                targetFields = utils.rest(database[field]);
+            }
+            var sum = 0;
+            for (var i = 0; i < resultIndexes.length; i++) {
+                sum += targetFields[resultIndexes[i]];
+            }
+            return resultIndexes.length === 0 ? error.div0 : sum / resultIndexes.length;
+        };
+
+        exports.DCOUNT = function(database, field, criteria) {
+        };
+
+        exports.DCOUNTA = function(database, field, criteria) {
+        };
+
+        exports.DGET = function(database, field, criteria) {
+            // Return error if field is not a number and not a string
+            if (isNaN(field) && (typeof field !== "string")) {
+                return error.value;
+            }
+            var resultIndexes = findResultIndex(database, criteria);
+            var targetFields = [];
+            if (typeof field === "string") {
+                var index = exports.FINDFIELD(database, field);
+                targetFields = utils.rest(database[index]);
+            } else {
+                targetFields = utils.rest(database[field]);
+            }
+            // Return error if no record meets the criteria
+            if (resultIndexes.length === 0) {
+                return error.value;
+            }
+            // Returns the #NUM! error value because more than one record meets the
+            // criteria
+            if (resultIndexes.length > 1) {
+                return error.num;
+            }
+
+            return targetFields[resultIndexes[0]];
+        };
+
+        exports.DMAX = function(database, field, criteria) {
+            // Return error if field is not a number and not a string
+            if (isNaN(field) && (typeof field !== "string")) {
+                return error.value;
+            }
+            var resultIndexes = findResultIndex(database, criteria);
+            var targetFields = [];
+            if (typeof field === "string") {
+                var index = exports.FINDFIELD(database, field);
+                targetFields = utils.rest(database[index]);
+            } else {
+                targetFields = utils.rest(database[field]);
+            }
+            var maxValue = targetFields[resultIndexes[0]];
+            for (var i = 1; i < resultIndexes.length; i++) {
+                if (maxValue < targetFields[resultIndexes[i]]) {
+                    maxValue = targetFields[resultIndexes[i]];
+                }
+            }
+            return maxValue;
+        };
+
+        exports.DMIN = function(database, field, criteria) {
+            // Return error if field is not a number and not a string
+            if (isNaN(field) && (typeof field !== "string")) {
+                return error.value;
+            }
+            var resultIndexes = findResultIndex(database, criteria);
+            var targetFields = [];
+            if (typeof field === "string") {
+                var index = exports.FINDFIELD(database, field);
+                targetFields = utils.rest(database[index]);
+            } else {
+                targetFields = utils.rest(database[field]);
+            }
+            var minValue = targetFields[resultIndexes[0]];
+            for (var i = 1; i < resultIndexes.length; i++) {
+                if (minValue > targetFields[resultIndexes[i]]) {
+                    minValue = targetFields[resultIndexes[i]];
+                }
+            }
+            return minValue;
+        };
+
+        exports.DPRODUCT = function(database, field, criteria) {
+            // Return error if field is not a number and not a string
+            if (isNaN(field) && (typeof field !== "string")) {
+                return error.value;
+            }
+            var resultIndexes = findResultIndex(database, criteria);
+            var targetFields = [];
+            if (typeof field === "string") {
+                var index = exports.FINDFIELD(database, field);
+                targetFields = utils.rest(database[index]);
+            } else {
+                targetFields = utils.rest(database[field]);
+            }
+            var targetValues = [];
+            for (var i = 0; i < resultIndexes.length; i++) {
+                targetValues[i] = targetFields[resultIndexes[i]];
+            }
+            targetValues = compact(targetValues);
+            var result = 1;
+            for (i = 0; i < targetValues.length; i++) {
+                result *= targetValues[i];
+            }
+            return result;
+        };
+
+        exports.DSTDEV = function(database, field, criteria) {
+        };
+
+        exports.DSTDEVP = function(database, field, criteria) {
+        };
+
+        exports.DSUM = function(database, field, criteria) {
+        };
+
+        exports.DVAR = function(database, field, criteria) {
+        };
+
+        exports.DVARP = function(database, field, criteria) {
+        };
+
+        exports.MATCH = function(lookupValue, lookupArray, matchType) {
+            if (!lookupValue && !lookupArray) {
+                return error.na;
+            }
+            if (arguments.length === 2) {
+                matchType = 1;
+            }
+            if (!(lookupArray instanceof Array)) {
+                return error.na;
+            }
+            if (matchType !== -1 && matchType !== 0 && matchType !== 1) {
+                return error.na;
+            }
+
+            var index;
+            var indexValue;
+
+            for (var idx = 0; idx < lookupArray.length; idx++) {
+                if (matchType === 1) {
+                    if (lookupArray[idx] === lookupValue) {
+                        return idx + 1;
+                    } else if (lookupArray[idx] < lookupValue) {
+                        if (!indexValue) {
+                            index = idx + 1;
+                            indexValue = lookupArray[idx];
+                        } else if (lookupArray[idx] > indexValue) {
+                            index = idx + 1;
+                            indexValue = lookupArray[idx];
+                        }
+                    }
+                } else if (matchType === 0) {
+                    if (typeof lookupValue === 'string') {
+                        lookupValue = lookupValue.replace(/\?/g, '.');
+                        if (lookupArray[idx].toLowerCase().match(lookupValue.toLowerCase())) {
+                            return idx + 1;
+                        }
+                    } else {
+                        if (lookupArray[idx] === lookupValue) {
+                            return idx + 1;
+                        }
+                    }
+                } else if (matchType === -1) {
+                    if (lookupArray[idx] === lookupValue) {
+                        return idx + 1;
+                    } else if (lookupArray[idx] > lookupValue) {
+                        if (!indexValue) {
+                            index = idx + 1;
+                            indexValue = lookupArray[idx];
+                        } else if (lookupArray[idx] < indexValue) {
+                            index = idx + 1;
+                            indexValue = lookupArray[idx];
+                        }
+                    }
+                }
+            }
+
+            return index ? index : error.na;
+        };
+
+        return exports;
+    })();
+
+    met.engineering = (function() {
+        var exports = {};
+
+        function isValidBinaryNumber(number) {
+            return (/^[01]{1,10}$/).test(number);
+        }
+
+        exports.BESSELI = function(x, n) {
+        };
+
+        exports.BESSELJ = function(x, n) {
+        };
+
+        exports.BESSELK = function(x, n) {
+        };
+
+        exports.BESSELY = function(x, n) {
+        };
+
+        exports.BIN2DEC = function(number) {
+            // Return error if number is not binary or contains more than 10
+            // characters (10 digits)
+            if (!isValidBinaryNumber(number)) {
+                return error.num;
+            }
+
+            // Convert binary number to decimal
+            var result = parseInt(number, 2);
+
+            // Handle negative numbers
+            var stringified = number.toString();
+            if (stringified.length === 10 && stringified.substring(0, 1) === '1') {
+                return parseInt(stringified.substring(1), 2) - 512;
+            } else {
+                return result;
+            }
+        };
+
+        exports.BIN2HEX = function(number, places) {
+            // Return error if number is not binary or contains more than 10
+            // characters (10 digits)
+            if (!isValidBinaryNumber(number)) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character hexadecimal number if number
+            // is negative
+            var stringified = number.toString();
+            if (stringified.length === 10 && stringified.substring(0, 1) === '1') {
+                return (1099511627264 + parseInt(stringified.substring(1), 2)).toString(16);
+            }
+
+            // Convert binary number to hexadecimal
+            var result = parseInt(number, 2).toString(16);
+
+            // Return hexadecimal number using the minimum number of characters
+            // necessary if places is undefined
+            if (places === undefined) {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.BIN2OCT = function(number, places) {
+            // Return error if number is not binary or contains more than 10
+            // characters (10 digits)
+            if (!isValidBinaryNumber(number)) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character octal number if number is
+            // negative
+            var stringified = number.toString();
+            if (stringified.length === 10 && stringified.substring(0, 1) === '1') {
+                return (1073741312 + parseInt(stringified.substring(1), 2)).toString(8);
+            }
+
+            // Convert binary number to octal
+            var result = parseInt(number, 2).toString(8);
+
+            // Return octal number using the minimum number of characters necessary
+            // if places is undefined
+            if (places === undefined) {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.BITAND = function(number1, number2) {
+            // Return error if either number is a non-numeric value
+            number1 = utils.parseNumber(number1);
+            number2 = utils.parseNumber(number2);
+            if (utils.anyIsError(number1, number2)) {
+                return error.value;
+            }
+
+            // Return error if either number is less than 0
+            if (number1 < 0 || number2 < 0) {
+                return error.num;
+            }
+
+            // Return error if either number is a non-integer
+            if (Math.floor(number1) !== number1 || Math.floor(number2) !== number2) {
+                return error.num;
+            }
+
+            // Return error if either number is greater than (2^48)-1
+            if (number1 > 281474976710655 || number2 > 281474976710655) {
+                return error.num;
+            }
+
+            // Return bitwise AND of two numbers
+            return number1 & number2;
+        };
+
+        exports.BITLSHIFT = function(number, shift) {
+            number = utils.parseNumber(number);
+            shift = utils.parseNumber(shift);
+            if (utils.anyIsError(number, shift)) {
+                return error.value;
+            }
+
+            // Return error if number is less than 0
+            if (number < 0) {
+                return error.num;
+            }
+
+            // Return error if number is a non-integer
+            if (Math.floor(number) !== number) {
+                return error.num;
+            }
+
+            // Return error if number is greater than (2^48)-1
+            if (number > 281474976710655) {
+                return error.num;
+            }
+
+            // Return error if the absolute value of shift is greater than 53
+            if (Math.abs(shift) > 53) {
+                return error.num;
+            }
+
+            // Return number shifted by shift bits to the left or to the right if
+            // shift is negative
+            return (shift >= 0) ? number << shift : number >> -shift;
+        };
+
+        exports.BITOR = function(number1, number2) {
+            number1 = utils.parseNumber(number1);
+            number2 = utils.parseNumber(number2);
+            if (utils.anyIsError(number1, number2)) {
+                return error.value;
+            }
+
+            // Return error if either number is less than 0
+            if (number1 < 0 || number2 < 0) {
+                return error.num;
+            }
+
+            // Return error if either number is a non-integer
+            if (Math.floor(number1) !== number1 || Math.floor(number2) !== number2) {
+                return error.num;
+            }
+
+            // Return error if either number is greater than (2^48)-1
+            if (number1 > 281474976710655 || number2 > 281474976710655) {
+                return error.num;
+            }
+
+            // Return bitwise OR of two numbers
+            return number1 | number2;
+        };
+
+        exports.BITRSHIFT = function(number, shift) {
+            number = utils.parseNumber(number);
+            shift = utils.parseNumber(shift);
+            if (utils.anyIsError(number, shift)) {
+                return error.value;
+            }
+
+            // Return error if number is less than 0
+            if (number < 0) {
+                return error.num;
+            }
+
+            // Return error if number is a non-integer
+            if (Math.floor(number) !== number) {
+                return error.num;
+            }
+
+            // Return error if number is greater than (2^48)-1
+            if (number > 281474976710655) {
+                return error.num;
+            }
+
+            // Return error if the absolute value of shift is greater than 53
+            if (Math.abs(shift) > 53) {
+                return error.num;
+            }
+
+            // Return number shifted by shift bits to the right or to the left if
+            // shift is negative
+            return (shift >= 0) ? number >> shift : number << -shift;
+        };
+
+        exports.BITXOR = function(number1, number2) {
+            number1 = utils.parseNumber(number1);
+            number2 = utils.parseNumber(number2);
+            if (utils.anyIsError(number1, number2)) {
+                return error.value;
+            }
+
+            // Return error if either number is less than 0
+            if (number1 < 0 || number2 < 0) {
+                return error.num;
+            }
+
+            // Return error if either number is a non-integer
+            if (Math.floor(number1) !== number1 || Math.floor(number2) !== number2) {
+                return error.num;
+            }
+
+            // Return error if either number is greater than (2^48)-1
+            if (number1 > 281474976710655 || number2 > 281474976710655) {
+                return error.num;
+            }
+
+            // Return bitwise XOR of two numbers
+            return number1 ^ number2;
+        };
+
+        exports.COMPLEX = function(real, imaginary, suffix) {
+            real = utils.parseNumber(real);
+            imaginary = utils.parseNumber(imaginary);
+            if (utils.anyIsError(real, imaginary)) {
+                return real;
+            }
+
+            // Set suffix
+            suffix = (suffix === undefined) ? 'i' : suffix;
+
+            // Return error if suffix is neither "i" nor "j"
+            if (suffix !== 'i' && suffix !== 'j') {
+                return error.value;
+            }
+
+            // Return complex number
+            if (real === 0 && imaginary === 0) {
+                return 0;
+            } else if (real === 0) {
+                return (imaginary === 1) ? suffix : imaginary.toString() + suffix;
+            } else if (imaginary === 0) {
+                return real.toString();
+            } else {
+                var sign = (imaginary > 0) ? '+' : '';
+                return real.toString() + sign + ((imaginary === 1) ? suffix : imaginary.toString() + suffix);
+            }
+        };
+
+        exports.CONVERT = function(number, from_unit, to_unit) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+
+            // List of units supported by CONVERT and units defined by the
+            // International System of Units
+            // [Name, Symbol, Alternate symbols, Quantity, ISU, CONVERT, Conversion
+            // ratio]
+            var units = [
+                ["a.u. of action", "?", null, "action", false, false, 1.05457168181818e-34],
+                ["a.u. of charge", "e", null, "electric_charge", false, false, 1.60217653141414e-19],
+                ["a.u. of energy", "Eh", null, "energy", false, false, 4.35974417757576e-18],
+                ["a.u. of length", "a?", null, "length", false, false, 5.29177210818182e-11],
+                ["a.u. of mass", "m?", null, "mass", false, false, 9.10938261616162e-31],
+                ["a.u. of time", "?/Eh", null, "time", false, false, 2.41888432650516e-17],
+                ["admiralty knot", "admkn", null, "speed", false, true, 0.514773333],
+                ["ampere", "A", null, "electric_current", true, false, 1],
+                ["ampere per meter", "A/m", null, "magnetic_field_intensity", true, false, 1],
+                ["ångström", "Å", ["ang"], "length", false, true, 1e-10],
+                ["are", "ar", null, "area", false, true, 100],
+                ["astronomical unit", "ua", null, "length", false, false, 1.49597870691667e-11],
+                ["bar", "bar", null, "pressure", false, false, 100000],
+                ["barn", "b", null, "area", false, false, 1e-28],
+                ["becquerel", "Bq", null, "radioactivity", true, false, 1],
+                ["bit", "bit", ["b"], "information", false, true, 1],
+                ["btu", "BTU", ["btu"], "energy", false, true, 1055.05585262],
+                ["byte", "byte", null, "information", false, true, 8],
+                ["candela", "cd", null, "luminous_intensity", true, false, 1],
+                ["candela per square metre", "cd/m?", null, "luminance", true, false, 1],
+                ["coulomb", "C", null, "electric_charge", true, false, 1],
+                ["cubic ångström", "ang3", ["ang^3"], "volume", false, true, 1e-30],
+                ["cubic foot", "ft3", ["ft^3"], "volume", false, true, 0.028316846592],
+                ["cubic inch", "in3", ["in^3"], "volume", false, true, 0.000016387064],
+                ["cubic light-year", "ly3", ["ly^3"], "volume", false, true, 8.46786664623715e-47],
+                ["cubic metre", "m?", null, "volume", true, true, 1],
+                ["cubic mile", "mi3", ["mi^3"], "volume", false, true, 4168181825.44058],
+                ["cubic nautical mile", "Nmi3", ["Nmi^3"], "volume", false, true, 6352182208],
+                ["cubic Pica", "Pica3", ["Picapt3", "Pica^3", "Picapt^3"], "volume", false, true, 7.58660370370369e-8],
+                ["cubic yard", "yd3", ["yd^3"], "volume", false, true, 0.764554857984],
+                ["cup", "cup", null, "volume", false, true, 0.0002365882365],
+                ["dalton", "Da", ["u"], "mass", false, false, 1.66053886282828e-27],
+                ["day", "d", ["day"], "time", false, true, 86400],
+                ["degree", "°", null, "angle", false, false, 0.0174532925199433],
+                ["degrees Rankine", "Rank", null, "temperature", false, true, 0.555555555555556],
+                ["dyne", "dyn", ["dy"], "force", false, true, 0.00001],
+                ["electronvolt", "eV", ["ev"], "energy", false, true, 1.60217656514141],
+                ["ell", "ell", null, "length", false, true, 1.143],
+                ["erg", "erg", ["e"], "energy", false, true, 1e-7],
+                ["farad", "F", null, "electric_capacitance", true, false, 1],
+                ["fluid ounce", "oz", null, "volume", false, true, 0.0000295735295625],
+                ["foot", "ft", null, "length", false, true, 0.3048],
+                ["foot-pound", "flb", null, "energy", false, true, 1.3558179483314],
+                ["gal", "Gal", null, "acceleration", false, false, 0.01],
+                ["gallon", "gal", null, "volume", false, true, 0.003785411784],
+                ["gauss", "G", ["ga"], "magnetic_flux_density", false, true, 1],
+                ["grain", "grain", null, "mass", false, true, 0.0000647989],
+                ["gram", "g", null, "mass", false, true, 0.001],
+                ["gray", "Gy", null, "absorbed_dose", true, false, 1],
+                ["gross registered ton", "GRT", ["regton"], "volume", false, true, 2.8316846592],
+                ["hectare", "ha", null, "area", false, true, 10000],
+                ["henry", "H", null, "inductance", true, false, 1],
+                ["hertz", "Hz", null, "frequency", true, false, 1],
+                ["horsepower", "HP", ["h"], "power", false, true, 745.69987158227],
+                ["horsepower-hour", "HPh", ["hh", "hph"], "energy", false, true, 2684519.538],
+                ["hour", "h", ["hr"], "time", false, true, 3600],
+                ["imperial gallon (U.K.)", "uk_gal", null, "volume", false, true, 0.00454609],
+                ["imperial hundredweight", "lcwt", ["uk_cwt", "hweight"], "mass", false, true, 50.802345],
+                ["imperial quart (U.K)", "uk_qt", null, "volume", false, true, 0.0011365225],
+                ["imperial ton", "brton", ["uk_ton", "LTON"], "mass", false, true, 1016.046909],
+                ["inch", "in", null, "length", false, true, 0.0254],
+                ["international acre", "uk_acre", null, "area", false, true, 4046.8564224],
+                ["IT calorie", "cal", null, "energy", false, true, 4.1868],
+                ["joule", "J", null, "energy", true, true, 1],
+                ["katal", "kat", null, "catalytic_activity", true, false, 1],
+                ["kelvin", "K", ["kel"], "temperature", true, true, 1],
+                ["kilogram", "kg", null, "mass", true, true, 1],
+                ["knot", "kn", null, "speed", false, true, 0.514444444444444],
+                ["light-year", "ly", null, "length", false, true, 9460730472580800],
+                ["litre", "L", ["l", "lt"], "volume", false, true, 0.001],
+                ["lumen", "lm", null, "luminous_flux", true, false, 1],
+                ["lux", "lx", null, "illuminance", true, false, 1],
+                ["maxwell", "Mx", null, "magnetic_flux", false, false, 1e-18],
+                ["measurement ton", "MTON", null, "volume", false, true, 1.13267386368],
+                ["meter per hour", "m/h", ["m/hr"], "speed", false, true, 0.00027777777777778],
+                ["meter per second", "m/s", ["m/sec"], "speed", true, true, 1],
+                ["meter per second squared", "m?s??", null, "acceleration", true, false, 1],
+                ["parsec", "pc", ["parsec"], "length", false, true, 30856775814671900],
+                ["meter squared per second", "m?/s", null, "kinematic_viscosity", true, false, 1],
+                ["metre", "m", null, "length", true, true, 1],
+                ["miles per hour", "mph", null, "speed", false, true, 0.44704],
+                ["millimetre of mercury", "mmHg", null, "pressure", false, false, 133.322],
+                ["minute", "?", null, "angle", false, false, 0.000290888208665722],
+                ["minute", "min", ["mn"], "time", false, true, 60],
+                ["modern teaspoon", "tspm", null, "volume", false, true, 0.000005],
+                ["mole", "mol", null, "amount_of_substance", true, false, 1],
+                ["morgen", "Morgen", null, "area", false, true, 2500],
+                ["n.u. of action", "?", null, "action", false, false, 1.05457168181818e-34],
+                ["n.u. of mass", "m?", null, "mass", false, false, 9.10938261616162e-31],
+                ["n.u. of speed", "c?", null, "speed", false, false, 299792458],
+                ["n.u. of time", "?/(me?c??)", null, "time", false, false, 1.28808866778687e-21],
+                ["nautical mile", "M", ["Nmi"], "length", false, true, 1852],
+                ["newton", "N", null, "force", true, true, 1],
+                ["œrsted", "Oe ", null, "magnetic_field_intensity", false, false, 79.5774715459477],
+                ["ohm", "Ω", null, "electric_resistance", true, false, 1],
+                ["ounce mass", "ozm", null, "mass", false, true, 0.028349523125],
+                ["pascal", "Pa", null, "pressure", true, false, 1],
+                ["pascal second", "Pa?s", null, "dynamic_viscosity", true, false, 1],
+                ["pferdestärke", "PS", null, "power", false, true, 735.49875],
+                ["phot", "ph", null, "illuminance", false, false, 0.0001],
+                ["pica (1/6 inch)", "pica", null, "length", false, true, 0.00035277777777778],
+                ["pica (1/72 inch)", "Pica", ["Picapt"], "length", false, true, 0.00423333333333333],
+                ["poise", "P", null, "dynamic_viscosity", false, false, 0.1],
+                ["pond", "pond", null, "force", false, true, 0.00980665],
+                ["pound force", "lbf", null, "force", false, true, 4.4482216152605],
+                ["pound mass", "lbm", null, "mass", false, true, 0.45359237],
+                ["quart", "qt", null, "volume", false, true, 0.000946352946],
+                ["radian", "rad", null, "angle", true, false, 1],
+                ["second", "?", null, "angle", false, false, 0.00000484813681109536],
+                ["second", "s", ["sec"], "time", true, true, 1],
+                ["short hundredweight", "cwt", ["shweight"], "mass", false, true, 45.359237],
+                ["siemens", "S", null, "electrical_conductance", true, false, 1],
+                ["sievert", "Sv", null, "equivalent_dose", true, false, 1],
+                ["slug", "sg", null, "mass", false, true, 14.59390294],
+                ["square ångström", "ang2", ["ang^2"], "area", false, true, 1e-20],
+                ["square foot", "ft2", ["ft^2"], "area", false, true, 0.09290304],
+                ["square inch", "in2", ["in^2"], "area", false, true, 0.00064516],
+                ["square light-year", "ly2", ["ly^2"], "area", false, true, 8.95054210748189e+31],
+                ["square meter", "m?", null, "area", true, true, 1],
+                ["square mile", "mi2", ["mi^2"], "area", false, true, 2589988.110336],
+                ["square nautical mile", "Nmi2", ["Nmi^2"], "area", false, true, 3429904],
+                ["square Pica", "Pica2", ["Picapt2", "Pica^2", "Picapt^2"], "area", false, true, 0.00001792111111111],
+                ["square yard", "yd2", ["yd^2"], "area", false, true, 0.83612736],
+                ["statute mile", "mi", null, "length", false, true, 1609.344],
+                ["steradian", "sr", null, "solid_angle", true, false, 1],
+                ["stilb", "sb", null, "luminance", false, false, 0.0001],
+                ["stokes", "St", null, "kinematic_viscosity", false, false, 0.0001],
+                ["stone", "stone", null, "mass", false, true, 6.35029318],
+                ["tablespoon", "tbs", null, "volume", false, true, 0.0000147868],
+                ["teaspoon", "tsp", null, "volume", false, true, 0.00000492892],
+                ["tesla", "T", null, "magnetic_flux_density", true, true, 1],
+                ["thermodynamic calorie", "c", null, "energy", false, true, 4.184],
+                ["ton", "ton", null, "mass", false, true, 907.18474],
+                ["tonne", "t", null, "mass", false, false, 1000],
+                ["U.K. pint", "uk_pt", null, "volume", false, true, 0.00056826125],
+                ["U.S. bushel", "bushel", null, "volume", false, true, 0.03523907],
+                ["U.S. oil barrel", "barrel", null, "volume", false, true, 0.158987295],
+                ["U.S. pint", "pt", ["us_pt"], "volume", false, true, 0.000473176473],
+                ["U.S. survey mile", "survey_mi", null, "length", false, true, 1609.347219],
+                ["U.S. survey/statute acre", "us_acre", null, "area", false, true, 4046.87261],
+                ["volt", "V", null, "voltage", true, false, 1],
+                ["watt", "W", null, "power", true, true, 1],
+                ["watt-hour", "Wh", ["wh"], "energy", false, true, 3600],
+                ["weber", "Wb", null, "magnetic_flux", true, false, 1],
+                ["yard", "yd", null, "length", false, true, 0.9144],
+                ["year", "yr", null, "time", false, true, 31557600]
+            ];
+
+            // Binary prefixes
+            // [Name, Prefix power of 2 value, Previx value, Abbreviation, Derived
+            // from]
+            var binary_prefixes = {
+                Yi: ["yobi", 80, 1208925819614629174706176, "Yi", "yotta"],
+                Zi: ["zebi", 70, 1180591620717411303424, "Zi", "zetta"],
+                Ei: ["exbi", 60, 1152921504606846976, "Ei", "exa"],
+                Pi: ["pebi", 50, 1125899906842624, "Pi", "peta"],
+                Ti: ["tebi", 40, 1099511627776, "Ti", "tera"],
+                Gi: ["gibi", 30, 1073741824, "Gi", "giga"],
+                Mi: ["mebi", 20, 1048576, "Mi", "mega"],
+                ki: ["kibi", 10, 1024, "ki", "kilo"]
+            };
+
+            // Unit prefixes
+            // [Name, Multiplier, Abbreviation]
+            var unit_prefixes = {
+                Y: ["yotta", 1e+24, "Y"],
+                Z: ["zetta", 1e+21, "Z"],
+                E: ["exa", 1e+18, "E"],
+                P: ["peta", 1e+15, "P"],
+                T: ["tera", 1e+12, "T"],
+                G: ["giga", 1e+09, "G"],
+                M: ["mega", 1e+06, "M"],
+                k: ["kilo", 1e+03, "k"],
+                h: ["hecto", 1e+02, "h"],
+                e: ["dekao", 1e+01, "e"],
+                d: ["deci", 1e-01, "d"],
+                c: ["centi", 1e-02, "c"],
+                m: ["milli", 1e-03, "m"],
+                u: ["micro", 1e-06, "u"],
+                n: ["nano", 1e-09, "n"],
+                p: ["pico", 1e-12, "p"],
+                f: ["femto", 1e-15, "f"],
+                a: ["atto", 1e-18, "a"],
+                z: ["zepto", 1e-21, "z"],
+                y: ["yocto", 1e-24, "y"]
+            };
+
+            // Initialize units and multipliers
+            var from = null;
+            var to = null;
+            var base_from_unit = from_unit;
+            var base_to_unit = to_unit;
+            var from_multiplier = 1;
+            var to_multiplier = 1;
+            var alt;
+
+            // Lookup from and to units
+            for (var i = 0; i < units.length; i++) {
+                alt = (units[i][2] === null) ? [] : units[i][2];
+                if (units[i][1] === base_from_unit || alt.indexOf(base_from_unit) >= 0) {
+                    from = units[i];
+                }
+                if (units[i][1] === base_to_unit || alt.indexOf(base_to_unit) >= 0) {
+                    to = units[i];
+                }
+            }
+
+            // Lookup from prefix
+            if (from === null) {
+                var from_binary_prefix = binary_prefixes[from_unit.substring(0, 2)];
+                var from_unit_prefix = unit_prefixes[from_unit.substring(0, 1)];
+
+                // Handle dekao unit prefix (only unit prefix with two characters)
+                if (from_unit.substring(0, 2) === 'da') {
+                    from_unit_prefix = ["dekao", 1e+01, "da"];
+                }
+
+                // Handle binary prefixes first (so that 'Yi' is processed before
+                // 'Y')
+                if (from_binary_prefix) {
+                    from_multiplier = from_binary_prefix[2];
+                    base_from_unit = from_unit.substring(2);
+                } else if (from_unit_prefix) {
+                    from_multiplier = from_unit_prefix[1];
+                    base_from_unit = from_unit.substring(from_unit_prefix[2].length);
+                }
+
+                // Lookup from unit
+                for (var j = 0; j < units.length; j++) {
+                    alt = (units[j][2] === null) ? [] : units[j][2];
+                    if (units[j][1] === base_from_unit || alt.indexOf(base_from_unit) >= 0) {
+                        from = units[j];
+                    }
+                }
+            }
+
+            // Lookup to prefix
+            if (to === null) {
+                var to_binary_prefix = binary_prefixes[to_unit.substring(0, 2)];
+                var to_unit_prefix = unit_prefixes[to_unit.substring(0, 1)];
+
+                // Handle dekao unit prefix (only unit prefix with two characters)
+                if (to_unit.substring(0, 2) === 'da') {
+                    to_unit_prefix = ["dekao", 1e+01, "da"];
+                }
+
+                // Handle binary prefixes first (so that 'Yi' is processed before
+                // 'Y')
+                if (to_binary_prefix) {
+                    to_multiplier = to_binary_prefix[2];
+                    base_to_unit = to_unit.substring(2);
+                } else if (to_unit_prefix) {
+                    to_multiplier = to_unit_prefix[1];
+                    base_to_unit = to_unit.substring(to_unit_prefix[2].length);
+                }
+
+                // Lookup to unit
+                for (var k = 0; k < units.length; k++) {
+                    alt = (units[k][2] === null) ? [] : units[k][2];
+                    if (units[k][1] === base_to_unit || alt.indexOf(base_to_unit) >= 0) {
+                        to = units[k];
+                    }
+                }
+            }
+
+            // Return error if a unit does not exist
+            if (from === null || to === null) {
+                return error.na;
+            }
+
+            // Return error if units represent different quantities
+            if (from[3] !== to[3]) {
+                return error.na;
+            }
+
+            // Return converted number
+            return number * from[6] * from_multiplier / (to[6] * to_multiplier);
+        };
+
+        exports.DEC2BIN = function(number, places) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+
+            // Return error if number is not decimal, is lower than -512, or is
+            // greater than 511
+            if (!/^-?[0-9]{1,3}$/.test(number) || number < -512 || number > 511) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character binary number if number is
+            // negative
+            if (number < 0) {
+                return '1' + REPT('0', 9 - (512 + number).toString(2).length) + (512 + number).toString(2);
+            }
+
+            // Convert decimal number to binary
+            var result = parseInt(number, 10).toString(2);
+
+            // Return binary number using the minimum number of characters necessary
+            // if places is undefined
+            if (typeof places === 'undefined') {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.DEC2HEX = function(number, places) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+
+            // Return error if number is not decimal, is lower than -549755813888,
+            // or is greater than 549755813887
+            if (!/^-?[0-9]{1,12}$/.test(number) || number < -549755813888 || number > 549755813887) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character hexadecimal number if number
+            // is negative
+            if (number < 0) {
+                return (1099511627776 + number).toString(16);
+            }
+
+            // Convert decimal number to hexadecimal
+            var result = parseInt(number, 10).toString(16);
+
+            // Return hexadecimal number using the minimum number of characters
+            // necessary if places is undefined
+            if (typeof places === 'undefined') {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.DEC2OCT = function(number, places) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+
+            // Return error if number is not decimal, is lower than -549755813888,
+            // or is greater than 549755813887
+            if (!/^-?[0-9]{1,9}$/.test(number) || number < -536870912 || number > 536870911) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character octal number if number is
+            // negative
+            if (number < 0) {
+                return (1073741824 + number).toString(8);
+            }
+
+            // Convert decimal number to octal
+            var result = parseInt(number, 10).toString(8);
+
+            // Return octal number using the minimum number of characters necessary
+            // if places is undefined
+            if (typeof places === 'undefined') {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.DELTA = function(number1, number2) {
+            // Set number2 to zero if undefined
+            number2 = (number2 === undefined) ? 0 : number2;
+            number1 = utils.parseNumber(number1);
+            number2 = utils.parseNumber(number2);
+            if (utils.anyIsError(number1, number2)) {
+                return error.value;
+            }
+
+            // Return delta
+            return (number1 === number2) ? 1 : 0;
+        };
+
+        exports.ERF = function(lower_bound, upper_bound) {
+        };
+
+        exports.ERF.PRECISE = function() {
+        };
+
+        exports.ERFC = function(x) {
+        };
+
+        exports.ERFC.PRECISE = function() {
+        };
+
+        exports.GESTEP = function(number, step) {
+            step = step || 0;
+            number = utils.parseNumber(number);
+            if (utils.anyIsError(step, number)) {
+                return number;
+            }
+
+            // Return delta
+            return (number >= step) ? 1 : 0;
+        };
+
+        exports.HEX2BIN = function(number, places) {
+            // Return error if number is not hexadecimal or contains more than ten
+            // characters (10 digits)
+            if (!/^[0-9A-Fa-f]{1,10}$/.test(number)) {
+                return error.num;
+            }
+
+            // Check if number is negative
+            var negative = (number.length === 10 && number.substring(0, 1).toLowerCase() === 'f') ? true : false;
+
+            // Convert hexadecimal number to decimal
+            var decimal = (negative) ? parseInt(number, 16) - 1099511627776 : parseInt(number, 16);
+
+            // Return error if number is lower than -512 or greater than 511
+            if (decimal < -512 || decimal > 511) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character binary number if number is
+            // negative
+            if (negative) {
+                return '1' + REPT('0', 9 - (512 + decimal).toString(2).length) + (512 + decimal).toString(2);
+            }
+
+            // Convert decimal number to binary
+            var result = decimal.toString(2);
+
+            // Return binary number using the minimum number of characters necessary
+            // if places is undefined
+            if (places === undefined) {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.HEX2DEC = function(number) {
+            // Return error if number is not hexadecimal or contains more than ten
+            // characters (10 digits)
+            if (!/^[0-9A-Fa-f]{1,10}$/.test(number)) {
+                return error.num;
+            }
+
+            // Convert hexadecimal number to decimal
+            var decimal = parseInt(number, 16);
+
+            // Return decimal number
+            return (decimal >= 549755813888) ? decimal - 1099511627776 : decimal;
+        };
+
+        exports.HEX2OCT = function(number, places) {
+            // Return error if number is not hexadecimal or contains more than ten
+            // characters (10 digits)
+            if (!/^[0-9A-Fa-f]{1,10}$/.test(number)) {
+                return error.num;
+            }
+
+            // Convert hexadecimal number to decimal
+            var decimal = parseInt(number, 16);
+
+            // Return error if number is positive and greater than 0x1fffffff
+            // (536870911)
+            if (decimal > 536870911 && decimal < 1098974756864) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character octal number if number is
+            // negative
+            if (decimal >= 1098974756864) {
+                return (decimal - 1098437885952).toString(8);
+            }
+
+            // Convert decimal number to octal
+            var result = decimal.toString(8);
+
+            // Return octal number using the minimum number of characters necessary
+            // if places is undefined
+            if (places === undefined) {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.IMABS = function(inumber) {
+            // Lookup real and imaginary coefficients using exports.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            // Return error if either coefficient is not a number
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Return absolute value of complex number
+            return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        };
+
+        exports.IMAGINARY = function(inumber) {
+            if (inumber === undefined || inumber === true || inumber === false) {
+                return error.value;
+            }
+
+            // Return 0 if inumber is equal to 0
+            if (inumber === 0 || inumber === '0') {
+                return 0;
+            }
+
+            // Handle special cases
+            if (['i', 'j'].indexOf(inumber) >= 0) {
+                return 1;
+            }
+
+            // Normalize imaginary coefficient
+            inumber = inumber.replace('+i', '+1i').replace('-i', '-1i').replace('+j', '+1j').replace('-j', '-1j');
+
+            // Lookup sign
+            var plus = inumber.indexOf('+');
+            var minus = inumber.indexOf('-');
+            if (plus === 0) {
+                plus = inumber.indexOf('+', 1);
+            }
+
+            if (minus === 0) {
+                minus = inumber.indexOf('-', 1);
+            }
+
+            // Lookup imaginary unit
+            var last = inumber.substring(inumber.length - 1, inumber.length);
+            var unit = (last === 'i' || last === 'j');
+
+            if (plus >= 0 || minus >= 0) {
+                // Return error if imaginary unit is neither i nor j
+                if (!unit) {
+                    return error.num;
+                }
+
+                // Return imaginary coefficient of complex number
+                if (plus >= 0) {
+                    return (isNaN(inumber.substring(0, plus)) || isNaN(inumber.substring(plus + 1, inumber.length - 1))) ?
+                        error.num :
+                        Number(inumber.substring(plus + 1, inumber.length - 1));
+                } else {
+                    return (isNaN(inumber.substring(0, minus)) || isNaN(inumber.substring(minus + 1, inumber.length - 1))) ?
+                        error.num :
+                        -Number(inumber.substring(minus + 1, inumber.length - 1));
+                }
+            } else {
+                if (unit) {
+                    return (isNaN(inumber.substring(0, inumber.length - 1))) ? error.num : inumber.substring(0, inumber.length - 1);
+                } else {
+                    return (isNaN(inumber)) ? error.num : 0;
+                }
+            }
+        };
+
+        exports.IMARGUMENT = function(inumber) {
+            // Lookup real and imaginary coefficients using exports.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            // Return error if either coefficient is not a number
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Return error if inumber is equal to zero
+            if (x === 0 && y === 0) {
+                return error.div0;
+            }
+
+            // Return PI/2 if x is equal to zero and y is positive
+            if (x === 0 && y > 0) {
+                return Math.PI / 2;
+            }
+
+            // Return -PI/2 if x is equal to zero and y is negative
+            if (x === 0 && y < 0) {
+                return -Math.PI / 2;
+            }
+
+            // Return zero if x is negative and y is equal to zero
+            if (y === 0 && x > 0) {
+                return 0;
+            }
+
+            // Return zero if x is negative and y is equal to zero
+            if (y === 0 && x < 0) {
+                return -Math.PI;
+            }
+
+            // Return argument of complex number
+            if (x > 0) {
+                return Math.atan(y / x);
+            } else if (x < 0 && y >= 0) {
+                return Math.atan(y / x) + Math.PI;
+            } else {
+                return Math.atan(y / x) - Math.PI;
+            }
+        };
+
+        exports.IMCONJUGATE = function(inumber) {
+            // Lookup real and imaginary coefficients using exports.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return conjugate of complex number
+            return (y !== 0) ? exports.COMPLEX(x, -y, unit) : inumber;
+        };
+
+        exports.IMCOS = function(inumber) {
+            // Lookup real and imaginary coefficients using exports.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return cosine of complex number
+            return exports.COMPLEX(Math.cos(x) * (Math.exp(y) + Math.exp(-y)) / 2, -Math.sin(x) * (Math.exp(y) - Math.exp(-y)) / 2, unit);
+        };
+
+        exports.IMCOSH = function(inumber) {
+            // Lookup real and imaginary coefficients using exports.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return hyperbolic cosine of complex number
+            return exports.COMPLEX(Math.cos(y) * (Math.exp(x) + Math.exp(-x)) / 2, Math.sin(y) * (Math.exp(x) - Math.exp(-x)) / 2, unit);
+        };
+
+        exports.IMCOT = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Return cotangent of complex number
+            return exports.IMDIV(exports.IMCOS(inumber), exports.IMSIN(inumber));
+        };
+
+        exports.IMDIV = function(inumber1, inumber2) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var a = exports.IMREAL(inumber1);
+            var b = exports.IMAGINARY(inumber1);
+            var c = exports.IMREAL(inumber2);
+            var d = exports.IMAGINARY(inumber2);
+
+            if (utils.anyIsError(a, b, c, d)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit1 = inumber1.substring(inumber1.length - 1);
+            var unit2 = inumber2.substring(inumber2.length - 1);
+            var unit = 'i';
+            if (unit1 === 'j') {
+                unit = 'j';
+            } else if (unit2 === 'j') {
+                unit = 'j';
+            }
+
+            // Return error if inumber2 is null
+            if (c === 0 && d === 0) {
+                return error.num;
+            }
+
+            // Return exponential of complex number
+            var den = c * c + d * d;
+            return exports.COMPLEX((a * c + b * d) / den, (b * c - a * d) / den, unit);
+        };
+
+        exports.IMEXP = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return exponential of complex number
+            var e = Math.exp(x);
+            return exports.COMPLEX(e * Math.cos(y), e * Math.sin(y), unit);
+        };
+
+        exports.IMLN = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return exponential of complex number
+            return exports.COMPLEX(Math.log(Math.sqrt(x * x + y * y)), Math.atan(y / x), unit);
+        };
+
+        exports.IMLOG10 = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return exponential of complex number
+            return exports.COMPLEX(Math.log(Math.sqrt(x * x + y * y)) / Math.log(10), Math.atan(y / x) / Math.log(10), unit);
+        };
+
+        exports.IMLOG2 = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return exponential of complex number
+            return exports.COMPLEX(Math.log(Math.sqrt(x * x + y * y)) / Math.log(2), Math.atan(y / x) / Math.log(2), unit);
+        };
+
+        exports.IMPOWER = function(inumber, number) {
+            number = utils.parseNumber(number);
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+            if (utils.anyIsError(number, x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Calculate power of modulus
+            var p = Math.pow(exports.IMABS(inumber), number);
+
+            // Calculate argument
+            var t = exports.IMARGUMENT(inumber);
+
+            // Return exponential of complex number
+            return exports.COMPLEX(p * Math.cos(number * t), p * Math.sin(number * t), unit);
+        };
+
+        exports.IMPRODUCT = function() {
+            // Initialize result
+            var result = arguments[0];
+
+            // Loop on all numbers
+            for (var i = 1; i < arguments.length; i++) {
+                // Lookup coefficients of two complex numbers
+                var a = exports.IMREAL(result);
+                var b = exports.IMAGINARY(result);
+                var c = exports.IMREAL(arguments[i]);
+                var d = exports.IMAGINARY(arguments[i]);
+
+                if (utils.anyIsError(a, b, c, d)) {
+                    return error.value;
+                }
+
+                // Complute product of two complex numbers
+                result = exports.COMPLEX(a * c - b * d, a * d + b * c);
+            }
+
+            // Return product of complex numbers
+            return result;
+        };
+
+        exports.IMREAL = function(inumber) {
+            if (inumber === undefined || inumber === true || inumber === false) {
+                return error.value;
+            }
+
+            // Return 0 if inumber is equal to 0
+            if (inumber === 0 || inumber === '0') {
+                return 0;
+            }
+
+            // Handle special cases
+            if (['i', '+i', '1i', '+1i', '-i', '-1i', 'j', '+j', '1j', '+1j', '-j', '-1j'].indexOf(inumber) >= 0) {
+                return 0;
+            }
+
+            // Lookup sign
+            var plus = inumber.indexOf('+');
+            var minus = inumber.indexOf('-');
+            if (plus === 0) {
+                plus = inumber.indexOf('+', 1);
+            }
+            if (minus === 0) {
+                minus = inumber.indexOf('-', 1);
+            }
+
+            // Lookup imaginary unit
+            var last = inumber.substring(inumber.length - 1, inumber.length);
+            var unit = (last === 'i' || last === 'j');
+
+            if (plus >= 0 || minus >= 0) {
+                // Return error if imaginary unit is neither i nor j
+                if (!unit) {
+                    return error.num;
+                }
+
+                // Return real coefficient of complex number
+                if (plus >= 0) {
+                    return (isNaN(inumber.substring(0, plus)) || isNaN(inumber.substring(plus + 1, inumber.length - 1))) ?
+                        error.num :
+                        Number(inumber.substring(0, plus));
+                } else {
+                    return (isNaN(inumber.substring(0, minus)) || isNaN(inumber.substring(minus + 1, inumber.length - 1))) ?
+                        error.num :
+                        Number(inumber.substring(0, minus));
+                }
+            } else {
+                if (unit) {
+                    return (isNaN(inumber.substring(0, inumber.length - 1))) ? error.num : 0;
+                } else {
+                    return (isNaN(inumber)) ? error.num : inumber;
+                }
+            }
+        };
+
+        exports.IMSEC = function(inumber) {
+            // Return error if inumber is a logical value
+            if (inumber === true || inumber === false) {
+                return error.value;
+            }
+
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Return secant of complex number
+            return exports.IMDIV('1', exports.IMCOS(inumber));
+        };
+
+        exports.IMSECH = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Return hyperbolic secant of complex number
+            return exports.IMDIV('1', exports.IMCOSH(inumber));
+        };
+
+        exports.IMSIN = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return sine of complex number
+            return exports.COMPLEX(Math.sin(x) * (Math.exp(y) + Math.exp(-y)) / 2, Math.cos(x) * (Math.exp(y) - Math.exp(-y)) / 2, unit);
+        };
+
+        exports.IMSINH = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Return hyperbolic sine of complex number
+            return exports.COMPLEX(Math.cos(y) * (Math.exp(x) - Math.exp(-x)) / 2, Math.sin(y) * (Math.exp(x) + Math.exp(-x)) / 2, unit);
+        };
+
+        exports.IMSQRT = function(inumber) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit = inumber.substring(inumber.length - 1);
+            unit = (unit === 'i' || unit === 'j') ? unit : 'i';
+
+            // Calculate power of modulus
+            var s = Math.sqrt(exports.IMABS(inumber));
+
+            // Calculate argument
+            var t = exports.IMARGUMENT(inumber);
+
+            // Return exponential of complex number
+            return exports.COMPLEX(s * Math.cos(t / 2), s * Math.sin(t / 2), unit);
+        };
+
+        exports.IMCSC = function (inumber) {
+            // Return error if inumber is a logical value
+            if (inumber === true || inumber === false) {
+                return error.value;
+            }
+
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            // Return error if either coefficient is not a number
+            if (utils.anyIsError(x, y)) {
+                return error.num;
+            }
+
+            // Return cosecant of complex number
+            return exports.IMDIV('1', exports.IMSIN(inumber));
+        };
+
+        exports.IMCSCH = function (inumber) {
+            // Return error if inumber is a logical value
+            if (inumber === true || inumber === false) {
+                return error.value;
+            }
+
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            // Return error if either coefficient is not a number
+            if (utils.anyIsError(x, y)) {
+                return error.num;
+            }
+
+            // Return hyperbolic cosecant of complex number
+            return exports.IMDIV('1', exports.IMSINH(inumber));
+        };
+
+        exports.IMSUB = function(inumber1, inumber2) {
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var a = this.IMREAL(inumber1);
+            var b = this.IMAGINARY(inumber1);
+            var c = this.IMREAL(inumber2);
+            var d = this.IMAGINARY(inumber2);
+
+            if (utils.anyIsError(a, b, c, d)) {
+                return error.value;
+            }
+
+            // Lookup imaginary unit
+            var unit1 = inumber1.substring(inumber1.length - 1);
+            var unit2 = inumber2.substring(inumber2.length - 1);
+            var unit = 'i';
+            if (unit1 === 'j') {
+                unit = 'j';
+            } else if (unit2 === 'j') {
+                unit = 'j';
+            }
+
+            // Return _ of two complex numbers
+            return this.COMPLEX(a - c, b - d, unit);
+        };
+
+        exports.IMSUM = function() {
+            var args = utils.flatten(arguments);
+
+            // Initialize result
+            var result = args[0];
+
+            // Loop on all numbers
+            for (var i = 1; i < args.length; i++) {
+                // Lookup coefficients of two complex numbers
+                var a = this.IMREAL(result);
+                var b = this.IMAGINARY(result);
+                var c = this.IMREAL(args[i]);
+                var d = this.IMAGINARY(args[i]);
+
+                if (utils.anyIsError(a, b, c, d)) {
+                    return error.value;
+                }
+
+                // Complute product of two complex numbers
+                result = this.COMPLEX(a + c, b + d);
+            }
+
+            // Return sum of complex numbers
+            return result;
+        };
+
+        exports.IMTAN = function(inumber) {
+            // Return error if inumber is a logical value
+            if (inumber === true || inumber === false) {
+                return error.value;
+            }
+
+            // Lookup real and imaginary coefficients using Formula.js
+            // [http://formulajs.org]
+            var x = exports.IMREAL(inumber);
+            var y = exports.IMAGINARY(inumber);
+
+            if (utils.anyIsError(x, y)) {
+                return error.value;
+            }
+
+            // Return tangent of complex number
+            return this.IMDIV(this.IMSIN(inumber), this.IMCOS(inumber));
+        };
+
+        exports.OCT2BIN = function(number, places) {
+            // Return error if number is not hexadecimal or contains more than ten
+            // characters (10 digits)
+            if (!/^[0-7]{1,10}$/.test(number)) {
+                return error.num;
+            }
+
+            // Check if number is negative
+            var negative = (number.length === 10 && number.substring(0, 1) === '7') ? true : false;
+
+            // Convert octal number to decimal
+            var decimal = (negative) ? parseInt(number, 8) - 1073741824 : parseInt(number, 8);
+
+            // Return error if number is lower than -512 or greater than 511
+            if (decimal < -512 || decimal > 511) {
+                return error.num;
+            }
+
+            // Ignore places and return a 10-character binary number if number is
+            // negative
+            if (negative) {
+                return '1' + REPT('0', 9 - (512 + decimal).toString(2).length) + (512 + decimal).toString(2);
+            }
+
+            // Convert decimal number to binary
+            var result = decimal.toString(2);
+
+            // Return binary number using the minimum number of characters necessary
+            // if places is undefined
+            if (typeof places === 'undefined') {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        exports.OCT2DEC = function(number) {
+            // Return error if number is not octal or contains more than ten
+            // characters (10 digits)
+            if (!/^[0-7]{1,10}$/.test(number)) {
+                return error.num;
+            }
+
+            // Convert octal number to decimal
+            var decimal = parseInt(number, 8);
+
+            // Return decimal number
+            return (decimal >= 536870912) ? decimal - 1073741824 : decimal;
+        };
+
+        exports.OCT2HEX = function(number, places) {
+            // Return error if number is not octal or contains more than ten
+            // characters (10 digits)
+            if (!/^[0-7]{1,10}$/.test(number)) {
+                return error.num;
+            }
+
+            // Convert octal number to decimal
+            var decimal = parseInt(number, 8);
+
+            // Ignore places and return a 10-character octal number if number is
+            // negative
+            if (decimal >= 536870912) {
+                return 'ff' + (decimal + 3221225472).toString(16);
+            }
+
+            // Convert decimal number to hexadecimal
+            var result = decimal.toString(16);
+
+            // Return hexadecimal number using the minimum number of characters
+            // necessary if places is undefined
+            if (places === undefined) {
+                return result;
+            } else {
+                // Return error if places is nonnumeric
+                if (isNaN(places)) {
+                    return error.value;
+                }
+
+                // Return error if places is negative
+                if (places < 0) {
+                    return error.num;
+                }
+
+                // Truncate places in case it is not an integer
+                places = Math.floor(places);
+
+                // Pad return value with leading 0s (zeros) if necessary (using
+                // Underscore.string)
+                return (places >= result.length) ? REPT('0', places - result.length) + result : error.num;
+            }
+        };
+
+        return exports;
+    })();
+
+    met.financial = (function() {
+        var exports = {};
+
+        function validDate(d) {
+            return d && d.getTime && !isNaN(d.getTime());
+        }
+
+        function ensureDate(d) {
+            return (d instanceof Date)?d:new Date(d);
+        }
+
+        exports.ACCRINT = function(issue, first, settlement, rate, par, frequency, basis) {
+            // Return error if either date is invalid
+            issue        = ensureDate(issue);
+            first        = ensureDate(first);
+            settlement = ensureDate(settlement);
+            if (!validDate(issue) || !validDate(first) || !validDate(settlement)) {
+                return '#VALUE!';
+            }
+
+            // Return error if either rate or par are lower than or equal to zero
+            if (rate <= 0 || par <= 0) {
+                return '#NUM!';
+            }
+
+            // Return error if frequency is neither 1, 2, or 4
+            if ([1, 2, 4].indexOf(frequency) === -1) {
+                return '#NUM!';
+            }
+
+            // Return error if basis is neither 0, 1, 2, 3, or 4
+            if ([0, 1, 2, 3, 4].indexOf(basis) === -1) {
+                return '#NUM!';
+            }
+
+            // Return error if settlement is before or equal to issue
+            if (settlement <= issue) {
+                return '#NUM!';
+            }
+
+            // Set default values
+            par   = par   || 0;
+            basis = basis || 0;
+
+            // Compute accrued interest
+            return par * rate * YEARFRAC(issue, settlement, basis);
+        };
+
+        exports.ACCRINTM = null;
+
+        exports.AMORDEGRC = null;
+
+        exports.AMORLINC = null;
+
+        exports.COUPDAYBS = null;
+
+        exports.COUPDAYS = null;
+
+        exports.COUPDAYSNC = null;
+
+        exports.COUPNCD = null;
+
+        exports.COUPNUM = null;
+
+        exports.COUPPCD = null;
+
+        exports.CUMIPMT = function(rate, periods, value, start, end, type) {
+            // Credits: algorithm inspired by Apache OpenOffice
+            // Credits: Hannes Stiebitzhofer for the translations of function and
+            // variable names
+            // Requires exports.FV() and exports.PMT() from exports.js
+            // [http://stoic.com/exports/]
+
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            value = utils.parseNumber(value);
+            if (utils.anyIsError(rate, periods, value)) {
+                return error.value;
+            }
+
+            // Return error if either rate, periods, or value are lower than or
+            // equal to zero
+            if (rate <= 0 || periods <= 0 || value <= 0) {
+                return error.num;
+            }
+
+            // Return error if start < 1, end < 1, or start > end
+            if (start < 1 || end < 1 || start > end) {
+                return error.num;
+            }
+
+            // Return error if type is neither 0 nor 1
+            if (type !== 0 && type !== 1) {
+                return error.num;
+            }
+
+            // Compute cumulative interest
+            var payment = exports.PMT(rate, periods, value, 0, type);
+            var interest = 0;
+
+            if (start === 1) {
+                if (type === 0) {
+                    interest = -value;
+                    start++;
+                }
+            }
+
+            for (var i = start; i <= end; i++) {
+                if (type === 1) {
+                    interest += exports.FV(rate, i - 2, payment, value, 1) - payment;
+                } else {
+                    interest += exports.FV(rate, i - 1, payment, value, 0);
+                }
+            }
+            interest *= rate;
+
+            // Return cumulative interest
+            return interest;
+        };
+
+        exports.CUMPRINC = function(rate, periods, value, start, end, type) {
+            // Credits: algorithm inspired by Apache OpenOffice
+            // Credits: Hannes Stiebitzhofer for the translations of function and
+            // variable names
+
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            value = utils.parseNumber(value);
+            if (utils.anyIsError(rate, periods, value)) {
+                return error.value;
+            }
+
+            // Return error if either rate, periods, or value are lower than or
+            // equal to zero
+            if (rate <= 0 || periods <= 0 || value <= 0) {
+                return error.num;
+            }
+
+            // Return error if start < 1, end < 1, or start > end
+            if (start < 1 || end < 1 || start > end) {
+                return error.num;
+            }
+
+            // Return error if type is neither 0 nor 1
+            if (type !== 0 && type !== 1) {
+                return error.num;
+            }
+
+            // Compute cumulative principal
+            var payment = exports.PMT(rate, periods, value, 0, type);
+            var principal = 0;
+            if (start === 1) {
+                if (type === 0) {
+                    principal = payment + value * rate;
+                } else {
+                    principal = payment;
+                }
+                start++;
+            }
+            for (var i = start; i <= end; i++) {
+                if (type > 0) {
+                    principal += payment - (exports.FV(rate, i - 2, payment, value, 1) - payment) * rate;
+                } else {
+                    principal += payment - exports.FV(rate, i - 1, payment, value, 0) * rate;
+                }
+            }
+
+            // Return cumulative principal
+            return principal;
+        };
+
+        exports.DB = function(cost, salvage, life, period, month) {
+            // Initialize month
+            month = (month === undefined) ? 12 : month;
+
+            cost = utils.parseNumber(cost);
+            salvage = utils.parseNumber(salvage);
+            life = utils.parseNumber(life);
+            period = utils.parseNumber(period);
+            month = utils.parseNumber(month);
+            if (utils.anyIsError(cost, salvage, life, period, month)) {
+                return error.value;
+            }
+
+            // Return error if any of the parameters is negative
+            if (cost < 0 || salvage < 0 || life < 0 || period < 0) {
+                return error.num;
+            }
+
+            // Return error if month is not an integer between 1 and 12
+            if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].indexOf(month) === -1) {
+                return error.num;
+            }
+
+            // Return error if period is greater than life
+            if (period > life) {
+                return error.num;
+            }
+
+            // Return 0 (zero) if salvage is greater than or equal to cost
+            if (salvage >= cost) {
+                return 0;
+            }
+
+            // Rate is rounded to three decimals places
+            var rate = (1 - Math.pow(salvage / cost, 1 / life)).toFixed(3);
+
+            // Compute initial depreciation
+            var initial = cost * rate * month / 12;
+
+            // Compute total depreciation
+            var total = initial;
+            var current = 0;
+            var ceiling = (period === life) ? life - 1 : period;
+            for (var i = 2; i <= ceiling; i++) {
+                current = (cost - total) * rate;
+                total += current;
+            }
+
+            // Depreciation for the first and last periods are special cases
+            if (period === 1) {
+                // First period
+                return initial;
+            } else if (period === life) {
+                // Last period
+                return (cost - total) * rate;
+            } else {
+                return current;
+            }
+        };
+
+        exports.DDB = function(cost, salvage, life, period, factor) {
+            // Initialize factor
+            factor = (factor === undefined) ? 2 : factor;
+
+            cost = utils.parseNumber(cost);
+            salvage = utils.parseNumber(salvage);
+            life = utils.parseNumber(life);
+            period = utils.parseNumber(period);
+            factor = utils.parseNumber(factor);
+            if (utils.anyIsError(cost, salvage, life, period, factor)) {
+                return error.value;
+            }
+
+            // Return error if any of the parameters is negative or if factor is
+            // null
+            if (cost < 0 || salvage < 0 || life < 0 || period < 0 || factor <= 0) {
+                return error.num;
+            }
+
+            // Return error if period is greater than life
+            if (period > life) {
+                return error.num;
+            }
+
+            // Return 0 (zero) if salvage is greater than or equal to cost
+            if (salvage >= cost) {
+                return 0;
+            }
+
+            // Compute depreciation
+            var total = 0;
+            var current = 0;
+            for (var i = 1; i <= period; i++) {
+                current = Math.min((cost - total) * (factor / life), (cost - salvage - total));
+                total += current;
+            }
+
+            // Return depreciation
+            return current;
+        };
+
+        exports.DISC = null;
+
+        exports.DOLLARDE = function(dollar, fraction) {
+            // Credits: algorithm inspired by Apache OpenOffice
+
+            dollar = utils.parseNumber(dollar);
+            fraction = utils.parseNumber(fraction);
+            if (utils.anyIsError(dollar, fraction)) {
+                return error.value;
+            }
+
+            // Return error if fraction is negative
+            if (fraction < 0) {
+                return error.num;
+            }
+
+            // Return error if fraction is greater than or equal to 0 and less than
+            // 1
+            if (fraction >= 0 && fraction < 1) {
+                return error.div0;
+            }
+
+            // Truncate fraction if it is not an integer
+            fraction = parseInt(fraction, 10);
+
+            // Compute integer part
+            var result = parseInt(dollar, 10);
+
+            // Add decimal part
+            result += (dollar % 1) * Math.pow(10, Math.ceil(Math.log(fraction) / Math.LN10)) / fraction;
+
+            // Round result
+            var power = Math.pow(10, Math.ceil(Math.log(fraction) / Math.LN2) + 1);
+            result = Math.round(result * power) / power;
+
+            // Return converted dollar price
+            return result;
+        };
+
+        exports.DOLLARFR = function(dollar, fraction) {
+            // Credits: algorithm inspired by Apache OpenOffice
+
+            dollar = utils.parseNumber(dollar);
+            fraction = utils.parseNumber(fraction);
+            if (utils.anyIsError(dollar, fraction)) {
+                return error.value;
+            }
+
+            // Return error if fraction is negative
+            if (fraction < 0) {
+                return error.num;
+            }
+
+            // Return error if fraction is greater than or equal to 0 and less than
+            // 1
+            if (fraction >= 0 && fraction < 1) {
+                return error.div0;
+            }
+
+            // Truncate fraction if it is not an integer
+            fraction = parseInt(fraction, 10);
+
+            // Compute integer part
+            var result = parseInt(dollar, 10);
+
+            // Add decimal part
+            result += (dollar % 1) * Math.pow(10, -Math.ceil(Math.log(fraction) / Math.LN10)) * fraction;
+
+            // Return converted dollar price
+            return result;
+        };
+
+        exports.DURATION = null;
+
+        exports.EFFECT = function(rate, periods) {
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            if (utils.anyIsError(rate, periods)) {
+                return error.value;
+            }
+
+            // Return error if rate <=0 or periods < 1
+            if (rate <= 0 || periods < 1) {
+                return error.num;
+            }
+
+            // Truncate periods if it is not an integer
+            periods = parseInt(periods, 10);
+
+            // Return effective annual interest rate
+            return Math.pow(1 + rate / periods, periods) - 1;
+        };
+
+        exports.FV = function(rate, periods, payment, value, type) {
+            // Credits: algorithm inspired by Apache OpenOffice
+
+            value = value || 0;
+            type = type || 0;
+
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            payment = utils.parseNumber(payment);
+            value = utils.parseNumber(value);
+            type = utils.parseNumber(type);
+            if (utils.anyIsError(rate, periods, payment, value, type)) {
+                return error.value;
+            }
+
+            // Return future value
+            var result;
+            if (rate === 0) {
+                result = value + payment * periods;
+            } else {
+                var term = Math.pow(1 + rate, periods);
+                if (type === 1) {
+                    result = value * term + payment * (1 + rate) * (term - 1) / rate;
+                } else {
+                    result = value * term + payment * (term - 1) / rate;
+                }
+            }
+            return -result;
+        };
+
+        exports.FVSCHEDULE = function(principal, schedule) {
+            principal = utils.parseNumber(principal);
+            schedule = utils.parseNumberArray(utils.flatten(schedule));
+            if (utils.anyIsError(principal, schedule)) {
+                return error.value;
+            }
+
+            var n = schedule.length;
+            var future = principal;
+
+            // Apply all interests in schedule
+            for (var i = 0; i < n; i++) {
+                // Apply scheduled interest
+                future *= 1 + schedule[i];
+            }
+
+            // Return future value
+            return future;
+        };
+
+        exports.INTRATE = null;
+
+        exports.IPMT = function(rate, period, periods, present, future, type) {
+            // Credits: algorithm inspired by Apache OpenOffice
+
+            future = future || 0;
+            type = type || 0;
+
+            rate = utils.parseNumber(rate);
+            period = utils.parseNumber(period);
+            periods = utils.parseNumber(periods);
+            present = utils.parseNumber(present);
+            future = utils.parseNumber(future);
+            type = utils.parseNumber(type);
+            if (utils.anyIsError(rate, period, periods, present, future, type)) {
+                return error.value;
+            }
+
+            // Compute payment
+            var payment = exports.PMT(rate, periods, present, future, type);
+
+            // Compute interest
+            var interest;
+            if (period === 1) {
+                if (type === 1) {
+                    interest = 0;
+                } else {
+                    interest = -present;
+                }
+            } else {
+                if (type === 1) {
+                    interest = exports.FV(rate, period - 2, payment, present, 1) - payment;
+                } else {
+                    interest = exports.FV(rate, period - 1, payment, present, 0);
+                }
+            }
+
+            // Return interest
+            return interest * rate;
+        };
+
+        exports.IRR = function(values, guess) {
+            // Credits: algorithm inspired by Apache OpenOffice
+
+            guess = guess || 0;
+
+            values = utils.parseNumberArray(utils.flatten(values));
+            guess = utils.parseNumber(guess);
+            if (utils.anyIsError(values, guess)) {
+                return error.value;
+            }
+
+            // Calculates the resulting amount
+            var irrResult = function(values, dates, rate) {
+                var r = rate + 1;
+                var result = values[0];
+                for (var i = 1; i < values.length; i++) {
+                    result += values[i] / Math.pow(r, (dates[i] - dates[0]) / 365);
+                }
+                return result;
+            };
+
+            // Calculates the first derivation
+            var irrResultDeriv = function(values, dates, rate) {
+                var r = rate + 1;
+                var result = 0;
+                for (var i = 1; i < values.length; i++) {
+                    var frac = (dates[i] - dates[0]) / 365;
+                    result -= frac * values[i] / Math.pow(r, frac + 1);
+                }
+                return result;
+            };
+
+            // Initialize dates and check that values contains at least one positive
+            // value and one negative value
+            var dates = [];
+            var positive = false;
+            var negative = false;
+            for (var i = 0; i < values.length; i++) {
+                dates[i] = (i === 0) ? 0 : dates[i - 1] + 365;
+                if (values[i] > 0) {
+                    positive = true;
+                }
+                if (values[i] < 0) {
+                    negative = true;
+                }
+            }
+
+            // Return error if values does not contain at least one positive value
+            // and one negative value
+            if (!positive || !negative) {
+                return error.num;
+            }
+
+            // Initialize guess and resultRate
+            guess = (guess === undefined) ? 0.1 : guess;
+            var resultRate = guess;
+
+            // Set maximum epsilon for end of iteration
+            var epsMax = 1e-10;
+
+            // Implement Newton's method
+            var newRate, epsRate, resultValue;
+            var contLoop = true;
+            do {
+                resultValue = irrResult(values, dates, resultRate);
+                newRate = resultRate - resultValue / irrResultDeriv(values, dates, resultRate);
+                epsRate = Math.abs(newRate - resultRate);
+                resultRate = newRate;
+                contLoop = (epsRate > epsMax) && (Math.abs(resultValue) > epsMax);
+            } while (contLoop);
+
+            // Return internal rate of return
+            return resultRate;
+        };
+
+        exports.ISPMT = function(rate, period, periods, value) {
+            rate = utils.parseNumber(rate);
+            period = utils.parseNumber(period);
+            periods = utils.parseNumber(periods);
+            value = utils.parseNumber(value);
+            if (utils.anyIsError(rate, period, periods, value)) {
+                return error.value;
+            }
+
+            // Return interest
+            return value * rate * (period / periods - 1);
+        };
+
+        exports.MDURATION = null;
+
+        exports.MIRR = function(values, finance_rate, reinvest_rate) {
+            values = utils.parseNumberArray(utils.flatten(values));
+            finance_rate = utils.parseNumber(finance_rate);
+            reinvest_rate = utils.parseNumber(reinvest_rate);
+            if (utils.anyIsError(values, finance_rate, reinvest_rate)) {
+                return error.value;
+            }
+
+            // Initialize number of values
+            var n = values.length;
+
+            // Lookup payments (negative values) and incomes (positive values)
+            var payments = [];
+            var incomes = [];
+            for (var i = 0; i < n; i++) {
+                if (values[i] < 0) {
+                    payments.push(values[i]);
+                } else {
+                    incomes.push(values[i]);
+                }
+            }
+
+            // Return modified internal rate of return
+            var num = -exports.NPV(reinvest_rate, incomes) * Math.pow(1 + reinvest_rate, n - 1);
+            var den = exports.NPV(finance_rate, payments) * (1 + finance_rate);
+            return Math.pow(num / den, 1 / (n - 1)) - 1;
+        };
+
+        exports.NOMINAL = function(rate, periods) {
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            if (utils.anyIsError(rate, periods)) {
+                return error.value;
+            }
+
+            // Return error if rate <=0 or periods < 1
+            if (rate <= 0 || periods < 1) {
+                return error.num;
+            }
+
+            // Truncate periods if it is not an integer
+            periods = parseInt(periods, 10);
+
+            // Return nominal annual interest rate
+            return (Math.pow(rate + 1, 1 / periods) - 1) * periods;
+        };
+
+        exports.NPER = function(rate, payment, present, future, type) {
+            type = (type === undefined) ? 0 : type;
+            future = (future === undefined) ? 0 : future;
+
+            rate = utils.parseNumber(rate);
+            payment = utils.parseNumber(payment);
+            present = utils.parseNumber(present);
+            future = utils.parseNumber(future);
+            type = utils.parseNumber(type);
+            if (utils.anyIsError(rate, payment, present, future, type)) {
+                return error.value;
+            }
+
+            // Return number of periods
+            var num = payment * (1 + rate * type) - future * rate;
+            var den = (present * rate + payment * (1 + rate * type));
+            return Math.log(num / den) / Math.log(1 + rate);
+        };
+
+        exports.NPV = function() {
+            var args = utils.parseNumberArray(utils.flatten(arguments));
+            if (args instanceof Error) {
+                return args;
+            }
+
+            // Lookup rate
+            var rate = args[0];
+
+            // Initialize net present value
+            var value = 0;
+
+            // Loop on all values
+            for (var j = 1; j < args.length; j++) {
+                value += args[j] / Math.pow(1 + rate, j);
+            }
+
+            // Return net present value
+            return value;
+        };
+
+        exports.ODDFPRICE = null;
+
+        exports.ODDFYIELD = null;
+
+        exports.ODDLPRICE = null;
+
+        exports.ODDLYIELD = null;
+
+        exports.PDURATION = function(rate, present, future) {
+            rate = utils.parseNumber(rate);
+            present = utils.parseNumber(present);
+            future = utils.parseNumber(future);
+            if (utils.anyIsError(rate, present, future)) {
+                return error.value;
+            }
+
+            // Return error if rate <=0
+            if (rate <= 0) {
+                return error.num;
+            }
+
+            // Return number of periods
+            return (Math.log(future) - Math.log(present)) / Math.log(1 + rate);
+        };
+
+        exports.PMT = function(rate, periods, present, future, type) {
+            // Credits: algorithm inspired by Apache OpenOffice
+
+            future = future || 0;
+            type = type || 0;
+
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            present = utils.parseNumber(present);
+            future = utils.parseNumber(future);
+            type = utils.parseNumber(type);
+            if (utils.anyIsError(rate, periods, present, future, type)) {
+                return error.value;
+            }
+
+            // Return payment
+            var result;
+            if (rate === 0) {
+                result = (present + future) / periods;
+            } else {
+                var term = Math.pow(1 + rate, periods);
+                if (type === 1) {
+                    result = (future * rate / (term - 1) + present * rate / (1 - 1 / term)) / (1 + rate);
+                } else {
+                    result = future * rate / (term - 1) + present * rate / (1 - 1 / term);
+                }
+            }
+            return -result;
+        };
+
+        exports.PPMT = function(rate, period, periods, present, future, type) {
+            future = future || 0;
+            type = type || 0;
+
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            present = utils.parseNumber(present);
+            future = utils.parseNumber(future);
+            type = utils.parseNumber(type);
+            if (utils.anyIsError(rate, periods, present, future, type)) {
+                return error.value;
+            }
+
+            return exports.PMT(rate, periods, present, future, type) - exports.IPMT(rate, period, periods, present, future, type);
+        };
+
+        exports.PRICE = null;
+
+        exports.PRICEDISC = null;
+
+        exports.PRICEMAT = null;
+
+        exports.PV = function(rate, periods, payment, future, type) {
+            future = future || 0;
+            type = type || 0;
+
+            rate = utils.parseNumber(rate);
+            periods = utils.parseNumber(periods);
+            payment = utils.parseNumber(payment);
+            future = utils.parseNumber(future);
+            type = utils.parseNumber(type);
+            if (utils.anyIsError(rate, periods, payment, future, type)) {
+                return error.value;
+            }
+
+            // Return present value
+            if (rate === 0) {
+                return -payment * periods - future;
+            } else {
+                return (((1 - Math.pow(1 + rate, periods)) / rate) * payment * (1 + rate * type) - future) / Math.pow(1 + rate, periods);
+            }
+        };
+
+        exports.RATE = function(periods, payment, present, future, type, guess) {
+            // Credits: rabugento
+
+            guess = (guess === undefined) ? 0.01 : guess;
+            future = (future === undefined) ? 0 : future;
+            type = (type === undefined) ? 0 : type;
+
+            periods = utils.parseNumber(periods);
+            payment = utils.parseNumber(payment);
+            present = utils.parseNumber(present);
+            future = utils.parseNumber(future);
+            type = utils.parseNumber(type);
+            guess = utils.parseNumber(guess);
+            if (utils.anyIsError(periods, payment, present, future, type, guess)) {
+                return error.value;
+            }
+
+            // Set maximum epsilon for end of iteration
+            var epsMax = 1e-6;
+
+            // Set maximum number of iterations
+            var iterMax = 100;
+            var iter = 0;
+            var close = false;
+            var rate = guess;
+
+            while (iter < iterMax && !close) {
+                var t1 = Math.pow(rate + 1, periods);
+                var t2 = Math.pow(rate + 1, periods - 1);
+
+                var f1 = future + t1 * present + payment * (t1 - 1) * (rate * type + 1) / rate;
+                var f2 = periods * t2 * present - payment * (t1 - 1) *(rate * type + 1) / Math.pow(rate,2);
+                var f3 = periods * payment * t2 * (rate * type + 1) / rate + payment * (t1 - 1) * type / rate;
+
+                var newRate = rate - f1 / (f2 + f3);
+
+                if (Math.abs(newRate - rate) < epsMax) close = true;
+                iter++
+                rate = newRate;
+            }
+
+            if (!close) return Number.NaN + rate;
+            return rate;
+        };
+
+        // TODO
+        exports.RECEIVED = null;
+
+        exports.RRI = function(periods, present, future) {
+            periods = utils.parseNumber(periods);
+            present = utils.parseNumber(present);
+            future = utils.parseNumber(future);
+            if (utils.anyIsError(periods, present, future)) {
+                return error.value;
+            }
+
+            // Return error if periods or present is equal to 0 (zero)
+            if (periods === 0 || present === 0) {
+                return error.num;
+            }
+
+            // Return equivalent interest rate
+            return Math.pow(future / present, 1 / periods) - 1;
+        };
+
+        exports.SLN = function(cost, salvage, life) {
+            cost = utils.parseNumber(cost);
+            salvage = utils.parseNumber(salvage);
+            life = utils.parseNumber(life);
+            if (utils.anyIsError(cost, salvage, life)) {
+                return error.value;
+            }
+
+            // Return error if life equal to 0 (zero)
+            if (life === 0) {
+                return error.num;
+            }
+
+            // Return straight-line depreciation
+            return (cost - salvage) / life;
+        };
+
+        exports.SYD = function(cost, salvage, life, period) {
+            // Return error if any of the parameters is not a number
+            cost = utils.parseNumber(cost);
+            salvage = utils.parseNumber(salvage);
+            life = utils.parseNumber(life);
+            period = utils.parseNumber(period);
+            if (utils.anyIsError(cost, salvage, life, period)) {
+                return error.value;
+            }
+
+            // Return error if life equal to 0 (zero)
+            if (life === 0) {
+                return error.num;
+            }
+
+            // Return error if period is lower than 1 or greater than life
+            if (period < 1 || period > life) {
+                return error.num;
+            }
+
+            // Truncate period if it is not an integer
+            period = parseInt(period, 10);
+
+            // Return straight-line depreciation
+            return ((cost - salvage) * (life - period + 1) * 2) / (life * (life + 1));
+        };
+
+        exports.TBILLEQ = function(settlement, maturity, discount) {
+            settlement = utils.parseDate(settlement);
+            maturity = utils.parseDate(maturity);
+            discount = utils.parseNumber(discount);
+            if (utils.anyIsError(settlement, maturity, discount)) {
+                return error.value;
+            }
+
+            // Return error if discount is lower than or equal to zero
+            if (discount <= 0) {
+                return error.num;
+            }
+
+            // Return error if settlement is greater than maturity
+            if (settlement > maturity) {
+                return error.num;
+            }
+
+            // Return error if maturity is more than one year after settlement
+            if (maturity - settlement > 365 * 24 * 60 * 60 * 1000) {
+                return error.num;
+            }
+
+            // Return bond-equivalent yield
+            return (365 * discount) / (360 - discount * DAYS360(settlement, maturity, false));
+        };
+
+        exports.TBILLPRICE = function(settlement, maturity, discount) {
+            settlement = utils.parseDate(settlement);
+            maturity = utils.parseDate(maturity);
+            discount = utils.parseNumber(discount);
+            if (utils.anyIsError(settlement, maturity, discount)) {
+                return error.value;
+            }
+
+            // Return error if discount is lower than or equal to zero
+            if (discount <= 0) {
+                return error.num;
+            }
+
+            // Return error if settlement is greater than maturity
+            if (settlement > maturity) {
+                return error.num;
+            }
+
+            // Return error if maturity is more than one year after settlement
+            if (maturity - settlement > 365 * 24 * 60 * 60 * 1000) {
+                return error.num;
+            }
+
+            // Return bond-equivalent yield
+            return 100 * (1 - discount * DAYS360(settlement, maturity, false) / 360);
+        };
+
+        exports.TBILLYIELD = function(settlement, maturity, price) {
+            settlement = utils.parseDate(settlement);
+            maturity = utils.parseDate(maturity);
+            price = utils.parseNumber(price);
+            if (utils.anyIsError(settlement, maturity, price)) {
+                return error.value;
+            }
+
+            // Return error if price is lower than or equal to zero
+            if (price <= 0) {
+                return error.num;
+            }
+
+            // Return error if settlement is greater than maturity
+            if (settlement > maturity) {
+                return error.num;
+            }
+
+            // Return error if maturity is more than one year after settlement
+            if (maturity - settlement > 365 * 24 * 60 * 60 * 1000) {
+                return error.num;
+            }
+
+            // Return bond-equivalent yield
+            return (100 - price) * 360 / (price * DAYS360(settlement, maturity, false));
+        };
+
+        exports.VDB = null;
+
+        exports.XIRR = function(values, dates, guess) {
+            // Credits: algorithm inspired by Apache OpenOffice
+
+            values = utils.parseNumberArray(utils.flatten(values));
+            dates = utils.parseDateArray(utils.flatten(dates));
+            guess = utils.parseNumber(guess);
+            if (utils.anyIsError(values, dates, guess)) {
+                return error.value;
+            }
+
+            // Calculates the resulting amount
+            var irrResult = function(values, dates, rate) {
+                var r = rate + 1;
+                var result = values[0];
+                for (var i = 1; i < values.length; i++) {
+                    result += values[i] / Math.pow(r, DAYS(dates[i], dates[0]) / 365);
+                }
+                return result;
+            };
+
+            // Calculates the first derivation
+            var irrResultDeriv = function(values, dates, rate) {
+                var r = rate + 1;
+                var result = 0;
+                for (var i = 1; i < values.length; i++) {
+                    var frac = DAYS(dates[i], dates[0]) / 365;
+                    result -= frac * values[i] / Math.pow(r, frac + 1);
+                }
+                return result;
+            };
+
+            // Check that values contains at least one positive value and one
+            // negative value
+            var positive = false;
+            var negative = false;
+            for (var i = 0; i < values.length; i++) {
+                if (values[i] > 0) {
+                    positive = true;
+                }
+                if (values[i] < 0) {
+                    negative = true;
+                }
+            }
+
+            // Return error if values does not contain at least one positive value
+            // and one negative value
+            if (!positive || !negative) {
+                return error.num;
+            }
+
+            // Initialize guess and resultRate
+            guess = guess || 0.1;
+            var resultRate = guess;
+
+            // Set maximum epsilon for end of iteration
+            var epsMax = 1e-10;
+
+            // Implement Newton's method
+            var newRate, epsRate, resultValue;
+            var contLoop = true;
+            do {
+                resultValue = irrResult(values, dates, resultRate);
+                newRate = resultRate - resultValue / irrResultDeriv(values, dates, resultRate);
+                epsRate = Math.abs(newRate - resultRate);
+                resultRate = newRate;
+                contLoop = (epsRate > epsMax) && (Math.abs(resultValue) > epsMax);
+            } while (contLoop);
+
+            // Return internal rate of return
+            return resultRate;
+        };
+
+        exports.XNPV = function(rate, values, dates) {
+            rate = utils.parseNumber(rate);
+            values = utils.parseNumberArray(utils.flatten(values));
+            dates = utils.parseDateArray(utils.flatten(dates));
+            if (utils.anyIsError(rate, values, dates)) {
+                return error.value;
+            }
+
+            var result = 0;
+            for (var i = 0; i < values.length; i++) {
+                result += values[i] / Math.pow(1 + rate, DAYS(dates[i], dates[0]) / 365);
+            }
+            return result;
+        };
+
+        exports.YIELD = null;
+
+        exports.YIELDDISC = null;
+
+        exports.YIELDMAT = null;
+
+        return exports;
+    })();
+
+    met.information = (function() {
+        var exports = {};
+        exports.CELL = null;
+
+        exports.ERROR = {};
+        exports.ERROR.TYPE = function(error_val) {
+            switch (error_val) {
+                case error.nil: return 1;
+                case error.div0: return 2;
+                case error.value: return 3;
+                case error.ref: return 4;
+                case error.name: return 5;
+                case error.num: return 6;
+                case error.na: return 7;
+                case error.data: return 8;
+            }
+            return error.na;
+        };
+
+        exports.INFO = null;
+
+        exports.ISBLANK = function(value) {
+            return value === null;
+        };
+
+        exports.ISBINARY = function (number) {
+            return (/^[01]{1,10}$/).test(number);
+        };
+
+        exports.ISERR = function(value) {
+            return ([error.value, error.ref, error.div0, error.num, error.name, error.nil]).indexOf(value) >= 0 ||
+                (typeof value === 'number' && (isNaN(value) || !isFinite(value)));
+        };
+
+        exports.ISERROR = function(value) {
+            return exports.ISERR(value) || value === error.na;
+        };
+
+        exports.ISEVEN = function(number) {
+            return (Math.floor(Math.abs(number)) & 1) ? false : true;
+        };
+
+        // TODO
+        exports.ISFORMULA = null;
+
+        exports.ISLOGICAL = function(value) {
+            return value === true || value === false;
+        };
+
+        exports.ISNA = function(value) {
+            return value === error.na;
+        };
+
+        exports.ISNONTEXT = function(value) {
+            return typeof(value) !== 'string';
+        };
+
+        exports.ISNUMBER = function(value) {
+            return typeof(value) === 'number' && !isNaN(value) && isFinite(value);
+        };
+
+        exports.ISODD = function(number) {
+            return (Math.floor(Math.abs(number)) & 1) ? true : false;
+        };
+
+        exports.ISREF = null;
+
+        exports.ISTEXT = function(value) {
+            return typeof(value) === 'string';
+        };
+
+        exports.N = function(value) {
+            if (this.ISNUMBER(value)) {
+                return value;
+            }
+            if (value instanceof Date) {
+                return value.getTime();
+            }
+            if (value === true) {
+                return 1;
+            }
+            if (value === false) {
+                return 0;
+            }
+            if (this.ISERROR(value)) {
+                return value;
+            }
+            return 0;
+        };
+
+        exports.NA = function() {
+            return error.na;
+        };
+
+        exports.SHEET = null;
+
+        exports.SHEETS = null;
+
+        exports.TYPE = function(value) {
+            if (this.ISNUMBER(value)) {
+                return 1;
+            }
+            if (this.ISTEXT(value)) {
+                return 2;
+            }
+            if (this.ISLOGICAL(value)) {
+                return 4;
+            }
+            if (this.ISERROR(value)) {
+                return 16;
+            }
+            if (Array.isArray(value)) {
+                return 64;
+            }
+        };
+
+        return exports;
+    })();
+
+    met.logical = (function() {
+        var exports = {};
+
+        exports.AND = function() {
+            var args = utils.flatten(arguments);
+            var result = true;
+            for (var i = 0; i < args.length; i++) {
+                if (!args[i]) {
+                    result = false;
+                }
+            }
+            return result;
+        };
+
+        exports.CHOOSE = function() {
+            if (arguments.length < 2) {
+                return error.na;
+            }
+
+            var index = arguments[0];
+            if (index < 1 || index > 254) {
+                return error.value;
+            }
+
+            if (arguments.length < index + 1) {
+                return error.value;
+            }
+
+            return arguments[index];
+        };
+
+        exports.FALSE = function() {
+            return false;
+        };
+
+        exports.IF = function(test, then_value, otherwise_value) {
+            return test ? then_value : otherwise_value;
+        };
+
+        exports.IFERROR = function(value, valueIfError) {
+            if (ISERROR(value)) {
+                return valueIfError;
+            }
+            return value;
+        };
+
+        exports.IFNA = function(value, value_if_na) {
+            return value === error.na ? value_if_na : value;
+        };
+
+        exports.NOT = function(logical) {
+            return !logical;
+        };
+
+        exports.OR = function() {
+            var args = utils.flatten(arguments);
+            var result = false;
+            for (var i = 0; i < args.length; i++) {
+                if (args[i]) {
+                    result = true;
+                }
+            }
+            return result;
+        };
+
+        exports.TRUE = function() {
+            return true;
+        };
+
+        exports.XOR = function() {
+            var args = utils.flatten(arguments);
+            var result = 0;
+            for (var i = 0; i < args.length; i++) {
+                if (args[i]) {
+                    result++;
+                }
+            }
+            return (Math.floor(Math.abs(result)) & 1) ? true : false;
+        };
+
+        exports.SWITCH = function() {
+            var result;
+            if (arguments.length > 0)  {
+                var targetValue = arguments[0];
+                var argc = arguments.length - 1;
+                var switchCount = Math.floor(argc / 2);
+                var switchSatisfied = false;
+                var defaultClause = argc % 2 === 0 ? null : arguments[arguments.length - 1];
+
+                if (switchCount) {
+                    for (var index = 0; index < switchCount; index++) {
+                        if (targetValue === arguments[index * 2 + 1]) {
+                            result = arguments[index * 2 + 2];
+                            switchSatisfied = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!switchSatisfied && defaultClause) {
+                    result = defaultClause;
+                }
+            }
+
+            return result;
+        };
+
+        return exports;
+    })();
+
+    met.math = (function() {
+        var exports = {};
+
+        exports.ABS = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.abs(utils.parseNumber(number));
+        };
+
+        exports.ACOS = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.acos(number);
+        };
+
+        exports.ACOSH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.log(number + Math.sqrt(number * number - 1));
+        };
+
+        exports.ACOT = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.atan(1 / number);
+        };
+
+        exports.ACOTH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return 0.5 * Math.log((number + 1) / (number - 1));
+        };
+
+        exports.AGGREGATE = null
+
+        exports.ARABIC = function(text) {
+            // Credits: Rafa? Kukawski
+            if (!/^M*(?:D?C{0,3}|C[MD])(?:L?X{0,3}|X[CL])(?:V?I{0,3}|I[XV])$/.test(text)) {
+                return error.value;
+            }
+            var r = 0;
+            text.replace(/[MDLV]|C[MD]?|X[CL]?|I[XV]?/g, function(i) {
+                r += {
+                    M: 1000,
+                    CM: 900,
+                    D: 500,
+                    CD: 400,
+                    C: 100,
+                    XC: 90,
+                    L: 50,
+                    XL: 40,
+                    X: 10,
+                    IX: 9,
+                    V: 5,
+                    IV: 4,
+                    I: 1
+                }[i];
+            });
+            return r;
+        };
+
+        exports.ASIN = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.asin(number);
+        };
+
+        exports.ASINH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.log(number + Math.sqrt(number * number + 1));
+        };
+
+        exports.ATAN = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.atan(number);
+        };
+
+        exports.ATAN2 = function(number_x, number_y) {
+            number_x = utils.parseNumber(number_x);
+            number_y = utils.parseNumber(number_y);
+            if (utils.anyIsError(number_x, number_y)) {
+                return error.value;
+            }
+            return Math.atan2(number_x, number_y);
+        };
+
+        exports.ATANH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.log((1 + number) / (1 - number)) / 2;
+        };
+
+        exports.BASE = function(number, radix, min_length) {
+            min_length = min_length || 0;
+
+            number = utils.parseNumber(number);
+            radix = utils.parseNumber(radix);
+            min_length = utils.parseNumber(min_length);
+            if (utils.anyIsError(number, radix, min_length)) {
+                return error.value;
+            }
+            min_length = (min_length === undefined) ? 0 : min_length;
+            var result = number.toString(radix);
+            return new Array(Math.max(min_length + 1 - result.length, 0)).join('0') + result;
+        };
+
+        exports.CEILING = function(number, significance, mode) {
+            significance = (significance === undefined) ? 1 : significance;
+            mode = (mode === undefined) ? 0 : mode;
+
+            number = utils.parseNumber(number);
+            significance = utils.parseNumber(significance);
+            mode = utils.parseNumber(mode);
+            if (utils.anyIsError(number, significance, mode)) {
+                return error.value;
+            }
+            if (significance === 0) {
+                return 0;
+            }
+
+            significance = Math.abs(significance);
+            if (number >= 0) {
+                return Math.ceil(number / significance) * significance;
+            } else {
+                if (mode === 0) {
+                    return -1 * Math.floor(Math.abs(number) / significance) * significance;
+                } else {
+                    return -1 * Math.ceil(Math.abs(number) / significance) * significance;
+                }
+            }
+        };
+
+        exports.CEILING.MATH = exports.CEILING;
+
+        exports.CEILING.PRECISE = exports.CEILING;
+
+        exports.COMBIN = function(number, number_chosen) {
+            number = utils.parseNumber(number);
+            number_chosen = utils.parseNumber(number_chosen);
+            if (utils.anyIsError(number, number_chosen)) {
+                return error.value;
+            }
+            return exports.FACT(number) / (exports.FACT(number_chosen) * exports.FACT(number - number_chosen));
+        };
+
+        exports.COMBINA = function(number, number_chosen) {
+            number = utils.parseNumber(number);
+            number_chosen = utils.parseNumber(number_chosen);
+            if (utils.anyIsError(number, number_chosen)) {
+                return error.value;
+            }
+            return (number === 0 && number_chosen === 0) ? 1 : exports.COMBIN(number + number_chosen - 1, number - 1);
+        };
+
+        exports.COS = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.cos(number);
+        };
+
+        exports.COSH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return (Math.exp(number) + Math.exp(-number)) / 2;
+        };
+
+        exports.COT = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return 1 / Math.tan(number);
+        };
+
+        exports.COTH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            var e2 = Math.exp(2 * number);
+            return (e2 + 1) / (e2 - 1);
+        };
+
+        exports.CSC = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return 1 / Math.sin(number);
+        };
+
+        exports.CSCH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return 2 / (Math.exp(number) - Math.exp(-number));
+        };
+
+        exports.DECIMAL = function(number, radix) {
+            if (arguments.length < 1) {
+                return error.value;
+            }
+
+
+            return parseInt(number, radix);
+        };
+
+        exports.DEGREES = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return number * 180 / Math.PI;
+        };
+
+        exports.EVEN = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return exports.CEILING(number, -2, -1);
+        };
+
+        exports.EXP = Math.exp;
+
+        var MEMOIZED_FACT = [];
+        exports.FACT = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            var n = Math.floor(number);
+            if (n === 0 || n === 1) {
+                return 1;
+            } else if (MEMOIZED_FACT[n] > 0) {
+                return MEMOIZED_FACT[n];
+            } else {
+                MEMOIZED_FACT[n] = exports.FACT(n - 1) * n;
+                return MEMOIZED_FACT[n];
+            }
+        };
+
+        exports.FACTDOUBLE = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            var n = Math.floor(number);
+            if (n <= 0) {
+                return 1;
+            } else {
+                return n * exports.FACTDOUBLE(n - 2);
+            }
+        };
+
+        exports.FLOOR = function(number, significance, mode) {
+            significance = (significance === undefined) ? 1 : significance;
+            mode = (mode === undefined) ? 0 : mode;
+
+            number = utils.parseNumber(number);
+            significance = utils.parseNumber(significance);
+            mode = utils.parseNumber(mode);
+            if (utils.anyIsError(number, significance, mode)) {
+                return error.value;
+            }
+            if (significance === 0) {
+                return 0;
+            }
+
+            significance = Math.abs(significance);
+            if (number >= 0) {
+                return Math.floor(number / significance) * significance;
+            } else {
+                if (mode === 0) {
+                    return -1 * Math.ceil(Math.abs(number) / significance) * significance;
+                } else {
+                    return -1 * Math.floor(Math.abs(number) / significance) * significance;
+                }
+            }
+        };
+
+        exports.FLOOR.MATH = exports.FLOOR;
+
+        exports.GCD = null;
+
+        exports.INT = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.floor(number);
+        };
+
+        exports.LCM = function() {
+            // Credits: Jonas Raoni Soares Silva
+            var o = utils.parseNumberArray(utils.flatten(arguments));
+            if (o instanceof Error) {
+                return o;
+            }
+            for (var i, j, n, d, r = 1;
+                 (n = o.pop()) !== undefined;) {
+                while (n > 1) {
+                    if (n % 2) {
+                        for (i = 3, j = Math.floor(Math.sqrt(n)); i <= j && n % i; i += 2) {
+                            // empty
+                        }
+                        d = (i <= j) ? i : n;
+                    } else {
+                        d = 2;
+                    }
+                    for (n /= d, r *= d, i = o.length; i;
+                         (o[--i] % d) === 0 && (o[i] /= d) === 1 && o.splice(i, 1)) {
+                        // empty
+                    }
+                }
+            }
+            return r;
+        };
+
+        exports.LN = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.log(number);
+        };
+
+        exports.LOG = function(number, base) {
+            number = utils.parseNumber(number);
+            base = (base === undefined) ? 10 : utils.parseNumber(base);
+
+            if (utils.anyIsError(number, base)) {
+                return error.value;
+            }
+
+            return Math.log(number) / Math.log(base);
+        };
+
+        exports.LOG10 = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.log(number) / Math.log(10);
+        };
+
+        exports.MDETERM = null;
+
+        exports.MINVERSE = null;
+
+        exports.MMULT = null;
+
+        exports.MOD = function(dividend, divisor) {
+            dividend = utils.parseNumber(dividend);
+            divisor = utils.parseNumber(divisor);
+            if (utils.anyIsError(dividend, divisor)) {
+                return error.value;
+            }
+            if (divisor === 0) {
+                return error.div0;
+            }
+            var modulus = Math.abs(dividend % divisor);
+            return (divisor > 0) ? modulus : -modulus;
+        };
+
+        exports.MROUND = function(number, multiple) {
+            number = utils.parseNumber(number);
+            multiple = utils.parseNumber(multiple);
+            if (utils.anyIsError(number, multiple)) {
+                return error.value;
+            }
+            if (number * multiple < 0) {
+                return error.num;
+            }
+
+            return Math.round(number / multiple) * multiple;
+        };
+
+        exports.MULTINOMIAL = function() {
+            var args = utils.parseNumberArray(utils.flatten(arguments));
+            if (args instanceof Error) {
+                return args;
+            }
+            var sum = 0;
+            var divisor = 1;
+            for (var i = 0; i < args.length; i++) {
+                sum += args[i];
+                divisor *= exports.FACT(args[i]);
+            }
+            return exports.FACT(sum) / divisor;
+        };
+
+        exports.MUNIT = null;
+
+        exports.ODD = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            var temp = Math.ceil(Math.abs(number));
+            temp = (temp & 1) ? temp : temp + 1;
+            return (number > 0) ? temp : -temp;
+        };
+
+        exports.PI = function() {
+            return Math.PI;
+        };
+
+        exports.POWER = function(number, power) {
+            number = utils.parseNumber(number);
+            power = utils.parseNumber(power);
+            if (utils.anyIsError(number, power)) {
+                return error.value;
+            }
+            var result = Math.pow(number, power);
+            if (isNaN(result)) {
+                return error.num;
+            }
+
+            return result;
+        };
+
+        exports.PRODUCT = function() {
+            var args = utils.parseNumberArray(utils.flatten(arguments));
+            if (args instanceof Error) {
+                return args;
+            }
+            var result = 1;
+            for (var i = 0; i < args.length; i++) {
+                result *= args[i];
+            }
+            return result;
+        };
+
+        exports.QUOTIENT = function(numerator, denominator) {
+            numerator = utils.parseNumber(numerator);
+            denominator = utils.parseNumber(denominator);
+            if (utils.anyIsError(numerator, denominator)) {
+                return error.value;
+            }
+            return parseInt(numerator / denominator, 10);
+        };
+
+        exports.RADIANS = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return number * Math.PI / 180;
+        };
+
+        exports.RAND = function() {
+            return Math.random();
+        };
+
+        exports.RANDBETWEEN = function(bottom, top) {
+            bottom = utils.parseNumber(bottom);
+            top = utils.parseNumber(top);
+            if (utils.anyIsError(bottom, top)) {
+                return error.value;
+            }
+            // Creative Commons Attribution 3.0 License
+            // Copyright (c) 2012 eqcode
+            return bottom + Math.ceil((top - bottom + 1) * Math.random()) - 1;
+        };
+
+        exports.ROMAN = null;
+
+        exports.ROUND = function(number, digits) {
+            number = utils.parseNumber(number);
+            digits = utils.parseNumber(digits);
+            if (utils.anyIsError(number, digits)) {
+                return error.value;
+            }
+            return Math.round(number * Math.pow(10, digits)) / Math.pow(10, digits);
+        };
+
+        exports.ROUNDDOWN = function(number, digits) {
+            number = utils.parseNumber(number);
+            digits = utils.parseNumber(digits);
+            if (utils.anyIsError(number, digits)) {
+                return error.value;
+            }
+            var sign = (number > 0) ? 1 : -1;
+            return sign * (Math.floor(Math.abs(number) * Math.pow(10, digits))) / Math.pow(10, digits);
+        };
+
+        exports.ROUNDUP = function(number, digits) {
+            number = utils.parseNumber(number);
+            digits = utils.parseNumber(digits);
+            if (utils.anyIsError(number, digits)) {
+                return error.value;
+            }
+            var sign = (number > 0) ? 1 : -1;
+            return sign * (Math.ceil(Math.abs(number) * Math.pow(10, digits))) / Math.pow(10, digits);
+        };
+
+        exports.SEC = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return 1 / Math.cos(number);
+        };
+
+        exports.SECH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return 2 / (Math.exp(number) + Math.exp(-number));
+        };
+
+        exports.SERIESSUM = function(x, n, m, coefficients) {
+            x = utils.parseNumber(x);
+            n = utils.parseNumber(n);
+            m = utils.parseNumber(m);
+            coefficients = utils.parseNumberArray(coefficients);
+            if (utils.anyIsError(x, n, m, coefficients)) {
+                return error.value;
+            }
+            var result = coefficients[0] * Math.pow(x, n);
+            for (var i = 1; i < coefficients.length; i++) {
+                result += coefficients[i] * Math.pow(x, n + i * m);
+            }
+            return result;
+        };
+
+        exports.SIGN = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            if (number < 0) {
+                return -1;
+            } else if (number === 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        };
+
+        exports.SIN = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.sin(number);
+        };
+
+        exports.SINH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return (Math.exp(number) - Math.exp(-number)) / 2;
+        };
+
+        exports.SQRT = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            if (number < 0) {
+                return error.num;
+            }
+            return Math.sqrt(number);
+        };
+
+        exports.SQRTPI = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.sqrt(number * Math.PI);
+        };
+
+        exports.SUBTOTAL = null;
+
+        exports.ADD = function (num1, num2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            num1 = utils.parseNumber(num1);
+            num2 = utils.parseNumber(num2);
+            if (utils.anyIsError(num1, num2)) {
+                return error.value;
+            }
+
+            return num1 + num2;
+        };
+
+        exports.MINUS = function (num1, num2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            num1 = utils.parseNumber(num1);
+            num2 = utils.parseNumber(num2);
+            if (utils.anyIsError(num1, num2)) {
+                return error.value;
+            }
+
+            return num1 - num2;
+        };
+
+        exports.DIVIDE = function (dividend, divisor) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            dividend = utils.parseNumber(dividend);
+            divisor = utils.parseNumber(divisor);
+            if (utils.anyIsError(dividend, divisor)) {
+                return error.value;
+            }
+
+            if (divisor === 0) {
+                return error.div0;
+            }
+
+            return dividend / divisor;
+        };
+
+        exports.MULTIPLY = function (factor1, factor2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            factor1 = utils.parseNumber(factor1);
+            factor2 = utils.parseNumber(factor2);
+            if (utils.anyIsError(factor1, factor2)) {
+                return error.value;
+            }
+
+            return factor1 * factor2;
+        };
+
+        exports.GTE = function (num1, num2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            num1 = utils.parseNumber(num1);
+            num2 = utils.parseNumber(num2);
+            if (utils.anyIsError(num1, num2)) {
+                return error.error;
+            }
+
+            return num1 >= num2;
+        };
+
+        exports.LT = function (num1, num2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            num1 = utils.parseNumber(num1);
+            num2 = utils.parseNumber(num2);
+            if (utils.anyIsError(num1, num2)) {
+                return error.error;
+            }
+
+            return num1 < num2;
+        };
+
+        exports.LTE = function (num1, num2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            num1 = utils.parseNumber(num1);
+            num2 = utils.parseNumber(num2);
+            if (utils.anyIsError(num1, num2)) {
+                return error.error;
+            }
+
+            return num1 <= num2;
+        };
+
+        exports.EQ = function (value1, value2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            return value1 === value2;
+        };
+
+        exports.NE = function (value1, value2) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            return value1 !== value2;
+        };
+
+        exports.POW = function (base, exponent) {
+            if (arguments.length !== 2) {
+                return error.na;
+            }
+
+            base = utils.parseNumber(base);
+            exponent = utils.parseNumber(exponent);
+            if (utils.anyIsError(base, exponent)) {
+                return error.error;
+            }
+
+            return exports.POWER(base, exponent);
+        };
+
+        exports.SUM = function() {
+            var result = 0;
+            var argsKeys = Object.keys(arguments);
+            for (var i = 0; i < argsKeys.length; ++i) {
+                var elt = arguments[argsKeys[i]];
+                if (typeof elt === 'number') {
+                    result += elt;
+                } else if (typeof elt === 'string') {
+                    var parsed = parseFloat(elt);
+                    !isNaN(parsed) && (result += parsed);
+                } else if (Array.isArray(elt)) {
+                    result += exports.SUM.apply(null, elt);
+                }
+            }
+            return result;
+        };
+
+        exports.SUMIF = function() {
+            var args = utils.argsToArray(arguments);
+            var criteria = args.pop();
+            var range = utils.parseNumberArray(utils.flatten(args));
+            if (range instanceof Error) {
+                return range;
+            }
+            var result = 0;
+            for (var i = 0; i < range.length; i++) {
+                result += (eval(range[i] + criteria)) ? range[i] : 0; // jshint ignore:line
+            }
+            return result;
+        };
+
+        exports.SUMIFS = function () {
+            var args = utils.argsToArray(arguments);
+            var range = utils.parseNumberArray(utils.flatten(args.shift()));
+            if (range instanceof Error) {
+                return range;
+            }
+            var criteria = args;
+
+            var n_range_elements = range.length;
+            var n_criterias = criteria.length;
+
+            var result = 0;
+
+            for (var i = 0; i < n_range_elements; i++) {
+                var el = range[i];
+                var condition = '';
+                for (var c = 0; c < n_criterias; c+=2) {
+                    if(isNaN(criteria[c][i])){
+                        condition += '"' + criteria[c][i] + '"' + criteria[c+1];
+                    }
+                    else {
+                        condition += criteria[c][i] + criteria[c + 1];
+                    }
+                    if (c !== n_criterias - 1) {
+                        condition += ' && ';
+                    }
+                }
+                condition = condition.slice(0,-4)
+                if (eval(condition)) { // jshint ignore:line
+                    result += el;
+                }
+            }
+            return result;
+        };
+
+        exports.SUMPRODUCT = null;
+
+        exports.SUMSQ = function() {
+            var numbers = utils.parseNumberArray(utils.flatten(arguments));
+            if (numbers instanceof Error) {
+                return numbers;
+            }
+            var result = 0;
+            var length = numbers.length;
+            for (var i = 0; i < length; i++) {
+                result += (ISNUMBER(numbers[i])) ? numbers[i] * numbers[i] : 0;
+            }
+            return result;
+        };
+
+        exports.SUMX2MY2 = function(array_x, array_y) {
+            array_x = utils.parseNumberArray(utils.flatten(array_x));
+            array_y = utils.parseNumberArray(utils.flatten(array_y));
+            if (utils.anyIsError(array_x, array_y)) {
+                return error.value;
+            }
+            var result = 0;
+            for (var i = 0; i < array_x.length; i++) {
+                result += array_x[i] * array_x[i] - array_y[i] * array_y[i];
+            }
+            return result;
+        };
+
+        exports.SUMX2PY2 = function(array_x, array_y) {
+            array_x = utils.parseNumberArray(utils.flatten(array_x));
+            array_y = utils.parseNumberArray(utils.flatten(array_y));
+            if (utils.anyIsError(array_x, array_y)) {
+                return error.value;
+            }
+            var result = 0;
+            array_x = utils.parseNumberArray(utils.flatten(array_x));
+            array_y = utils.parseNumberArray(utils.flatten(array_y));
+            for (var i = 0; i < array_x.length; i++) {
+                result += array_x[i] * array_x[i] + array_y[i] * array_y[i];
+            }
+            return result;
+        };
+
+        exports.SUMXMY2 = function(array_x, array_y) {
+            array_x = utils.parseNumberArray(utils.flatten(array_x));
+            array_y = utils.parseNumberArray(utils.flatten(array_y));
+            if (utils.anyIsError(array_x, array_y)) {
+                return error.value;
+            }
+            var result = 0;
+            array_x = utils.flatten(array_x);
+            array_y = utils.flatten(array_y);
+            for (var i = 0; i < array_x.length; i++) {
+                result += Math.pow(array_x[i] - array_y[i], 2);
+            }
+            return result;
+        };
+
+        exports.TAN = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return Math.tan(number);
+        };
+
+        exports.TANH = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            var e2 = Math.exp(2 * number);
+            return (e2 - 1) / (e2 + 1);
+        };
+
+        exports.TRUNC = function(number, digits) {
+            digits = (digits === undefined) ? 0 : digits;
+            number = utils.parseNumber(number);
+            digits = utils.parseNumber(digits);
+            if (utils.anyIsError(number, digits)) {
+                return error.value;
+            }
+            var sign = (number > 0) ? 1 : -1;
+            return sign * (Math.floor(Math.abs(number) * Math.pow(10, digits))) / Math.pow(10, digits);
+        };
+
+        return exports;
+    })();
+
+    met.misc = (function() {
+        var exports = {};
+
+        exports.UNIQUE = function () {
+            var result = [];
+            for (var i = 0; i < arguments.length; ++i) {
+                var hasElement = false;
+                var element = arguments[i];
+
+                // Check if we've already seen this element.
+                for (var j = 0; j < result.length; ++j) {
+                    hasElement = result[j] === element;
+                    if (hasElement) { break; }
+                }
+
+                // If we did not find it, add it to the result.
+                if (!hasElement) {
+                    result.push(element);
+                }
+            }
+            return result;
+        };
+
+        exports.FLATTEN = utils.flatten;
+
+        exports.ARGS2ARRAY = function () {
+            return Array.prototype.slice.call(arguments, 0);
+        };
+
+        exports.REFERENCE = function (context, reference) {
+            try {
+                var path = reference.split('.');
+                var result = context;
+                for (var i = 0; i < path.length; ++i) {
+                    var step = path[i];
+                    if (step[step.length - 1] === ']') {
+                        var opening = step.indexOf('[');
+                        var index = step.substring(opening + 1, step.length - 1);
+                        result = result[step.substring(0, opening)][index];
+                    } else {
+                        result = result[step];
+                    }
+                }
+                return result;
+            } catch (error) {}
+        };
+
+        exports.JOIN = function (array, separator) {
+            return array.join(separator);
+        };
+
+        exports.NUMBERS = function () {
+            var possibleNumbers = utils.flatten(arguments);
+            return possibleNumbers.filter(function (el) {
+                return typeof el === 'number';
+            });
+        };
+
+        exports.NUMERAL = null;
+
+        return exports;
+    })();
+
+    met.text = (function() {
+        var exports = {};
+
+        exports.ASC = null;
+
+        exports.BAHTTEXT = null;
+
+        exports.CHAR = function(number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return String.fromCharCode(number);
+        };
+
+        exports.CLEAN = function(text) {
+            text = text || '';
+            var re = /[\0-\x1F]/g;
+            return text.replace(re, "");
+        };
+
+        exports.CODE = function(text) {
+            text = text || '';
+            return text.charCodeAt(0);
+        };
+
+        exports.CONCATENATE = function() {
+            var args = utils.flatten(arguments);
+
+            var trueFound = 0;
+            while ((trueFound = args.indexOf(true)) > -1) {
+                args[trueFound] = 'TRUE';
+            }
+
+            var falseFound = 0;
+            while ((falseFound = args.indexOf(false)) > -1) {
+                args[falseFound] = 'FALSE';
+            }
+
+            return args.join('');
+        };
+
+        exports.DBCS = null;
+
+        exports.DOLLAR = null;
+
+        exports.EXACT = function(text1, text2) {
+            return text1 === text2;
+        };
+
+        exports.FIND = function(find_text, within_text, position) {
+            position = (position === undefined) ? 0 : position;
+            return within_text ? within_text.indexOf(find_text, position - 1) + 1 : null;
+        };
+
+        exports.FIXED = null;
+
+        exports.HTML2TEXT = function (value) {
+            var result = '';
+
+            if (value) {
+                if (value instanceof Array) {
+                    value.forEach(function (line) {
+                        if (result !== '') {
+                            result += '\n';
+                        }
+                        result += (line.replace(/<(?:.|\n)*?>/gm, ''));
+                    });
+                } else {
+                    result = value.replace(/<(?:.|\n)*?>/gm, '');
+                }
+            }
+
+            return result;
+        };
+
+        exports.LEFT = function(text, number) {
+            number = (number === undefined) ? 1 : number;
+            number = utils.parseNumber(number);
+            if (number instanceof Error || typeof text !== 'string') {
+                return error.value;
+            }
+            return text ? text.substring(0, number) : null;
+        };
+
+        exports.LEN = function(text) {
+            if (arguments.length === 0) {
+                return error.error;
+            }
+
+            if (typeof text === 'string') {
+                return text ? text.length : 0;
+            }
+
+            if (text.length) {
+                return text.length;
+            }
+
+            if (text == null) {
+                return 0;
+            }
+
+            return error.value;
+        };
+
+        exports.LOWER = function(text) {
+            if (typeof text !== 'string') {
+                return error.value;
+            }
+            return text ? text.toLowerCase() : text;
+        };
+
+        exports.MID = function(text, start, number) {
+            start = utils.parseNumber(start);
+            number = utils.parseNumber(number);
+            if (utils.anyIsError(start, number) || typeof text !== 'string') {
+                return number;
+            }
+
+            var begin = start - 1;
+            var end = begin + number;
+
+            return text.substring(begin, end);
+        };
+
+        exports.NUMBERVALUE = null;
+
+        exports.PRONETIC = null;
+
+        exports.PROPER = function(text) {
+            if (text === undefined || text.length === 0) {
+                return error.value;
+            }
+            if (text === true) {
+                text = 'TRUE';
+            }
+            if (text === false) {
+                text = 'FALSE';
+            }
+            if (isNaN(text) && typeof text === 'number') {
+                return error.value;
+            }
+            if (typeof text === 'number') {
+                text = '' + text;
+            }
+
+            return text.replace(/\w\S*/g, function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        };
+
+        exports.REGEXEXTRACT = function (text, regular_expression) {
+            var match = text.match(new RegExp(regular_expression));
+            return match ? (match[match.length > 1 ? match.length - 1 : 0]) : null;
+        };
+
+        exports.REGEXMATCH = function (text, regular_expression, full) {
+            var match = text.match(new RegExp(regular_expression));
+            return full ? match : !!match;
+        };
+
+        exports.REGEXREPLACE = function (text, regular_expression, replacement) {
+            return text.replace(new RegExp(regular_expression), replacement);
+        };
+
+        exports.REPLACE = function(text, position, length, new_text) {
+            position = utils.parseNumber(position);
+            length = utils.parseNumber(length);
+            if (utils.anyIsError(position, length) ||
+                typeof text !== 'string' ||
+                typeof new_text !== 'string') {
+                return error.value;
+            }
+            return text.substr(0, position - 1) + new_text + text.substr(position - 1 + length);
+        };
+
+        exports.REPT = function(text, number) {
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return new Array(number + 1).join(text);
+        };
+
+        exports.RIGHT = function(text, number) {
+            number = (number === undefined) ? 1 : number;
+            number = utils.parseNumber(number);
+            if (number instanceof Error) {
+                return number;
+            }
+            return text ? text.substring(text.length - number) : null;
+        };
+
+        exports.SEARCH = function(find_text, within_text, position) {
+            var foundAt;
+            if (typeof find_text !== 'string' || typeof within_text !== 'string') {
+                return error.value;
+            }
+            position = (position === undefined) ? 0 : position;
+            foundAt = within_text.toLowerCase().indexOf(find_text.toLowerCase(), position - 1)+1;
+            return (foundAt === 0)?error.value:foundAt;
+        };
+
+        exports.SPLIT = function (text, separator) {
+            return text.split(separator);
+        };
+
+        exports.SUBSTITUTE = function(text, old_text, new_text, occurrence) {
+            if (!text || !old_text || !new_text) {
+                return text;
+            } else if (occurrence === undefined) {
+                return text.replace(new RegExp(old_text, 'g'), new_text);
+            } else {
+                var index = 0;
+                var i = 0;
+                while (text.indexOf(old_text, index) > 0) {
+                    index = text.indexOf(old_text, index + 1);
+                    i++;
+                    if (i === occurrence) {
+                        return text.substring(0, index) + new_text + text.substring(index + old_text.length);
+                    }
+                }
+            }
+        };
+
+        exports.T = function(value) {
+            return (typeof value === "string") ? value : '';
+        };
+
+        exports.TEXT = null;
+
+        exports.TRIM = function(text) {
+            if (typeof text !== 'string') {
+                return error.value;
+            }
+            return text.replace(/ +/g, ' ').trim();
+        };
+
+        exports.UNICHAR = exports.CHAR;
+
+        exports.UNICODE = exports.CODE;
+
+        exports.UPPER = function(text) {
+            if (typeof text !== 'string') {
+                return error.value;
+            }
+            return text.toUpperCase();
+        };
+
+        exports.VALUE = null;
+
+        return exports;
+    })();
+
+    met.stats = (function() {
+        var exports = {};
+
+        var SQRT2PI = 2.5066282746310002;
+
+        exports.AVEDEV = null;
+
+        exports.AVERAGE = function() {
+            var range = utils.numbers(utils.flatten(arguments));
+            var n = range.length;
+            var sum = 0;
+            var count = 0;
+            for (var i = 0; i < n; i++) {
+                sum += range[i];
+                count += 1;
+            }
+            return sum / count;
+        };
+
+        exports.AVERAGEA = function() {
+            var range = utils.flatten(arguments);
+            var n = range.length;
+            var sum = 0;
+            var count = 0;
+            for (var i = 0; i < n; i++) {
+                var el = range[i];
+                if (typeof el === 'number') {
+                    sum += el;
+                }
+                if (el === true) {
+                    sum++;
+                }
+                if (el !== null) {
+                    count++;
+                }
+            }
+            return sum / count;
+        };
+
+        exports.AVERAGEIF = function(range, criteria, average_range) {
+            average_range = average_range || range;
+            range = utils.flatten(range);
+            average_range = utils.parseNumberArray(utils.flatten(average_range));
+            if (average_range instanceof Error) {
+                return average_range;
+            }
+            var average_count = 0;
+            var result = 0;
+            for (var i = 0; i < range.length; i++) {
+                if (eval(range[i] + criteria)) { // jshint ignore:line
+                    result += average_range[i];
+                    average_count++;
+                }
+            }
+            return result / average_count;
+        };
+
+        exports.AVERAGEIFS = null;
+
+        exports.COUNT = function() {
+            return utils.numbers(utils.flatten(arguments)).length;
+        };
+
+        exports.COUNTA = function() {
+            var range = utils.flatten(arguments);
+            return range.length - exports.COUNTBLANK(range);
+        };
+
+        exports.COUNTIN = function (range, value) {
+            var result = 0;
+            for (var i = 0; i < range.length; i++) {
+                if (range[i] === value) {
+                    result++;
+                }
+            }
+            return result;
+        };
+
+        exports.COUNTBLANK = function() {
+            var range = utils.flatten(arguments);
+            var blanks = 0;
+            var element;
+            for (var i = 0; i < range.length; i++) {
+                element = range[i];
+                if (element === null || element === '') {
+                    blanks++;
+                }
+            }
+            return blanks;
+        };
+
+        exports.COUNTIF = function() {
+            var args = utils.argsToArray(arguments);
+            var criteria = args.pop();
+            var range = utils.flatten(args);
+            if (!/[<>=!]/.test(criteria)) {
+                criteria = '=="' + criteria + '"';
+            }
+            var matches = 0;
+            for (var i = 0; i < range.length; i++) {
+                if (typeof range[i] !== 'string') {
+                    if (eval(range[i] + criteria)) { // jshint ignore:line
+                        matches++;
+                    }
+                } else {
+                    if (eval('"' + range[i] + '"' + criteria)) { // jshint ignore:line
+                        matches++;
+                    }
+                }
+            }
+            return matches;
+        };
+
+        exports.COUNTIFS = function() {
+            var args = utils.argsToArray(arguments);
+            var results = new Array(utils.flatten(args[0]).length);
+            for (var i = 0; i < results.length; i++) {
+                results[i] = true;
+            }
+            for (i = 0; i < args.length; i += 2) {
+                var range = utils.flatten(args[i]);
+                var criteria = args[i + 1];
+                if (!/[<>=!]/.test(criteria)) {
+                    criteria = '=="' + criteria + '"';
+                }
+                for (var j = 0; j < range.length; j++) {
+                    if (typeof range[j] !== 'string') {
+                        results[j] = results[j] && eval(range[j] + criteria); // jshint ignore:line
+                    } else {
+                        results[j] = results[j] && eval('"' + range[j] + '"' + criteria); // jshint ignore:line
+                    }
+                }
+            }
+            var result = 0;
+            for (i = 0; i < results.length; i++) {
+                if (results[i]) {
+                    result++;
+                }
+            }
+            return result;
+        };
+
+        exports.COUNTUNIQUE = function () {
+            return UNIQUE.apply(null, utils.flatten(arguments)).length;
+        };
+
+        exports.FISHER = function(x) {
+            x = utils.parseNumber(x);
+            if (x instanceof Error) {
+                return x;
+            }
+            return Math.log((1 + x) / (1 - x)) / 2;
+        };
+
+        exports.FISHERINV = function(y) {
+            y = utils.parseNumber(y);
+            if (y instanceof Error) {
+                return y;
+            }
+            var e2y = Math.exp(2 * y);
+            return (e2y - 1) / (e2y + 1);
+        };
+
+        exports.FREQUENCY = function(data, bins) {
+            data = utils.parseNumberArray(utils.flatten(data));
+            bins = utils.parseNumberArray(utils.flatten(bins));
+            if (utils.anyIsError(data, bins)) {
+                return error.value;
+            }
+            var n = data.length;
+            var b = bins.length;
+            var r = [];
+            for (var i = 0; i <= b; i++) {
+                r[i] = 0;
+                for (var j = 0; j < n; j++) {
+                    if (i === 0) {
+                        if (data[j] <= bins[0]) {
+                            r[0] += 1;
+                        }
+                    } else if (i < b) {
+                        if (data[j] > bins[i - 1] && data[j] <= bins[i]) {
+                            r[i] += 1;
+                        }
+                    } else if (i === b) {
+                        if (data[j] > bins[b - 1]) {
+                            r[b] += 1;
+                        }
+                    }
+                }
+            }
+            return r;
+        };
+
+        exports.LARGE = function(range, k) {
+            range = utils.parseNumberArray(utils.flatten(range));
+            k = utils.parseNumber(k);
+            if (utils.anyIsError(range, k)) {
+                return range;
+            }
+            return range.sort(function(a, b) {
+                return b - a;
+            })[k - 1];
+        };
+
+        exports.MAX = function() {
+            var range = utils.numbers(utils.flatten(arguments));
+            return (range.length === 0) ? 0 : Math.max.apply(Math, range);
+        };
+
+        exports.MAXA = function() {
+            var range = utils.arrayValuesToNumbers(utils.flatten(arguments));
+            return (range.length === 0) ? 0 : Math.max.apply(Math, range);
+        };
+
+        exports.MIN = function() {
+            var range = utils.numbers(utils.flatten(arguments));
+            return (range.length === 0) ? 0 : Math.min.apply(Math, range);
+        };
+
+        exports.MINA = function() {
+            var range = utils.arrayValuesToNumbers(utils.flatten(arguments));
+            return (range.length === 0) ? 0 : Math.min.apply(Math, range);
+        };
+
+        exports.MODE = {};
+
+        exports.MODE.MULT = function() {
+            // Credits: Roönaän
+            var range = utils.parseNumberArray(utils.flatten(arguments));
+            if (range instanceof Error) {
+                return range;
+            }
+            var n = range.length;
+            var count = {};
+            var maxItems = [];
+            var max = 0;
+            var currentItem;
+
+            for (var i = 0; i < n; i++) {
+                currentItem = range[i];
+                count[currentItem] = count[currentItem] ? count[currentItem] + 1 : 1;
+                if (count[currentItem] > max) {
+                    max = count[currentItem];
+                    maxItems = [];
+                }
+                if (count[currentItem] === max) {
+                    maxItems[maxItems.length] = currentItem;
+                }
+            }
+            return maxItems;
+        };
+
+        exports.MODE.SNGL = function() {
+            var range = utils.parseNumberArray(utils.flatten(arguments));
+            if (range instanceof Error) {
+                return range;
+            }
+            return exports.MODE.MULT(range).sort(function(a, b) {
+                return a - b;
+            })[0];
+        };
+
+        exports.PERCENTILE = {};
+
+        exports.PERCENTILE.EXC = function(array, k) {
+            array = utils.parseNumberArray(utils.flatten(array));
+            k = utils.parseNumber(k);
+            if (utils.anyIsError(array, k)) {
+                return error.value;
+            }
+            array = array.sort(function(a, b) {
+                {
+                    return a - b;
+                }
+            });
+            var n = array.length;
+            if (k < 1 / (n + 1) || k > 1 - 1 / (n + 1)) {
+                return error.num;
+            }
+            var l = k * (n + 1) - 1;
+            var fl = Math.floor(l);
+            return utils.cleanFloat((l === fl) ? array[l] : array[fl] + (l - fl) * (array[fl + 1] - array[fl]));
+        };
+
+        exports.PERCENTILE.INC = function(array, k) {
+            array = utils.parseNumberArray(utils.flatten(array));
+            k = utils.parseNumber(k);
+            if (utils.anyIsError(array, k)) {
+                return error.value;
+            }
+            array = array.sort(function(a, b) {
+                return a - b;
+            });
+            var n = array.length;
+            var l = k * (n - 1);
+            var fl = Math.floor(l);
+            return utils.cleanFloat((l === fl) ? array[l] : array[fl] + (l - fl) * (array[fl + 1] - array[fl]));
+        };
+
+        exports.PERCENTRANK = {};
+
+        exports.PERCENTRANK.EXC = function(array, x, significance) {
+            significance = (significance === undefined) ? 3 : significance;
+            array = utils.parseNumberArray(utils.flatten(array));
+            x = utils.parseNumber(x);
+            significance = utils.parseNumber(significance);
+            if (utils.anyIsError(array, x, significance)) {
+                return error.value;
+            }
+            array = array.sort(function(a, b) {
+                return a - b;
+            });
+            var uniques = UNIQUE.apply(null, array);
+            var n = array.length;
+            var m = uniques.length;
+            var power = Math.pow(10, significance);
+            var result = 0;
+            var match = false;
+            var i = 0;
+            while (!match && i < m) {
+                if (x === uniques[i]) {
+                    result = (array.indexOf(uniques[i]) + 1) / (n + 1);
+                    match = true;
+                } else if (x >= uniques[i] && (x < uniques[i + 1] || i === m - 1)) {
+                    result = (array.indexOf(uniques[i]) + 1 + (x - uniques[i]) / (uniques[i + 1] - uniques[i])) / (n + 1);
+                    match = true;
+                }
+                i++;
+            }
+            return Math.floor(result * power) / power;
+        };
+
+        exports.PERCENTRANK.INC = function(array, x, significance) {
+            significance = (significance === undefined) ? 3 : significance;
+            array = utils.parseNumberArray(utils.flatten(array));
+            x = utils.parseNumber(x);
+            significance = utils.parseNumber(significance);
+            if (utils.anyIsError(array, x, significance)) {
+                return error.value;
+            }
+            array = array.sort(function(a, b) {
+                return a - b;
+            });
+            var uniques = UNIQUE.apply(null, array);
+            var n = array.length;
+            var m = uniques.length;
+            var power = Math.pow(10, significance);
+            var result = 0;
+            var match = false;
+            var i = 0;
+            while (!match && i < m) {
+                if (x === uniques[i]) {
+                    result = array.indexOf(uniques[i]) / (n - 1);
+                    match = true;
+                } else if (x >= uniques[i] && (x < uniques[i + 1] || i === m - 1)) {
+                    result = (array.indexOf(uniques[i]) + (x - uniques[i]) / (uniques[i + 1] - uniques[i])) / (n - 1);
+                    match = true;
+                }
+                i++;
+            }
+            return Math.floor(result * power) / power;
+        };
+
+        exports.PERMUT = function(number, number_chosen) {
+            number = utils.parseNumber(number);
+            number_chosen = utils.parseNumber(number_chosen);
+            if (utils.anyIsError(number, number_chosen)) {
+                return error.value;
+            }
+            return FACT(number) / FACT(number - number_chosen);
+        };
+
+        exports.PERMUTATIONA = function(number, number_chosen) {
+            number = utils.parseNumber(number);
+            number_chosen = utils.parseNumber(number_chosen);
+            if (utils.anyIsError(number, number_chosen)) {
+                return error.value;
+            }
+            return Math.pow(number, number_chosen);
+        };
+
+        exports.PHI = function(x) {
+            x = utils.parseNumber(x);
+            if (x instanceof Error) {
+                return error.value;
+            }
+            return Math.exp(-0.5 * x * x) / SQRT2PI;
+        };
+
+        exports.PROB = function(range, probability, lower, upper) {
+            if (lower === undefined) {
+                return 0;
+            }
+            upper = (upper === undefined) ? lower : upper;
+
+            range = utils.parseNumberArray(utils.flatten(range));
+            probability = utils.parseNumberArray(utils.flatten(probability));
+            lower = utils.parseNumber(lower);
+            upper = utils.parseNumber(upper);
+            if (utils.anyIsError(range, probability, lower, upper)) {
+                return error.value;
+            }
+
+            if (lower === upper) {
+                return (range.indexOf(lower) >= 0) ? probability[range.indexOf(lower)] : 0;
+            }
+
+            var sorted = range.sort(function(a, b) {
+                return a - b;
+            });
+            var n = sorted.length;
+            var result = 0;
+            for (var i = 0; i < n; i++) {
+                if (sorted[i] >= lower && sorted[i] <= upper) {
+                    result += probability[range.indexOf(sorted[i])];
+                }
+            }
+            return result;
+        };
+
+        exports.QUARTILE = {};
+
+        exports.QUARTILE.EXC = function(range, quart) {
+            range = utils.parseNumberArray(utils.flatten(range));
+            quart = utils.parseNumber(quart);
+            if (utils.anyIsError(range, quart)) {
+                return error.value;
+            }
+            switch (quart) {
+                case 1:
+                    return exports.PERCENTILE.EXC(range, 0.25);
+                case 2:
+                    return exports.PERCENTILE.EXC(range, 0.5);
+                case 3:
+                    return exports.PERCENTILE.EXC(range, 0.75);
+                default:
+                    return error.num;
+            }
+        };
+
+        exports.QUARTILE.INC = function(range, quart) {
+            range = utils.parseNumberArray(utils.flatten(range));
+            quart = utils.parseNumber(quart);
+            if (utils.anyIsError(range, quart)) {
+                return error.value;
+            }
+            switch (quart) {
+                case 1:
+                    return exports.PERCENTILE.INC(range, 0.25);
+                case 2:
+                    return exports.PERCENTILE.INC(range, 0.5);
+                case 3:
+                    return exports.PERCENTILE.INC(range, 0.75);
+                default:
+                    return error.num;
+            }
+        };
+
+        exports.RANK = {};
+
+        exports.RANK.AVG = function(number, range, order) {
+            number = utils.parseNumber(number);
+            range = utils.parseNumberArray(utils.flatten(range));
+            if (utils.anyIsError(number, range)) {
+                return error.value;
+            }
+            range = utils.flatten(range);
+            order = order || false;
+            var sort = (order) ? function(a, b) {
+                return a - b;
+            } : function(a, b) {
+                return b - a;
+            };
+            range = range.sort(sort);
+
+            var length = range.length;
+            var count = 0;
+            for (var i = 0; i < length; i++) {
+                if (range[i] === number) {
+                    count++;
+                }
+            }
+
+            return (count > 1) ? (2 * range.indexOf(number) + count + 1) / 2 : range.indexOf(number) + 1;
+        };
+
+        exports.RANK.EQ = function(number, range, order) {
+            number = utils.parseNumber(number);
+            range = utils.parseNumberArray(utils.flatten(range));
+            if (utils.anyIsError(number, range)) {
+                return error.value;
+            }
+            order = order || false;
+            var sort = (order) ? function(a, b) {
+                return a - b;
+            } : function(a, b) {
+                return b - a;
+            };
+            range = range.sort(sort);
+            return range.indexOf(number) + 1;
+        };
+
+        exports.RSQ = function(data_x, data_y) { // no need to flatten here, PEARSON will take care of that
+            data_x = utils.parseNumberArray(utils.flatten(data_x));
+            data_y = utils.parseNumberArray(utils.flatten(data_y));
+            if (utils.anyIsError(data_x, data_y)) {
+                return error.value;
+            }
+            return Math.pow(exports.PEARSON(data_x, data_y), 2);
+        };
+
+        exports.SMALL = function(range, k) {
+            range = utils.parseNumberArray(utils.flatten(range));
+            k = utils.parseNumber(k);
+            if (utils.anyIsError(range, k)) {
+                return range;
+            }
+            return range.sort(function(a, b) {
+                return a - b;
+            })[k - 1];
+        };
+
+        exports.STANDARDIZE = function(x, mean, sd) {
+            x = utils.parseNumber(x);
+            mean = utils.parseNumber(mean);
+            sd = utils.parseNumber(sd);
+            if (utils.anyIsError(x, mean, sd)) {
+                return error.value;
+            }
+            return (x - mean) / sd;
+        };
+
+        exports.STDEV = {};
+
+        exports.STDEV.P = function() {
+            var v = exports.VAR.P.apply(this, arguments);
+            return Math.sqrt(v);
+        };
+
+        exports.STDEV.S = function() {
+            var v = exports.VAR.S.apply(this, arguments);
+            return Math.sqrt(v);
+        };
+
+        exports.STDEVA = function() {
+            var v = exports.VARA.apply(this, arguments);
+            return Math.sqrt(v);
+        };
+
+        exports.STDEVPA = function() {
+            var v = exports.VARPA.apply(this, arguments);
+            return Math.sqrt(v);
+        };
+
+        exports.VAR = {};
+
+        exports.VAR.P = function() {
+            var range = utils.numbers(utils.flatten(arguments));
+            var n = range.length;
+            var sigma = 0;
+            var mean = exports.AVERAGE(range);
+            for (var i = 0; i < n; i++) {
+                sigma += Math.pow(range[i] - mean, 2);
+            }
+            return sigma / n;
+        };
+
+        exports.VAR.S = function() {
+            var range = utils.numbers(utils.flatten(arguments));
+            var n = range.length;
+            var sigma = 0;
+            var mean = exports.AVERAGE(range);
+            for (var i = 0; i < n; i++) {
+                sigma += Math.pow(range[i] - mean, 2);
+            }
+            return sigma / (n - 1);
+        };
+
+        exports.VARA = function() {
+            var range = utils.flatten(arguments);
+            var n = range.length;
+            var sigma = 0;
+            var count = 0;
+            var mean = exports.AVERAGEA(range);
+            for (var i = 0; i < n; i++) {
+                var el = range[i];
+                if (typeof el === 'number') {
+                    sigma += Math.pow(el - mean, 2);
+                } else if (el === true) {
+                    sigma += Math.pow(1 - mean, 2);
+                } else {
+                    sigma += Math.pow(0 - mean, 2);
+                }
+
+                if (el !== null) {
+                    count++;
+                }
+            }
+            return sigma / (count - 1);
+        };
+
+        exports.VARPA = function() {
+            var range = utils.flatten(arguments);
+            var n = range.length;
+            var sigma = 0;
+            var count = 0;
+            var mean = exports.AVERAGEA(range);
+            for (var i = 0; i < n; i++) {
+                var el = range[i];
+                if (typeof el === 'number') {
+                    sigma += Math.pow(el - mean, 2);
+                } else if (el === true) {
+                    sigma += Math.pow(1 - mean, 2);
+                } else {
+                    sigma += Math.pow(0 - mean, 2);
+                }
+
+                if (el !== null) {
+                    count++;
+                }
+            }
+            return sigma / count;
+        };
+
+        exports.WEIBULL = {};
+
+        exports.WEIBULL.DIST = function(x, alpha, beta, cumulative) {
+            x = utils.parseNumber(x);
+            alpha = utils.parseNumber(alpha);
+            beta = utils.parseNumber(beta);
+            if (utils.anyIsError(x, alpha, beta)) {
+                return error.value;
+            }
+            return (cumulative) ? 1 - Math.exp(-Math.pow(x / beta, alpha)) : Math.pow(x, alpha - 1) * Math.exp(-Math.pow(x / beta, alpha)) * alpha / Math.pow(beta, alpha);
+        };
+
+        exports.Z = {};
+
+        exports.Z.TEST = function(range, x, sd) {
+            range = utils.parseNumberArray(utils.flatten(range));
+            x = utils.parseNumber(x);
+            if (utils.anyIsError(range, x)) {
+                return error.value;
+            }
+
+            sd = sd || exports.STDEV.S(range);
+            var n = range.length;
+            return 1 - exports.NORM.S.DIST((exports.AVERAGE(range) - x) / (sd / Math.sqrt(n)), true);
+        };
+
+        return exports;
+    })();
+
+    met.utils = (function() {
+        var exports = {};
+
+        exports.PROGRESS = function(p, c) {
+            var color = c ? c : 'red';
+            var value = p ? p : '0';
+
+            return '<div style="width:' + value + '%;height:4px;background-color:' + color + ';margin-top:1px;"></div>';
+        };
+
+        exports.RATING = function(v) {
+            var html = '<div class="jrating">';
+            for (var i = 0; i < 5; i++) {
+                if (i < v) {
+                    html += '<div class="jrating-selected"></div>';
+                } else {
+                    html += '<div></div>';
+                }
+            }
+            html += '</div>';
+            return html;
+        }
+
+        return exports;
+    })();
+
+    for (var i = 0; i < Object.keys(met).length; i++) {
+        var methods = met[Object.keys(met)[i]];
+        var keys = Object.keys(methods);
+        for (var j = 0; j < keys.length; j++) {
+            if (! methods[keys[j]]) {
+                window[keys[j]] = function() {
+                    return keys[j] + 'Not implemented';
+                }
+            } else if (typeof(methods[keys[j]]) == 'function' || typeof(methods[keys[j]]) == 'object') {
+                window[keys[j]] = methods[keys[j]];
+                window[keys[j]].toString = function() { return '#ERROR' };
+
+                if (typeof(methods[keys[j]]) == 'object') {
+                    var tmp = Object.keys(methods[keys[j]]);
+                    for (var z = 0; z < tmp.length; z++) {
+                        window[keys[j]][tmp[z]].toString = function() { return '#ERROR' };
+                    }
+                }
+            } else {
+                window[keys[j]] = function() {
+                    return keys[j] + 'Not implemented';
+                }
+            }
+        }
+    }
+
+    /**
+     * Instance execution helpers
+     */
+    var x = null;
+    var y = null;
+    var instance = null;
+
+    window['TABLE'] = function() {
+        return instance;
+    }
+    window['COLUMN'] = window['COL'] = function () {
+        return parseInt(x) + 1;
+    }
+    window['ROW'] =  function() {
+        return parseInt(y) + 1;
+    }
+    window['CELL'] =  function() {
+        return F.getColumnNameFromCoords(x, y);
+    }
+    window['VALUE'] = function(col, row, processed) {
+        return instance.getValueFromCoords(parseInt(col) - 1, parseInt(row) - 1, processed);
+    }
+    window['THISROWCELL'] = function(col) {
+        return instance.getValueFromCoords(parseInt(col) - 1, parseInt(y));
+    }
+
+    // Secure formula
+    var secureFormula = function(oldValue, runtime) {
+        var newValue = '';
+        var inside = 0;
+
+        var special = [ '=', '!', '>', '<'];
+
+        for (var i = 0; i < oldValue.length; i++) {
+            if (oldValue[i] == '"') {
+                if (inside == 0) {
+                    inside = 1;
+                } else {
+                    inside = 0;
+                }
+            }
+
+            if (inside == 1) {
+                newValue += oldValue[i];
+            } else {
+                newValue += oldValue[i].toUpperCase();
+
+                if (runtime == true) {
+                    if (i > 0 && oldValue[i] == '=' && special.indexOf(oldValue[i-1]) == -1 && special.indexOf(oldValue[i+1]) == -1) {
+                        newValue += '='
+                    }
+                }
+            }
+        }
+
+        // Adapt to JS
+        newValue = newValue.replace(/\^/g, '**');
+        newValue = newValue.replace(/\<\>/g, '!=');
+        newValue = newValue.replace(/\&/g, '+');
+        newValue = newValue.replace(/\$/g, '');
+
+        return newValue;
+    }
+
+    // Convert range tokens
+    var tokensUpdate = function(tokens, e) {
+        for (var index = 0; index < tokens.length; index++) {
+            var f = F.getTokensFromRange(tokens[index])
+            e = e.replace(tokens[index], "[" + f.join(',') + "]");
+        }
+        return e;
+    }
+
+    var F = function(expression, variables, i, j, obj) {
+        // Global helpers
+        instance = obj;
+        x = i
+        y = j;
+        // String
+        var s = '';
+        var keys = Object.keys(variables);
+        if (keys.length) {
+            for (var i = 0; i < keys.length; i++) {
+                if (keys[i].indexOf('.') == -1 && keys[i].indexOf('!') == -1) {
+                    s += 'var ' + keys[i] + ' = ' + variables[keys[i]] + ';\n';
+                } else {
+                    s += keys[i] + ' = ' + variables[keys[i]] + ';\n';
+                }
+            }
+        }
+        // Remove $
+        expression = expression.replace(/\$/g, '');
+        // Replace ! per dot
+        expression = expression.replace(/\!/g, '.');
+        // Adapt to JS
+        expression = secureFormula(expression, true);
+        // Update range
+        var tokens = expression.match(/([A-Z]+[0-9]*\.)?(\$?[A-Z]+\$?[0-9]+):(\$?[A-Z]+\$?[0-9]+)?/g);
+        if (tokens && tokens.length) {
+            expression = tokensUpdate(tokens, expression);
+        }
+
+        // Calculate
+        return new Function(s + '; return ' + expression)();
+    }
+
+    /**
+     * Get letter based on a number
+     * @param {number} i
+     * @return {string}
+     */
+    var getColumnName = function(i) {
+        var letter = '';
+        if (i > 701) {
+            letter += String.fromCharCode(64 + parseInt(i / 676));
+            letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
+        } else if (i > 25) {
+            letter += String.fromCharCode(64 + parseInt(i / 26));
+        }
+        letter += String.fromCharCode(65 + (i % 26));
+
+        return letter;
+    }
+
+    /**
+     * Get column name from coords
+     */
+    F.getColumnNameFromCoords = function(x, y) {
+        return getColumnName(parseInt(x)) + (parseInt(y) + 1);
+    }
+
+    F.getCoordsFromColumnName = function(columnName) {
+        // Get the letters
+        var t = /^[a-zA-Z]+/.exec(columnName);
+
+        if (t) {
+            // Base 26 calculation
+            var code = 0;
+            for (var i = 0; i < t[0].length; i++) {
+                code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+            }
+            code--;
+            // Make sure jspreadsheet starts on zero
+            if (code < 0) {
+                code = 0;
+            }
+
+            // Number
+            var number = parseInt(/[0-9]+$/.exec(columnName)) || null;
+            if (number > 0) {
+                number--;
+            }
+
+            return [ code, number ];
+        }
+    }
+
+    F.getRangeFromTokens = function(tokens) {
+        tokens = tokens.filter(function(v) {
+            return v != '#REF!';
+        });
+
+        var d = '';
+        var t = '';
+        for (var i = 0; i < tokens.length; i++) {
+            if (tokens[i].indexOf('.') >= 0) {
+                d = '.';
+            } else if (tokens[i].indexOf('!') >= 0) {
+                d = '!';
+            }
+            if (d) {
+                t = tokens[i].split(d);
+                tokens[i] = t[1];
+                t = t[0] + d
+            }
+        }
+
+        tokens.sort(function(a, b) {
+            var t1 = Helpers.getCoordsFromColumnName(a);
+            var t2 = Helpers.getCoordsFromColumnName(b);
+            if (t1[1] > t2[1]) {
+                return 1;
+            } else if (t1[1] < t2[1]) {
+                return -1;
+            } else {
+                if (t1[0] > t2[0]) {
+                    return 1;
+                } else if (t1[0] < t2[0]) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        if (! tokens.length) {
+            return '#REF!';
+        } else {
+            return t+(tokens[0] + ':' + tokens[tokens.length - 1]);
+        }
+    }
+
+    F.getTokensFromRange = function(range) {
+        if (range.indexOf('.') > 0) {
+            var t = range.split('.');
+            range = t[1];
+            t = t[0] + '.';
+        } else if (range.indexOf('!') > 0) {
+            var t = range.split('!');
+            range = t[1];
+            t = t[0] + '!';
+        } else {
+            var t = '';
+        }
+
+        var range = range.split(':');
+        var e1 = F.getCoordsFromColumnName(range[0]);
+        var e2 = F.getCoordsFromColumnName(range[1]);
+
+        if (e1[0] <= e2[0]) {
+            var x1 = e1[0];
+            var x2 = e2[0];
+        } else {
+            var x1 = e2[0];
+            var x2 = e1[0];
+        }
+
+        if (e1[1] === null && e2[1] == null) {
+            var y1 = null;
+            var y2 = null;
+
+            var k = Object.keys(vars);
+            for (var i = 0; i < k.length; i++) {
+                var tmp = F.getCoordsFromColumnName(k[i]);
+                if (tmp[0] === e1[0]) {
+                    if (y1 === null || tmp[1] < y1) {
+                        y1 = tmp[1]
+                    }
+                }
+                if (tmp[0] === e2[0]) {
+                    if (y2 === null || tmp[1] > y2) {
+                        y2 = tmp[1]
+                    }
+                }
+            }
+        } else {
+            if (e1[1] <= e2[1]) {
+                var y1 = e1[1];
+                var y2 = e2[1];
+            } else {
+                var y1 = e2[1];
+                var y2 = e1[1];
+            }
+        }
+
+        var f = [];
+        for (var j = y1; j <= y2; j++) {
+            var line = [];
+            for (var i = x1; i <= x2; i++) {
+                line.push(t + F.getColumnNameFromCoords(i, j));
+            }
+            f.push(line);
+        }
+
+        return f;
+    }
+
+    F.setFormula = function(o) {
+        var k = Object.keys(o);
+        for (var i = 0; i < k.length; i++) {
+            if (typeof(o[k[i]]) == 'function') {
+                window[k[i]] = o[k[i]];
+            }
+        }
+    }
+
+    return F;
+})();
+
+if (! jSuites && typeof(require) === 'function') {
+    var jSuites = require('jsuites');
+}
+
+;(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    global.jspreadsheet = global.jexcel = factory();
+}(this, (function () {
+
+    'use strict';
+
+    // Basic version information
+    var Version = function() {
+        // Information
+        var info = {
+            title: 'Jspreadsheet',
+            version: '4.11.3',
+            type: 'CE',
+            host: 'https://bossanova.uk/jspreadsheet',
+            license: 'MIT',
+            print: function() {
+                return [ this.title + ' ' + this.type + ' ' + this.version, this.host, this.license ].join('\r\n');
+            }
+        }
+
+        return function() {
+            return info;
+        };
+    }();
+
+    /**
+     * The value is a formula
+     */
+    var isFormula = function(value) {
+        var v = (''+value)[0];
+        return v == '=' || v == '#' ? true : false;
+    }
+
+    /**
+     * Get the mask in the jSuites.mask format
+     */
+    var getMask = function(o) {
+        if (o.format || o.mask || o.locale) {
+            var opt = {};
+            if (o.mask) {
+                opt.mask = o.mask;
+            } else if (o.format) {
+                opt.mask = o.format;
+            } else {
+                opt.locale = o.locale;
+                opt.options = o.options;
+            }
+
+            if (o.decimal) {
+                if (! opt.options) {
+                    opt.options = {};
+                }
+                opt.options = { decimal: o.decimal };
+            }
+            return opt;
+        }
+
+        return null;
+    }
+
+    // Jspreadsheet core object
+    var jexcel = (function(el, options) {
+        // Create jspreadsheet object
+        var obj = {};
+        obj.options = {};
+
+        if (! (el instanceof Element || el instanceof HTMLDocument)) {
+            console.error('Jspreadsheet: el is not a valid DOM element');
+            return false;
+        } else if (el.tagName == 'TABLE') {
+            if (options = jexcel.createFromTable(el, options)) {
+                var div = document.createElement('div');
+                el.parentNode.insertBefore(div, el);
+                el.remove();
+                el = div;
+            } else {
+                console.error('Jspreadsheet: el is not a valid DOM element');
+                return false;
+            }
+        }
+
+        // Loading default configuration
+        var defaults = {
+            // External data
+            url:null,
+            // Ajax options
+            method: 'GET',
+            requestVariables: null,
+            // Data
+            data:null,
+            // Custom sorting handler
+            sorting:null,
+            // Copy behavior
+            copyCompatibility:false,
+            root:null,
+            // Rows and columns definitions
+            rows:[],
+            columns:[],
+            // Deprected legacy options
+            colHeaders:[],
+            colWidths:[],
+            colAlignments:[],
+            nestedHeaders:null,
+            // Column width that is used by default
+            defaultColWidth:50,
+            defaultColAlign:'center',
+            // Rows height default
+            defaultRowHeight: null,
+            // Spare rows and columns
+            minSpareRows:0,
+            minSpareCols:0,
+            // Minimal table dimensions
+            minDimensions:[0,0],
+            // Allow Export
+            allowExport:true,
+            // @type {boolean} - Include the header titles on download
+            includeHeadersOnDownload:false,
+            // @type {boolean} - Include the header titles on copy
+            includeHeadersOnCopy:false,
+            // Allow column sorting
+            columnSorting:true,
+            // Allow column dragging
+            columnDrag:false,
+            // Allow column resizing
+            columnResize:true,
+            // Allow row resizing
+            rowResize:false,
+            // Allow row dragging
+            rowDrag:true,
+            // Allow table edition
+            editable:true,
+            // Allow new rows
+            allowInsertRow:true,
+            // Allow new rows
+            allowManualInsertRow:true,
+            // Allow new columns
+            allowInsertColumn:true,
+            // Allow new rows
+            allowManualInsertColumn:true,
+            // Allow row delete
+            allowDeleteRow:true,
+            // Allow deleting of all rows
+            allowDeletingAllRows:false,
+            // Allow column delete
+            allowDeleteColumn:true,
+            // Allow rename column
+            allowRenameColumn:true,
+            // Allow comments
+            allowComments:false,
+            // Global wrap
+            wordWrap:false,
+            // Image options
+            imageOptions: null,
+            // CSV source
+            csv:null,
+            // Filename
+            csvFileName:'jspreadsheet',
+            // Consider first line as header
+            csvHeaders:true,
+            // Delimiters
+            csvDelimiter:',',
+            // First row as header
+            parseTableFirstRowAsHeader:false,
+            parseTableAutoCellType:false,
+            // Disable corner selection
+            selectionCopy:true,
+            // Merged cells
+            mergeCells:{},
+            // Create toolbar
+            toolbar:null,
+            // Allow search
+            search:false,
+            // Create pagination
+            pagination:false,
+            paginationOptions:null,
+            // Full screen
+            fullscreen:false,
+            // Lazy loading
+            lazyLoading:false,
+            loadingSpin:false,
+            // Table overflow
+            tableOverflow:false,
+            tableHeight:'300px',
+            tableWidth:null,
+            textOverflow:false,
+            // Meta
+            meta: null,
+            // Style
+            style:null,
+            classes:null,
+            // Execute formulas
+            parseFormulas:true,
+            autoIncrement:true,
+            autoCasting:true,
+            // Security
+            secureFormulas:true,
+            stripHTML:true,
+            stripHTMLOnCopy:false,
+            // Filters
+            filters:false,
+            footers:null,
+            // Event handles
+            onundo:null,
+            onredo:null,
+            onload:null,
+            onchange:null,
+            oncomments:null,
+            onbeforechange:null,
+            onafterchanges:null,
+            onbeforeinsertrow: null,
+            oninsertrow:null,
+            onbeforeinsertcolumn: null,
+            oninsertcolumn:null,
+            onbeforedeleterow:null,
+            ondeleterow:null,
+            onbeforedeletecolumn:null,
+            ondeletecolumn:null,
+            onmoverow:null,
+            onmovecolumn:null,
+            onresizerow:null,
+            onresizecolumn:null,
+            onsort:null,
+            onselection:null,
+            oncopy:null,
+            onpaste:null,
+            onbeforepaste:null,
+            onmerge:null,
+            onfocus:null,
+            onblur:null,
+            onchangeheader:null,
+            oncreateeditor:null,
+            oneditionstart:null,
+            oneditionend:null,
+            onchangestyle:null,
+            onchangemeta:null,
+            onchangepage:null,
+            onbeforesave:null,
+            onsave:null,
+            // Global event dispatcher
+            onevent:null,
+            // Persistance
+            persistance:false,
+            // Customize any cell behavior
+            updateTable:null,
+            // Detach the HTML table when calling updateTable
+            detachForUpdates: false,
+            freezeColumns:null,
+            // Texts
+            text:{
+                noRecordsFound: 'No records found',
+                showingPage: 'Showing page {0} of {1} entries',
+                show: 'Show ',
+                search: 'Search',
+                entries: ' entries',
+                columnName: 'Column name',
+                insertANewColumnBefore: 'Insert a new column before',
+                insertANewColumnAfter: 'Insert a new column after',
+                deleteSelectedColumns: 'Delete selected columns',
+                renameThisColumn: 'Rename this column',
+                orderAscending: 'Order ascending',
+                orderDescending: 'Order descending',
+                insertANewRowBefore: 'Insert a new row before',
+                insertANewRowAfter: 'Insert a new row after',
+                deleteSelectedRows: 'Delete selected rows',
+                editComments: 'Edit comments',
+                addComments: 'Add comments',
+                comments: 'Comments',
+                clearComments: 'Clear comments',
+                copy: 'Copy...',
+                paste: 'Paste...',
+                saveAs: 'Save as...',
+                about: 'About',
+                areYouSureToDeleteTheSelectedRows: 'Are you sure to delete the selected rows?',
+                areYouSureToDeleteTheSelectedColumns: 'Are you sure to delete the selected columns?',
+                thisActionWillDestroyAnyExistingMergedCellsAreYouSure: 'This action will destroy any existing merged cells. Are you sure?',
+                thisActionWillClearYourSearchResultsAreYouSure: 'This action will clear your search results. Are you sure?',
+                thereIsAConflictWithAnotherMergedCell: 'There is a conflict with another merged cell',
+                invalidMergeProperties: 'Invalid merged properties',
+                cellAlreadyMerged: 'Cell already merged',
+                noCellsSelected: 'No cells selected',
+            },
+            // About message
+            about: true,
+        };
+
+        // Loading initial configuration from user
+        for (var property in defaults) {
+            if (options && options.hasOwnProperty(property)) {
+                if (property === 'text') {
+                    obj.options[property] = defaults[property];
+                    for (var textKey in options[property]) {
+                        if (options[property].hasOwnProperty(textKey)){
+                            obj.options[property][textKey] = options[property][textKey];
+                        }
+                    }
+                } else {
+                    obj.options[property] = options[property];
+                }
+            } else {
+                obj.options[property] = defaults[property];
+            }
+        }
+
+        // Global elements
+        obj.el = el;
+        obj.corner = null;
+        obj.contextMenu = null;
+        obj.textarea = null;
+        obj.ads = null;
+        obj.content = null;
+        obj.table = null;
+        obj.thead = null;
+        obj.tbody = null;
+        obj.rows = [];
+        obj.results = null;
+        obj.searchInput = null;
+        obj.toolbar = null;
+        obj.pagination = null;
+        obj.pageNumber = null;
+        obj.headerContainer = null;
+        obj.colgroupContainer = null;
+
+        // Containers
+        obj.headers = [];
+        obj.records = [];
+        obj.history = [];
+        obj.formula = [];
+        obj.colgroup = [];
+        obj.selection = [];
+        obj.highlighted  = [];
+        obj.selectedCell = null;
+        obj.selectedContainer = null;
+        obj.style = [];
+        obj.data = null;
+        obj.filter = null;
+        obj.filters = [];
+
+        // Internal controllers
+        obj.cursor = null;
+        obj.historyIndex = -1;
+        obj.ignoreEvents = false;
+        obj.ignoreHistory = false;
+        obj.edition = null;
+        obj.hashString = null;
+        obj.resizing = null;
+        obj.dragging = null;
+
+        // Lazy loading
+        if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
+            console.error('Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
+            obj.options.lazyLoading = false;
+        }
+
+        /**
+         * Activate/Disable fullscreen
+         * use programmatically : table.fullscreen(); or table.fullscreen(true); or table.fullscreen(false);
+         * @Param {boolean} activate
+         */
+        obj.fullscreen = function(activate) {
+            // If activate not defined, get reverse options.fullscreen
+            if (activate == null) {
+                activate = ! obj.options.fullscreen;
+            }
+
+            // If change
+            if (obj.options.fullscreen != activate) {
+                obj.options.fullscreen = activate;
+
+                // Test LazyLoading conflict
+                if (activate == true) {
+                    el.classList.add('fullscreen');
+                } else {
+                    el.classList.remove('fullscreen');
+                }
+            }
+        }
+
+        /**
+         * Trigger events
+         */
+        obj.dispatch = function(event) {
+            // Dispatch events
+            if (! obj.ignoreEvents) {
+                // Call global event
+                if (typeof(obj.options.onevent) == 'function') {
+                    var ret = obj.options.onevent.apply(this, arguments);
+                }
+                // Call specific events
+                if (typeof(obj.options[event]) == 'function') {
+                    var ret = obj.options[event].apply(this, Array.prototype.slice.call(arguments, 1));
+                }
+            }
+
+            // Persistance
+            if (event == 'onafterchanges' && obj.options.persistance) {
+                var url = obj.options.persistance == true ? obj.options.url : obj.options.persistance;
+                var data = obj.prepareJson(arguments[2]);
+                obj.save(url, data);
+            }
+
+            return ret;
+        }
+
+        /**
+         * Prepare the jspreadsheet table
+         *
+         * @Param config
+         */
+        obj.prepareTable = function() {
+            // Loading initial data from remote sources
+            var results = [];
+
+            // Number of columns
+            var size = obj.options.columns.length;
+
+            if (obj.options.data && typeof(obj.options.data[0]) !== 'undefined') {
+                // Data keys
+                var keys = Object.keys(obj.options.data[0]);
+
+                if (keys.length > size) {
+                    size = keys.length;
+                }
+            }
+
+            // Minimal dimensions
+            if (obj.options.minDimensions[0] > size) {
+                size = obj.options.minDimensions[0];
+            }
+
+            // Requests
+            var multiple = [];
+
+            // Preparations
+            for (var i = 0; i < size; i++) {
+                // Deprected options. You should use only columns
+                if (! obj.options.colHeaders[i]) {
+                    obj.options.colHeaders[i] = '';
+                }
+                if (! obj.options.colWidths[i]) {
+                    obj.options.colWidths[i] = obj.options.defaultColWidth;
+                }
+                if (! obj.options.colAlignments[i]) {
+                    obj.options.colAlignments[i] = obj.options.defaultColAlign;
+                }
+
+                // Default column description
+                if (! obj.options.columns[i]) {
+                    obj.options.columns[i] = { type:'text' };
+                } else if (! obj.options.columns[i].type) {
+                    obj.options.columns[i].type = 'text';
+                }
+                if (! obj.options.columns[i].name) {
+                    obj.options.columns[i].name = keys && keys[i] ? keys[i] : i;
+                }
+                if (! obj.options.columns[i].source) {
+                    obj.options.columns[i].source = [];
+                }
+                if (! obj.options.columns[i].options) {
+                    obj.options.columns[i].options = [];
+                }
+                if (! obj.options.columns[i].editor) {
+                    obj.options.columns[i].editor = null;
+                }
+                if (! obj.options.columns[i].allowEmpty) {
+                    obj.options.columns[i].allowEmpty = false;
+                }
+                if (! obj.options.columns[i].title) {
+                    obj.options.columns[i].title = obj.options.colHeaders[i] ? obj.options.colHeaders[i] : '';
+                }
+                if (! obj.options.columns[i].width) {
+                    obj.options.columns[i].width = obj.options.colWidths[i] ? obj.options.colWidths[i] : obj.options.defaultColWidth;
+                }
+                if (! obj.options.columns[i].align) {
+                    obj.options.columns[i].align = obj.options.colAlignments[i] ? obj.options.colAlignments[i] : 'center';
+                }
+
+                // Pre-load initial source for json autocomplete
+                if (obj.options.columns[i].type == 'autocomplete' || obj.options.columns[i].type == 'dropdown') {
+                    // if remote content
+                    if (obj.options.columns[i].url) {
+                        multiple.push({
+                            url: obj.options.columns[i].url,
+                            index: i,
+                            method: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                var source = [];
+                                for (var i = 0; i < data.length; i++) {
+                                    obj.options.columns[this.index].source.push(data[i]);
+                                }
+                            }
+                        });
+                    }
+                } else if (obj.options.columns[i].type == 'calendar') {
+                    // Default format for date columns
+                    if (! obj.options.columns[i].options.format) {
+                        obj.options.columns[i].options.format = 'DD/MM/YYYY';
+                    }
+                }
+            }
+            // Create the table when is ready
+            if (! multiple.length) {
+                obj.createTable();
+            } else {
+                jSuites.ajax(multiple, function() {
+                    obj.createTable();
+                });
+            }
+        }
+
+        obj.createTable = function() {
+            // Elements
+            obj.table = document.createElement('table');
+            obj.thead = document.createElement('thead');
+            obj.tbody = document.createElement('tbody');
+
+            // Create headers controllers
+            obj.headers = [];
+            obj.colgroup = [];
+
+            // Create table container
+            obj.content = document.createElement('div');
+            obj.content.classList.add('jexcel_content');
+            obj.content.onscroll = function(e) {
+                obj.scrollControls(e);
+            }
+            obj.content.onwheel = function(e) {
+                obj.wheelControls(e);
+            }
+
+            // Create toolbar object
+            obj.toolbar = document.createElement('div');
+            obj.toolbar.classList.add('jexcel_toolbar');
+
+            // Search
+            var searchContainer = document.createElement('div');
+            var searchText = document.createTextNode((obj.options.text.search) + ': ');
+            obj.searchInput = document.createElement('input');
+            obj.searchInput.classList.add('jexcel_search');
+            searchContainer.appendChild(searchText);
+            searchContainer.appendChild(obj.searchInput);
+            obj.searchInput.onfocus = function() {
+                obj.resetSelection();
+            }
+
+            // Pagination select option
+            var paginationUpdateContainer = document.createElement('div');
+
+            if (obj.options.pagination > 0 && obj.options.paginationOptions && obj.options.paginationOptions.length > 0) {
+                obj.paginationDropdown = document.createElement('select');
+                obj.paginationDropdown.classList.add('jexcel_pagination_dropdown');
+                obj.paginationDropdown.onchange = function() {
+                    obj.options.pagination = parseInt(this.value);
+                    obj.page(0);
+                }
+
+                for (var i = 0; i < obj.options.paginationOptions.length; i++) {
+                    var temp = document.createElement('option');
+                    temp.value = obj.options.paginationOptions[i];
+                    temp.innerHTML = obj.options.paginationOptions[i];
+                    obj.paginationDropdown.appendChild(temp);
+                }
+
+                // Set initial pagination value
+                obj.paginationDropdown.value = obj.options.pagination;
+
+                paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.show));
+                paginationUpdateContainer.appendChild(obj.paginationDropdown);
+                paginationUpdateContainer.appendChild(document.createTextNode(obj.options.text.entries));
+            }
+
+            // Filter and pagination container
+            var filter = document.createElement('div');
+            filter.classList.add('jexcel_filter');
+            filter.appendChild(paginationUpdateContainer);
+            filter.appendChild(searchContainer);
+
+            // Colsgroup
+            obj.colgroupContainer = document.createElement('colgroup');
+            var tempCol = document.createElement('col');
+            tempCol.setAttribute('width', '50');
+            obj.colgroupContainer.appendChild(tempCol);
+
+            // Nested
+            if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                // Flexible way to handle nestedheaders
+                if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                    for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
+                        obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders[j]));
+                    }
+                } else {
+                    obj.thead.appendChild(obj.createNestedHeader(obj.options.nestedHeaders));
+                }
+            }
+
+            // Row
+            obj.headerContainer = document.createElement('tr');
+            var tempCol = document.createElement('td');
+            tempCol.classList.add('jexcel_selectall');
+            obj.headerContainer.appendChild(tempCol);
+
+            for (var i = 0; i < obj.options.columns.length; i++) {
+                // Create header
+                obj.createCellHeader(i);
+                // Append cell to the container
+                obj.headerContainer.appendChild(obj.headers[i]);
+                obj.colgroupContainer.appendChild(obj.colgroup[i]);
+            }
+
+            obj.thead.appendChild(obj.headerContainer);
+
+            // Filters
+            if (obj.options.filters == true) {
+                obj.filter = document.createElement('tr');
+                var td = document.createElement('td');
+                obj.filter.appendChild(td);
+
+                for (var i = 0; i < obj.options.columns.length; i++) {
+                    var td = document.createElement('td');
+                    td.innerHTML = '&nbsp;';
+                    td.setAttribute('data-x', i);
+                    td.className = 'jexcel_column_filter';
+                    if (obj.options.columns[i].type == 'hidden') {
+                        td.style.display = 'none';
+                    }
+                    obj.filter.appendChild(td);
+                }
+
+                obj.thead.appendChild(obj.filter);
+            }
+
+            // Content table
+            obj.table = document.createElement('table');
+            obj.table.classList.add('jexcel');
+            obj.table.setAttribute('cellpadding', '0');
+            obj.table.setAttribute('cellspacing', '0');
+            obj.table.setAttribute('unselectable', 'yes');
+            //obj.table.setAttribute('onselectstart', 'return false');
+            obj.table.appendChild(obj.colgroupContainer);
+            obj.table.appendChild(obj.thead);
+            obj.table.appendChild(obj.tbody);
+
+            if (! obj.options.textOverflow) {
+                obj.table.classList.add('jexcel_overflow');
+            }
+
+            // Spreadsheet corner
+            obj.corner = document.createElement('div');
+            obj.corner.className = 'jexcel_corner';
+            obj.corner.setAttribute('unselectable', 'on');
+            obj.corner.setAttribute('onselectstart', 'return false');
+
+            if (obj.options.selectionCopy == false) {
+                obj.corner.style.display = 'none';
+            }
+
+            // Textarea helper
+            obj.textarea = document.createElement('textarea');
+            obj.textarea.className = 'jexcel_textarea';
+            obj.textarea.id = 'jexcel_textarea';
+            obj.textarea.tabIndex = '-1';
+
+            // Contextmenu container
+            obj.contextMenu = document.createElement('div');
+            obj.contextMenu.className = 'jexcel_contextmenu';
+
+            // Create element
+            jSuites.contextmenu(obj.contextMenu, {
+                onclick: function() {
+                    obj.contextMenu.contextmenu.close(false);
+                }
+            });
+
+            // Powered by Jspreadsheet
+            var ads = document.createElement('a');
+            ads.setAttribute('href', 'https://bossanova.uk/jspreadsheet/');
+            obj.ads = document.createElement('div');
+            obj.ads.className = 'jexcel_about';
+            try {
+                if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
+                    sessionStorage.setItem('jexcel', true);
+                    var img = document.createElement('img');
+                    img.src = '//bossanova.uk/jspreadsheet/logo.png';
+                    ads.appendChild(img);
+                }
+            } catch (exception) {
+            }
+            var span = document.createElement('span');
+            span.innerHTML = 'Jspreadsheet CE';
+            ads.appendChild(span);
+            obj.ads.appendChild(ads);
+
+            // Create table container TODO: frozen columns
+            var container = document.createElement('div');
+            container.classList.add('jexcel_table');
+
+            // Pagination
+            obj.pagination = document.createElement('div');
+            obj.pagination.classList.add('jexcel_pagination');
+            var paginationInfo = document.createElement('div');
+            var paginationPages = document.createElement('div');
+            obj.pagination.appendChild(paginationInfo);
+            obj.pagination.appendChild(paginationPages);
+
+            // Hide pagination if not in use
+            if (! obj.options.pagination) {
+                obj.pagination.style.display = 'none';
+            }
+
+            // Append containers to the table
+            if (obj.options.search == true) {
+                el.appendChild(filter);
+            }
+
+            // Elements
+            obj.content.appendChild(obj.table);
+            obj.content.appendChild(obj.corner);
+            obj.content.appendChild(obj.textarea);
+
+            el.appendChild(obj.toolbar);
+            el.appendChild(obj.content);
+            el.appendChild(obj.pagination);
+            el.appendChild(obj.contextMenu);
+            el.appendChild(obj.ads);
+            el.classList.add('jexcel_container');
+
+            // Create toolbar
+            if (obj.options.toolbar && obj.options.toolbar.length) {
+                obj.createToolbar();
+            }
+
+            // Fullscreen
+            if (obj.options.fullscreen == true) {
+                el.classList.add('fullscreen');
+            } else {
+                // Overflow
+                if (obj.options.tableOverflow == true) {
+                    if (obj.options.tableHeight) {
+                        obj.content.style['overflow-y'] = 'auto';
+                        obj.content.style['box-shadow'] = 'rgb(221 221 221) 2px 2px 5px 0.1px';
+                        obj.content.style.maxHeight = obj.options.tableHeight;
+                    }
+                    if (obj.options.tableWidth) {
+                        obj.content.style['overflow-x'] = 'auto';
+                        obj.content.style.width = obj.options.tableWidth;
+                    }
+                }
+            }
+
+            // With toolbars
+            if (obj.options.tableOverflow != true && obj.options.toolbar) {
+                el.classList.add('with-toolbar');
+            }
+
+            // Actions
+            if (obj.options.columnDrag == true) {
+                obj.thead.classList.add('draggable');
+            }
+            if (obj.options.columnResize == true) {
+                obj.thead.classList.add('resizable');
+            }
+            if (obj.options.rowDrag == true) {
+                obj.tbody.classList.add('draggable');
+            }
+            if (obj.options.rowResize == true) {
+                obj.tbody.classList.add('resizable');
+            }
+
+            // Load data
+            obj.setData();
+
+            // Style
+            if (obj.options.style) {
+                obj.setStyle(obj.options.style, null, null, 1, 1);
+            }
+
+            // Classes
+            if (obj.options.classes) {
+                var k = Object.keys(obj.options.classes);
+                for (var i = 0; i < k.length; i++) {
+                    var cell = jexcel.getIdFromColumnName(k[i], true);
+                    obj.records[cell[1]][cell[0]].classList.add(obj.options.classes[k[i]]);
+                }
+            }
+        }
+
+        /**
+         * Refresh the data
+         *
+         * @return void
+         */
+        obj.refresh = function() {
+            if (obj.options.url) {
+                // Loading
+                if (obj.options.loadingSpin == true) {
+                    jSuites.loading.show();
+                }
+
+                jSuites.ajax({
+                    url: obj.options.url,
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
+                    dataType: 'json',
+                    success: function(result) {
+                        // Data
+                        obj.options.data = (result.data) ? result.data : result;
+                        // Prepare table
+                        obj.setData();
+                        // Hide spin
+                        if (obj.options.loadingSpin == true) {
+                            jSuites.loading.hide();
+                        }
+                    }
+                });
+            } else {
+                obj.setData();
+            }
+        }
+
+        /**
+         * Set data
+         *
+         * @param array data In case no data is sent, default is reloaded
+         * @return void
+         */
+        obj.setData = function(data) {
+            // Update data
+            if (data) {
+                if (typeof(data) == 'string') {
+                    data = JSON.parse(data);
+                }
+
+                obj.options.data = data;
+            }
+
+            // Data
+            if (! obj.options.data) {
+                obj.options.data = [];
+            }
+
+            // Prepare data
+            if (obj.options.data && obj.options.data[0]) {
+                if (! Array.isArray(obj.options.data[0])) {
+                    var data = [];
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        var row = [];
+                        for (var i = 0; i < obj.options.columns.length; i++) {
+                            row[i] = obj.options.data[j][obj.options.columns[i].name];
+                        }
+                        data.push(row);
+                    }
+
+                    obj.options.data = data;
+                }
+            }
+
+            // Adjust minimal dimensions
+            var j = 0;
+            var i = 0;
+            var size_i = obj.options.columns.length;
+            var size_j = obj.options.data.length;
+            var min_i = obj.options.minDimensions[0];
+            var min_j = obj.options.minDimensions[1];
+            var max_i = min_i > size_i ? min_i : size_i;
+            var max_j = min_j > size_j ? min_j : size_j;
+
+            for (j = 0; j < max_j; j++) {
+                for (i = 0; i < max_i; i++) {
+                    if (obj.options.data[j] == undefined) {
+                        obj.options.data[j] = [];
+                    }
+
+                    if (obj.options.data[j][i] == undefined) {
+                        obj.options.data[j][i] = '';
+                    }
+                }
+            }
+
+            // Reset containers
+            obj.rows = [];
+            obj.results = null;
+            obj.records = [];
+            obj.history = [];
+
+            // Reset internal controllers
+            obj.historyIndex = -1;
+
+            // Reset data
+            obj.tbody.innerHTML = '';
+
+            // Lazy loading
+            if (obj.options.lazyLoading == true) {
+                // Load only 100 records
+                var startNumber = 0
+                var finalNumber = obj.options.data.length < 100 ? obj.options.data.length : 100;
+
+                if (obj.options.pagination) {
+                    obj.options.pagination = false;
+                    console.error('Jspreadsheet: Pagination will be disable due the lazyLoading');
+                }
+            } else if (obj.options.pagination) {
+                // Pagination
+                if (! obj.pageNumber) {
+                    obj.pageNumber = 0;
+                }
+                var quantityPerPage = obj.options.pagination;
+                startNumber = (obj.options.pagination * obj.pageNumber);
+                finalNumber = (obj.options.pagination * obj.pageNumber) + obj.options.pagination;
+
+                if (obj.options.data.length < finalNumber) {
+                    finalNumber = obj.options.data.length;
+                }
+            } else {
+                var startNumber = 0;
+                var finalNumber = obj.options.data.length;
+            }
+
+            // Append nodes to the HTML
+            for (j = 0; j < obj.options.data.length; j++) {
+                // Create row
+                var tr = obj.createRow(j, obj.options.data[j]);
+                // Append line to the table
+                if (j >= startNumber && j < finalNumber) {
+                    obj.tbody.appendChild(tr);
+                }
+            }
+
+            if (obj.options.lazyLoading == true) {
+                // Do not create pagination with lazyloading activated
+            } else if (obj.options.pagination) {
+                obj.updatePagination();
+            }
+
+            // Merge cells
+            if (obj.options.mergeCells) {
+                var keys = Object.keys(obj.options.mergeCells);
+                for (var i = 0; i < keys.length; i++) {
+                    var num = obj.options.mergeCells[keys[i]];
+                    obj.setMerge(keys[i], num[0], num[1], 1);
+                }
+            }
+
+            // Updata table with custom configurations if applicable
+            obj.updateTable();
+
+            // Onload
+            obj.dispatch('onload', el, obj);
+        }
+
+        /**
+         * Get the whole table data
+         *
+         * @param bool get highlighted cells only
+         * @return array data
+         */
+        obj.getData = function(highlighted, dataOnly) {
+            // Control vars
+            var dataset = [];
+            var px = 0;
+            var py = 0;
+
+            // Data type
+            var dataType = dataOnly == true || obj.options.copyCompatibility == false ? true : false;
+
+            // Column and row length
+            var x = obj.options.columns.length
+            var y = obj.options.data.length
+
+            // Go through the columns to get the data
+            for (var j = 0; j < y; j++) {
+                px = 0;
+                for (var i = 0; i < x; i++) {
+                    // Cell selected or fullset
+                    const cellClassList = obj.records[j][i].classList
+                    if ((! highlighted || cellClassList.contains('highlight')) && (dataOnly || !cellClassList.contains("disabled-row"))) {
+                        // Get value
+                        if (! dataset[py]) {
+                            dataset[py] = [];
+                        }
+                        if (! dataType) {
+                            dataset[py][px] = obj.records[j][i].innerHTML;
+                        } else {
+                            dataset[py][px] = obj.options.data[j][i];
+                        }
+                        px++;
+                    }
+                }
+                if (px > 0) {
+                    py++;
+                }
+           }
+
+           return dataset;
+        }
+
+        /**
+        * Get json data by row number
+        *
+        * @param integer row number
+        * @return object
+        */
+        obj.getJsonRow = function(rowNumber) {
+            var rowData = obj.options.data[rowNumber];
+            var x = obj.options.columns.length
+
+            var row = {};
+            for (var i = 0; i < x; i++) {
+                if (! obj.options.columns[i].name) {
+                    obj.options.columns[i].name = i;
+                }
+                row[obj.options.columns[i].name] = rowData[i];
+            }
+
+            return row;
+        }
+
+        /**
+         * Get the whole table data
+         *
+         * @param bool highlighted cells only
+         * @return string value
+         */
+        obj.getJson = function(highlighted) {
+            // Control vars
+            var data = [];
+
+            // Column and row length
+            var x = obj.options.columns.length
+            var y = obj.options.data.length
+
+            // Go through the columns to get the data
+            for (var j = 0; j < y; j++) {
+                var row = null;
+                for (var i = 0; i < x; i++) {
+                    if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                        if (row == null) {
+                            row = {};
+                        }
+                        if (! obj.options.columns[i].name) {
+                            obj.options.columns[i].name = i;
+                        }
+                        row[obj.options.columns[i].name] = obj.options.data[j][i];
+                    }
+                }
+
+                if (row != null) {
+                    data.push(row);
+                }
+           }
+
+           return data;
+        }
+
+        /**
+         * Prepare JSON in the correct format
+         */
+        obj.prepareJson = function(data) {
+            var rows = [];
+            for (var i = 0; i < data.length; i++) {
+                var x = data[i].x;
+                var y = data[i].y;
+                var k = obj.options.columns[x].name ? obj.options.columns[x].name : x;
+
+                // Create row
+                if (! rows[y]) {
+                    rows[y] = {
+                        row: y,
+                        data: {},
+                    };
+                }
+                rows[y].data[k] = data[i].newValue;
+            }
+
+            // Filter rows
+            return rows.filter(function (el) {
+                return el != null;
+            });
+        }
+
+        /**
+         * Post json to a remote server
+         */
+        obj.save = function(url, data) {
+            // Parse anything in the data before sending to the server
+            var ret = obj.dispatch('onbeforesave', el, obj, data);
+            if (ret) {
+                var data = ret;
+            } else {
+                if (ret === false) {
+                    return false;
+                }
+            }
+
+            // Remove update
+            jSuites.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'json',
+                data: { data: JSON.stringify(data) },
+                success: function(result) {
+                    // Event
+                    obj.dispatch('onsave', el, obj, data);
+                }
+            });
+        }
+
+        /**
+         * Get a row data by rowNumber
+         */
+        obj.getRowData = function(rowNumber) {
+            return obj.options.data[rowNumber];
+        }
+
+        /**
+         * Set a row data by rowNumber
+         */
+        obj.setRowData = function(rowNumber, data) {
+            for (var i = 0; i < obj.headers.length; i++) {
+                // Update cell
+                var columnName = jexcel.getColumnNameFromId([ i, rowNumber ]);
+                // Set value
+                if (data[i] != null) {
+                    obj.setValue(columnName, data[i]);
+                }
+            }
+        }
+
+        /**
+         * Get a column data by columnNumber
+         */
+        obj.getColumnData = function(columnNumber) {
+            var dataset = [];
+            // Go through the rows to get the data
+            for (var j = 0; j < obj.options.data.length; j++) {
+                dataset.push(obj.options.data[j][columnNumber]);
+            }
+            return dataset;
+        }
+
+        /**
+         * Set a column data by colNumber
+         */
+        obj.setColumnData = function(colNumber, data) {
+            for (var j = 0; j < obj.rows.length; j++) {
+                // Update cell
+                var columnName = jexcel.getColumnNameFromId([ colNumber, j ]);
+                // Set value
+                if (data[j] != null) {
+                    obj.setValue(columnName, data[j]);
+                }
+            }
+        }
+
+        /**
+         * Create row
+         */
+        obj.createRow = function(j, data) {
+            // Create container
+            if (! obj.records[j]) {
+                obj.records[j] = [];
+            }
+            // Default data
+            if (! data) {
+                var data = obj.options.data[j];
+            }
+            // New line of data to be append in the table
+            obj.rows[j] = document.createElement('tr');
+            obj.rows[j].setAttribute('data-y', j);
+            // Index
+            var index = null;
+
+            // Set default row height
+            if (obj.options.defaultRowHeight) {
+                obj.rows[j].style.height = obj.options.defaultRowHeight + 'px'
+            }
+
+            // Definitions
+            if (obj.options.rows[j]) {
+                if (obj.options.rows[j].height) {
+                    obj.rows[j].style.height = obj.options.rows[j].height;
+                }
+                if (obj.options.rows[j].title) {
+                    index = obj.options.rows[j].title;
+                }
+            }
+            if (! index) {
+                index = parseInt(j + 1);
+            }
+            // Row number label
+            var td = document.createElement('td');
+            td.innerHTML = index;
+            td.setAttribute('data-y', j);
+            td.className = 'jexcel_row';
+            obj.rows[j].appendChild(td);
+
+            // Data columns
+            for (var i = 0; i < obj.options.columns.length; i++) {
+                // New column of data to be append in the line
+                obj.records[j][i] = obj.createCell(i, j, data[i]);
+                // Add column to the row
+                obj.rows[j].appendChild(obj.records[j][i]);
+            }
+
+            // Add row to the table body
+            return obj.rows[j];
+        }
+
+        obj.parseValue = function(i, j, value, cell) {
+            if ((''+value).substr(0,1) == '=' && obj.options.parseFormulas == true) {
+                value = obj.executeFormula(value, i, j)
+            }
+
+            // Column options
+            var options = obj.options.columns[i];
+            if (options && ! isFormula(value)) {
+                // Mask options
+                var opt = null;
+                if (opt = getMask(options)) {
+                    if (value && value == Number(value)) {
+                        value = Number(value);
+                    }
+                    // Process the decimals to match the mask
+                    var masked = jSuites.mask.render(value, opt, true);
+                    // Negative indication
+                    if (cell) {
+                        if (opt.mask) {
+                            var t = opt.mask.split(';');
+                            if (t[1]) {
+                                var t1 = t[1].match(new RegExp('\\[Red\\]', 'gi'));
+                                if (t1) {
+                                    if (value < 0) {
+                                        cell.classList.add('red');
+                                    } else {
+                                        cell.classList.remove('red');
+                                    }
+                                }
+                                var t2 = t[1].match(new RegExp('\\(', 'gi'));
+                                if (t2) {
+                                    if (value < 0) {
+                                        masked = '(' + masked + ')';
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (masked) {
+                        value = masked;
+                    }
+                }
+            }
+
+            return value;
+        }
+
+        var validDate = function(date) {
+            date = ''+date;
+            if (date.substr(4,1) == '-' && date.substr(7,1) == '-') {
+                return true;
+            } else {
+                date = date.split('-');
+                if ((date[0].length == 4 && date[0] == Number(date[0]) && date[1].length == 2 && date[1] == Number(date[1]))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /**
+         * Create cell
+         */
+        obj.createCell = function(i, j, value) {
+            // Create cell and properties
+            var td = document.createElement('td');
+            td.setAttribute('data-x', i);
+            td.setAttribute('data-y', j);
+
+            // Security
+            if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
+                var val = secureFormula(value);
+                if (val != value) {
+                    // Update the data container
+                    value = val;
+                }
+            }
+
+            // Custom column
+            if (obj.options.columns[i].editor) {
+                if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
+                    td.innerHTML = value;
+                } else {
+                    td.textContent = value;
+                }
+                if (typeof(obj.options.columns[i].editor.createCell) == 'function') {
+                    td = obj.options.columns[i].editor.createCell(td);
+                }
+            } else {
+                // Hidden column
+                if (obj.options.columns[i].type == 'hidden') {
+                    td.style.display = 'none';
+                    td.textContent = value;
+                } else if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
+                    // Create input
+                    var element = document.createElement('input');
+                    element.type = obj.options.columns[i].type;
+                    element.name = 'c' + i;
+                    element.checked = (value == 1 || value == true || value == 'true') ? true : false;
+                    element.onclick = function() {
+                        obj.setValue(td, this.checked);
+                    }
+
+                    if (obj.options.columns[i].readOnly == true || obj.options.editable == false) {
+                        element.setAttribute('disabled', 'disabled');
+                    }
+
+                    // Append to the table
+                    td.appendChild(element);
+                    // Make sure the values are correct
+                    obj.options.data[j][i] = element.checked;
+                } else if (obj.options.columns[i].type == 'calendar') {
+                    // Try formatted date
+                    var formatted = null;
+                    if (! validDate(value)) {
+                        var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[i].options.format);
+                        if (tmp) {
+                            formatted = tmp;
+                        }
+                    }
+                    // Create calendar cell
+                    td.textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[i].options.format);
+                } else if (obj.options.columns[i].type == 'dropdown' || obj.options.columns[i].type == 'autocomplete') {
+                    // Create dropdown cell
+                    td.classList.add('jexcel_dropdown');
+                    td.textContent = obj.getDropDownValue(i, value);
+                } else if (obj.options.columns[i].type == 'color') {
+                    if (obj.options.columns[i].render == 'square') {
+                        var color = document.createElement('div');
+                        color.className = 'color';
+                        color.style.backgroundColor = value;
+                        td.appendChild(color);
+                    } else {
+                        td.style.color = value;
+                        td.textContent = value;
+                    }
+                } else if (obj.options.columns[i].type == 'image') {
+
+                    if (value && value.substr(0, 10) == 'data:image') {
+                        var img = document.createElement('img');
+                        img.src = value;
+                        td.appendChild(img);
+                    }
+                } else {
+                    if (obj.options.columns[i].type == 'html') {
+                        td.innerHTML = stripScript(obj.parseValue(i, j, value, td));
+                    } else {
+                        if (obj.options.stripHTML === false || obj.options.columns[i].stripHTML === false) {
+                            td.innerHTML = stripScript(obj.parseValue(i, j, value, td));
+                        } else {
+                            td.textContent = obj.parseValue(i, j, value, td);
+                        }
+                    }
+                }
+            }
+
+            // Readonly
+            if (obj.options.columns[i].readOnly == true) {
+                td.className = 'readonly';
+            }
+
+            // Text align
+            var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
+            td.style.textAlign = colAlign;
+
+            // Wrap option
+            if (obj.options.columns[i].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[i].wordWrap == true || td.innerHTML.length > 200)) {
+                td.style.whiteSpace = 'pre-wrap';
+            }
+
+            // Overflow
+            if (i > 0) {
+                if (this.options.textOverflow == true) {
+                    if (value || td.innerHTML) {
+                        obj.records[j][i-1].style.overflow = 'hidden';
+                    } else {
+                        if (i == obj.options.columns.length - 1) {
+                            td.style.overflow = 'hidden';
+                        }
+                    }
+                }
+            }
+            return td;
+        }
+
+        obj.createCellHeader = function(colNumber) {
+            // Create col global control
+            var colWidth = obj.options.columns[colNumber].width ? obj.options.columns[colNumber].width : obj.options.defaultColWidth;
+            var colAlign = obj.options.columns[colNumber].align ? obj.options.columns[colNumber].align : obj.options.defaultColAlign;
+
+            // Create header cell
+            obj.headers[colNumber] = document.createElement('td');
+            if (obj.options.stripHTML) {
+                obj.headers[colNumber].textContent = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+            } else {
+                obj.headers[colNumber].innerHTML = obj.options.columns[colNumber].title ? obj.options.columns[colNumber].title : jexcel.getColumnName(colNumber);
+            }
+            obj.headers[colNumber].setAttribute('data-x', colNumber);
+            obj.headers[colNumber].style.textAlign = colAlign;
+            if (obj.options.columns[colNumber].title) {
+                obj.headers[colNumber].setAttribute('title', obj.headers[colNumber].innerText);
+            }
+            if (obj.options.columns[colNumber].id) {
+                obj.headers[colNumber].setAttribute('id', obj.options.columns[colNumber].id);
+            }
+
+            // Width control
+            obj.colgroup[colNumber] = document.createElement('col');
+            obj.colgroup[colNumber].setAttribute('width', colWidth);
+
+            // Hidden column
+            if (obj.options.columns[colNumber].type == 'hidden') {
+                obj.headers[colNumber].style.display = 'none';
+                obj.colgroup[colNumber].style.display = 'none';
+            }
+        }
+
+        /**
+         * Update a nested header title
+         */
+        obj.updateNestedHeader = function(x, y, title) {
+            if (obj.options.nestedHeaders[y][x].title) {
+                obj.options.nestedHeaders[y][x].title = title;
+                obj.options.nestedHeaders[y].element.children[x+1].textContent = title;
+            }
+        }
+
+        /**
+         * Create a nested header object
+         */
+        obj.createNestedHeader = function(nestedInformation) {
+            var tr = document.createElement('tr');
+            tr.classList.add('jexcel_nested');
+            var td = document.createElement('td');
+            tr.appendChild(td);
+            // Element
+            nestedInformation.element = tr;
+
+            var headerIndex = 0;
+            for (var i = 0; i < nestedInformation.length; i++) {
+                // Default values
+                if (! nestedInformation[i].colspan) {
+                    nestedInformation[i].colspan = 1;
+                }
+                if (! nestedInformation[i].align) {
+                    nestedInformation[i].align = 'center';
+                }
+                if (! nestedInformation[i].title) {
+                    nestedInformation[i].title = '';
+                }
+
+                // Number of columns
+                var numberOfColumns = nestedInformation[i].colspan;
+
+                // Classes container
+                var column = [];
+                // Header classes for this cell
+                for (var x = 0; x < numberOfColumns; x++) {
+                    if (obj.options.columns[headerIndex] && obj.options.columns[headerIndex].type == 'hidden') {
+                        numberOfColumns++;
+                    }
+                    column.push(headerIndex);
+                    headerIndex++;
+                }
+
+                // Created the nested cell
+                var td = document.createElement('td');
+                td.setAttribute('data-column', column.join(','));
+                td.setAttribute('colspan', nestedInformation[i].colspan);
+                td.setAttribute('align', nestedInformation[i].align);
+                td.textContent = nestedInformation[i].title;
+                tr.appendChild(td);
+            }
+
+            return tr;
+        }
+
+        /**
+         * Create toolbar
+         */
+        obj.createToolbar = function(toolbar) {
+            if (toolbar) {
+                obj.options.toolbar = toolbar;
+            } else {
+                var toolbar = obj.options.toolbar;
+            }
+            for (var i = 0; i < toolbar.length; i++) {
+                if (toolbar[i].type == 'i') {
+                    var toolbarItem = document.createElement('i');
+                    toolbarItem.classList.add('jexcel_toolbar_item');
+                    toolbarItem.classList.add('material-icons');
+                    toolbarItem.setAttribute('data-k', toolbar[i].k);
+                    toolbarItem.setAttribute('data-v', toolbar[i].v);
+                    toolbarItem.setAttribute('id', toolbar[i].id);
+
+                    // Tooltip
+                    if (toolbar[i].tooltip) {
+                        toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                    }
+                    // Handle click
+                    if (toolbar[i].onclick && typeof(toolbar[i].onclick)) {
+                        toolbarItem.onclick = (function (a) {
+                            var b = a;
+                            return function () {
+                                toolbar[b].onclick(el, obj, this);
+                            };
+                        })(i);
+                    } else {
+                        toolbarItem.onclick = function() {
+                            var k = this.getAttribute('data-k');
+                            var v = this.getAttribute('data-v');
+                            obj.setStyle(obj.highlighted, k, v);
+                        }
+                    }
+                    // Append element
+                    toolbarItem.textContent = toolbar[i].content;
+                    obj.toolbar.appendChild(toolbarItem);
+                } else if (toolbar[i].type == 'select') {
+                   var toolbarItem = document.createElement('select');
+                   toolbarItem.classList.add('jexcel_toolbar_item');
+                   toolbarItem.setAttribute('data-k', toolbar[i].k);
+                   // Tooltip
+                   if (toolbar[i].tooltip) {
+                       toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                   }
+                   // Handle onchange
+                   if (toolbar[i].onchange && typeof(toolbar[i].onchange)) {
+                       toolbarItem.onchange = toolbar[i].onchange;
+                   } else {
+                       toolbarItem.onchange = function() {
+                           var k = this.getAttribute('data-k');
+                           obj.setStyle(obj.highlighted, k, this.value);
+                       }
+                   }
+                   // Add options to the dropdown
+                   for(var j = 0; j < toolbar[i].v.length; j++) {
+                        var toolbarDropdownOption = document.createElement('option');
+                        toolbarDropdownOption.value = toolbar[i].v[j];
+                        toolbarDropdownOption.textContent = toolbar[i].v[j];
+                        toolbarItem.appendChild(toolbarDropdownOption);
+                   }
+                   obj.toolbar.appendChild(toolbarItem);
+                } else if (toolbar[i].type == 'color') {
+                     var toolbarItem = document.createElement('i');
+                     toolbarItem.classList.add('jexcel_toolbar_item');
+                     toolbarItem.classList.add('material-icons');
+                     toolbarItem.setAttribute('data-k', toolbar[i].k);
+                     toolbarItem.setAttribute('data-v', '');
+                     // Tooltip
+                     if (toolbar[i].tooltip) {
+                         toolbarItem.setAttribute('title', toolbar[i].tooltip);
+                     }
+                     obj.toolbar.appendChild(toolbarItem);
+                     toolbarItem.textContent = toolbar[i].content;
+                     jSuites.color(toolbarItem, {
+                         onchange:function(o, v) {
+                             var k = o.getAttribute('data-k');
+                             obj.setStyle(obj.highlighted, k, v);
+                         }
+                     });
+                }
+            }
+        }
+
+        /**
+         * Merge cells
+         * @param cellName
+         * @param colspan
+         * @param rowspan
+         * @param ignoreHistoryAndEvents
+         */
+        obj.getCellNameFromRowColumn = function (x1, y1) {
+            return jexcel.getColumnNameFromId([ x1, y1 ]);
+        }
+
+        obj.setMerge = function(cellName, colspan, rowspan, ignoreHistoryAndEvents) {
+            var test = false;
+
+            if (! cellName) {
+                if (! obj.highlighted.length) {
+                    alert(obj.options.text.noCellsSelected);
+                    return null;
+                } else {
+                    var x1 = parseInt(obj.highlighted[0].getAttribute('data-x'));
+                    var y1 = parseInt(obj.highlighted[0].getAttribute('data-y'));
+                    var x2 = parseInt(obj.highlighted[obj.highlighted.length-1].getAttribute('data-x'));
+                    var y2 = parseInt(obj.highlighted[obj.highlighted.length-1].getAttribute('data-y'));
+                    var cellName = jexcel.getColumnNameFromId([ x1, y1 ]);
+                    var colspan = (x2 - x1) + 1;
+                    var rowspan = (y2 - y1) + 1;
+                }
+            }
+
+            var cell = jexcel.getIdFromColumnName(cellName, true);
+
+            if (obj.options.mergeCells[cellName]) {
+                if (obj.records[cell[1]][cell[0]].getAttribute('data-merged')) {
+                    test = obj.options.text.cellAlreadyMerged;
+                }
+            } else if ((! colspan || colspan < 2) && (! rowspan || rowspan < 2)) {
+                test = obj.options.text.invalidMergeProperties;
+            } else {
+                var cells = [];
+                for (var j = cell[1]; j < cell[1] + rowspan; j++) {
+                    for (var i = cell[0]; i < cell[0] + colspan; i++) {
+                        var columnName = jexcel.getColumnNameFromId([i, j]);
+                        if (obj.records[j][i].getAttribute('data-merged')) {
+                            test = obj.options.text.thereIsAConflictWithAnotherMergedCell;
+                        }
+                    }
+                }
+            }
+
+            if (test) {
+                alert(test);
+            } else {
+                console.log(cells)
+                // Add property
+                if (colspan > 1) {
+                    obj.records[cell[1]][cell[0]].setAttribute('colspan', colspan);
+                } else {
+                    colspan = 1;
+                }
+                if (rowspan > 1) {
+                    obj.records[cell[1]][cell[0]].setAttribute('rowspan', rowspan);
+                } else {
+                    rowspan = 1;
+                }
+                // Keep links to the existing nodes
+                obj.options.mergeCells[cellName] = [ colspan, rowspan, [] ];
+                // Mark cell as merged
+                obj.records[cell[1]][cell[0]].setAttribute('data-merged', 'true');
+                // Overflow
+                obj.records[cell[1]][cell[0]].style.overflow = 'hidden';
+                // History data
+                var data = [];
+                // Adjust the nodes
+                for (var y = cell[1]; y < cell[1] + rowspan; y++) {
+                    for (var x = cell[0]; x < cell[0] + colspan; x++) {
+                        if (! (cell[0] == x && cell[1] == y)) {
+                            data.push(obj.options.data[y][x]);
+                            obj.updateCell(x, y, '', true);
+                            obj.options.mergeCells[cellName][2].push(obj.records[y][x]);
+                            obj.records[y][x].style.display = 'none';
+                            obj.records[y][x] = obj.records[cell[1]][cell[0]];
+                        }
+                    }
+                }
+                // In the initialization is not necessary keep the history
+                obj.updateSelection(obj.records[cell[1]][cell[0]]);
+
+                if (! ignoreHistoryAndEvents) {
+                    obj.setHistory({
+                        action:'setMerge',
+                        column:cellName,
+                        colspan:colspan,
+                        rowspan:rowspan,
+                        data:data,
+                    });
+
+                    obj.dispatch('onmerge', el, cellName, colspan, rowspan);
+                }
+            }
+        }
+
+        /**
+         * Merge cells
+         * @param cellName
+         * @param colspan
+         * @param rowspan
+         * @param ignoreHistoryAndEvents
+         */
+        obj.getMerge = function(cellName) {
+            var data = {};
+            if (cellName) {
+                if (obj.options.mergeCells[cellName]) {
+                    data = [ obj.options.mergeCells[cellName][0], obj.options.mergeCells[cellName][1] ];
+                } else {
+                    data = null;
+                }
+            } else {
+                if (obj.options.mergeCells) {
+                    var mergedCells = obj.options.mergeCells;
+                    var keys = Object.keys(obj.options.mergeCells);
+                    for (var i = 0; i < keys.length; i++) {
+                        data[keys[i]] = [ obj.options.mergeCells[keys[i]][0], obj.options.mergeCells[keys[i]][1] ];
+                    }
+                }
+            }
+
+            return data;
+        }
+
+        /**
+         * Remove merge by cellname
+         * @param cellName
+         */
+        obj.removeMerge = function(cellName, data, keepOptions) {
+            if (obj.options.mergeCells[cellName]) {
+                var cell = jexcel.getIdFromColumnName(cellName, true);
+                obj.records[cell[1]][cell[0]].removeAttribute('colspan');
+                obj.records[cell[1]][cell[0]].removeAttribute('rowspan');
+                obj.records[cell[1]][cell[0]].removeAttribute('data-merged');
+                var info = obj.options.mergeCells[cellName];
+
+                var index = 0;
+                for (var j = 0; j < info[1]; j++) {
+                    for (var i = 0; i < info[0]; i++) {
+                        if (j > 0 || i > 0) {
+                            obj.records[cell[1]+j][cell[0]+i] = info[2][index];
+                            obj.records[cell[1]+j][cell[0]+i].style.display = '';
+                            // Recover data
+                            if (data && data[index]) {
+                                obj.updateCell(cell[0]+i, cell[1]+j, data[index]);
+                            }
+                            index++;
+                        }
+                    }
+                }
+
+                // Update selection
+                obj.updateSelection(obj.records[cell[1]][cell[0]], obj.records[cell[1]+j-1][cell[0]+i-1]);
+
+                if (! keepOptions) {
+                    delete(obj.options.mergeCells[cellName]);
+                }
+            }
+        }
+
+        /**
+         * Remove all merged cells
+         */
+        obj.destroyMerged = function(keepOptions) {
+            // Remove any merged cells
+            if (obj.options.mergeCells) {
+                var mergedCells = obj.options.mergeCells;
+                var keys = Object.keys(obj.options.mergeCells);
+                for (var i = 0; i < keys.length; i++) {
+                    obj.removeMerge(keys[i], null, keepOptions);
+                }
+            }
+        }
+
+        /**
+         * Is column merged
+         */
+        obj.isColMerged = function(x, insertBefore) {
+            var cols = [];
+            // Remove any merged cells
+            if (obj.options.mergeCells) {
+                var keys = Object.keys(obj.options.mergeCells);
+                for (var i = 0; i < keys.length; i++) {
+                    var info = jexcel.getIdFromColumnName(keys[i], true);
+                    var colspan = obj.options.mergeCells[keys[i]][0];
+                    var x1 = info[0];
+                    var x2 = info[0] + (colspan > 1 ? colspan - 1 : 0);
+
+                    if (insertBefore == null) {
+                        if ((x1 <= x && x2 >= x)) {
+                            cols.push(keys[i]);
+                        }
+                    } else {
+                        if (insertBefore) {
+                            if ((x1 < x && x2 >= x)) {
+                                cols.push(keys[i]);
+                            }
+                        } else {
+                            if ((x1 <= x && x2 > x)) {
+                                cols.push(keys[i]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cols;
+        }
+
+        /**
+         * Is rows merged
+         */
+        obj.isRowMerged = function(y, insertBefore) {
+            var rows = [];
+            // Remove any merged cells
+            if (obj.options.mergeCells) {
+                var keys = Object.keys(obj.options.mergeCells);
+                for (var i = 0; i < keys.length; i++) {
+                    var info = jexcel.getIdFromColumnName(keys[i], true);
+                    var rowspan = obj.options.mergeCells[keys[i]][1];
+                    var y1 = info[1];
+                    var y2 = info[1] + (rowspan > 1 ? rowspan - 1 : 0);
+
+                    if (insertBefore == null) {
+                        if ((y1 <= y && y2 >= y)) {
+                            rows.push(keys[i]);
+                        }
+                    } else {
+                        if (insertBefore) {
+                            if ((y1 < y && y2 >= y)) {
+                                rows.push(keys[i]);
+                            }
+                        } else {
+                            if ((y1 <= y && y2 > y)) {
+                                rows.push(keys[i]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return rows;
+        }
+
+        /**
+         * Open the column filter
+         */
+        obj.openFilter = function(columnId) {
+            if (! obj.options.filters) {
+                console.log('Jspreadsheet: filters not enabled.');
+            } else {
+                // Make sure is integer
+                columnId = parseInt(columnId);
+                // Reset selection
+                obj.resetSelection();
+                // Load options
+                var optionsFiltered = [];
+                if (obj.options.columns[columnId].type == 'checkbox') {
+                    optionsFiltered.push({ id: 'true', name: 'True' });
+                    optionsFiltered.push({ id: 'false', name: 'False' });
+                } else {
+                    var options = [];
+                    var hasBlanks = false;
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        var k = obj.options.data[j][columnId];
+                        var v = obj.records[j][columnId].innerHTML;
+                        if (k && v) {
+                            options[k] = v;
+                        } else {
+                            var hasBlanks = true;
+                        }
+                    }
+                    var keys = Object.keys(options);
+                    var optionsFiltered = [];
+                    for (var j = 0; j < keys.length; j++) {
+                        optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                    }
+                    // Has blank options
+                    if (hasBlanks) {
+                        optionsFiltered.push({ value: '', id: '', name: '(Blanks)' });
+                    }
+                }
+
+                // Create dropdown
+                var div = document.createElement('div');
+                obj.filter.children[columnId + 1].innerHTML = '';
+                obj.filter.children[columnId + 1].appendChild(div);
+                obj.filter.children[columnId + 1].style.paddingLeft = '0px';
+                obj.filter.children[columnId + 1].style.paddingRight = '0px';
+                obj.filter.children[columnId + 1].style.overflow = 'initial';
+
+                var opt = {
+                    data: optionsFiltered,
+                    multiple: true,
+                    autocomplete: true,
+                    opened: true,
+                    value: obj.filters[columnId] !== undefined ? obj.filters[columnId] : null,
+                    width:'100%',
+                    position: (obj.options.tableOverflow == true || obj.options.fullscreen == true) ? true : false,
+                    onclose: function(o) {
+                        obj.resetFilters();
+                        obj.filters[columnId] = o.dropdown.getValue(true);
+                        obj.filter.children[columnId + 1].innerHTML = o.dropdown.getText();
+                        obj.filter.children[columnId + 1].style.paddingLeft = '';
+                        obj.filter.children[columnId + 1].style.paddingRight = '';
+                        obj.filter.children[columnId + 1].style.overflow = '';
+                        obj.closeFilter(columnId);
+                        obj.refreshSelection();
+                    }
+                };
+
+                // Dynamic dropdown
+                jSuites.dropdown(div, opt);
+            }
+        }
+
+        obj.resetFilters = function() {
+            if (obj.options.filters) {
+                for (var i = 0; i < obj.filter.children.length; i++) {
+                    obj.filter.children[i].innerHTML = '&nbsp;';
+                    obj.filters[i] = null;
+                }
+            }
+
+            obj.results = null;
+            obj.updateResult();
+        }
+
+        obj.closeFilter = function(columnId) {
+            if (! columnId) {
+                for (var i = 0; i < obj.filter.children.length; i++) {
+                    if (obj.filters[i]) {
+                        columnId = i;
+                    }
+                }
+            }
+
+            // Search filter
+            var search = function(query, x, y) {
+                for (var i = 0; i < query.length; i++) {
+                    var value = ''+obj.options.data[y][x];
+                    var label = ''+obj.records[y][x].innerHTML;
+                    if (query[i] == value || query[i] == label) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            var query = obj.filters[columnId];
+            obj.results = [];
+            for (var j = 0; j < obj.options.data.length; j++) {
+                if (search(query, columnId, j)) {
+                    obj.results.push(j);
+                }
+            }
+            if (! obj.results.length) {
+                obj.results = null;
+            }
+
+            obj.updateResult();
+        }
+
+        /**
+         * Open the editor
+         *
+         * @param object cell
+         * @return void
+         */
+        obj.openEditor = function(cell, empty, e) {
+            // Get cell position
+            var y = cell.getAttribute('data-y');
+            var x = cell.getAttribute('data-x');
+
+            // On edition start
+            obj.dispatch('oneditionstart', el, cell, x, y);
+
+            // Overflow
+            if (x > 0) {
+                obj.records[y][x-1].style.overflow = 'hidden';
+            }
+
+            // Create editor
+            var createEditor = function(type, appendToCell) {
+                // Cell information
+                var info = cell.getBoundingClientRect();
+
+                // Create dropdown
+                var editor = document.createElement(type);
+                editor.classList.add("cell-selected-container")
+                // Edit cell
+                cell.classList.add('editor');
+                editor.innerHTML = cell.innerHTML
+                cell.innerHTML = ''
+                cell.appendChild(editor);
+                // On edition start
+                obj.dispatch('oncreateeditor', el, cell, x, y, editor);
+
+                return editor;
+            }
+
+            // Readonly
+            if (cell.classList.contains('readonly') == true) {
+                // Do nothing
+            } else {
+                // Holder
+                obj.edition = [ obj.records[y][x], obj.records[y][x].innerHTML, x, y ];
+
+                // If there is a custom editor for it
+                if (obj.options.columns[x].editor) {
+                    // Custom editors
+                    obj.options.columns[x].editor.openEditor(cell, el, empty, e);
+                } else {
+                    // Native functions
+                    // Value
+                    var img = cell.querySelector("img");
+                    if (empty == true) {
+                        img.src = ''
+                        obj.closeEditor(cell, true);
+                    } else {
+                        // Create editor
+                        var editor = createEditor('div', true);
+
+                        editor.style.position = 'relative';
+                        var div = document.createElement('div');
+                        div.classList.add('jclose', 'jupload-wapper');
+
+                        var changeImageBtn = document.createElement("button")
+                        changeImageBtn.classList.add("change-image-btn")
+                        changeImageBtn.innerHTML = "Select Image"
+                        var removeImageBtn = document.createElement("button")
+                        removeImageBtn.classList.add("remove-image-btn")
+                        removeImageBtn.innerHTML = `<svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="DeleteIcon"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg>`
+                        div.appendChild(changeImageBtn);
+
+                        if (img && img.src && img.src !== window.location.href) {
+                            changeImageBtn.innerHTML = "Change"
+                            img.style.display = 'none'
+                            removeImageBtn.onclick = function () {
+                                const imageEl = editor.querySelector("img")
+                                imageEl.src = ''
+                                obj.closeEditor(cell, true);
+                            }
+                            div.appendChild(removeImageBtn)
+                        } else {
+                            editor.classList.add("empty-cell-container")
+                        }
+
+                        editor.appendChild(div);
+
+                        obj.Upload(changeImageBtn, {
+                            onchange: function (e, data) {
+                                const imageEl = editor.querySelector("img")
+                                console.log(editor)
+                                if (imageEl.src) {
+                                    imageEl.src = data.file
+                                }
+
+                                obj.closeEditor(cell, true);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        obj.Upload = function (el, options) {
+            var obj = {};
+            obj.options = {};
+            // Default configuration
+            var defaults = {
+                type: 'image',
+                extension: '*',
+                input: false,
+                minWidth: false,
+                maxWidth: null,
+                maxHeight: null,
+                maxJpegSizeBytes: null, // For example, 350Kb would be 350000
+                onchange: null,
+                multiple: false,
+                remoteParser: null,
+                onRemove: null,
+                removeBtn: null
+            };
+
+            const clickHelper = function(elm) {
+                if (elm.click) {
+                    elm.click();
+                } else {
+                    var evt = new MouseEvent('click', {
+                        bubbles: true,
+                        cancelable: true,
+                        view: window
+                    });
+                    elm.dispatchEvent(evt);
+                }
+            }
+
+            // Loop through our object
+            for (var property in defaults) {
+                if (options && options.hasOwnProperty(property)) {
+                    obj.options[property] = options[property];
+                } else {
+                    obj.options[property] = defaults[property];
+                }
+            }
+
+            // Multiple
+            if (obj.options.multiple == true) {
+                el.setAttribute('data-multiple', true);
+            }
+
+            // Container
+            el.content = [];
+
+            // Upload icon
+            el.classList.add('jupload');
+
+            if (obj.options.input == true) {
+                el.classList.add('input');
+            }
+
+            obj.add = function(data) {
+                if (typeof(obj.options.onchange) == 'function') {
+                    obj.options.onchange(el, data);
+                }
+            }
+
+            obj.addFromFile = function(file) {
+                var type = file.type.split('/');
+                if (type[0] == obj.options.type) {
+                    var readFile = new FileReader();
+                    readFile.addEventListener("load", function (v) {
+                        var data = {
+                            file: v.srcElement.result,
+                            extension: file.name.substr(file.name.lastIndexOf('.') + 1),
+                            name: file.name,
+                            size: file.size,
+                            lastmodified: file.lastModified,
+                            content: v.srcElement.result,
+                        }
+                        obj.add(data);
+                    });
+                    readFile.readAsDataURL(file);
+                } else {
+                    alert(dictionary.translate('This extension is not allowed'));
+                }
+            }
+
+            obj.addFromUrl = function(src) {
+                if (src.substr(0,4) != 'data' && ! obj.options.remoteParser) {
+                    console.error('remoteParser not defined in your initialization');
+                } else {
+                    // This is to process cross domain images
+                    if (src.substr(0,4) == 'data') {
+                        var extension = src.split(';')
+                        extension = extension[0].split('/');
+                        var type = extension[0].replace('data:','');
+                        if (type == obj.options.type) {
+                            var data = {
+                                file: src,
+                                name: '',
+                                extension: extension[1],
+                                content: src,
+                            }
+                            obj.add(data);
+                        } else {
+                            alert(obj.options.text.extensionNotAllowed);
+                        }
+                    } else {
+                        var extension = src.substr(src.lastIndexOf('.') + 1);
+                        // Work for cross browsers
+                        src = obj.options.remoteParser + src;
+                        // Get remove content
+                        ajax({
+                            url: src,
+                            type: 'GET',
+                            dataType: 'blob',
+                            success: function(data) {
+                                //add(extension[0].replace('data:',''), data);
+                            }
+                        })
+                    }
+                }
+            }
+
+            var getDataURL = function(canvas, type) {
+                var compression = 0.92;
+                var lastContentLength = null;
+                var content = canvas.toDataURL(type, compression);
+                while (obj.options.maxJpegSizeBytes && type === 'image/jpeg' &&
+                       content.length > obj.options.maxJpegSizeBytes && content.length !== lastContentLength) {
+                    // Apply the compression
+                    compression *= 0.9;
+                    lastContentLength = content.length;
+                    content = canvas.toDataURL(type, compression);
+                }
+                return content;
+            }
+            var mime = obj.options.type + '/' + obj.options.extension;
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.setAttribute('accept', mime);
+            input.onchange = function() {
+                for (var i = 0; i < this.files.length; i++) {
+                    obj.addFromFile(this.files[i]);
+                }
+            }
+            // Allow multiple files
+            if (obj.options.multiple == true) {
+                input.setAttribute('multiple', true);
+            }
+            var current = null;
+            el.addEventListener("click", function(e) {
+                current = null;
+                if (! el.children.length || e.target === el) {
+                    clickHelper(input);
+                } else {
+                    if (e.target.parentNode == el) {
+                        current = e.target;
+                    }
+                }
+            });
+            el.addEventListener("dblclick", function(e) {
+                clickHelper(input);
+            });
+            el.addEventListener('dragenter', function(e) {
+                el.style.border = '1px dashed #000';
+            });
+            el.addEventListener('dragleave', function(e) {
+                el.style.border = '1px solid #eee';
+            });
+            el.addEventListener('dragstop', function(e) {
+                el.style.border = '1px solid #eee';
+            });
+            el.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            el.addEventListener('keydown', function(e) {
+                if (current && e.which == 46) {
+                    var index = Array.prototype.indexOf.call(el.children, current);
+                    if (index >= 0) {
+                        el.content.splice(index, 1);
+                        current.remove();
+                        current = null;
+                    }
+                }
+            });
+            el.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var html = (e.originalEvent || e).dataTransfer.getData('text/html');
+                var file = (e.originalEvent || e).dataTransfer.files;
+                if (file.length) {
+                    for (var i = 0; i < e.dataTransfer.files.length; i++) {
+                        obj.addFromFile(e.dataTransfer.files[i]);
+                    }
+                } else if (html) {
+                    if (obj.options.multiple == false) {
+                        el.innerText = '';
+                    }
+                    // Create temp element
+                    var div = document.createElement('div');
+                    div.innerHTML = html;
+                    // Extract images
+                    var img = div.querySelectorAll('img');
+                    if (img.length) {
+                        for (var i = 0; i < img.length; i++) {
+                            obj.addFromUrl(img[i].src);
+                        }
+                    }
+                }
+                el.style.border = '1px solid #eee';
+                return false;
+            });
+            el.val = function(val) {
+                if (val === undefined) {
+                    return el.content && el.content.length ? el.content : null;
+                } else {
+                    // Reset
+                    el.innerText = '';
+                    el.content = [];
+                    if (val) {
+                        if (Array.isArray(val)) {
+                            for (var i = 0; i < val.length; i++) {
+                                if (typeof(val[i]) == 'string') {
+                                    obj.add({ file: val[i] });
+                                } else {
+                                    obj.add(val[i]);
+                                }
+                            }
+                        } else if (typeof(val) == 'string') {
+                            obj.add({ file: val });
+                        }
+                    }
+                }
+            }
+            el.upload = el.image = obj;
+            return obj;
+        }
+
+        /**
+         * Close the editor and save the information
+         *
+         * @param object cell
+         * @param boolean save
+         * @return void
+         */
+        obj.closeEditor = function(cell, save) {
+            var x = parseInt(cell.getAttribute('data-x'));
+            var y = parseInt(cell.getAttribute('data-y'));
+
+            // Get cell properties
+            if (save == true) {
+                // If custom editor
+                if (obj.options.columns[x].editor) {
+                    // Custom editor
+                    var value = obj.options.columns[x].editor.closeEditor(cell, save);
+                } else {
+                    // Native functions
+                    if (obj.options.columns[x].type == 'image') {
+                        const img = cell.querySelector("img")
+                        var value = img && img.tagName == 'IMG' ? img.src : '';
+                    } else {
+                        var value = cell.children[0].value;
+                        cell.children[0].onblur = null;
+
+                        // Column options
+                        var options = obj.options.columns[x];
+                        // Format
+                        var opt = null;
+                        if (opt = getMask(options)) {
+                            // Keep numeric in the raw data
+                            if (value !== '' && ! isFormula(value) && typeof(value) !== 'number') {
+                                var t = jSuites.mask.extract(value, opt, true);
+                                if (t && t.value !== '') {
+                                    value = t.value;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Ignore changes if the value is the same
+                if (obj.options.data[y][x] == value) {
+                    cell.innerHTML = obj.edition[1];
+                } else {
+                    obj.setValue(cell, value);
+                }
+            } else {
+                if (obj.options.columns[x].editor) {
+                    // Custom editor
+                    obj.options.columns[x].editor.closeEditor(cell, save);
+                } else {
+                    if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                        cell.children[0].dropdown.close(true);
+                    } else if (obj.options.columns[x].type == 'calendar') {
+                        cell.children[0].calendar.close(true);
+                    } else if (obj.options.columns[x].type == 'color') {
+                        cell.children[0].color.close(true);
+                    } else {
+                        cell.children[0].onblur = null;
+                    }
+                }
+
+                // Restore value
+                cell.innerHTML = obj.edition && obj.edition[1] ? obj.edition[1] : '';
+            }
+
+            // On edition end
+            obj.dispatch('oneditionend', el, cell, x, y, value, save);
+
+            // Remove editor class
+            cell.classList.remove('editor');
+
+            // Finish edition
+            obj.edition = null;
+        }
+
+        /**
+         * Get the cell object
+         *
+         * @param object cell
+         * @return string value
+         */
+        obj.getCell = function(cell) {
+            // Convert in case name is excel liked ex. A10, BB92
+            cell = jexcel.getIdFromColumnName(cell, true);
+            var x = cell[0];
+            var y = cell[1];
+
+            return obj.records[y][x];
+        }
+
+        /**
+         * Get the column options
+         * @param x
+         * @param y
+         * @returns {{type: string}}
+         */
+        obj.getColumnOptions = function(x, y) {
+            // Type
+            var options = obj.options.columns[x];
+
+            // Cell type
+            if (! options) {
+                options = { type: 'text' };
+            }
+
+            return options;
+        }
+
+        /**
+         * Get the cell object from coords
+         *
+         * @param object cell
+         * @return string value
+         */
+        obj.getCellFromCoords = function(x, y) {
+            return obj.records[y][x];
+        }
+
+        /**
+         * Get label
+         *
+         * @param object cell
+         * @return string value
+         */
+        obj.getLabel = function(cell) {
+            // Convert in case name is excel liked ex. A10, BB92
+            cell = jexcel.getIdFromColumnName(cell, true);
+            var x = cell[0];
+            var y = cell[1];
+
+            return obj.records[y][x].innerHTML;
+        }
+
+        /**
+         * Get labelfrom coords
+         *
+         * @param object cell
+         * @return string value
+         */
+        obj.getLabelFromCoords = function(x, y) {
+            return obj.records[y][x].innerHTML;
+        }
+
+        /**
+         * Get the value from a cell
+         *
+         * @param object cell
+         * @return string value
+         */
+        obj.getValue = function(cell, processedValue) {
+            if (typeof(cell) == 'object') {
+                var x = cell.getAttribute('data-x');
+                var y = cell.getAttribute('data-y');
+            } else {
+                cell = jexcel.getIdFromColumnName(cell, true);
+                var x = cell[0];
+                var y = cell[1];
+            }
+
+            var value = null;
+
+            if (x != null && y != null) {
+                if (obj.records[y] && obj.records[y][x] && (processedValue || obj.options.copyCompatibility == true)) {
+                    value = obj.records[y][x].innerHTML;
+                } else {
+                    if (obj.options.data[y] && obj.options.data[y][x] != 'undefined') {
+                        value = obj.options.data[y][x];
+                    }
+                }
+            }
+
+            return value;
+        }
+
+        /**
+         * Get the value from a coords
+         *
+         * @param int x
+         * @param int y
+         * @return string value
+         */
+        obj.getValueFromCoords = function(x, y, processedValue) {
+            var value = null;
+
+            if (x != null && y != null) {
+                if ((obj.records[y] && obj.records[y][x]) && processedValue || obj.options.copyCompatibility == true) {
+                    value = obj.records[y][x].innerHTML;
+                } else {
+                    if (obj.options.data[y] && obj.options.data[y][x] != 'undefined') {
+                        value = obj.options.data[y][x];
+                    }
+                }
+            }
+
+            return value;
+        }
+
+        /**
+         * Set a cell value
+         *
+         * @param mixed cell destination cell
+         * @param string value value
+         * @return void
+         */
+        obj.setValue = function(cell, value, force) {
+            var records = [];
+
+            if (typeof(cell) == 'string') {
+                var columnId = jexcel.getIdFromColumnName(cell, true);
+                var x = columnId[0];
+                var y = columnId[1];
+
+                // Update cell
+                records.push(obj.updateCell(x, y, value, force));
+
+                // Update all formulas in the chain
+                obj.updateFormulaChain(x, y, records);
+            } else {
+                var x = null;
+                var y = null;
+                if (cell && cell.getAttribute) {
+                    var x = cell.getAttribute('data-x');
+                    var y = cell.getAttribute('data-y');
+                }
+
+                // Update cell
+                if (x != null && y != null) {
+                    records.push(obj.updateCell(x, y, value, force));
+
+                    // Update all formulas in the chain
+                    obj.updateFormulaChain(x, y, records);
+                } else {
+                    var keys = Object.keys(cell);
+                    if (keys.length > 0) {
+                        for (var i = 0; i < keys.length; i++) {
+                            if (typeof(cell[i]) == 'string') {
+                                var columnId = jexcel.getIdFromColumnName(cell[i], true);
+                                var x = columnId[0];
+                                var y = columnId[1];
+                            } else {
+                                if (cell[i].x != null && cell[i].y != null) {
+                                    var x = cell[i].x;
+                                    var y = cell[i].y;
+                                    // Flexible setup
+                                    if (cell[i].newValue != null) {
+                                        value = cell[i].newValue;
+                                    } else if (cell[i].value != null) {
+                                        value = cell[i].value;
+                                    }
+                                } else {
+                                    var x = cell[i].getAttribute('data-x');
+                                    var y = cell[i].getAttribute('data-y');
+                                }
+                            }
+
+                             // Update cell
+                            if (x != null && y != null) {
+                                records.push(obj.updateCell(x, y, value, force));
+
+                                // Update all formulas in the chain
+                                obj.updateFormulaChain(x, y, records);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Update history
+            obj.setHistory({
+                action:'setValue',
+                records:records,
+                selection:obj.selectedCell,
+            });
+
+            // Update table with custom configurations if applicable
+            obj.updateTable();
+
+            // On after changes
+            obj.onafterchanges(el, records);
+        }
+
+        /**
+         * Set a cell value based on coordinates
+         *
+         * @param int x destination cell
+         * @param int y destination cell
+         * @param string value
+         * @return void
+         */
+        obj.setValueFromCoords = function(x, y, value, force) {
+            var records = [];
+            records.push(obj.updateCell(x, y, value, force));
+
+            // Update all formulas in the chain
+            obj.updateFormulaChain(x, y, records);
+
+            // Update history
+            obj.setHistory({
+                action:'setValue',
+                records:records,
+                selection:obj.selectedCell,
+            });
+
+            // Update table with custom configurations if applicable
+            obj.updateTable();
+
+            // On after changes
+            obj.onafterchanges(el, records);
+        }
+
+        /**
+         * Toogle
+         */
+        obj.setCheckRadioValue = function() {
+            var records = [];
+            var keys = Object.keys(obj.highlighted);
+            for (var i = 0; i < keys.length; i++) {
+                var x = obj.highlighted[i].getAttribute('data-x');
+                var y = obj.highlighted[i].getAttribute('data-y');
+
+                if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
+                    // Update cell
+                    records.push(obj.updateCell(x, y, ! obj.options.data[y][x]));
+                }
+            }
+
+            if (records.length) {
+                // Update history
+                obj.setHistory({
+                    action:'setValue',
+                    records:records,
+                    selection:obj.selectedCell,
+                });
+
+                // On after changes
+                obj.onafterchanges(el, records);
+            }
+        }
+        /**
+         * Strip tags
+         */
+        var stripScript = function(a) {
+            var b = new Option;
+            b.innerHTML = a;
+            var c = null;
+            for (a = b.getElementsByTagName('script'); c=a[0];) c.parentNode.removeChild(c);
+            return b.innerHTML;
+        }
+
+        /**
+         * Update cell content
+         *
+         * @param object cell
+         * @return void
+         */
+        obj.updateCell = function(x, y, value, force) {
+            // Changing value depending on the column type
+            if (obj.records[y][x].classList.contains('readonly') == true && ! force) {
+                // Do nothing
+                var record = {
+                    x: x,
+                    y: y,
+                    col: x,
+                    row: y
+                }
+            } else {
+                // Security
+                if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
+                    var val = secureFormula(value);
+                    if (val != value) {
+                        // Update the data container
+                        value = val;
+                    }
+                }
+
+                // On change
+                var val = obj.dispatch('onbeforechange', el, obj.records[y][x], x, y, value);
+
+                // If you return something this will overwrite the value
+                if (val != undefined) {
+                    value = val;
+                }
+
+                if (obj.options.columns[x].editor && typeof(obj.options.columns[x].editor.updateCell) == 'function') {
+                    value = obj.options.columns[x].editor.updateCell(obj.records[y][x], value, force);
+                }
+
+                // History format
+                var record = {
+                    x: x,
+                    y: y,
+                    col: x,
+                    row: y,
+                    newValue: value,
+                    oldValue: obj.options.data[y][x],
+                }
+
+                if (obj.options.columns[x].editor) {
+                    // Update data and cell
+                    obj.options.data[y][x] = value;
+                } else {
+                    // Native functions
+                    if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
+                        // Unchecked all options
+                        if (obj.options.columns[x].type == 'radio') {
+                            for (var j = 0; j < obj.options.data.length; j++) {
+                                obj.options.data[j][x] = false;
+                            }
+                        }
+
+                        // Update data and cell
+                        obj.records[y][x].children[0].checked = (value == 1 || value == true || value == 'true' || value == 'TRUE') ? true : false;
+                        obj.options.data[y][x] = obj.records[y][x].children[0].checked;
+                    } else if (obj.options.columns[x].type == 'dropdown' || obj.options.columns[x].type == 'autocomplete') {
+                        // Update data and cell
+                        obj.options.data[y][x] = value;
+                        obj.records[y][x].textContent = obj.getDropDownValue(x, value);
+                    } else if (obj.options.columns[x].type == 'calendar') {
+                        // Try formatted date
+                        var formatted = null;
+                        if (! validDate(value)) {
+                            var tmp = jSuites.calendar.extractDateFromString(value, obj.options.columns[x].options.format);
+                            if (tmp) {
+                                formatted = tmp;
+                            }
+                        }
+                        // Update data and cell
+                        obj.options.data[y][x] = value;
+                        obj.records[y][x].textContent = jSuites.calendar.getDateString(formatted ? formatted : value, obj.options.columns[x].options.format);
+                    } else if (obj.options.columns[x].type == 'color') {
+                        // Update color
+                        obj.options.data[y][x] = value;
+                        // Render
+                        if (obj.options.columns[x].render == 'square') {
+                            var color = document.createElement('div');
+                            color.className = 'color';
+                            color.style.backgroundColor = value;
+                            obj.records[y][x].textContent = '';
+                            obj.records[y][x].appendChild(color);
+                        } else {
+                            obj.records[y][x].style.color = value;
+                            obj.records[y][x].textContent = value;
+                        }
+                    } else if (obj.options.columns[x].type == 'image') {
+                        value = '' + value;
+                        obj.options.data[y][x] = value;
+                        obj.records[y][x].innerHTML = '';
+                        if (value && value.substr(0, 10) == 'data:image') {
+                            var img = document.createElement('img');
+                            img.src = value;
+                            obj.records[y][x].appendChild(img);
+                        }
+                    } else {
+                        // Update data and cell
+                        obj.options.data[y][x] = value;
+                        // Label
+                        if (obj.options.columns[x].type == 'html') {
+                            obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value));
+                        } else {
+                            if (obj.options.stripHTML === false || obj.options.columns[x].stripHTML === false) {
+                                obj.records[y][x].innerHTML = stripScript(obj.parseValue(x, y, value, obj.records[y][x]));
+                            } else {
+                                obj.records[y][x].textContent = obj.parseValue(x, y, value, obj.records[y][x]);
+                            }
+                        }
+                        // Handle big text inside a cell
+                        if (obj.options.columns[x].wordWrap != false && (obj.options.wordWrap == true || obj.options.columns[x].wordWrap == true || obj.records[y][x].innerHTML.length > 200)) {
+                            obj.records[y][x].style.whiteSpace = 'pre-wrap';
+                        } else {
+                            obj.records[y][x].style.whiteSpace = '';
+                        }
+                    }
+                }
+
+                // Overflow
+                if (x > 0) {
+                    if (value) {
+                        obj.records[y][x-1].style.overflow = 'hidden';
+                    } else {
+                        obj.records[y][x-1].style.overflow = '';
+                    }
+                }
+
+                // On change
+                obj.dispatch('onchange', el, (obj.records[y] && obj.records[y][x] ? obj.records[y][x] : null), x, y, value, record.oldValue);
+            }
+
+            return record;
+        }
+
+        /**
+         * Helper function to copy data using the corner icon
+         */
+        obj.copyData = function(o, d) {
+            // Get data from all selected cells
+            var data = obj.getData(true, true);
+
+            // Selected cells
+            var h = obj.selectedContainer;
+
+            // Cells
+            var x1 = parseInt(o.getAttribute('data-x'));
+            var y1 = parseInt(o.getAttribute('data-y'));
+            var x2 = parseInt(d.getAttribute('data-x'));
+            var y2 = parseInt(d.getAttribute('data-y'));
+
+            // Records
+            var records = [];
+            var breakControl = false;
+
+            if (h[0] == x1) {
+                // Vertical copy
+                if (y1 < h[1]) {
+                    var rowNumber = y1 - h[1];
+                } else {
+                    var rowNumber = 1;
+                }
+                var colNumber = 0;
+            } else {
+                if (x1 < h[0]) {
+                    var colNumber = x1 - h[0];
+                } else {
+                    var colNumber = 1;
+                }
+                var rowNumber = 0;
+            }
+
+            // Copy data procedure
+            var posx = 0;
+            var posy = 0;
+
+            for (var j = y1; j <= y2; j++) {
+                // Skip hidden rows
+                if (obj.rows[j] && obj.rows[j].style.display == 'none') {
+                    continue;
+                }
+
+                // Controls
+                if (data[posy] == undefined) {
+                    posy = 0;
+                }
+                posx = 0;
+
+                // Data columns
+                if (h[0] != x1) {
+                    if (x1 < h[0]) {
+                        var colNumber = x1 - h[0];
+                    } else {
+                        var colNumber = 1;
+                    }
+                }
+                // Data columns
+                for (var i = x1; i <= x2; i++) {
+                    // Update non-readonly
+                    if (obj.records[j][i] && ! obj.records[j][i].classList.contains('readonly') && obj.records[j][i].style.display != 'none' && breakControl == false) {
+                        // Stop if contains value
+                        if (! obj.selection.length) {
+                            if (obj.options.data[j][i] != '') {
+                                breakControl = true;
+                                continue;
+                            }
+                        }
+
+                        // Column
+                        if (data[posy] == undefined) {
+                            posx = 0;
+                        } else if (data[posy][posx] == undefined) {
+                            posx = 0;
+                        }
+
+                        // Value
+                        var value = data[posy][posx];
+
+                        if (value && ! data[1] && obj.options.autoIncrement == true) {
+                            if (obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number') {
+                                if ((''+value).substr(0,1) == '=') {
+                                    var tokens = value.match(/([A-Z]+[0-9]+)/g);
+
+                                    if (tokens) {
+                                        var affectedTokens = [];
+                                        for (var index = 0; index < tokens.length; index++) {
+                                            var position = jexcel.getIdFromColumnName(tokens[index], 1);
+                                            position[0] += colNumber;
+                                            position[1] += rowNumber;
+                                            if (position[1] < 0) {
+                                                position[1] = 0;
+                                            }
+                                            var token = jexcel.getColumnNameFromId([position[0], position[1]]);
+
+                                            if (token != tokens[index]) {
+                                                affectedTokens[tokens[index]] = token;
+                                            }
+                                        }
+                                        // Update formula
+                                        if (affectedTokens) {
+                                            value = obj.updateFormula(value, affectedTokens)
+                                        }
+                                    }
+                                } else {
+                                    if (value == Number(value)) {
+                                        value = Number(value) + rowNumber;
+                                    }
+                                }
+                            } else if (obj.options.columns[i].type == 'calendar') {
+                                var date = new Date(value);
+                                date.setDate(date.getDate() + rowNumber);
+                                value = date.getFullYear() + '-' + jexcel.doubleDigitFormat(parseInt(date.getMonth() + 1)) + '-' + jexcel.doubleDigitFormat(date.getDate()) + ' ' + '00:00:00';
+                            }
+                        }
+
+                        records.push(obj.updateCell(i, j, value));
+
+                        // Update all formulas in the chain
+                        obj.updateFormulaChain(i, j, records);
+                    }
+                    posx++;
+                    if (h[0] != x1) {
+                        colNumber++;
+                    }
+                }
+                posy++;
+                rowNumber++;
+            }
+
+            // Update history
+            obj.setHistory({
+                action:'setValue',
+                records:records,
+                selection:obj.selectedCell,
+            });
+
+            // Update table with custom configuration if applicable
+            obj.updateTable();
+
+            // On after changes
+            obj.onafterchanges(el, records);
+        }
+
+        /**
+         * Refresh current selection
+         */
+        obj.refreshSelection = function() {
+            if (obj.selectedCell) {
+                obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            }
+        }
+
+        /**
+         * Move coords to A1 in case overlaps with an excluded cell
+         */
+        obj.conditionalSelectionUpdate = function(type, o, d) {
+            if (type == 1) {
+                if (obj.selectedCell && ((o >= obj.selectedCell[1] && o <= obj.selectedCell[3]) || (d >= obj.selectedCell[1] && d <= obj.selectedCell[3]))) {
+                    obj.resetSelection();
+                    return;
+                }
+            } else {
+                if (obj.selectedCell && ((o >= obj.selectedCell[0] && o <= obj.selectedCell[2]) || (d >= obj.selectedCell[0] && d <= obj.selectedCell[2]))) {
+                    obj.resetSelection();
+                    return;
+                }
+            }
+        }
+
+        /**
+         * Clear table selection
+         */
+        obj.resetSelection = function(blur) {
+            // Remove style
+            if (! obj.highlighted.length) {
+                var previousStatus = 0;
+            } else {
+                var previousStatus = 1;
+
+                for (var i = 0; i < obj.highlighted.length; i++) {
+                    obj.highlighted[i].classList.remove('highlight');
+                    obj.highlighted[i].classList.remove('highlight-left');
+                    obj.highlighted[i].classList.remove('highlight-right');
+                    obj.highlighted[i].classList.remove('highlight-top');
+                    obj.highlighted[i].classList.remove('highlight-bottom');
+                    obj.highlighted[i].classList.remove('highlight-selected');
+
+                    var px = parseInt(obj.highlighted[i].getAttribute('data-x'));
+                    var py = parseInt(obj.highlighted[i].getAttribute('data-y'));
+
+                    // Check for merged cells
+                    if (obj.highlighted[i].getAttribute('data-merged')) {
+                        var colspan = parseInt(obj.highlighted[i].getAttribute('colspan'));
+                        var rowspan = parseInt(obj.highlighted[i].getAttribute('rowspan'));
+                        var ux = colspan > 0 ? px + (colspan - 1) : px;
+                        var uy = rowspan > 0 ? py + (rowspan - 1): py;
+                    } else {
+                        var ux = px;
+                        var uy = py;
+                    }
+
+                    // Remove selected from headers
+                    for (var j = px; j <= ux; j++) {
+                        if (obj.headers[j]) {
+                            obj.headers[j].classList.remove('selected');
+                        }
+                    }
+
+                    // Remove selected from rows
+                    for (var j = py; j <= uy; j++) {
+                        if (obj.rows[j]) {
+                            obj.rows[j].classList.remove('selected');
+                        }
+                    }
+                }
+            }
+
+            // Reset highlighted cells
+            obj.highlighted = [];
+
+            // Reset
+            obj.selectedCell = null;
+
+            // Hide corner
+            obj.corner.style.top = '-2000px';
+            obj.corner.style.left = '-2000px';
+
+            if (blur == true && previousStatus == 1) {
+                obj.dispatch('onblur', el);
+            }
+
+            return previousStatus;
+        }
+
+        /**
+         * Update selection based on two cells
+         */
+        obj.updateSelection = function(el1, el2, origin) {
+            var x1 = el1.getAttribute('data-x');
+            var y1 = el1.getAttribute('data-y');
+            if (el2) {
+                var x2 = el2.getAttribute('data-x');
+                var y2 = el2.getAttribute('data-y');
+            } else {
+                var x2 = x1;
+                var y2 = y1;
+            }
+
+            obj.updateSelectionFromCoords(x1, y1, x2, y2, origin);
+        }
+
+        /**
+         * Update selection from coords
+         */
+        obj.updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
+            // Reset Selection
+            var updated = null;
+            var previousState = obj.resetSelection();
+
+            // select column
+            if (y1 == null) {
+                y1 = 0;
+                y2 = obj.rows.length - 1;
+            }
+
+            // Same element
+            if (x2 == null) {
+                x2 = x1;
+            }
+            if (y2 == null) {
+                y2 = y1;
+            }
+
+            // Selection must be within the existing data
+            if (x1 >= obj.headers.length) {
+                x1 = obj.headers.length - 1;
+            }
+            if (y1 >= obj.rows.length) {
+                y1 = obj.rows.length - 1;
+            }
+            if (x2 >= obj.headers.length) {
+                x2 = obj.headers.length - 1;
+            }
+            if (y2 >= obj.rows.length) {
+                y2 = obj.rows.length - 1;
+            }
+
+            // Keep selected cell
+            obj.selectedCell = [x1, y1, x2, y2];
+
+            // Select cells
+            if (x1 != null) {
+                // Add selected cell
+                if (obj.records[y1][x1]) {
+                    obj.records[y1][x1].classList.add('highlight-selected');
+                }
+
+                // Origin & Destination
+                if (parseInt(x1) < parseInt(x2)) {
+                    var px = parseInt(x1);
+                    var ux = parseInt(x2);
+                } else {
+                    var px = parseInt(x2);
+                    var ux = parseInt(x1);
+                }
+
+                if (parseInt(y1) < parseInt(y2)) {
+                    var py = parseInt(y1);
+                    var uy = parseInt(y2);
+                } else {
+                    var py = parseInt(y2);
+                    var uy = parseInt(y1);
+                }
+
+                // Verify merged columns
+                for (var i = px; i <= ux; i++) {
+                    for (var j = py; j <= uy; j++) {
+                        if (obj.records[j][i] && obj.records[j][i].getAttribute('data-merged')) {
+                            var x = parseInt(obj.records[j][i].getAttribute('data-x'));
+                            var y = parseInt(obj.records[j][i].getAttribute('data-y'));
+                            var colspan = parseInt(obj.records[j][i].getAttribute('colspan'));
+                            var rowspan = parseInt(obj.records[j][i].getAttribute('rowspan'));
+
+                            if (colspan > 1) {
+                                if (x < px) {
+                                    px = x;
+                                }
+                                if (x + colspan > ux) {
+                                    ux = x + colspan - 1;
+                                }
+                            }
+
+                            if (rowspan) {
+                                if (y < py) {
+                                    py = y;
+
+                                }
+                                if (y + rowspan > uy) {
+                                    uy = y + rowspan - 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Limits
+                var borderLeft = null;
+                var borderRight = null;
+                var borderTop = null;
+                var borderBottom = null;
+
+                // Vertical limits
+                for (var j = py; j <= uy; j++) {
+                    if (obj.rows[j].style.display != 'none') {
+                        if (borderTop == null) {
+                            borderTop = j;
+                        }
+                        borderBottom = j;
+                    }
+                }
+
+                // Redefining styles
+                for (var i = px; i <= ux; i++) {
+                    for (var j = py; j <= uy; j++) {
+                        if (obj.rows[j].style.display != 'none' && obj.records[j][i].style.display != 'none') {
+                            obj.records[j][i].classList.add('highlight');
+                            obj.highlighted.push(obj.records[j][i]);
+                        }
+                    }
+
+                    // Horizontal limits
+                    if (obj.options.columns[i].type != 'hidden') {
+                        if (borderLeft == null) {
+                            borderLeft = i;
+                        }
+                        borderRight = i;
+                    }
+                }
+
+                // Create borders
+                if (! borderLeft) {
+                    borderLeft = 0;
+                }
+                if (! borderRight) {
+                    borderRight = 0;
+                }
+                for (var i = borderLeft; i <= borderRight; i++) {
+                    if (obj.options.columns[i].type != 'hidden') {
+                        // Top border
+                        if (obj.records[borderTop] && obj.records[borderTop][i]) {
+                            obj.records[borderTop][i].classList.add('highlight-top');
+                        }
+                        // Bottom border
+                        if (obj.records[borderBottom] && obj.records[borderBottom][i]) {
+                            obj.records[borderBottom][i].classList.add('highlight-bottom');
+                        }
+                        // Add selected from headers
+                        obj.headers[i].classList.add('selected');
+                    }
+                }
+
+                for (var j = borderTop; j <= borderBottom; j++) {
+                    if (obj.rows[j] && obj.rows[j].style.display != 'none') {
+                        // Left border
+                        obj.records[j][borderLeft].classList.add('highlight-left');
+                        // Right border
+                        obj.records[j][borderRight].classList.add('highlight-right');
+                        // Add selected from rows
+                        obj.rows[j].classList.add('selected');
+                    }
+                }
+
+                obj.selectedContainer = [ borderLeft, borderTop, borderRight, borderBottom ];
+            }
+
+            // Handle events
+            if (previousState == 0) {
+                obj.dispatch('onfocus', el);
+
+                obj.removeCopyingSelection();
+            }
+
+            obj.dispatch('onselection', el, borderLeft, borderTop, borderRight, borderBottom, origin);
+
+            // Find corner cell
+            obj.updateCornerPosition();
+        }
+
+        /**
+         * Remove copy selection
+         *
+         * @return void
+         */
+        obj.removeCopySelection = function() {
+            // Remove current selection
+            for (var i = 0; i < obj.selection.length; i++) {
+                obj.selection[i].classList.remove('selection');
+                obj.selection[i].classList.remove('selection-left');
+                obj.selection[i].classList.remove('selection-right');
+                obj.selection[i].classList.remove('selection-top');
+                obj.selection[i].classList.remove('selection-bottom');
+            }
+
+            obj.selection = [];
+        }
+
+        /**
+         * Update copy selection
+         *
+         * @param int x, y
+         * @return void
+         */
+        obj.updateCopySelection = function(x3, y3) {
+            // Remove selection
+            obj.removeCopySelection();
+
+            // Get elements first and last
+            var x1 = obj.selectedContainer[0];
+            var y1 = obj.selectedContainer[1];
+            var x2 = obj.selectedContainer[2];
+            var y2 = obj.selectedContainer[3];
+
+            if (x3 != null && y3 != null) {
+                if (x3 - x2 > 0) {
+                    var px = parseInt(x2) + 1;
+                    var ux = parseInt(x3);
+                } else {
+                    var px = parseInt(x3);
+                    var ux = parseInt(x1) - 1;
+                }
+
+                if (y3 - y2 > 0) {
+                    var py = parseInt(y2) + 1;
+                    var uy = parseInt(y3);
+                } else {
+                    var py = parseInt(y3);
+                    var uy = parseInt(y1) - 1;
+                }
+
+                if (ux - px <= uy - py) {
+                    var px = parseInt(x1);
+                    var ux = parseInt(x2);
+                } else {
+                    var py = parseInt(y1);
+                    var uy = parseInt(y2);
+                }
+
+                for (var j = py; j <= uy; j++) {
+                    for (var i = px; i <= ux; i++) {
+                        if (obj.records[j][i] && obj.rows[j].style.display != 'none' && obj.records[j][i].style.display != 'none') {
+                            obj.records[j][i].classList.add('selection');
+                            obj.records[py][i].classList.add('selection-top');
+                            obj.records[uy][i].classList.add('selection-bottom');
+                            obj.records[j][px].classList.add('selection-left');
+                            obj.records[j][ux].classList.add('selection-right');
+
+                            // Persist selected elements
+                            obj.selection.push(obj.records[j][i]);
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         * Update corner position
+         *
+         * @return void
+         */
+        obj.updateCornerPosition = function() {
+            // If any selected cells
+            if (! obj.highlighted.length) {
+                obj.corner.style.top = '-2000px';
+                obj.corner.style.left = '-2000px';
+            } else {
+                // Get last cell
+                var last = obj.highlighted[obj.highlighted.length-1];
+                var lastX = last.getAttribute('data-x');
+
+                var contentRect = obj.content.getBoundingClientRect();
+                var x1 = contentRect.left;
+                var y1 = contentRect.top;
+
+                var lastRect = last.getBoundingClientRect();
+                var x2 = lastRect.left;
+                var y2 = lastRect.top;
+                var w2 = lastRect.width;
+                var h2 = lastRect.height;
+
+                var x = (x2 - x1) + obj.content.scrollLeft + w2 - 4;
+                var y = (y2 - y1) + obj.content.scrollTop + h2 - 4;
+
+                // Place the corner in the correct place
+                obj.corner.style.top = y + 'px';
+                obj.corner.style.left = x + 'px';
+
+                if (obj.options.freezeColumns) {
+                    var width = obj.getFreezeWidth();
+                    // Only check if the last column is not part of the merged cells
+                    if (lastX > obj.options.freezeColumns-1 && x2 - x1 + w2 < width) {
+                        obj.corner.style.display = 'none';
+                    } else {
+                        if (obj.options.selectionCopy == true) {
+                            obj.corner.style.display = '';
+                        }
+                    }
+                } else {
+                    if (obj.options.selectionCopy == true) {
+                        obj.corner.style.display = '';
+                    }
+                }
+            }
+        }
+
+        /**
+         * Update scroll position based on the selection
+         */
+        obj.updateScroll = function(direction) {
+            // Jspreadsheet Container information
+            var contentRect = obj.content.getBoundingClientRect();
+            var x1 = contentRect.left;
+            var y1 = contentRect.top;
+            var w1 = contentRect.width;
+            var h1 = contentRect.height;
+
+            // Direction Left or Up
+            var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
+
+            // Reference
+            var referenceRect = reference.getBoundingClientRect();
+            var x2 = referenceRect.left;
+            var y2 = referenceRect.top;
+            var w2 = referenceRect.width;
+            var h2 = referenceRect.height;
+
+            // Direction
+            if (direction == 0 || direction == 1) {
+                var x = (x2 - x1) + obj.content.scrollLeft;
+                var y = (y2 - y1) + obj.content.scrollTop - 2;
+            } else {
+                var x = (x2 - x1) + obj.content.scrollLeft + w2;
+                var y = (y2 - y1) + obj.content.scrollTop + h2;
+            }
+
+            // Top position check
+            if (y > (obj.content.scrollTop + 30) && y < (obj.content.scrollTop + h1)) {
+                // In the viewport
+            } else {
+                // Out of viewport
+                if (y < obj.content.scrollTop + 30) {
+                    obj.content.scrollTop = y - h2;
+                } else {
+                    obj.content.scrollTop = y - (h1 - 2);
+                }
+            }
+
+            // Freeze columns?
+            var freezed = obj.getFreezeWidth();
+
+            // Left position check - TODO: change that to the bottom border of the element
+            if (x > (obj.content.scrollLeft + freezed) && x < (obj.content.scrollLeft + w1)) {
+                // In the viewport
+            } else {
+                // Out of viewport
+                if (x < obj.content.scrollLeft + 30) {
+                    obj.content.scrollLeft = x;
+                    if (obj.content.scrollLeft < 50) {
+                        obj.content.scrollLeft = 0;
+                    }
+                } else if (x < obj.content.scrollLeft + freezed) {
+                    obj.content.scrollLeft = x - freezed - 1;
+                } else {
+                    obj.content.scrollLeft = x - (w1 - 20);
+                }
+            }
+        }
+
+        /**
+         * Get the column width
+         *
+         * @param int column column number (first column is: 0)
+         * @return int current width
+         */
+        obj.getWidth = function(column) {
+            if (typeof column === 'undefined') {
+                // Get all headers
+                var data = [];
+                for (var i = 0; i < obj.headers.length; i++) {
+                    data.push(obj.options.columns[i].width);
+                }
+            } else {
+                // In case the column is an object
+                if (typeof(column) == 'object') {
+                    column = $(column).getAttribute('data-x');
+                }
+
+                data = obj.colgroup[column].getAttribute('width')
+            }
+
+            return data;
+        }
+
+
+        /**
+         * Set the column width
+         *
+         * @param int column number (first column is: 0)
+         * @param int new column width
+         * @param int old column width
+         */
+        obj.setWidth = function (column, width, oldWidth) {
+            if (width) {
+                if (Array.isArray(column)) {
+                    // Oldwidth
+                    if (! oldWidth) {
+                        var oldWidth = [];
+                    }
+                    // Set width
+                    for (var i = 0; i < column.length; i++) {
+                        if (! oldWidth[i]) {
+                            oldWidth[i] = obj.colgroup[column[i]].getAttribute('width');
+                        }
+                        var w = Array.isArray(width) && width[i] ? width[i] : width;
+                        obj.colgroup[column[i]].setAttribute('width', w);
+                        obj.options.columns[column[i]].width = w;
+                    }
+                } else {
+                    // Oldwidth
+                    if (! oldWidth) {
+                        oldWidth = obj.colgroup[column].getAttribute('width');
+                    }
+                    // Set width
+                    obj.colgroup[column].setAttribute('width', width);
+                    obj.options.columns[column].width = width;
+                }
+
+                // Keeping history of changes
+                obj.setHistory({
+                    action:'setWidth',
+                    column:column,
+                    oldValue:oldWidth,
+                    newValue:width,
+                });
+
+                // On resize column
+                obj.dispatch('onresizecolumn', el, column, width, oldWidth);
+
+                // Update corner position
+                obj.updateCornerPosition();
+            }
+        }
+
+        /**
+         * Set the row height
+         *
+         * @param row - row number (first row is: 0)
+         * @param height - new row height
+         * @param oldHeight - old row height
+         */
+        obj.setHeight = function (row, height, oldHeight) {
+            if (height > 0) {
+                // In case the column is an object
+                if (typeof(row) == 'object') {
+                    row = row.getAttribute('data-y');
+                }
+
+                // Oldwidth
+                if (! oldHeight) {
+                    oldHeight = obj.rows[row].getAttribute('height');
+
+                    if (! oldHeight) {
+                        var rect = obj.rows[row].getBoundingClientRect();
+                        oldHeight = rect.height;
+                    }
+                }
+
+                // Integer
+                height = parseInt(height);
+
+                // Set width
+                obj.rows[row].style.height = height + 'px';
+
+                // Keep options updated
+                if (! obj.options.rows[row]) {
+                    obj.options.rows[row] = {};
+                }
+                obj.options.rows[row].height = height;
+
+                // Keeping history of changes
+                obj.setHistory({
+                    action:'setHeight',
+                    row:row,
+                    oldValue:oldHeight,
+                    newValue:height,
+                });
+
+                // On resize column
+                obj.dispatch('onresizerow', el, row, height, oldHeight);
+
+                // Update corner position
+                obj.updateCornerPosition();
+            }
+        }
+
+        /**
+         * Get the row height
+         *
+         * @param row - row number (first row is: 0)
+         * @return height - current row height
+         */
+        obj.getHeight = function(row) {
+            if (typeof row === 'undefined') {
+                // Get height of all rows
+                var data = [];
+                for (var j = 0; j < obj.rows.length; j++) {
+                    var h = obj.rows[j].style.height;
+                    if (h) {
+                        data[j] = h;
+                    }
+                }
+            } else {
+                // In case the row is an object
+                if (typeof(row) == 'object') {
+                    row = $(row).getAttribute('data-y');
+                }
+
+                var data = obj.rows[row].style.height;
+            }
+
+            return data;
+        }
+
+        obj.setFooter = function(data) {
+            if (data) {
+                obj.options.footers = data;
+            }
+
+            if (obj.options.footers) {
+                if (! obj.tfoot) {
+                    obj.tfoot = document.createElement('tfoot');
+                    obj.table.appendChild(obj.tfoot);
+                }
+
+                for (var j = 0; j < obj.options.footers.length; j++) {
+                    if (obj.tfoot.children[j]) {
+                        var tr = obj.tfoot.children[j];
+                    } else {
+                        var tr = document.createElement('tr');
+                        var td = document.createElement('td');
+                        tr.appendChild(td);
+                        obj.tfoot.appendChild(tr);
+                    }
+                    for (var i = 0; i < obj.headers.length; i++) {
+                        if (! obj.options.footers[j][i]) {
+                            obj.options.footers[j][i] = '';
+                        }
+                        if (obj.tfoot.children[j].children[i+1]) {
+                            var td = obj.tfoot.children[j].children[i+1];
+                        } else {
+                            var td = document.createElement('td');
+                            tr.appendChild(td);
+
+                            // Text align
+                            var colAlign = obj.options.columns[i].align ? obj.options.columns[i].align : 'center';
+                            td.style.textAlign = colAlign;
+                        }
+                        td.textContent = obj.parseValue(+obj.records.length + i, j, obj.options.footers[j][i]);
+
+                        // Hide/Show with hideColumn()/showColumn()
+                        td.style.display = obj.colgroup[i].style.display;
+                    }
+                }
+            }
+        }
+
+        /**
+         * Get the column title
+         *
+         * @param column - column number (first column is: 0)
+         * @param title - new column title
+         */
+        obj.getHeader = function(column) {
+            return obj.headers[column].textContent;
+        }
+
+        /**
+         * Set the column title
+         *
+         * @param column - column number (first column is: 0)
+         * @param title - new column title
+         */
+        obj.setHeader = function(column, newValue) {
+            if (obj.headers[column]) {
+                var oldValue = obj.headers[column].textContent;
+
+                if (! newValue) {
+                    newValue = prompt(obj.options.text.columnName, oldValue)
+                }
+
+                if (newValue) {
+                    obj.headers[column].textContent = newValue;
+                    // Keep the title property
+                    obj.headers[column].setAttribute('title', newValue);
+                    // Update title
+                    obj.options.columns[column].title = newValue;
+                }
+
+                obj.setHistory({
+                    action: 'setHeader',
+                    column: column,
+                    oldValue: oldValue,
+                    newValue: newValue
+                });
+
+                // On onchange header
+                obj.dispatch('onchangeheader', el, column, oldValue, newValue);
+            }
+        }
+
+        /**
+         * Get the headers
+         *
+         * @param asArray
+         * @return mixed
+         */
+        obj.getHeaders = function (asArray) {
+            var title = [];
+
+            for (var i = 0; i < obj.headers.length; i++) {
+                title.push(obj.getHeader(i));
+            }
+
+            return asArray ? title : title.join(obj.options.csvDelimiter);
+        }
+
+        /**
+         * Get meta information from cell(s)
+         *
+         * @return integer
+         */
+        obj.getMeta = function(cell, key) {
+            if (! cell) {
+                return obj.options.meta;
+            } else {
+                if (key) {
+                    return obj.options.meta[cell] && obj.options.meta[cell][key] ? obj.options.meta[cell][key] : null;
+                } else {
+                    return obj.options.meta[cell] ? obj.options.meta[cell] : null;
+                }
+            }
+        }
+
+        /**
+         * Set meta information to cell(s)
+         *
+         * @return integer
+         */
+        obj.setMeta = function(o, k, v) {
+            if (! obj.options.meta) {
+                obj.options.meta = {}
+            }
+
+            if (k && v) {
+                // Set data value
+                if (! obj.options.meta[o]) {
+                    obj.options.meta[o] = {};
+                }
+                obj.options.meta[o][k] = v;
+            } else {
+                // Apply that for all cells
+                var keys = Object.keys(o);
+                for (var i = 0; i < keys.length; i++) {
+                    if (! obj.options.meta[keys[i]]) {
+                        obj.options.meta[keys[i]] = {};
+                    }
+
+                    var prop = Object.keys(o[keys[i]]);
+                    for (var j = 0; j < prop.length; j++) {
+                        obj.options.meta[keys[i]][prop[j]] = o[keys[i]][prop[j]];
+                    }
+                }
+            }
+
+            obj.dispatch('onchangemeta', el, o, k, v);
+        }
+
+        /**
+         * Update meta information
+         *
+         * @return integer
+         */
+        obj.updateMeta = function(affectedCells) {
+            if (obj.options.meta) {
+                var newMeta = {};
+                var keys = Object.keys(obj.options.meta);
+                for (var i = 0; i < keys.length; i++) {
+                    if (affectedCells[keys[i]]) {
+                        newMeta[affectedCells[keys[i]]] = obj.options.meta[keys[i]];
+                    } else {
+                        newMeta[keys[i]] = obj.options.meta[keys[i]];
+                    }
+                }
+                // Update meta information
+                obj.options.meta = newMeta;
+            }
+        }
+
+        /**
+         * Get style information from cell(s)
+         *
+         * @return integer
+         */
+        obj.getStyle = function(cell, key) {
+            // Cell
+            if (! cell) {
+                // Control vars
+                var data = {};
+
+                // Column and row length
+                var x = obj.options.data[0].length;
+                var y = obj.options.data.length;
+
+                // Go through the columns to get the data
+                for (var j = 0; j < y; j++) {
+                    for (var i = 0; i < x; i++) {
+                        // Value
+                        var v = key ? obj.records[j][i].style[key] : obj.records[j][i].getAttribute('style');
+
+                        // Any meta data for this column?
+                        if (v) {
+                            // Column name
+                            var k = jexcel.getColumnNameFromId([i, j]);
+                            // Value
+                            data[k] = v;
+                        }
+                    }
+                }
+
+               return data;
+            } else {
+                cell = jexcel.getIdFromColumnName(cell, true);
+
+                return key ? obj.records[cell[1]][cell[0]].style[key] : obj.records[cell[1]][cell[0]].getAttribute('style');
+            }
+        },
+
+        obj.resetStyle = function(o, ignoreHistoryAndEvents) {
+            var keys = Object.keys(o);
+            for (var i = 0; i < keys.length; i++) {
+                // Position
+                var cell = jexcel.getIdFromColumnName(keys[i], true);
+                if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]]) {
+                    obj.records[cell[1]][cell[0]].setAttribute('style', '');
+                }
+            }
+            obj.setStyle(o, null, null, null, ignoreHistoryAndEvents);
+        }
+
+        /**
+         * Set meta information to cell(s)
+         *
+         * @return integer
+         */
+        obj.setStyle = function(o, k, v, force, ignoreHistoryAndEvents) {
+            var newValue = {};
+            var oldValue = {};
+
+            // Apply style
+            var applyStyle = function(cellId, key, value) {
+                // Position
+                var cell = jexcel.getIdFromColumnName(cellId, true);
+
+                if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]] && (obj.records[cell[1]][cell[0]].classList.contains('readonly')==false || force)) {
+                    // Current value
+                    var currentValue = obj.records[cell[1]][cell[0]].style[key];
+
+                    // Change layout
+                    if (currentValue == value && ! force) {
+                        value = '';
+                        obj.records[cell[1]][cell[0]].style[key] = '';
+                    } else {
+                        obj.records[cell[1]][cell[0]].style[key] = value;
+                    }
+
+                    // History
+                    if (! oldValue[cellId]) {
+                        oldValue[cellId] = [];
+                    }
+                    if (! newValue[cellId]) {
+                        newValue[cellId] = [];
+                    }
+
+                    oldValue[cellId].push([key + ':' + currentValue]);
+                    newValue[cellId].push([key + ':' + value]);
+                }
+            }
+
+            if (k && v) {
+                // Get object from string
+                if (typeof(o) == 'string') {
+                    applyStyle(o, k, v);
+                } else {
+                    // Avoid duplications
+                    var oneApplication = [];
+                    // Apply that for all cells
+                    for (var i = 0; i < o.length; i++) {
+                        var x = o[i].getAttribute('data-x');
+                        var y = o[i].getAttribute('data-y');
+                        var cellName = jexcel.getColumnNameFromId([x, y]);
+                        // This happens when is a merged cell
+                        if (! oneApplication[cellName]) {
+                            applyStyle(cellName, k, v);
+                            oneApplication[cellName] = true;
+                        }
+                    }
+                }
+            } else {
+                var keys = Object.keys(o);
+                for (var i = 0; i < keys.length; i++) {
+                    var style = o[keys[i]];
+                    if (typeof(style) == 'string') {
+                        style = style.split(';');
+                    }
+                    for (var j = 0; j < style.length; j++) {
+                        if (typeof(style[j]) == 'string') {
+                            style[j] = style[j].split(':');
+                        }
+                        // Apply value
+                        if (style[j][0].trim()) {
+                            applyStyle(keys[i], style[j][0].trim(), style[j][1]);
+                        }
+                    }
+                }
+            }
+
+            var keys = Object.keys(oldValue);
+            for (var i = 0; i < keys.length; i++) {
+                oldValue[keys[i]] = oldValue[keys[i]].join(';');
+            }
+            var keys = Object.keys(newValue);
+            for (var i = 0; i < keys.length; i++) {
+                newValue[keys[i]] = newValue[keys[i]].join(';');
+            }
+
+            if (! ignoreHistoryAndEvents) {
+                // Keeping history of changes
+                obj.setHistory({
+                    action: 'setStyle',
+                    oldValue: oldValue,
+                    newValue: newValue,
+                });
+            }
+
+            obj.dispatch('onchangestyle', el, o, k, v);
+        }
+
+        /**
+         * Get cell comments, null cell for all
+         */
+        obj.getComments = function(cell, withAuthor) {
+            if (cell) {
+                if (typeof(cell) == 'string') {
+                    var cell = jexcel.getIdFromColumnName(cell, true);
+                }
+
+                if (withAuthor) {
+                    return [obj.records[cell[1]][cell[0]].getAttribute('title'), obj.records[cell[1]][cell[0]].getAttribute('author')];
+                } else {
+                    return obj.records[cell[1]][cell[0]].getAttribute('title') || '';
+                }
+            } else {
+                var data = {};
+                for (var j = 0; j < obj.options.data.length; j++) {
+                    for (var i = 0; i < obj.options.columns.length; i++) {
+                        var comments = obj.records[j][i].getAttribute('title');
+                        if (comments) {
+                            var cell = jexcel.getColumnNameFromId([i, j]);
+                            data[cell] = comments;
+                        }
+                    }
+                }
+                return data;
+            }
+        }
+
+        /**
+         * Set cell comments
+         */
+        obj.setComments = function(cellId, comments, author) {
+            if (typeof(cellId) == 'string') {
+                var cell = jexcel.getIdFromColumnName(cellId, true);
+            } else {
+                var cell = cellId;
+            }
+
+            // Keep old value
+            var title = obj.records[cell[1]][cell[0]].getAttribute('title');
+            var author = obj.records[cell[1]][cell[0]].getAttribute('data-author');
+            var oldValue = [ title, author ];
+
+            // Set new values
+            obj.records[cell[1]][cell[0]].setAttribute('title', comments ? comments : '');
+            obj.records[cell[1]][cell[0]].setAttribute('data-author', author ? author : '');
+
+            // Remove class if there is no comment
+            if (comments) {
+                obj.records[cell[1]][cell[0]].classList.add('jexcel_comments');
+            } else {
+                obj.records[cell[1]][cell[0]].classList.remove('jexcel_comments');
+            }
+
+            // Save history
+            obj.setHistory({
+                action:'setComments',
+                column: cellId,
+                newValue: [ comments, author ],
+                oldValue: oldValue,
+            });
+            // Set comments
+            obj.dispatch('oncomments', el, comments, title, cell, cell[0], cell[1]);
+        }
+
+        /**
+         * Get table config information
+         */
+        obj.getConfig = function() {
+            var options = obj.options;
+            options.style = obj.getStyle();
+            options.mergeCells = obj.getMerge();
+            options.comments = obj.getComments();
+
+            return options;
+        }
+
+        /**
+         * Sort data and reload table
+         */
+        obj.orderBy = function(column, order) {
+            if (column >= 0) {
+                // Merged cells
+                if (Object.keys(obj.options.mergeCells).length > 0) {
+                    if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                        return false;
+                    } else {
+                        // Remove merged cells
+                        obj.destroyMerged();
+                    }
+                }
+
+                // Direction
+                if (order == null) {
+                    order = obj.headers[column].classList.contains('arrow-down') ? 1 : 0;
+                } else {
+                    order = order ? 1 : 0;
+                }
+
+                // Test order
+                var temp = [];
+                if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'numeric' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        temp[j] = [ j, Number(obj.options.data[j][column]) ];
+                    }
+                } else if (obj.options.columns[column].type == 'calendar' || obj.options.columns[column].type == 'checkbox' || obj.options.columns[column].type == 'radio') {
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        temp[j] = [ j, obj.options.data[j][column] ];
+                    }
+                } else {
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        temp[j] = [ j, obj.records[j][column].textContent.toLowerCase() ];
+                    }
+                }
+
+                // Default sorting method
+                if (typeof(obj.options.sorting) !== 'function') {
+                    obj.options.sorting = function(direction) {
+                        return function(a, b) {
+                            var valueA = a[1];
+                            var valueB = b[1];
+
+                            if (! direction) {
+                                return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
+                            } else {
+                                return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
+                            }
+                        }
+                    }
+                }
+
+                temp = temp.sort(obj.options.sorting(order));
+
+                // Save history
+                var newValue = [];
+                for (var j = 0; j < temp.length; j++) {
+                    newValue[j] = temp[j][0];
+                }
+
+                // Save history
+                obj.setHistory({
+                    action: 'orderBy',
+                    rows: newValue,
+                    column: column,
+                    order: order,
+                });
+
+                // Update order
+                obj.updateOrderArrow(column, order);
+                obj.updateOrder(newValue);
+
+                // On sort event
+                obj.dispatch('onsort', el, column, order);
+
+                return true;
+            }
+        }
+
+        /**
+         * Update order arrow
+         */
+        obj.updateOrderArrow = function(column, order) {
+            // Remove order
+            for (var i = 0; i < obj.headers.length; i++) {
+                obj.headers[i].classList.remove('arrow-up');
+                obj.headers[i].classList.remove('arrow-down');
+            }
+
+            // No order specified then toggle order
+            if (order) {
+                obj.headers[column].classList.add('arrow-up');
+            } else {
+                obj.headers[column].classList.add('arrow-down');
+            }
+        }
+
+        /**
+         * Update rows position
+         */
+        obj.updateOrder = function(rows) {
+            // History
+            var data = []
+            for (var j = 0; j < rows.length; j++) {
+                data[j] = obj.options.data[rows[j]];
+            }
+            obj.options.data = data;
+
+            var data = []
+            for (var j = 0; j < rows.length; j++) {
+                data[j] = obj.records[rows[j]];
+            }
+            obj.records = data;
+
+            var data = []
+            for (var j = 0; j < rows.length; j++) {
+                data[j] = obj.rows[rows[j]];
+            }
+            obj.rows = data;
+
+            // Update references
+            obj.updateTableReferences();
+
+            // Redo search
+            if (obj.results && obj.results.length) {
+                if (obj.searchInput.value) {
+                    obj.search(obj.searchInput.value);
+                } else {
+                    obj.closeFilter();
+                }
+            } else {
+                // Create page
+                obj.results = null;
+                obj.pageNumber = 0;
+
+                if (obj.options.pagination > 0) {
+                    obj.page(0);
+                } else if (obj.options.lazyLoading == true) {
+                    obj.loadPage(0);
+                } else {
+                    for (var j = 0; j < obj.rows.length; j++) {
+                        obj.tbody.appendChild(obj.rows[j]);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Move row
+         *
+         * @return void
+         */
+        obj.moveRow = function(o, d, ignoreDom) {
+            if (Object.keys(obj.options.mergeCells).length > 0) {
+                if (o > d) {
+                    var insertBefore = 1;
+                } else {
+                    var insertBefore = 0;
+                }
+
+                if (obj.isRowMerged(o).length || obj.isRowMerged(d, insertBefore).length) {
+                    if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                        return false;
+                    } else {
+                        obj.destroyMerged();
+                    }
+                }
+            }
+
+            if (obj.options.search == true) {
+                if (obj.results && obj.results.length != obj.rows.length) {
+                    if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                        obj.resetSearch();
+                    } else {
+                        return false;
+                    }
+                }
+
+                obj.results = null;
+            }
+
+            if (! ignoreDom) {
+                if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[d]) >= 0) {
+                    if (o > d) {
+                        obj.tbody.insertBefore(obj.rows[o], obj.rows[d]);
+                    } else {
+                        obj.tbody.insertBefore(obj.rows[o], obj.rows[d].nextSibling);
+                    }
+                } else {
+                    obj.tbody.removeChild(obj.rows[o]);
+                }
+            }
+
+            // Place references in the correct position
+            obj.rows.splice(d, 0, obj.rows.splice(o, 1)[0]);
+            obj.records.splice(d, 0, obj.records.splice(o, 1)[0]);
+            obj.options.data.splice(d, 0, obj.options.data.splice(o, 1)[0]);
+
+            // Respect pagination
+            if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
+                obj.page(obj.pageNumber);
+            }
+
+            // Keeping history of changes
+            obj.setHistory({
+                action:'moveRow',
+                oldValue: o,
+                newValue: d,
+            });
+
+            // Update table references
+            obj.updateTableReferences();
+
+            // Events
+            obj.dispatch('onmoverow', el, o, d);
+        }
+
+        /**
+         * Insert a new row
+         *
+         * @param mixed - number of blank lines to be insert or a single array with the data of the new row
+         * @param rowNumber
+         * @param insertBefore
+         * @return void
+         */
+        obj.insertRow = function(mixed, rowNumber, insertBefore) {
+            // Configuration
+            if (obj.options.allowInsertRow == true) {
+                // Records
+                var records = [];
+
+                // Data to be insert
+                var data = [];
+
+                // The insert could be lead by number of rows or the array of data
+                if (mixed > 0) {
+                    var numOfRows = mixed;
+                } else {
+                    var numOfRows = 1;
+
+                    if (mixed) {
+                        data = mixed;
+                    }
+                }
+
+                // Direction
+                var insertBefore = insertBefore ? true : false;
+
+                // Current column number
+                var lastRow = obj.options.data.length - 1;
+
+                if (rowNumber == undefined || rowNumber >= parseInt(lastRow) || rowNumber < 0) {
+                    rowNumber = lastRow;
+                }
+
+                // Onbeforeinsertrow
+                if (obj.dispatch('onbeforeinsertrow', el, rowNumber, numOfRows, insertBefore) === false) {
+                    return false;
+                }
+
+                // Merged cells
+                if (Object.keys(obj.options.mergeCells).length > 0) {
+                    if (obj.isRowMerged(rowNumber, insertBefore).length) {
+                        if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                            return false;
+                        } else {
+                            obj.destroyMerged();
+                        }
+                    }
+                }
+
+                // Clear any search
+                if (obj.options.search == true) {
+                    if (obj.results && obj.results.length != obj.rows.length) {
+                        if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                            obj.resetSearch();
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    obj.results = null;
+                }
+
+                // Insertbefore
+                var rowIndex = (! insertBefore) ? rowNumber + 1 : rowNumber;
+
+                // Keep the current data
+                var currentRecords = obj.records.splice(rowIndex);
+                var currentData = obj.options.data.splice(rowIndex);
+                var currentRows = obj.rows.splice(rowIndex);
+
+                // Adding lines
+                var rowRecords = [];
+                var rowData = [];
+                var rowNode = [];
+
+                for (var row = rowIndex; row < (numOfRows + rowIndex); row++) {
+                    // Push data to the data container
+                    obj.options.data[row] = [];
+                    for (var col = 0; col < obj.options.columns.length; col++) {
+                        obj.options.data[row][col]  = data[col] ? data[col] : '';
+                    }
+                    // Create row
+                    var tr = obj.createRow(row, obj.options.data[row]);
+                    // Append node
+                    if (currentRows[0]) {
+                        if (Array.prototype.indexOf.call(obj.tbody.children, currentRows[0]) >= 0) {
+                            obj.tbody.insertBefore(tr, currentRows[0]);
+                        }
+                    } else {
+                        if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[rowNumber]) >= 0) {
+                            obj.tbody.appendChild(tr);
+                        }
+                    }
+                    // Record History
+                    rowRecords.push(obj.records[row]);
+                    rowData.push(obj.options.data[row]);
+                    rowNode.push(tr);
+                }
+
+                // Copy the data back to the main data
+                Array.prototype.push.apply(obj.records, currentRecords);
+                Array.prototype.push.apply(obj.options.data, currentData);
+                Array.prototype.push.apply(obj.rows, currentRows);
+
+                // Respect pagination
+                if (obj.options.pagination > 0) {
+                    obj.page(obj.pageNumber);
+                }
+
+                // Keep history
+                obj.setHistory({
+                    action: 'insertRow',
+                    rowNumber: rowNumber,
+                    numOfRows: numOfRows,
+                    insertBefore: insertBefore,
+                    rowRecords: rowRecords,
+                    rowData: rowData,
+                    rowNode: rowNode,
+                });
+
+                // Remove table references
+                obj.updateTableReferences();
+
+                // Events
+                obj.dispatch('oninsertrow', el, rowNumber, numOfRows, rowRecords, insertBefore);
+            }
+        }
+
+        /**
+         * Delete a row by number
+         *
+         * @param integer rowNumber - row number to be excluded
+         * @param integer numOfRows - number of lines
+         * @return void
+         */
+        obj.deleteRow = function(rowNumber, numOfRows) {
+            // Global Configuration
+            if (obj.options.allowDeleteRow == true) {
+                if (obj.options.allowDeletingAllRows == true || obj.options.data.length > 1) {
+                    // Delete row definitions
+                    if (rowNumber == undefined) {
+                        var number = obj.getSelectedRows();
+
+                        if (! number[0]) {
+                            rowNumber = obj.options.data.length - 1;
+                            numOfRows = 1;
+                        } else {
+                            rowNumber = parseInt(number[0].getAttribute('data-y'));
+                            numOfRows = number.length;
+                        }
+                    }
+
+                    // Last column
+                    var lastRow = obj.options.data.length - 1;
+
+                    if (rowNumber == undefined || rowNumber > lastRow || rowNumber < 0) {
+                        rowNumber = lastRow;
+                    }
+
+                    if (! numOfRows) {
+                        numOfRows = 1;
+                    }
+
+                    // Do not delete more than the number of records
+                    if (rowNumber + numOfRows >= obj.options.data.length) {
+                        numOfRows = obj.options.data.length - rowNumber;
+                    }
+
+                    // Onbeforedeleterow
+                    if (obj.dispatch('onbeforedeleterow', el, rowNumber, numOfRows) === false) {
+                        return false;
+                    }
+
+                    if (parseInt(rowNumber) > -1) {
+                        // Merged cells
+                        var mergeExists = false;
+                        if (Object.keys(obj.options.mergeCells).length > 0) {
+                            for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                                if (obj.isRowMerged(row, false).length) {
+                                    mergeExists = true;
+                                }
+                            }
+                        }
+                        if (mergeExists) {
+                            if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                                return false;
+                            } else {
+                                obj.destroyMerged();
+                            }
+                        }
+
+                        // Clear any search
+                        if (obj.options.search == true) {
+                            if (obj.results && obj.results.length != obj.rows.length) {
+                                if (confirm(obj.options.text.thisActionWillClearYourSearchResultsAreYouSure)) {
+                                    obj.resetSearch();
+                                } else {
+                                    return false;
+                                }
+                            }
+
+                            obj.results = null;
+                        }
+
+                        // If delete all rows, and set allowDeletingAllRows false, will stay one row
+                        if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
+                            numOfRows--;
+                            console.error('Jspreadsheet: It is not possible to delete the last row');
+                        }
+
+                        // Remove node
+                        for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
+                            if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
+                                obj.rows[row].className = '';
+                                obj.rows[row].parentNode.removeChild(obj.rows[row]);
+                            }
+                        }
+
+                        // Remove data
+                        var rowRecords = obj.records.splice(rowNumber, numOfRows);
+                        var rowData = obj.options.data.splice(rowNumber, numOfRows);
+                        var rowNode = obj.rows.splice(rowNumber, numOfRows);
+
+                        // Respect pagination
+                        if (obj.options.pagination > 0 && obj.tbody.children.length != obj.options.pagination) {
+                            obj.page(obj.pageNumber);
+                        }
+
+                        // Remove selection
+                        obj.conditionalSelectionUpdate(1, rowNumber, (rowNumber + numOfRows) - 1);
+
+                        // Keep history
+                        obj.setHistory({
+                            action: 'deleteRow',
+                            rowNumber: rowNumber,
+                            numOfRows: numOfRows,
+                            insertBefore: 1,
+                            rowRecords: rowRecords,
+                            rowData: rowData,
+                            rowNode: rowNode
+                        });
+
+                        // Remove table references
+                        obj.updateTableReferences();
+
+                        // Events
+                        obj.dispatch('ondeleterow', el, rowNumber, numOfRows, rowRecords);
+                    }
+                } else {
+                    console.error('Jspreadsheet: It is not possible to delete the last row');
+                }
+            }
+        }
+
+
+        /**
+         * Move column
+         *
+         * @return void
+         */
+        obj.moveColumn = function(o, d) {
+            if (Object.keys(obj.options.mergeCells).length > 0) {
+                if (o > d) {
+                    var insertBefore = 1;
+                } else {
+                    var insertBefore = 0;
+                }
+
+                if (obj.isColMerged(o).length || obj.isColMerged(d, insertBefore).length) {
+                    if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                        return false;
+                    } else {
+                        obj.destroyMerged();
+                    }
+                }
+            }
+
+            var o = parseInt(o);
+            var d = parseInt(d);
+
+            if (o > d) {
+                obj.headerContainer.insertBefore(obj.headers[o], obj.headers[d]);
+                obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d]);
+
+                for (var j = 0; j < obj.rows.length; j++) {
+                    obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d]);
+                }
+            } else {
+                obj.headerContainer.insertBefore(obj.headers[o], obj.headers[d].nextSibling);
+                obj.colgroupContainer.insertBefore(obj.colgroup[o], obj.colgroup[d].nextSibling);
+
+                for (var j = 0; j < obj.rows.length; j++) {
+                    obj.rows[j].insertBefore(obj.records[j][o], obj.records[j][d].nextSibling);
+                }
+            }
+
+            obj.options.columns.splice(d, 0, obj.options.columns.splice(o, 1)[0]);
+            obj.headers.splice(d, 0, obj.headers.splice(o, 1)[0]);
+            obj.colgroup.splice(d, 0, obj.colgroup.splice(o, 1)[0]);
+
+            for (var j = 0; j < obj.rows.length; j++) {
+                obj.options.data[j].splice(d, 0, obj.options.data[j].splice(o, 1)[0]);
+                obj.records[j].splice(d, 0, obj.records[j].splice(o, 1)[0]);
+            }
+
+            // Update footers position
+            if (obj.options.footers) {
+                for (var j = 0; j < obj.options.footers.length; j++) {
+                    obj.options.footers[j].splice(d, 0, obj.options.footers[j].splice(o, 1)[0]);
+                }
+            }
+
+            // Keeping history of changes
+            obj.setHistory({
+                action:'moveColumn',
+                oldValue: o,
+                newValue: d,
+            });
+
+            // Update table references
+            obj.updateTableReferences();
+
+            // Events
+            obj.dispatch('onmovecolumn', el, o, d);
+        }
+
+        /**
+         * Insert a new column
+         *
+         * @param mixed - num of columns to be added or data to be added in one single column
+         * @param int columnNumber - number of columns to be created
+         * @param bool insertBefore
+         * @param object properties - column properties
+         * @return void
+         */
+        obj.insertColumn = function(mixed, columnNumber, insertBefore, properties) {
+            // Configuration
+            if (obj.options.allowInsertColumn == true) {
+                // Records
+                var records = [];
+
+                // Data to be insert
+                var data = [];
+
+                // The insert could be lead by number of rows or the array of data
+                if (mixed > 0) {
+                    var numOfColumns = mixed;
+                } else {
+                    var numOfColumns = 1;
+
+                    if (mixed) {
+                        data = mixed;
+                    }
+                }
+
+                // Direction
+                var insertBefore = insertBefore ? true : false;
+
+                // Current column number
+                var lastColumn = obj.options.columns.length - 1;
+
+                // Confirm position
+                if (columnNumber == undefined || columnNumber >= parseInt(lastColumn) || columnNumber < 0) {
+                    columnNumber = lastColumn;
+                }
+
+                // Onbeforeinsertcolumn
+                if (obj.dispatch('onbeforeinsertcolumn', el, columnNumber, numOfColumns, insertBefore) === false) {
+                    return false;
+                }
+
+                // Merged cells
+                if (Object.keys(obj.options.mergeCells).length > 0) {
+                    if (obj.isColMerged(columnNumber, insertBefore).length) {
+                        if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                            return false;
+                        } else {
+                            obj.destroyMerged();
+                        }
+                    }
+                }
+
+                // Create default properties
+                if (! properties) {
+                    properties = [];
+                }
+
+                for (var i = 0; i < numOfColumns; i++) {
+                    if (! properties[i]) {
+                        properties[i] = { type:'text', source:[], options:[], width:obj.options.defaultColWidth, align:obj.options.defaultColAlign };
+                    }
+                }
+
+                // Insert before
+                var columnIndex = (! insertBefore) ? columnNumber + 1 : columnNumber;
+                obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, properties);
+
+                // Open space in the containers
+                var currentHeaders = obj.headers.splice(columnIndex);
+                var currentColgroup = obj.colgroup.splice(columnIndex);
+
+                // History
+                var historyHeaders = [];
+                var historyColgroup = [];
+                var historyRecords = [];
+                var historyData = [];
+                var historyFooters = [];
+
+                // Add new headers
+                for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                    obj.createCellHeader(col);
+                    obj.headerContainer.insertBefore(obj.headers[col], obj.headerContainer.children[col+1]);
+                    obj.colgroupContainer.insertBefore(obj.colgroup[col], obj.colgroupContainer.children[col+1]);
+
+                    historyHeaders.push(obj.headers[col]);
+                    historyColgroup.push(obj.colgroup[col]);
+                }
+
+                // Add new footer cells
+                if (obj.options.footers) {
+                    for (var j = 0; j < obj.options.footers.length; j++) {
+                        historyFooters[j] = [];
+                        for (var i = 0; i < numOfColumns; i++) {
+                            historyFooters[j].push('');
+                        }
+                        obj.options.footers[j].splice(columnIndex, 0, historyFooters[j]);
+                    }
+                }
+
+                // Adding visual columns
+                for (var row = 0; row < obj.options.data.length; row++) {
+                    // Keep the current data
+                    var currentData = obj.options.data[row].splice(columnIndex);
+                    var currentRecord = obj.records[row].splice(columnIndex);
+
+                    // History
+                    historyData[row] = [];
+                    historyRecords[row] = [];
+
+                    for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                        // New value
+                        var value = data[row] ? data[row] : '';
+                        obj.options.data[row][col] = value;
+                        // New cell
+                        var td = obj.createCell(col, row, obj.options.data[row][col]);
+                        obj.records[row][col] = td;
+                        // Add cell to the row
+                        if (obj.rows[row]) {
+                            obj.rows[row].insertBefore(td, obj.rows[row].children[col+1]);
+                        }
+
+                        // Record History
+                        historyData[row].push(value);
+                        historyRecords[row].push(td);
+                    }
+
+                    // Copy the data back to the main data
+                    Array.prototype.push.apply(obj.options.data[row], currentData);
+                    Array.prototype.push.apply(obj.records[row], currentRecord);
+                }
+
+                Array.prototype.push.apply(obj.headers, currentHeaders);
+                Array.prototype.push.apply(obj.colgroup, currentColgroup);
+
+                // Adjust nested headers
+                if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                    // Flexible way to handle nestedheaders
+                    if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                        for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
+                            var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) + numOfColumns;
+                            obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
+                            obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+                            var o = obj.thead.children[j].children[obj.thead.children[j].children.length-1].getAttribute('data-column');
+                            o = o.split(',');
+                            for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                                o.push(col);
+                            }
+                            obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('data-column', o);
+                        }
+                    } else {
+                        var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
+                        obj.options.nestedHeaders[0].colspan = colspan;
+                        obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
+                    }
+                }
+
+                // Keep history
+                obj.setHistory({
+                    action: 'insertColumn',
+                    columnNumber:columnNumber,
+                    numOfColumns:numOfColumns,
+                    insertBefore:insertBefore,
+                    columns:properties,
+                    headers:historyHeaders,
+                    colgroup:historyColgroup,
+                    records:historyRecords,
+                    footers:historyFooters,
+                    data:historyData,
+                });
+
+                // Remove table references
+                obj.updateTableReferences();
+
+                // Events
+                obj.dispatch('oninsertcolumn', el, columnNumber, numOfColumns, historyRecords, insertBefore);
+            }
+        }
+
+        /**
+         * Delete a column by number
+         *
+         * @param integer columnNumber - reference column to be excluded
+         * @param integer numOfColumns - number of columns to be excluded from the reference column
+         * @return void
+         */
+        obj.deleteColumn = function(columnNumber, numOfColumns) {
+            // Global Configuration
+            if (obj.options.allowDeleteColumn == true) {
+                if (obj.headers.length > 1) {
+                    // Delete column definitions
+                    if (columnNumber == undefined) {
+                        var number = obj.getSelectedColumns(true);
+
+                        if (! number.length) {
+                            // Remove last column
+                            columnNumber = obj.headers.length - 1;
+                            numOfColumns = 1;
+                        } else {
+                            // Remove selected
+                            columnNumber = parseInt(number[0]);
+                            numOfColumns = parseInt(number.length);
+                        }
+                    }
+
+                    // Lasat column
+                    var lastColumn = obj.options.data[0].length - 1;
+
+                    if (columnNumber == undefined || columnNumber > lastColumn || columnNumber < 0) {
+                        columnNumber = lastColumn;
+                    }
+
+                    // Minimum of columns to be delete is 1
+                    if (! numOfColumns) {
+                        numOfColumns = 1;
+                    }
+
+                    // Can't delete more than the limit of the table
+                    if (numOfColumns > obj.options.data[0].length - columnNumber) {
+                        numOfColumns = obj.options.data[0].length - columnNumber;
+                    }
+
+                    // onbeforedeletecolumn
+                   if (obj.dispatch('onbeforedeletecolumn', el, columnNumber, numOfColumns) === false) {
+                      return false;
+                   }
+
+                    // Can't remove the last column
+                    if (parseInt(columnNumber) > -1) {
+                        // Merged cells
+                        var mergeExists = false;
+                        if (Object.keys(obj.options.mergeCells).length > 0) {
+                            for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                                if (obj.isColMerged(col, false).length) {
+                                    mergeExists = true;
+                                }
+                            }
+                        }
+                        if (mergeExists) {
+                            if (! confirm(obj.options.text.thisActionWillDestroyAnyExistingMergedCellsAreYouSure)) {
+                                return false;
+                            } else {
+                                obj.destroyMerged();
+                            }
+                        }
+
+                        // Delete the column properties
+                        var columns = obj.options.columns.splice(columnNumber, numOfColumns);
+
+                        for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                            obj.colgroup[col].className = '';
+                            obj.headers[col].className = '';
+                            obj.colgroup[col].parentNode.removeChild(obj.colgroup[col]);
+                            obj.headers[col].parentNode.removeChild(obj.headers[col]);
+                        }
+
+                        var historyHeaders = obj.headers.splice(columnNumber, numOfColumns);
+                        var historyColgroup = obj.colgroup.splice(columnNumber, numOfColumns);
+                        var historyRecords = [];
+                        var historyData = [];
+                        var historyFooters = [];
+
+                        for (var row = 0; row < obj.options.data.length; row++) {
+                            for (var col = columnNumber; col < columnNumber + numOfColumns; col++) {
+                                obj.records[row][col].className = '';
+                                obj.records[row][col].parentNode.removeChild(obj.records[row][col]);
+                            }
+                        }
+
+                        // Delete headers
+                        for (var row = 0; row < obj.options.data.length; row++) {
+                            // History
+                            historyData[row] = obj.options.data[row].splice(columnNumber, numOfColumns);
+                            historyRecords[row] = obj.records[row].splice(columnNumber, numOfColumns);
+                        }
+
+                        // Delete footers
+                        if (obj.options.footers) {
+                            for (var row = 0; row < obj.options.footers.length; row++) {
+                                historyFooters[row] = obj.options.footers[row].splice(columnNumber, numOfColumns);
+                            }
+                        }
+
+                        // Remove selection
+                        obj.conditionalSelectionUpdate(0, columnNumber, (columnNumber + numOfColumns) - 1);
+
+                        // Adjust nested headers
+                        if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                            // Flexible way to handle nestedheaders
+                            if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                                for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
+                                    var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) - numOfColumns;
+                                    obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
+                                    obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+                                }
+                            } else {
+                                var colspan = parseInt(obj.options.nestedHeaders[0].colspan) - numOfColumns;
+                                obj.options.nestedHeaders[0].colspan = colspan;
+                                obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
+                            }
+                        }
+
+                        // Keeping history of changes
+                        obj.setHistory({
+                            action:'deleteColumn',
+                            columnNumber:columnNumber,
+                            numOfColumns:numOfColumns,
+                            insertBefore: 1,
+                            columns:columns,
+                            headers:historyHeaders,
+                            colgroup:historyColgroup,
+                            records:historyRecords,
+                            footers:historyFooters,
+                            data:historyData,
+                        });
+
+                        // Update table references
+                        obj.updateTableReferences();
+
+                        // Delete
+                        obj.dispatch('ondeletecolumn', el, columnNumber, numOfColumns, historyRecords);
+                    }
+                } else {
+                    console.error('Jspreadsheet: It is not possible to delete the last column');
+                }
+            }
+        }
+
+        /**
+         * Get selected rows numbers
+         *
+         * @return array
+         */
+        obj.getSelectedRows = function(asIds) {
+            var rows = [];
+            // Get all selected rows
+            for (var j = 0; j < obj.rows.length; j++) {
+                if (obj.rows[j].classList.contains('selected')) {
+                    if (asIds) {
+                        rows.push(j);
+                    } else {
+                        rows.push(obj.rows[j]);
+                    }
+                }
+            }
+
+            return rows;
+        },
+
+        /**
+         * Get selected column numbers
+         *
+         * @return array
+         */
+        obj.getSelectedColumns = function() {
+            var cols = [];
+            // Get all selected cols
+            for (var i = 0; i < obj.headers.length; i++) {
+                if (obj.headers[i].classList.contains('selected')) {
+                    cols.push(i);
+                }
+            }
+
+            return cols;
+        }
+
+        /**
+         * Get highlighted
+         *
+         * @return array
+         */
+        obj.getHighlighted = function() {
+            return obj.highlighted;
+        }
+
+        /**
+         * Update cell references
+         *
+         * @return void
+         */
+        obj.updateTableReferences = function() {
+            // Update headers
+            for (var i = 0; i < obj.headers.length; i++) {
+                var x = obj.headers[i].getAttribute('data-x');
+
+                if (x != i) {
+                    // Update coords
+                    obj.headers[i].setAttribute('data-x', i);
+                    // Title
+                    if (! obj.headers[i].getAttribute('title')) {
+                        obj.headers[i].innerHTML = jexcel.getColumnName(i);
+                    }
+                }
+            }
+
+            // Update all rows
+            for (var j = 0; j < obj.rows.length; j++) {
+                if (obj.rows[j]) {
+                    var y = obj.rows[j].getAttribute('data-y');
+
+                    if (y != j) {
+                        // Update coords
+                        obj.rows[j].setAttribute('data-y', j);
+                        obj.rows[j].children[0].setAttribute('data-y', j);
+                        // Row number
+                        obj.rows[j].children[0].innerHTML = j + 1;
+                    }
+                }
+            }
+
+            // Regular cells affected by this change
+            var affectedTokens = [];
+            var mergeCellUpdates = [];
+
+            // Update cell
+            var updatePosition = function(x,y,i,j) {
+                if (x != i) {
+                    obj.records[j][i].setAttribute('data-x', i);
+                }
+                if (y != j) {
+                    obj.records[j][i].setAttribute('data-y', j);
+                }
+
+                // Other updates
+                if (x != i || y != j) {
+                    var columnIdFrom = jexcel.getColumnNameFromId([x, y]);
+                    var columnIdTo = jexcel.getColumnNameFromId([i, j]);
+                    affectedTokens[columnIdFrom] = columnIdTo;
+                }
+            }
+
+            for (var j = 0; j < obj.records.length; j++) {
+                for (var i = 0; i < obj.records[0].length; i++) {
+                    if (obj.records[j][i]) {
+                        // Current values
+                        var x = obj.records[j][i].getAttribute('data-x');
+                        var y = obj.records[j][i].getAttribute('data-y');
+
+                        // Update column
+                        if (obj.records[j][i].getAttribute('data-merged')) {
+                            var columnIdFrom = jexcel.getColumnNameFromId([x, y]);
+                            var columnIdTo = jexcel.getColumnNameFromId([i, j]);
+                            if (mergeCellUpdates[columnIdFrom] == null) {
+                                if (columnIdFrom == columnIdTo) {
+                                    mergeCellUpdates[columnIdFrom] = false;
+                                } else {
+                                    var totalX = parseInt(i - x);
+                                    var totalY = parseInt(j - y);
+                                    mergeCellUpdates[columnIdFrom] = [ columnIdTo, totalX, totalY ];
+                                }
+                            }
+                        } else {
+                            updatePosition(x,y,i,j);
+                        }
+                    }
+                }
+            }
+
+            // Update merged if applicable
+            var keys = Object.keys(mergeCellUpdates);
+            if (keys.length) {
+                for (var i = 0; i < keys.length; i++) {
+                    if (mergeCellUpdates[keys[i]]) {
+                        var info = jexcel.getIdFromColumnName(keys[i], true)
+                        var x = info[0];
+                        var y = info[1];
+                        updatePosition(x,y,x + mergeCellUpdates[keys[i]][1],y + mergeCellUpdates[keys[i]][2]);
+
+                        var columnIdFrom = keys[i];
+                        var columnIdTo = mergeCellUpdates[keys[i]][0];
+                        for (var j = 0; j < obj.options.mergeCells[columnIdFrom][2].length; j++) {
+                            var x = parseInt(obj.options.mergeCells[columnIdFrom][2][j].getAttribute('data-x'));
+                            var y = parseInt(obj.options.mergeCells[columnIdFrom][2][j].getAttribute('data-y'));
+                            obj.options.mergeCells[columnIdFrom][2][j].setAttribute('data-x', x + mergeCellUpdates[keys[i]][1]);
+                            obj.options.mergeCells[columnIdFrom][2][j].setAttribute('data-y', y + mergeCellUpdates[keys[i]][2]);
+                        }
+
+                        obj.options.mergeCells[columnIdTo] = obj.options.mergeCells[columnIdFrom];
+                        delete(obj.options.mergeCells[columnIdFrom]);
+                    }
+                }
+            }
+
+            // Update formulas
+            obj.updateFormulas(affectedTokens);
+
+            // Update meta data
+            obj.updateMeta(affectedTokens);
+
+            // Refresh selection
+            obj.refreshSelection();
+
+            // Update table with custom configuration if applicable
+            obj.updateTable();
+        }
+
+        /**
+         * Custom settings for the cells
+         */
+        obj.updateTable = function() {
+            // Check for spare
+            if (obj.options.minSpareRows > 0) {
+                var numBlankRows = 0;
+                for (var j = obj.rows.length - 1; j >= 0; j--) {
+                    var test = false;
+                    for (var i = 0; i < obj.headers.length; i++) {
+                        if (obj.options.data[j][i]) {
+                            test = true;
+                        }
+                    }
+                    if (test) {
+                        break;
+                    } else {
+                        numBlankRows++;
+                    }
+                }
+
+                if (obj.options.minSpareRows - numBlankRows > 0) {
+                    obj.insertRow(obj.options.minSpareRows - numBlankRows)
+                }
+            }
+
+            if (obj.options.minSpareCols > 0) {
+                var numBlankCols = 0;
+                for (var i = obj.headers.length - 1; i >= 0 ; i--) {
+                    var test = false;
+                    for (var j = 0; j < obj.rows.length; j++) {
+                        if (obj.options.data[j][i]) {
+                            test = true;
+                        }
+                    }
+                    if (test) {
+                        break;
+                    } else {
+                        numBlankCols++;
+                    }
+                }
+
+                if (obj.options.minSpareCols - numBlankCols > 0) {
+                    obj.insertColumn(obj.options.minSpareCols - numBlankCols)
+                }
+            }
+
+            // Customizations by the developer
+            if (typeof(obj.options.updateTable) == 'function') {
+                if (obj.options.detachForUpdates) {
+                    el.removeChild(obj.content);
+                }
+
+                for (var j = 0; j < obj.rows.length; j++) {
+                    for (var i = 0; i < obj.headers.length; i++) {
+                        obj.options.updateTable(el, obj.records[j][i], i, j, obj.options.data[j][i], obj.records[j][i].textContent, jexcel.getColumnNameFromId([i, j]));
+                    }
+                }
+
+                if (obj.options.detachForUpdates) {
+                    el.insertBefore(obj.content, obj.pagination);
+                }
+            }
+
+            // Update footers
+            if (obj.options.footers) {
+                obj.setFooter();
+            }
+
+            // Update corner position
+            setTimeout(function() {
+                obj.updateCornerPosition();
+            },0);
+        }
+
+        /**
+         * Readonly
+         */
+        obj.isReadOnly = function(cell) {
+            if (cell = obj.getCell(cell)) {
+                return cell.classList.contains('readonly') ? true : false;
+            }
+        }
+
+        /**
+         * Readonly
+         */
+        obj.setReadOnly = function(cell, state) {
+            if (cell = obj.getCell(cell)) {
+                if (state) {
+                    cell.classList.add('readonly');
+                } else {
+                    cell.classList.remove('readonly');
+                }
+            }
+        }
+
+        /**
+         * Show row
+         */
+        obj.showRow = function(rowNumber) {
+            obj.rows[rowNumber].style.display = '';
+        }
+
+        /**
+         * Hide row
+         */
+        obj.hideRow = function(rowNumber) {
+            obj.rows[rowNumber].style.display = 'none';
+        }
+
+        /**
+         * Show column
+         */
+        obj.showColumn = function(colNumber) {
+            obj.headers[colNumber].style.display = '';
+            obj.colgroup[colNumber].style.display = '';
+            if (obj.filter && obj.filter.children.length > colNumber + 1) {
+                obj.filter.children[colNumber + 1].style.display = '';
+            }
+            for (var j = 0; j < obj.options.data.length; j++) {
+                obj.records[j][colNumber].style.display = '';
+            }
+
+            // Update footers
+            if (obj.options.footers) {
+                obj.setFooter();
+            }
+
+            obj.resetSelection();
+        }
+
+        /**
+         * Hide column
+         */
+        obj.hideColumn = function(colNumber) {
+            obj.headers[colNumber].style.display = 'none';
+            obj.colgroup[colNumber].style.display = 'none';
+            if (obj.filter && obj.filter.children.length > colNumber + 1) {
+                obj.filter.children[colNumber + 1].style.display = 'none';
+            }
+            for (var j = 0; j < obj.options.data.length; j++) {
+                obj.records[j][colNumber].style.display = 'none';
+            }
+
+            // Update footers
+            if (obj.options.footers) {
+                obj.setFooter();
+            }
+
+            obj.resetSelection();
+        }
+
+        /**
+         * Show index column
+         */
+        obj.showIndex = function() {
+            obj.table.classList.remove('jexcel_hidden_index');
+        }
+
+        /**
+         * Hide index column
+         */
+        obj.hideIndex = function() {
+            obj.table.classList.add('jexcel_hidden_index');
+        }
+
+        /**
+         * Update all related cells in the chain
+         */
+        var chainLoopProtection = [];
+
+        obj.updateFormulaChain = function(x, y, records) {
+            var cellId = jexcel.getColumnNameFromId([x, y]);
+            if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
+                if (chainLoopProtection[cellId]) {
+                    obj.records[y][x].innerHTML = '#ERROR';
+                    obj.formula[cellId] = '';
+                } else {
+                    // Protection
+                    chainLoopProtection[cellId] = true;
+
+                    for (var i = 0; i < obj.formula[cellId].length; i++) {
+                        var cell = jexcel.getIdFromColumnName(obj.formula[cellId][i], true);
+                        // Update cell
+                        var value = ''+obj.options.data[cell[1]][cell[0]];
+                        if (value.substr(0,1) == '=') {
+                            records.push(obj.updateCell(cell[0], cell[1], value, true));
+                        } else {
+                            // No longer a formula, remove from the chain
+                            Object.keys(obj.formula)[i] = null;
+                        }
+                        obj.updateFormulaChain(cell[0], cell[1], records);
+                    }
+                }
+            }
+
+            chainLoopProtection = [];
+        }
+
+        /**
+         * Update formulas
+         */
+        obj.updateFormulas = function(referencesToUpdate) {
+            // Update formulas
+            for (var j = 0; j < obj.options.data.length; j++) {
+                for (var i = 0; i < obj.options.data[0].length; i++) {
+                    var value = '' + obj.options.data[j][i];
+                    // Is formula
+                    if (value.substr(0,1) == '=') {
+                        // Replace tokens
+                        var newFormula = obj.updateFormula(value, referencesToUpdate);
+                        if (newFormula != value) {
+                            obj.options.data[j][i] = newFormula;
+                        }
+                    }
+                }
+            }
+
+            // Update formula chain
+            var formula = [];
+            var keys = Object.keys(obj.formula);
+            for (var j = 0; j < keys.length; j++) {
+                // Current key and values
+                var key = keys[j];
+                var value = obj.formula[key];
+                // Update key
+                if (referencesToUpdate[key]) {
+                    key = referencesToUpdate[key];
+                }
+                // Update values
+                formula[key] = [];
+                for (var i = 0; i < value.length; i++) {
+                    var letter = value[i];
+                    if (referencesToUpdate[letter]) {
+                        letter = referencesToUpdate[letter];
+                    }
+                    formula[key].push(letter);
+                }
+            }
+            obj.formula = formula;
+        }
+
+        /**
+         * Update formula
+         */
+        obj.updateFormula = function(formula, referencesToUpdate) {
+            var testLetter = /[A-Z]/;
+            var testNumber = /[0-9]/;
+
+            var newFormula = '';
+            var letter = null;
+            var number = null;
+            var token = '';
+
+            for (var index = 0; index < formula.length; index++) {
+                if (testLetter.exec(formula[index])) {
+                    letter = 1;
+                    number = 0;
+                    token += formula[index];
+                } else if (testNumber.exec(formula[index])) {
+                    number = letter ? 1 : 0;
+                    token += formula[index];
+                } else {
+                    if (letter && number) {
+                        token = referencesToUpdate[token] ? referencesToUpdate[token] : token;
+                    }
+                    newFormula += token;
+                    newFormula += formula[index];
+                    letter = 0;
+                    number = 0;
+                    token = '';
+                }
+            }
+
+            if (token) {
+                if (letter && number) {
+                    token = referencesToUpdate[token] ? referencesToUpdate[token] : token;
+                }
+                newFormula += token;
+            }
+
+            return newFormula;
+        }
+
+        /**
+         * Secure formula
+         */
+        var secureFormula = function(oldValue) {
+            var newValue = '';
+            var inside = 0;
+
+            for (var i = 0; i < oldValue.length; i++) {
+                if (oldValue[i] == '"') {
+                    if (inside == 0) {
+                        inside = 1;
+                    } else {
+                        inside = 0;
+                    }
+                }
+
+                if (inside == 1) {
+                    newValue += oldValue[i];
+                } else {
+                    newValue += oldValue[i].toUpperCase();
+                }
+            }
+
+            return newValue;
+        }
+
+        /**
+         * Parse formulas
+         */
+        obj.executeFormula = function(expression, x, y) {
+
+            var formulaResults = [];
+            var formulaLoopProtection = [];
+
+            // Execute formula with loop protection
+            var execute = function(expression, x, y) {
+             // Parent column identification
+                var parentId = jexcel.getColumnNameFromId([x, y]);
+
+                // Code protection
+                if (formulaLoopProtection[parentId]) {
+                    console.error('Reference loop detected');
+                    return '#ERROR';
+                }
+
+                formulaLoopProtection[parentId] = true;
+
+                // Convert range tokens
+                var tokensUpdate = function(tokens) {
+                    for (var index = 0; index < tokens.length; index++) {
+                        var f = [];
+                        var token = tokens[index].split(':');
+                        var e1 = jexcel.getIdFromColumnName(token[0], true);
+                        var e2 = jexcel.getIdFromColumnName(token[1], true);
+
+                        if (e1[0] <= e2[0]) {
+                            var x1 = e1[0];
+                            var x2 = e2[0];
+                        } else {
+                            var x1 = e2[0];
+                            var x2 = e1[0];
+                        }
+
+                        if (e1[1] <= e2[1]) {
+                            var y1 = e1[1];
+                            var y2 = e2[1];
+                        } else {
+                            var y1 = e2[1];
+                            var y2 = e1[1];
+                        }
+
+                        for (var j = y1; j <= y2; j++) {
+                            for (var i = x1; i <= x2; i++) {
+                                f.push(jexcel.getColumnNameFromId([i, j]));
+                            }
+                        }
+
+                        expression = expression.replace(tokens[index], f.join(','));
+                    }
+                }
+
+                // Range with $ remove $
+                expression = expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g, "$1$2");
+
+                var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
+                if (tokens && tokens.length) {
+                    tokensUpdate(tokens);
+                }
+
+                // Get tokens
+                var tokens = expression.match(/([A-Z]+[0-9]+)/g);
+
+                // Direct self-reference protection
+                if (tokens && tokens.indexOf(parentId) > -1) {
+                    console.error('Self Reference detected');
+                    return '#ERROR';
+                } else {
+                    // Expressions to be used in the parsing
+                    var formulaExpressions = {};
+
+                    if (tokens) {
+                        for (var i = 0; i < tokens.length; i++) {
+                            // Keep chain
+                            if (! obj.formula[tokens[i]]) {
+                                obj.formula[tokens[i]] = [];
+                            }
+                            // Is already in the register
+                            if (obj.formula[tokens[i]].indexOf(parentId) < 0) {
+                                obj.formula[tokens[i]].push(parentId);
+                            }
+
+                            // Do not calculate again
+                            if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
+                                // Coords
+                                var position = jexcel.getIdFromColumnName(tokens[i], 1);
+                                // Get value
+                                if (typeof(obj.options.data[position[1]]) != 'undefined' && typeof(obj.options.data[position[1]][position[0]]) != 'undefined') {
+                                    var value = obj.options.data[position[1]][position[0]];
+                                } else {
+                                    var value = '';
+                                }
+                                // Get column data
+                                if ((''+value).substr(0,1) == '=') {
+                                    if (formulaResults[tokens[i]]) {
+                                        value = formulaResults[tokens[i]];
+                                    } else {
+                                        value = execute(value, position[0], position[1]);
+                                        formulaResults[tokens[i]] = value;
+                                    }
+                                }
+                                // Type!
+                                if ((''+value).trim() == '') {
+                                    // Null
+                                    formulaExpressions[tokens[i]] = null;
+                                } else {
+                                    if (value == Number(value) && obj.options.autoCasting == true) {
+                                        // Number
+                                        formulaExpressions[tokens[i]] = Number(value);
+                                    } else {
+                                        // Trying any formatted number
+                                        var number = obj.parseNumber(value, position[0])
+                                        if (obj.options.autoCasting == true && number) {
+                                            formulaExpressions[tokens[i]] = number;
+                                        } else {
+                                            formulaExpressions[tokens[i]] = '"' + value + '"';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Convert formula to javascript
+                    try {
+                        var res = jexcel.formula(expression.substr(1), formulaExpressions, x, y, obj);
+                    } catch (e) {
+                        var res = '#ERROR';
+                        console.log(e)
+                    }
+
+                    return res;
+                }
+            }
+
+            return execute(expression, x, y);
+        }
+
+        /**
+         * Trying to extract a number from a string
+         */
+        obj.parseNumber = function(value, columnNumber) {
+            // Decimal point
+            var decimal = columnNumber && obj.options.columns[columnNumber].decimal ? obj.options.columns[columnNumber].decimal : '.';
+
+            // Parse both parts of the number
+            var number = ('' + value);
+            number = number.split(decimal);
+            number[0] = number[0].match(/[+-]?[0-9]/g);
+            if (number[0]) {
+                number[0] = number[0].join('');
+            }
+            if (number[1]) {
+                number[1] = number[1].match(/[0-9]*/g).join('');
+            }
+
+            // Is a valid number
+            if (number[0] && Number.isInteger(Number(number[0]))) {
+                if (! number[1]) {
+                    var value = Number(number[0] + '.00');
+                } else {
+                    var value = Number(number[0] + '.' + number[1]);
+                }
+            } else {
+                var value = null;
+            }
+
+            return value;
+        }
+
+        /**
+         * Get row number
+         */
+        obj.row = function(cell) {
+        }
+
+        /**
+         * Get col number
+         */
+        obj.col = function(cell) {
+        }
+
+        obj.up = function(shiftKey, ctrlKey) {
+            if (shiftKey) {
+                if (obj.selectedCell[3] > 0) {
+                    obj.up.visible(1, ctrlKey ? 0 : 1)
+                }
+            } else {
+                if (obj.selectedCell[1] > 0) {
+                    obj.up.visible(0, ctrlKey ? 0 : 1)
+                }
+                obj.selectedCell[2] = obj.selectedCell[0];
+                obj.selectedCell[3] = obj.selectedCell[1];
+            }
+
+            // Update selection
+            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+
+            // Change page
+            if (obj.options.lazyLoading == true) {
+                if (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0) {
+                    obj.loadPage(0);
+                    obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                } else {
+                    if (obj.loadValidation()) {
+                        obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                    } else {
+                        var item = parseInt(obj.tbody.firstChild.getAttribute('data-y'));
+                        if (obj.selectedCell[1] - item < 30) {
+                            obj.loadUp();
+                            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                        }
+                    }
+                }
+            } else if (obj.options.pagination > 0) {
+                var pageNumber = obj.whichPage(obj.selectedCell[3]);
+                if (pageNumber != obj.pageNumber) {
+                    obj.page(pageNumber);
+                }
+            }
+
+            obj.updateScroll(1);
+        }
+
+        obj.up.visible = function(group, direction) {
+            if (group == 0) {
+                var x = parseInt(obj.selectedCell[0]);
+                var y = parseInt(obj.selectedCell[1]);
+            } else {
+                var x = parseInt(obj.selectedCell[2]);
+                var y = parseInt(obj.selectedCell[3]);
+            }
+
+            if (direction == 0) {
+                for (var j = 0; j < y; j++) {
+                    if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
+                        y = j;
+                        break;
+                    }
+                }
+            } else {
+                y = obj.up.get(x, y);
+            }
+
+            if (group == 0) {
+                obj.selectedCell[0] = x;
+                obj.selectedCell[1] = y;
+            } else {
+                obj.selectedCell[2] = x;
+                obj.selectedCell[3] = y;
+            }
+        }
+
+        obj.up.get = function(x, y) {
+            var x = parseInt(x);
+            var y = parseInt(y);
+            for (var j = (y - 1); j >= 0; j--) {
+                if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
+                    if (obj.records[j][x].getAttribute('data-merged')) {
+                        if (obj.records[j][x] == obj.records[y][x]) {
+                            continue;
+                        }
+                    }
+                    y = j;
+                    break;
+                }
+            }
+
+            return y;
+        }
+
+        obj.down = function(shiftKey, ctrlKey) {
+            if (shiftKey) {
+                if (obj.selectedCell[3] < obj.records.length - 1) {
+                    obj.down.visible(1, ctrlKey ? 0 : 1)
+                }
+            } else {
+                if (obj.selectedCell[1] < obj.records.length - 1) {
+                    obj.down.visible(0, ctrlKey ? 0 : 1)
+                }
+                obj.selectedCell[2] = obj.selectedCell[0];
+                obj.selectedCell[3] = obj.selectedCell[1];
+            }
+
+            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+
+            // Change page
+            if (obj.options.lazyLoading == true) {
+                if ((obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
+                    obj.loadPage(-1);
+                    obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                } else {
+                    if (obj.loadValidation()) {
+                        obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                    } else {
+                        var item = parseInt(obj.tbody.lastChild.getAttribute('data-y'));
+                        if (item - obj.selectedCell[3] < 30) {
+                            obj.loadDown();
+                            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+                        }
+                    }
+                }
+            } else if (obj.options.pagination > 0) {
+                var pageNumber = obj.whichPage(obj.selectedCell[3]);
+                if (pageNumber != obj.pageNumber) {
+                    obj.page(pageNumber);
+                }
+            }
+
+            obj.updateScroll(3);
+        }
+
+        obj.down.visible = function(group, direction) {
+            if (group == 0) {
+                var x = parseInt(obj.selectedCell[0]);
+                var y = parseInt(obj.selectedCell[1]);
+            } else {
+                var x = parseInt(obj.selectedCell[2]);
+                var y = parseInt(obj.selectedCell[3]);
+            }
+
+            if (direction == 0) {
+                for (var j = obj.rows.length - 1; j > y; j--) {
+                    if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
+                        y = j;
+                        break;
+                    }
+                }
+            } else {
+                y = obj.down.get(x, y);
+            }
+
+            if (group == 0) {
+                obj.selectedCell[0] = x;
+                obj.selectedCell[1] = y;
+            } else {
+                obj.selectedCell[2] = x;
+                obj.selectedCell[3] = y;
+            }
+        }
+
+        obj.down.get = function(x, y) {
+            var x = parseInt(x);
+            var y = parseInt(y);
+            for (var j = (y + 1); j < obj.rows.length; j++) {
+                if (obj.records[j][x].style.display != 'none' && obj.rows[j].style.display != 'none') {
+                    if (obj.records[j][x].getAttribute('data-merged')) {
+                        if (obj.records[j][x] == obj.records[y][x]) {
+                            continue;
+                        }
+                    }
+                    y = j;
+                    break;
+                }
+            }
+
+            return y;
+        }
+
+        obj.right = function(shiftKey, ctrlKey) {
+            if (shiftKey) {
+                if (obj.selectedCell[2] < obj.headers.length - 1) {
+                    obj.right.visible(1, ctrlKey ? 0 : 1)
+                }
+            } else {
+                if (obj.selectedCell[0] < obj.headers.length - 1) {
+                    obj.right.visible(0, ctrlKey ? 0 : 1)
+                }
+                obj.selectedCell[2] = obj.selectedCell[0];
+                obj.selectedCell[3] = obj.selectedCell[1];
+            }
+
+            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateScroll(2);
+        }
+
+        obj.right.visible = function(group, direction) {
+            if (group == 0) {
+                var x = parseInt(obj.selectedCell[0]);
+                var y = parseInt(obj.selectedCell[1]);
+            } else {
+                var x = parseInt(obj.selectedCell[2]);
+                var y = parseInt(obj.selectedCell[3]);
+            }
+
+            if (direction == 0) {
+                for (var i = obj.headers.length - 1; i > x; i--) {
+                    if (obj.records[y][i].style.display != 'none') {
+                        x = i;
+                        break;
+                    }
+                }
+            } else {
+                x = obj.right.get(x, y);
+            }
+
+            if (group == 0) {
+                obj.selectedCell[0] = x;
+                obj.selectedCell[1] = y;
+            } else {
+                obj.selectedCell[2] = x;
+                obj.selectedCell[3] = y;
+            }
+        }
+
+        obj.right.get = function(x, y) {
+            var x = parseInt(x);
+            var y = parseInt(y);
+
+            for (var i = (x + 1); i < obj.headers.length; i++) {
+                if (obj.records[y][i].style.display != 'none') {
+                    if (obj.records[y][i].getAttribute('data-merged')) {
+                        if (obj.records[y][i] == obj.records[y][x]) {
+                            continue;
+                        }
+                    }
+                    x = i;
+                    break;
+                }
+            }
+
+            return x;
+        }
+
+        obj.left = function(shiftKey, ctrlKey) {
+            if (shiftKey) {
+                if (obj.selectedCell[2] > 0) {
+                    obj.left.visible(1, ctrlKey ? 0 : 1)
+                }
+            } else {
+                if (obj.selectedCell[0] > 0) {
+                    obj.left.visible(0, ctrlKey ? 0 : 1)
+                }
+                obj.selectedCell[2] = obj.selectedCell[0];
+                obj.selectedCell[3] = obj.selectedCell[1];
+            }
+
+            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateScroll(0);
+        }
+
+        obj.left.visible = function(group, direction) {
+            if (group == 0) {
+                var x = parseInt(obj.selectedCell[0]);
+                var y = parseInt(obj.selectedCell[1]);
+            } else {
+                var x = parseInt(obj.selectedCell[2]);
+                var y = parseInt(obj.selectedCell[3]);
+            }
+
+            if (direction == 0) {
+                for (var i = 0; i < x; i++) {
+                    if (obj.records[y][i].style.display != 'none') {
+                        x = i;
+                        break;
+                    }
+                }
+            } else {
+                x = obj.left.get(x, y);
+            }
+
+            if (group == 0) {
+                obj.selectedCell[0] = x;
+                obj.selectedCell[1] = y;
+            } else {
+                obj.selectedCell[2] = x;
+                obj.selectedCell[3] = y;
+            }
+        }
+
+        obj.left.get = function(x, y) {
+            var x = parseInt(x);
+            var y = parseInt(y);
+            for (var i = (x - 1); i >= 0; i--) {
+                if (obj.records[y][i].style.display != 'none') {
+                    if (obj.records[y][i].getAttribute('data-merged')) {
+                        if (obj.records[y][i] == obj.records[y][x]) {
+                            continue;
+                        }
+                    }
+                    x = i;
+                    break;
+                }
+            }
+
+            return x;
+        }
+
+        obj.first = function(shiftKey, ctrlKey) {
+            if (shiftKey) {
+                if (ctrlKey) {
+                    obj.selectedCell[3] = 0;
+                } else {
+                    obj.left.visible(1, 0);
+                }
+            } else {
+                if (ctrlKey) {
+                    obj.selectedCell[1] = 0;
+                } else {
+                    obj.left.visible(0, 0);
+                }
+                obj.selectedCell[2] = obj.selectedCell[0];
+                obj.selectedCell[3] = obj.selectedCell[1];
+            }
+
+            // Change page
+            if (obj.options.lazyLoading == true && (obj.selectedCell[1] == 0 || obj.selectedCell[3] == 0)) {
+                obj.loadPage(0);
+            } else if (obj.options.pagination > 0) {
+                var pageNumber = obj.whichPage(obj.selectedCell[3]);
+                if (pageNumber != obj.pageNumber) {
+                    obj.page(pageNumber);
+                }
+            }
+
+            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateScroll(1);
+        }
+
+        obj.last = function(shiftKey, ctrlKey) {
+            if (shiftKey) {
+                if (ctrlKey) {
+                    obj.selectedCell[3] = obj.records.length - 1;
+                } else {
+                    obj.right.visible(1, 0);
+                }
+            } else {
+                if (ctrlKey) {
+                    obj.selectedCell[1] = obj.records.length - 1;
+                } else {
+                    obj.right.visible(0, 0);
+                }
+                obj.selectedCell[2] = obj.selectedCell[0];
+                obj.selectedCell[3] = obj.selectedCell[1];
+            }
+
+            // Change page
+            if (obj.options.lazyLoading == true && (obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
+                obj.loadPage(-1);
+            } else if (obj.options.pagination > 0) {
+                var pageNumber = obj.whichPage(obj.selectedCell[3]);
+                if (pageNumber != obj.pageNumber) {
+                    obj.page(pageNumber);
+                }
+            }
+
+            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+            obj.updateScroll(3);
+        }
+
+        obj.selectAll = function() {
+            if (! obj.selectedCell) {
+                obj.selectedCell = [];
+            }
+
+            obj.selectedCell[0] = 0;
+            obj.selectedCell[1] = 0;
+            obj.selectedCell[2] = obj.headers.length - 1;
+            obj.selectedCell[3] = obj.records.length - 1;
+
+            obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
+        }
+
+        /**
+         * Go to a page in a lazyLoading
+         */
+        obj.loadPage = function(pageNumber) {
+            // Search
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                var results = obj.results;
+            } else {
+                var results = obj.rows;
+            }
+
+            // Per page
+            var quantityPerPage = 100;
+
+            // pageNumber
+            if (pageNumber == null || pageNumber == -1) {
+                // Last page
+                pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
+            }
+
+            var startRow = (pageNumber * quantityPerPage);
+            var finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
+            if (finalRow > results.length) {
+                finalRow = results.length;
+            }
+            startRow = finalRow - 100;
+            if (startRow < 0) {
+                startRow = 0;
+            }
+
+            // Appeding items
+            for (var j = startRow; j < finalRow; j++) {
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                    obj.tbody.appendChild(obj.rows[results[j]]);
+                } else {
+                    obj.tbody.appendChild(obj.rows[j]);
+                }
+
+                if (obj.tbody.children.length > quantityPerPage) {
+                    obj.tbody.removeChild(obj.tbody.firstChild);
+                }
+            }
+        }
+
+        obj.loadUp = function() {
+            // Search
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                var results = obj.results;
+            } else {
+                var results = obj.rows;
+            }
+            var test = 0;
+            if (results.length > 100) {
+                // Get the first element in the page
+                var item = parseInt(obj.tbody.firstChild.getAttribute('data-y'));
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                    item = results.indexOf(item);
+                }
+                if (item > 0) {
+                    for (var j = 0; j < 30; j++) {
+                        item = item - 1;
+                        if (item > -1) {
+                            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                                obj.tbody.insertBefore(obj.rows[results[item]], obj.tbody.firstChild);
+                            } else {
+                                obj.tbody.insertBefore(obj.rows[item], obj.tbody.firstChild);
+                            }
+                            if (obj.tbody.children.length > 100) {
+                                obj.tbody.removeChild(obj.tbody.lastChild);
+                                test = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            return test;
+        }
+
+        obj.loadDown = function() {
+            // Search
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                var results = obj.results;
+            } else {
+                var results = obj.rows;
+            }
+            var test = 0;
+            if (results.length > 100) {
+                // Get the last element in the page
+                var item = parseInt(obj.tbody.lastChild.getAttribute('data-y'));
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                    item = results.indexOf(item);
+                }
+                if (item < obj.rows.length - 1) {
+                    for (var j = 0; j <= 30; j++) {
+                        if (item < results.length) {
+                            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                                obj.tbody.appendChild(obj.rows[results[item]]);
+                            } else {
+                                obj.tbody.appendChild(obj.rows[item]);
+                            }
+                            if (obj.tbody.children.length > 100) {
+                                obj.tbody.removeChild(obj.tbody.firstChild);
+                                test = 1;
+                            }
+                        }
+                        item = item + 1;
+                    }
+                }
+            }
+
+            return test;
+        }
+
+        obj.loadValidation = function() {
+            if (obj.selectedCell) {
+                var currentPage = parseInt(obj.tbody.firstChild.getAttribute('data-y')) / 100;
+                var selectedPage = parseInt(obj.selectedCell[3] / 100);
+                var totalPages = parseInt(obj.rows.length / 100);
+
+                if (currentPage != selectedPage && selectedPage <= totalPages) {
+                    if (! Array.prototype.indexOf.call(obj.tbody.children, obj.rows[obj.selectedCell[3]])) {
+                        obj.loadPage(selectedPage);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * Reset search
+         */
+        obj.resetSearch = function() {
+            obj.searchInput.value = '';
+            obj.search('');
+            obj.results = null;
+        }
+
+        /**
+         * Search
+         */
+        obj.search = function(query) {
+            // Query
+            if (query) {
+                var query = query.toLowerCase();
+            }
+
+            // Reset any filter
+            if (obj.options.filters) {
+                obj.resetFilters();
+            }
+
+            // Reset selection
+            obj.resetSelection();
+
+            // Total of results
+            obj.pageNumber = 0;
+            obj.results = [];
+
+            if (query) {
+                // Search filter
+                var search = function(item, query, index) {
+                    for (var i = 0; i < item.length; i++) {
+                        if ((''+item[i]).toLowerCase().search(query) >= 0 ||
+                            (''+obj.records[index][i].innerHTML).toLowerCase().search(query) >= 0) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                // Result
+                var addToResult = function(k) {
+                    if (obj.results.indexOf(k) == -1) {
+                        obj.results.push(k);
+                    }
+                }
+
+                // Filter
+                var data = obj.options.data.filter(function(v, k) {
+                    if (search(v, query, k)) {
+                        // Merged rows found
+                        var rows = obj.isRowMerged(k);
+                        if (rows.length) {
+                            for (var i = 0; i < rows.length; i++) {
+                                var row = jexcel.getIdFromColumnName(rows[i], true);
+                                for (var j = 0; j < obj.options.mergeCells[rows[i]][1]; j++) {
+                                    addToResult(row[1]+j);
+                                }
+                            }
+                        } else {
+                            // Normal row found
+                            addToResult(k);
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+            } else {
+                obj.results = null;
+            }
+
+            return obj.updateResult();
+        }
+
+        obj.updateResult = function() {
+            var total = 0;
+            var index = 0;
+
+            // Page 1
+            if (obj.options.lazyLoading == true) {
+                total = 100;
+            } else if (obj.options.pagination > 0) {
+                total = obj.options.pagination;
+            } else {
+                if (obj.results) {
+                    total = obj.results.length;
+                } else {
+                    total = obj.rows.length;
+                }
+            }
+
+            // Reset current nodes
+            while (obj.tbody.firstChild) {
+                obj.tbody.removeChild(obj.tbody.firstChild);
+            }
+
+            // Hide all records from the table
+            for (var j = 0; j < obj.rows.length; j++) {
+                if (! obj.results || obj.results.indexOf(j) > -1) {
+                    if (index < total) {
+                        obj.tbody.appendChild(obj.rows[j]);
+                        index++;
+                    }
+                    obj.rows[j].style.display = '';
+                } else {
+                    obj.rows[j].style.display = 'none';
+                }
+            }
+
+            // Update pagination
+            if (obj.options.pagination > 0) {
+                obj.updatePagination();
+            }
+
+            obj.updateCornerPosition();
+
+            return total;
+        }
+
+        /**
+         * Which page the cell is
+         */
+        obj.whichPage = function(cell) {
+            // Search
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                cell = obj.results.indexOf(cell);
+            }
+
+            return (Math.ceil((parseInt(cell) + 1) / parseInt(obj.options.pagination))) - 1;
+        }
+
+        /**
+         * Go to page
+         */
+        obj.page = function(pageNumber) {
+            var oldPage = obj.pageNumber;
+
+            // Search
+            if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                var results = obj.results;
+            } else {
+                var results = obj.rows;
+            }
+
+            // Per page
+            var quantityPerPage = parseInt(obj.options.pagination);
+
+            // pageNumber
+            if (pageNumber == null || pageNumber == -1) {
+                // Last page
+                pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
+            }
+
+            // Page number
+            obj.pageNumber = pageNumber;
+
+            var startRow = (pageNumber * quantityPerPage);
+            var finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
+            if (finalRow > results.length) {
+                finalRow = results.length;
+            }
+            if (startRow < 0) {
+                startRow = 0;
+            }
+
+            // Reset container
+            while (obj.tbody.firstChild) {
+                obj.tbody.removeChild(obj.tbody.firstChild);
+            }
+
+            // Appeding items
+            for (var j = startRow; j < finalRow; j++) {
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                    obj.tbody.appendChild(obj.rows[results[j]]);
+                } else {
+                    obj.tbody.appendChild(obj.rows[j]);
+                }
+            }
+
+            if (obj.options.pagination > 0) {
+                obj.updatePagination();
+            }
+
+            // Update corner position
+            obj.updateCornerPosition();
+
+            // Events
+            obj.dispatch('onchangepage', el, pageNumber, oldPage);
+        }
+
+        /**
+         * Update the pagination
+         */
+        obj.updatePagination = function() {
+            // Reset container
+            obj.pagination.children[0].innerHTML = '';
+            obj.pagination.children[1].innerHTML = '';
+
+            // Start pagination
+            if (obj.options.pagination) {
+                // Searchable
+                if ((obj.options.search == true || obj.options.filters == true) && obj.results) {
+                    var results = obj.results.length;
+                } else {
+                    var results = obj.rows.length;
+                }
+
+                if (! results) {
+                    // No records found
+                    obj.pagination.children[0].innerHTML = obj.options.text.noRecordsFound;
+                } else {
+                    // Pagination container
+                    var quantyOfPages = Math.ceil(results / obj.options.pagination);
+
+                    if (obj.pageNumber < 6) {
+                        var startNumber = 1;
+                        var finalNumber = quantyOfPages < 10 ? quantyOfPages : 10;
+                    } else if (quantyOfPages - obj.pageNumber < 5) {
+                        var startNumber = quantyOfPages - 9;
+                        var finalNumber = quantyOfPages;
+                        if (startNumber < 1) {
+                            startNumber = 1;
+                        }
+                    } else {
+                        var startNumber = obj.pageNumber - 4;
+                        var finalNumber = obj.pageNumber + 5;
+                    }
+
+                    // First
+                    if (startNumber > 1) {
+                        var paginationItem = document.createElement('div');
+                        paginationItem.className = 'jexcel_page';
+                        paginationItem.innerHTML = '<';
+                        paginationItem.title = 1;
+                        obj.pagination.children[1].appendChild(paginationItem);
+                    }
+
+                    // Get page links
+                    for (var i = startNumber; i <= finalNumber; i++) {
+                        var paginationItem = document.createElement('div');
+                        paginationItem.className = 'jexcel_page';
+                        paginationItem.innerHTML = i;
+                        obj.pagination.children[1].appendChild(paginationItem);
+
+                        if (obj.pageNumber == (i-1)) {
+                            paginationItem.classList.add('jexcel_page_selected');
+                        }
+                    }
+
+                    // Last
+                    if (finalNumber < quantyOfPages) {
+                        var paginationItem = document.createElement('div');
+                        paginationItem.className = 'jexcel_page';
+                        paginationItem.innerHTML = '>';
+                        paginationItem.title = quantyOfPages;
+                        obj.pagination.children[1].appendChild(paginationItem);
+                    }
+
+                    // Text
+                    var format = function(format) {
+                        var args = Array.prototype.slice.call(arguments, 1);
+                        return format.replace(/{(\d+)}/g, function(match, number) {
+                          return typeof args[number] != 'undefined'
+                            ? args[number]
+                            : match
+                          ;
+                        });
+                    };
+
+                    obj.pagination.children[0].innerHTML = format(obj.options.text.showingPage, obj.pageNumber + 1, quantyOfPages)
+                }
+            }
+        }
+
+        /**
+         * Download CSV table
+         *
+         * @return null
+         */
+        obj.download = function(includeHeaders) {
+            if (obj.options.allowExport == false) {
+                console.error('Export not allowed');
+            } else {
+                // Data
+                var data = '';
+
+                // Get data
+                data += obj.copy(false, obj.options.csvDelimiter, true, includeHeaders, true);
+
+                // Download element
+                var blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
+
+                // IE Compatibility
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(blob, obj.options.csvFileName + '.csv');
+                } else {
+                    // Download element
+                    var pom = document.createElement('a');
+                    var url = URL.createObjectURL(blob);
+                    pom.href = url;
+                    pom.setAttribute('download', obj.options.csvFileName + '.csv');
+                    document.body.appendChild(pom);
+                    pom.click();
+                    pom.parentNode.removeChild(pom);
+                }
+            }
+        }
+
+        /**
+         * Initializes a new history record for undo/redo
+         *
+         * @return null
+         */
+        obj.setHistory = function(changes) {
+            if (obj.ignoreHistory != true) {
+                // Increment and get the current history index
+                var index = ++obj.historyIndex;
+
+                // Slice the array to discard undone changes
+                obj.history = (obj.history = obj.history.slice(0, index + 1));
+
+                // Keep history
+                obj.history[index] = changes;
+            }
+        }
+
+        /**
+         * Copy method
+         *
+         * @param bool highlighted - Get only highlighted cells
+         * @param delimiter - \t default to keep compatibility with excel
+         * @return string value
+         */
+        obj.copy = function(highlighted, delimiter, returnData, includeHeaders, download) {
+            if (! delimiter) {
+                delimiter = "\t";
+            }
+
+            var div = new RegExp(delimiter, 'ig');
+
+            // Controls
+            var header = [];
+            var col = [];
+            var colLabel = [];
+            var row = [];
+            var rowLabel = [];
+            var x = obj.options.data[0].length;
+            var y = obj.options.data.length;
+            var tmp = '';
+            var copyHeader = false;
+            var headers = '';
+            var nestedHeaders = '';
+            var numOfCols = 0;
+            var numOfRows = 0;
+
+            // Partial copy
+            var copyX = 0;
+            var copyY = 0;
+            var isPartialCopy = true;
+            // Go through the columns to get the data
+            for (var j = 0; j < y; j++) {
+                for (var i = 0; i < x; i++) {
+                    // If cell is highlighted
+                    if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                        if (copyX <= i) {
+                            copyX = i;
+                        }
+                        if (copyY <= j) {
+                            copyY = j;
+                        }
+                    }
+                }
+            }
+            if (x === copyX+1 && y === copyY+1) {
+                isPartialCopy = false;
+            }
+
+            if ((download && obj.options.includeHeadersOnDownload == true) ||
+                (! download && obj.options.includeHeadersOnCopy == true && ! isPartialCopy) || (includeHeaders)) {
+                // Nested headers
+                if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                    // Flexible way to handle nestedheaders
+                    if (! (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0])) {
+                        tmp = [obj.options.nestedHeaders];
+                    } else {
+                        tmp = obj.options.nestedHeaders;
+                    }
+
+                    for (var j = 0; j < tmp.length; j++) {
+                        var nested = [];
+                        for (var i = 0; i < tmp[j].length; i++) {
+                            var colspan = parseInt(tmp[j][i].colspan);
+                            nested.push(tmp[j][i].title);
+                            for (var c = 0; c < colspan - 1; c++) {
+                                nested.push('');
+                            }
+                        }
+                        nestedHeaders += nested.join(delimiter) + "\r\n";
+                    }
+                }
+
+                copyHeader = true;
+            }
+
+            // Reset container
+            obj.style = [];
+
+            // Go through the columns to get the data
+            for (var j = 0; j < y; j++) {
+                col = [];
+                colLabel = [];
+
+                for (var i = 0; i < x; i++) {
+                    // If cell is highlighted
+                    if (! highlighted || obj.records[j][i].classList.contains('highlight')) {
+                        if (copyHeader == true) {
+                            header.push(obj.headers[i].textContent);
+                        }
+                        // Values
+                        var value = obj.options.data[j][i];
+                        if (value.match && (value.match(div) || value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
+                            value = value.replace(new RegExp('"', 'g'), '""');
+                            value = '"' + value + '"';
+                        }
+                        col.push(value);
+
+                        // Labels
+                        if (obj.options.columns[i].type == 'checkbox' || obj.options.columns[i].type == 'radio') {
+                            var label = value;
+                        } else {
+                            if (obj.options.stripHTMLOnCopy == true) {
+                                var label = obj.records[j][i].textContent;
+                            } else {
+                                var label = obj.records[j][i].innerHTML;
+                            }
+                            if (label.match && (label.match(div) || label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                                // Scape double quotes
+                                label = label.replace(new RegExp('"', 'g'), '""');
+                                label = '"' + label + '"';
+                            }
+                        }
+                        colLabel.push(label);
+
+                        // Get style
+                        tmp = obj.records[j][i].getAttribute('style');
+                        tmp = tmp.replace('display: none;', '');
+                        obj.style.push(tmp ? tmp : '');
+                    }
+                }
+
+                if (col.length) {
+                    if (copyHeader) {
+                        numOfCols = col.length;
+                        row.push(header.join(delimiter));
+                    }
+                    row.push(col.join(delimiter));
+                }
+                if (colLabel.length) {
+                    numOfRows++;
+                    if (copyHeader) {
+                        rowLabel.push(header.join(delimiter));
+                        copyHeader = false;
+                    }
+                    rowLabel.push(colLabel.join(delimiter));
+                }
+            }
+
+            if (x == numOfCols &&  y == numOfRows) {
+                headers = nestedHeaders;
+            }
+
+            // Final string
+            var str = headers + row.join("\r\n");
+            var strLabel = headers + rowLabel.join("\r\n");
+
+            // Create a hidden textarea to copy the values
+            if (! returnData) {
+                if (obj.options.copyCompatibility == true) {
+                    obj.textarea.value = strLabel;
+                } else {
+                    obj.textarea.value = str;
+                }
+                obj.textarea.select();
+                document.execCommand("copy");
+            }
+
+            // Keep data
+            if (obj.options.copyCompatibility == true) {
+                obj.data = strLabel;
+            } else {
+                obj.data = str;
+            }
+            // Keep non visible information
+            obj.hashString = obj.hash(obj.data);
+
+            // Any exiting border should go
+            if (! returnData) {
+                obj.removeCopyingSelection();
+
+                // Border
+                if (obj.highlighted) {
+                    for (var i = 0; i < obj.highlighted.length; i++) {
+                        obj.highlighted[i].classList.add('copying');
+                        if (obj.highlighted[i].classList.contains('highlight-left')) {
+                            obj.highlighted[i].classList.add('copying-left');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-right')) {
+                            obj.highlighted[i].classList.add('copying-right');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-top')) {
+                            obj.highlighted[i].classList.add('copying-top');
+                        }
+                        if (obj.highlighted[i].classList.contains('highlight-bottom')) {
+                            obj.highlighted[i].classList.add('copying-bottom');
+                        }
+                    }
+                }
+
+                // Paste event
+                obj.dispatch('oncopy', el, obj.options.copyCompatibility == true ? rowLabel : row, obj.hashString);
+            }
+
+            return obj.data;
+        }
+
+        /**
+         * Jspreadsheet paste method
+         *
+         * @param integer row number
+         * @return string value
+         */
+        obj.paste = function(x, y, data) {
+            // Paste filter
+            var ret = obj.dispatch('onbeforepaste', el, data, x, y);
+
+            if (ret === false) {
+                return false;
+            } else if (ret) {
+                var data = ret;
+            }
+
+            // Controls
+            var hash = obj.hash(data);
+            var style = (hash == obj.hashString) ? obj.style : null;
+
+            // Depending on the behavior
+            if (obj.options.copyCompatibility == true && hash == obj.hashString) {
+                var data = obj.data;
+            }
+
+            // Split new line
+            var data = obj.parseCSV(data, "\t");
+
+            if (x != null && y != null && data) {
+                // Records
+                var i = 0;
+                var j = 0;
+                var records = [];
+                var newStyle = {};
+                var oldStyle = {};
+                var styleIndex = 0;
+
+                // Index
+                var colIndex = parseInt(x);
+                var rowIndex = parseInt(y);
+                var row = null;
+
+                // Go through the columns to get the data
+                while (row = data[j]) {
+                    i = 0;
+                    colIndex = parseInt(x);
+
+                    while (row[i] != null) {
+                        // Update and keep history
+                        var record = obj.updateCell(colIndex, rowIndex, row[i]);
+                        // Keep history
+                        records.push(record);
+                        // Update all formulas in the chain
+                        obj.updateFormulaChain(colIndex, rowIndex, records);
+                        // Style
+                        if (style && style[styleIndex]) {
+                            var columnName = jexcel.getColumnNameFromId([colIndex, rowIndex]);
+                            newStyle[columnName] = style[styleIndex];
+                            oldStyle[columnName] = obj.getStyle(columnName);
+                            obj.records[rowIndex][colIndex].setAttribute('style', style[styleIndex]);
+                            styleIndex++
+                        }
+                        i++;
+                        if (row[i] != null) {
+                            if (colIndex >= obj.headers.length - 1) {
+                                // If the pasted column is out of range, create it if possible
+                                if (obj.options.allowInsertColumn == true) {
+                                    obj.insertColumn();
+                                    // Otherwise skip the pasted data that overflows
+                                } else {
+                                    break;
+                                }
+                            }
+                            colIndex = obj.right.get(colIndex, rowIndex);
+                        }
+                    }
+
+                    j++;
+                    if (data[j]) {
+                        if (rowIndex >= obj.rows.length-1) {
+                            // If the pasted row is out of range, create it if possible
+                            if (obj.options.allowInsertRow == true) {
+                                obj.insertRow();
+                                // Otherwise skip the pasted data that overflows
+                            } else {
+                                break;
+                            }
+                        }
+                        rowIndex = obj.down.get(x, rowIndex);
+                    }
+                }
+
+                // Select the new cells
+                obj.updateSelectionFromCoords(x, y, colIndex, rowIndex);
+
+                // Update history
+                obj.setHistory({
+                    action:'setValue',
+                    records:records,
+                    selection:obj.selectedCell,
+                    newStyle:newStyle,
+                    oldStyle:oldStyle,
+                });
+
+                // Update table
+                obj.updateTable();
+
+                // Paste event
+                obj.dispatch('onpaste', el, data);
+
+                // On after changes
+                obj.onafterchanges(el, records);
+            }
+
+            obj.removeCopyingSelection();
+        }
+
+        /**
+         * Remove copying border
+         */
+        obj.removeCopyingSelection = function() {
+            var copying = document.querySelectorAll('.jexcel .copying');
+            for (var i = 0; i < copying.length; i++) {
+                copying[i].classList.remove('copying');
+                copying[i].classList.remove('copying-left');
+                copying[i].classList.remove('copying-right');
+                copying[i].classList.remove('copying-top');
+                copying[i].classList.remove('copying-bottom');
+            }
+        }
+
+        /**
+         * Process row
+         */
+        obj.historyProcessRow = function(type, historyRecord) {
+            var rowIndex = (! historyRecord.insertBefore) ? historyRecord.rowNumber + 1 : +historyRecord.rowNumber;
+
+            if (obj.options.search == true) {
+                if (obj.results && obj.results.length != obj.rows.length) {
+                    obj.resetSearch();
+                }
+            }
+
+            // Remove row
+            if (type == 1) {
+                var numOfRows = historyRecord.numOfRows;
+                // Remove nodes
+                for (var j = rowIndex; j < (numOfRows + rowIndex); j++) {
+                    obj.rows[j].parentNode.removeChild(obj.rows[j]);
+                }
+                // Remove references
+                obj.records.splice(rowIndex, numOfRows);
+                obj.options.data.splice(rowIndex, numOfRows);
+                obj.rows.splice(rowIndex, numOfRows);
+
+                obj.conditionalSelectionUpdate(1, rowIndex, (numOfRows + rowIndex) - 1);
+            } else {
+                // Insert data
+                obj.records = jexcel.injectArray(obj.records, rowIndex, historyRecord.rowRecords);
+                obj.options.data = jexcel.injectArray(obj.options.data, rowIndex, historyRecord.rowData);
+                obj.rows = jexcel.injectArray(obj.rows, rowIndex, historyRecord.rowNode);
+                // Insert nodes
+                var index = 0
+                for (var j = rowIndex; j < (historyRecord.numOfRows + rowIndex); j++) {
+                    obj.tbody.insertBefore(historyRecord.rowNode[index], obj.tbody.children[j]);
+                    index++;
+                }
+            }
+
+            // Respect pagination
+            if (obj.options.pagination > 0) {
+                obj.page(obj.pageNumber);
+            }
+
+            obj.updateTableReferences();
+        }
+
+        /**
+         * Process column
+         */
+        obj.historyProcessColumn = function(type, historyRecord) {
+            var columnIndex = (! historyRecord.insertBefore) ? historyRecord.columnNumber + 1 : historyRecord.columnNumber;
+
+            // Remove column
+            if (type == 1) {
+                var numOfColumns = historyRecord.numOfColumns;
+
+                obj.options.columns.splice(columnIndex, numOfColumns);
+                for (var i = columnIndex; i < (numOfColumns + columnIndex); i++) {
+                    obj.headers[i].parentNode.removeChild(obj.headers[i]);
+                    obj.colgroup[i].parentNode.removeChild(obj.colgroup[i]);
+                }
+                obj.headers.splice(columnIndex, numOfColumns);
+                obj.colgroup.splice(columnIndex, numOfColumns);
+                for (var j = 0; j < historyRecord.data.length; j++) {
+                    for (var i = columnIndex; i < (numOfColumns + columnIndex); i++) {
+                        obj.records[j][i].parentNode.removeChild(obj.records[j][i]);
+                    }
+                    obj.records[j].splice(columnIndex, numOfColumns);
+                    obj.options.data[j].splice(columnIndex, numOfColumns);
+                }
+                // Process footers
+                if (obj.options.footers) {
+                    for (var j = 0; j < obj.options.footers.length; j++) {
+                        obj.options.footers[j].splice(columnIndex, numOfColumns);
+                    }
+                }
+            } else {
+                // Insert data
+                obj.options.columns = jexcel.injectArray(obj.options.columns, columnIndex, historyRecord.columns);
+                obj.headers = jexcel.injectArray(obj.headers, columnIndex, historyRecord.headers);
+                obj.colgroup = jexcel.injectArray(obj.colgroup, columnIndex, historyRecord.colgroup);
+
+                var index = 0
+                for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
+                    obj.headerContainer.insertBefore(historyRecord.headers[index], obj.headerContainer.children[i+1]);
+                    obj.colgroupContainer.insertBefore(historyRecord.colgroup[index], obj.colgroupContainer.children[i+1]);
+                    index++;
+                }
+
+                for (var j = 0; j < historyRecord.data.length; j++) {
+                    obj.options.data[j] = jexcel.injectArray(obj.options.data[j], columnIndex, historyRecord.data[j]);
+                    obj.records[j] = jexcel.injectArray(obj.records[j], columnIndex, historyRecord.records[j]);
+                    var index = 0
+                    for (var i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
+                        obj.rows[j].insertBefore(historyRecord.records[j][index], obj.rows[j].children[i+1]);
+                        index++;
+                    }
+                }
+                // Process footers
+                if (obj.options.footers) {
+                    for (var j = 0; j < obj.options.footers.length; j++) {
+                        obj.options.footers[j] = jexcel.injectArray(obj.options.footers[j], columnIndex, historyRecord.footers[j]);
+                    }
+                }
+            }
+
+            // Adjust nested headers
+            if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0) {
+                // Flexible way to handle nestedheaders
+                if (obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
+                    for (var j = 0; j < obj.options.nestedHeaders.length; j++) {
+                        if (type == 1) {
+                            var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) - historyRecord.numOfColumns;
+                        } else {
+                            var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) + historyRecord.numOfColumns;
+                        }
+                        obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
+                        obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+                    }
+                } else {
+                    if (type == 1) {
+                        var colspan = parseInt(obj.options.nestedHeaders[0].colspan) - historyRecord.numOfColumns;
+                    } else {
+                        var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + historyRecord.numOfColumns;
+                    }
+                    obj.options.nestedHeaders[0].colspan = colspan;
+                    obj.thead.children[0].children[obj.thead.children[0].children.length-1].setAttribute('colspan', colspan);
+                }
+            }
+
+            obj.updateTableReferences();
+        }
+
+        /**
+         * Undo last action
+         */
+        obj.undo = function() {
+            // Ignore events and history
+            var ignoreEvents = obj.ignoreEvents ? true : false;
+            var ignoreHistory = obj.ignoreHistory ? true : false;
+
+            obj.ignoreEvents = true;
+            obj.ignoreHistory = true;
+
+            // Records
+            var records = [];
+
+            // Update cells
+            if (obj.historyIndex >= 0) {
+                // History
+                var historyRecord = obj.history[obj.historyIndex--];
+
+                if (historyRecord.action == 'insertRow') {
+                    obj.historyProcessRow(1, historyRecord);
+                } else if (historyRecord.action == 'deleteRow') {
+                    obj.historyProcessRow(0, historyRecord);
+                } else if (historyRecord.action == 'insertColumn') {
+                    obj.historyProcessColumn(1, historyRecord);
+                } else if (historyRecord.action == 'deleteColumn') {
+                    obj.historyProcessColumn(0, historyRecord);
+                } else if (historyRecord.action == 'moveRow') {
+                    obj.moveRow(historyRecord.newValue, historyRecord.oldValue);
+                } else if (historyRecord.action == 'moveColumn') {
+                    obj.moveColumn(historyRecord.newValue, historyRecord.oldValue);
+                } else if (historyRecord.action == 'setMerge') {
+                    obj.removeMerge(historyRecord.column, historyRecord.data);
+                } else if (historyRecord.action == 'setStyle') {
+                    obj.setStyle(historyRecord.oldValue, null, null, 1);
+                } else if (historyRecord.action == 'setWidth') {
+                    obj.setWidth(historyRecord.column, historyRecord.oldValue);
+                } else if (historyRecord.action == 'setHeight') {
+                    obj.setHeight(historyRecord.row, historyRecord.oldValue);
+                } else if (historyRecord.action == 'setHeader') {
+                    obj.setHeader(historyRecord.column, historyRecord.oldValue);
+                } else if (historyRecord.action == 'setComments') {
+                    obj.setComments(historyRecord.column, historyRecord.oldValue[0], historyRecord.oldValue[1]);
+                } else if (historyRecord.action == 'orderBy') {
+                    var rows = [];
+                    for (var j = 0; j < historyRecord.rows.length; j++) {
+                        rows[historyRecord.rows[j]] = j;
+                    }
+                    obj.updateOrderArrow(historyRecord.column, historyRecord.order ? 0 : 1);
+                    obj.updateOrder(rows);
+                } else if (historyRecord.action == 'setValue') {
+                    // Redo for changes in cells
+                    for (var i = 0; i < historyRecord.records.length; i++) {
+                        records.push({
+                            x: historyRecord.records[i].x,
+                            y: historyRecord.records[i].y,
+                            newValue: historyRecord.records[i].oldValue,
+                        });
+
+                        if (historyRecord.oldStyle) {
+                            obj.resetStyle(historyRecord.oldStyle);
+                        }
+                    }
+                    // Update records
+                    obj.setValue(records);
+
+                    // Update selection
+                    if (historyRecord.selection) {
+                        obj.updateSelectionFromCoords(historyRecord.selection[0], historyRecord.selection[1], historyRecord.selection[2], historyRecord.selection[3]);
+                    }
+                }
+            }
+            obj.ignoreEvents = ignoreEvents;
+            obj.ignoreHistory = ignoreHistory;
+
+            // Events
+            obj.dispatch('onundo', el, historyRecord);
+        }
+
+        /**
+         * Redo previously undone action
+         */
+        obj.redo = function() {
+            // Ignore events and history
+            var ignoreEvents = obj.ignoreEvents ? true : false;
+            var ignoreHistory = obj.ignoreHistory ? true : false;
+
+            obj.ignoreEvents = true;
+            obj.ignoreHistory = true;
+
+            // Records
+            var records = [];
+
+            // Update cells
+            if (obj.historyIndex < obj.history.length - 1) {
+                // History
+                var historyRecord = obj.history[++obj.historyIndex];
+
+                if (historyRecord.action == 'insertRow') {
+                    obj.historyProcessRow(0, historyRecord);
+                } else if (historyRecord.action == 'deleteRow') {
+                    obj.historyProcessRow(1, historyRecord);
+                } else if (historyRecord.action == 'insertColumn') {
+                    obj.historyProcessColumn(0, historyRecord);
+                } else if (historyRecord.action == 'deleteColumn') {
+                    obj.historyProcessColumn(1, historyRecord);
+                } else if (historyRecord.action == 'moveRow') {
+                    obj.moveRow(historyRecord.oldValue, historyRecord.newValue);
+                } else if (historyRecord.action == 'moveColumn') {
+                    obj.moveColumn(historyRecord.oldValue, historyRecord.newValue);
+                } else if (historyRecord.action == 'setMerge') {
+                    obj.setMerge(historyRecord.column, historyRecord.colspan, historyRecord.rowspan, 1);
+                } else if (historyRecord.action == 'setStyle') {
+                    obj.setStyle(historyRecord.newValue, null, null, 1);
+                } else if (historyRecord.action == 'setWidth') {
+                    obj.setWidth(historyRecord.column, historyRecord.newValue);
+                } else if (historyRecord.action == 'setHeight') {
+                    obj.setHeight(historyRecord.row, historyRecord.newValue);
+                } else if (historyRecord.action == 'setHeader') {
+                    obj.setHeader(historyRecord.column, historyRecord.newValue);
+                } else if (historyRecord.action == 'setComments') {
+                    obj.setComments(historyRecord.column, historyRecord.newValue[0], historyRecord.newValue[1]);
+                } else if (historyRecord.action == 'orderBy') {
+                    obj.updateOrderArrow(historyRecord.column, historyRecord.order);
+                    obj.updateOrder(historyRecord.rows);
+                } else if (historyRecord.action == 'setValue') {
+                    obj.setValue(historyRecord.records);
+                    // Redo for changes in cells
+                    for (var i = 0; i < historyRecord.records.length; i++) {
+                        if (historyRecord.oldStyle) {
+                            obj.resetStyle(historyRecord.newStyle);
+                        }
+                    }
+                    // Update selection
+                    if (historyRecord.selection) {
+                        obj.updateSelectionFromCoords(historyRecord.selection[0], historyRecord.selection[1], historyRecord.selection[2], historyRecord.selection[3]);
+                    }
+                }
+            }
+            obj.ignoreEvents = ignoreEvents;
+            obj.ignoreHistory = ignoreHistory;
+
+            // Events
+            obj.dispatch('onredo', el, historyRecord);
+        }
+
+        /**
+         * Get dropdown value from key
+         */
+        obj.getDropDownValue = function(column, key) {
+            var value = [];
+
+            if (obj.options.columns[column] && obj.options.columns[column].source) {
+                // Create array from source
+                var combo = [];
+                var source = obj.options.columns[column].source;
+
+                for (var i = 0; i < source.length; i++) {
+                    if (typeof(source[i]) == 'object') {
+                        combo[source[i].id] = source[i].name;
+                    } else {
+                        combo[source[i]] = source[i];
+                    }
+                }
+
+                // Guarantee single multiple compatibility
+                var keys = Array.isArray(key) ? key : ('' + key).split(';');
+
+                for (var i = 0; i < keys.length; i++) {
+                    if (typeof(keys[i]) === 'object') {
+                        value.push(combo[keys[i].id]);
+                    } else {
+                        if (combo[keys[i]]) {
+                            value.push(combo[keys[i]]);
+                        }
+                    }
+                }
+            } else {
+                console.error('Invalid column');
+            }
+
+            return (value.length > 0) ? value.join('; ') : '';
+        }
+
+        /**
+         * From stack overflow contributions
+         */
+        obj.parseCSV = function(str, delimiter) {
+            // Remove last line break
+            str = str.replace(/\r?\n$|\r$|\n$/g, "");
+            // Last caracter is the delimiter
+            if (str.charCodeAt(str.length-1) == 9) {
+                str += "\0";
+            }
+            // user-supplied delimeter or default comma
+            delimiter = (delimiter || ",");
+
+            var arr = [];
+            var quote = false;  // true means we're inside a quoted field
+            // iterate over each character, keep track of current row and column (of the returned array)
+            for (var row = 0, col = 0, c = 0; c < str.length; c++) {
+                var cc = str[c], nc = str[c+1];
+                arr[row] = arr[row] || [];
+                arr[row][col] = arr[row][col] || '';
+
+                // If the current character is a quotation mark, and we're inside a quoted field, and the next character is also a quotation mark, add a quotation mark to the current column and skip the next character
+                if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+
+                // If it's just one quotation mark, begin/end quoted field
+                if (cc == '"') { quote = !quote; continue; }
+
+                // If it's a comma and we're not in a quoted field, move on to the next column
+                if (cc == delimiter && !quote) { ++col; continue; }
+
+                // If it's a newline (CRLF) and we're not in a quoted field, skip the next character and move on to the next row and move to column 0 of that new row
+                if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+
+                // If it's a newline (LF or CR) and we're not in a quoted field, move on to the next row and move to column 0 of that new row
+                if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+                if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+
+                // Otherwise, append the current character to the current column
+                arr[row][col] += cc;
+            }
+            return arr;
+        }
+
+        obj.hash = function(str) {
+            var hash = 0, i, chr;
+
+            if (str.length === 0) {
+                return hash;
+            } else {
+                for (i = 0; i < str.length; i++) {
+                  chr = str.charCodeAt(i);
+                  hash = ((hash << 5) - hash) + chr;
+                  hash |= 0;
+                }
+            }
+            return hash;
+        }
+
+        obj.onafterchanges = function(el, records) {
+            // Events
+            obj.dispatch('onafterchanges', el, records);
+        }
+
+        obj.destroy = function() {
+            jexcel.destroy(el);
+        }
+
+        /**
+         * Initialization method
+         */
+        obj.init = function() {
+            jexcel.current = obj;
+
+            // Build handlers
+            if (typeof(jexcel.build) == 'function') {
+                if (obj.options.root) {
+                    jexcel.build(obj.options.root);
+                } else {
+                    jexcel.build(document);
+                    jexcel.build = null;
+                }
+            }
+
+            // Event
+            el.setAttribute('tabindex', 1);
+            el.addEventListener('focus', function(e) {
+                if (jexcel.current && ! obj.selectedCell) {
+                    obj.updateSelectionFromCoords(0,0,0,0);
+                    obj.left();
+                }
+            });
+
+            // Load the table data based on an CSV file
+            if (obj.options.csv) {
+                // Loading
+                if (obj.options.loadingSpin == true) {
+                    jSuites.loading.show();
+                }
+
+                // Load CSV file
+                jSuites.ajax({
+                    url: obj.options.csv,
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
+                    dataType: 'text',
+                    success: function(result) {
+                        // Convert data
+                        var newData = obj.parseCSV(result, obj.options.csvDelimiter)
+
+                        // Headers
+                        if (obj.options.csvHeaders == true && newData.length > 0) {
+                            var headers = newData.shift();
+                            for(var i = 0; i < headers.length; i++) {
+                                if (! obj.options.columns[i]) {
+                                    obj.options.columns[i] = { type:'text', align:obj.options.defaultColAlign, width:obj.options.defaultColWidth };
+                                }
+                                // Precedence over pre-configurated titles
+                                if (typeof obj.options.columns[i].title === 'undefined') {
+                                  obj.options.columns[i].title = headers[i];
+                                }
+                            }
+                        }
+                        // Data
+                        obj.options.data = newData;
+                        // Prepare table
+                        obj.prepareTable();
+                        // Hide spin
+                        if (obj.options.loadingSpin == true) {
+                            jSuites.loading.hide();
+                        }
+                    }
+                });
+            } else if (obj.options.url) {
+                // Loading
+                if (obj.options.loadingSpin == true) {
+                    jSuites.loading.show();
+                }
+
+                jSuites.ajax({
+                    url: obj.options.url,
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
+                    dataType: 'json',
+                    success: function(result) {
+                        // Data
+                        obj.options.data = (result.data) ? result.data : result;
+                        // Prepare table
+                        obj.prepareTable();
+                        // Hide spin
+                        if (obj.options.loadingSpin == true) {
+                            jSuites.loading.hide();
+                        }
+                    }
+                });
+            } else {
+                // Prepare table
+                obj.prepareTable();
+            }
+        }
+
+        // Context menu
+        if (options && options.contextMenu != null) {
+            obj.options.contextMenu = options.contextMenu;
+        } else {
+            obj.options.contextMenu = function(el, x, y, e) {
+                var items = [];
+
+                if (y == null) {
+                    // Insert a new column
+                    if (obj.options.allowInsertColumn == true) {
+                        items.push({
+                            title:obj.options.text.insertANewColumnBefore,
+                            onclick:function() {
+                                obj.insertColumn(1, parseInt(x), 1);
+                            }
+                        });
+                    }
+
+                    if (obj.options.allowInsertColumn == true) {
+                        items.push({
+                            title:obj.options.text.insertANewColumnAfter,
+                            onclick:function() {
+                                obj.insertColumn(1, parseInt(x), 0);
+                            }
+                        });
+                    }
+
+                    // Delete a column
+                    if (obj.options.allowDeleteColumn == true) {
+                        items.push({
+                            title:obj.options.text.deleteSelectedColumns,
+                            onclick:function() {
+                                obj.deleteColumn(obj.getSelectedColumns().length ? undefined : parseInt(x));
+                            }
+                        });
+                    }
+
+                    // Rename column
+                    if (obj.options.allowRenameColumn == true) {
+                        items.push({
+                            title:obj.options.text.renameThisColumn,
+                            onclick:function() {
+                                obj.setHeader(x);
+                            }
+                        });
+                    }
+
+                    // Sorting
+                    if (obj.options.columnSorting == true) {
+                        // Line
+                        items.push({ type:'line' });
+
+                        items.push({
+                            title:obj.options.text.orderAscending,
+                            onclick:function() {
+                                obj.orderBy(x, 0);
+                            }
+                        });
+                        items.push({
+                            title:obj.options.text.orderDescending,
+                            onclick:function() {
+                                obj.orderBy(x, 1);
+                            }
+                        });
+                    }
+                } else {
+                    // Insert new row
+                    if (obj.options.allowInsertRow == true) {
+                        items.push({
+                            title:obj.options.text.insertANewRowBefore,
+                            onclick:function() {
+                                obj.insertRow(1, parseInt(y), 1);
+                            }
+                        });
+
+                        items.push({
+                            title:obj.options.text.insertANewRowAfter,
+                            onclick:function() {
+                                obj.insertRow(1, parseInt(y));
+                            }
+                        });
+                    }
+
+                    if (obj.options.allowDeleteRow == true) {
+                        items.push({
+                            title:obj.options.text.deleteSelectedRows,
+                            onclick:function() {
+                                obj.deleteRow(obj.getSelectedRows().length ? undefined : parseInt(y));
+                            }
+                        });
+                    }
+
+                    if (x) {
+                        if (obj.options.allowComments == true) {
+                            items.push({ type:'line' });
+
+                            var title = obj.records[y][x].getAttribute('title') || '';
+
+                            items.push({
+                                title: title ? obj.options.text.editComments : obj.options.text.addComments,
+                                onclick:function() {
+                                    var comment = prompt(obj.options.text.comments, title);
+                                    if (comment) {
+                                        obj.setComments([ x, y ], comment);
+                                    }
+                                }
+                            });
+
+                            if (title) {
+                                items.push({
+                                    title:obj.options.text.clearComments,
+                                    onclick:function() {
+                                        obj.setComments([ x, y ], '');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+
+                // Line
+                items.push({ type:'line' });
+
+                // Copy
+                items.push({
+                    title:obj.options.text.copy,
+                    shortcut:'Ctrl + C',
+                    onclick:function() {
+                        obj.copy(true);
+                    }
+                });
+
+                // Paste
+                if (navigator && navigator.clipboard) {
+                    items.push({
+                        title:obj.options.text.paste,
+                        shortcut:'Ctrl + V',
+                        onclick:function() {
+                            if (obj.selectedCell) {
+                                navigator.clipboard.readText().then(function(text) {
+                                    if (text) {
+                                        jexcel.current.paste(obj.selectedCell[0], obj.selectedCell[1], text);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+
+                // Save
+                if (obj.options.allowExport) {
+                    items.push({
+                        title: obj.options.text.saveAs,
+                        shortcut: 'Ctrl + S',
+                        onclick: function () {
+                            obj.download();
+                        }
+                    });
+                }
+
+                // About
+                if (obj.options.about) {
+                    items.push({
+                        title:obj.options.text.about,
+                        onclick:function() {
+                            if (obj.options.about === true) {
+                                alert(Version().print());
+                            } else {
+                                alert(obj.options.about);
+                            }
+                        }
+                    });
+                }
+
+                return items;
+            }
+        }
+
+        obj.scrollControls = function(e) {
+            obj.wheelControls();
+
+            if (obj.options.freezeColumns > 0 && obj.content.scrollLeft != scrollLeft) {
+                obj.updateFreezePosition();
+            }
+
+            // Close editor
+            if (obj.options.lazyLoading == true || obj.options.tableOverflow == true) {
+                if (obj.edition && e.target.className.substr(0,9) != 'jdropdown') {
+                    obj.closeEditor(obj.edition[0], true);
+                }
+            }
+        }
+
+        obj.wheelControls = function(e) {
+            if (obj.options.lazyLoading == true) {
+                if (jexcel.timeControlLoading == null) {
+                    jexcel.timeControlLoading = setTimeout(function() {
+                        if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight - 10) {
+                            if (obj.loadDown()) {
+                                if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
+                                    obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
+                                }
+                                obj.updateCornerPosition();
+                            }
+                        } else if (obj.content.scrollTop <= obj.content.clientHeight) {
+                            if (obj.loadUp()) {
+                                if (obj.content.scrollTop < 10) {
+                                    obj.content.scrollTop = obj.content.scrollTop + obj.content.clientHeight;
+                                }
+                                obj.updateCornerPosition();
+                            }
+                        }
+
+                        jexcel.timeControlLoading = null;
+                    }, 100);
+                }
+            }
+        }
+
+        // Get width of all freezed cells together
+        obj.getFreezeWidth = function() {
+            var width = 0;
+            if (obj.options.freezeColumns > 0) {
+                for (var i = 0; i < obj.options.freezeColumns; i++) {
+                    width += parseInt(obj.options.columns[i].width);
+                }
+            }
+            return width;
+        }
+
+        var scrollLeft = 0;
+
+        obj.updateFreezePosition = function() {
+            scrollLeft = obj.content.scrollLeft;
+            var width = 0;
+            if (scrollLeft > 50) {
+                for (var i = 0; i < obj.options.freezeColumns; i++) {
+                    if (i > 0) {
+                        // Must check if the previous column is hidden or not to determin whether the width shoule be added or not!
+                        if (obj.options.columns[i-1].type !== "hidden") {
+                            width += parseInt(obj.options.columns[i-1].width);
+                        }
+                    }
+                    obj.headers[i].classList.add('jexcel_freezed');
+                    obj.headers[i].style.left = width + 'px';
+                    for (var j = 0; j < obj.rows.length; j++) {
+                        if (obj.rows[j] && obj.records[j][i]) {
+                            var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0)) - 51 + 'px';
+                            obj.records[j][i].classList.add('jexcel_freezed');
+                            obj.records[j][i].style.left = shifted;
+                        }
+                    }
+                }
+            } else {
+                for (var i = 0; i < obj.options.freezeColumns; i++) {
+                    obj.headers[i].classList.remove('jexcel_freezed');
+                    obj.headers[i].style.left = '';
+                    for (var j = 0; j < obj.rows.length; j++) {
+                        if (obj.records[j][i]) {
+                            obj.records[j][i].classList.remove('jexcel_freezed');
+                            obj.records[j][i].style.left = '';
+                        }
+                    }
+                }
+            }
+
+            // Place the corner in the correct place
+            obj.updateCornerPosition();
+        }
+
+        el.addEventListener("DOMMouseScroll", obj.wheelControls);
+        el.addEventListener("mousewheel", obj.wheelControls);
+
+        el.jexcel = obj;
+        el.jspreadsheet = obj;
+
+        obj.init();
+
+        return obj;
+    });
+
+    // Define dictionary
+    jexcel.setDictionary = function(o) {
+        jSuites.setDictionary(o);
+    }
+
+    // Define extensions
+    jexcel.setExtensions = function(o) {
+        var k = Object.keys(o);
+        for (var i = 0; i < k.length; i++) {
+            if (typeof(o[k[i]]) === 'function') {
+                jexcel[k[i]] = o[k[i]];
+                if (jexcel.license && typeof(o[k[i]].license) == 'function') {
+                    o[k[i]].license(jexcel.license);
+                }
+            }
+        }
+    }
+
+    /**
+     * Formulas
+     */
+    if (typeof(formula) !== 'undefined') {
+        jexcel.formula = formula;
+    }
+    jexcel.version = Version;
+
+    jexcel.current = null;
+    jexcel.timeControl = null;
+    jexcel.timeControlLoading = null;
+
+    const destroyEvents = function(root) {
+        root.removeEventListener("mouseup", jexcel.mouseUpControls);
+        root.removeEventListener("mousedown", jexcel.mouseDownControls);
+        root.removeEventListener("mousemove", jexcel.mouseMoveControls);
+        root.removeEventListener("mouseover", jexcel.mouseOverControls);
+        root.removeEventListener("dblclick", jexcel.doubleClickControls);
+        root.removeEventListener("paste", jexcel.pasteControls);
+        root.removeEventListener("contextmenu", jexcel.contextMenuControls);
+        root.removeEventListener("touchstart", jexcel.touchStartControls);
+        root.removeEventListener("touchend", jexcel.touchEndControls);
+        root.removeEventListener("touchcancel", jexcel.touchEndControls);
+        document.removeEventListener("keydown", jexcel.keyDownControls);
+    }
+
+    jexcel.destroy = function(element, destroyEventHandlers) {
+        if (element.jexcel) {
+            var root = element.jexcel.options.root ? element.jexcel.options.root : document;
+            element.removeEventListener("DOMMouseScroll", element.jexcel.scrollControls);
+            element.removeEventListener("mousewheel", element.jexcel.scrollControls);
+            element.jexcel = null;
+            element.innerHTML = '';
+
+            if (destroyEventHandlers) {
+                destroyEvents(root);
+                jexcel = null;
+            }
+        }
+    }
+
+    jexcel.build = function(root) {
+        destroyEvents(root);
+        root.addEventListener("mouseup", jexcel.mouseUpControls);
+        root.addEventListener("mousedown", jexcel.mouseDownControls);
+        root.addEventListener("mousemove", jexcel.mouseMoveControls);
+        root.addEventListener("mouseover", jexcel.mouseOverControls);
+        root.addEventListener("dblclick", jexcel.doubleClickControls);
+        root.addEventListener("paste", jexcel.pasteControls);
+        root.addEventListener("contextmenu", jexcel.contextMenuControls);
+        root.addEventListener("touchstart", jexcel.touchStartControls);
+        root.addEventListener("touchend", jexcel.touchEndControls);
+        root.addEventListener("touchcancel", jexcel.touchEndControls);
+        root.addEventListener("touchmove", jexcel.touchEndControls);
+        document.addEventListener("keydown", jexcel.keyDownControls);
+    }
+
+    /**
+     * Events
+     */
+    jexcel.keyDownControls = function(e) {
+        if (jexcel.current) {
+            if (jexcel.current.edition) {
+                if (e.which == 27) {
+                    // Escape
+                    if (jexcel.current.edition) {
+                        // Exit without saving
+                        jexcel.current.closeEditor(jexcel.current.edition[0], false);
+                    }
+                    e.preventDefault();
+                } else if (e.which == 13) {
+                    // Enter
+                    if (jexcel.current.options.columns[jexcel.current.edition[2]].type == 'calendar') {
+                        jexcel.current.closeEditor(jexcel.current.edition[0], true);
+                    } else if (jexcel.current.options.columns[jexcel.current.edition[2]].type == 'dropdown' ||
+                               jexcel.current.options.columns[jexcel.current.edition[2]].type == 'autocomplete') {
+                        // Do nothing
+                    } else {
+                        // Alt enter -> do not close editor
+                        if ((jexcel.current.options.wordWrap == true ||
+                             jexcel.current.options.columns[jexcel.current.edition[2]].wordWrap == true ||
+                             jexcel.current.options.data[jexcel.current.edition[3]][jexcel.current.edition[2]].length > 200) && e.altKey) {
+                            // Add new line to the editor
+                            var editorTextarea = jexcel.current.edition[0].children[0];
+                            var editorValue = jexcel.current.edition[0].children[0].value;
+                            var editorIndexOf = editorTextarea.selectionStart;
+                            editorValue = editorValue.slice(0, editorIndexOf) + "\n" + editorValue.slice(editorIndexOf);
+                            editorTextarea.value = editorValue;
+                            editorTextarea.focus();
+                            editorTextarea.selectionStart = editorIndexOf + 1;
+                            editorTextarea.selectionEnd = editorIndexOf + 1;
+                        } else {
+                            jexcel.current.edition[0].children[0].blur();
+                        }
+                    }
+                } else if (e.which == 9) {
+                    // Tab
+                    if (['calendar', 'html'].includes(
+                    jexcel.current.options.columns[jexcel.current.edition[2]].type)) {
+                        jexcel.current.closeEditor(jexcel.current.edition[0], true);
+                    } else {
+                        jexcel.current.edition[0].children[0].blur();
+                    }
+                }
+            }
+
+            if (! jexcel.current.edition && jexcel.current.selectedCell) {
+                // Which key
+                if (e.which == 37) {
+                    jexcel.current.left(e.shiftKey, e.ctrlKey);
+                    e.preventDefault();
+                } else if (e.which == 39) {
+                    jexcel.current.right(e.shiftKey, e.ctrlKey);
+                    e.preventDefault();
+                } else if (e.which == 38) {
+                    jexcel.current.up(e.shiftKey, e.ctrlKey);
+                    e.preventDefault();
+                } else if (e.which == 40) {
+                    jexcel.current.down(e.shiftKey, e.ctrlKey);
+                    e.preventDefault();
+                } else if (e.which == 36) {
+                    jexcel.current.first(e.shiftKey, e.ctrlKey);
+                    e.preventDefault();
+                } else if (e.which == 35) {
+                    jexcel.current.last(e.shiftKey, e.ctrlKey);
+                    e.preventDefault();
+                } else if (e.which == 46) {
+                    // Delete
+                    if (jexcel.current.options.editable == true) {
+                        if (jexcel.current.selectedRow) {
+                            if (jexcel.current.options.allowDeleteRow == true) {
+                                if (confirm(jexcel.current.options.text.areYouSureToDeleteTheSelectedRows)) {
+                                    jexcel.current.deleteRow();
+                                }
+                            }
+                        } else if (jexcel.current.selectedHeader) {
+                            if (jexcel.current.options.allowDeleteColumn == true) {
+                                if (confirm(jexcel.current.options.text.areYouSureToDeleteTheSelectedColumns)) {
+                                    jexcel.current.deleteColumn();
+                                }
+                            }
+                        } else {
+                            // Change value
+                            jexcel.current.setValue(jexcel.current.highlighted, '');
+                        }
+                    }
+                } else if (e.which == 13) {
+                    // Move cursor
+                    if (e.shiftKey) {
+                        jexcel.current.up();
+                    } else {
+                        if (jexcel.current.options.allowInsertRow == true) {
+                            if (jexcel.current.options.allowManualInsertRow == true) {
+                                if (jexcel.current.selectedCell[1] == jexcel.current.options.data.length - 1) {
+                                    // New record in case selectedCell in the last row
+                                    jexcel.current.insertRow();
+                                }
+                            }
+                        }
+
+                        jexcel.current.down();
+                    }
+                    e.preventDefault();
+                } else if (e.which == 9) {
+                    // Tab
+                    if (e.shiftKey) {
+                        jexcel.current.left();
+                    } else {
+                        if (jexcel.current.options.allowInsertColumn == true) {
+                            if (jexcel.current.options.allowManualInsertColumn == true) {
+                                if (jexcel.current.selectedCell[0] == jexcel.current.options.data[0].length - 1) {
+                                    // New record in case selectedCell in the last column
+                                    jexcel.current.insertColumn();
+                                }
+                            }
+                        }
+
+                        jexcel.current.right();
+                    }
+                    e.preventDefault();
+                } else {
+                    if ((e.ctrlKey || e.metaKey) && ! e.shiftKey) {
+                        if (e.which == 65) {
+                            // Ctrl + A
+                            jexcel.current.selectAll();
+                            e.preventDefault();
+                        } else if (e.which == 83) {
+                            // Ctrl + S
+                            jexcel.current.download();
+                            e.preventDefault();
+                        } else if (e.which == 89) {
+                            // Ctrl + Y
+                            jexcel.current.redo();
+                            e.preventDefault();
+                        } else if (e.which == 90) {
+                            // Ctrl + Z
+                            jexcel.current.undo();
+                            e.preventDefault();
+                        } else if (e.which == 67) {
+                            // Ctrl + C
+                            jexcel.current.copy(true);
+                            e.preventDefault();
+                        } else if (e.which == 88) {
+                            // Ctrl + X
+                            if (jexcel.current.options.editable == true) {
+                                jexcel.cutControls();
+                            } else {
+                                jexcel.copyControls();
+                            }
+                            e.preventDefault();
+                        } else if (e.which == 86) {
+                            // Ctrl + V
+                            jexcel.pasteControls();
+                        }
+                    } else {
+                        if (jexcel.current.selectedCell) {
+                            if (jexcel.current.options.editable == true) {
+                                var rowId = jexcel.current.selectedCell[1];
+                                var columnId = jexcel.current.selectedCell[0];
+
+                                // If is not readonly
+                                if (jexcel.current.options.columns[columnId].type != 'readonly') {
+                                    // Characters able to start a edition
+                                    if (e.keyCode == 8) {
+                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                    } else if (e.keyCode == 32) {
+                                        // Space
+                                        e.preventDefault()
+                                        if (jspreadsheet.current.options.columns[columnId].type == 'checkbox' ||
+                                            jspreadsheet.current.options.columns[columnId].type == 'radio') {
+                                            jspreadsheet.current.setCheckRadioValue();
+                                        } else {
+                                            // Start edition
+                                            jspreadsheet.current.openEditor(jspreadsheet.current.records[rowId][columnId], true);
+                                        }
+                                    } else if (e.keyCode == 113) {
+                                        // Start edition with current content F2
+                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], false);
+                                    } else if (
+                                               (e.keyCode >= 48 && e.keyCode <= 57) ||
+                                               (e.keyCode >= 96 && e.keyCode <= 111) ||
+                                               (e.keyCode >= 187 && e.keyCode <= 190) ||
+                                               ((String.fromCharCode(e.keyCode) == e.key || String.fromCharCode(e.keyCode).toLowerCase() == e.key.toLowerCase()) && jexcel.validLetter(String.fromCharCode(e.keyCode)))) {
+                                        // Start edition
+                                        jexcel.current.openEditor(jexcel.current.records[rowId][columnId], true);
+                                        // Prevent entries in the calendar
+                                        if (jexcel.current.options.columns[columnId].type == 'calendar') {
+                                            e.preventDefault();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (e.target.classList.contains('jexcel_search')) {
+                    if (jexcel.timeControl) {
+                        clearTimeout(jexcel.timeControl);
+                    }
+
+                    jexcel.timeControl = setTimeout(function() {
+                        jexcel.current.search(e.target.value);
+                    }, 200);
+                }
+            }
+        }
+    }
+
+    jexcel.isMouseAction = false;
+
+    jexcel.mouseDownControls = function(e) {
+        e = e || window.event;
+        if (e.buttons) {
+            var mouseButton = e.buttons;
+        } else if (e.button) {
+            var mouseButton = e.button;
+        } else {
+            var mouseButton = e.which;
+        }
+
+        // Get elements
+        var jexcelTable = jexcel.getElement(e.target);
+
+        if (jexcelTable[0]) {
+            if (jexcel.current != jexcelTable[0].jexcel) {
+                if (jexcel.current) {
+                    if (jexcel.current.edition) {
+                        jexcel.current.closeEditor(jexcel.current.edition[0], true);
+                    }
+                    jexcel.current.resetSelection();
+                }
+                jexcel.current = jexcelTable[0].jexcel;
+            }
+        } else {
+            if (jexcel.current) {
+                if (jexcel.current.edition) {
+                    jexcel.current.closeEditor(jexcel.current.edition[0], true);
+                }
+
+                jexcel.current.resetSelection(true);
+                jexcel.current = null;
+            }
+        }
+
+        if (jexcel.current && mouseButton == 1) {
+            if (e.target.classList.contains('jexcel_selectall')) {
+                if (jexcel.current) {
+                    jexcel.current.selectAll();
+                }
+            } else if (e.target.classList.contains('jexcel_corner')) {
+                if (jexcel.current.options.editable == true) {
+                    jexcel.current.selectedCorner = true;
+                }
+            } else {
+                // Header found
+                if (jexcelTable[1] == 1) {
+                    var columnId = e.target.getAttribute('data-x');
+                    if (columnId) {
+                        // Update cursor
+                        var info = e.target.getBoundingClientRect();
+                        if (jexcel.current.options.columnResize == true && info.width - e.offsetX < 6) {
+                            // Resize helper
+                            jexcel.current.resizing = {
+                                mousePosition: e.pageX,
+                                column: columnId,
+                                width: info.width,
+                            };
+
+                            // Border indication
+                            jexcel.current.headers[columnId].classList.add('resizing');
+                            for (var j = 0; j < jexcel.current.records.length; j++) {
+                                if (jexcel.current.records[j][columnId]) {
+                                    jexcel.current.records[j][columnId].classList.add('resizing');
+                                }
+                            }
+                        } else if (jexcel.current.options.columnDrag == true && info.height - e.offsetY < 6) {
+                            if (jexcel.current.isColMerged(columnId).length) {
+                                console.error('Jspreadsheet: This column is part of a merged cell.');
+                            } else {
+                                // Reset selection
+                                jexcel.current.resetSelection();
+                                // Drag helper
+                                jexcel.current.dragging = {
+                                    element: e.target,
+                                    column: columnId,
+                                    destination: columnId,
+                                };
+                                // Border indication
+                                jexcel.current.headers[columnId].classList.add('dragging');
+                                for (var j = 0; j < jexcel.current.records.length; j++) {
+                                    if (jexcel.current.records[j][columnId]) {
+                                        jexcel.current.records[j][columnId].classList.add('dragging');
+                                    }
+                                }
+                            }
+                        } else {
+                            if (jexcel.current.selectedHeader && (e.shiftKey || e.ctrlKey)) {
+                                var o = jexcel.current.selectedHeader;
+                                var d = columnId;
+                            } else {
+                                // Press to rename
+                                if (jexcel.current.selectedHeader == columnId && jexcel.current.options.allowRenameColumn == true) {
+                                    jexcel.timeControl = setTimeout(function() {
+                                        jexcel.current.setHeader(columnId);
+                                    }, 800);
+                                }
+
+                                // Keep track of which header was selected first
+                                jexcel.current.selectedHeader = columnId;
+
+                                // Update selection single column
+                                var o = columnId;
+                                var d = columnId;
+                            }
+
+                            // Update selection
+                            jexcel.current.updateSelectionFromCoords(o, 0, d, jexcel.current.options.data.length - 1);
+                        }
+                    } else {
+                        if (e.target.parentNode.classList.contains('jexcel_nested')) {
+                            if (e.target.getAttribute('data-column')) {
+                                var column = e.target.getAttribute('data-column').split(',');
+                                var c1 = parseInt(column[0]);
+                                var c2 = parseInt(column[column.length-1]);
+                            } else {
+                                var c1 = 0;
+                                var c2 = jexcel.current.options.columns.length - 1;
+                            }
+                            jexcel.current.updateSelectionFromCoords(c1, 0, c2, jexcel.current.options.data.length - 1);
+                        }
+                    }
+                } else {
+                    jexcel.current.selectedHeader = false;
+                }
+
+                // Body found
+                if (jexcelTable[1] == 2) {
+                    var rowId = e.target.getAttribute('data-y');
+
+                    if (e.target.classList.contains('jexcel_row')) {
+                        var info = e.target.getBoundingClientRect();
+                        if (jexcel.current.options.rowResize == true && info.height - e.offsetY < 6) {
+                            // Resize helper
+                            jexcel.current.resizing = {
+                                element: e.target.parentNode,
+                                mousePosition: e.pageY,
+                                row: rowId,
+                                height: info.height,
+                            };
+                            // Border indication
+                            e.target.parentNode.classList.add('resizing');
+                        } else if (jexcel.current.options.rowDrag == true && info.width - e.offsetX < 6) {
+                            if (jexcel.current.isRowMerged(rowId).length) {
+                                console.error('Jspreadsheet: This row is part of a merged cell');
+                            } else if (jexcel.current.options.search == true && jexcel.current.results) {
+                                console.error('Jspreadsheet: Please clear your search before perform this action');
+                            } else {
+                                // Reset selection
+                                jexcel.current.resetSelection();
+                                // Drag helper
+                                jexcel.current.dragging = {
+                                    element: e.target.parentNode,
+                                    row:rowId,
+                                    destination:rowId,
+                                };
+                                // Border indication
+                                e.target.parentNode.classList.add('dragging');
+                            }
+                        } else {
+                            if (jexcel.current.selectedRow && (e.shiftKey || e.ctrlKey)) {
+                                var o = jexcel.current.selectedRow;
+                                var d = rowId;
+                            } else {
+                                // Keep track of which header was selected first
+                                jexcel.current.selectedRow = rowId;
+
+                                // Update selection single column
+                                var o = rowId;
+                                var d = rowId;
+                            }
+
+                            // Update selection
+                            jexcel.current.updateSelectionFromCoords(0, o, jexcel.current.options.data[0].length - 1, d);
+                        }
+                    } else {
+                        // Jclose
+                        if (e.target.classList.contains('jclose') && e.target.clientWidth - e.offsetX < 50 && e.offsetY < 50) {
+                            jexcel.current.closeEditor(jexcel.current.edition[0], true);
+                        } else {
+                            var getCellCoords = function(element) {
+                                var x = element.getAttribute('data-x');
+                                var y = element.getAttribute('data-y');
+                                if (x && y) {
+                                    return [x, y];
+                                } else {
+                                    if (element.parentNode) {
+                                        return getCellCoords(element.parentNode);
+                                    }
+                                }
+                            };
+
+                            var position = getCellCoords(e.target);
+                            if (position) {
+
+                                var columnId = position[0];
+                                var rowId = position[1];
+                                // Close edition
+                                if (jexcel.current.edition) {
+                                    if (jexcel.current.edition[2] != columnId || jexcel.current.edition[3] != rowId) {
+                                        jexcel.current.closeEditor(jexcel.current.edition[0], true);
+                                    }
+                                }
+
+                                if (! jexcel.current.edition) {
+                                    // Update cell selection
+                                    if (e.shiftKey) {
+                                        jexcel.current.updateSelectionFromCoords(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], columnId, rowId);
+                                    } else {
+                                        jexcel.current.updateSelectionFromCoords(columnId, rowId);
+                                    }
+                                }
+
+                                // No full row selected
+                                jexcel.current.selectedHeader = null;
+                                jexcel.current.selectedRow = null;
+                            }
+                        }
+                    }
+                } else {
+                    jexcel.current.selectedRow = false;
+                }
+
+                // Pagination
+                if (e.target.classList.contains('jexcel_page')) {
+                    if (e.target.textContent == '<') {
+                        jexcel.current.page(0);
+                    } else if (e.target.textContent == '>') {
+                        jexcel.current.page(e.target.getAttribute('title') - 1);
+                    } else {
+                        jexcel.current.page(e.target.textContent - 1);
+                    }
+                }
+            }
+
+            if (jexcel.current.edition) {
+                jexcel.isMouseAction = false;
+            } else {
+                jexcel.isMouseAction = true;
+            }
+        } else {
+            jexcel.isMouseAction = false;
+        }
+    }
+
+    jexcel.mouseUpControls = function(e) {
+        if (jexcel.current) {
+            // Update cell size
+            if (jexcel.current.resizing) {
+                // Columns to be updated
+                if (jexcel.current.resizing.column) {
+                    // New width
+                    var newWidth = jexcel.current.colgroup[jexcel.current.resizing.column].getAttribute('width');
+                    // Columns
+                    var columns = jexcel.current.getSelectedColumns();
+                    if (columns.length > 1) {
+                        var currentWidth = [];
+                        for (var i = 0; i < columns.length; i++) {
+                            currentWidth.push(parseInt(jexcel.current.colgroup[columns[i]].getAttribute('width')));
+                        }
+                        // Previous width
+                        var index = columns.indexOf(parseInt(jexcel.current.resizing.column));
+                        currentWidth[index] = jexcel.current.resizing.width;
+                        jexcel.current.setWidth(columns, newWidth, currentWidth);
+                    } else {
+                        jexcel.current.setWidth(jexcel.current.resizing.column, newWidth, jexcel.current.resizing.width);
+                    }
+                    // Remove border
+                    jexcel.current.headers[jexcel.current.resizing.column].classList.remove('resizing');
+                    for (var j = 0; j < jexcel.current.records.length; j++) {
+                        if (jexcel.current.records[j][jexcel.current.resizing.column]) {
+                            jexcel.current.records[j][jexcel.current.resizing.column].classList.remove('resizing');
+                        }
+                    }
+                } else {
+                    // Remove Class
+                    jexcel.current.rows[jexcel.current.resizing.row].children[0].classList.remove('resizing');
+                    var newHeight = jexcel.current.rows[jexcel.current.resizing.row].getAttribute('height');
+                    jexcel.current.setHeight(jexcel.current.resizing.row, newHeight, jexcel.current.resizing.height);
+                    // Remove border
+                    jexcel.current.resizing.element.classList.remove('resizing');
+                }
+                // Reset resizing helper
+                jexcel.current.resizing = null;
+            } else if (jexcel.current.dragging) {
+                // Reset dragging helper
+                if (jexcel.current.dragging) {
+                    if (jexcel.current.dragging.column) {
+                        // Target
+                        var columnId = e.target.getAttribute('data-x');
+                        // Remove move style
+                        jexcel.current.headers[jexcel.current.dragging.column].classList.remove('dragging');
+                        for (var j = 0; j < jexcel.current.rows.length; j++) {
+                            if (jexcel.current.records[j][jexcel.current.dragging.column]) {
+                                jexcel.current.records[j][jexcel.current.dragging.column].classList.remove('dragging');
+                            }
+                        }
+                        for (var i = 0; i < jexcel.current.headers.length; i++) {
+                            jexcel.current.headers[i].classList.remove('dragging-left');
+                            jexcel.current.headers[i].classList.remove('dragging-right');
+                        }
+                        // Update position
+                        if (columnId) {
+                            if (jexcel.current.dragging.column != jexcel.current.dragging.destination) {
+                                jexcel.current.moveColumn(jexcel.current.dragging.column, jexcel.current.dragging.destination);
+                            }
+                        }
+                    } else {
+                        if (jexcel.current.dragging.element.nextSibling) {
+                            var position = parseInt(jexcel.current.dragging.element.nextSibling.getAttribute('data-y'));
+                            if (jexcel.current.dragging.row < position) {
+                                position -= 1;
+                            }
+                        } else {
+                            var position = parseInt(jexcel.current.dragging.element.previousSibling.getAttribute('data-y'));
+                        }
+                        if (jexcel.current.dragging.row != jexcel.current.dragging.destination) {
+                            jexcel.current.moveRow(jexcel.current.dragging.row, position, true);
+                        }
+                        jexcel.current.dragging.element.classList.remove('dragging');
+                    }
+                    jexcel.current.dragging = null;
+                }
+            } else {
+                // Close any corner selection
+                if (jexcel.current.selectedCorner) {
+                    jexcel.current.selectedCorner = false;
+
+                    // Data to be copied
+                    if (jexcel.current.selection.length > 0) {
+                        // Copy data
+                        jexcel.current.copyData(jexcel.current.selection[0], jexcel.current.selection[jexcel.current.selection.length - 1]);
+
+                        // Remove selection
+                        jexcel.current.removeCopySelection();
+                    }
+                }
+            }
+        }
+
+        // Clear any time control
+        if (jexcel.timeControl) {
+            clearTimeout(jexcel.timeControl);
+            jexcel.timeControl = null;
+        }
+
+        // Mouse up
+        jexcel.isMouseAction = false;
+    }
+
+    // Mouse move controls
+    jexcel.mouseMoveControls = function(e) {
+        e = e || window.event;
+        if (e.buttons) {
+            var mouseButton = e.buttons;
+        } else if (e.button) {
+            var mouseButton = e.button;
+        } else {
+            var mouseButton = e.which;
+        }
+
+        if (! mouseButton) {
+            jexcel.isMouseAction = false;
+        }
+
+        if (jexcel.current) {
+            if (jexcel.isMouseAction == true) {
+                // Resizing is ongoing
+                if (jexcel.current.resizing) {
+                    if (jexcel.current.resizing.column) {
+                        var width = e.pageX - jexcel.current.resizing.mousePosition;
+
+                        if (jexcel.current.resizing.width + width > 0) {
+                            var tempWidth = jexcel.current.resizing.width + width;
+                            jexcel.current.colgroup[jexcel.current.resizing.column].setAttribute('width', tempWidth);
+
+                            jexcel.current.updateCornerPosition();
+                        }
+                    } else {
+                        var height = e.pageY - jexcel.current.resizing.mousePosition;
+
+                        if (jexcel.current.resizing.height + height > 0) {
+                            var tempHeight = jexcel.current.resizing.height + height;
+                            jexcel.current.rows[jexcel.current.resizing.row].setAttribute('height', tempHeight);
+
+                            jexcel.current.updateCornerPosition();
+                        }
+                    }
+                } else if (jexcel.current.dragging) {
+                    if (jexcel.current.dragging.column) {
+                        var columnId = e.target.getAttribute('data-x');
+                        if (columnId) {
+
+                            if (jexcel.current.isColMerged(columnId).length) {
+                                console.error('Jspreadsheet: This column is part of a merged cell.');
+                            } else {
+                                for (var i = 0; i < jexcel.current.headers.length; i++) {
+                                    jexcel.current.headers[i].classList.remove('dragging-left');
+                                    jexcel.current.headers[i].classList.remove('dragging-right');
+                                }
+
+                                if (jexcel.current.dragging.column == columnId) {
+                                    jexcel.current.dragging.destination = parseInt(columnId);
+                                } else {
+                                    if (e.target.clientWidth / 2 > e.offsetX) {
+                                        if (jexcel.current.dragging.column < columnId) {
+                                            jexcel.current.dragging.destination = parseInt(columnId) - 1;
+                                        } else {
+                                            jexcel.current.dragging.destination = parseInt(columnId);
+                                        }
+                                        jexcel.current.headers[columnId].classList.add('dragging-left');
+                                    } else {
+                                        if (jexcel.current.dragging.column < columnId) {
+                                            jexcel.current.dragging.destination = parseInt(columnId);
+                                        } else {
+                                            jexcel.current.dragging.destination = parseInt(columnId) + 1;
+                                        }
+                                        jexcel.current.headers[columnId].classList.add('dragging-right');
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        var rowId = e.target.getAttribute('data-y');
+                        if (rowId) {
+                            if (jexcel.current.isRowMerged(rowId).length) {
+                                console.error('Jspreadsheet: This row is part of a merged cell.');
+                            } else {
+                                var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
+                                if (jexcel.current.dragging.element != target) {
+                                    e.target.parentNode.parentNode.insertBefore(jexcel.current.dragging.element, target);
+                                    jexcel.current.dragging.destination = Array.prototype.indexOf.call(jexcel.current.dragging.element.parentNode.children, jexcel.current.dragging.element);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                var x = e.target.getAttribute('data-x');
+                var y = e.target.getAttribute('data-y');
+                var rect = e.target.getBoundingClientRect();
+
+                if (jexcel.current.cursor) {
+                    jexcel.current.cursor.style.cursor = '';
+                    jexcel.current.cursor = null;
+                }
+
+                if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
+                    if (e.target.parentNode.parentNode.classList.contains('resizable')) {
+                        if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'col-resize';
+                        } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'row-resize';
+                        }
+                    }
+
+                    if (e.target.parentNode.parentNode.classList.contains('draggable')) {
+                        if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'move';
+                        } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
+                            jexcel.current.cursor = e.target;
+                            jexcel.current.cursor.style.cursor = 'move';
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    jexcel.mouseOverControls = function(e) {
+        e = e || window.event;
+        if (e.buttons) {
+            var mouseButton = e.buttons;
+        } else if (e.button) {
+            var mouseButton = e.button;
+        } else {
+            var mouseButton = e.which;
+        }
+
+        if (! mouseButton) {
+            jexcel.isMouseAction = false;
+        }
+
+        if (jexcel.current && jexcel.isMouseAction == true) {
+            // Get elements
+            var jexcelTable = jexcel.getElement(e.target);
+
+            if (jexcelTable[0]) {
+                // Avoid cross reference
+                if (jexcel.current != jexcelTable[0].jexcel) {
+                    if (jexcel.current) {
+                        return false;
+                    }
+                }
+
+                var columnId = e.target.getAttribute('data-x');
+                var rowId = e.target.getAttribute('data-y');
+                if (jexcel.current.resizing || jexcel.current.dragging) {
+                } else {
+                    // Header found
+                    if (jexcelTable[1] == 1) {
+                        if (jexcel.current.selectedHeader) {
+                            var columnId = e.target.getAttribute('data-x');
+                            var o = jexcel.current.selectedHeader;
+                            var d = columnId;
+                            // Update selection
+                            jexcel.current.updateSelectionFromCoords(o, 0, d, jexcel.current.options.data.length - 1);
+                        }
+                    }
+
+                    // Body found
+                    if (jexcelTable[1] == 2) {
+                        if (e.target.classList.contains('jexcel_row')) {
+                            if (jexcel.current.selectedRow) {
+                                var o = jexcel.current.selectedRow;
+                                var d = rowId;
+                                // Update selection
+                                jexcel.current.updateSelectionFromCoords(0, o, jexcel.current.options.data[0].length - 1, d);
+                            }
+                        } else {
+                            // Do not select edtion is in progress
+                            if (! jexcel.current.edition) {
+                                if (columnId && rowId) {
+                                    if (jexcel.current.selectedCorner) {
+                                        jexcel.current.updateCopySelection(columnId, rowId);
+                                    } else {
+                                        if (jexcel.current.selectedCell) {
+                                            jexcel.current.updateSelectionFromCoords(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], columnId, rowId);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Clear any time control
+        if (jexcel.timeControl) {
+            clearTimeout(jexcel.timeControl);
+            jexcel.timeControl = null;
+        }
+    }
+
+    /**
+     * Double click event handler: controls the double click in the corner, cell edition or column re-ordering.
+     */
+    jexcel.doubleClickControls = function(e) {
+        // Jexcel is selected
+        if (jexcel.current) {
+            // Corner action
+            if (e.target.classList.contains('jexcel_corner')) {
+                // Any selected cells
+                if (jexcel.current.highlighted.length > 0) {
+                    // Copy from this
+                    var x1 = jexcel.current.highlighted[0].getAttribute('data-x');
+                    var y1 = parseInt(jexcel.current.highlighted[jexcel.current.highlighted.length - 1].getAttribute('data-y')) + 1;
+                    // Until this
+                    var x2 = jexcel.current.highlighted[jexcel.current.highlighted.length - 1].getAttribute('data-x');
+                    var y2 = jexcel.current.records.length - 1
+                    // Execute copy
+                    jexcel.current.copyData(jexcel.current.records[y1][x1], jexcel.current.records[y2][x2]);
+                }
+            } else if (e.target.classList.contains('jexcel_column_filter')) {
+                // Column
+                var columnId = e.target.getAttribute('data-x');
+                // Open filter
+                jexcel.current.openFilter(columnId);
+
+            } else {
+                // Get table
+                var jexcelTable = jexcel.getElement(e.target);
+
+                // Double click over header
+                if (jexcelTable[1] == 1 && jexcel.current.options.columnSorting == true) {
+                    // Check valid column header coords
+                    var columnId = e.target.getAttribute('data-x');
+                    if (columnId) {
+                        jexcel.current.orderBy(columnId);
+                    }
+                }
+
+                // Double click over body
+                if (jexcelTable[1] == 2 && jexcel.current.options.editable == true) {
+                    if (! jexcel.current.edition) {
+                        var getCellCoords = function(element) {
+                            if (element.parentNode) {
+                                var x = element.getAttribute('data-x');
+                                var y = element.getAttribute('data-y');
+                                if (x && y) {
+                                    return element;
+                                } else {
+                                    return getCellCoords(element.parentNode);
+                                }
+                            }
+                        }
+                        var cell = getCellCoords(e.target);
+                        if (cell && cell.classList.contains('highlight')) {
+                            jexcel.current.openEditor(cell);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    jexcel.copyControls = function(e) {
+        if (jexcel.current && jexcel.copyControls.enabled) {
+            if (! jexcel.current.edition) {
+                jexcel.current.copy(true);
+            }
+        }
+    }
+
+    jexcel.cutControls = function(e) {
+        if (jexcel.current) {
+            if (! jexcel.current.edition) {
+                jexcel.current.copy(true);
+                if (jexcel.current.options.editable == true) {
+                    jexcel.current.setValue(jexcel.current.highlighted, '');
+                }
+            }
+        }
+    }
+
+    jexcel.pasteControls = function(e) {
+        if (jexcel.current && jexcel.current.selectedCell) {
+            if (! jexcel.current.edition) {
+                if (jexcel.current.options.editable == true) {
+                    if (e && e.clipboardData) {
+                        jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], e.clipboardData.getData('text'));
+                        e.preventDefault();
+                    } else if (window.clipboardData) {
+                        jexcel.current.paste(jexcel.current.selectedCell[0], jexcel.current.selectedCell[1], window.clipboardData.getData('text'));
+                    }
+                }
+            }
+        }
+    }
+
+    jexcel.contextMenuControls = function(e) {
+        e = e || window.event;
+        if ("buttons" in e) {
+            var mouseButton = e.buttons;
+        } else {
+            var mouseButton = e.which || e.button;
+        }
+
+        if (jexcel.current) {
+            if (jexcel.current.edition) {
+                e.preventDefault();
+            } else if (jexcel.current.options.contextMenu) {
+                jexcel.current.contextMenu.contextmenu.close();
+
+                if (jexcel.current) {
+                    var x = e.target.getAttribute('data-x');
+                    var y = e.target.getAttribute('data-y');
+
+                    if (x || y) {
+                        if ((x < parseInt(jexcel.current.selectedCell[0])) || (x > parseInt(jexcel.current.selectedCell[2])) ||
+                            (y < parseInt(jexcel.current.selectedCell[1])) || (y > parseInt(jexcel.current.selectedCell[3])))
+                        {
+                            jexcel.current.updateSelectionFromCoords(x, y, x, y);
+                        }
+
+                        // Table found
+                        var items = jexcel.current.options.contextMenu(jexcel.current, x, y, e);
+                        // The id is depending on header and body
+                        jexcel.current.contextMenu.contextmenu.open(e, items);
+                        // Avoid the real one
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+    }
+
+    jexcel.touchStartControls = function(e) {
+        var jexcelTable = jexcel.getElement(e.target);
+
+        if (jexcelTable[0]) {
+            if (jexcel.current != jexcelTable[0].jexcel) {
+                if (jexcel.current) {
+                    jexcel.current.resetSelection();
+                }
+                jexcel.current = jexcelTable[0].jexcel;
+            }
+        } else {
+            if (jexcel.current) {
+                jexcel.current.resetSelection();
+                jexcel.current = null;
+            }
+        }
+
+        if (jexcel.current) {
+            if (! jexcel.current.edition) {
+                var columnId = e.target.getAttribute('data-x');
+                var rowId = e.target.getAttribute('data-y');
+
+                if (columnId && rowId) {
+                    jexcel.current.updateSelectionFromCoords(columnId, rowId);
+
+                    jexcel.timeControl = setTimeout(function() {
+                        // Keep temporary reference to the element
+                        if (jexcel.current.options.columns[columnId].type == 'color') {
+                            jexcel.tmpElement = null;
+                        } else {
+                            jexcel.tmpElement = e.target;
+                        }
+                        jexcel.current.openEditor(e.target, false, e);
+                    }, 500);
+                }
+            }
+        }
+    }
+
+    jexcel.touchEndControls = function(e) {
+        // Clear any time control
+        if (jexcel.timeControl) {
+            clearTimeout(jexcel.timeControl);
+            jexcel.timeControl = null;
+            // Element
+            if (jexcel.tmpElement && jexcel.tmpElement.children[0].tagName == 'INPUT') {
+                jexcel.tmpElement.children[0].focus();
+            }
+            jexcel.tmpElement = null;
+        }
+    }
+
+    /**
+     * Jexcel extensions
+     */
+
+    jexcel.tabs = function(tabs, result) {
+        var instances = [];
+        // Create tab container
+        if (! tabs.classList.contains('jexcel_tabs')) {
+            tabs.innerHTML = '';
+            tabs.classList.add('jexcel_tabs')
+            tabs.jexcel = [];
+
+            var div = document.createElement('div');
+            var headers = tabs.appendChild(div);
+            var div = document.createElement('div');
+            var content = tabs.appendChild(div);
+        } else {
+            var headers = tabs.children[0];
+            var content = tabs.children[1];
+        }
+
+        var spreadsheet = []
+        var link = [];
+        for (var i = 0; i < result.length; i++) {
+            // Spreadsheet container
+            spreadsheet[i] = document.createElement('div');
+            spreadsheet[i].classList.add('jexcel_tab');
+            var worksheet = jexcel(spreadsheet[i], result[i]);
+            content.appendChild(spreadsheet[i]);
+            instances[i] = tabs.jexcel.push(worksheet);
+
+            // Tab link
+            link[i] = document.createElement('div');
+            link[i].classList.add('jexcel_tab_link');
+            link[i].setAttribute('data-spreadsheet', tabs.jexcel.length-1);
+            link[i].innerHTML = result[i].sheetName;
+            link[i].onclick = function() {
+                for (var j = 0; j < headers.children.length; j++) {
+                    headers.children[j].classList.remove('selected');
+                    content.children[j].style.display = 'none';
+                }
+                var i = this.getAttribute('data-spreadsheet');
+                content.children[i].style.display = 'block';
+                headers.children[i].classList.add('selected')
+            }
+            headers.appendChild(link[i]);
+        }
+
+        // First tab
+        for (var j = 0; j < headers.children.length; j++) {
+            headers.children[j].classList.remove('selected');
+            content.children[j].style.display = 'none';
+        }
+        headers.children[headers.children.length - 1].classList.add('selected');
+        content.children[headers.children.length - 1].style.display = 'block';
+
+        return instances;
+    }
+
+    // Compability to older versions
+    jexcel.createTabs = jexcel.tabs;
+
+    jexcel.fromSpreadsheet = function(file, __callback) {
+        var convert = function(workbook) {
+            var spreadsheets = [];
+            workbook.SheetNames.forEach(function(sheetName) {
+                var spreadsheet = {};
+                spreadsheet.rows = [];
+                spreadsheet.columns = [];
+                spreadsheet.data = [];
+                spreadsheet.style = {};
+                spreadsheet.sheetName = sheetName;
+
+                // Column widths
+                var temp = workbook.Sheets[sheetName]['!cols'];
+                if (temp && temp.length) {
+                    for (var i = 0; i < temp.length; i++) {
+                        spreadsheet.columns[i] = {};
+                        if (temp[i] && temp[i].wpx) {
+                            spreadsheet.columns[i].width = temp[i].wpx + 'px';
+                        }
+                     }
+                }
+                // Rows heights
+                var temp = workbook.Sheets[sheetName]['!rows'];
+                if (temp && temp.length) {
+                    for (var i = 0; i < temp.length; i++) {
+                        if (temp[i] && temp[i].hpx) {
+                            spreadsheet.rows[i] = {};
+                            spreadsheet.rows[i].height = temp[i].hpx + 'px';
+                        }
+                    }
+                }
+                // Merge cells
+                var temp = workbook.Sheets[sheetName]['!merges'];
+                if (temp && temp.length > 0) {
+                    spreadsheet.mergeCells = [];
+                    for (var i = 0; i < temp.length; i++) {
+                        var x1 = temp[i].s.c;
+                        var y1 = temp[i].s.r;
+                        var x2 = temp[i].e.c;
+                        var y2 = temp[i].e.r;
+                        var key = jexcel.getColumnNameFromId([x1,y1]);
+                        spreadsheet.mergeCells[key] = [ x2-x1+1, y2-y1+1 ];
+                    }
+                }
+                // Data container
+                var max_x = 0;
+                var max_y = 0;
+                var temp = Object.keys(workbook.Sheets[sheetName]);
+                for (var i = 0; i < temp.length; i++) {
+                    if (temp[i].substr(0,1) != '!') {
+                        var cell = workbook.Sheets[sheetName][temp[i]];
+                        var info = jexcel.getIdFromColumnName(temp[i], true);
+                        if (! spreadsheet.data[info[1]]) {
+                            spreadsheet.data[info[1]] = [];
+                        }
+                        spreadsheet.data[info[1]][info[0]] = cell.f ? '=' + cell.f : cell.w;
+                        if (max_x < info[0]) {
+                            max_x = info[0];
+                        }
+                        if (max_y < info[1]) {
+                            max_y = info[1];
+                        }
+                        // Style
+                        if (cell.style && Object.keys(cell.style).length > 0) {
+                            spreadsheet.style[temp[i]] = cell.style;
+                        }
+                        if (cell.s && cell.s.fgColor) {
+                            if (spreadsheet.style[temp[i]]) {
+                                spreadsheet.style[temp[i]] += ';';
+                            }
+                            spreadsheet.style[temp[i]] += 'background-color:#' + cell.s.fgColor.rgb;
+                        }
+                    }
+                }
+                var numColumns = spreadsheet.columns;
+                for (var j = 0; j <= max_y; j++) {
+                    for (var i = 0; i <= max_x; i++) {
+                        if (! spreadsheet.data[j]) {
+                            spreadsheet.data[j] = [];
+                        }
+                        if (! spreadsheet.data[j][i]) {
+                            if (numColumns < i) {
+                                spreadsheet.data[j][i] = '';
+                            }
+                        }
+                    }
+                }
+                spreadsheets.push(spreadsheet);
+            });
+
+            return spreadsheets;
+        }
+
+        var oReq;
+        oReq = new XMLHttpRequest();
+        oReq.open("GET", file, true);
+
+        if(typeof Uint8Array !== 'undefined') {
+            oReq.responseType = "arraybuffer";
+            oReq.onload = function(e) {
+                var arraybuffer = oReq.response;
+                var data = new Uint8Array(arraybuffer);
+                var wb = XLSX.read(data, {type:"array", cellFormula:true, cellStyles:true });
+                __callback(convert(wb))
+            };
+        } else {
+            oReq.setRequestHeader("Accept-Charset", "x-user-defined");
+            oReq.onreadystatechange = function() { if(oReq.readyState == 4 && oReq.status == 200) {
+                var ff = convertResponseBodyToText(oReq.responseBody);
+                var wb = XLSX.read(ff, {type:"binary", cellFormula:true, cellStyles:true });
+                __callback(convert(wb))
+            }};
+        }
+
+        oReq.send();
+    }
+
+    /**
+     * Valid international letter
+     */
+
+    jexcel.validLetter = function (text) {
+        var regex = /([\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u08A0\u08A2-\u08AC\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097F\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C3D\u0C58\u0C59\u0C60\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D60\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191C\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19C1-\u19C7\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2183\u2184\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005\u3006\u3031-\u3035\u303B\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312D\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FCC\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA697\uA6A0-\uA6E5\uA717-\uA71F\uA722-\uA788\uA78B-\uA78E\uA790-\uA793\uA7A0-\uA7AA\uA7F8-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA80-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uABC0-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC-\u0400-\u04FF']+)/g;
+        return text.match(regex) ? 1 : 0;
+    }
+
+    /**
+     * Helper injectArray
+     */
+    jexcel.injectArray = function(o, idx, arr) {
+        return o.slice(0, idx).concat(arr).concat(o.slice(idx));
+    }
+
+    /**
+     * Get letter based on a number
+     *
+     * @param integer i
+     * @return string letter
+     */
+    jexcel.getColumnName = function(i) {
+        var letter = '';
+        if (i > 701) {
+            letter += String.fromCharCode(64 + parseInt(i / 676));
+            letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
+        } else if (i > 25) {
+            letter += String.fromCharCode(64 + parseInt(i / 26));
+        }
+        letter += String.fromCharCode(65 + (i % 26));
+
+        return letter;
+    }
+
+    /**
+     * Convert excel like column to jexcel id
+     *
+     * @param string id
+     * @return string id
+     */
+    jexcel.getIdFromColumnName = function (id, arr) {
+        // Get the letters
+        var t = /^[a-zA-Z]+/.exec(id);
+
+        if (t) {
+            // Base 26 calculation
+            var code = 0;
+            for (var i = 0; i < t[0].length; i++) {
+                code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+            }
+            code--;
+            // Make sure jexcel starts on zero
+            if (code < 0) {
+                code = 0;
+            }
+
+            // Number
+            var number = parseInt(/[0-9]+$/.exec(id));
+            if (number > 0) {
+                number--;
+            }
+
+            if (arr == true) {
+                id = [ code, number ];
+            } else {
+                id = code + '-' + number;
+            }
+        }
+
+        return id;
+    }
+
+    /**
+     * Convert jexcel id to excel like column name
+     *
+     * @param string id
+     * @return string id
+     */
+    jexcel.getColumnNameFromId = function (cellId) {
+        if (! Array.isArray(cellId)) {
+            cellId = cellId.split('-');
+        }
+
+        return jexcel.getColumnName(parseInt(cellId[0])) + (parseInt(cellId[1]) + 1);
+    }
+
+    /**
+     * Verify element inside jexcel table
+     *
+     * @param string id
+     * @return string id
+     */
+    jexcel.getElement = function(element) {
+        var jexcelSection = 0;
+        var jexcelElement = 0;
+
+        function path (element) {
+            if (element.className) {
+                if (element.classList.contains('jexcel_container')) {
+                    jexcelElement = element;
+                }
+            }
+
+            if (element.tagName == 'THEAD') {
+                jexcelSection = 1;
+            } else if (element.tagName == 'TBODY') {
+                jexcelSection = 2;
+            }
+
+            if (element.parentNode) {
+                if (! jexcelElement) {
+                    path(element.parentNode);
+                }
+            }
+        }
+
+        path(element);
+
+        return [ jexcelElement, jexcelSection ];
+    }
+
+    jexcel.doubleDigitFormat = function(v) {
+        v = ''+v;
+        if (v.length == 1) {
+            v = '0'+v;
+        }
+        return v;
+    }
+
+    jexcel.createFromTable = function(el, options) {
+        if (el.tagName != 'TABLE') {
+            console.log('Element is not a table');
+        } else {
+            // Configuration
+            if (! options) {
+                options = {};
+            }
+            options.columns = [];
+            options.data = [];
+
+            // Colgroup
+            var colgroup = el.querySelectorAll('colgroup > col');
+            if (colgroup.length) {
+                // Get column width
+                for (var i = 0; i < colgroup.length; i++) {
+                    var width = colgroup[i].style.width;
+                    if (! width) {
+                        var width = colgroup[i].getAttribute('width');
+                    }
+                    // Set column width
+                    if (width) {
+                        if (! options.columns[i]) {
+                            options.columns[i] = {}
+                        }
+                        options.columns[i].width = width;
+                    }
+                }
+            }
+
+            // Parse header
+            var parseHeader = function(header) {
+                // Get width information
+                var info = header.getBoundingClientRect();
+                var width = info.width > 50 ? info.width : 50;
+
+                // Create column option
+                if (! options.columns[i]) {
+                    options.columns[i] = {};
+                }
+                if (header.getAttribute('data-celltype')) {
+                    options.columns[i].type = header.getAttribute('data-celltype');
+                } else {
+                    options.columns[i].type = 'text';
+                }
+                options.columns[i].width = width + 'px';
+                options.columns[i].title = header.innerHTML;
+                options.columns[i].align = header.style.textAlign || 'center';
+
+                if (info = header.getAttribute('name')) {
+                    options.columns[i].name = info;
+                }
+                if (info = header.getAttribute('id')) {
+                    options.columns[i].id = info;
+                }
+                if (info = header.getAttribute('data-mask')) {
+                    options.columns[i].mask = info;
+                }
+            }
+
+            // Headers
+            var nested = [];
+            var headers = el.querySelectorAll(':scope > thead > tr');
+            if (headers.length) {
+                for (var j = 0; j < headers.length - 1; j++) {
+                    var cells = [];
+                    for (var i = 0; i < headers[j].children.length; i++) {
+                        var row = {
+                            title: headers[j].children[i].textContent,
+                            colspan: headers[j].children[i].getAttribute('colspan') || 1,
+                        };
+                        cells.push(row);
+                    }
+                    nested.push(cells);
+                }
+                // Get the last row in the thead
+                headers = headers[headers.length-1].children;
+                // Go though the headers
+                for (var i = 0; i < headers.length; i++) {
+                    parseHeader(headers[i]);
+                }
+            }
+
+            // Content
+            var rowNumber = 0;
+            var mergeCells = {};
+            var rows = {};
+            var style = {};
+            var classes = {};
+
+            var content = el.querySelectorAll(':scope > tr, :scope > tbody > tr');
+            for (var j = 0; j < content.length; j++) {
+                options.data[rowNumber] = [];
+                if (options.parseTableFirstRowAsHeader == true && ! headers.length && j == 0) {
+                    for (var i = 0; i < content[j].children.length; i++) {
+                        parseHeader(content[j].children[i]);
+                    }
+                } else {
+                    for (var i = 0; i < content[j].children.length; i++) {
+                        // WickedGrid formula compatibility
+                        var value = content[j].children[i].getAttribute('data-formula');
+                        if (value) {
+                            if (value.substr(0,1) != '=') {
+                                value = '=' + value;
+                            }
+                        } else {
+                            var value = content[j].children[i].innerHTML;
+                        }
+                        options.data[rowNumber].push(value);
+
+                        // Key
+                        var cellName = jexcel.getColumnNameFromId([ i, j ]);
+
+                        // Classes
+                        var tmp = content[j].children[i].getAttribute('class');
+                        if (tmp) {
+                            classes[cellName] = tmp;
+                        }
+
+                        // Merged cells
+                        var mergedColspan = parseInt(content[j].children[i].getAttribute('colspan')) || 0;
+                        var mergedRowspan = parseInt(content[j].children[i].getAttribute('rowspan')) || 0;
+                        if (mergedColspan || mergedRowspan) {
+                            mergeCells[cellName] = [ mergedColspan || 1, mergedRowspan || 1 ];
+                        }
+
+                        // Avoid problems with hidden cells
+                        if (s = content[j].children[i].style && content[j].children[i].style.display == 'none') {
+                            content[j].children[i].style.display = '';
+                        }
+                        // Get style
+                        var s = content[j].children[i].getAttribute('style');
+                        if (s) {
+                            style[cellName] = s;
+                        }
+                        // Bold
+                        if (content[j].children[i].classList.contains('styleBold')) {
+                            if (style[cellName]) {
+                                style[cellName] += '; font-weight:bold;';
+                            } else {
+                                style[cellName] = 'font-weight:bold;';
+                            }
+                        }
+                    }
+
+                    // Row Height
+                    if (content[j].style && content[j].style.height) {
+                        rows[j] = { height: content[j].style.height };
+                    }
+
+                    // Index
+                    rowNumber++;
+                }
+            }
+
+            // Nested
+            if (Object.keys(nested).length > 0) {
+                options.nestedHeaders = nested;
+            }
+            // Style
+            if (Object.keys(style).length > 0) {
+                options.style = style;
+            }
+            // Merged
+            if (Object.keys(mergeCells).length > 0) {
+                options.mergeCells = mergeCells;
+            }
+            // Row height
+            if (Object.keys(rows).length > 0) {
+                options.rows = rows;
+            }
+            // Classes
+            if (Object.keys(classes).length > 0) {
+                options.classes = classes;
+            }
+
+            var content = el.querySelectorAll('tfoot tr');
+            if (content.length) {
+                var footers = [];
+                for (var j = 0; j < content.length; j++) {
+                    var footer = [];
+                    for (var i = 0; i < content[j].children.length; i++) {
+                        footer.push(content[j].children[i].textContent);
+                    }
+                    footers.push(footer);
+                }
+                if (Object.keys(footers).length > 0) {
+                    options.footers = footers;
+                }
+            }
+            // TODO: data-hiddencolumns="3,4"
+
+            // I guess in terms the better column type
+            if (options.parseTableAutoCellType == true) {
+                var pattern = [];
+                for (var i = 0; i < options.columns.length; i++) {
+                    var test = true;
+                    var testCalendar = true;
+                    pattern[i] = [];
+                    for (var j = 0; j < options.data.length; j++) {
+                        var value = options.data[j][i];
+                        if (! pattern[i][value]) {
+                            pattern[i][value] = 0;
+                        }
+                        pattern[i][value]++;
+                        if (value.length > 25) {
+                            test = false;
+                        }
+                        if (value.length == 10) {
+                            if (! (value.substr(4,1) == '-' && value.substr(7,1) == '-')) {
+                                testCalendar = false;
+                            }
+                        } else {
+                            testCalendar = false;
+                        }
+                    }
+
+                    var keys = Object.keys(pattern[i]).length;
+                    if (testCalendar) {
+                        options.columns[i].type = 'calendar';
+                    } else if (test == true && keys > 1 && keys <= parseInt(options.data.length * 0.1)) {
+                        options.columns[i].type = 'dropdown';
+                        options.columns[i].source = Object.keys(pattern[i]);
+                    }
+                }
+            }
+
+            return options;
+        }
+    }
+
+    // Helpers
+    jexcel.helpers = (function() {
+        var component = {};
+
+        /**
+         * Get carret position for one element
+         */
+        component.getCaretIndex = function(e) {
+            if (this.config.root) {
+                var d = this.config.root;
+            } else {
+                var d = window;
+            }
+            var pos = 0;
+            var s = d.getSelection();
+            if (s) {
+                if (s.rangeCount !== 0) {
+                    var r = s.getRangeAt(0);
+                    var p = r.cloneRange();
+                    p.selectNodeContents(e);
+                    p.setEnd(r.endContainer, r.endOffset);
+                    pos = p.toString().length;
+                }
+            }
+            return pos;
+        }
+
+        /**
+         * Invert keys and values
+         */
+        component.invert = function(o) {
+            var d = [];
+            var k = Object.keys(o);
+            for (var i = 0; i < k.length; i++) {
+                d[o[k[i]]] = k[i];
+            }
+            return d;
+        }
+
+        /**
+         * Get letter based on a number
+         *
+         * @param integer i
+         * @return string letter
+         */
+        component.getColumnName = function(i) {
+            var letter = '';
+            if (i > 701) {
+                letter += String.fromCharCode(64 + parseInt(i / 676));
+                letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
+            } else if (i > 25) {
+                letter += String.fromCharCode(64 + parseInt(i / 26));
+            }
+            letter += String.fromCharCode(65 + (i % 26));
+
+            return letter;
+        }
+
+        /**
+         * Get column name from coords
+         */
+        component.getColumnNameFromCoords = function(x, y) {
+            return component.getColumnName(parseInt(x)) + (parseInt(y) + 1);
+        }
+
+        component.getCoordsFromColumnName = function(columnName) {
+            // Get the letters
+            var t = /^[a-zA-Z]+/.exec(columnName);
+
+            if (t) {
+                // Base 26 calculation
+                var code = 0;
+                for (var i = 0; i < t[0].length; i++) {
+                    code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+                }
+                code--;
+                // Make sure jspreadsheet starts on zero
+                if (code < 0) {
+                    code = 0;
+                }
+
+                // Number
+                var number = parseInt(/[0-9]+$/.exec(columnName)) || null;
+                if (number > 0) {
+                    number--;
+                }
+
+                return [ code, number ];
+            }
+        }
+
+        /**
+         * Extract json configuration from a TABLE DOM tag
+         */
+        component.createFromTable = function() {}
+
+        /**
+         * Helper injectArray
+         */
+        component.injectArray = function(o, idx, arr) {
+            return o.slice(0, idx).concat(arr).concat(o.slice(idx));
+        }
+
+        /**
+         * Parse CSV string to JS array
+         */
+        component.parseCSV = function(str, delimiter) {
+            // user-supplied delimeter or default comma
+            delimiter = (delimiter || ",");
+
+            // Final data
+            var col = 0;
+            var row = 0;
+            var num = 0;
+            var data = [[]];
+            var limit = 0;
+            var flag = null;
+            var inside = false;
+            var closed = false;
+
+            // Go over all chars
+            for (var i = 0; i < str.length; i++) {
+                // Create new row
+                if (! data[row]) {
+                    data[row] = [];
+                }
+                // Create new column
+                if (! data[row][col]) {
+                    data[row][col] = '';
+                }
+
+                // Ignore
+                if (str[i] == '\r') {
+                    continue;
+                }
+
+                // New row
+                if ((str[i] == '\n' || str[i] == delimiter) && (inside == false || closed == true || ! flag)) {
+                    // Restart flags
+                    flag = null;
+                    inside = false;
+                    closed = false;
+
+                    if (data[row][col][0] == '"') {
+                        var val = data[row][col].trim();
+                        if (val[val.length-1] == '"') {
+                            data[row][col] = val.substr(1, val.length-2);
+                        }
+                    }
+
+                    // Go to the next cell
+                    if (str[i] == '\n') {
+                        // New line
+                        col = 0;
+                        row++;
+                    } else {
+                        // New column
+                        col++;
+                        if (col > limit) {
+                            // Keep the reference of max column
+                            limit = col;
+                        }
+                    }
+                } else {
+                    // Inside quotes
+                    if (str[i] == '"') {
+                        inside = ! inside;
+                    }
+
+                    if (flag === null) {
+                        flag = inside;
+                        if (flag == true) {
+                            continue;
+                        }
+                    } else if (flag === true && ! closed) {
+                        if (str[i] == '"') {
+                            if (str[i+1] == '"') {
+                                inside = true;
+                                data[row][col] += str[i];
+                                i++;
+                            } else {
+                                closed = true;
+                            }
+                            continue;
+                        }
+                    }
+
+                    data[row][col] += str[i];
+                }
+            }
+
+            // Make sure a square matrix is generated
+            for (var j = 0; j < data.length; j++) {
+                for (var i = 0; i <= limit; i++) {
+                    if (data[j][i] === undefined) {
+                        data[j][i] = '';
+                    }
+                }
+            }
+
+            return data;
+        }
+
+        return component;
+    })();
+
+    /**
+     * Jquery Support
+     */
+    if (typeof(jQuery) != 'undefined') {
+        (function($){
+            $.fn.jspreadsheet = $.fn.jexcel = function(mixed) {
+                var spreadsheetContainer = $(this).get(0);
+                if (! spreadsheetContainer.jexcel) {
+                    return jexcel($(this).get(0), arguments[0]);
+                } else {
+                    if (Array.isArray(spreadsheetContainer.jexcel)) {
+                        return spreadsheetContainer.jexcel[mixed][arguments[1]].apply(this, Array.prototype.slice.call( arguments, 2 ));
+                    } else {
+                        return spreadsheetContainer.jexcel[mixed].apply(this, Array.prototype.slice.call( arguments, 1 ));
+                    }
+                }
+            };
+
+        })(jQuery);
+    }
+
+    return jexcel;
+})));
