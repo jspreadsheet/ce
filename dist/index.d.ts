@@ -247,11 +247,10 @@ declare namespace jspreadsheet {
     k?: string;
 
     /** Tooltip shown when hovering over this option. */
-    tooltip?: string;
+    tooltip?: "string";
   }
 
   interface ToolbarIconItem extends ToolbarItemBase {
-    id: string;
     type: "i";
 
     /** Defines the icon (from material icons). */
@@ -272,9 +271,6 @@ declare namespace jspreadsheet {
 
     /** Select tag onchange event. */
     onchange?: (event: Event) => void;
-
-    /** Initial value of the selectbox. */
-    selectedValue?: string;
   }
 
   interface ToolbarColorItem extends ToolbarItemBase {
@@ -287,7 +283,6 @@ declare namespace jspreadsheet {
   type ToolbarItem = ToolbarIconItem | ToolbarSelectItem | ToolbarColorItem;
 
   interface NestedHeaderCell {
-    id?: string,
     colspan?: number;
     title?: string;
     align?: string;
