@@ -108,7 +108,7 @@ declare namespace jspreadsheet {
     closeEditor?: (
       cell: HTMLTableCellElement,
       save: boolean
-    ) => CellValue | undefined;
+    ) => Promise<CellValue | undefined> | CellValue | undefined;
 
     /**
      * Event called when creating new cells.
@@ -143,7 +143,7 @@ declare namespace jspreadsheet {
       cell: HTMLTableCellElement,
       value: CellValue | undefined,
       force: boolean | undefined
-    ) => CellValue | undefined;
+    ) => Promise<CellValue | undefined> | CellValue | undefined;
   }
 
   type HorizontalAlign = "center" | "left" | "right" | "justify";
@@ -774,7 +774,7 @@ declare namespace jspreadsheet {
       colIndex: string | number,
       rowIndex: string | number,
       newValue: CellValue
-    ) => undefined | CellValue;
+    ) => Promise<CellValue | undefined> | undefined | CellValue;
 
     /**
      * Occurs before a column is excluded. If this method returns false, the removal will be canceled.
@@ -786,7 +786,7 @@ declare namespace jspreadsheet {
       element: JspreadsheetInstanceElement,
       colIndex: number,
       numOfColumns: number
-    ) => undefined | boolean;
+    ) => Promise<boolean | undefined> | undefined | boolean;
 
     /**
      * Occurs before a row is deleted. If this method returns false, the removal will be canceled.
@@ -798,7 +798,7 @@ declare namespace jspreadsheet {
       element: JspreadsheetInstanceElement,
       rowIndex: number,
       numOfRows: number
-    ) => undefined | boolean;
+    ) => Promise<boolean | undefined> | undefined | boolean;
 
     /**
      * Occurs before a new column is inserted. If this method returns false, the insertion will be canceled.
@@ -812,7 +812,7 @@ declare namespace jspreadsheet {
       colIndex: number,
       numOfColumns: number,
       insertBefore: boolean
-    ) => undefined | boolean;
+    ) => Promise<boolean | undefined> | undefined | boolean;
 
     /**
      * Occurs before a new row is inserted. If this method returns false, the insertion will be canceled.
@@ -826,7 +826,7 @@ declare namespace jspreadsheet {
       rowIndex: number,
       numOfRows: number,
       insertBefore: boolean
-    ) => undefined | boolean;
+    ) => Promise<boolean | undefined> | undefined | boolean;
 
     /**
      * Occurs before the paste action is performed.
@@ -844,7 +844,7 @@ declare namespace jspreadsheet {
       copiedText: string,
       colIndex: number | string,
       rowIndex: number | string
-    ) => undefined | boolean | string;
+    ) => Promise<boolean | string | undefined> | undefined | boolean | string;
 
     /**
      * Occurs before persisting any changes to the server.
@@ -861,7 +861,7 @@ declare namespace jspreadsheet {
       element: JspreadsheetInstanceElement,
       jssInstance: JspreadsheetInstance,
       data: { row: number; data: Record<number, CellValue> }[]
-    ) => any;
+    ) => Promise<any> | any;
 
     /**
      * Occurs when the table is blurred.
@@ -1058,7 +1058,7 @@ declare namespace jspreadsheet {
      * @param event - Name of the event that was called.
      * @param rest - Arguments of the event that was called.
      */
-    onevent?: (event: string, ...rest: any[]) => any;
+    onevent?: (event: string, ...rest: any[]) => Promise<any> | any;
 
     /**
      * Occurs when the table is focused.
@@ -2512,7 +2512,7 @@ declare namespace jspreadsheet {
           )[],
       value?: CellValue,
       force?: boolean
-    ) => void;
+    ) => Promise<boolean>;
 
     /**
      * Set a cell value based on its coordinates.
