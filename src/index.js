@@ -1,11 +1,15 @@
 /**
- * Jspreadsheet v4.13.2
+ * Jspreadsheet v4.2.0
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
  *
- * This software is distribute under MIT License
+ * This software is distributed under MIT License
  */
+
+if (! jSuites && typeof(require) === 'function') {
+    var jSuites = require('jsuites');
+}
 
 if (! formula && typeof(require) === 'function') {
     var formula = require('@jspreadsheet/formula');
@@ -24,7 +28,7 @@ if (! formula && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.13.2',
+            version: '4.2.0',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -7508,12 +7512,6 @@ if (! formula && typeof(require) === 'function') {
                 } else if (e.which == 38) {
                     jexcel.current.up(e.shiftKey, e.ctrlKey);
                     e.preventDefault();
-                } else if (e.altKey && e.which == 40) {
-                    var e2 = {
-                        target : jexcel.current.getCellFromCoords(jexcel.current.selectedCell[0],jexcel.current.selectedCell[1])
-                    }
-                    jexcel.doubleClickControls(e2)
-                    e.preventDefault();
                 } else if (e.which == 40) {
                     jexcel.current.down(e.shiftKey, e.ctrlKey);
                     e.preventDefault();
@@ -8596,21 +8594,11 @@ if (! formula && typeof(require) === 'function') {
     /**
      * Get letter based on a number
      *
-     * @param integer i
+     * @param {number} columnNumber
      * @return string letter
      */
-    jexcel.getColumnName = function (columnNumber){
-        var dividend = columnNumber+1;
-        var columnName = "";
-        var modulo;
-    
-        while (dividend > 0)
-        {
-            modulo = (dividend - 1) % 26;
-            columnName = String.fromCharCode(65 + modulo).toString() + columnName;
-            dividend = parseInt((dividend - modulo) / 26);
-        } 
-        return  columnName;
+    jexcel.getColumnName = function(columnNumber) {
+        return jexcel.helpers.getColumnName(columnNumber);
     }
 
     /**
@@ -8981,20 +8969,18 @@ if (! formula && typeof(require) === 'function') {
         /**
          * Get letter based on a number
          *
-         * @param integer i
+         * @param {number} columnNumber
          * @return string letter
          */
-        component.getColumnName = function (columnNumber){
-            var dividend = columnNumber+1;
-            var columnName = "";
-            var modulo;
-        
-            while (dividend > 0)
-            {
+        component.getColumnName = function(columnNumber) {
+            let dividend = columnNumber+1;
+            let columnName = "";
+            let modulo;
+            while (dividend > 0) {
                 modulo = (dividend - 1) % 26;
                 columnName = String.fromCharCode(65 + modulo).toString() + columnName;
                 dividend = parseInt((dividend - modulo) / 26);
-            } 
+            }
             return  columnName;
         }
 
