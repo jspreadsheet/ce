@@ -167,6 +167,12 @@ This example brings a very nice feature to deal with large table datasets.
 
 ## Jspreadsheet CE History
 
+### Jspreadsheet CE 4.2.0
+
+- Paste on larger and proportional areas
+- New webpack development ENV.
+- npm run test
+
 ### Jspreadsheet CE 4.13.0
 
 - FormulaJS integration
