@@ -1,15 +1,11 @@
 /**
- * Jspreadsheet v4.2.0
+ * Jspreadsheet v4.2.1
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
  *
  * This software is distributed under MIT License
  */
-
-if (! jSuites && typeof(require) === 'function') {
-    var jSuites = require('jsuites');
-}
 
 if (! formula && typeof(require) === 'function') {
     var formula = require('@jspreadsheet/formula');
@@ -28,7 +24,7 @@ if (! formula && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.2.0',
+            version: '4.2.1',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',

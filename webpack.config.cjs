@@ -10,7 +10,7 @@ class MyPlugin {
             // Get the bundled file content
             const fileContent = compilation.assets[fileName].source();
 
-            const header = `if (! jSuites && typeof(jSuites) === 'function') {
+            const header = `if (! jSuites && typeof(require) === 'function') {
     var jSuites = require('jsuites');
 }
 
@@ -40,7 +40,7 @@ let isProduction = process.env.NODE_ENV === 'production';
 let dependencies = {};
 if (isProduction) {
     dependencies = {
-        jsuites: "jSuites",
+        jsuites: "''",
     }
 }
 
