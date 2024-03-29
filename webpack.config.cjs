@@ -1,34 +1,64 @@
 const path = require('path');
-const webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-let dependencies = {
-    jsuites: "jsuites",
+class MyPlugin {
+    apply(compiler) {
+        compiler.hooks.emit.tap('MyPlugin', (compilation) => {
+            // Get the bundled file name
+            const fileName = Object.keys(compilation.assets)[0];
+
+            // Get the bundled file content
+            const fileContent = compilation.assets[fileName].source();
+
+            const header = `if (! jSuites && typeof(jSuites) === 'function') {
+    var jSuites = require('jsuites');
 }
 
-module.exports = {
+;(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    global.jspreadsheet = factory();
+}(this, (function () {`;
+
+            const footer = `    return jspreadsheet;
+})));`;
+
+            // Updated file content with custom content added
+            const updatedFileContent = header + '\n\n' + fileContent + '\n\n' + footer;
+
+            // Replace the bundled file content with updated content
+            compilation.assets[fileName] = {
+                source: () => updatedFileContent,
+                size: () => updatedFileContent.length,
+            };
+        });
+    }
+}
+
+let isProduction = process.env.NODE_ENV === 'production';
+
+let dependencies = {};
+if (isProduction) {
+    dependencies = {
+        jsuites: "jSuites",
+    }
+}
+
+const webpack = {
     target: ['web', 'es5'],
-    entry: './src/index.js',
-    mode: 'production',
+    entry: isProduction ? './src/index' : './src/test.js',
+    mode: isProduction ? 'production' : 'development',
     externals: dependencies,
     output: {
         filename: 'index.js',
-        library: 'jspreadsheet',
-        libraryTarget: 'umd',
+        library: 'jspreadsheet'
     },
     optimization: {
         minimize: true
     },
-    plugins: [
-        new webpack.BannerPlugin({
-            banner: `if (! jSuites && typeof(require) === 'function') {
-    var jSuites = require('jsuites');
-}`,
-            raw: true,
-        }),
-    ],
     devServer: {
         static : {
-            directory : path.join(__dirname, "/dist")
+            directory : path.join(__dirname, "/public")
         },
         headers: {
             "Access-Control-Allow-Origin": "*",
@@ -37,9 +67,34 @@ module.exports = {
         },
         port: 3007,
         devMiddleware: {
-            publicPath: "https://localhost:3000/dist/",
+            publicPath: "https://localhost:3000/",
         },
         hot: "only",
     },
-    stats: { warnings:false },
+    plugins: [],
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    isProduction ? MiniCssExtractPlugin.loader : "style-loader",
+                    "css-loader"
+                ],
+            }
+        ],
+    },
+    stats: {
+        warnings: false
+    },
 };
+
+if (isProduction) {
+    webpack.plugins.push(new MyPlugin());
+    webpack.plugins.push(
+        new MiniCssExtractPlugin({
+            filename: 'jspreadsheet.css'
+        })
+    );
+}
+
+module.exports = webpack;
