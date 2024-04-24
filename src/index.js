@@ -7517,7 +7517,7 @@ if (! formula && typeof(require) === 'function') {
                 } else if (e.which == 35) {
                     jexcel.current.last(e.shiftKey, e.ctrlKey);
                     e.preventDefault();
-                } else if (e.which == 46) {
+                } else if (e.which == 46 || e.which == 8) {
                     // Delete
                     if (jexcel.current.options.editable == true) {
                         if (jexcel.current.selectedRow) {
