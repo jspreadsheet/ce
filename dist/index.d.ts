@@ -1386,7 +1386,7 @@ declare namespace jspreadsheet {
 
     /** Method to config custom script execution. NOTE: This does not work with lazyLoading, Pagination or Search options. */
     updateTable?: (
-      instance: JspreadsheetInstance,
+      instance: JspreadsheetInstanceElement,
       cell: HTMLTableCellElement,
       colIndex: number,
       rowIndex: number,
