@@ -1,5 +1,5 @@
 /**
- * Jspreadsheet v4.2.1
+ * Jspreadsheet v4.14.0
  *
  * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
@@ -24,7 +24,7 @@ if (! formula && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.2.1',
+            version: '4.14.0',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -6453,23 +6453,6 @@ if (! formula && typeof(require) === 'function') {
          */
         obj.paste = function(x, y, data) {
             // Paste filter
-            var x_1 = parseInt(x),
-            y_1 = parseInt(y),
-            x_2 = parseInt(obj.selectedCell[2]),
-            y_2 = parseInt(obj.selectedCell[3]),
-            w = x_2 - x_1 + 1, 
-            h = y_2 - y_1 + 1;
-
-            // change paste range if select is from right to left
-            if (x_2 < x_1){
-                x = x_2.toString();
-                w = x_1 - x_2 + 1;
-            }
-            // change paste range if select is from down to up
-            if (y_2 < y_1){
-                y = y_2.toString();
-                h = y_1 - y_2 + 1;
-            }
             var ret = obj.dispatch('onbeforepaste', el, data, x, y);
 
             if (ret === false) {
@@ -6489,28 +6472,6 @@ if (! formula && typeof(require) === 'function') {
 
             // Split new line
             var data = obj.parseCSV(data, "\t");
-
-            // Modify data to allow wor extending paste range in multiples of input range
-            if ((w > 1) & Number.isInteger(w / data[0].length)) {
-                style = null;
-                repeats = w / data[0].length;
-
-                var arrayB = data.map(function (row, i) {
-                var arrayC = Array.apply(null, { length: repeats * row.length }).map(
-                    function (e, i) { return row[i % row.length]; }
-                );
-                return arrayC;
-                });
-                data = arrayB;
-            }
-            if ((h > 1) & Number.isInteger(h / data.length)) {
-                style = null;
-                var repeats = h / data.length;
-                var arrayB = Array.apply(null, { length: repeats * data.length }).map(
-                function (e, i) { return data[i % data.length]; }
-                );
-                data = arrayB;
-            }
 
             if (x != null && y != null && data) {
                 // Records
