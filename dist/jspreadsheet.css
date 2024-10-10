@@ -710,3 +710,33 @@
     pointer-events: none;
     opacity: 0.5;
 }
+
+/**
+ * Add triangle corner on select all
+ */
+.jexcel_selectall::after {
+    content: ' ';
+    border-bottom: 12px solid #ccc;
+    border-left: 12px solid transparent;
+    width: 0;
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+}
+
+/**
+ * Js Context Menu
+ */
+ .jexcel_contextmenu, .jcontextmenu{
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 4px -1px;
+    overflow: hidden;
+    border: 0px none;
+}
+
+.jcontextmenu > div a {
+    color: #757575 !important;
+    font-size: 16px!important;
+    line-height: 22px!important;
+    cursor: pointer;
+}
