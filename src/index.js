@@ -360,6 +360,9 @@ if (! formula && typeof(require) === 'function') {
         obj.resizing = null;
         obj.dragging = null;
 
+        // skip 
+        obj.skipUpdateTableReferences = false;
+
         // Lazy loading
         if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
             console.error('Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
@@ -4800,6 +4803,10 @@ if (! formula && typeof(require) === 'function') {
          * @return void
          */
         obj.updateTableReferences = function() {
+            if( obj.skipUpdateTableReferences ){
+                return;
+            }
+
             // Update headers
             for (var i = 0; i < obj.headers.length; i++) {
                 var x = obj.headers[i].getAttribute('data-x');
@@ -6525,6 +6532,24 @@ if (! formula && typeof(require) === 'function') {
                 var colIndex = parseInt(x);
                 var rowIndex = parseInt(y);
                 var row = null;
+
+                const expandedColCount = colIndex + data[0].length;
+                const currentColCount = obj.headers.length;
+                if( expandedColCount > currentColCount){
+                    obj.skipUpdateTableReferences = true;
+                    obj.insertColumn( expandedColCount - currentColCount);
+                }
+                const expandedRowCount = rowIndex + data.length;
+                const currentRowCount = obj.rows.length;
+                if( expandedRowCount > currentRowCount){
+                    obj.skipUpdateTableReferences = true;
+                    obj.insertRow( expandedRowCount - currentRowCount);
+                }
+
+                if( obj.skipUpdateTableReferences ){
+                    obj.skipUpdateTableReferences = false;
+                    obj.updateTableReferences();
+                }
 
                 // Go through the columns to get the data
                 while (row = data[j]) {
