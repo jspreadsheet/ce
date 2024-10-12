@@ -1,5 +1,6 @@
 {
-    "name": "jspreadsheet-ce",
+    "name": "kspreadsheet",
+    "version": "1.0.0",
     "title": "The Javascript Spreadsheet",
     "description": "Jspreadsheet is a lightweight, vanilla javascript plugin to create amazing web-based interactive data grids with spreadsheet like controls compatible with Excel, Google Spreadsheets and any other spreadsheet software.",
     "repository": {
@@ -75,7 +76,6 @@
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "version": "4.14.0",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip",
