@@ -145,16 +145,16 @@ describe("Paste", () => {
     expect(count).to.eql({
       onafterchanges: 1,
       onbeforechange: 20000,
-      onbeforeinsertcolumn: 19,
-      onbeforeinsertrow: 999,
+      onbeforeinsertcolumn: 1,
+      onbeforeinsertrow: 1,
       onbeforepaste: 1,
       onchange: 20000,
       onfocus: 1,
-      oninsertcolumn: 19,
-      oninsertrow: 999,
+      oninsertcolumn: 1,
+      oninsertrow: 1,
       onload: 1,
       onpaste: 1,
-      onselection: 1020,
+      onselection: 3,
     });
-  }).timeout(120 * 1000);
+  }).timeout(10 * 1000);
 });
