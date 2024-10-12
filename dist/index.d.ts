@@ -569,6 +569,12 @@ declare namespace jspreadsheet {
     colAlignments?: (HorizontalAlign | undefined | null)[];
 
     /**
+     * Default cell type
+     * @default text
+     */
+    defaultCellType?:jspreadsheet.BaseColumn.type;
+
+    /**
      * Column titles. But they will only be used if the title is not specified in the column itself.
      * @deprecated Column titles should be specified in the {@link JSpreadsheetOptions.columns} property.
      */
@@ -2760,6 +2766,53 @@ declare namespace jspreadsheet {
      * @param cell - Row index.
      */
     whichPage: (cell: number) => number;
+
+    /**
+     * Set zoom
+     * @param zoomValue - Zoom value.
+     */
+    setZoom: (zoomValue:number) => number;
+
+    /**
+     * Get zoom
+     */
+    getZoom: () => number;
+
+    /**
+     * Zoom In
+     */
+    zoomIn: () => number;
+
+    /**
+     * Zoom Out
+     */
+    zoomIn: () => number;
+
+    /**
+     * Reset Zoom
+     */
+    resetZoom: () => number;
+
+    /**
+     * @default 70
+     */
+    zoomMin?: number;
+
+    /**
+     * @default 150
+     */
+    zoomMax?: number;
+
+    /**
+     * @default 10
+     */
+    zoomStep?: number;
+
+    /**
+     * @default 100
+     */
+    zoomDefault?: number;
+
   }
 
   type Version = () => {

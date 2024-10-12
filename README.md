@@ -4,6 +4,21 @@
 
 <br>
 
+## Kspreadsheet
+
+### Kspreadsheet 1.0.0
+
+- Apply freeze header on filter
+- Apply freeze header on neasted
+- Add attribute option `defaultCellType` to apply default cell type to all empty cell
+- Add attribute options `zoomMin`, `zoomMax`, `zoomStep`, `zoomDefault` to apply zoom on table
+- Add methods `setZoom(zoomValue:number):number`, `getZoom():number`, `zoomIn():number`, `zoomOut():number`, `resetZoom():number` to apply zoom on table
+- Add method `setHeaders(columns:Record<number, string>, offset:number = 0):void`
+<br>
+<br>
+---
+<br>
+
 [**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript <b>data grid</b> plugin to create amazing web-based interactive HTML tables, and spreadsheets compatible data grid with other spreadsheet software. You can create an online spreadsheet table from a JS array,
 JSON, CSV or XSLX files. You can copy from excel and paste straight to your Jspreadsheet CE spreadsheet and vice versa.
 It is very easy to integrate any third party JavaScript plugins to create your own custom columns, custom editors, and customize any

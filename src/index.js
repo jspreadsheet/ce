@@ -111,6 +111,8 @@ if (! formula && typeof(require) === 'function') {
             // Rows and columns definitions
             rows:[],
             columns:[],
+            // Type
+            defaultCellType:'text',
             // Deprected legacy options
             colHeaders:[],
             colWidths:[],
@@ -190,6 +192,11 @@ if (! formula && typeof(require) === 'function') {
             paginationOptions:null,
             // Full screen
             fullscreen:false,
+            // Zoom
+            zoomMin: 70,
+            zoomMax: 150,
+            zoomStep: 10,
+            defaultZoom: 100,
             // Lazy loading
             lazyLoading:false,
             loadingSpin:false,
@@ -334,6 +341,7 @@ if (! formula && typeof(require) === 'function') {
         obj.pageNumber = null;
         obj.headerContainer = null;
         obj.colgroupContainer = null;
+        obj.zoom = 100;
 
         // Containers
         obj.headers = [];
@@ -422,6 +430,7 @@ if (! formula && typeof(require) === 'function') {
          * @Param config
          */
         obj.prepareTable = function() {
+
             // Loading initial data from remote sources
             var results = [];
 
@@ -460,9 +469,9 @@ if (! formula && typeof(require) === 'function') {
 
                 // Default column description
                 if (! obj.options.columns[i]) {
-                    obj.options.columns[i] = { type:'text' };
+                    obj.options.columns[i] = { type:obj.options.defaultCellType };
                 } else if (! obj.options.columns[i].type) {
-                    obj.options.columns[i].type = 'text';
+                    obj.options.columns[i].type = obj.options.defaultCellType;
                 }
                 if (! obj.options.columns[i].name) {
                     obj.options.columns[i].name = keys && keys[i] ? keys[i] : i;
@@ -658,6 +667,9 @@ if (! formula && typeof(require) === 'function') {
             if (! obj.options.textOverflow) {
                 obj.table.classList.add('jexcel_overflow');
             }
+
+            // Set zoom
+            obj.resetZoom();
 
             // Spreadsheet corner
             obj.corner = document.createElement('div');
@@ -3549,6 +3561,34 @@ if (! formula && typeof(require) === 'function') {
                 // On onchange header
                 obj.dispatch('onchangeheader', el, column, oldValue, newValue);
             }
+        }
+
+        /**
+         * Set column titles
+         *
+         * @param columns - columns object with numbers as key (first column is: 0)
+         * @param offset - column offset
+         */
+        obj.setHeaders = function(columns, offset = 0) {
+
+            if(Object.keys(columns).length > 0)
+
+                for(var key in columns){
+
+                    if(typeof key === "string")
+
+                        key = parseInt(key);
+
+                    if(typeof offset === "string")
+
+                        offset = parseInt(offset);
+
+                    if(typeof key === "number" && typeof offset === "number")
+
+                        obj.setHeader(key + offset, columns[key]);
+
+                }
+
         }
 
         /**
@@ -7327,7 +7367,7 @@ if (! formula && typeof(require) === 'function') {
         obj.updateFreezePosition = function() {
             scrollLeft = obj.content.scrollLeft;
             var width = 0;
-            if(obj.options.freezeColumns)
+            if(obj.options.freezeColumns){
                 if (scrollLeft > 50) {
                     var filter_tds = el.querySelectorAll('td.jexcel_column_filter');
                     for (var i = 0; i < obj.options.freezeColumns; i++) {
@@ -7349,6 +7389,30 @@ if (! formula && typeof(require) === 'function') {
                             }
                         }
                     }
+                    if(Array.isArray(obj.options.nestedHeaders) && obj.options.nestedHeaders.length){
+                        for(let nestedParent of obj.options.nestedHeaders){
+                            if(Array.isArray(nestedParent) && nestedParent.length){
+                                let nestedEl = "element" in nestedParent && nestedParent.element instanceof HTMLTableRowElement
+                                    ? nestedParent.element
+                                    : null
+                                ;
+                                for(let nested of nestedParent){
+                                    var i = 1;
+                                    if("colspan" in nested && typeof parseInt(nested.colspan) == "number" && parseInt(nested.colspan) > 0){
+                                        var index = options.freezeColumns;
+                                        var currentWidth = 0;
+                                        do{
+                                            nestedEl.children[i].classList.add("jexcel_freezed");
+                                            nestedEl.children[i].style.left = `${currentWidth}px`;
+                                            currentWidth += nestedEl.children[i].offsetWidth;
+                                            index -= parseInt(nested.colspan);
+                                            i++;
+                                        }while(index > 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 } else {
                     for (var i = 0; i < obj.options.freezeColumns; i++) {
                         obj.headers[i].classList.remove('jexcel_freezed');
@@ -7360,10 +7424,129 @@ if (! formula && typeof(require) === 'function') {
                             }
                         }
                     }
+                    if(Array.isArray(obj.options.nestedHeaders) && obj.options.nestedHeaders.length){
+                        for(let nestedParent of obj.options.nestedHeaders){
+                            if(Array.isArray(nestedParent) && nestedParent.length){
+                                let nestedEl = "element" in nestedParent && nestedParent.element instanceof HTMLTableRowElement
+                                    ? nestedParent.element
+                                    : null
+                                ;
+                                for(let nested of nestedParent){
+                                    if("colspan" in nested && typeof nested.colspan === "number" && nested.colspan && nestedEl){
+                                        var i = 1;
+                                        var index = options.freezeColumns;
+                                        var currentWidth = 0;
+                                        do{
+                                            nestedEl.children[i].classList.remove("jexcel_freezed");
+                                            nestedEl.children[i].style.removeProperty("left");
+                                            index -= nested.colspan;
+                                            i++;
+                                        }while(index > 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+
+            }
 
             // Place the corner in the correct place
             obj.updateCornerPosition();
+        }
+
+        /**
+         * Set Zoom
+         */
+        obj.setZoom = function(zoomValue) {
+
+            if(zoomValue >= obj.options.zoomMin && zoomValue <= obj.options.zoomMax){
+
+                if("parentElement" in obj.table && obj.table.parentElement && obj.options.tableOverflow === true){
+
+                    // Get the current scroll and size properties
+                    const oldScrollWidth = obj.table.parentElement.scrollWidth;
+                    const oldScrollHeight = obj.table.parentElement.scrollHeight;
+                    const oldScrollLeft = obj.table.parentElement.scrollLeft;
+                    const oldScrollTop = obj.table.parentElement.scrollTop;
+
+                    obj.zoom = zoomValue;
+
+                    // Apply zoom by updating CSS
+                    obj.table.style.zoom = obj.zoom / 100;
+
+                    // Allow some time for rendering the new dimensions after zoom
+                    setTimeout(() => {
+                        // Get the new scroll and size properties after zoom
+                        const newScrollWidth = obj.table.parentElement.scrollWidth;
+                        const newScrollHeight = obj.table.parentElement.scrollHeight;
+
+                        // Calculate the width and height ratios
+                        const widthRatio = newScrollWidth / oldScrollWidth;
+                        const heightRatio = newScrollHeight / oldScrollHeight;
+
+                        // Calculate the new scroll positions
+                        const newScrollLeft = Math.round(oldScrollLeft * widthRatio);
+                        const newScrollTop = Math.round(oldScrollTop * heightRatio);
+
+                        // Apply the new scroll positions
+                        obj.table.parentElement.scrollLeft = newScrollLeft;
+                        obj.table.parentElement.scrollTop = newScrollTop;
+                    }, 0); // 0ms delay ensures it waits for rendering updates
+
+                }else{
+
+                    obj.zoom = zoomValue;
+
+                    // Apply zoom by updating CSS
+                    obj.table.style.zoom = obj.zoom / 100;
+
+                }
+
+            }
+
+            return obj.zoom;
+
+        }
+
+        /**
+         * Get Zoom
+         */
+        obj.getZoom = function() {
+
+            return obj.zoom;
+
+        }
+
+        /**
+         * Zoom In
+         */
+        obj.zoomIn = function() {
+
+            var zoomValue = obj.getZoom() + obj.options.zoomStep;
+
+            return obj.setZoom(zoomValue);;
+
+        }
+
+        /**
+         * Zoom Out
+         */
+        obj.zoomOut = function() {
+
+            var zoomValue = obj.getZoom() - obj.options.zoomStep;
+
+            return obj.setZoom(zoomValue);;
+
+        }
+
+        /**
+         * Zoom Out
+         */
+        obj.resetZoom = function() {
+
+            return obj.setZoom(obj.options.defaultZoom);
+
         }
 
         el.addEventListener("DOMMouseScroll", obj.wheelControls);
