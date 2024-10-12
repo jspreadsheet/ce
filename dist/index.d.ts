@@ -2409,6 +2409,13 @@ declare namespace jspreadsheet {
     setHeader: (column: number, newValue?: string) => void;
 
     /**
+     * Set column titles.
+     * @param columns - columns object with numbers as key (first column is: 0)
+     * @param offset - column offset
+     */
+    setHeaders: (columns:Record<number, string>, offset:number = 0) => void;
+
+    /**
      * Change row height.
      * @param row - Index of a row or an HTML element that represents a row or a column of the table. In the second option, the row index (data-y attribute) of that element is used.
      * @param height - New height. An integer greater than zero.
