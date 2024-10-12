@@ -4,6 +4,10 @@
 
 <br>
 
+---
+
+<br>
+
 ## Kspreadsheet
 
 ### Kspreadsheet 1.0.0
@@ -14,9 +18,11 @@
 - Add attribute options `zoomMin`, `zoomMax`, `zoomStep`, `zoomDefault` to apply zoom on table
 - Add methods `setZoom(zoomValue:number):number`, `getZoom():number`, `zoomIn():number`, `zoomOut():number`, `resetZoom():number` to apply zoom on table
 - Add method `setHeaders(columns:Record<number, string>, offset:number = 0):void`
+
 <br>
-<br>
+
 ---
+
 <br>
 
 [**Jspreadsheet CE**](https://bossanova.uk/jspreadsheet/v4/) is a lightweight Vanilla JavaScript <b>data grid</b> plugin to create amazing web-based interactive HTML tables, and spreadsheets compatible data grid with other spreadsheet software. You can create an online spreadsheet table from a JS array,
