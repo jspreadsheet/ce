@@ -7367,8 +7367,9 @@ if (! formula && typeof(require) === 'function') {
         obj.updateFreezePosition = function() {
             scrollLeft = obj.content.scrollLeft;
             var width = 0;
+            var indexColWidth = obj.table.querySelector(".jexcel_selectall").offsetWidth;
             if(obj.options.freezeColumns){
-                if (scrollLeft > 50) {
+                if (scrollLeft > indexColWidth ) {
                     var filter_tds = el.querySelectorAll('td.jexcel_column_filter');
                     for (var i = 0; i < obj.options.freezeColumns; i++) {
                         if (i > 0) {
@@ -7383,9 +7384,10 @@ if (! formula && typeof(require) === 'function') {
                         filter_tds[i].style.left = width + 'px';
                         for (var j = 0; j < obj.rows.length; j++) {
                             if (obj.rows[j] && obj.records[j][i]) {
-                                var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0)) - 51 + 'px';
+                                var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].style.width : 0)) - ( (indexColWidth + 1) * (obj.zoom / 100));
                                 obj.records[j][i].classList.add('jexcel_freezed');
-                                obj.records[j][i].style.left = shifted;
+                                obj.records[j][i].style.left = `${Math.round(shifted / (obj.zoom / 100))}px`;
+                                // obj.records[j][i].style.left = `${shifted}px`;
                             }
                         }
                     }
