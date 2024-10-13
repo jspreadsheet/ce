@@ -282,20 +282,43 @@
 }
 
 .jexcel .highlight {
-    background-color:rgba(0,0,0,0.05);
+    /* background-color:rgba(0,0,0,0.05); */
 }
 
 .jexcel .highlight-top {
-    border-top:1px solid #000; /* var(--jexcel-border-color);*/
+    /* border-top:1px solid #000; */ /* var(--jexcel-border-color);*/
     box-shadow: 0px -1px #ccc;
 }
 
 .jexcel .highlight-left {
-    border-left:1px solid #000; /* var(--jexcel-border-color);*/
+    /* border-left:1px solid #000; */ /* var(--jexcel-border-color);*/
     box-shadow: -1px 0px #ccc;
 }
 
 .jexcel .highlight-right {
+    /* border-right:1px solid #000; */ /* var(--jexcel-border-color);*/
+}
+
+.jexcel .highlight-bottom {
+    /* border-bottom:1px solid #000; */ /* var(--jexcel-border-color);*/
+}
+
+.jexcel .jexcel_freezed.highlight {
+    /* background-color:rgba(0,0,0,0.05); */
+    background-color:#f3f3f3;
+}
+
+.jexcel .jexcel_freezed.highlight-top {
+    border-top:1px solid #000; /* var(--jexcel-border-color);*/
+    box-shadow: 0px -1px #ccc;
+}
+
+.jexcel .jexcel_freezed.highlight-left {
+    border-left:1px solid #000; /* var(--jexcel-border-color);*/
+    box-shadow: -1px 0px #ccc;
+}
+
+.jexcel .jexcel_freezed.highlight-right {
     border-right:1px solid #000; /* var(--jexcel-border-color);*/
 }
 
@@ -708,19 +731,34 @@
 }
 
 .jexcel .copying-top {
-    border-top:1px dashed #000;
+    /* border-top:1px dashed #000; */
 }
 
 .jexcel .copying-left {
-    border-left:1px dashed #000;
+    /* border-left:1px dashed #000; */
 }
 
 .jexcel .copying-right {
-    border-right:1px dashed #000;
+    /* border-right:1px dashed #000; */
 }
 
 .jexcel .copying-bottom {
-    border-bottom:1px dashed #000;
+    /* border-bottom:1px dashed #000; */
+}
+.jexcel .jexcel_freezed.copying-top {
+    border-top:2px dashed #000;
+}
+
+.jexcel .jexcel_freezed.copying-left {
+    border-left:2px dashed #000;
+}
+
+.jexcel .jexcel_freezed.copying-right {
+    border-right:2px dashed #000;
+}
+
+.jexcel .jexcel_freezed.copying-bottom {
+    border-bottom:2px dashed #000;
 }
 
 .jexcel .jexcel_column_filter {
@@ -732,6 +770,8 @@
     padding: 0px;
     padding-left: 6px;
     padding-right: 20px;
+    z-index: 3!important;
+    height: 25px;
 }
 
 .jexcel thead .jexcel_freezed, .jexcel tfoot .jexcel_freezed {
@@ -741,6 +781,9 @@
     -webkit-box-shadow: 2px 0px 2px 0.2px #ccc !important;
     -moz-box-shadow: 2px 0px 2px 0.2px #ccc !important;
 }
+.jexcel thead .jexcel_freezed.jexcel_column_filter {
+    z-index: 4 !important;
+}
 
 .jexcel tbody .jexcel_freezed {
     position: relative;
@@ -748,6 +791,7 @@
     box-shadow: 1px 1px 1px 1px #ccc !important;
     -webkit-box-shadow: 2px 4px 4px 0.1px #ccc !important;
     -moz-box-shadow: 2px 4px 4px 0.1px #ccc !important;
+    z-index: 3 !important;
 }
 
 .red {
@@ -763,6 +807,10 @@
 /**
  * Add triangle corner on select all
  */
+.jexcel_selectall {
+    z-index: 6!important;
+    border-bottom: 1px solid #ccc!important;
+}
 .jexcel_selectall::after {
     content: ' ';
     border-bottom: 12px solid #ccc;
@@ -771,6 +819,7 @@
     position: absolute;
     bottom: 3px;
     right: 3px;
+    z-index: 6!important;
 }
 
 /**
@@ -801,8 +850,41 @@
 }
 
 /* New border main */
-.jss_border_main {
+.jexcel_border_main {
     border: 1px solid #000;
     background-color: #00000015;
     background-origin: content-box;
+}
+
+/* New border copy */
+.jexcel_border_copying {
+    background-size: 8px 1px, 8px 1px, 1px 8px, 1px 8px;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-image: linear-gradient(to right, #fff 50%, #444 50%), linear-gradient(to right, #fff 50%, #444 50%), linear-gradient(to bottom, #fff 50%, #444 50%), linear-gradient(to bottom, #fff 50%, #444 50%);
+    animation: ants 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 1;
+}
+
+/* Fix freezed and new selection */
+.jexcel_freezed .jexcel_border{
+    z-index: 3 !important;
+}
+
+@keyframes ants {
+    0% {
+        background-position: 0 0, 0 100%, 0 0, 100% 0;
+    }
+    100% {
+        background-position: 40px 0, -40px 100%, 0 -40px, 100% 40px;
+    }
+}
+
+/* Fix border */
+.jexcel thead tr:not([class]) td:not([class], [style]) {
+
+    border-top: none!important;
+
 }
