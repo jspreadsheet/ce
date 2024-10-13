@@ -789,3 +789,20 @@
     line-height: 22px!important;
     cursor: pointer;
 }
+
+/* New border */
+.jexcel_border {
+    position: absolute;
+    border: 1px solid transparent;
+    pointer-events: none;
+    opacity: 0.6;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* New border main */
+.jss_border_main {
+    border: 1px solid #000;
+    background-color: #00000015;
+    background-origin: content-box;
+}

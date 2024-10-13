@@ -326,6 +326,7 @@ if (! formula && typeof(require) === 'function') {
         // Global elements
         obj.el = el;
         obj.corner = null;
+        obj.highlightBorder = null;
         obj.contextMenu = null;
         obj.textarea = null;
         obj.ads = null;
@@ -677,6 +678,10 @@ if (! formula && typeof(require) === 'function') {
             obj.corner.setAttribute('unselectable', 'on');
             obj.corner.setAttribute('onselectstart', 'return false');
 
+            // Spreadsheet highlight border
+            obj.highlightBorder = document.createElement('div');
+            obj.highlightBorder.classList.add("jexcel_border", "jss_border_main");
+
             if (obj.options.selectionCopy == false) {
                 obj.corner.style.display = 'none';
             }
@@ -742,6 +747,7 @@ if (! formula && typeof(require) === 'function') {
             // Elements
             obj.content.appendChild(obj.table);
             obj.content.appendChild(obj.corner);
+            obj.content.appendChild(obj.highlightBorder);
             obj.content.appendChild(obj.textarea);
 
             el.appendChild(obj.toolbar);
@@ -3129,6 +3135,7 @@ if (! formula && typeof(require) === 'function') {
             obj.dispatch('onselection', el, borderLeft, borderTop, borderRight, borderBottom, origin);
 
             // Find corner cell
+            obj.updateHighlightBorder();
             obj.updateCornerPosition();
         }
 
@@ -3206,6 +3213,38 @@ if (! formula && typeof(require) === 'function') {
                     }
                 }
             }
+        }
+
+        /**
+         * Update corner position
+         *
+         * @return void
+         */
+        obj.updateHighlightBorder = function() {
+
+            if (! obj.highlighted.length) {
+                obj.highlightBorder.style.top = '-2000px';
+                obj.highlightBorder.style.left = '-2000px';
+            } else {
+
+                // Get first cell
+                var first = obj.highlighted.at(0);
+                
+                // Get last cell
+                var last = obj.highlighted.at(-1);
+
+                const top = first.offsetTop;
+                const left = first.offsetLeft;
+                const width = (last.offsetLeft + last.offsetWidth) - first.offsetLeft;
+                const height = (last.offsetTop + last.offsetHeight) - first.offsetTop;
+
+                obj.highlightBorder.style.top = `${top}px`;
+                obj.highlightBorder.style.left = `${left}px`;
+                obj.highlightBorder.style.width = `${width}px`;
+                obj.highlightBorder.style.height = `${height}px`;
+
+            }
+
         }
 
         /**

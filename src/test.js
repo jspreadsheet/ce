@@ -6,3 +6,4 @@ import '../dist/jspreadsheet.css';
 let worksheet = jspreadsheet(root, {
     minDimensions: [10,10],
 })
+ 
