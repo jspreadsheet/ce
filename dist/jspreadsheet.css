@@ -90,7 +90,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index:2;
+    z-index:5;
 }
 
 .jexcel_container.with-toolbar .jexcel > thead > tr > td
@@ -774,9 +774,16 @@
     height: 25px;
 }
 
-.jexcel thead .jexcel_freezed, .jexcel tfoot .jexcel_freezed {
+.jexcel tfoot .jexcel_freezed {
     left: 0px;
     z-index: 3 !important;
+    box-shadow: 2px 0px 2px 0.2px #ccc !important;
+    -webkit-box-shadow: 2px 0px 2px 0.2px #ccc !important;
+    -moz-box-shadow: 2px 0px 2px 0.2px #ccc !important;
+}
+.jexcel thead .jexcel_freezed {
+    left: 0px;
+    z-index: 6 !important;
     box-shadow: 2px 0px 2px 0.2px #ccc !important;
     -webkit-box-shadow: 2px 0px 2px 0.2px #ccc !important;
     -moz-box-shadow: 2px 0px 2px 0.2px #ccc !important;
