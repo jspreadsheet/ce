@@ -24,7 +24,7 @@ if (! formula && typeof(require) === 'function') {
         // Information
         var info = {
             title: 'Jspreadsheet',
-            version: '4.14.0',
+            version: '4.15.0',
             type: 'CE',
             host: 'https://bossanova.uk/jspreadsheet',
             license: 'MIT',
@@ -691,15 +691,7 @@ if (! formula && typeof(require) === 'function') {
             ads.setAttribute('href', 'https://bossanova.uk/jspreadsheet/');
             obj.ads = document.createElement('div');
             obj.ads.className = 'jexcel_about';
-            try {
-                if (typeof(sessionStorage) !== "undefined" && ! sessionStorage.getItem('jexcel')) {
-                    sessionStorage.setItem('jexcel', true);
-                    var img = document.createElement('img');
-                    img.src = '//bossanova.uk/jspreadsheet/logo.png';
-                    ads.appendChild(img);
-                }
-            } catch (exception) {
-            }
+
             var span = document.createElement('span');
             span.innerHTML = 'Jspreadsheet CE';
             ads.appendChild(span);
