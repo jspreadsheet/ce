@@ -14,6 +14,10 @@ class MyPlugin {
     var jSuites = require('jsuites');
 }
 
+if (! formula && typeof(require) === 'function') {
+    var formula = require('@jspreadsheet/formula');
+}
+
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
@@ -37,21 +41,16 @@ class MyPlugin {
 
 let isProduction = process.env.NODE_ENV === 'production';
 
-let dependencies = {};
-if (isProduction) {
-    dependencies = {
-        jsuites: "''",
-    }
-}
-
 const webpack = {
     target: ['web', 'es5'],
     entry: isProduction ? './src/index' : './src/test.js',
     mode: isProduction ? 'production' : 'development',
-    externals: dependencies,
+    externals: {},
     output: {
         filename: 'index.js',
-        library: 'jspreadsheet'
+        path: path.resolve(__dirname, 'dist'),
+        library: 'jspreadsheet',
+        libraryExport: 'default'
     },
     optimization: {
         minimize: true
@@ -65,7 +64,7 @@ const webpack = {
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
             "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
         },
-        port: 3007,
+        port: 8000,
         devMiddleware: {
             publicPath: "https://localhost:3000/",
         },
@@ -74,6 +73,15 @@ const webpack = {
     plugins: [],
     module: {
         rules: [
+            isProduction ? {
+                test: /\.js$/,
+                use: [
+                    {
+                        loader: path.resolve('build.cjs'),
+                        options: {}
+                    }
+                ]
+            } : null,
             {
                 test: /\.css$/,
                 use: [

@@ -48,9 +48,13 @@
     ],
     "dependencies": {
         "@jspreadsheet/formula": "^2.0.2",
-        "jsuites": "^5.6.5"
+        "jsuites": "^5.8.2"
     },
     "devDependencies": {
+        "@babel/cli": "^7.7.4",
+        "@babel/core": "^7.7.4",
+        "@babel/preset-env": "^7.7.4",
+        "@babel/register": "^7.7.4",
         "c8": "^7.13.0",
         "chai": "^4.3.7",
         "copy-webpack-plugin": "^11.0.0",
@@ -70,20 +74,25 @@
         "style-loader": "^3.3.1",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4",
-        "webpack-dev-server": "^4.15.1",
-        "react": "^18.2.0"
+        "webpack-dev-server": "^4.15.1"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "version": "4.15.0",
+    "version": "5.0.0-beta.3",
     "bugs": "https://github.com/jspreadsheet/ce/issues",
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip",
     "scripts": {
-        "test": "mocha --recursive --require=mocha.config.cjs",
-        "test:watch": "mocha --recursive --watch --parallel --reporter min",
-        "test:coverage": "c8 mocha --recursive",
+        "format": "npm run prettier:fix && npm run lint:fix",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "prettier": "prettier --check .",
+        "prettier:fix": "prettier --write .",
+        "start": "webpack serve --history-api-fallback",
         "build": "cross-env NODE_ENV=production webpack --config webpack.config.cjs",
-        "start": "npx webpack serve --history-api-fallback"
+        "test": "mocha --recursive --require=mocha.config.cjs",
+        "test:watch": "mocha --recursive --watch --parallel --reporter min --require=mocha.config.cjs",
+        "test:browser": "mocha --recursive --reporter mochawesome --config mocha.config.cjs",
+        "test:coverage": "c8 mocha --recursive --config mocha.config.cjs"
     }
 }

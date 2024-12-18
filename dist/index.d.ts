@@ -11,15 +11,15 @@ declare namespace jspreadsheet {
     | number
     | {
         id: string | number;
-        name: string | number;
-        title?: string | number;
+        name: string;
+        title?: string;
         image?: string;
-        group?: string | number;
+        group?: string;
       };
 
   interface CalendarOptions {
     /**
-     * @default "DD/MM/YYYY"
+     * @default "YYYY-MM-DD"
      */
     format?: string;
 
@@ -27,37 +27,6 @@ declare namespace jspreadsheet {
      * Open calendar in full screen mode (this is automatic set for screensize < 800).
      */
     fullscreen?: boolean;
-
-    /**
-     * Month names.
-     * @default ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-     */
-    months?: [
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string
-    ];
-
-    /** Event fired when calendar value changes. */
-    onchange?:
-      | ((
-          calendarElement: HTMLInputElement,
-          newValue: string,
-          oldValue: string
-        ) => void)
-      | null;
-
-    /** Event fired when calendar modal is closed. */
-    onclose?: Function | null;
 
     /** Placeholder. */
     placeholder?: string;
@@ -82,21 +51,6 @@ declare namespace jspreadsheet {
 
     /** Today is default. */
     today?: boolean;
-
-    /** Default date. */
-    value?: string | null;
-
-    /**
-     * Weekday names.
-     * @default ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-     */
-    weekdays?: [string, string, string, string, string, string, string];
-
-    /**
-     * Weekday abbreviation names.
-     * @default ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-     */
-    weekdays_short?: [string, string, string, string, string, string, string];
   }
 
   interface CustomEditor {
@@ -104,31 +58,58 @@ declare namespace jspreadsheet {
      * Event responsible for closing the editor of a cell with a custom editor.
      * @param cell - Td tag whose editor should close.
      * @param save - If true, the value returned by this event will be the cell's new value. Otherwise, the value returned by this event is ignored.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
+     * @param instance - Worksheet instance.
+     * @param options - Column configuration object.
+     * @returns New cell value.
      */
     closeEditor?: (
       cell: HTMLTableCellElement,
-      save: boolean
+      save: boolean,
+      x: number,
+      y: number,
+      instance: WorksheetInstance,
+      options: Column,
     ) => CellValue | undefined;
 
     /**
      * Event called when creating new cells.
      * @param cell - HTML element prepared to be the new cell.
-     * @returns HTML element that will be the new cell
+     * @param value - Cell value.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
+     * @param instance - Worksheet instance.
+     * @param options - Column configuration object.
+     * @returns HTML element that will be the new cell.
      */
-    createCell?: (cell: HTMLTableCellElement) => HTMLTableCellElement;
+    createCell?: (
+      cell: HTMLTableCellElement,
+      value: CellValue,
+      x: number,
+      y: number,
+      instance: WorksheetInstance,
+      options: Column,
+    ) => HTMLTableCellElement;
 
     /**
      * Event responsible for opening the editor of a cell with a custom editor.
      * @param cell - Td tag whose editor should open.
-     * @param el - Root HTML element of this jss instance.
-     * @param empty - If true, the editor should open with no value.
+     * @param value - Cell value.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
+     * @param instance - Worksheet instance.
+     * @param options - Column configuration object.
      * @param e - Event that called this method.
      */
     openEditor?: (
       cell: HTMLTableCellElement,
-      el: JspreadsheetInstanceElement,
-      empty: boolean | undefined,
-      e: TouchEvent | undefined
+      value: CellValue,
+      x: number,
+      y: number,
+      instance: WorksheetInstance,
+      options: Column,
+      e: KeyboardEvent | MouseEvent | TouchEvent | undefined
     ) => void;
 
     /**
@@ -137,12 +118,18 @@ declare namespace jspreadsheet {
      * The returned value will be the cell's new value.
      * @param cell - Cell whose value has changed.
      * @param value - New value.
-     * @param force - If true, the change is configured to occur even in read-only cells.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
+     * @param instance - Worksheet instance.
+     * @param options - Column configuration object.
      */
     updateCell?: (
       cell: HTMLTableCellElement,
       value: CellValue | undefined,
-      force: boolean | undefined
+      x: number,
+      y: number,
+      instance: WorksheetInstance,
+      options: Column,
     ) => CellValue | undefined;
   }
 
@@ -153,8 +140,6 @@ declare namespace jspreadsheet {
     align?: HorizontalAlign;
 
     decimal?: string;
-
-    editor?: CustomEditor;
 
     /** Cell mask. */
     mask?: string;
@@ -167,6 +152,24 @@ declare namespace jspreadsheet {
      * @default false
      */
     readOnly?: boolean;
+
+    /**
+     * Defines a modification that must be made to a cell value before it is displayed in the spreadsheet.
+     * @param cell - Cell whose value has changed.
+     * @param value - New value.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
+     * @param instance - Worksheet instance.
+     * @param options - Column configuration object.
+     */
+    render?: (
+      cell: HTMLTableCellElement,
+      value: CellValue | undefined,
+      x: number,
+      y: number,
+      instance: WorksheetInstance,
+      options: Column,
+    ) => void;
 
     /**
      * If true, HTML inside column headings or cell values will be treated as regular text.
@@ -194,7 +197,8 @@ declare namespace jspreadsheet {
       | "calendar"
       | "image"
       | "color"
-      | "html";
+      | "html"
+      | CustomEditor;
 
     /** Column width. */
     width?: string | number;
@@ -227,7 +231,7 @@ declare namespace jspreadsheet {
     options?: CalendarOptions;
   }
 
-  interface ColorColumn extends BaseColumn {
+  interface ColorColumn extends Omit<BaseColumn, "render"> {
     /** If undefined, the cell shows the hex code of the color, if "square", it shows a square filled with the color. */
     render?: "square";
   }
@@ -243,38 +247,90 @@ declare namespace jspreadsheet {
   }
 
   interface ToolbarItemBase {
-    /** Means the style should be apply to the cell. */
-    k?: string;
-
     /** Tooltip shown when hovering over this option. */
     tooltip?: string;
+
+    /**
+     * Method called when the toolbar state should be updated.
+     * @param toolbarElement - Toolbar HTML element.
+     * @param toolbarInstance - Toolbar instance. For more information, read the jSuites toolbar documentation.
+     * @param itemElement - Toolbar item HTML element.
+     * @param worksheetInstance - Worksheet instance.
+     */
+    updateState?: (
+      toolbarElement: HTMLDivElement,
+      toolbarInstance: Record<string, any>,
+      itemElement: HTMLDivElement,
+      worksheetInstance: WorksheetInstance,
+    ) => void;
+
+    [property: string]: any;
   }
 
   interface ToolbarIconItem extends ToolbarItemBase {
-    id: string;
-    type: "i";
-
     /** Defines the icon (from material icons). */
     content: string;
 
-    /** The value of the style should be apply to the cell. */
-    v?: string;
-
-    /** Event fired when clicking on the html item referring to that item. */
-    onclick?: (el: any, obj: any, iconElement: HTMLElement) => void;
+    /**
+     * Event fired when clicking on the html item referring to that item.
+     * @param toolbarElement - Toolbar HTML element.
+     * @param toolbarInstance - Toolbar instance. For more information, read the jSuites toolbar documentation.
+     * @param itemElement - Toolbar item HTML element.
+     * @param event - Pointer event that triggered the onclick.
+     */
+    onclick?: (
+      toolbarElement: HTMLDivElement,
+      toolbarInstance: Record<string, any>,
+      itemElement: HTMLDivElement,
+      event: PointerEvent,
+    ) => void;
   }
 
   interface ToolbarSelectItem extends ToolbarItemBase {
     type: "select";
 
-    /** The value of the style should be apply to the cell. */
-    v: string[];
+    /** Defines the icon (from material icons). */
+    content: string;
 
-    /** Select tag onchange event. */
-    onchange?: (event: Event) => void;
+    /**
+     * Event called when the item picker value is changed.
+     * @param itemElement - Toolbar item HTML element.
+     * @param pickerInstance - Picker instance. For more information, read the jSuites picker documentation.
+     * @param value - New picker value.
+     * @param value2 - New picker value.
+     * @param valueIndex - Index of the new picker value.
+     * @param event - Pointer event that triggered this event.
+     */
+    onchange?: (
+      itemElement: HTMLDivElement,
+      pickerInstance: Record<string, any>,
+      value: string,
+      value2: string,
+      valueIndex: string,
+      event: PointerEvent,
+    ) => void;
+
+    /**
+     * Options available in the picker.
+     */
+    options?: string[];
+
+    /**
+     * Creates picker items based on the picker options.
+     * @param option - One of the items in the {@link ToolbarSelectItem.options} array.
+     * @param pickerInstance - Picker instance. For more information, read the jSuites picker documentation.
+     * @returns string representing the HTML of the picker item.
+     */
+    render?: (
+      option: string,
+      pickerInstance: Record<string, any>,
+    ) => string;
 
     /** Initial value of the selectbox. */
-    selectedValue?: string;
+    value?: string;
+
+    /** Item width. */
+    width?: string;
   }
 
   interface ToolbarColorItem extends ToolbarItemBase {
@@ -282,179 +338,32 @@ declare namespace jspreadsheet {
 
     /** Defines the icon (from material icons). */
     content: string;
+
+    /**
+     * Style that should be changed when input value changes. If this property is set, the onclick event is overridden.
+     */
+    k: string;
   }
 
-  type ToolbarItem = ToolbarIconItem | ToolbarSelectItem | ToolbarColorItem;
+  interface ToolbarDivisorItem {
+    type: "divisor";
+  }
+
+  /**
+   * Item that makes up the toolbar configuration array. This item may have properties not described here. For more information, read the jSuites toolbar documentation.
+   */
+  type ToolbarItem = (ToolbarIconItem | ToolbarSelectItem | ToolbarColorItem | ToolbarDivisorItem);
 
   interface NestedHeaderCell {
-    id?: string,
+    id?: string;
     colspan?: number;
     title?: string;
     align?: string;
   }
 
-  interface TranslationOptions {
-    /**
-     * @default "About"
-     */
-    about?: string;
-
-    /**
-     * @default "Add comments"
-     */
-    addComments?: string;
-
-    /**
-     * @default "Are you sure to delete the selected columns?"
-     */
-    areYouSureToDeleteTheSelectedColumns?: string;
-
-    /**
-     * @default "Are you sure to delete the selected rows?"
-     */
-    areYouSureToDeleteTheSelectedRows?: string;
-
-    /**
-     * @default "Cell already merged"
-     */
-    cellAlreadyMerged?: string;
-
-    /**
-     * @default "Clear comments"
-     */
-    clearComments?: string;
-
-    /**
-     * @default "Column name"
-     */
-    columnName?: string;
-
-    /**
-     * @default "Add comments"
-     */
-    comments?: string;
-
-    /**
-     * @default "Copy..."
-     */
-    copy?: string;
-
-    /**
-     * @default "Delete selected columns"
-     */
-    deleteSelectedColumns?: string;
-
-    /**
-     * @default "Delete selected rows"
-     */
-    deleteSelectedRows?: string;
-
-    /**
-     * @default "Edit comments"
-     */
-    editComments?: string;
-
-    /**
-     * @default " entries"
-     */
-    entries?: string;
-
-    /**
-     * @default "Insert a new column after"
-     */
-    insertANewColumnAfter?: string;
-
-    /**
-     * @default "Insert a new column before"
-     */
-    insertANewColumnBefore?: string;
-
-    /**
-     * @default "Insert a new row after"
-     */
-    insertANewRowAfter?: string;
-
-    /**
-     * @default "Insert a new row before"
-     */
-    insertANewRowBefore?: string;
-
-    /**
-     * @default "Invalid merged properties"
-     */
-    invalidMergeProperties?: string;
-
-    /**
-     * @default "No cells selected"
-     */
-    noCellsSelected?: string;
-
-    /**
-     * @default "No records found"
-     */
-    noRecordsFound?: string;
-
-    /**
-     * @default "Order ascending"
-     */
-    orderAscending?: string;
-
-    /**
-     * @default "Order descending"
-     */
-    orderDescending?: string;
-
-    /**
-     * @default "Paste..."
-     */
-    paste?: string;
-
-    /**
-     * @default "Rename this column"
-     */
-    renameThisColumn?: string;
-
-    /**
-     * @default "Save as..."
-     */
-    saveAs?: string;
-
-    /**
-     * @default "Search"
-     */
-    search?: string;
-
-    /**
-     * @default "Show "
-     */
-    show?: string;
-
-    /**
-     * @default "Showing page {0} of {1} entries"
-     */
-    showingPage?: string;
-
-    /**
-     * @default "There is a conflict with another merged cell"
-     */
-    thereIsAConflictWithAnotherMergedCell?: string;
-
-    /**
-     * @default "This action will clear your search results. Are you sure?"
-     */
-    thisActionWillClearYourSearchResultsAreYouSure?: string;
-
-    /**
-     * @default "This action will destroy any existing merged cells. Are you sure?"
-     */
-    thisActionWillDestroyAnyExistingMergedCellsAreYouSure?: string;
-  }
-
   interface CellChange {
-    col: string;
     newValue: CellValue;
     oldValue: CellValue;
-    row: string;
     x: string;
     y: string;
   }
@@ -473,7 +382,32 @@ declare namespace jspreadsheet {
 
   type MetaInformation = Record<string, any>;
 
-  interface JSpreadsheetOptions {
+  type ContextMenuItem = {
+    type?: 'line' | 'divisor' | 'default';
+    title: string;
+    icon?: string;
+    id?: string;
+    disabled?: boolean;
+    onclick?: (instance: any, e: MouseEvent) => void;
+    shortcut?: string;
+    tooltip?: string;
+    submenu?: Array<ContextMenuItem>;
+  };
+
+  type ContextMenuRole = "select-all"
+    | "fill-handle"
+    | "row"
+    | "nested"
+    | "tabs"
+    | "toolbar"
+    | "pagination"
+    | "cell"
+    | "grid"
+    | "footer"
+    | "header"
+    | "applications";
+
+  interface SpreadsheetOptions {
     /**
      * Show or not the "about" item in the context menu.
      * @default true
@@ -481,8 +415,615 @@ declare namespace jspreadsheet {
     about?: boolean;
 
     /**
-     * Allow comments over the cells.
+     * Allow table export as csv.
+     * @default true
+     */
+    allowExport?: boolean;
+
+    /**
+     * If true, Jss will try to convert cell contents used in formulas to numbers
+     * @default true
+     */
+    autoCasting?: boolean;
+
+    /**
+     * Auto increment actions when using the dragging corner.
+     * @default true
+     */
+    autoIncrement?: boolean;
+
+    /**
+     * Creates context menu when user clicks with secondary mouse button.
+     * @param instance - Instance of the worksheet on which the click was made.
+     * @param colIndex - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @param rowIndex - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @param event - pointer event that triggered this event.
+     * @param items - jss default context menu.
+     * @param role - indicates in which part of the spreadsheet the click occurred.
+     * @param x - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @param y - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @returns Context menu configuration that should be created.
+     */
+    contextMenu?: (
+      instance: WorksheetInstance,
+      colIndex: string | number | null,
+      rowIndex: string | number | null,
+      event: PointerEvent,
+      items: ContextMenuItem[],
+      role: ContextMenuRole,
+      x: string | number | null,
+      y: string | number | null,
+    ) => ContextMenuItem[] | null | undefined;
+
+    /**
+     * Enable the formula debug notices.
      * @default false
+     */
+    debugFormulas?: boolean;
+
+    /**
+     * Fullscreen mode.
+     * @default false
+     */
+    fullscreen?: boolean;
+
+    /**
+     * Include header titles on download.
+     * @default false
+     */
+    includeHeadersOnDownload?: boolean;
+
+    /** Spreadsheet namespace */
+    namespace?: string;
+
+    /**
+     * Occurs after all changes are applied in the tables.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param changes - list of changes.
+     */
+    onafterchanges?: (
+      instance: WorksheetInstance,
+      changes: CellChange[]
+    ) => void;
+
+    /**
+     * Occurs before a column value is changed. If any value is returned, it will be the cell's new value.
+     * @param instance - Instance of the worksheet where the changes will occur.
+     * @param cell - HTML element that represents the cell being changed.
+     * @param colIndex - Cell column index being changed.
+     * @param rowIndex - Cell row index being changed.
+     * @param newValue - Value being applied to the cell.
+     */
+    onbeforechange?: (
+      instance: WorksheetInstance,
+      cell: HTMLTableCellElement,
+      colIndex: string | number,
+      rowIndex: string | number,
+      newValue: CellValue
+    ) => undefined | CellValue;
+
+    /**
+     * Occurs before a column is excluded. If this method returns false, the removal will be canceled.
+     * @param instance - Instance of the worksheet where columns will be removed.
+     * @param removedColumns - Indexes of the columns to be removed.
+     */
+    onbeforedeletecolumn?: (
+      instance: WorksheetInstance,
+      removedColumns: number[],
+    ) => undefined | boolean;
+
+    /**
+     * Occurs before a row is deleted. If this method returns false, the removal will be canceled.
+     * @param instance - Instance of the worksheet where rows will be removed.
+     * @param removedRows - Indexes of the rows to be removed.
+     */
+    onbeforedeleterow?: (
+      instance: WorksheetInstance,
+      removedRows: number[]
+    ) => undefined | boolean;
+
+    /**
+     * Intercept and parse a formula just before the execution.
+     * @param instance - Instance of the worksheet.
+     * @param expression - Formula that triggered the event.
+     * @param x - Column index of the cell whose formula triggered the event.
+     * @param y - Row index of the cell whose formula triggered the event
+     */
+    onbeforeformula?: (instance: WorksheetInstance, expression: string, x?: number, y?: number) => false | string | undefined;
+
+    /**
+     * Occurs before a new column is inserted. If this method returns false, the insertion will be canceled.
+     * @param instance - Instance of the worksheet where columns will be added.
+     * @param columns - Settings for columns to be added.
+     */
+    onbeforeinsertcolumn?: (
+      instance: WorksheetInstance,
+      columns: {
+        column: number,
+        options: Column,
+        data?: CellValue[]
+      }[],
+    ) => undefined | boolean;
+
+    /**
+     * Occurs before a new row is inserted. If this method returns false, the insertion will be canceled.
+     * @param instance - Instance of the worksheet where rows will be added.
+     * @param rows - Settings for rows to be added.
+     */
+    onbeforeinsertrow?: (
+      instance: WorksheetInstance,
+      rows: {
+        row: number,
+        data: CellValue[],
+      }[],
+    ) => undefined | boolean;
+
+    /**
+     * Occurs before the paste action is performed.
+     *
+     * If it returns false, the jss cancels the paste.
+     * If it returns a string, it will be the content pasted into the worksheet.
+     *
+     * @param instance - Instance of the worksheet where data will be pasted.
+     * @param copiedText - Text being pasted to the spreadsheet.
+     * @param colIndex - Column index where it will start the paste.
+     * @param rowIndex - Row index where it will start the paste.
+     */
+    onbeforepaste?: (
+      instance: WorksheetInstance,
+      copiedText: { value: CellValue }[][],
+      colIndex: number | string,
+      rowIndex: number | string
+    ) => undefined | boolean | string;
+
+    /**
+     * Occurs before persisting any changes to the server.
+     *
+     * This event is only called when the spreadsheet has the {@link WorksheetOptions.persistence} property set.
+     *
+     * If this event returns false, the change is not persisted on the server.
+     * If it returns a truthy value, that value is persisted instead of the initial value.
+     * @param spreadsheetInstance - Spreadsheet instance.
+     * @param worksheetInstance - Instance of the worksheet to be saved.
+     * @param data - Changed data.
+     */
+    onbeforesave?: (
+      spreadsheetInstance: SpreadsheetInstance,
+      worksheetInstance: WorksheetInstance,
+      data: { row: number; data: Record<number, CellValue> }[]
+    ) => any;
+
+    /**
+     * Occurs before the selection is changed.
+     * @param instance - Worksheet instance where the selection will occur.
+     * @param borderLeftIndex - Index of the first column contained by the selection.
+     * @param borderTopIndex - Index of the first row contained by the selection.
+     * @param borderRightIndex - Index of the last column contained by the selection.
+     * @param borderBottomIndex - Index of the last row contained by the selection.
+     * @param origin - Javascript event that triggered this jss event.
+     */
+    onbeforeselection?: (
+      instance: WorksheetInstance,
+      borderLeftIndex: number,
+      borderTopIndex: number,
+      borderRightIndex: number,
+      borderBottomIndex: number,
+      origin: Event | undefined,
+    ) => false | undefined;
+
+    /**
+     * Occurs when the table is blurred.
+     * @param instance - Instance of the worksheet that was blurred.
+     */
+    onblur?: (instance: WorksheetInstance) => void;
+
+    /**
+     * Occurs after a column value is changed.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param cell - HTML element that represents the cell being changed.
+     * @param colIndex - Cell column index being changed.
+     * @param rowIndex - Cell row index being changed.
+     * @param newValue - New cell value.
+     * @param oldValue - Old cell value.
+     */
+    onchange?: (
+      instance: WorksheetInstance,
+      cell: HTMLTableCellElement,
+      colIndex: string | number,
+      rowIndex: string | number,
+      newValue: CellValue,
+      oldValue: CellValue
+    ) => void;
+
+    /**
+     * Occurs when a column heading is changed.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param colIndex - Index of the column that was renamed.
+     * @param newValue - New column title.
+     * @param oldValue - Old column title.
+     */
+    onchangeheader?: (
+      instance: WorksheetInstance,
+      colIndex: number,
+      newValue: string,
+      oldValue: string,
+    ) => void;
+
+    /**
+     * Occurs when a "setMeta" is called.
+     *
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param cellName - An object with the metadata changes.
+     */
+    onchangemeta?: (
+      instance: WorksheetInstance,
+      cellName: Record<string, any>,
+    ) => void;
+
+    /**
+     * Occurs when the page is changed.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param newPageNumber - Page the worksheet is on.
+     * @param oldPageNumber - Page the worksheet was on.
+     * @param quantityPerPage - Maximum number of lines on pages.
+     */
+    onchangepage?: (
+      instance: WorksheetInstance,
+      newPageNumber: number,
+      oldPageNumber: number,
+      quantityPerPage: number,
+    ) => void;
+
+    /**
+     * Occurs when a "setStyle" is called.
+     *
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param cellName - An object with the changes.
+     */
+    onchangestyle?: (
+      instance: WorksheetInstance,
+      changes: Record<string, string>,
+    ) => void;
+
+    /**
+     * Occurs when a comment is changed.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param newComments - New comments.
+     * @param oldComments - Old comments.
+     */
+    oncomments?: (
+      instance: WorksheetInstance,
+      newComments: Record<string, string | null>,
+      oldComments: Record<string, string | null>,
+    ) => void;
+
+    /**
+     * Occurs when the contents of one or more cells are copied.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param selectedRange - Copied cell range.
+     * @param copiedData - Data from copied cell range.
+     * @param cut - If true, the action was cut. Otherwise, the action was copy.
+     */
+    oncopy?: (
+      instance: WorksheetInstance,
+      selectedRange: [number, number, number, number],
+      copiedData: string,
+      cut: boolean | undefined,
+    ) => string | false | undefined;
+
+    /**
+     * Occurs when a cell is created.
+     * @param instance - Instance of the worksheet where the cell was created.
+     * @param cell - Cell HTML element.
+     * @param colIndex - Cell column index.
+     * @param rowIndex - Cell row index.
+     * @param newValue - Cell value.
+     */
+    oncreatecell?: (
+      instance: WorksheetInstance,
+      cell: HTMLTableCellElement,
+      colIndex: number,
+      rowIndex: number,
+      newValue: CellValue
+    ) => void;
+
+    /**
+     * Occurs when an editor is opened.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param td - Td tag of the cell whose editor was opened.
+     * @param colIndex - Column index of the cell whose editor was opened.
+     * @param rowIndex - Row index of the cell whose editor was opened.
+     * @param input - Input of the editor that was opened.
+     * @param options - Column settings.
+     */
+    oncreateeditor?: (
+      instance: WorksheetInstance,
+      td: HTMLTableCellElement,
+      colIndex: number,
+      rowIndex: number,
+      input: null,
+      options: Column,
+    ) => void;
+
+    /**
+     * Occurs after a column is excluded.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param removedColumns - Indexes of the columns that were removed.
+     */
+    ondeletecolumn?: (
+      instance: WorksheetInstance,
+      removedColumns: number[],
+    ) => void;
+
+    /**
+     * Occurs after a row is excluded.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param removedRows - Indexes of the rows that were removed.
+     */
+    ondeleterow?: (
+      instance: WorksheetInstance,
+      removedRows: number[],
+    ) => void;
+
+    /**
+     * Occurs when a closeEditor is called.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param td - Td tag of the cell whose editor was opened.
+     * @param colIndex - Column index of the cell whose editor was opened.
+     * @param rowIndex - Row index of the cell whose editor was opened.
+     * @param editorValue - Value that was in the editor.
+     * @param wasSaved - Whether the value which was in the editor was saved in the cell or not.
+     */
+    oneditionend?: (
+      instance: WorksheetInstance,
+      td: HTMLTableCellElement,
+      colIndex: number,
+      rowIndex: number,
+      editorValue: CellValue,
+      wasSaved: boolean
+    ) => void;
+
+    /**
+     * Occurs when a openEditor is called.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param td - Td tag of the cell whose editor was opened.
+     * @param colIndex - Column index of the cell whose editor was opened.
+     * @param rowIndex - Row index of the cell whose editor was opened.
+     */
+    oneditionstart?: (
+      instance: WorksheetInstance,
+      td: HTMLTableCellElement,
+      colIndex: number,
+      rowIndex: number
+    ) => void;
+
+    /**
+     * Event fired when any other event fires. It runs before the event that was called.
+     *
+     * If the called event has not been defined, the jss considers the value returned by onevent as the value returned by the called event.
+     * @param event - Name of the event that was called.
+     * @param rest - Arguments of the event that was called.
+     */
+    onevent?: (event: string, ...rest: any[]) => any;
+
+    /**
+     * Occurs when the table is focused.
+     * @param instance - Instance of the worksheet that was focused on.
+     */
+    onfocus?: (instance: WorksheetInstance) => void;
+
+    /**
+     * Occurs after a new column is inserted.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param columns - Columns that have been added.
+     */
+    oninsertcolumn?: (
+      instance: WorksheetInstance,
+      columns: {
+        column: number,
+        options: Column,
+        data?: CellValue[]
+      }[],
+    ) => void;
+
+    /**
+     * Occurs after a new row is inserted.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param rows - Rows that have been added.
+     */
+    oninsertrow?: (
+      instance: WorksheetInstance,
+      rows: {
+        row: number,
+        data: CellValue[],
+      }[]
+    ) => void;
+
+    /**
+     * Event fired when a spreadsheet is created.
+     * @param instance - Jspreadsheet instance.
+     */
+    onload?: (
+      instance: SpreadsheetInstance
+    ) => void;
+
+    /**
+     * Occurs when a group of cells is merged.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param merges - Merges that were created.
+     */
+    onmerge?: (
+      instance: WorksheetInstance,
+      merges: Record<string, [number, number]>,
+    ) => void;
+
+    /**
+     * Occurs after a column is moved to a new position.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param oldPosition - Column index before movement.
+     * @param newPosition - Column index after movement.
+     * @param quantity - Number of columns that were moved.
+     */
+    onmovecolumn?: (
+      instance: WorksheetInstance,
+      oldPosition: number,
+      newPosition: number,
+      quantity: number,
+    ) => void;
+
+    /**
+     * Occurs after a row is moved to a new position.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param oldPosition - Row index before movement.
+     * @param newPosition - Row index after movement.
+     * @param quantity - Number of rows that were moved.
+     */
+    onmoverow?: (
+      instance: WorksheetInstance,
+      oldPosition: number,
+      newPosition: number,
+      quantity: number,
+    ) => void;
+
+    /**
+     * Occurs after a paste action is performed in the javascript table.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param pastedInfo - Information that was pasted into the worksheet.
+     */
+    onpaste?: (
+      instance: WorksheetInstance,
+      pastedInfo: {
+        x: number,
+        y: number,
+        value: CellValue,
+      }[][]
+    ) => void;
+
+    /**
+     * Occurs when a change is redone.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param historyRecord - History item that was redone. If there are no more actions to redo, it takes the value undefined.
+     */
+    onredo?: (
+      instance: WorksheetInstance,
+      historyRecord: HistoryRecord | undefined
+    ) => void;
+
+    /**
+     * Occurs after a change in column width.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param colIndex - Index of columns that were resized.
+     * @param newWidth - New column widths.
+     * @param oldWidth - Old column widths.
+     */
+    onresizecolumn?: (
+      instance: WorksheetInstance,
+      colIndex: number | number[],
+      newWidth: number | number[],
+      oldWidth: number | number[],
+    ) => void;
+
+    /**
+     * Occurs after a change in row height.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param rowIndex - Index of row being resized.
+     * @param newHeight - New row height.
+     * @param oldHeight - Old row height.
+     */
+    onresizerow?: (
+      instance: WorksheetInstance,
+      rowIndex: number,
+      newHeight: number,
+      oldHeight: number
+    ) => void;
+
+    /**
+     * Occurs when persistence on the server succeeds.
+     * @param spreadsheetInstance - Spreadsheet instance.
+     * @param worksheetInstance - Instance of the worksheet to be saved.
+     * @param data - Data that has been sent to the server.
+     */
+    onsave?: (
+      spreadsheetInstance: SpreadsheetInstance,
+      worksheetInstance: WorksheetInstance,
+      data: any
+    ) => void;
+
+    /**
+     * Occurs when selection is changed.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param borderLeftIndex - Index of the first column contained by the selection.
+     * @param borderTopIndex - Index of the first row contained by the selection.
+     * @param borderRightIndex - Index of the last column contained by the selection.
+     * @param borderBottomIndex - Index of the last row contained by the selection.
+     * @param origin - Javascript event that triggered this jss event.
+     */
+    onselection?: (
+      instance: WorksheetInstance,
+      borderLeftIndex: number,
+      borderTopIndex: number,
+      borderRightIndex: number,
+      borderBottomIndex: number,
+      origin: Event | undefined,
+    ) => void;
+
+    /**
+     * Occurs after a colum is sorted.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param colIndex - Index of the column that was sorted.
+     * @param order - Sorting direction. 0 for ascending and 1 for descending.
+     * @param newOrderValues - The new order of the rows.
+     */
+    onsort?: (
+      instance: WorksheetInstance,
+      colIndex: number,
+      order: 0 | 1,
+      newOrderValues: number[],
+    ) => void;
+
+    /**
+     * Occurs when a change is undone.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param historyRecord - History item that was undone. If there are no more actions to undo, it takes the value undefined.
+     */
+    onundo?: (
+      instance: WorksheetInstance,
+      historyRecord: HistoryRecord | undefined
+    ) => void;
+
+    /**
+     * Enable execution of formulas inside the table.
+     * @default true
+     */
+    parseFormulas?: boolean;
+
+    /**
+     * Function used in sorting columns. If not specified, the default function will be used.
+     * @param order - Sorting direction. 0 for ascending and 1 for descending.
+     */
+    sorting?: (
+      order: 0 | 1
+    ) => (itemA: SortingItem, itemB: SortingItem) => number;
+
+    /**
+     * If false, HTML inside cell values will be treated as regular text. If true, the HTML will be treated as HTML.
+     * @default false
+     */
+    parseHTML?: boolean;
+
+    /** Add custom toolbars. */
+    toolbar?: boolean | ToolbarItem[] | ((defaultToolbar: ToolbarItem[]) => ToolbarItem[]) | Record<string, any>;
+
+    /**
+     * Worksheet settings.
+     */
+    worksheets: WorksheetOptions[];
+  }
+
+  interface WorksheetOptions {
+    /**
+     * Allow comments over the cells.
+     * @default true
      */
     allowComments?: boolean;
 
@@ -503,12 +1044,6 @@ declare namespace jspreadsheet {
      * @default false
      */
     allowDeletingAllRows?: boolean;
-
-    /**
-     * Allow table export as csv.
-     * @default true
-     */
-    allowExport?: boolean;
 
     /**
      * Allow insert a new column.
@@ -541,18 +1076,6 @@ declare namespace jspreadsheet {
     allowRenameColumn?: boolean;
 
     /**
-     * If true, Jss will try to convert cell contents used in formulas to numbers
-     * @default true
-     */
-    autoCasting?: boolean;
-
-    /**
-     * Auto increment actions when using the dragging corner.
-     * @default true
-     */
-    autoIncrement?: boolean;
-
-    /**
      * Css classes to apply to cells. Only one class per cell is accepted.
      * @example
      * {
@@ -563,20 +1086,8 @@ declare namespace jspreadsheet {
     classes?: Record<string, string>;
 
     /**
-     * Column alignments. But they will only be used if the alignment is not specified in the column itself.
-     * @deprecated Column alignment should be specified in the {@link JSpreadsheetOptions.columns} property.
-     */
-    colAlignments?: (HorizontalAlign | undefined | null)[];
-
-    /**
-     * Column titles. But they will only be used if the title is not specified in the column itself.
-     * @deprecated Column titles should be specified in the {@link JSpreadsheetOptions.columns} property.
-     */
-    colHeaders?: (string | undefined | null)[];
-
-    /**
      * Allow column dragging.
-     * @default false
+     * @default true
      */
     columnDrag?: boolean;
 
@@ -596,24 +1107,9 @@ declare namespace jspreadsheet {
     columnSorting?: boolean;
 
     /**
-     * Column widths. But they will only be used if the width is not specified in the column itself.
-     * @deprecated Column widths should be specified in the {@link JSpreadsheetOptions.columns} property.
+     * Worksheet comments. Each object key is a cell name and its value is its comment.
      */
-    colWidths?: (string | number | undefined | null)[];
-
-    /** Context menu content. */
-    contextMenu?: (
-      instance: JspreadsheetInstance,
-      colIndex: string | null,
-      rowIndex: string | null,
-      event: PointerEvent
-    ) => object[] | null;
-
-    /**
-     * If true, copy and export will bring formula results. If false, it will bring formulas.
-     * @default false
-     */
-    copyCompatibility?: boolean;
+    comments?: Record<string, string>;
 
     /**
      * Load a external CSV file from this URL.
@@ -634,7 +1130,7 @@ declare namespace jspreadsheet {
 
     /**
      * Load header titles from the CSV file.
-     * @default true
+     * @default false
      */
     csvHeaders?: boolean;
 
@@ -649,7 +1145,7 @@ declare namespace jspreadsheet {
 
     /**
      * Default width for columns with no specified width.
-     * @default 50
+     * @default 100
      */
     defaultColWidth?: number;
 
@@ -657,12 +1153,6 @@ declare namespace jspreadsheet {
      * Default row height.
      */
     defaultRowHeight?: number;
-
-    /**
-     * Detach the HTML table when calling updateTable.
-     * @default false
-     */
-    detachForUpdates?: boolean;
 
     /**
      * Allow table edition.
@@ -686,34 +1176,8 @@ declare namespace jspreadsheet {
      */
     freezeColumns?: number;
 
-    /**
-     * Fullscreen mode.
-     * @default false
-     */
-    fullscreen?: boolean;
-
-    imageOptions?: any;
-
-    /**
-     * Include header titles when all cell contents are copied.
-     * @default false
-     */
-    includeHeadersOnCopy?: boolean;
-
-    /**
-     * Include header titles on download.
-     * @default false
-     */
-    includeHeadersOnDownload?: boolean;
-
     /** Activate the table lazyloading. */
     lazyLoading?: boolean;
-
-    /**
-     * Show a loading spin while populating the table.
-     * @default false
-     */
-    loadingSpin?: boolean;
 
     /** Cells to be merged in the table innitialization. */
     mergeCells?: Record<string, [number, number]>;
@@ -722,12 +1186,6 @@ declare namespace jspreadsheet {
      * Meta information.
      */
     meta?: Record<string, MetaInformation>;
-
-    /**
-     * HTTP method used to load external data.
-     * @default "GET"
-     */
-    method?: string;
 
     /**
      * Minimum table dimensions: [cols, rows].
@@ -748,502 +1206,7 @@ declare namespace jspreadsheet {
     minSpareRows?: number;
 
     /** Define the nested headers. */
-    nestedHeaders?: NestedHeaderCell[] | NestedHeaderCell[][];
-
-    /**
-     * Occurs after all changes are applied in the tables.
-     * @param element - Root HTML element of this jss instance.
-     * @param changes - list of changes.
-     */
-    onafterchanges?: (
-      element: JspreadsheetInstanceElement,
-      changes: CellChange[]
-    ) => void;
-
-    /**
-     * Occurs before a column value is changed. If any value is returned, it will be the cell's new value.
-     * @param element - Root HTML element of this jss instance.
-     * @param cell - HTML element that represents the cell being changed.
-     * @param colIndex - Cell column index being changed.
-     * @param rowIndex - Cell row index being changed.
-     * @param newValue - Value being applied to the cell
-     */
-    onbeforechange?: (
-      element: JspreadsheetInstanceElement,
-      cell: HTMLTableCellElement,
-      colIndex: string | number,
-      rowIndex: string | number,
-      newValue: CellValue
-    ) => undefined | CellValue;
-
-    /**
-     * Occurs before a column is excluded. If this method returns false, the removal will be canceled.
-     * @param element - Root HTML element of this jss instance.
-     * @param colIndex - Column index from which the removal will start.
-     * @param numOfColumns - Number of columns to be removed.
-     */
-    onbeforedeletecolumn?: (
-      element: JspreadsheetInstanceElement,
-      colIndex: number,
-      numOfColumns: number
-    ) => undefined | boolean;
-
-    /**
-     * Occurs before a row is deleted. If this method returns false, the removal will be canceled.
-     * @param element - Root HTML element of this jss instance.
-     * @param rowIndex - Position of the row where removal will begin.
-     * @param numOfRows - Number of rows that will be removed.
-     */
-    onbeforedeleterow?: (
-      element: JspreadsheetInstanceElement,
-      rowIndex: number,
-      numOfRows: number
-    ) => undefined | boolean;
-
-    /**
-     * Occurs before a new column is inserted. If this method returns false, the insertion will be canceled.
-     * @param element - Root HTML element of this jss instance.
-     * @param colIndex - Position of the column used as a reference for the insertion.
-     * @param numOfColumns - Number of columns that should be added.
-     * @param insertBefore - The columns should be inserted before or after the informed position in the "colIndex" parameter.
-     */
-    onbeforeinsertcolumn?: (
-      element: JspreadsheetInstanceElement,
-      colIndex: number,
-      numOfColumns: number,
-      insertBefore: boolean
-    ) => undefined | boolean;
-
-    /**
-     * Occurs before a new row is inserted. If this method returns false, the insertion will be canceled.
-     * @param element - Root HTML element of this jss instance.
-     * @param rowIndex - Position of the row used as a reference for the insertion.
-     * @param numOfRows - Number of rows that should be added.
-     * @param insertBefore - The rows should be inserted before or after the informed position in the "rowindex" parameter.
-     */
-    onbeforeinsertrow?: (
-      element: JspreadsheetInstanceElement,
-      rowIndex: number,
-      numOfRows: number,
-      insertBefore: boolean
-    ) => undefined | boolean;
-
-    /**
-     * Occurs before the paste action is performed.
-     *
-     * If it returns false, the jss cancels the paste.
-     * If it returns a string, it will be the content pasted into the worksheet.
-     *
-     * @param element - Root HTML element of this jss instance.
-     * @param copiedText - Text being pasted to the spreadsheet.
-     * @param colIndex - Column index where it will start the paste.
-     * @param rowIndex - Row index where it will start the paste.
-     */
-    onbeforepaste?: (
-      element: JspreadsheetInstanceElement,
-      copiedText: string,
-      colIndex: number | string,
-      rowIndex: number | string
-    ) => undefined | boolean | string;
-
-    /**
-     * Occurs before persisting any changes to the server.
-     *
-     * This event is only called when the spreadsheet has the {@link JSpreadsheetOptions.persistance} property set.
-     *
-     * If this event returns false, the change is not persisted on the server.
-     * If it returns a truthy value, that value is persisted instead of the initial value.
-     * @param element - Root HTML element of this jss instance.
-     * @param jssInstance - Jss Instance.
-     * @param data - Changed data.
-     */
-    onbeforesave?: (
-      element: JspreadsheetInstanceElement,
-      jssInstance: JspreadsheetInstance,
-      data: { row: number; data: Record<number, CellValue> }[]
-    ) => any;
-
-    /**
-     * Occurs when the table is blurred.
-     * @param element - Root HTML element of this jss instance.
-     */
-    onblur?: (element: JspreadsheetInstanceElement) => void;
-
-    /**
-     * Occurs after a column value is changed.
-     * @param element - Root HTML element of this jss instance.
-     * @param cell - HTML element that represents the cell being changed.
-     * @param colIndex - Cell column index being changed.
-     * @param rowIndex - Cell row index being changed.
-     * @param newValue - New cell value.
-     * @param oldValue - Old cell value.
-     */
-    onchange?: (
-      element: JspreadsheetInstanceElement,
-      cell: HTMLTableCellElement,
-      colIndex: string | number,
-      rowIndex: string | number,
-      newValue: CellValue,
-      oldValue: CellValue
-    ) => void;
-
-    /**
-     * Occurs when a column heading is changed.
-     * @param element - Root HTML element of this jss instance.
-     * @param colIndex - Index of the column that was renamed.
-     * @param oldValue - Old column title.
-     * @param newValue - New column title.
-     */
-    onchangeheader?: (
-      element: JspreadsheetInstanceElement,
-      colIndex: string | number,
-      oldValue: string,
-      newValue: string
-    ) => void;
-
-    /**
-     * Occurs when a "setMeta" is called.
-     *
-     * This event can be called with two different sets of arguments, depending on how the "setMeta" method was called.
-     * With three arguments, which will be called "simple mode", and with one argument, which will be called "complex mode".
-     *
-     * @param cellName - The name of the cell that underwent the change, if in simple mode, or an object with the metadata changes, if in complex mode.
-     * @param property - The name of the changed property, if in simple mode, or undefined, if in complex mode.
-     * @param value - The value of the changed property, if in simple mode, or undefined, if in complex mode.
-     */
-    onchangemeta?: (
-      cellName: string | Record<string, Record<string, any>>,
-      property: string | undefined,
-      value: string | undefined
-    ) => void;
-
-    /**
-     * Occurs when the page is changed.
-     * @param element - Root HTML element of this jss instance.
-     * @param newPageNumber - Page the worksheet is on.
-     * @param oldPageNumber - Page the worksheet was on.
-     */
-    onchangepage?: (
-      element: JspreadsheetInstanceElement,
-      newPageNumber: number,
-      oldPageNumber: number
-    ) => void;
-
-    /**
-     * Occurs when a "setStyle" is called.
-     *
-     * This event can be called with two different sets of arguments, depending on how the "setStyle" method was called.
-     * With three arguments, which will be called "simple mode", and with one argument, which will be called "complex mode".
-     *
-     * @param cellName - The name of the cell that underwent the change, if in simple mode, or an object with the changes, if in complex mode.
-     * @param cssProperty - The name of the changed property, if in simple mode, or undefined, if in complex mode.
-     * @param propertyValue - The new value of the changed property, if in simple mode, or undefined, if in complex mode.
-     */
-    onchangestyle?: (
-      cellName: string | Record<string, string>,
-      cssProperty: string | undefined,
-      propertyValue: string | undefined
-    ) => void;
-
-    /**
-     * Occurs when a comment is changed.
-     * @param element - Root HTML element of this jss instance.
-     * @param newComment - New comment.
-     * @param oldComment - Old comment.
-     * @param cellPosition - Respectively the column and row indices of the cell whose comment was changed.
-     * @param colIndex - Column index of the cell whose comment was changed.
-     * @param rowIndex - Row index of the cell whose comment was changed.
-     */
-    oncomments?: (
-      element: JspreadsheetInstanceElement,
-      newComment: string | null,
-      oldComment: string | null,
-      cellPosition: [number, number],
-      colIndex: number,
-      rowIndex: number
-    ) => void;
-
-    /**
-     * Occurs when the contents of one or more cells are copied.
-     * @param element - Root HTML element of this jss instance.
-     * @param copiedData - Data that has been copied.
-     * @param hash - Deprecated.
-     */
-    oncopy?: (
-      element: JspreadsheetInstanceElement,
-      copiedData: string[],
-      hash: number
-    ) => void;
-
-    /**
-     * Occurs when an editor is opened.
-     * @param element - Root HTML element of this jss instance.
-     * @param td - Td tag of the cell whose editor was opened.
-     * @param colIndex - Column index of the cell whose editor was opened.
-     * @param rowIndex - Row index of the cell whose editor was opened.
-     * @param input - Input of the editor that was opened.
-     */
-    oncreateeditor?: (
-      element: JspreadsheetInstanceElement,
-      td: HTMLTableCellElement,
-      colIndex: string,
-      rowIndex: string,
-      input: HTMLElement
-    ) => void;
-
-    /**
-     * Occurs after a column is excluded.
-     * @param element - Root HTML element of this jss instance.
-     * @param colIndex - Column index from which removal began.
-     * @param numOfColumns - Number of columns removed.
-     * @param deletedCells - List of cells removed.
-     */
-    ondeletecolumn?: (
-      element: JspreadsheetInstanceElement,
-      colIndex: number,
-      numOfColumns: number,
-      deletedCells: HTMLTableCellElement[][]
-    ) => void;
-
-    /**
-     * Occurs after a row is excluded.
-     * @param element - Root HTML element of this jss instance.
-     * @param rowIndex - Row index from which removal began.
-     * @param numOfRows - Number of rows removed.
-     * @param deletedCells - List of cells removed.
-     */
-    ondeleterow?: (
-      element: JspreadsheetInstanceElement,
-      rowIndex: number,
-      numOfRows: number,
-      deletedCells: HTMLTableCellElement[][]
-    ) => void;
-
-    /**
-     * Occurs when a closeEditor is called.
-     * @param element - Root HTML element of this jss instance.
-     * @param td - Td tag of the cell whose editor was opened.
-     * @param colIndex - Column index of the cell whose editor was opened.
-     * @param rowIndex - Row index of the cell whose editor was opened.
-     * @param editorValue - Value that was in the editor.
-     * @param wasSaved - Whether the value which was in the editor was saved in the cell or not.
-     */
-    oneditionend?: (
-      element: JspreadsheetInstanceElement,
-      td: HTMLTableCellElement,
-      colIndex: number,
-      rowIndex: number,
-      editorValue: CellValue,
-      wasSaved: boolean
-    ) => void;
-
-    /**
-     * Occurs when a openEditor is called.
-     * @param element - Root HTML element of this jss instance.
-     * @param td - Td tag of the cell whose editor was opened.
-     * @param colIndex - Column index of the cell whose editor was opened.
-     * @param rowIndex - Row index of the cell whose editor was opened.
-     */
-    oneditionstart?: (
-      element: JspreadsheetInstanceElement,
-      td: HTMLTableCellElement,
-      colIndex: string,
-      rowIndex: string
-    ) => void;
-
-    /**
-     * Event fired when any other event fires. It runs before the event that was called.
-     *
-     * If the called event has not been defined, the jss considers the value returned by onevent as the value returned by the called event.
-     * @param event - Name of the event that was called.
-     * @param rest - Arguments of the event that was called.
-     */
-    onevent?: (event: string, ...rest: any[]) => any;
-
-    /**
-     * Occurs when the table is focused.
-     * @param element - Root HTML element of this jss instance.
-     */
-    onfocus?: (element: JspreadsheetInstanceElement) => void;
-
-    /**
-     * Occurs after a new column is inserted.
-     * @param element - Root HTML element of this jss instance.
-     * @param colIndex - Position of the column used as a reference for the insertion.
-     * @param numOfColumns - Number of columns that were added.
-     * @param addedCells - List of HTML elements that represent the added cells.
-     * @param insertBefore - Columns were inserted before or after the informed position in the "colIndex" parameter.
-     */
-    oninsertcolumn?: (
-      element: JspreadsheetInstanceElement,
-      colIndex: number,
-      numOfColumns: number,
-      addedCells: HTMLTableCellElement[][],
-      insertBefore?: boolean
-    ) => void;
-
-    /**
-     * Occurs after a new row is inserted.
-     * @param element - Root HTML element of this jss instance.
-     * @param rowIndex - Position of the row used as a reference for the insertion.
-     * @param numOfRows - Number of rows that were added.
-     * @param addedCells - List of HTML elements that represent the added cells.
-     * @param insertBefore - Rows were inserted before or after the informed position in the "rowIndex" parameter.
-     */
-    oninsertrow?: (
-      element: JspreadsheetInstanceElement,
-      rowIndex: number,
-      numOfRows: number,
-      addedCells: HTMLTableCellElement[][],
-      insertBefore: boolean
-    ) => void;
-
-    /**
-     * This method is called when the method setData.
-     * @param element - Root HTML element of this jss instance.
-     * @param instance - Jspreadsheet instance.
-     */
-    onload?: (
-      element: JspreadsheetInstanceElement,
-      instance: JspreadsheetInstance
-    ) => void;
-
-    /**
-     * Occurs when a group of cells is merged.
-     * @param element - Root HTML element of this jss instance.
-     * @param mergeInitialCell - Name of the cell that is the top left corner of the merge.
-     * @param colspan - Number of columns this merge occupies.
-     * @param rowspan - Number of rows this merge occupies.
-     */
-    onmerge?: (
-      element: JspreadsheetInstanceElement,
-      mergeInitialCell: string,
-      colspan: number,
-      rowspan: number
-    ) => void;
-
-    /**
-     * Occurs after a column is moved to a new position.
-     * @param element - Root HTML element of this jss instance.
-     * @param oldPosition - Column index before movement.
-     * @param newPosition - Column index after movement.
-     */
-    onmovecolumn?: (
-      element: JspreadsheetInstanceElement,
-      oldPosition: number,
-      newPosition: number
-    ) => void;
-
-    /**
-     * Occurs after a row is moved to a new position.
-     * @param element - Root HTML element of this jss instance.
-     * @param oldPosition - Row index before movement.
-     * @param newPosition - Row index after movement.
-     */
-    onmoverow?: (
-      element: JspreadsheetInstanceElement,
-      oldPosition: string | number,
-      newPosition: number
-    ) => void;
-
-    /**
-     * Occurs after a paste action is performed in the javascript table.
-     * @param element - Root HTML element of this jss instance.
-     * @param pastedData - Data pasted to the spreadsheet.
-     */
-    onpaste?: (
-      element: JspreadsheetInstanceElement,
-      pastedData: string[][]
-    ) => void;
-
-    /**
-     * Occurs when a change is redone.
-     * @param element - Root HTML element of this jss instance.
-     * @param historyRecord - History item that was redone. If there are no more actions to redo, it takes the value undefined.
-     */
-    onredo?: (
-      element: JspreadsheetInstanceElement,
-      historyRecord: HistoryRecord | undefined
-    ) => void;
-
-    /**
-     * Occurs after a change in column width.
-     * @param element - Root HTML element of this jss instance.
-     * @param colIndex - Index of column being resized.
-     * @param newWidth - New column width.
-     * @param oldWidth - Old column width.
-     */
-    onresizecolumn?: (
-      element: JspreadsheetInstanceElement,
-      colIndex: string | number,
-      newWidth: string | number,
-      oldWidth: number
-    ) => void;
-
-    /**
-     * Occurs after a change in row height.
-     * @param element - Root HTML element of this jss instance.
-     * @param rowIndex - Index of row being resized.
-     * @param newHeight - New row height.
-     * @param oldHeight - Old row height.
-     */
-    onresizerow?: (
-      element: JspreadsheetInstanceElement,
-      rowIndex: string | number,
-      newHeight: number,
-      oldHeight: number
-    ) => void;
-
-    /**
-     * Occurs when persistence on the server succeeds.
-     * @param element - Root HTML element of this jss instance.
-     * @param jssInstance - Jss Instance.
-     * @param data - Data that has been sent to the server.
-     */
-    onsave?: (
-      element: JspreadsheetInstanceElement,
-      jssInstance: JspreadsheetInstance,
-      data: any
-    ) => void;
-
-    /**
-     * Occurs when selection is changed.
-     * @param element - Root HTML element of this jss instance.
-     * @param borderLeftIndex - Index of the first column contained by the selection.
-     * @param borderTopIndex - Index of the first row contained by the selection.
-     * @param borderRightIndex - Index of the last column contained by the selection.
-     * @param borderBottomIndex - Index of the last row contained by the selection.
-     */
-    onselection?: (
-      element: JspreadsheetInstanceElement,
-      borderLeftIndex: number,
-      borderTopIndex: number,
-      borderRightIndex: number,
-      borderBottomIndex: number,
-      origin: any
-    ) => void;
-
-    /**
-     * Occurs after a colum is sorted.
-     * @param element - Root HTML element of this jss instance.
-     * @param colIndex - Index of the column that was sorted.
-     * @param order - Sorting direction. 0 for ascending and 1 for descending.
-     */
-    onsort?: (
-      element: JspreadsheetInstanceElement,
-      colIndex: string | number,
-      order: 0 | 1
-    ) => void;
-
-    /**
-     * Occurs when a change is undone.
-     * @param element - Root HTML element of this jss instance.
-     * @param historyRecord - History item that was undone. If there are no more actions to undo, it takes the value undefined.
-     */
-    onundo?: (
-      element: JspreadsheetInstanceElement,
-      historyRecord: HistoryRecord | undefined
-    ) => void;
+    nestedHeaders?: NestedHeaderCell[][];
 
     /** Number of rows per page. */
     pagination?: number;
@@ -1251,15 +1214,9 @@ declare namespace jspreadsheet {
     /**
      * Values available in the dropdown for choosing the number of rows per page.
      *
-     * This dropdown is only visible when the {@link JSpreadsheetOptions.search} option is true and the {@link JSpreadsheetOptions.pagination} option is greater than 0.
+     * This dropdown is only visible when the {@link WorksheetOptions.search} option is true and the {@link WorksheetOptions.pagination} option is greater than 0.
      */
     paginationOptions?: number[];
-
-    /**
-     * Enable execution of formulas inside the table.
-     * @default true
-     */
-    parseFormulas?: boolean;
 
     /**
      * Try to identify the column type when the instance is created with a table tag.
@@ -1274,20 +1231,17 @@ declare namespace jspreadsheet {
     parseTableFirstRowAsHeader?: boolean;
 
     /**
-     * Route where requests for data persistence will be sent. If true, the {@link JSpreadsheetOptions.url} property value will be used instead.
+     * Route where requests for data persistence will be sent. If true, the {@link WorksheetOptions.url} property value will be used instead.
      */
-    persistance?: boolean | string;
+    persistence?: boolean | string;
 
     /**
-     * Request body used to load external data.
+     * Spreadsheet plugins.
      */
-    requestVariables?: any;
+    plugins?: Record<string, () => Plugin>;
 
     /**
-     * HTML element where the events of this instance will be listened to.
-     *
-     * Even if this property is specified, some events will still be listened to on the document object.
-     * @default document
+     * DOM element for binding the javascript events. This property is normally used when JSS is running as a web component.
      */
     root?: HTMLElement;
 
@@ -1299,7 +1253,7 @@ declare namespace jspreadsheet {
 
     /**
      * Allow row resizing.
-     * @default false
+     * @default true
      */
     rowResize?: boolean;
 
@@ -1319,34 +1273,10 @@ declare namespace jspreadsheet {
     secureFormulas?: boolean;
 
     /**
-     * Allow copy using the selection corner.
+     * Display the copy icon in the lower right corner of the selection.
      * @default true
      */
     selectionCopy?: boolean;
-
-    /**
-     * Function used in sorting columns. If not specified, the default function will be used.
-     * @param order - Sorting direction. 0 for ascending and 1 for descending.
-     */
-    sorting?: (
-      order: 0 | 1
-    ) => (itemA: SortingItem, itemB: SortingItem) => number;
-
-    /**
-     * If true, HTML inside column headings or cell values will be treated as regular text.
-     *
-     * If false, the HTML will be treated as HTML.
-     * @default true
-     */
-    stripHTML?: boolean;
-
-    /**
-     * If true, the HTML present inside the cells is also copied when the user copies cells from the spreadsheet.
-     *
-     * This property only works when the {@link JSpreadsheetOptions.copyCompatibility} option is equal to "true".
-     * @default false
-     */
-    stripHTMLOnCopy?: boolean;
 
     /**
      * Cell styles.
@@ -1355,10 +1285,9 @@ declare namespace jspreadsheet {
 
     /**
      * Set the max height of the table.
-     * This property is only used when {@link JSpreadsheetOptions.tableOverflow} is allowed.
-     * @default "300px"
+     * This property is only used when {@link WorksheetOptions.tableOverflow} is allowed.
      */
-    tableHeight?: string;
+    tableHeight?: string | number;
 
     /**
      * Allow table overflow.
@@ -1368,32 +1297,15 @@ declare namespace jspreadsheet {
 
     /**
      * Set the max width of the table.
-     * This property is only used when {@link JSpreadsheetOptions.tableOverflow} is allowed.
+     * This property is only used when {@link WorksheetOptions.tableOverflow} is allowed.
      */
-    tableWidth?: string;
-
-    /** All messages to be customized. */
-    text?: TranslationOptions;
+    tableWidth?: string | number;
 
     /**
      * If true, cell contents may overflow over empty cells.
      * @default false
      */
     textOverflow?: boolean;
-
-    /** Add custom toolbars. */
-    toolbar?: ToolbarItem[];
-
-    /** Method to config custom script execution. NOTE: This does not work with lazyLoading, Pagination or Search options. */
-    updateTable?: (
-      instance: JspreadsheetInstanceElement,
-      cell: HTMLTableCellElement,
-      colIndex: number,
-      rowIndex: number,
-      value: CellValue,
-      displayedValue: string,
-      cellName: string
-    ) => void;
 
     /** Load a external json file from this URL. */
     url?: string;
@@ -1409,12 +1321,14 @@ declare namespace jspreadsheet {
     /**
      * Jss instance this element belongs to
      */
-    jexcel: JspreadsheetInstance;
+    spreadsheet: SpreadsheetInstance;
+  }
 
+  interface JworksheetInstanceElement extends HTMLDivElement {
     /**
-     * Jss instance this element belongs to
+     * Jss worksheet instance this element belongs to
      */
-    jspreadsheet: JspreadsheetInstance;
+    jspreadsheet: WorksheetInstance;
   }
 
   interface DragInfo {
@@ -1484,7 +1398,145 @@ declare namespace jspreadsheet {
     width: number;
   }
 
-  interface JspreadsheetInstance {
+  interface Plugin {
+    /**
+     * This method is called before a worksheet is created.
+     * @param instance - New worksheet instance.
+     */
+    beforeinit?: (instance: WorksheetInstance) => void;
+
+    /**
+     * Get spreadsheet config information.
+     */
+    getConfig: () => SpreadsheetOptions;
+
+    /**
+     * This method is called when a worksheet is created.
+     * @param instance - New worksheet instance.
+     */
+    init?: (instance: WorksheetInstance) => void;
+
+    /**
+     * Event fired when any other event fires.
+     * @param event - Name of the event that was called.
+     * @param rest - Arguments of the event that was called.
+     */
+    onevent?: (event: string, ...rest: any[]) => void;
+
+    /**
+     * This method is called before the spreadsheet sends data to the server.
+     * @param instance - Worksheet instance.
+     * @param method - Name of the method whose execution needs to be saved on the server.
+     * @param data - Arguments of the method whose execution needs to be saved on the server.
+     */
+    persistence?: (instance: WorksheetInstance, method: string, data: any) => void;
+
+    /**
+     * Method called before the context menu is displayed. If this method returns anything other than a falsy value, that value overrides the context menu settings.
+     * @param instance - Instance of the worksheet on which the click was made.
+     * @param colIndex - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @param rowIndex - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @param event - pointer event that triggered this method.
+     * @param items - jss default context menu.
+     * @param role - indicates in which part of the spreadsheet the click occurred.
+     * @param x - Horizontal index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @param y - Vertical index of the element that was clicked. The meaning of this value depends on the {@link role} argument.
+     * @returns Context menu configuration that should be created.
+     */
+    contextMenu?: (
+      instance: WorksheetInstance,
+      colIndex: number | null,
+      rowIndex: number | null,
+      event: PointerEvent,
+      items: ContextMenuItem[],
+      role: ContextMenuRole,
+      x: number | null,
+      y: number | null,
+    ) => ContextMenuItem[] | null | undefined;
+
+    /**
+     * Method called before the toolbar is displayed. If this method returns anything other than a falsy value, that value overrides the toolbar settings.
+     * @param defaultToolbar 
+     */
+    toolbar?: (defaultToolbar: ToolbarItem[]) => ToolbarItem[] | null | undefined;
+  }
+
+  interface SpreadsheetInstance {
+    /**
+     * Spreadsheet settings.
+     */
+    config: SpreadsheetOptions;
+
+    /**
+     * Jsuites contextmenu of this jss instance
+     */
+    contextMenu: HTMLDivElement;
+
+    /**
+     * Root HTML element of this jss instance.
+     */
+    el: JspreadsheetInstanceElement;
+
+    /**
+     * Alias for el.
+    */
+    element: JspreadsheetInstanceElement;
+
+    /**
+     * Toogle table fullscreen mode.
+     * @param activate - Desired mode. Default: The opposite of the current mode.
+     */
+    fullscreen: (activate?: boolean) => void;
+
+    /**
+     * Get the index of the currently active worksheet
+     */
+    getWorksheetActive: () => number;
+
+    /**
+     * Hide the toolbar.
+     */
+    hideToolbar: () => void;
+
+    /**
+     * If true, the spreadsheet does not emit events.
+     */
+    ignoreEvents?: boolean;
+
+    /**
+     * Spreadsheet plugins.
+     */
+    plugins: Record<string, Plugin>;
+
+    /**
+     * Change the spreadsheet settings.
+     * @param config - New settings.
+     */
+    setConfig: (config: SpreadsheetOptions) => void;
+
+    /**
+     * Add new plugins to the spreadsheet.
+     * @param plugins - New plugins.
+     */
+    setPlugins: (plugins: Record<string, () => Plugin>) => void;
+
+    /**
+     * Show the toolbar using the current settings.
+     */
+    showToolbar: () => void;
+
+    /**
+     * HTML div tag used as the toolbar of this jss instance.
+     */
+    toolbar: HTMLDivElement;
+
+    /**
+     * Instances of the worksheets that make up this spreadsheet.
+     */
+    worksheets: WorksheetInstance[];
+  }
+
+  interface WorksheetInstance {
     ads: HTMLDivElement;
 
     /**
@@ -1495,65 +1547,25 @@ declare namespace jspreadsheet {
     closeEditor: (cell: HTMLTableCellElement, save: boolean) => void;
 
     /**
-     * Close and apply a filter.
-     * @param columnId Filter column index. If omitted, equals the index of the first filter that has value.
-     */
-    closeFilter: (columnId?: number) => void;
-
-    /**
-     * @deprecated
-     */
-    col: () => void;
-
-    /**
      * List of "col" tags for this spreadsheet's table
      */
-    colgroup: HTMLTableColElement[];
+    cols: {
+      colElement: HTMLTableColElement,
+      x: number,
+    }[];
 
     /**
      * Colgroup tag for this spreadsheet's table
      */
     colgroupContainer: HTMLElement;
 
-    /**
-     * Resets the selection when at least one row or column it is in is removed.
-     * @param type - 0 refers to deleting columns, 1 to deleting rows.
-     * @param o - Index of the first row or column affected by the pruning.
-     * @param d - Index of the last row or column affected by the pruning.
-     */
-    conditionalSelectionUpdate: (type: 0 | 1, o: number, d: number) => void;
-
     content: HTMLDivElement;
 
     /**
-     * Jsuites contextmenu of this jss instance
+     * Copies or cuts the contents of selected cells in the worksheet.
+     * @param cut - If true, the operation is cut, if not, it is copy.
      */
-    contextMenu: HTMLDivElement;
-
-    /**
-     *
-     * @param olnlyHighlighted - Copy only the contents of highlighted cells, or the contents of all cells. Default: false.
-     * @param delimiter - Column separator. Default: "\t".
-     * @param returnData - If true, ignore copy behavior (copy content to Clipboard and change aesthetics of selected content). Default: false.
-     * @param includeHeaders - If true, the header will also be copied, ignoring properties that could affect this behavior ({@link JSpreadsheetOptions.includeHeadersOnDownload} and {@link JSpreadsheetOptions.includeHeadersOnCopy}). Default: false.
-     * @param download - This parameter is only used if the "includeHeaders" parameter is false. In this case, if this parameter is true, the {@link JSpreadsheetOptions.includeHeadersOnDownload} property is used to decide whether the header is copied, but if this parameter is false, the {@link JSpreadsheetOptions.includeHeadersOnCopy} property is used instead. Default: false.
-     */
-    copy: (
-      olnlyHighlighted?: boolean,
-      delimiter?: string,
-      returnData?: boolean,
-      includeHeaders?: boolean,
-      download?: boolean
-    ) => string;
-
-    /**
-     * Copies the contents of the cells selected in the table to the cells within the range informed when calling this method.
-     *
-     * If {@link JspreadsheetInstance.selection} is empty, this method stops filling the range when it finds the first already filled cell.
-     * @param o - First cell of the range to be filled.
-     * @param d - Last cell of the range to be filled.
-     */
-    copyData: (o: HTMLTableCellElement, d: HTMLTableCellElement) => void;
+    copy: (cut?: boolean) => void;
 
     /**
      * HTML element that sits in the lower-right corner of selections.
@@ -1561,52 +1573,10 @@ declare namespace jspreadsheet {
     corner: HTMLDivElement;
 
     /**
-     * Create a table cell.
-     * @param i - Cell column index.
-     * @param j - Cell row index.
-     * @param value - Cell value.
+     * Create a new worksheet.
+     * @param options - Worksheet options.
      */
-    createCell: (
-      i: number,
-      j: number,
-      value: CellValue
-    ) => HTMLTableCellElement;
-
-    /**
-     * Creates a column heading cell.
-     * @param colNumber - Index of the column that will receive the title cell.
-     */
-    createCellHeader: (colNumber: number) => void;
-
-    /**
-     * Create a nested header row.
-     * @param nestedInformation - Nested header row settings. This object is changed during the execution of this method.
-     */
-    createNestedHeader: (
-      nestedInformation: NestedHeaderCell[]
-    ) => HTMLTableRowElement;
-
-    /**
-     * Creates a table row.
-     *
-     * This method updates the {@link JspreadsheetInstance.rows} and {@link JspreadsheetInstance.records} properties, but does not insert the row into the table.
-     * @param j - Row index.
-     * @param data - Row data. If omitted, data from property {@link JSpreadsheetOptions.data} at position "j" is used instead.
-     */
-    createRow: (j: number, data?: CellValue) => HTMLTableRowElement;
-
-    /**
-     * Creates the HTML structure of the table.
-     */
-    createTable: () => void;
-
-    /**
-     * Create the table toolbar.
-     * @param toolbar - Toolbar settings. If omitted, the {@link JSpreadsheetOptions.toolbar} property is used instead.
-     */
-    createToolbar: (
-      toolbar?: NonNullable<JSpreadsheetOptions["toolbar"]>
-    ) => void;
+    createWorksheet: (options: WorksheetOptions) => void;
 
     cursor: null | HTMLElement;
 
@@ -1618,7 +1588,7 @@ declare namespace jspreadsheet {
     /**
      * Remove columns.
      *
-     * This method returns false if the {@link JSpreadsheetOptions.onbeforedeletecolumn} event returns false or if the dialog {@link TranslationOptions.thisActionWillDestroyAnyExistingMergedCellsAreYouSure} receives a negative response.
+     * This method returns false if the {@link SpreadsheetOptions.onbeforedeletecolumn} event returns false or if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response.
      * @param columnNumber - Column index from which removal starts.
      * @param numOfColumns - Number of columns to be removed.
      */
@@ -1630,51 +1600,46 @@ declare namespace jspreadsheet {
     /**
      * Remove rows.
      *
-     * This method returns false if the {@link JSpreadsheetOptions.onbeforedeleterow} event returns false or if the dialog cases {@link TranslationOptions.thisActionWillDestroyAnyExistingMergedCellsAreYouSure} or {@link TranslationOptions.thisActionWillClearYourSearchResultsAreYouSure} receive a negative response.
+     * This method returns false if the {@link SpreadsheetOptions.onbeforedeleterow} event returns false or if the dialog cases "This action will destroy any existing merged cells. Are you sure?" or "This action will clear your search results. Are you sure?" receive a negative response.
      * @param rowNumber - Row index from which removal starts.
      * @param numOfRows - Number of rows to be removed.
      */
     deleteRow: (rowNumber?: number, numOfRows?: number) => false | undefined;
 
     /**
-     * Destroys that jss instance but doesn't remove all listeners.
+     * Delete a worksheet.
+     * @param position - Worksheet index.
      */
-    destroy: () => void;
+    deleteWorksheet: (position: number) => void;
 
     /**
      * Remove all merged cells.
-     * @param keepOptions - Keep merge settings. Default: false.
      */
-    destroyMerged: (keepOptions?: boolean) => void;
+    destroyMerge: () => void;
 
     /**
-     * Fire an event.
-     *
-     * The behavior of this method is influenced by the {@link JspreadsheetInstance.ignoreEvents} property.
-     *
-     * Before firing any event, this method fires the {@link JSpreadsheetOptions.onevent} event.
-     *
-     * The value returned by this method is the value returned by the event that was called.
-     * If the called event is not defined, the returned value is the value returned by the {@link JSpreadsheetOptions.onevent} event.
-     *
-     * If the event called is the {@link JSpreadsheetOptions.onafterchanges} and the {@link JSpreadsheetOptions.persistance} property is set, this method sends a request to the server to save the change.
+     * Emit an event.
      * @param event - Event name.
-     * @param rest - Arguments to be passed to the event.
+     * @param args - Arguments that should be passed to the event.
      */
-    dispatch: (event: string, ...rest: any[]) => any;
+    dispatch: (event: string, ...args: any[]) => any;
 
     /**
-     * Performs the action of using the "down arrow" key on the keyboard.
-     * @param shiftKey - The shift key is pressed. Default: false.
-     * @param ctrlKey - The ctrl key is pressed. Default: false.
+     * Simulates the action of the "arrow down" key.
+     * @param shiftKey - If true, the method simulates the action of the "arrow down" key while the Shift key is pressed.
+     * @param ctrlKey - If true, the method simulates the action of the "arrow down" key while the Ctrl key is pressed.
      */
     down: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
      * Get the current data as a CSV file.
-     * @param includeHeaders - If true, include the header regardless of the {@link JSpreadsheetOptions.includeHeadersOnDownload} property value
+     * @param includeHeaders - If true, include the header regardless of the {@link SpreadsheetOptions.includeHeadersOnDownload} property value.
+     * @param processed - If true, the result will contain the displayed cell values. Otherwise, the result will contain the actual cell values.
      */
-    download: (includeHeaders?: boolean) => void;
+    download: (
+      includeHeaders?: boolean,
+      processed?: boolean,
+    ) => void;
 
     /**
      * Stores information about the row or column being moved.
@@ -1687,17 +1652,17 @@ declare namespace jspreadsheet {
     edition: null | [HTMLTableCellElement, string, string, string];
 
     /**
-     * Root HTML element of this jss instance.
+     * Root HTML element of this worksheet instance.
      */
-    el: JspreadsheetInstance;
+    element: JworksheetInstanceElement;
 
     /**
-     * Solve formula.
-     * @param expression - Formula.
-     * @param x - Column index of the cell this formula belongs to.
-     * @param y - Row index of the cell this formula belongs to.
+     * Execute a formula.
+     * @param expression - Formula to be executed.
+     * @param x - Column index of the cell where the formula is.
+     * @param y - Row index of the cell where the formula is.
      */
-    executeFormula: (expression: string, x: number, y: number) => any;
+    executeFormula: (expression: string, x?: number, y?: number) => any;
 
     /**
      * Table row containing filter inputs.
@@ -1710,11 +1675,11 @@ declare namespace jspreadsheet {
     filters: (string[] | null)[];
 
     /**
-     * Performs the action of using the "home" key on the keyboard.
-     * @param shiftKey - The shift key is pressed. Default: false.
-     * @param ctrlKey - The ctrl key is pressed. Default: false.
+     * Simulates the action of the Home key.
+     * @param shiftKey - If true, the method simulates the action of the Home key while the Shift key is pressed.
+     * @param ctrlKey - If true, the method simulates the action of the Home key while the Ctrl key is pressed.
      */
-    first: (shiftKey?: number, ctrlKey?: number) => void;
+    first: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
      * List of formulas that are used within other formulas. Each key is the name of a cell containing a formula, and each value is a list of cells whose formulas use the cell specified in the key.
@@ -1722,16 +1687,17 @@ declare namespace jspreadsheet {
     formula: Record<string, string[]>;
 
     /**
-     * Toogle table fullscreen mode.
-     * @param activate - Desired mode. Default: The opposite of the current mode.
+     * Get cell DOM element by cell name.
+     * @param cell - Cell name.
      */
-    fullscreen: (activate?: boolean) => void;
+    getCell(cell: string): HTMLTableCellElement;
 
     /**
-     * Get cell DOM element by cell name.
-     * @param cell - Cell name or coordinates.
+     * Get cell DOM element by cell coords.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
      */
-    getCell: (cell: string | [number, number]) => HTMLTableCellElement;
+    getCell(x: number, y: number): HTMLTableCellElement;
 
     /**
      * Get cell DOM element by cell coordinates.
@@ -1743,48 +1709,43 @@ declare namespace jspreadsheet {
     /**
      * Get the data from one column by its index.
      * @param columnNumber - Column index.
+     * @param processed - If true, the return is constructed using the innerHTML of the cells. Otherwise, it is constructed using the {@link WorksheetOptions.data} property. Default: false.
      */
-    getColumnData: (columnNumber: number) => CellValue[];
-
-    /**
-     * Get column options.
-     * @param x - Column index.
-     */
-    getColumnOptions: (x: number) => Column;
+    getColumnData: (columnNumber: number, processed?: boolean) => CellValue[];
 
     /**
      * Get comments from one or all cells.
      * @param cell - Cell name. If it is a falsy value, the comments of all cells are returned.
-     * @param withAuthor - If true, also return the author of the comment. This parameter is only used if the "cell" parameter is a truthy value. Deprecated.
      */
     getComments: (
-      cell?: string | [number, number],
-      withAuthor?: boolean
-    ) => Record<string, string> | [string, string] | string;
+      cell?: string
+    ) => Record<string, string> | string;
 
     /**
-     * Get table config information.
+     * Get worksheet config information.
      */
-    getConfig: () => Record<string, any>;
+    getConfig: () => WorksheetOptions;
 
     /**
      * Get the full or partial table data.
      * @param highlighted - If true, get only data from highlighted cells. If false, get data from all cells. Default: false.
-     * @param dataOnly - If false, and the {@link JSpreadsheetOptions.copyCompatibility} property is true, the return is constructed using the innerHTML of the cells. Otherwise, it is constructed using the {@link JSpreadsheetOptions.data} property. Default: false.
+     * @param processed - If false, the return is constructed using the innerHTML of the cells. Otherwise, it is constructed using the {@link WorksheetOptions.data} property. Default: false.
+     * @param delimiter - Column delimiter. If this property is specified, the result will be formatted like a csv.
+     * @param asJson - If this property is true, the result will be formatted as json.
      */
-    getData: (highlighted?: boolean, dataOnly?: boolean) => CellValue[][];
+    getData: (
+      highlighted?: boolean,
+      processed?: boolean,
+      delimiter?: string,
+      asJson?: boolean,
+    ) => CellValue[][];
 
     /**
-     * Get the values of options from a dropdown column based on the column index and the keys of those options.
-     * @param column - Column index.
-     * @param key - Options keys.
+     * Get data from a range.
+     * @param range - Range of cells whose values ​​are to be returned.
+     * @param processed - If true, the method returns the values ​​of the HTML elements of the cells. Otherwise, the method returns the values ​​of the cells in the options.data array.
      */
-    getDropDownValue: (column: number, key: string | string[]) => string;
-
-    /**
-     * Get sum of width of all frozen columns.
-     */
-    getFreezeWidth: () => number;
+    getDataFromRange: (range: string, processed: true) => CellValue[][];
 
     /**
      * Get the column title.
@@ -1801,7 +1762,7 @@ declare namespace jspreadsheet {
     /**
      * Get height of all rows.
      */
-    getHeight(): string[];
+    getHeight(row?: undefined): string[];
 
     /**
      * Get height of one row.
@@ -1810,34 +1771,22 @@ declare namespace jspreadsheet {
     getHeight(row: number): string;
 
     /**
-     * Get highlighted cells.
+     * Get the coordinates of the highlighted selections.
      */
-    getHighlighted: () => HTMLTableCellElement[];
-
-    /**
-     * Get the full or partial table data in JSON format.
-     * @param highlighted - If true, get value from highlighted cells only. If false, get the value of all cells.
-     */
-    getJson: (highlighted?: boolean) => Record<string, CellValue>[];
-
-    /**
-     * Get json data by row number.
-     * @param rowNumber - Row index.
-     */
-    getJsonRow: (rowNumber: number) => Record<string, CellValue>;
+    getHighlighted: () => [number, number, number, number][]
 
     /**
      * Get the innerHTML of a cell.
-     * @param cell - Cell name or coordinates.
+     * @param cell - Cell name.
      */
-    getLabel: (cell: [number, number] | string) => string;
+    getLabel(cell: string): string;
 
     /**
      * Get the innerHTML of a cell.
      * @param x - Cell column index.
      * @param y - Cell row index.
      */
-    getLabelFromCoords: (x: number, y: number) => string;
+    getLabel(x: number, y: number): string;
 
     /**
      * Get information from one or all merged cells
@@ -1850,26 +1799,50 @@ declare namespace jspreadsheet {
     /**
      * Get meta information from one or all cells.
      * @param cell - Cell name. If it is a falsy value, the metadata of all cells is returned.
-     * @param key - Name of a property. This parameter is only used if the "cell" parameter is a truthy value. If this parameter is a falsy value, all the metadata of the cell is returned, otherwise, only the property informed in this parameter is returned.
      */
-    getMeta: (cell?: string, key?: string) => any;
+    getMeta: (cell?: string) => any;
+
+    /**
+     * Get the range description of the selected cells.
+     */
+    getRange: () => string;
 
     /**
      * Get data from a row by its index.
      * @param rowNumber - Row index.
+     * @param processed - If true, the return is constructed using the innerHTML of the cells. Otherwise, it is constructed using the {@link WorksheetOptions.data} property. Default: false.
      */
-    getRowData: (rowNumber: number) => CellValue[] | undefined;
+    getRowData: (
+      rowNumber: number,
+      processed?: boolean,
+    ) => CellValue[] | undefined;
+
+    /**
+     * Get information from selected cells in the worksheet.
+     * @param columnNameOnly - If true, the method returns the names of the selected cells. Otherwise, the method returns the records of the selected cells.
+     */
+    getSelected: (columnNameOnly?: boolean) => {
+      element: HTMLTableCellElement[][],
+      x: number,
+      y: number,
+    }[] | string[];
 
     /**
      * Get indexes of the columns that have highlighted cells.
+     * @param visibleOnly - If true, the method returns only visible columns.
      */
-    getSelectedColumns: () => number[];
+    getSelectedColumns: (visibleOnly?: boolean) => number[];
 
     /**
-     * Get information from rows that have highlighted cells.
-     * @param asIds - If true, returns row indexes. Otherwise, it returns the HTML elements that represent the rows.
+     * Get indexes of the rows that have highlighted cells.
+     * @param visibleOnly - If true, the method returns only visible rows.
      */
-    getSelectedRows: (asIds?: boolean) => number[] | HTMLTableRowElement[];
+    getSelectedRows: (visibleOnly?: boolean) => number[];
+
+    /**
+     * Get the coordinates of the range that is selected in the worksheet.
+     */
+    getSelection: () => [number, number, number, number];
 
     /**
      * Get styles from one or all cells.
@@ -1883,11 +1856,11 @@ declare namespace jspreadsheet {
 
     /**
      * Get the value of a cell.
-     * @param cell - Cell name, coordinates or HTML element.
-     * @param processedValue - If true, and the {@link JSpreadsheetOptions.copyCompatibility} property is also true, it returns the cell's innerHTML. Otherwise, it returns the value of the cell in the {@link JSpreadsheetOptions.data} property.
+     * @param cell - Cell name.
+     * @param processedValue - If true, it returns the cell's innerHTML. Otherwise, it returns the value of the cell in the {@link WorksheetOptions.data} property.
      */
     getValue: (
-      cell: [number, number] | string | HTMLTableCellElement,
+      cell: string,
       processedValue?: boolean
     ) => CellValue | null;
 
@@ -1895,7 +1868,7 @@ declare namespace jspreadsheet {
      * Get the value of a cell by its coordinates.
      * @param x - Column index.
      * @param y - Row index.
-     * @param processedValue - If true, and the {@link JSpreadsheetOptions.copyCompatibility} property is also true, it returns the cell's innerHTML. Otherwise, it returns the value of the cell in the {@link JSpreadsheetOptions.data} property.
+     * @param processedValue - If true, it returns the cell's innerHTML. Otherwise, it returns the value of the cell in the {@link WorksheetOptions.data} property.
      */
     getValueFromCoords: (
       x: number,
@@ -1905,14 +1878,14 @@ declare namespace jspreadsheet {
 
     /**
      * Get the width of one or all columns.
-     * @param column - Index or a td tag of the column. If omitted, returns the widths of all columns.
+     * @param column - Index of the column. If omitted, returns the widths of all columns.
      */
-    getWidth: (column?: number | HTMLTableCellElement) => string[] | string;
+    getWidth: (column?: number) => number | (number | string)[];
 
     /**
-     * @deprecated
+     * Get the index of the currently active worksheet
      */
-    hash: (str: string) => number;
+    getWorksheetActive: () => number;
 
     /**
      * @deprecated
@@ -1931,9 +1904,9 @@ declare namespace jspreadsheet {
 
     /**
      * Hide a column.
-     * @param colNumber - Column index.
+     * @param colNumber - Column indexes.
      */
-    hideColumn: (colNumber: number) => void;
+    hideColumn: (colNumber: number | number[]) => void;
 
     /**
      * Hide row count column.
@@ -1942,14 +1915,18 @@ declare namespace jspreadsheet {
 
     /**
      * Hide Row.
-     * @param rowNumber - Row index.
+     * @param rowNumber - Row indexes.
      */
-    hideRow: (rowNumber: number) => void;
+    hideRow: (rowNumber: number | number[]) => void;
 
     /**
      * List of highlighted cells.
      */
-    highlighted: HTMLTableCellElement[];
+    highlighted: {
+      element: HTMLTableCellElement,
+      x: number,
+      y: number,
+    }[];
 
     /**
      * List of actions performed on the worksheet.
@@ -1957,28 +1934,9 @@ declare namespace jspreadsheet {
     history: HistoryRecord[];
 
     /**
-     * Current position of the {@link JspreadsheetInstance.history} property. Used to control movement through history.
+     * Current position of the {@link WorksheetInstance.history} property. Used to control movement through history.
      */
     historyIndex: number;
-
-    /**
-     * Undo or redo a column insertion or removal.
-     * @param type - If 1, remove columns. If 0, add columns.
-     * @param historyRecord - History action to be redone or undone.
-     */
-    historyProcessColumn: (type: 1 | 0, historyRecord: HistoryRecord) => void;
-
-    /**
-     * Undo or redo a row insertion or removal.
-     * @param type - If 1, remove columns. If 0, add columns.
-     * @param historyRecord - History action to be redone or undone.
-     */
-    historyProcessRow: (type: 1 | 0, historyRecord: HistoryRecord) => void;
-
-    /**
-     * If true, the {@link JspreadsheetInstance.dispatch} method no longer fires events, but still saves changes to the server.
-     */
-    ignoreEvents: boolean;
 
     /**
      * If true, the "setHistory" method does not create new records in the history.
@@ -1986,14 +1944,16 @@ declare namespace jspreadsheet {
     ignoreHistory: boolean;
 
     /**
-     * Initialization method.
+     * Check if a cell is within the current selection.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
      */
-    init: () => void;
+    isSelected: (x: number, y: number) => boolean;
 
     /**
      * Insert one or more columns.
      *
-     * This method returns false if the {@link JSpreadsheetOptions.onbeforeinsertcolumn} event returns false or if the {@link TranslationOptions.thisActionWillDestroyAnyExistingMergedCellsAreYouSure} dialog receives a negative response.
+     * This method returns false if the {@link SpreadsheetOptions.onbeforeinsertcolumn} event returns false or if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response.
      * @param mixed - Number of columns to insert. It can also be an array of values, but in this case, only one column is inserted, whose data is based on the array items. Default: 1.
      * @param columnNumber - Index of the column used as reference for the insertion. Default: last column.
      * @param insertBefore - Insert new columns before or after the reference column. Default: false.
@@ -2009,7 +1969,7 @@ declare namespace jspreadsheet {
     /**
      * Insert one or more rows.
      *
-     * This method returns false if the {@link JSpreadsheetOptions.onbeforeinsertrow} event returns false or if the {@link TranslationOptions.thisActionWillDestroyAnyExistingMergedCellsAreYouSure} or {@link TranslationOptions.thisActionWillClearYourSearchResultsAreYouSure} dialogs receive a negative response.
+     * This method returns false if the {@link SpreadsheetOptions.onbeforeinsertrow} event returns false or if the "This action will destroy any existing merged cells. Are you sure?" or "This action will clear your search results. Are you sure?" dialogs receive a negative response.
      * @param mixed - Number of rows to insert. It can also be an array of values, but in this case, only one row is inserted, whose data is based on the array items. Default: 1.
      * @param rowNumber - Index of the row used as reference for the insertion. Default: last row.
      * @param insertBefore - Insert new rows before or after the reference row. Default: false.
@@ -2021,67 +1981,36 @@ declare namespace jspreadsheet {
     ) => false | undefined;
 
     /**
-     * Returns the merges that exist in a column.
-     * @param x - Column index.
-     * @param insertBefore - If it has a boolean value, instead of checking if the column has a merge, it checks if it has a merge with the column before or after it.
+     * Check if a cell is read only.
+     * @param x - Cell column index.
+     * @param y - Cell row index.
      */
-    isColMerged: (x: number, insertBefore?: boolean) => string[];
+    isReadOnly(x: number, y: number): boolean;
 
     /**
-     * Checks if a cell is read-only.
-     * @param cell - Cell name or coordinates.
+     * Check if a cell is read only.
+     * @param cellName - Cell name.
      */
-    isReadOnly: (cell: string | [number, number]) => boolean;
+    isReadOnly(cellName: string): boolean;
 
     /**
-     * Returns the merges that exist in a row.
-     * @param y - Row index.
-     * @param insertBefore - If it has a boolean value, instead of checking if the row has a merge, it checks if it has a merge with the row before or after it.
-     */
-    isRowMerged: (y: number, insertBefore?: boolean) => string[];
-
-    /**
-     * Performs the action of using the "end" key on the keyboard.
-     * @param shiftKey - The shift key is pressed. Default: false.
-     * @param ctrlKey - The ctrl key is pressed. Default: false.
+     * Simulates the action of the End key.
+     * @param shiftKey - If true, the method simulates the action of the End key while the Shift key is pressed.
+     * @param ctrlKey - If true, the method simulates the action of the End key while the Ctrl key is pressed.
      */
     last: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Performs the action of using the "left arrow" key on the keyboard.
-     * @param shiftKey - The shift key is pressed. Default: false.
-     * @param ctrlKey - The ctrl key is pressed. Default: false.
+     * Simulates the action of the "arrow left" key.
+     * @param shiftKey - If true, the method simulates the action of the "arrow left" key while the Shift key is pressed.
+     * @param ctrlKey - If true, the method simulates the action of the "arrow left" key while the Ctrl key is pressed.
      */
     left: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Renders new rows to the end of the table and removes rows from the beginning.
-     *
-     * @returns If any row is removed from the beginning of the table, it returns 1, otherwise it returns 0.
-     */
-    loadDown: () => 0 | 1;
-
-    /**
-     * Move to a virtual page within a table using {@link JSpreadsheetOptions.lazyLoading}. Each virtual page has 100 lines.
-     * @param pageNumber
-     */
-    loadPage: (pageNumber: number) => void;
-
-    /**
-     * Renders new rows at the beginning of the table and removes rows from the end.
-     * @returns If any row is removed from the end of the table, it returns 1, otherwise it returns 0.
-     */
-    loadUp: () => 0 | 1;
-
-    /**
-     * Load the page where the DOM represented by {@link JspreadsheetInstance.selectedCell} would be.
-     */
-    loadValidation: () => boolean;
-
-    /**
      * Move a column.
      *
-     * This method returns false if the {@link TranslationOptions.thisActionWillDestroyAnyExistingMergedCellsAreYouSure} dialog receives a negative response.
+     * This method returns false if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response.
      * @param o - Column index.
      * @param d - New column index.
      */
@@ -2090,69 +2019,58 @@ declare namespace jspreadsheet {
     /**
      * Move a row.
      *
-     * This method returns false if the {@link TranslationOptions.thisActionWillDestroyAnyExistingMergedCellsAreYouSure} or {@link TranslationOptions.thisActionWillClearYourSearchResultsAreYouSure} dialogs receive a negative response.
+     * This method returns false if the "This action will destroy any existing merged cells. Are you sure?" or "This action will clear your search results. Are you sure?" dialogs receive a negative response.
      * @param o - Row index.
      * @param d - New row index.
-     * @param ignoreDom - If true, this method does not change the html.
      */
-    moveRow: (o: number, d: number, ignoreDom?: boolean) => false | undefined;
+    moveRow: (o: number, d: number) => false | undefined;
 
     /**
-     * Shortcut to fire the {@link JSpreadsheetOptions.onafterchanges} event.
-     *
-     * Internally, this method uses the {@link JspreadsheetInstance.dispatch} method.
-     * @param element - Root HTML element of this jss instance.
-     * @param changes - list of changes.
+     * Start the edition for one cell.
+     * @param cell - Cell HTML Element.
+     * @param empty - If true, the editor opens without content even if the cell had content.
+     * @param event - Js event that triggered the editor opening. This argument is passed to the "openEditor" method of custom editors.
      */
-    onafterchanges: (
-      element: JspreadsheetInstanceElement,
-      changes: CellChange[]
-    ) => void;
-
-    /**
-     * Open a cell editor.
-     * @param cell - Td tag whose editor should open.
-     * @param empty - If true, opens the editor without populating it with the current cell value. This parameter only works for cells of type "text" or "numeric" or for cells with custom editors.
-     * @param e - Event that called this method.
-     */
-    openEditor: (
-      cell: HTMLTableCellElement,
-      empty?: boolean,
-      e?: TouchEvent
-    ) => void;
+    openEditor: (cell: HTMLTableCellElement, empty?: boolean, event?: KeyboardEvent | MouseEvent | TouchEvent) => void;
 
     /**
      * Open the column filter.
      *
-     * This method only runs if the {@link JSpreadsheetOptions.filters} property is true.
+     * This method only runs if the {@link WorksheetOptions.filters} property is true.
      * @param columnId - Column index.
      */
     openFilter: (columnId: number) => void;
 
     /**
+     * Open the worksheet by index.
+     * @param position - Worksheet index.
+     */
+    openWorksheet: (position: number) => void;
+
+    /**
      * Spreadsheet settings.
      */
-    options: JSpreadsheetOptions;
+    options: WorksheetOptions;
 
     /**
      * Reorder rows based on values in a column.
      *
-     * This method returns false if the {@link TranslationOptions.thisActionWillDestroyAnyExistingMergedCellsAreYouSure} dialog receives a negative response, or returns true if the sort is successful.
+     * This method returns false if the "This action will destroy any existing merged cells. Are you sure?" dialog receives a negative response, or returns true if the sort is successful.
      * @param column - Column index. If the value of this parameter is less than 0, the method returns false and does not perform sorting.
      * @param order - Sorting direction. 0 for ascending and 1 for descending.
      */
     orderBy: (column: number, order: 0 | 1) => boolean | undefined;
 
     /**
-     * Go to page. Valid only when {@link JSpreadsheetOptions.pagination} is true.
+     * Go to page. Valid only when {@link WorksheetOptions.pagination} is true.
      * @param pageNumber - Page number (starting at 0).
      */
-    page: (pageNumber: number) => number;
+    page: (pageNumber: number) => void;
 
     /**
      * Current spreadsheet page.
      */
-    pageNumber: null | number;
+    pageNumber: undefined | number;
 
     /**
      * Div with pagination controls.
@@ -2160,59 +2078,31 @@ declare namespace jspreadsheet {
     pagination: HTMLDivElement;
 
     /**
-     * Convert data to csv pattern.
-     * @param str - Data.
-     * @param delimiter - CSV delimiter. Defaut: ",".
+     * Spreadsheet of which this worksheet is part.
      */
-    parseCSV: (str: string, delimiter?: number) => string[][];
+    parent: SpreadsheetInstance;
 
     /**
-     * Extract a number from a string.
-     * @param value - Text from which the number is extracted.
-     * @param columnNumber - Column index. This information is used to define the decimal number separator.
-     */
-    parseNumber: (value: string, columnNumber: number) => number | null;
-
-    /**
-     * Process the value of a cell.
-     * @param i - Cell column index.
-     * @param j - Cell row index.
-     * @param value - Value to be processed.
-     * @param cell - HTML element that represents the cell. Used when the cell mask causes some change in the font color.
-     */
-    parseValue: (
-      i: number,
-      j: number,
-      value: CellValue,
-      cell?: HTMLTableCellElement
-    ) => any;
-
-    /**
-     * Paste data into spreadsheet.
-     * @param x - Column index of the cell where the paste starts.
-     * @param y - Row index of the cell where the paste starts.
-     * @param data - Data to be pasted.
+     * Pastes content into one or more cells.
+     * @param x - Column index of the cell from which the content will be pasted.
+     * @param y - Row index of the cell from which the content will be pasted.
+     * @param data - Content to be pasted.
      */
     paste: (x: number, y: number, data: string) => false | undefined;
 
     /**
-     * Format data to the template accepted by the server.
-     * @param data - Data to be formatted.
+     * Get the number of pages of the worksheet.
      */
-    prepareJson: (data: CellChange[]) => {
-      row: number;
-      data: Record<number, CellValue>;
-    };
-
-    /**
-     * Prepare the jspreadsheet table.
-     */
-    prepareTable: () => void;
+    quantiyOfPages: () => number;
 
     /**
      * List of HTML elements representing table cells.
      */
-    records: HTMLTableCellElement[][];
+    records: {
+      element: HTMLTableCellElement[][],
+      x: number,
+      y: number,
+    }[][];
 
     /**
      * Redo previously undone action
@@ -2220,35 +2110,13 @@ declare namespace jspreadsheet {
     redo: () => void;
 
     /**
-     * Refresh the data.
-     */
-    refresh: () => void;
-
-    /**
-     * Refresh current selection.
-     */
-    refreshSelection: () => void;
-
-    /**
-     * Remove autocomplete selection.
-     */
-    removeCopySelection: () => void;
-
-    /**
-     * Remove copy borders.
-     */
-    removeCopyingSelection: () => void;
-
-    /**
      * Remove a merge.
      * @param cellName - Merge anchor cell.
      * @param data - Data to be placed in cells released from the merge.
-     * @param keepOptions - If true, keep merge settings in sheet settings.
      */
     removeMerge: (
       cellName: string,
       data?: CellValue[],
-      keepOptions?: boolean
     ) => void;
 
     /**
@@ -2263,10 +2131,9 @@ declare namespace jspreadsheet {
 
     /**
      * Reset highlighted cell selection.
-     * @param blur - If true and there were highlighted cells, this method fires the {@link JSpreadsheetOptions.onblur} event.
      * @returns If there were highlighted cells, it returns 1, otherwise it returns 0.
      */
-    resetSelection: (blur?: boolean) => 0 | 1;
+    resetSelection: () => 0 | 1;
 
     /**
      * Reset styles of one or more cells.
@@ -2281,7 +2148,7 @@ declare namespace jspreadsheet {
     /**
      * Information about the row or column currently being resized.
      */
-    resizing: null | ResizeRowInfo | ResizeColumnInfo;
+    resizing: undefined | null | ResizeRowInfo | ResizeColumnInfo;
 
     /**
      * Indices of the rows that include the searched text.
@@ -2289,46 +2156,25 @@ declare namespace jspreadsheet {
     results: null | number[];
 
     /**
-     * Performs the action of using the "right arrow" key on the keyboard.
-     * @param shiftKey - The shift key is pressed. Default: false.
-     * @param ctrlKey - The ctrl key is pressed. Default: false.
+     * Simulates the action of the "arrow right" key.
+     * @param shiftKey - If true, the method simulates the action of the "arrow right" key while the Shift key is pressed.
+     * @param ctrlKey - If true, the method simulates the action of the "arrow right" key while the Ctrl key is pressed.
      */
     right: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Internal method.
-     */
-    row: () => void;
-
-    /**
      * List of rows that make up the table.
      */
-    rows: HTMLTableRowElement[];
-
-    /**
-     * Post json to a remote server.
-     *
-     * This method fires the {@link JSpreadsheetOptions.onbeforesave} and {@link JSpreadsheetOptions.onsave} events.
-     * @param url - Server url.
-     * @param data - data to be saved.
-     * @returns If the "onbeforesave" event returns false, this method returns false.
-     */
-    save: (
-      url: string,
-      data: { row: number; data: Record<number, CellValue> }[]
-    ) => false | undefined;
-
-    /**
-     * Internal method.
-     */
-    scrollControls: (e: any) => void;
+    rows: {
+      element: HTMLTableRowElement,
+      y: number,
+    }[];
 
     /**
      * Search for some text.
      * @param query - Text to be searched.
-     * @returns Number of results on the first page.
      */
-    search: (query: string) => number;
+    search: (query: string) => void;
 
     /**
      * Text field used to perform searches.
@@ -2346,11 +2192,12 @@ declare namespace jspreadsheet {
      * The array is composed respectively by the indices of the leftmost column of the selection [0], the topmost row of the selection [1], the rightmost column of the selection [2] and the bottommost row selection [3].
      */
     selectedCell:
+      | undefined
       | null
       | [number, number, number, number]
       | [string, string, string, string];
 
-    selectedContainer: null | [number, number, number, number];
+    selectedContainer: undefined | null | [number, number, number, number];
 
     /**
      * Cells that currently have "autocomplete selection".
@@ -2358,81 +2205,74 @@ declare namespace jspreadsheet {
     selection: HTMLTableCellElement[];
 
     /**
-     * In "checkbox" type cells, inverts their values. In "radio" type cells, the last cell selected in each column takes on the value true, while the rest of the cells in the column take on the value false.
-     */
-    setCheckRadioValue: () => void;
-
-    /**
      * Set the data from one column by index.
      * @param colNumber - Column index.
      * @param data - New data. Positions with the null value are not changed in the table.
+     * @param force - If true, the method also changes the contents of readonly columns.
      */
-    setColumnData: (colNumber: number, data: (CellValue | null)[]) => void;
+    setColumnData: (colNumber: number, data: (CellValue | null)[], force?: boolean) => void;
+
+    /**
+     * Set or remove a comment.
+     * @param cellId - Name of the cell.
+     * @param comments - New comment. If it is a falsy value, the method just uncomments the cell.
+     */
+    setComments(
+      cellId: string,
+      comments: string,
+    ): void;
 
     /**
      * Set or remove comments.
-     * @param cellId - Name or coordinates of the cell.
-     * @param comments - New comment. If it is a falsy value, the method just uncomments the cell.
-     * @param author - Comment author. Deprecated.
+     * @param cellId - Object whose keys are cell names and values ​​are cell comments. If the value of a key is a falsy value, the cell comment is removed.
      */
-    setComments: (
-      cellId: string | [number, number],
-      comments: string,
-      author: string
-    ) => void;
+    setComments(
+      cellId: Record<string, string>,
+    ): void;
+
+    /**
+     * Change the worksheet or spreadsheet settings.
+     * @param config - New settings.
+     * @param spreadsheetLevel - If true, the settings are applied to the spreadsheet. If not, they are applied to the worksheet.
+     */
+    setConfig: (config: SpreadsheetOptions, spreadsheetLevel?: boolean) => void;
 
     /**
      * Set data.
-     * @param data - New data. It can be an array of cell values, an array of objects whose values are cell values, or a json with one of the previous two alternatives.
+     * @param data - New data. It can be an array of cell values or an array of objects whose values are cell values.
      */
     setData: (
-      data?: CellValue[][] | Record<string, CellValue>[] | string
+      data?: CellValue[][] | Record<string, CellValue>[]
     ) => void;
-
-    /**
-     * Remove the current footer, if it exists, and define a new one.
-     * @param data - New footer.
-     */
-    setFooter: (data: string[][]) => void;
 
     /**
      * Set a column title.
      * @param column - Column index.
-     * @param newValue - New title. If it is a falsy value, the prompt is displayed requesting the new title.
+     * @param newValue - New title. Empty string or undefined to reset the header title.
      */
     setHeader: (column: number, newValue?: string) => void;
 
     /**
      * Change row height.
-     * @param row - Index of a row or an HTML element that represents a row or a column of the table. In the second option, the row index (data-y attribute) of that element is used.
+     * @param row - Row index.
      * @param height - New height. An integer greater than zero.
-     * @param oldHeight - Old height. Height to which this line returns in case this action is undone. Default: Current height.
      */
     setHeight: (
-      row: number | HTMLTableRowElement | HTMLTableCellElement,
+      row: number,
       height: number,
-      oldHeight?: number
     ) => void;
 
     /**
-     * Add record to history.
-     * @param changes - New record.
-     */
-    setHistory: (changes: HistoryRecord) => void;
-
-    /**
      * Merge cells.
-     * @param cellName - Name or coordinates of a cell. If it is a falsy value, this method merges the selected cells in the table and ignores all parameters of this method except "ignoreHistoryAndEvents".
+     * @param cellName - Name of a cell. If it is a falsy value, this method merges the selected cells in the table and ignores all parameters of this method.
      * @param colspan - Number of columns this merge occupies.
      * @param rowspan - Number of rows this merge occupies.
-     * @param ignoreHistoryAndEvents - If true, do not add this change to the history or fire the {@link JSpreadsheetOptions.onmerge} event.
-     * @returns If the "cellName" parameter is a false value, and there are no cells selected in the table, this method returns null.
+     * @returns If the "cellName" parameter is a falsy value, and there are no cells selected in the table, this method returns null.
      */
     setMerge: (
-      cellName?: string | [number, number],
+      cellName?: string,
       colspan?: number,
       rowspan?: number,
-      ignoreHistoryAndEvents?: boolean
     ) => null | undefined;
 
     /**
@@ -2450,33 +2290,32 @@ declare namespace jspreadsheet {
     setMeta(o: Record<string, Record<string, any>>): void;
 
     /**
-     * Makes a cell read-only or not.
-     * @param cell - Cell name or coordinates.
-     * @param state - If true, the cell becomes read-only, otherwise it loses this status.
+     * Change the read only state of a cell.
+     * @param cell - Cell HTML element or its name.
+     * @param state - New read only state.
      */
-    setReadOnly: (cell: string | [number, number], state?: boolean) => void;
+    setReadOnly: (cell: string | HTMLTableCellElement, state: boolean) => void;
 
     /**
      * Set a row data by index.
      * @param rowNumber - Row index.
      * @param data - New data. Positions with the null value are not changed in the table.
+     * @param force - If true, the method also changes the contents of readonly columns.
      */
-    setRowData: (rowNumber: number, data: (CellValue | null)[]) => void;
+    setRowData: (rowNumber: number, data: (CellValue | null)[], force?: boolean) => void;
 
     /**
      * Change a single style of one or more cells.
-     * @param o - Name of a cell or list of HTML elements that represent cells.
+     * @param o - Name of a cell.
      * @param k - property to be changed.
      * @param v - New property value. If equal to the property's current value and the "force" parameter is false, removes that property from the style.
      * @param force - If true, changes the value of the property even if the cell is read-only. Also, if true, even if the new value of the property is the same as the current one, the property is not removed.
-     * @param ignoreHistoryAndEvents - If true, this method does not save the style change in history.
      */
     setStyle(
-      o: string | HTMLTableCellElement[],
+      o: string,
       k: string,
       v: string,
       force?: boolean,
-      ignoreHistoryAndEvents?: boolean
     ): void;
 
     /**
@@ -2485,19 +2324,17 @@ declare namespace jspreadsheet {
      * @param k - It is not used.
      * @param v - It is not used.
      * @param force - If true, changes the value of the property even if the cell is read-only. Also, if true, even if the new value of the property is the same as the current one, the property is not removed.
-     * @param ignoreHistoryAndEvents - If true, this method does not save the style change in history.
      */
     setStyle(
       o: Record<string, string | string[]>,
       k?: null | undefined,
       v?: null | undefined,
       force?: boolean,
-      ignoreHistoryAndEvents?: boolean
     ): void;
 
     /**
      * Change the value of one or more cells.
-     * @param cell - Name of a cell, HTML element that represents a cell or an array whose items can be any of the previous alternatives or objects. When an array item is an object, it must have the cell coordinates ("x" and "y") and can have the cell's new value ("newValue" or, if it doesn't exist, "value"), but if does not have it, the "value" parameter is used instead.
+     * @param cell - Name of a cell, HTML element that represents a cell or an array whose items can be any of the previous alternatives or objects. When an array item is an object, it must have the cell coordinates ("x" and "y") and can have the cell's new value ("value"), but if does not have it, the "value" parameter is used instead.
      * @param value - New cell value.
      * @param force - If true, changes the value of even read-only cells.
      */
@@ -2507,7 +2344,7 @@ declare namespace jspreadsheet {
         | HTMLTableCellElement
         | (
             | string
-            | { x: number; y: number; newValue?: CellValue; value?: CellValue }
+            | { x: number; y: number; value?: CellValue }
             | HTMLTableCellElement
           )[],
       value?: CellValue,
@@ -2532,27 +2369,24 @@ declare namespace jspreadsheet {
      * Set the width of a column.
      * @param column - Column index.
      * @param width - New width.
-     * @param oldWidth - Width that this column reverts to if this action is undone. Default: Column current width.
      */
-    setWidth(column: number, width: number, oldWidth?: number): void;
+    setWidth(column: number, width: number): void;
 
     /**
      * Set the width of one or more columns.
      * @param column - Column indexes.
      * @param width - New widths.
-     * @param oldWidth - Widths that columns revert to if this action is undone. Default: Columns current width.
      */
     setWidth(
       column: number[],
       width: number | number[],
-      oldWidth?: number | number[]
     ): void;
 
     /**
      * Show hidden column.
      * @param colNumber - Column index.
      */
-    showColumn: (colNumber: number) => void;
+    showColumn: (colNumber: number | number[]) => void;
 
     /**
      * Show row count column.
@@ -2563,7 +2397,7 @@ declare namespace jspreadsheet {
      * Show hidden row.
      * @param rowNumber - Row index.
      */
-    showRow: (rowNumber: number) => void;
+    showRow: (rowNumber: number | number[]) => void;
 
     /**
      * Styles of the cells that were copied.
@@ -2591,169 +2425,30 @@ declare namespace jspreadsheet {
     thead: HTMLTableSectionElement;
 
     /**
-     * HTML div tag used as the toolbar of this jss instance.
-     */
-    toolbar: HTMLDivElement;
-
-    /**
      * Undo last action.
      */
     undo: () => void;
 
     /**
-     * Performs the action of using the "up arrow" key on the keyboard.
-     * @param shiftKey - The shift key is pressed. Default: false.
-     * @param ctrlKey - The ctrl key is pressed. Default: false.
+     * Simulates the action of the "arrow up" key.
+     * @param shiftKey - If true, the method simulates the action of the "arrow up" key while the Shift key is pressed.
+     * @param ctrlKey - If true, the method simulates the action of the "arrow up" key while the Ctrl key is pressed.
      */
     up: (shiftKey?: boolean, ctrlKey?: boolean) => void;
 
     /**
-     * Update cell content.
-     * @param x - Cell column index.
-     * @param y - Cell row index.
-     * @param value - New value.
-     * @param force - If true, changes the value of even read-only cells.
-     * @returns Returns an object with cell coordinates. If the content has been updated, this object also has the new and old cell values.
-     */
-    updateCell: (
-      x: number,
-      y: number,
-      value: CellValue,
-      force?: boolean
-    ) => {
-      x: number;
-      y: number;
-      col: number;
-      row: number;
-      newValue?: CellValue;
-      oldValue?: CellValue;
-    };
-
-    /**
-     * Create an autocomplete selection from the current selection in the table. The autocomplete selection is built from the current selection to the coordinates in the parameters or as close as possible to them.
-     * @param x3 - Column index of the autocomplete selection boundary cell.
-     * @param y3 - Row index of the autocomplete selection boundary cell.
-     */
-    updateCopySelection: (x3: number, y3: number) => void;
-
-    /**
-     * Place the {@link JspreadsheetInstance.corner} in the last cell of the {@link JspreadsheetInstance.highlighted}.
-     */
-    updateCornerPosition: () => void;
-
-    /**
-     * Replace cell names in a formula.
-     * @param formula - Formula.
-     * @param referencesToUpdate - Cell names to be replaced.
-     * @returns Formula with replaced cell names.
-     */
-    updateFormula: (
-      formula: string,
-      referencesToUpdate: Record<string, string>
-    ) => string;
-
-    /**
-     * Updates the value of cells whose formula depends on another cell.
-     * @param x - Column index of the cell that was changed.
-     * @param y - Row index of the cell that was changed.
-     * @param records - List of changes. This array is incremented with the new changes made by this method.
-     */
-    updateFormulaChain: (
-      x: number,
-      y: number,
-      records: ReturnType<JspreadsheetInstance["updateCell"]>[]
-    ) => void;
-
-    /**
-     * Replace cell names in all formulas.
-     * @param referencesToUpdate - Cell names to be replaced.
-     */
-    updateFormulas: (referencesToUpdate: Record<string, string>) => void;
-
-    /**
-     * Updates the position and appearance of frozen columns. This update is based on the position of the scroll.
-     */
-    updateFreezePosition: () => void;
-
-    /**
-     * Replace cell names in meta information.
-     * @param affectedCells - Cell names to be replaced.
-     */
-    updateMeta: (affectedCells: Record<string, string>) => void;
-
-    /**
-     * Update a nested header title.
-     * @param x - Nested header cell column index.
-     * @param y - Nested header cell row index.
-     * @param title - New title.
-     */
-    updateNestedHeader: (x: number, y: number, title: string) => void;
-
-    /**
-     * Reorder rows.
-     * @param rows - List of indexes of the new order.
-     */
-    updateOrder: (rows: number[]) => void;
-
-    /**
-     * Change the sort symbol next to column headings.
-     * @param column - Column index.
-     * @param order - Symbol order. Default: false.
-     */
-    updateOrderArrow: (column: number, order?: boolean) => void;
-
-    /**
-     * Update the content of the {@link JspreadsheetInstance.pagination}.
-     */
-    updatePagination: () => void;
-
-    /**
-     * Internal method.
-     */
-    updateResult: () => number;
-
-    /**
-     * Internal method.
-     */
-    updateScroll: (direction: 0 | 1) => void;
-
-    /**
      * Select cells.
-     * @param el1 - First cell of the selection.
-     * @param el2 - Last cell of the selection. If omitted, uses the parameter value "el1".
-     */
-    updateSelection: (
-      el1: HTMLTableCellElement,
-      el2?: HTMLTableCellElement,
-      origin?: any
-    ) => void;
-
-    /**
-     * Select cells.
-     * @param x1 - Column index of the first cell of the selection.
-     * @param y1 - Row index of the first cell of the selection. If omitted, the entire "x1" column is selected.
+     * @param x1 - Column index of the first cell of the selection. If omitted or null, rows "y1" through "y2" are selected.
+     * @param y1 - Row index of the first cell of the selection. If omitted or null, columns "x1" through "x2" are selected.
      * @param x2 - Column index of the last cell of the selection. Default: Parameter "x1".
-     * @param y2 - Row index of the last cell of the selection. This parameter is only used if parameter "y1" is defined. Default: Parameter "y1".
+     * @param y2 - Row index of the last cell of the selection. Default: Parameter "y1".
      */
     updateSelectionFromCoords: (
-      x1: number,
-      y1?: number,
-      x2?: number,
-      y2?: number,
-      origin?: any
-    ) => void;
-
-    updateTable: () => void;
-
-    /**
-     * Internal method.
-     */
-    updateTableReferences: () => void;
-
-    /**
-     * Internal method.
-     */
-    wheelControls: () => void;
+      x1: number | null,
+      y1: number | null,
+      x2?: number | null,
+      y2?: number | null,
+    ) => false | undefined;
 
     /**
      * Get the page index of a row.
@@ -2765,21 +2460,18 @@ declare namespace jspreadsheet {
   type Version = () => {
     host: string;
     license: string;
-    print: () => string;
-    title: string;
+    print: () => [string];
     type: string;
     version: string;
   };
 
-  interface TabOptions extends JSpreadsheetOptions {
-    sheetName: string;
-  }
-
   interface JssHelpers {
     /**
-     * @deprecated
+     * Extract the configuration to create a new spreadsheet from a static HTML element.
+     * @param element - Table element.
+     * @param options - Worksheet options.
      */
-    createFromTable: () => void;
+    createFromTable: (element: HTMLTableElement, options: WorksheetOptions) => WorksheetOptions;
 
     /**
      * Internal method.
@@ -2797,29 +2489,24 @@ declare namespace jspreadsheet {
      * @param x - Column index.
      * @param y - Row index.
      */
-    getColumnNameFromCoords: (x: number, y: number) => string;
+    getCellNameFromCoords: (x: number, y: number) => string;
 
     /**
      * Get column and row indices based on coordinate in "A1" style.
      * @param columnName - Coordinate in "A1" style.
      */
-    getCoordsFromColumnName: (
+    getCoordsFromCellName: (
       columnName: string
     ) => [number, number | null] | undefined;
 
     /**
-     * Inserts an array within another at the given index.
-     *
-     * This method does not change the original arrays.
-     * @param o - Array that receives items from another array.
-     * @param idx - Index where insertion takes place.
-     * @param arr - Array that is inserted into the other.
+     * Get coordinates from a range.
+     * @param range - Range in "A1:B2" style.
+     * @returns Array filled with the x and y coordinates of the first and last cells in the range.
      */
-    injectArray: <ItemA, ItemB>(
-      o: ItemA[],
-      idx: number,
-      arr: ItemB[]
-    ) => (ItemA | ItemB)[];
+    getCoordsFromRange: (
+      range: string
+    ) => [number, number, number, number];
 
     /**
      * Internal method.
@@ -2837,50 +2524,13 @@ declare namespace jspreadsheet {
   interface JSpreadsheet {
     (
       element: HTMLDivElement | HTMLTableElement,
-      options?: JSpreadsheetOptions
-    ): JspreadsheetInstance;
-
-    /**
-     * Set event listeners.
-     * @param root - HTML element where events are listened to.
-     */
-    build: (root: Document | HTMLElement) => void;
-
-    /**
-     * "contextmenu" event handler.
-     * @param e - Event.
-     */
-    contextMenuControls: (e: MouseEvent) => void;
-
-    /**
-     * Handler used when using the "Ctrl + x" command on a non-editable spreadsheet.
-     */
-    copyControls: () => void;
-
-    /**
-     * Returns a set of options for creating a jss spreadsheet based on an HTML table.
-     * @param el - HTML table.
-     * @param options - Prior options. Options that, if not overridden by options taken from the HTML table, will be part of the result.
-     */
-    createFromTable: (
-      el: HTMLTableElement,
-      options?: JSpreadsheetOptions
-    ) => JSpreadsheetOptions;
-
-    /**
-     * Compatibility with previous versions.
-     */
-    createTabs: this["tabs"];
+      options: SpreadsheetOptions
+    ): WorksheetInstance[];
 
     /**
      * Current instance of jss.
      */
-    current: null | JspreadsheetInstance;
-
-    /**
-     * Handler used when using the "Ctrl + x" command on an editable spreadsheet.
-     */
-    cutControls: () => void;
+    current: null | WorksheetInstance;
 
     /**
      * Destroy an instance of jss.
@@ -2893,81 +2543,18 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
-     * "dblclick" event handler.
-     * @param e - Event.
+     * Destroy all instances of jss.
      */
-    doubleClickControls: (e: MouseEvent) => void;
+    destroyAll: () => void;
 
     /**
-     * Converts a number to a form with at least 2 digits.
-     * @param v - Number.
+     * Get a worksheet instance by name and namespace.
+     * @param worksheetName - Name of the searched worksheet. If null or undefined, the method returns the found namespace.
+     * @param namespace - Namespace name.
      */
-    doubleDigitFormat: (v: number | string) => string;
-
-    /**
-     * Internal method.
-     */
-    formula: any;
-
-    /**
-     * Converts data from an xlsx file to a format that jss recognizes.
-     *
-     * This is an experimental implementation and there is no garantee your spreadsheet will be correctly parsed.
-     * @param file - File url.
-     * @param __callback - Callback that receives the converted data.
-     */
-    fromSpreadsheet: (
-      file: string | URL,
-      __callback: (spreadsheets: TabOptions[]) => void
-    ) => void;
-
-    /**
-     * Get the column letter(s) based on its index.
-     * @param i - Column index.
-     */
-    getColumnName: (i: number) => string;
-
-    /**
-     * Convert coordinates to "A1" style.
-     * @param cellId - Coordinates. Two formats are allowed: an array [column index, row index] or a string with column index and row index separated by the "-" character.
-     */
-    getColumnNameFromId: (cellId: [number, number] | string) => string;
-
-    /**
-     * Checks if an HTML element is part of a jss worksheet.
-     *
-     * If it is part of the worksheet, this method returns an array with, respectively, the base element of the worksheet and a number representing in which part of the worksheet the informed element is located (1 for inside the thead tag, 2 for inside the tbody tag and 0 if not in any of the above).
-     *
-     * If not part of the worksheet, this method returns an array with two items equal to zero.
-     * @param element - HTML Element.
-     */
-    getElement: (element: HTMLElement) => [0 | JspreadsheetInstance, 0 | 1 | 2];
-
-    /**
-     * Convert coordinates from "A1" style.
-     * @param id - Coordinate.
-     * @param arr - Conversion format. If true, the method returns an array [column index, row index]. Otherwise, returns a string with column index and row index separated by the "-" character.
-     */
-    getIdFromColumnName: (
-      id: string,
-      arr?: boolean
-    ) => [number, number] | string;
+    getWorksheetInstanceByName: (worksheetName: string | null | undefined, namespace: string) => WorksheetInstance | Record<string, WorksheetInstance>;
 
     helpers: JssHelpers;
-
-    /**
-     * Inserts an array within another at the given index.
-     *
-     * This method does not change the original arrays.
-     * @param o - Array that receives items from another array.
-     * @param idx - Index where insertion takes place.
-     * @param arr - Array that is inserted into the other.
-     */
-    injectArray: <ItemA, ItemB>(
-      o: ItemA[],
-      idx: number,
-      arr: ItemB[]
-    ) => (ItemA | ItemB)[];
 
     /**
      * Internal method.
@@ -2975,59 +2562,12 @@ declare namespace jspreadsheet {
     isMouseAction: boolean;
 
     /**
-     * "keydown" event handler.
-     * @param e - Event.
-     */
-    keyDownControls: (e: KeyboardEvent) => void;
-
-    /**
-     * "mousedown" event handler.
-     * @param e - Event.
-     */
-    mouseDownControls: (e: MouseEvent) => void;
-
-    /**
-     * "mousemove" event handler.
-     * @param e - Event.
-     */
-    mouseMoveControls: (e: MouseEvent) => void;
-
-    /**
-     * "mousemove" event handler.
-     * @param e - Event.
-     */
-    mouseOverControls: (e: MouseEvent) => false | undefined;
-
-    /**
-     * "mouseup" event handler.
-     * @param e - Event.
-     */
-    mouseUpControls: (e: MouseEvent) => void;
-
-    /**
-     * "paste" event handler.
-     * @param e - Event.
-     */
-    pasteControls: (e?: ClipboardEvent) => void;
-
-    /**
      * Defines translations.
      * @param o - Translations.
      */
     setDictionary: (o: Record<string, string>) => void;
 
-    /**
-     * Set extensions.
-     * @param o - Object where each key is the name by which an extension is called and the value is the extension itself.
-     */
-    setExtensions: (o: Record<string, Function>) => void;
-
-    /**
-     * Create spreadsheet with one or more tabs.
-     * @param tabs - Table tabs.
-     * @param result - Tab positions (starting at 1).
-     */
-    tabs: (tabs: HTMLDivElement, result: TabOptions[]) => number[];
+    spreadsheet: SpreadsheetInstance[];
 
     /**
      * Internal method.
@@ -3038,22 +2578,6 @@ declare namespace jspreadsheet {
      * Internal method.
      */
     timeControlLoading: null | number;
-
-    /**
-     * "touchend", "touchcancel" and "touchmove" events handler.
-     */
-    touchEndControls: () => void;
-
-    /**
-     * "touchstart" event handler.
-     * @param e - Event.
-     */
-    touchStartControls: (e: TouchEvent) => void;
-
-    /**
-     * Internal method.
-     */
-    validLetter: (text: string) => 0 | 1;
 
     /**
      * Basic version information.
