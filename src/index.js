@@ -7529,6 +7529,7 @@ if (! formula && typeof(require) === 'function') {
                             jexcel.current.setValue(jexcel.current.highlighted, '');
                         }
                     }
+                    e.preventDefault();
                 } else if (e.which == 13) {
                     // Move cursor
                     if (e.shiftKey) {
