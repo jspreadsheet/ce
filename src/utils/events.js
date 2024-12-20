@@ -1018,12 +1018,26 @@ const contextMenuControls = function(e) {
 
                 let x = null, y = null;
 
-                if (role === 'cell' || role === 'row' || role === 'header') {
-                    if (role === 'cell' || role === 'row') {
-                        y = e.target.getAttribute('data-y');
+                if (role === 'cell') {
+                    let cellElement = e.target;
+                    while (cellElement.tagName !== 'TD') {
+                        cellElement = cellElement.parentNode;
                     }
 
-                    if (role === 'cell' || role === 'header') {
+                    y = cellElement.getAttribute('data-y');
+                    x = cellElement.getAttribute('data-x');
+
+                    if (
+                        !libraryBase.jspreadsheet.current.selectedCell ||
+                        (x < parseInt(libraryBase.jspreadsheet.current.selectedCell[0])) || (x > parseInt(libraryBase.jspreadsheet.current.selectedCell[2])) ||
+                        (y < parseInt(libraryBase.jspreadsheet.current.selectedCell[1])) || (y > parseInt(libraryBase.jspreadsheet.current.selectedCell[3]))
+                    ) {
+                        updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, x, y, x, y, e);
+                    }
+                } else if (role === 'row' || role === 'header') {
+                    if (role === 'row') {
+                        y = e.target.getAttribute('data-y');
+                    } else {
                         x = e.target.getAttribute('data-x');
                     }
 
