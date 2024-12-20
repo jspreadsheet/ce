@@ -454,7 +454,7 @@ export const deleteColumn = function(columnNumber, numOfColumns) {
                 let mergeExists = false;
                 if (obj.options.mergeCells && Object.keys(obj.options.mergeCells).length > 0) {
                     for (let col = columnNumber; col < columnNumber + numOfColumns; col++) {
-                        if (isColMerged.call(obj, col, false).length) {
+                        if (isColMerged.call(obj, col, null).length) {
                             mergeExists = true;
                         }
                     }
