@@ -15,6 +15,7 @@ Jspreadsheet CE is an extensible framework for building sophisticated data-orien
 
 ### Jspreadsheet Pro - Enterprise Solution
 - [Jspreadsheet Pro](https://jspreadsheet.com/)
+- [Real-time React Spreadsheets](https://github.com/jspreadsheet/spreadsheet-react-server)
 
 
 ## Overview
