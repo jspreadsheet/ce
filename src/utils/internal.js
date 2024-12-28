@@ -859,6 +859,10 @@ const updateFormulas = function(referencesToUpdate) {
  */
 export const updateTableReferences = function() {
     const obj = this;
+    if( obj.skipUpdateTableReferences ){
+        return;
+    }
+
 
     // Update headers
     for (let i = 0; i < obj.headers.length; i++) {
