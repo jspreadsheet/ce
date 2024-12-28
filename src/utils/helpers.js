@@ -3,7 +3,7 @@ import { getColumnNameFromId } from "./internalHelpers.js";
 /**
  * Get carret position for one element
  */
-export const getCaretIndex = function(e) {
+export const getCaretIndex = function (e) {
     let d;
 
     if (this.config.root) {
@@ -28,7 +28,7 @@ export const getCaretIndex = function(e) {
 /**
  * Invert keys and values
  */
-export const invert = function(o) {
+export const invert = function (o) {
     const d = [];
     const k = Object.keys(o);
     for (let i = 0; i < k.length; i++) {
@@ -43,7 +43,7 @@ export const invert = function(o) {
  * @param integer i
  * @return string letter
  */
-export const getColumnName = function(i) {
+export const getColumnName = function (i) {
     let letter = '';
     if (i > 701) {
         letter += String.fromCharCode(64 + parseInt(i / 676));
@@ -59,11 +59,11 @@ export const getColumnName = function(i) {
 /**
  * Get column name from coords
  */
-export const getCellNameFromCoords = function(x, y) {
+export const getCellNameFromCoords = function (x, y) {
     return getColumnName(parseInt(x)) + (parseInt(y) + 1);
 }
 
-export const getCoordsFromCellName = function(columnName) {
+export const getCoordsFromCellName = function (columnName) {
     // Get the letters
     const t = /^[a-zA-Z]+/.exec(columnName);
 
@@ -85,11 +85,11 @@ export const getCoordsFromCellName = function(columnName) {
             number--;
         }
 
-        return [ code, number ];
+        return [code, number];
     }
 }
 
-export const getCoordsFromRange = function(range) {
+export const getCoordsFromRange = function (range) {
     const [start, end] = range.split(':');
 
     return [...getCoordsFromCellName(start), ...getCoordsFromCellName(end)];
@@ -98,21 +98,19 @@ export const getCoordsFromRange = function(range) {
 /**
  * From stack overflow contributions
  */
-export const parseCSV = function(str, delimiter) {
-    // Remove last line break
-    str = str.replace(/\r?\n$|\r$|\n$/g, "");
-    // Last caracter is the delimiter
-    if (str.charCodeAt(str.length-1) == 9) {
-        str += "\0";
-    }
+export const parseCSV = function (str, delimiter) {
     // user-supplied delimeter or default comma
     delimiter = (delimiter || ",");
+    // Remove last line break
+    str = str.replace(/\r?\n$|\r$|\n$/g, "");
 
     const arr = [];
     let quote = false;  // true means we're inside a quoted field
     // iterate over each character, keep track of current row and column (of the returned array)
-    for (let row = 0, col = 0, c = 0; c < str.length; c++) {
-        const cc = str[c], nc = str[c+1];
+    let maxCol = 0;
+    let row = 0, col = 0;
+    for (let c = 0; c < str.length; c++) {
+        const cc = str[c], nc = str[c + 1];
         arr[row] = arr[row] || [];
         arr[row][col] = arr[row][col] || '';
 
@@ -126,24 +124,31 @@ export const parseCSV = function(str, delimiter) {
         if (cc == delimiter && !quote) { ++col; continue; }
 
         // If it's a newline (CRLF) and we're not in a quoted field, skip the next character and move on to the next row and move to column 0 of that new row
-        if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+        if (cc == '\r' && nc == '\n' && !quote) { ++row; maxCol = Math.max(maxCol, col); col = 0; ++c; continue; }
 
         // If it's a newline (LF or CR) and we're not in a quoted field, move on to the next row and move to column 0 of that new row
-        if (cc == '\n' && !quote) { ++row; col = 0; continue; }
-        if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+        if (cc == '\n' && !quote) { ++row; maxCol = Math.max(maxCol, col); col = 0; continue; }
+        if (cc == '\r' && !quote) { ++row; maxCol = Math.max(maxCol, col); col = 0; continue; }
 
         // Otherwise, append the current character to the current column
         arr[row][col] += cc;
     }
+
+    // fix array length
+    arr.forEach((row, i) => {
+        for (let i = row.length; i <= maxCol; i++) {
+            row.push('');
+        }
+    });
     return arr;
 }
 
-export const createFromTable = function(el, options) {
+export const createFromTable = function (el, options) {
     if (el.tagName != 'TABLE') {
         console.log('Element is not a table');
     } else {
         // Configuration
-        if (! options) {
+        if (!options) {
             options = {};
         }
 
@@ -156,12 +161,12 @@ export const createFromTable = function(el, options) {
             // Get column width
             for (let i = 0; i < colgroup.length; i++) {
                 let width = colgroup[i].style.width;
-                if (! width) {
+                if (!width) {
                     width = colgroup[i].getAttribute('width');
                 }
                 // Set column width
                 if (width) {
-                    if (! options.columns[i]) {
+                    if (!options.columns[i]) {
                         options.columns[i] = {}
                     }
                     options.columns[i].width = width;
@@ -170,13 +175,13 @@ export const createFromTable = function(el, options) {
         }
 
         // Parse header
-        const parseHeader = function(header, i) {
+        const parseHeader = function (header, i) {
             // Get width information
             let info = header.getBoundingClientRect();
             const width = info.width > 50 ? info.width : 50;
 
             // Create column option
-            if (! options.columns[i]) {
+            if (!options.columns[i]) {
                 options.columns[i] = {};
             }
             if (header.getAttribute('data-celltype')) {
@@ -217,7 +222,7 @@ export const createFromTable = function(el, options) {
                 nested.push(cells);
             }
             // Get the last row in the thead
-            headers = headers[headers.length-1].children;
+            headers = headers[headers.length - 1].children;
             // Go though the headers
             for (let i = 0; i < headers.length; i++) {
                 parseHeader(headers[i], i);
@@ -234,7 +239,7 @@ export const createFromTable = function(el, options) {
         let content = el.querySelectorAll(':scope > tr, :scope > tbody > tr');
         for (let j = 0; j < content.length; j++) {
             options.data[rowNumber] = [];
-            if (options.parseTableFirstRowAsHeader == true && ! headers.length && j == 0) {
+            if (options.parseTableFirstRowAsHeader == true && !headers.length && j == 0) {
                 for (let i = 0; i < content[j].children.length; i++) {
                     parseHeader(content[j].children[i], i);
                 }
@@ -243,7 +248,7 @@ export const createFromTable = function(el, options) {
                     // WickedGrid formula compatibility
                     let value = content[j].children[i].getAttribute('data-formula');
                     if (value) {
-                        if (value.substr(0,1) != '=') {
+                        if (value.substr(0, 1) != '=') {
                             value = '=' + value;
                         }
                     } else {
@@ -252,7 +257,7 @@ export const createFromTable = function(el, options) {
                     options.data[rowNumber].push(value);
 
                     // Key
-                    const cellName = getColumnNameFromId([ i, j ]);
+                    const cellName = getColumnNameFromId([i, j]);
 
                     // Classes
                     const tmp = content[j].children[i].getAttribute('class');
@@ -264,7 +269,7 @@ export const createFromTable = function(el, options) {
                     const mergedColspan = parseInt(content[j].children[i].getAttribute('colspan')) || 0;
                     const mergedRowspan = parseInt(content[j].children[i].getAttribute('rowspan')) || 0;
                     if (mergedColspan || mergedRowspan) {
-                        mergeCells[cellName] = [ mergedColspan || 1, mergedRowspan || 1 ];
+                        mergeCells[cellName] = [mergedColspan || 1, mergedRowspan || 1];
                     }
 
                     // Avoid problems with hidden cells
@@ -342,7 +347,7 @@ export const createFromTable = function(el, options) {
                 pattern[i] = [];
                 for (let j = 0; j < options.data.length; j++) {
                     const value = options.data[j][i];
-                    if (! pattern[i][value]) {
+                    if (!pattern[i][value]) {
                         pattern[i][value] = 0;
                     }
                     pattern[i][value]++;
@@ -350,7 +355,7 @@ export const createFromTable = function(el, options) {
                         test = false;
                     }
                     if (value.length == 10) {
-                        if (! (value.substr(4,1) == '-' && value.substr(7,1) == '-')) {
+                        if (!(value.substr(4, 1) == '-' && value.substr(7, 1) == '-')) {
                             testCalendar = false;
                         }
                     } else {
