@@ -84,12 +84,11 @@
 
 .jss_worksheet > thead > tr > td
 {
-    border-top: 1px solid var(--border_color, #ccc);
-    border-left: 1px solid var(--border_color, #ccc);
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
     border-right: 1px solid transparent;
     border-bottom: 1px solid transparent;
-    background-color: var(--header_background, #f3f3f3);
-    color: var(--header_color, #000);
+    background-color: #f3f3f3;
     padding: 2px;
     cursor: pointer;
     box-sizing: border-box;
@@ -107,8 +106,7 @@
 
 .jss_worksheet > thead > tr > td.selected
 {
-    background-color: var(--header_background_highlighted, #dcdcdc);
-    color: var(--header_color_highlighted, #000);
+    background-color:#dcdcdc;
 }
 
 .jss_worksheet > thead > tr > td.arrow-up
@@ -130,8 +128,7 @@
 .jss_worksheet > tbody > tr > td:first-child
 {
     position:relative;
-    background-color: var(--header_background, #f3f3f3);
-    color: var(--header_color, #000);
+    background-color:#f3f3f3;
     text-align:center;
 }
 
@@ -165,10 +162,8 @@
 
 .jss_worksheet > tbody > tr > td
 {
-    background-color: var(--content_background, #fff);
-    color: var(--content_color, #000);
-    border-top: 1px solid var(--border_color, #ccc);
-    border-left: 1px solid var(--border_color, #ccc);
+    border-top:1px solid #ccc;
+    border-left:1px solid #ccc;
     border-right:1px solid transparent;
     border-bottom:1px solid transparent;
     padding:4px;
@@ -198,8 +193,7 @@
 }
 .jss_worksheet > tbody > tr.selected > td:first-child
 {
-    background-color: var(--header_background_highlighted, #dcdcdc);
-    color: var(--header_color_highlighted, #000);
+    background-color:#dcdcdc;
 }
 .jss_worksheet > tbody > tr > td > select,
 .jss_worksheet > tbody > tr > td > input,
@@ -288,25 +282,25 @@
 }
 
 .jss_worksheet .highlight {
-    background-color: var(--selection, rgba(0,0,0,0.05));
+    background-color:rgba(0,0,0,0.05);
 }
 
 .jss_worksheet .highlight-top {
-    border-top:1px solid var(--border_color_highlighted, #000);
+    border-top:1px solid #000;
     box-shadow: 0px -1px #ccc;
 }
 
 .jss_worksheet .highlight-left {
-    border-left:1px solid var(--border_color_highlighted, #000);
+    border-left:1px solid #000;
     box-shadow: -1px 0px #ccc;
 }
 
 .jss_worksheet .highlight-right {
-    border-right:1px solid var(--border_color_highlighted, #000);
+    border-right:1px solid #000;
 }
 
 .jss_worksheet .highlight-bottom {
-    border-bottom:1px solid var(--border_color_highlighted, #000);
+    border-bottom:1px solid #000;
 }
 
 .jss_worksheet .highlight-top.highlight-left {
@@ -317,7 +311,7 @@
 
 .jss_worksheet .highlight-selected
 {
-    background-color: var(--cursor, #eee);
+    background-color:rgba(0,0,0,0.0);
 }
 .jss_worksheet .selection
 {
@@ -598,14 +592,11 @@
 
 .jss_pagination > div > div
 {
-    color: var(--header_color, #000);
-    background: var(--header_background, #f3f3f3);
-    border: 1px solid var(--border_color, #ccc);
-
     text-align:center;
     width:36px;
     height:36px;
     line-height:34px;
+    border:1px solid #ccc;
     box-sizing: border-box;
     margin-left:2px;
     cursor:pointer;
@@ -625,9 +616,8 @@
 .jss_toolbar
 {
     display:flex;
-    background-color: var(--header_background, #f3f3f3);
-    color: var(--header_color, #000);
-    border: 1px solid var(--border_color, #ccc);
+    background-color:#f3f3f3;
+    border:1px solid #ccc;
     padding:4px;
     margin:0px 2px 4px 1px;
 }
@@ -635,20 +625,6 @@
 .jss_toolbar:empty
 {
     display:none;
-}
-
-.jss_toolbar .jtoolbar-item i {
-    color: var(--content_color, #000);
-}
-
-.jss_toolbar .jtoolbar-item:not(.jtoolbar-divisor):hover,
-.jss_toolbar .jtoolbar-item.jpicker:hover > .jpicker-header {
-    background-color: var(--content_background_highlighted, #f3f3f3);
-    color: var(--content_color_highlighted, #000);
-}
-
-.jss_toolbar .jtoolbar-divisor {
-    background: var(--header_color, #ddd);
 }
 
 .jss_worksheet .dragging-left
@@ -733,30 +709,4 @@
 .jss_worksheet > tbody > tr > td.readonly > input[type=radio] {
     pointer-events: none;
     opacity: 0.5;
-}
-
-.jss_contextmenu {
-    border: 1px solid var(--border_color, #ccc);
-    background: var(--menu_background, #fff);
-    color: var(--menu_color, #555);
-    box-shadow: var(--menu_box_shadow, 2px 2px 2px 0px rgba(143, 144, 145, 1));
-    -webkit-box-shadow: var(--menu_box_shadow, 2px 2px 2px 0px rgba(143, 144, 145, 1));
-    -moz-box-shadow: var(--menu_box_shadow, 2px 2px 2px 0px rgba(143, 144, 145, 1))
-}
-
-.jss_contextmenu>div a {
-    color: var(--menu_color, #555);
-}
-
-.jss_contextmenu>div:not(.contextmenu-line):hover a {
-    color: var(--menu_color_highlighted, #555);
-}
-
-.jss_contextmenu>div:not(.contextmenu-line):hover {
-    background: var(--menu_background_highlighted, #ebebeb);
-}
-
-.jss_container input {
-    color: var(--header_color, #000);
-    background: var(--header_background, #f3f3f3);
 }
