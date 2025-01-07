@@ -139,6 +139,13 @@ export const openEditor = function(cell, empty, e) {
                 // Current value
                 if (obj.options.columns[x].type == 'color') {
                     jSuites.color(editor, options);
+
+                    const rect = cell.getBoundingClientRect();
+
+                    if (options.position) {
+                        editor.nextSibling.children[1].style.top = (rect.top + rect.height) + 'px';
+                        editor.nextSibling.children[1].style.left = rect.left + 'px';
+                    }
                 } else {
                     if (!options.format) {
                         options.format = 'YYYY-MM-DD';
@@ -193,6 +200,8 @@ export const openEditor = function(cell, empty, e) {
                 } else {
                     div.style.top = (rect.top) + 'px';
                 }
+
+                div.style.left = rect.left + 'px';
             } else {
                 // Value
                 const value = empty == true ? '' : obj.options.data[y][x];
