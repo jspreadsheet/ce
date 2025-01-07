@@ -1,0 +1,112 @@
+.jss_worksheet > thead > tr > td
+{
+    border-top: 1px solid var(--border_color, #ccc);
+    border-left: 1px solid var(--border_color, #ccc);
+    background-color: var(--header_background, #f3f3f3);
+    color: var(--header_color, #000);
+}
+
+.jss_worksheet > thead > tr > td.selected
+{
+    background-color: var(--header_background_highlighted, #dcdcdc);
+    color: var(--header_color_highlighted, #000);
+}
+
+.jss_worksheet > tbody > tr > td:first-child
+{
+    background-color: var(--header_background, #f3f3f3);
+    color: var(--header_color, #000);
+}
+
+.jss_worksheet > tbody > tr > td
+{
+    background-color: var(--content_background, #fff);
+    color: var(--content_color, #000);
+    border-top: 1px solid var(--border_color, #ccc);
+    border-left: 1px solid var(--border_color, #ccc);
+}
+
+.jss_worksheet > tbody > tr.selected > td:first-child
+{
+    background-color: var(--header_background_highlighted, #dcdcdc);
+    color: var(--header_color_highlighted, #000);
+}
+
+.jss_worksheet .highlight {
+    background-color: var(--selection, rgba(0,0,0,0.05));
+}
+
+.jss_worksheet .highlight-top {
+    border-top:1px solid var(--border_color_highlighted, #000);
+}
+
+.jss_worksheet .highlight-left {
+    border-left:1px solid var(--border_color_highlighted, #000);
+}
+
+.jss_worksheet .highlight-right {
+    border-right:1px solid var(--border_color_highlighted, #000);
+}
+
+.jss_worksheet .highlight-bottom {
+    border-bottom:1px solid var(--border_color_highlighted, #000);
+}
+
+.jss_worksheet .highlight-selected
+{
+    background-color: var(--cursor, #eee);
+}
+
+.jss_pagination > div > div
+{
+    color: var(--header_color, #000);
+    background: var(--header_background, #f3f3f3);
+    border: 1px solid var(--border_color, #ccc);
+}
+
+.jss_toolbar
+{
+    background-color: var(--header_background, #f3f3f3);
+    color: var(--header_color, #000);
+    border: 1px solid var(--border_color, #ccc);
+}
+
+.jss_toolbar .jtoolbar-item i {
+    color: var(--content_color, #000);
+}
+
+.jss_toolbar .jtoolbar-item:not(.jtoolbar-divisor):hover,
+.jss_toolbar .jtoolbar-item.jpicker:hover > .jpicker-header {
+    background-color: var(--content_background_highlighted, #f3f3f3);
+    color: var(--content_color_highlighted, #000);
+}
+
+.jss_toolbar .jtoolbar-divisor {
+    background: var(--header_color, #ddd);
+}
+
+.jss_contextmenu {
+    border: 1px solid var(--border_color, #ccc);
+    background: var(--menu_background, #fff);
+    color: var(--menu_color, #555);
+    box-shadow: var(--menu_box_shadow, 2px 2px 2px 0px rgba(143, 144, 145, 1));
+    -webkit-box-shadow: var(--menu_box_shadow, 2px 2px 2px 0px rgba(143, 144, 145, 1));
+    -moz-box-shadow: var(--menu_box_shadow, 2px 2px 2px 0px rgba(143, 144, 145, 1))
+}
+
+.jss_contextmenu>div a {
+    color: var(--menu_color, #555);
+}
+
+.jss_contextmenu>div:not(.contextmenu-line):hover a {
+    color: var(--menu_color_highlighted, #555);
+}
+
+.jss_contextmenu>div:not(.contextmenu-line):hover {
+    background: var(--menu_background_highlighted, #ebebeb);
+}
+
+.jss_container input {
+    color: var(--header_color, #000);
+    background: var(--header_background, #f3f3f3);
+}
