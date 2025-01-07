@@ -142,8 +142,10 @@ export const openEditor = function(cell, empty, e) {
 
                     const rect = cell.getBoundingClientRect();
 
-                    editor.nextSibling.children[1].style.top = (rect.top + rect.height) + 'px';
-                    editor.nextSibling.children[1].style.left = rect.left + 'px';
+                    if (options.position) {
+                        editor.nextSibling.children[1].style.top = (rect.top + rect.height) + 'px';
+                        editor.nextSibling.children[1].style.left = rect.left + 'px';
+                    }
                 } else {
                     if (!options.format) {
                         options.format = 'YYYY-MM-DD';
