@@ -193,6 +193,8 @@ export const openEditor = function(cell, empty, e) {
                 } else {
                     div.style.top = (rect.top) + 'px';
                 }
+
+                div.style.left = rect.left + 'px';
             } else {
                 // Value
                 const value = empty == true ? '' : obj.options.data[y][x];
