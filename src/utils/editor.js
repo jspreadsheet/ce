@@ -173,9 +173,15 @@ export const openEditor = function(cell, empty, e) {
                 const rect = cell.getBoundingClientRect();
                 const rectContent = div.getBoundingClientRect();
                 if (window.innerHeight < rect.bottom + rectContent.height) {
-                    div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
+                    div.style.top = (rect.bottom - (rectContent.height + 2)) + 'px';
                 } else {
                     div.style.top = (rect.top) + 'px';
+                }
+
+                if (window.innerWidth < rect.left + rectContent.width) {
+                    div.style.left = (rect.right - (rectContent.width + 2)) + 'px';
+                } else {
+                    div.style.left = rect.left + 'px';
                 }
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'image') {
                 // Value
