@@ -1,5 +1,7 @@
 const { expect } = require("chai");
 
+global.document.execCommand = function execCommandMock() { };
+
 const fixtureData = () => [
   ["Mazda", 2001, 2000, 1],
   ["Peugeot", 2010, 5000, "=B2+C2"],
@@ -153,6 +155,31 @@ describe("Paste", () => {
     ]);
   });
 
+  it("see https://github.com/jspreadsheet/ce/pull/1717#issuecomment-2576060698", () => {
+    let sheet = jspreadsheet(root, {
+      worksheets: [{
+        minDimensions: [4, 4],
+        data: [
+            [1, 2],
+            [3, 4],
+        ]
+      }],
+    })[0];
+
+    sheet.updateSelectionFromCoords(0, 0, 1, 1);
+    sheet.copy();
+    sheet.hideRow(0);
+    sheet.hideColumn(0);
+    sheet.updateSelectionFromCoords(2, 2, 2, 2);
+    sheet.paste(sheet.selectedCell[0], sheet.selectedCell[1], sheet.data);
+
+    expect(sheet.getData()).to.eql([
+      [1, 2, "", ""],
+      [3, 4, "", ""],
+      ["", "", "1", "2"],
+      ["", "", "3", "4"],
+]);
+  });
 
   it("large data paste", () => {
     let count = {};
@@ -219,8 +246,6 @@ describe("Paste", () => {
   }).timeout(10 * 1000);
 
   it("copy and paste with style", () => {
-    global.document.execCommand = function execCommandMock() { };
-
     let count = {};
     let sheet = jspreadsheet(root, {
       worksheets: [{
