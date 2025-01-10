@@ -40,20 +40,21 @@ export const invert = function (o) {
 /**
  * Get letter based on a number
  *
- * @param integer i
+ * @param {number} columnNumber
  * @return string letter
  */
-export const getColumnName = function (i) {
-    let letter = '';
-    if (i > 701) {
-        letter += String.fromCharCode(64 + parseInt(i / 676));
-        letter += String.fromCharCode(64 + parseInt((i % 676) / 26));
-    } else if (i > 25) {
-        letter += String.fromCharCode(64 + parseInt(i / 26));
-    }
-    letter += String.fromCharCode(65 + (i % 26));
+export const getColumnName = function (columnNumber){
+    let dividend = columnNumber+1;
+    let columnName = "";
+    let modulo;
 
-    return letter;
+    while (dividend > 0) {
+        modulo = (dividend - 1) % 26;
+        columnName = String.fromCharCode(65 + modulo).toString() + columnName;
+        dividend = parseInt((dividend - modulo) / 26);
+    }
+
+    return  columnName;
 }
 
 /**

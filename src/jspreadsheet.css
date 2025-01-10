@@ -101,7 +101,6 @@
 
 .jss_worksheet > thead > tr > td.dragging
 {
-    background-color:#fff;
     opacity:0.5;
 }
 
@@ -287,21 +286,21 @@
 }
 
 .jss_worksheet .highlight-top {
-    border-top:1px solid #000; /* var(--jss-border-color);*/
+    border-top:1px solid #000;
     box-shadow: 0px -1px #ccc;
 }
 
 .jss_worksheet .highlight-left {
-    border-left:1px solid #000; /* var(--jss-border-color);*/
+    border-left:1px solid #000;
     box-shadow: -1px 0px #ccc;
 }
 
 .jss_worksheet .highlight-right {
-    border-right:1px solid #000; /* var(--jss-border-color);*/
+    border-right:1px solid #000;
 }
 
 .jss_worksheet .highlight-bottom {
-    border-bottom:1px solid #000; /* var(--jss-border-color);*/
+    border-bottom:1px solid #000;
 }
 
 .jss_worksheet .highlight-top.highlight-left {
@@ -404,10 +403,10 @@
     box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
     padding:10px;
     background-color:#fff;
-    min-width:280px;
-    max-width:310px;
+    width:358px;
     margin-top:2px;
     text-align:left;
+    white-space: initial;
 }
 
 .jss_worksheet .editor .jclose:after

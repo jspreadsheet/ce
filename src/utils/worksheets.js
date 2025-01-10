@@ -427,11 +427,6 @@ export const buildWorksheet = async function() {
 
     // Event
     el.setAttribute('tabindex', 1);
-    el.addEventListener('focus', function(e) {
-        if (libraryBase.jspreadsheet.current && ! obj.selectedCell) {
-            obj.updateSelectionFromCoords(0,0,0,0);
-        }
-    });
 
     const promises = [];
 

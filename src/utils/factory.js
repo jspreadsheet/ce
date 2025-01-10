@@ -82,7 +82,18 @@ const createWorksheets = async function(spreadsheet, options, el) {
 
         const tabs = jSuites.tabs(el, tabsOptions);
 
+        const spreadsheetStyles = options.style;
+        delete options.style;
+
         for (let i = 0; i < o.length; i++) {
+            if (o[i].style) {
+                Object.entries(o[i].style).forEach(function([cellName, value]) {
+                    if (typeof value === 'number') {
+                        o[i].style[cellName] = spreadsheetStyles[value];
+                    }
+                })
+            }
+
             spreadsheet.worksheets.push({
                 parent: spreadsheet,
                 element: tabs.content.children[i],

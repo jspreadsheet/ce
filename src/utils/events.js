@@ -1281,7 +1281,7 @@ const keyDownControls = function(e) {
             } else if (e.which == 35) {
                 last.call(libraryBase.jspreadsheet.current, e.shiftKey, e.ctrlKey);
                 e.preventDefault();
-            } else if (e.which == 46) {
+            } else if (e.which == 46 || e.which == 8) {
                 // Delete
                 if (libraryBase.jspreadsheet.current.options.editable != false) {
                     if (libraryBase.jspreadsheet.current.selectedRow) {
