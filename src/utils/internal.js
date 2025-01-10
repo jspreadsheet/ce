@@ -387,6 +387,9 @@ export const createCell = function(i, j, value) {
     td.setAttribute('data-x', i);
     td.setAttribute('data-y', j);
 
+    if( obj.headers[i].style.display === 'none' ){
+        td.style.display = 'none';
+    }
     // Security
     if ((''+value).substr(0,1) == '=' && obj.options.secureFormulas == true) {
         const val = secureFormula(value);

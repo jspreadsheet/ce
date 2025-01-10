@@ -320,14 +320,14 @@ export const paste = function(x, y, data) {
         let rowIndex = parseInt(y);
         let row = null;
 
-        const hiddenColCount = obj.headers.slice(colIndex, colIndex + data[0].length).filter(x=>x.style.display === 'none').length;
+        const hiddenColCount = obj.headers.slice(colIndex).filter(x=>x.style.display === 'none').length;
         const expandedColCount = colIndex + hiddenColCount + data[0].length;
         const currentColCount = obj.headers.length;
         if( expandedColCount > currentColCount){
             obj.skipUpdateTableReferences = true;
             obj.insertColumn( expandedColCount - currentColCount);
         }
-        const hiddenRowCount = obj.rows.slice(colIndex, colIndex + data.length).filter(x=>x.element.style.display === 'none').length;
+        const hiddenRowCount = obj.rows.slice(rowIndex).filter(x=>x.element.style.display === 'none').length;
         const expandedRowCount = rowIndex + hiddenRowCount + data.length;
         const currentRowCount = obj.rows.length;
         if( expandedRowCount > currentRowCount){

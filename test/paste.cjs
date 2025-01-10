@@ -160,8 +160,8 @@ describe("Paste", () => {
       worksheets: [{
         minDimensions: [4, 4],
         data: [
-            [1, 2],
-            [3, 4],
+          [1, 2],
+          [3, 4],
         ]
       }],
     })[0];
@@ -178,7 +178,42 @@ describe("Paste", () => {
       [3, 4, "", ""],
       ["", "", "1", "2"],
       ["", "", "3", "4"],
-]);
+    ]);
+  });
+
+  it("see https://github.com/jspreadsheet/ce/pull/1717#issuecomment-2580087207", () => {
+    let sheet = jspreadsheet(root, {
+      worksheets: [{
+        minDimensions: [10, 4],
+        data: [
+          [1, 2, 3],
+          [4, 5, 6],
+        ]
+      }],
+    })[0];
+
+    sheet.updateSelectionFromCoords(0, 0, 2, 1);
+    sheet.copy();
+    sheet.hideColumn(8);
+    sheet.hideColumn(9);
+    sheet.hideRow(3);
+    sheet.updateSelectionFromCoords(7, 2, 7, 2);
+    expect(sheet.getData()).to.eql([
+      [1, 2, 3, "", "", "", "", "", "", ""],
+      [4, 5, 6, "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "", "", ""],
+    ]);
+
+    sheet.paste(7, 2, sheet.data);
+
+    expect(sheet.getData()).to.eql([
+      [1,  2,  3,  "", "", "", "", "", "", "", "", ""],
+      [4,  5,  6,  "", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "1", "", "", "2", "3"],
+      ["", "", "", "", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "4", "", "", "5", "6"],
+    ]);
   });
 
   it("large data paste", () => {
