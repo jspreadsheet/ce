@@ -192,6 +192,7 @@ const createTable = function() {
     obj.textarea.className = 'jss_textarea';
     obj.textarea.id = 'jss_textarea';
     obj.textarea.tabIndex = '-1';
+    obj.textarea.ariaHidden = 'true';
 
     // Powered by Jspreadsheet
     const ads = document.createElement('a');
