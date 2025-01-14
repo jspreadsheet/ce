@@ -62,11 +62,14 @@ const createTable = function() {
 
     // Search
     const searchContainer = document.createElement('div');
-    const searchText = document.createTextNode(jSuites.translate('Search') + ': ');
+
+    const searchLabel = document.createElement('label');
+    searchLabel.innerHTML = jSuites.translate('Search') + ': ';
+    searchContainer.appendChild(searchLabel);
+
     obj.searchInput = document.createElement('input');
     obj.searchInput.classList.add('jss_search');
-    searchContainer.appendChild(searchText);
-    searchContainer.appendChild(obj.searchInput);
+    searchLabel.appendChild(obj.searchInput);
     obj.searchInput.onfocus = function() {
         obj.resetSelection();
     }
@@ -424,9 +427,6 @@ export const buildWorksheet = async function() {
     }
 
     libraryBase.jspreadsheet.current = obj;
-
-    // Event
-    el.setAttribute('tabindex', 1);
 
     const promises = [];
 
