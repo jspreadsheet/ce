@@ -107,7 +107,7 @@ The following example shows how to dynamically destroy and recreate a new data g
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
-
+<link rel="canonical" href="https://bossanova.uk/jspreadsheet/docs/getting-started" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 
 <div id='jspreadsheet'></div>
