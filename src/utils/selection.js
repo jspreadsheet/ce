@@ -575,7 +575,7 @@ export const copyData = function(o, d) {
 export const hash = function(str) {
     let hash = 0, i, chr;
 
-    if (str.length === 0) {
+    if (!str || str.length === 0) {
         return hash;
     } else {
         for (i = 0; i < str.length; i++) {

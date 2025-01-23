@@ -1,7 +1,7 @@
 import { parseCSV } from "./helpers.js";
 import dispatch from "./dispatch.js";
 import { setHistory } from "./history.js";
-import { updateCell, updateFormulaChain, updateTable } from "./internal.js";
+import { updateCell, updateFormulaChain, updateTable, updateTableReferences } from "./internal.js";
 import { downGet, rightGet } from "./keys.js";
 import { hash, removeCopyingSelection, updateSelectionFromCoords } from "./selection.js";
 import { getColumnNameFromId } from "./internalHelpers.js";
@@ -221,7 +221,9 @@ export const copy = function(highlighted, delimiter, returnData, includeHeaders,
 /**
  * Jspreadsheet paste method
  *
- * @param integer row number
+ * @param x target column
+ * @param y target row
+ * @param data paste data. if data hash is the same as the copied data, apply style from copied cells  
  * @return string value
  */
 export const paste = function(x, y, data) {
@@ -229,7 +231,7 @@ export const paste = function(x, y, data) {
 
     // Controls
     const dataHash = hash(data);
-    const style = (dataHash == obj.hashString) ? obj.style : null;
+    let style = (dataHash == obj.hashString) ? obj.style : null;
 
     // Depending on the behavior
     if (dataHash == obj.hashString) {
@@ -238,6 +240,51 @@ export const paste = function(x, y, data) {
 
     // Split new line
     data = parseCSV(data, "\t");
+
+    const ex = obj.selectedCell[2];
+    const ey = obj.selectedCell[3];
+
+    const w = ex - x + 1;
+    const h = ey - y + 1;
+
+    // Modify data to allow wor extending paste range in multiples of input range
+    const srcW = data[0].length;
+    if ((w > 1) & Number.isInteger(w / srcW)) {
+        const repeats = w / srcW;
+        if( style ){
+            const newStyle = [];
+            for(let i=0 ;i <style.length ; i+=srcW ){
+                const chunk = style.slice(i,i+srcW);
+                for (let j = 0; j < repeats; j++) {
+                    newStyle.push(...chunk);
+                }
+            }
+            style = newStyle;
+        };
+
+        const arrayB = data.map(function (row, i) {
+            const arrayC = Array.apply(null, { length: repeats * row.length }).map(
+                function (e, i) { return row[i % row.length]; }
+            );
+            return arrayC;
+        });
+        data = arrayB;
+    }
+    const srcH = data.length;
+    if ((h > 1) & Number.isInteger(h / srcH)) {
+        const repeats = h / srcH;
+        if( style ){
+            const newStyle = [];
+            for (let j = 0; j < repeats; j++) {
+                newStyle.push(...style);
+            }
+            style = newStyle;
+        };
+        const arrayB = Array.apply(null, { length: repeats * srcH }).map(
+            function (e, i) { return data[i % srcH]; }
+        );
+        data = arrayB;
+    }
 
     // Paste filter
     const ret = dispatch.call(
@@ -272,6 +319,26 @@ export const paste = function(x, y, data) {
         let colIndex = parseInt(x);
         let rowIndex = parseInt(y);
         let row = null;
+
+        const hiddenColCount = obj.headers.slice(colIndex).filter(x=>x.style.display === 'none').length;
+        const expandedColCount = colIndex + hiddenColCount + data[0].length;
+        const currentColCount = obj.headers.length;
+        if( expandedColCount > currentColCount){
+            obj.skipUpdateTableReferences = true;
+            obj.insertColumn( expandedColCount - currentColCount);
+        }
+        const hiddenRowCount = obj.rows.slice(rowIndex).filter(x=>x.element.style.display === 'none').length;
+        const expandedRowCount = rowIndex + hiddenRowCount + data.length;
+        const currentRowCount = obj.rows.length;
+        if( expandedRowCount > currentRowCount){
+            obj.skipUpdateTableReferences = true;
+            obj.insertRow( expandedRowCount - currentRowCount);
+        }
+
+        if( obj.skipUpdateTableReferences ){
+            obj.skipUpdateTableReferences = false;
+            updateTableReferences.call(obj);
+        }
 
         // Go through the columns to get the data
         while (row = data[j]) {
