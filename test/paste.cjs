@@ -383,18 +383,6 @@ describe("Paste", () => {
       ["Mazda", "2001", "Mazda", "2001"],
       ["Mazda", "2001", "Mazda", "2001"],
     ]);
-    // XXX: This is not working. It seems that the style is not copied.
-    // expect(to.getStyle("A1", "color")).to.eql("red");
-    // //
-    // expect(to.getStyle("A3", "color")).to.eql("red");
-    // expect(to.getStyle("B3", "color")).to.eql("");
-    // expect(to.getStyle("C3", "color")).to.eql("red");
-    // expect(to.getStyle("D3", "color")).to.eql("");
-    // //
-    // expect(to.getStyle("A4", "color")).to.eql("red");
-    // expect(to.getStyle("B4", "color")).to.eql("");
-    // expect(to.getStyle("C4", "color")).to.eql("red");
-    // expect(to.getStyle("D4", "color")).to.eql("");
   })
 
   it("fix - u0000 is pasted, when the last cell ends in a tab", () => {
