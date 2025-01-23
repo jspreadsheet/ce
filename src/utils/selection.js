@@ -418,7 +418,7 @@ export const copyData = function(o, d) {
     const obj = this;
 
     // Get data from all selected cells
-    const data = obj.getData(true, true);
+    const data = obj.getData(true, false);
 
     // Selected cells
     const h = obj.selectedContainer;
