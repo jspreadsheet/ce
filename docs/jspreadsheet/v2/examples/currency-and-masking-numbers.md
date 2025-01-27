@@ -106,5 +106,5 @@ $('#my1').jexcel('updateSettings', {
 </html>
 ```  
 
-**NOTE** The Jspreadsheet uses the [jQuery Mask Plugin](github.com/igorescobar/jQuery-Mask-Plugin) to perform the masking. But, the example above shows that it is possible to integrate any external plugin for masking or to visual adjust the data automatically.
+**NOTE** The Jspreadsheet uses the [jQuery Mask Plugin](https://github.com/igorescobar/jQuery-Mask-Plugin) to perform the masking. But, the example above shows that it is possible to integrate any external plugin for masking or to visual adjust the data automatically.
 
