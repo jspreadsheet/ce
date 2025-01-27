@@ -2,7 +2,7 @@ title: Jspreadsheet | Examples | Changing the table style
 keywords: Jexcel, jquery, javascript, table design, spreadsheet, table, grid, colours
 description: Table styling
 
-[Back to Examples](/jv2/examples#more)
+[Back to Examples](/v2/examples#more)
 
 # How to change the spreadsheet style.
 
