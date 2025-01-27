@@ -2,7 +2,7 @@ title: Custom Table Design
 keywords: Jexcel, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data
 description: Customized CSS for your datagrid
 
-[Back to Examples](jspreadsheet/v3/examples "Back to the examples section")
+[Back to Examples](jspreadsheet/v3/examples)
 
 # Create custom CSS for your javascript spreadsheet
 
