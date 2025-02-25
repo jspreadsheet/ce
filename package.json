@@ -46,7 +46,6 @@
         "xls",
         "datasheet"
     ],
-    "type": "module",
     "dependencies": {
         "@jspreadsheet/formula": "^2.0.2",
         "jsuites": "^5.8.5"
