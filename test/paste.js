@@ -1,5 +1,7 @@
 const { expect } = require("chai");
 
+const jspreadsheet = require('../dist/index.js');
+
 global.document.execCommand = function execCommandMock() { };
 
 const fixtureData = () => [

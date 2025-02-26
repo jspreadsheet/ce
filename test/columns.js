@@ -1,10 +1,6 @@
 const { expect } = require('chai');
-const { before } = require('mocha');
 
-before(async function() {
-    // This will ensure that the import is complete before tests run
-    jspreadsheet = (await import('../src/index.js')).default
-  });
+const jspreadsheet = require('../dist/index.js');
 
 describe('Use the columns method', () => {
     it('insertColumn and column is inserted in the position 0', () => {

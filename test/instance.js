@@ -1,10 +1,6 @@
 const { expect } = require('chai');
-const { before } = require('mocha');
 
-before(async function() {
-    // This will ensure that the import is complete before tests run
-    jspreadsheet = (await import('../src/index.js')).default
-  });
+const jspreadsheet = require('../dist/index.js');
 
 describe('Create a jspreadsheet instance', () => {
     it('and the dimensions are applied correctly', () => {
