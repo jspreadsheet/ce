@@ -46,7 +46,6 @@
         "xls",
         "datasheet"
     ],
-    "type": "module",
     "dependencies": {
         "@jspreadsheet/formula": "^2.0.2",
         "jsuites": "^5.8.5"
@@ -90,10 +89,7 @@
         "prettier": "prettier --check .",
         "prettier:fix": "prettier --write .",
         "start": "webpack serve --history-api-fallback",
-        "build": "cross-env NODE_ENV=production webpack --config webpack.config.cjs",
-        "test": "mocha --recursive --require=mocha.config.cjs",
-        "test:watch": "mocha --recursive --watch --parallel --reporter min --require=mocha.config.cjs",
-        "test:browser": "mocha --recursive --reporter mochawesome --config mocha.config.cjs",
-        "test:coverage": "c8 mocha --recursive --config mocha.config.cjs"
+        "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+        "test": "npm run build && mocha --recursive --require=mocha.config.js"
     }
 }
