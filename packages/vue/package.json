@@ -4,7 +4,7 @@
     "description": "Jspreadsheet CE is a lightweight, vanilla JavaScript plugin for creating powerful, web-based interactive tables and spreadsheets that are compatible with other spreadsheet software.",
     "author": {
         "name": "Contact <contact@jspreadsheet.com>",
-        "url": "https://jspreadsheet.com/"
+        "url": "https://bossanova.uk/jspreadsheet/"
     },
     "keywords": [
         "spreadsheet",
@@ -20,7 +20,7 @@
         "vue"
     ],
     "dependencies": {
-        "jspreadsheet-ce": "^5.0.0"
+        "jspreadsheet-ce": "^5.0.1"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
