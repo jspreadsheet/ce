@@ -1,6 +1,6 @@
 {
     "name": "kspreadsheet",
-    "version": "1.1.1",
+    "version": "2.0.0",
     "title": "The Javascript Spreadsheet",
     "description": "Jspreadsheet is a lightweight, vanilla javascript plugin to create amazing web-based interactive data grids with spreadsheet like controls compatible with Excel, Google Spreadsheets and any other spreadsheet software.",
     "repository": {
@@ -49,9 +49,13 @@
     ],
     "dependencies": {
         "@jspreadsheet/formula": "^2.0.2",
-        "jsuites": "^5.6.5"
+        "jsuites": "^5.8.5"
     },
     "devDependencies": {
+        "@babel/cli": "^7.7.4",
+        "@babel/core": "^7.7.4",
+        "@babel/preset-env": "^7.7.4",
+        "@babel/register": "^7.7.4",
         "c8": "^7.13.0",
         "chai": "^4.3.7",
         "copy-webpack-plugin": "^11.0.0",
@@ -71,8 +75,7 @@
         "style-loader": "^3.3.1",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4",
-        "webpack-dev-server": "^4.15.1",
-        "react": "^18.2.0"
+        "webpack-dev-server": "^4.15.1"
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -80,10 +83,13 @@
     "homepage": "https://github.com/jspreadsheet/ce",
     "download": "https://github.com/jspreadsheet/ce/archive/master.zip",
     "scripts": {
-        "test": "mocha --recursive --require=mocha.config.cjs",
-        "test:watch": "mocha --recursive --watch --parallel --reporter min",
-        "test:coverage": "c8 mocha --recursive",
-        "build": "cross-env NODE_ENV=production webpack --config webpack.config.cjs",
-        "start": "npx webpack serve --history-api-fallback"
+        "format": "npm run prettier:fix && npm run lint:fix",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "prettier": "prettier --check .",
+        "prettier:fix": "prettier --write .",
+        "start": "webpack serve --history-api-fallback",
+        "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+        "test": "npm run build && mocha --recursive --require=mocha.config.js"
     }
 }

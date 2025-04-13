@@ -10,7 +10,7 @@ import { getHighlighted, getRange, getSelected, getSelectedColumns, getSelectedR
 import { deleteRow, getHeight, getRowData, hideRow, insertRow, moveRow, setHeight, setRowData, showRow } from './rows.js';
 import { destroyMerge, getMerge, removeMerge, setMerge } from './merges.js';
 import { resetSearch, search } from './search.js';
-import { getHeader, getHeaders, setHeader } from './headers.js';
+import { getHeader, getHeaders, setHeader, setHeaders } from './headers.js';
 import { getStyle, resetStyle, setStyle } from './style.js';
 import { page, quantiyOfPages, whichPage } from './pagination.js';
 import { download } from './download.js';
@@ -27,6 +27,7 @@ import { copy, paste } from './copyPaste.js';
 import { isReadOnly, setReadOnly } from './cells.js';
 import { openFilter, resetFilters } from './filter.js';
 import { redo, undo } from './history.js';
+import { getZoom, resetZoom, setZoom, zoomIn, zoomOut } from './zoom.js';
 
 const setWorksheetFunctions = function(worksheet) {
     for (let i = 0; i < worksheetPublicMethodsLength; i++) {
@@ -183,6 +184,14 @@ const createTable = function() {
     obj.corner.setAttribute('unselectable', 'on');
     obj.corner.setAttribute('onselectstart', 'return false');
 
+    // Spreadsheet highlight border
+    obj.highlightBorder = document.createElement('div');
+    obj.highlightBorder.classList.add("jss_border", "jss_border_main");
+
+    // Spreadsheet highlight copy
+    obj.highlightCopy = document.createElement('div');
+    obj.highlightCopy.classList.add("jss_border", "jss_border_copying");
+
     if (obj.options.selectionCopy == false) {
         obj.corner.style.display = 'none';
     }
@@ -230,6 +239,8 @@ const createTable = function() {
     // Elements
     obj.content.appendChild(obj.table);
     obj.content.appendChild(obj.corner);
+    obj.content.appendChild(obj.highlightBorder);
+    obj.content.appendChild(obj.highlightCopy);
     obj.content.appendChild(obj.textarea);
 
     obj.element.appendChild(obj.content);
@@ -302,6 +313,45 @@ const createTable = function() {
             obj.records[cell[1]][cell[0]].element.classList.add(obj.options.classes[k[i]]);
         }
     }
+
+    // Zoom
+
+    obj.zoom = obj.options.defaultZoom
+        ? Number(obj.options.defaultZoom)
+        : (
+            obj.parent.config.defaultZoom 
+                ? Number(obj.parent.config.defaultZoom)
+                : 100
+        )
+    ;
+
+    obj.zoomStep = obj.options.zoomStep
+        ? Number(obj.options.zoomStep)
+        : (
+            obj.parent.config.zoomStep 
+                ? Number(obj.parent.config.zoomStep)
+                : 10
+        )
+    ;
+
+    obj.zoomMin = obj.options.zoomMin
+        ? Number(obj.options.zoomMin)
+        : (
+            obj.parent.config.zoomMin 
+                ? Number(obj.parent.config.zoomMin)
+                : 70
+        )
+    ;
+
+    obj.zoomMax = obj.options.zoomMax
+        ? Number(obj.options.zoomMax)
+        : (
+            obj.parent.config.zoomMax 
+                ? Number(obj.parent.config.zoomMax)
+                : 150
+        )
+    ;
+
 }
 
 /**
@@ -359,7 +409,24 @@ const prepareTable = function() {
     for (let i = 0; i < size; i++) {
         // Default column description
         if (! obj.options.columns[i]) {
-            obj.options.columns[i] = {};
+            obj.options.columns[i] = { 
+                type: this.options.defaultCellType 
+                    ? this.options.defaultCellType
+                    : (
+                        this.parent.config.defaultCellType 
+                            ? this.parent.config.defaultCellType 
+                            : "text"
+                    )
+            };
+        }else if (! this.options.columns[i].type) {
+            obj.options.columns[i].type = this.options.defaultCellType 
+                    ? this.options.defaultCellType
+                    : (
+                        this.parent.config.defaultCellType 
+                            ? this.parent.config.defaultCellType 
+                            : "text"
+                    )
+            ;
         }
         if (! obj.options.columns[i].name && keys && keys[i]) {
             obj.options.columns[i].name = keys[i];
@@ -506,6 +573,9 @@ export const buildWorksheet = async function() {
             }
         });
     }
+
+    this.setZoom(this.getZoom());
+
 }
 
 export const createWorksheetObj = function(options) {
@@ -611,6 +681,7 @@ const worksheetPublicMethods = [
     ['getHeader', getHeader],
     ['getHeaders', getHeaders],
     ['setHeader', setHeader],
+    ['setHeaders', setHeaders],
     ['getStyle', getStyle],
     ['setStyle', function(cell, property, value, forceOverwrite) {
         return setStyle.call(this, cell, property, value, forceOverwrite);
@@ -673,6 +744,11 @@ const worksheetPublicMethods = [
     ['up', up],
     ['openFilter', openFilter],
     ['resetFilters', resetFilters],
+    ['getZoom', getZoom],
+    ['setZoom', setZoom],
+    ['zoomIn', zoomIn],
+    ['zoomOut', zoomOut],
+    ['resetZoom', resetZoom],
 ];
 
 const worksheetPublicMethodsLength = worksheetPublicMethods.length;

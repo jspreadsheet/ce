@@ -1,7 +1,7 @@
 import jSuites from 'jsuites';
 
 import dispatch from "./dispatch.js";
-import { updateCornerPosition } from "./selection.js";
+import { updateCornerPosition, updateHighlightBorder, updateHighlightCopy } from "./selection.js";
 
 /**
  * Which page the row is
@@ -164,7 +164,9 @@ export const page = function(pageNumber) {
     }
 
     // Update corner position
+    updateHighlightBorder.call(obj);
     updateCornerPosition.call(obj);
+    updateHighlightCopy.call(obj);
 
     // Events
     dispatch.call(obj, 'onchangepage', obj, pageNumber, oldPage, obj.options.pagination);

@@ -1,8 +1,15 @@
 import jspreadsheet from './index.js';
 
+import './jspreadsheet.css';
 import 'jsuites/dist/jsuites.css';
-import '../dist/jspreadsheet.css';
 
-let worksheet = jspreadsheet(root, {
-    minDimensions: [10,10],
+window.jss = jspreadsheet;
+
+window.instance = jspreadsheet(root, {
+    tabs: true,
+    toolbar: true,
+    worksheets: [{
+        minDimensions: [10,20],
+    }],
 })
+

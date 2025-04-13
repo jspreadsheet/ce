@@ -3,7 +3,7 @@ import dispatch from "./dispatch.js";
 import { setHistory } from "./history.js";
 import { updateCell, updateFormulaChain, updateTable, updateTableReferences } from "./internal.js";
 import { downGet, rightGet } from "./keys.js";
-import { hash, removeCopyingSelection, updateSelectionFromCoords } from "./selection.js";
+import { hash, removeCopyingSelection, updateHighlightCopy, updateSelectionFromCoords } from "./selection.js";
 import { getColumnNameFromId } from "./internalHelpers.js";
 
 /**
@@ -214,6 +214,9 @@ export const copy = function(highlighted, delimiter, returnData, includeHeaders,
             }
         }
     }
+        
+    // New highlight copy
+    updateHighlightCopy.call(obj);
 
     return obj.data;
 }
@@ -433,5 +436,5 @@ export const paste = function(x, y, data) {
         dispatch.call(obj, 'onafterchanges', obj, onafterchangesRecords);
     }
 
-    removeCopyingSelection();
+    removeCopyingSelection.call(obj);
 }

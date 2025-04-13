@@ -4,7 +4,7 @@ import { getColumnName } from './helpers.js';
 import { setHistory } from './history.js';
 import { isColMerged } from './merges.js';
 import { createCell, updateTableReferences } from './internal.js';
-import { conditionalSelectionUpdate, updateCornerPosition } from './selection.js';
+import { conditionalSelectionUpdate, updateCornerPosition, updateHighlightBorder, updateHighlightCopy } from './selection.js';
 import { setFooter } from './footer.js';
 import { getColumnNameFromId, injectArray } from './internalHelpers.js';
 
@@ -645,8 +645,12 @@ export const setWidth = function (column, width, oldWidth) {
         // On resize column
         dispatch.call(obj, 'onresizecolumn', obj, column, width, oldWidth);
 
+        updateHighlightBorder.call(obj);
+
         // Update corner position
         updateCornerPosition.call(obj);
+
+        updateHighlightCopy.call(obj);
     }
 }
 

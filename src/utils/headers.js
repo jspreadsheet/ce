@@ -72,3 +72,33 @@ export const setHeader = function(column, newValue) {
         dispatch.call(obj, 'onchangeheader', obj, parseInt(column), newValue, onchangeheaderOldValue);
     }
 }
+
+/**
+ * Set column titles
+ *
+ * @param columns - columns object with numbers as key (first column is: 0)
+ * @param offset - column offset
+ */
+export const setHeaders = function(columns, offset = 0) {
+    
+    const obj = this;
+
+    if(Object.keys(columns).length > 0)
+
+        for(var key in columns){
+
+            if(typeof key === "string")
+
+                key = parseInt(key);
+
+            if(typeof offset === "string")
+
+                offset = parseInt(offset);
+
+            if(typeof key === "number" && typeof offset === "number")
+
+                obj.setHeader(key + offset, columns[key]);
+
+        }
+
+}

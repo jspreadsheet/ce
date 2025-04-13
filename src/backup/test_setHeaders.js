@@ -1,14 +1,21 @@
 import jspreadsheet from './index.js';
 
+import './jspreadsheet.css';
 import 'jsuites/dist/jsuites.css';
-import '../dist/jspreadsheet.css';
 
-let worksheet = jspreadsheet(root, {
-    minDimensions: [10,10],
+window.jss = jspreadsheet;
+
+window.instance = jspreadsheet(root, {
+    worksheets: [{
+        minDimensions: [10,10],
+    }],
 })
 
+let worksheets = window.instance;
+
+
 setTimeout(() => {
-    worksheet.setHeaders({
+    for(let worksheet of worksheets) worksheet.setHeaders({
         0: "zero",
         1: "one",
         2: "two",
@@ -16,7 +23,7 @@ setTimeout(() => {
 }, 1000);
 
 setTimeout(() => {
-    worksheet.setHeaders({
+    for(let worksheet of worksheets) worksheet.setHeaders({
         0: "zero",
         1: "one",
         2: "two",

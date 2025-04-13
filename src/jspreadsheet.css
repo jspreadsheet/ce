@@ -48,6 +48,7 @@
     position:relative;
     scrollbar-width: thin;
     scrollbar-color: #666 transparent;
+    overscroll-behavior: none;
 }
 
 @supports (-moz-appearance:none) {
@@ -96,7 +97,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index:2;
+    z-index: 5;
 }
 
 .jss_worksheet > thead > tr > td.dragging
@@ -282,31 +283,55 @@
 }
 
 .jss_worksheet .highlight {
-    background-color:rgba(0,0,0,0.05);
+    /* background-color:rgba(0,0,0,0.05); */
 }
 
 .jss_worksheet .highlight-top {
-    border-top:1px solid #000;
+    /* border-top:1px solid #000; */
     box-shadow: 0px -1px #ccc;
 }
 
 .jss_worksheet .highlight-left {
-    border-left:1px solid #000;
+    /* border-left:1px solid #000; */
     box-shadow: -1px 0px #ccc;
 }
 
 .jss_worksheet .highlight-right {
-    border-right:1px solid #000;
+    /* border-right:1px solid #000; */
 }
 
 .jss_worksheet .highlight-bottom {
-    border-bottom:1px solid #000;
+    /* border-bottom:1px solid #000; */
 }
 
 .jss_worksheet .highlight-top.highlight-left {
     box-shadow: -1px -1px #ccc;
     -webkit-box-shadow: -1px -1px #ccc;
     -moz-box-shadow: -1px -1px #ccc;
+}
+
+.jss_worksheet .jss_freezed.highlight {
+    /* background-color:rgba(0,0,0,0.05); */
+    background-color:#f3f3f3;
+}
+
+.jss_worksheet .jss_freezed.highlight-top {
+    border-top:1px solid #000;
+    box-shadow: 0px -1px #ccc;
+}
+
+.jss_worksheet .jss_freezed.highlight-bottom {
+    border-bottom:1px solid #000;
+    box-shadow: 0px 0px #ccc;
+}
+
+.jss_worksheet .jss_freezed.highlight-left {
+    border-left:1px solid #000;
+    box-shadow: -1px 0px #ccc;
+}
+
+.jss_worksheet .jss_freezed.highlight-right {
+    border-right:1px solid #000;
 }
 
 .jss_worksheet .highlight-selected
@@ -659,19 +684,35 @@
 }
 
 .jss_worksheet .copying-top {
-    border-top:1px dashed #000;
+    /* border-top:1px dashed #000; */
 }
 
 .jss_worksheet .copying-left {
-    border-left:1px dashed #000;
+    /* border-left:1px dashed #000; */
 }
 
 .jss_worksheet .copying-right {
-    border-right:1px dashed #000;
+    /* border-right:1px dashed #000; */
 }
 
 .jss_worksheet .copying-bottom {
-    border-bottom:1px dashed #000;
+    /* border-bottom:1px dashed #000; */
+}
+
+.jss_worksheet .jss_freezed.copying-top {
+    border-top:2px dashed #000;
+}
+
+.jss_worksheet .jss_freezed.copying-left {
+    border-left:2px dashed #000;
+}
+
+.jss_worksheet .jss_freezed.copying-right {
+    border-right:2px dashed #000;
+}
+
+.jss_worksheet .jss_freezed.copying-bottom {
+    border-bottom:2px dashed #000;
 }
 
 .jss_worksheet .jss_column_filter {
@@ -683,14 +724,19 @@
     padding: 0px;
     padding-left: 6px;
     padding-right: 20px;
+    z-index: 3!important;
+    height: 25px;
 }
 
 .jss_worksheet thead .jss_freezed, .jss_worksheet tfoot .jss_freezed {
     left: 0px;
-    z-index: 3 !important;
+    z-index: 6 !important;
     box-shadow: 2px 0px 2px 0.2px #ccc !important;
     -webkit-box-shadow: 2px 0px 2px 0.2px #ccc !important;
     -moz-box-shadow: 2px 0px 2px 0.2px #ccc !important;
+}
+.jss_worksheet thead .jss_freezed.jss_column_filter {
+    z-index: 4 !important;
 }
 
 .jss_worksheet tbody .jss_freezed {
@@ -699,6 +745,7 @@
     box-shadow: 1px 1px 1px 1px #ccc !important;
     -webkit-box-shadow: 2px 4px 4px 0.1px #ccc !important;
     -moz-box-shadow: 2px 4px 4px 0.1px #ccc !important;
+    z-index: 3 !important;
 }
 
 .red {
@@ -709,4 +756,89 @@
 .jss_worksheet > tbody > tr > td.readonly > input[type=radio] {
     pointer-events: none;
     opacity: 0.5;
+}
+
+/**
+ * Add triangle corner on select all
+ */
+.jss_selectall {
+    z-index: 6!important;
+    border-bottom: 1px solid #ccc!important;
+}
+.jss_selectall::after {
+    content: ' ';
+    border-bottom: 12px solid #ccc;
+    border-left: 12px solid transparent;
+    width: 0;
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    z-index: 6!important;
+}
+
+/**
+ * Js Context Menu
+ */
+ .jss_contextmenu, .jcontextmenu{
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 4px -1px;
+    overflow: hidden;
+    border: 0px none;
+}
+
+.jcontextmenu > div a {
+    color: #757575 !important;
+    font-size: 16px!important;
+    line-height: 22px!important;
+    cursor: pointer;
+}
+
+/* New border */
+.jss_border {
+    position: absolute;
+    border: 1px solid transparent;
+    pointer-events: none;
+    opacity: 0.6;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* New border main */
+.jss_border_main {
+    border: 1px solid #000;
+    background-color: #00000015;
+    background-origin: content-box;
+}
+
+/* New border copy */
+.jss_border_copying {
+    background-size: 8px 1px, 8px 1px, 1px 8px, 1px 8px;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-image: linear-gradient(to right, #fff 50%, #444 50%), linear-gradient(to right, #fff 50%, #444 50%), linear-gradient(to bottom, #fff 50%, #444 50%), linear-gradient(to bottom, #fff 50%, #444 50%);
+    animation: ants 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 1;
+}
+
+/* Fix freezed and new selection */
+.jss_freezed .jss_border{
+    z-index: 3 !important;
+}
+
+@keyframes ants {
+    0% {
+        background-position: 0 0, 0 100%, 0 0, 100% 0;
+    }
+    100% {
+        background-position: 40px 0, -40px 100%, 0 -40px, 100% 40px;
+    }
+}
+
+/* Fix border */
+.jss_spreadsheet thead tr:not([class]) td:not([class], [style]) {
+
+    border-top: none!important;
+
 }

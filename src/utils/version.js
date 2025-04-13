@@ -1,9 +1,11 @@
 // Basic version information
 export default {
-    version: '5.0.0',
-    host: 'https://bossanova.uk/jspreadsheet',
+    title: 'Kspreadsheet',
+    version: '2.0.0',
+    type: 'Jspreadsheet CE',
+    host: 'https://github.com/kekefreedog/kspreadsheet/',
     license: 'MIT',
     print: function() {
-        return [[ 'Jspreadsheet CE', this.version, this.host, this.license ].join('\r\n')];
+        return [[ this.title, this.version, this.host, this.license ].join('\r\n')];
     }
 };

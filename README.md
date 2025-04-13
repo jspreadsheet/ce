@@ -2,6 +2,37 @@
 
 <b>Jexcel CE</b> has been renamed to <b>Jspreadsheet CE</b><br><br>
 
+<br>
+
+---
+
+<br>
+
+## Kspreadsheet
+
+### Kspreadsheet 2.0.0
+
+- Migrate from Jspreadsheet CE v4 to Jspreadsheet CE v5
+
+### Kspreadsheet 1.1.0
+
+- New copy and highlight selection
+
+### Kspreadsheet 1.0.0
+
+- Apply freeze header on filter
+- Apply freeze header on neasted
+- Add attribute option `defaultCellType` to apply default cell type to all empty cell
+- Add attribute options `zoomMin`, `zoomMax`, `zoomStep`, `zoomDefault` to apply zoom on table
+- Add methods `setZoom(zoomValue:number):number`, `getZoom():number`, `zoomIn():number`, `zoomOut():number`, `resetZoom():number` to apply zoom on table
+- Add method `setHeaders(columns:Record<number, string>, offset:number = 0):void`
+
+<br>
+
+---
+
+<br>
+
 ## Jspreadsheet CE Use Cases
 
 Jspreadsheet CE is an extensible framework for building sophisticated data-oriented interfaces with Excel-like controls. By bringing familiar spreadsheet features to your application, you can drastically reduce development time while delivering an interface that users already know how to use, leading to faster adoption and increased productivity. You can use Jspreadsheet in many different applications, such as:

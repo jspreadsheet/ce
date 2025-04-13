@@ -3,7 +3,7 @@ import { getNumberOfColumns } from "./columns.js";
 import { createCell, updateTableReferences } from "./internal.js";
 import dispatch from "./dispatch.js";
 import { isRowMerged } from "./merges.js";
-import { conditionalSelectionUpdate, getSelectedRows, updateCornerPosition } from "./selection.js";
+import { conditionalSelectionUpdate, getSelectedRows, updateCornerPosition, updateHighlightBorder, updateHighlightCopy } from "./selection.js";
 import { setHistory } from "./history.js";
 import { getColumnNameFromId } from "./internalHelpers.js";
 
@@ -558,8 +558,13 @@ export const setHeight = function (row, height, oldHeight) {
         // On resize column
         dispatch.call(obj, 'onresizerow', obj, row, height, oldHeight);
 
+        // Set corner cell and highlight border
+        updateHighlightBorder.call(obj);
+
         // Update corner position
         updateCornerPosition.call(obj);
+
+        updateHighlightCopy.call(obj);
     }
 }
 

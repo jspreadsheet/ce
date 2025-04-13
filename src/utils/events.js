@@ -4,7 +4,7 @@ import { closeEditor, openEditor, setCheckRadioValue } from './editor.js';
 import libraryBase from './libraryBase.js';
 import { down, first, last, left, right, up } from './keys.js';
 import { isColMerged, isRowMerged } from './merges.js';
-import { copyData, removeCopySelection, resetSelection, selectAll, updateCornerPosition, updateSelectionFromCoords } from './selection.js';
+import { copyData, removeCopySelection, resetSelection, selectAll, updateCornerPosition, updateHighlightBorder, updateHighlightCopy, updateSelectionFromCoords } from './selection.js';
 import { copy, paste } from './copyPaste.js';
 import { openFilter } from './filter.js';
 import { loadDown, loadUp } from './lazyLoading.js';
@@ -437,7 +437,9 @@ const mouseMoveControls = function(e) {
                         const tempWidth = libraryBase.jspreadsheet.current.resizing.width + width;
                         libraryBase.jspreadsheet.current.cols[libraryBase.jspreadsheet.current.resizing.column].colElement.setAttribute('width', tempWidth);
 
+                        updateHighlightBorder.call(libraryBase.jspreadsheet.current);
                         updateCornerPosition.call(libraryBase.jspreadsheet.current);
+                        updateHighlightCopy.call(libraryBase.jspreadsheet.current);
                     }
                 } else {
                     const height = e.pageY - libraryBase.jspreadsheet.current.resizing.mousePosition;
@@ -446,7 +448,9 @@ const mouseMoveControls = function(e) {
                         const tempHeight = libraryBase.jspreadsheet.current.resizing.height + height;
                         libraryBase.jspreadsheet.current.rows[libraryBase.jspreadsheet.current.resizing.row].element.setAttribute('height', tempHeight);
 
+                        updateHighlightBorder.call(libraryBase.jspreadsheet.current);
                         updateCornerPosition.call(libraryBase.jspreadsheet.current);
+                        updateHighlightCopy.call(libraryBase.jspreadsheet.current);
                     }
                 }
             } else if (libraryBase.jspreadsheet.current.dragging) {
@@ -1439,14 +1443,18 @@ export const wheelControls = function(e) {
                         if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
                             obj.content.scrollTop = obj.content.scrollTop - obj.content.clientHeight;
                         }
+                        updateHighlightBorder.call(obj);
                         updateCornerPosition.call(obj);
+                        updateHighlightCopy.call(obj);
                     }
                 } else if (obj.content.scrollTop <= obj.content.clientHeight) {
                     if (loadUp.call(obj)) {
                         if (obj.content.scrollTop < 10) {
                             obj.content.scrollTop = obj.content.scrollTop + obj.content.clientHeight;
                         }
+                        updateHighlightBorder.call(obj);
                         updateCornerPosition.call(obj);
+                        updateHighlightCopy.call(obj);
                     }
                 }
 
@@ -1463,46 +1471,105 @@ const updateFreezePosition = function() {
 
     scrollLeft = obj.content.scrollLeft;
     let width = 0;
-    if (scrollLeft > 50) {
-        for (let i = 0; i < obj.options.freezeColumns; i++) {
-            if (i > 0) {
-                // Must check if the previous column is hidden or not to determin whether the width shoule be added or not!
-                if (!obj.options.columns || !obj.options.columns[i-1] || obj.options.columns[i-1].type !== "hidden") {
-                    let columnWidth;
-                    if (obj.options.columns && obj.options.columns[i-1] && obj.options.columns[i-1].width !== undefined) {
-                        columnWidth = parseInt(obj.options.columns[i-1].width);
-                    } else {
-                        columnWidth = obj.options.defaultColWidth !== undefined ? parseInt(obj.options.defaultColWidth) : 100;
-                    }
+    let indexColWidth = obj.table.querySelector(".jss_selectall").offsetWidth;
+    if(obj.options.freezeColumns){
+        if (scrollLeft > indexColWidth) {
+            var filter_tds = obj.element.querySelectorAll('td.jss_column_filter');
+            for (let i = 0; i < obj.options.freezeColumns; i++) {
+                if (i > 0) {
+                    // Must check if the previous column is hidden or not to determin whether the width shoule be added or not!
+                    if (!obj.options.columns || !obj.options.columns[i-1] || obj.options.columns[i-1].type !== "hidden") {
+                        let columnWidth;
+                        if (obj.options.columns && obj.options.columns[i-1] && obj.options.columns[i-1].width !== undefined) {
+                            columnWidth = parseInt(obj.options.columns[i-1].width);
+                        } else {
+                            columnWidth = obj.options.defaultColWidth !== undefined ? parseInt(obj.options.defaultColWidth) : 100;
+                        }
 
-                    width += parseInt(columnWidth);
+                        width += parseInt(columnWidth);
+                    }
+                }
+                obj.headers[i].classList.add('jss_freezed');
+                obj.headers[i].style.left = width + 'px';
+                if(filter_tds.length >= i+1){
+                    filter_tds[i].classList.add('jss_freezed');
+                    filter_tds[i].style.left = width + 'px';
+                }
+                for (let j = 0; j < obj.rows.length; j++) {
+                    if (obj.rows[j] && obj.records[j][i]) {
+                        // const shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].element.style.width : 0)) - 51 + 'px';
+                        var shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].element.style.width : 0)) - ( (indexColWidth + 1) * (obj.zoom / 100));
+                        obj.records[j][i].element.classList.add('jss_freezed');
+                        obj.records[j][i].element.style.left = `${Math.round(shifted / (obj.zoom / 100))}px`;
+                        // obj.records[j][i].element.style.left = shifted;
+                    }
+                }
+            }                    
+            if(Array.isArray(obj.options.nestedHeaders) && obj.options.nestedHeaders.length){
+                for(let nestedParent of obj.options.nestedHeaders){
+                    if(Array.isArray(nestedParent) && nestedParent.length){
+                        let nestedEl = "element" in nestedParent && nestedParent.element instanceof HTMLTableRowElement
+                            ? nestedParent.element
+                            : null
+                        ;
+                        for(let nested of nestedParent){
+                            var i = 1;
+                            if("colspan" in nested && typeof parseInt(nested.colspan) == "number" && parseInt(nested.colspan) > 0){
+                                var index = obj.options.freezeColumns;
+                                var currentWidth = 0;
+                                do{
+                                    nestedEl.children[i].classList.add("jss_freezed");
+                                    nestedEl.children[i].style.left = `${currentWidth}px`;
+                                    currentWidth += nestedEl.children[i].offsetWidth;
+                                    index -= parseInt(nested.colspan);
+                                    i++;
+                                }while(index > 0);
+                            }
+                        }
+                    }
                 }
             }
-            obj.headers[i].classList.add('jss_freezed');
-            obj.headers[i].style.left = width + 'px';
-            for (let j = 0; j < obj.rows.length; j++) {
-                if (obj.rows[j] && obj.records[j][i]) {
-                    const shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].element.style.width : 0)) - 51 + 'px';
-                    obj.records[j][i].element.classList.add('jss_freezed');
-                    obj.records[j][i].element.style.left = shifted;
+        } else {
+            for (let i = 0; i < obj.options.freezeColumns; i++) {
+                obj.headers[i].classList.remove('jss_freezed');
+                obj.headers[i].style.left = '';
+                for (let j = 0; j < obj.rows.length; j++) {
+                    if (obj.records[j][i]) {
+                        obj.records[j][i].element.classList.remove('jss_freezed');
+                        obj.records[j][i].element.style.left = '';
+                    }
                 }
             }
-        }
-    } else {
-        for (let i = 0; i < obj.options.freezeColumns; i++) {
-            obj.headers[i].classList.remove('jss_freezed');
-            obj.headers[i].style.left = '';
-            for (let j = 0; j < obj.rows.length; j++) {
-                if (obj.records[j][i]) {
-                    obj.records[j][i].element.classList.remove('jss_freezed');
-                    obj.records[j][i].element.style.left = '';
+            if(Array.isArray(obj.options.nestedHeaders) && obj.options.nestedHeaders.length){
+                for(let nestedParent of obj.options.nestedHeaders){
+                    if(Array.isArray(nestedParent) && nestedParent.length){
+                        let nestedEl = "element" in nestedParent && nestedParent.element instanceof HTMLTableRowElement
+                            ? nestedParent.element
+                            : null
+                        ;
+                        for(let nested of nestedParent){
+                            if("colspan" in nested && typeof nested.colspan === "number" && nested.colspan && nestedEl){
+                                var i = 1;
+                                var index = options.freezeColumns;
+                                var currentWidth = 0;
+                                do{
+                                    nestedEl.children[i].classList.remove("jss_freezed");
+                                    nestedEl.children[i].style.removeProperty("left");
+                                    index -= nested.colspan;
+                                    i++;
+                                }while(index > 0);
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
     // Place the corner in the correct place
+    updateHighlightBorder.call(obj);
     updateCornerPosition.call(obj);
+    updateHighlightCopy.call(obj);
 }
 
 export const scrollControls = function(e) {

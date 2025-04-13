@@ -5,7 +5,7 @@ import { copy } from "./copyPaste.js";
  *
  * @return null
  */
-export const download = function(includeHeaders, processed) {
+export const download = function(includeHeaders, processed, type="csv") {
     const obj = this;
 
     if (obj.parent.config.allowExport == false) {
