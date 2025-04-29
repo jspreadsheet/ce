@@ -79,6 +79,7 @@ const createWorksheets = async function(spreadsheet, options, el) {
         }
 
         el.classList.add('jss_spreadsheet');
+        el.tabIndex = 0;
 
         const tabs = jSuites.tabs(el, tabsOptions);
 
