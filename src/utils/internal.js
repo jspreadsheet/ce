@@ -1093,6 +1093,8 @@ export const updateResult = function() {
 
     updateCornerPosition.call(obj);
 
+    dispatch.call(obj, 'onupdateresult', obj, obj.results);
+
     return total;
 }
 
