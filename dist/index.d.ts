@@ -171,14 +171,6 @@ declare namespace jspreadsheet {
       options: Column,
     ) => void;
 
-    /**
-     * If true, HTML inside column headings or cell values will be treated as regular text.
-     *
-     * If false, the HTML will be treated as HTML.
-     * @default true
-     */
-    stripHTML?: boolean;
-
     /** Custom column title. */
     title?: string;
 
