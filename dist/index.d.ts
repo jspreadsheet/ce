@@ -2091,7 +2091,7 @@ declare namespace jspreadsheet {
      * List of HTML elements representing table cells.
      */
     records: {
-      element: HTMLTableCellElement[][],
+      element: HTMLTableCellElement,
       x: number,
       y: number,
     }[][];
