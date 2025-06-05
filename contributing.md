@@ -5,12 +5,16 @@ When contributing to this repository, please follow the following process
 ## Pull Request Process
 
 1. Create a fork of this repo
-2. Create a branch named according to what you are developing (new-feature, fix-issue) 
+2. Create a branch named according to what you are developing (new-feature, fix-issue)
 3. Make your changes
 4. Create a Pull Request (PR) against origin:dev branch (origin:master)
-5. Comment your PR explaining your changes, if it resolves an issue or adds a feature, also modify documentation accordingly if necessary. 
+5. Comment your PR explaining your changes, if it resolves an issue or adds a feature, also modify documentation accordingly if necessary.
 6. Wait for yout PR to be reviewed and approved
 
+## Steps to run the project locally after forking the repository.
+
+Open [http://localhost:8000](http://localhost:8000/) in your browser, or check the devServer settings in webpack.config.js if the port is different.
+Alternatively, you can change the port in the webpack.config.js file.
 
 # Code of Conduct
 
@@ -28,21 +32,21 @@ orientation.
 Examples of behavior that contributes to creating a positive environment
 include:
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+- Using welcoming and inclusive language
+- Being respectful of differing viewpoints and experiences
+- Gracefully accepting constructive criticism
+- Focusing on what is best for the community
+- Showing empathy towards other community members
 
 Examples of unacceptable behavior by participants include:
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
-advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic
+- The use of sexualized language or imagery and unwelcome sexual attention or
+  advances
+- Trolling, insulting/derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or electronic
   address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
+- Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
 ### Our Responsibilities
