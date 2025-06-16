@@ -322,8 +322,7 @@ const mouseDownControls = function(e) {
                         }
                     } else {
                         let o, d;
-
-                        if (libraryBase.jspreadsheet.current.selectedRow && (e.shiftKey || e.ctrlKey)) {
+                        if ((libraryBase.jspreadsheet.current.selectedRow || libraryBase.jspreadsheet.current.selectedRow === 0) && (e.shiftKey || e.ctrlKey)) {
                             o = libraryBase.jspreadsheet.current.selectedRow;
                             d = rowId;
                         } else {
@@ -644,7 +643,7 @@ const mouseOverControls = function(e) {
                 // Body found
                 if (jssTable[1] == 2) {
                     if (e.target.classList.contains('jss_row')) {
-                        if (libraryBase.jspreadsheet.current.selectedRow) {
+                        if (libraryBase.jspreadsheet.current.selectedRow || libraryBase.jspreadsheet.current.selectedRow === 0) {
                             const o = libraryBase.jspreadsheet.current.selectedRow;
                             const d = rowId;
                             // Update selection
@@ -1115,7 +1114,6 @@ const contextMenuControls = function(e) {
 
 const touchStartControls = function(e) {
     const jssTable = getElement(e.target);
-
     if (jssTable[0]) {
         if (libraryBase.jspreadsheet.current != jssTable[0].jssWorksheet) {
             if (libraryBase.jspreadsheet.current) {
