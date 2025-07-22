@@ -354,7 +354,7 @@ declare namespace jspreadsheet {
   }
 
   interface CellChange {
-    newValue: CellValue;
+    value: CellValue;
     oldValue: CellValue;
     x: string;
     y: string;

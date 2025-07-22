@@ -398,7 +398,7 @@ export const setCheckRadioValue = function() {
             return {
                 x: record.x,
                 y: record.y,
-                value: record.newValue,
+                value: record.value,
                 oldValue: record.oldValue,
             };
         });
