@@ -252,6 +252,8 @@ export const removeMerge = function(cellName, data, keepOptions) {
         if (! keepOptions) {
             delete(obj.options.mergeCells[cellName]);
         }
+
+        dispatch.call(obj, 'onunmerge', obj, cellName);
     }
 }
 

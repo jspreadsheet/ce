@@ -246,4 +246,54 @@ describe('Merge tests', () => {
         expect(rows[2].children[1].getAttribute('colspan')).to.equal('2')
         expect(rows[2].children[1].getAttribute('rowspan')).to.equal('3')
     });
+
+    it('removeMerge event', () => {
+        let eventCalled = false;
+        let eventCellName = null;
+        let eventInstance = null;
+
+        const instance = jspreadsheet(root, {
+            toolbar: true,
+            worksheets: [{
+                data: [
+                    ['Mazda', 2001, 2000, '2006-01-01 12:00:00'],
+                    ['Peugeot', 2010, 5000, '2005-01-01 13:00:00'],
+                    ['Honda Fit', 2009, 3000, '2004-01-01 14:01:00'],
+                    ['Honda CRV', 2010, 6000, '2003-01-01 23:30:00'],
+                ],
+                minDimensions: [10, 15],
+                columns: [
+                    {
+                        width: '300px',
+                    },
+                    {
+                        width: '80px',
+                    },
+                    {
+                        width: '100px',
+                    },
+                    {
+                        width: '150px',
+                    },
+                ],
+                mergeCells: {
+                    A1: [2, 2],
+                    E5: [3, 2],
+                }
+            }],
+            onunmerge: (worksheetInstance, cellName) => {
+                eventCalled = true;
+                eventCellName = cellName;
+                eventInstance = worksheetInstance;
+            }
+        })
+
+        instance[0].removeMerge('A1')
+
+        expect(eventCalled).to.equal(true);
+        expect(eventCellName).to.equal('A1');
+        expect(eventInstance).to.equal(instance[0]);
+
+        expect(instance[0].getMerge('A1')).to.equal(null)
+    });
 });
