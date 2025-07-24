@@ -875,10 +875,12 @@ declare namespace jspreadsheet {
      * Occurs when a merge is removed.
      * @param instance - Instance of the worksheet where the change occurred.
      * @param cellName - Address of the cell that merge was removed.
+     * @param beforeMerges - Merges that were before the merge was removed.
      */
     onunmerge?: (
       instance: WorksheetInstance,
-      cellName: string,      
+      cellName: string,
+      beforeMerges: Record<string, [number, number]>,
     ) => void;
 
     /**

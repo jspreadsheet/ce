@@ -251,6 +251,7 @@ describe('Merge tests', () => {
         let eventCalled = false;
         let eventCellName = null;
         let eventInstance = null;
+        let eventBeforeMerges = null;
 
         const instance = jspreadsheet(root, {
             toolbar: true,
@@ -281,18 +282,23 @@ describe('Merge tests', () => {
                     E5: [3, 2],
                 }
             }],
-            onunmerge: (worksheetInstance, cellName) => {
+            onunmerge: (worksheetInstance, cellName, beforeMerges) => {
                 eventCalled = true;
                 eventCellName = cellName;
                 eventInstance = worksheetInstance;
+                eventBeforeMerges = beforeMerges;
             }
         })
 
         instance[0].removeMerge('A1')
+        const beforeMerges = instance[0].getMerge();
 
         expect(eventCalled).to.equal(true);
         expect(eventCellName).to.equal('A1');
         expect(eventInstance).to.equal(instance[0]);
+        expect(eventBeforeMerges['A1'][0]).to.eql(2);
+        expect(eventBeforeMerges['A1'][1]).to.eql(2);
+        expect(Object.keys(eventBeforeMerges).length).to.eql(1);
 
         expect(instance[0].getMerge('A1')).to.equal(null)
     });
