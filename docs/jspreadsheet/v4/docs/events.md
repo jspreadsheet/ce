@@ -42,7 +42,6 @@ Jspreadsheet available events in this version.
 | **onfocus**              | On table focus                                                                                                                           |  
 | **onblur**               | On table blur                                                                                                                            |  
 | **onmerge**              | On column merge                                                                                                                          |  
-| **onunmerge**              | On column remove merge                                                                                                                          |  
 | **onchangeheader**       | On header change                                                                                                                         |  
 | **onundo**               | On undo is applied                                                                                                                       |  
 | **onredo**               | On redo is applied                                                                                                                       |  
