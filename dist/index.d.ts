@@ -872,6 +872,16 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
+     * Occurs when a merge is removed.
+     * @param instance - Instance of the worksheet where the change occurred.
+     * @param cellName - Address of the cell that merge was removed.
+     */
+    onunmerge?: (
+      instance: WorksheetInstance,
+      cellName: string,      
+    ) => void;
+
+    /**
      * Occurs after a column is moved to a new position.
      * @param instance - Instance of the worksheet where the change occurred.
      * @param oldPosition - Column index before movement.
