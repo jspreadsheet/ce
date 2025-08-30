@@ -3,6 +3,7 @@ import jSuites from "jsuites";
 import dispatch from "./dispatch.js";
 import { getMask, isFormula, updateCell } from "./internal.js";
 import { setHistory } from "./history.js";
+import { getCellNameFromCoords } from "./helpers.js";
 
 /**
  * Open the editor
@@ -348,20 +349,18 @@ setTimeout(() => {
         }
         // add new handler
         table._cellRefHandler = function(ev) {
-            const targetCell = ev.target.closest('[data-x][data-y]');
-            if (targetCell && targetCell !== cell && cell.classList.contains('editor')) {
-                ev.stopImmediatePropagation();
-                ev.preventDefault();
-                import('./helpers.js').then(mod => {
-                    const ref = mod.getCellNameFromCoords(targetCell.getAttribute('data-x'), targetCell.getAttribute('data-y'));
-                    const start = editorEl.selectionStart;
-                    const end = editorEl.selectionEnd;
-                    const val = editorEl.value;
-                    editorEl.value = val.slice(0, start) + ref + val.slice(end);
-                    editorEl.selectionStart = editorEl.selectionEnd = start + ref.length;
-                    editorEl.focus();
-                });
-            }
+      const targetCell = ev.target.closest('[data-x][data-y]');
+      if (targetCell && targetCell !== cell && cell.classList.contains('editor')) {
+        ev.stopImmediatePropagation();
+        ev.preventDefault();
+        const ref = getCellNameFromCoords(targetCell.getAttribute('data-x'), targetCell.getAttribute('data-y'));
+        const start = editorEl.selectionStart;
+        const end = editorEl.selectionEnd;
+        const val = editorEl.value;
+        editorEl.value = val.slice(0, start) + ref + val.slice(end);
+        editorEl.selectionStart = editorEl.selectionEnd = start + ref.length;
+        editorEl.focus();
+      }
         };
         table.addEventListener('mousedown', table._cellRefHandler, true);
     }
