@@ -11,6 +11,7 @@ import { setFooter } from "./footer.js";
 import { getColumnNameFromId, getIdFromColumnName } from "./internalHelpers.js";
 import formulasTranslater from "./formulasTranslater.json";
 
+const locale = (navigator.language || navigator.userLanguage).replace('-','_') || "en_US";
 export const updateTable = function () {
   const obj = this;
 
@@ -109,10 +110,8 @@ const parseNumber = function (value, columnNumber) {
  * @param {} formula
  * @returns
  */
-function translateFormula(formula, locale) {
-  if (locale === undefined) {
-    locale = (this && this.options && this.options.locale) || "fr_FR";
-  }
+function translateFormula(formula) {
+
   const dict = formulasTranslater[locale] || {};
   return formula.replace(/^=([A-ZÉÈÀÙÂÊÎÔÛÇ]+)\s*\(/i, function (match, p1) {
     const fn = dict[p1.toUpperCase()];
@@ -231,7 +230,7 @@ export const executeFormula = function (expression, x, y) {
                 value = formulaResults[tokens[i]];
               } else {
                 value = execute(
-                  translateFormula(value, locale),
+                  translateFormula(value),
                   position[0],
                   position[1]
                 );
@@ -291,7 +290,7 @@ export const executeFormula = function (expression, x, y) {
     }
   };
 
-  return execute(translateFormula(expression, locale), x, y);
+  return execute(translateFormula(expression), x, y);
 };
 
 export const parseValue = function (i, j, value, cell) {
