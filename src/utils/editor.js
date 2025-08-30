@@ -236,6 +236,7 @@ export const openEditor = function (cell, empty, e) {
         }
         // Focus on editor
         editor.focus();
+     
       } else if (
         obj.options.columns &&
         obj.options.columns[x] &&
@@ -377,6 +378,26 @@ setTimeout(() => {
         );
 
         editor.focus();
+           // Listener pour valider et déplacer avec les flèches
+        editor.addEventListener('keydown', function(e) {
+          if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) {
+            e.preventDefault();
+            closeEditor.call(obj, cell, true);
+            let nextX = parseInt(x);
+            let nextY = parseInt(y);
+            if (e.key === "ArrowUp") nextY--;
+            if (e.key === "ArrowDown") nextY++;
+            if (e.key === "ArrowLeft") nextX--;
+            if (e.key === "ArrowRight") nextX++;
+            // Vérifier que la cellule existe
+            if (obj.records[nextY] && obj.records[nextY][nextX]) {
+              const nextCell = obj.records[nextY][nextX].element;
+              if (nextCell && !nextCell.classList.contains("readonly")) {
+                openEditor.call(obj, nextCell, false);
+              }
+            }
+          }
+        });
         editor.value = value;
 
         // Column options
