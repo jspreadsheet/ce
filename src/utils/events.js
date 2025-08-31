@@ -322,8 +322,7 @@ const mouseDownControls = function(e) {
                         }
                     } else {
                         let o, d;
-
-                        if (libraryBase.jspreadsheet.current.selectedRow && (e.shiftKey || e.ctrlKey)) {
+                        if ((libraryBase.jspreadsheet.current.selectedRow != null) && (e.shiftKey || e.ctrlKey)) {
                             o = libraryBase.jspreadsheet.current.selectedRow;
                             d = rowId;
                         } else {
@@ -644,7 +643,7 @@ const mouseOverControls = function(e) {
                 // Body found
                 if (jssTable[1] == 2) {
                     if (e.target.classList.contains('jss_row')) {
-                        if (libraryBase.jspreadsheet.current.selectedRow) {
+                        if (libraryBase.jspreadsheet.current.selectedRow != null) {
                             const o = libraryBase.jspreadsheet.current.selectedRow;
                             const d = rowId;
                             // Update selection
@@ -1288,7 +1287,7 @@ const keyDownControls = function(e) {
             } else if (e.which == 46 || e.which == 8) {
                 // Delete
                 if (libraryBase.jspreadsheet.current.options.editable != false) {
-                    if (libraryBase.jspreadsheet.current.selectedRow) {
+                    if (libraryBase.jspreadsheet.current.selectedRow != null) {
                         if (libraryBase.jspreadsheet.current.options.allowDeleteRow != false) {
                             if (confirm(jSuites.translate('Are you sure to delete the selected rows?'))) {
                                 libraryBase.jspreadsheet.current.deleteRow();

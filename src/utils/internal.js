@@ -61,6 +61,10 @@ export const updateTable = function() {
         setFooter.call(obj);
     }
 
+    if (obj.options.columns.length < obj.options.minDimensions[0]) {
+        obj.options.minDimensions[0] = obj.options.columns.length;
+    }
+
     // Update corner position
     setTimeout(function() {
         updateCornerPosition.call(obj);
@@ -1092,6 +1096,8 @@ export const updateResult = function() {
     }
 
     updateCornerPosition.call(obj);
+
+    dispatch.call(obj, 'onupdateresult', obj, obj.results);
 
     return total;
 }
