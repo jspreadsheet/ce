@@ -123,6 +123,9 @@ Serve your html file and then you will get the rendered table in your browser
 
 ## Jspreadsheet Changelog
 
+### Custom
+- Add onupdateresult event after search/filter;
+
 ### Jspreadsheet 5.0.0
 - Separation of spreadsheet and worksheets;
 - New worksheet methods and events;
