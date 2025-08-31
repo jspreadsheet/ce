@@ -34,6 +34,7 @@ Jspreadsheet provides a comprehensive event system designed to enhance integrati
 | `onfocus`                 | Triggered when the table gains focus.                                                                 |  
 | `onblur`                  | Triggered when the table loses focus.                                                                 |  
 | `onmerge`                 | Triggered when cells are merged.                                                                      |  
+| `onunmerge`              | Triggered when merge is removed                                                                      |
 | `onchangeheader`          | Triggered when a header is changed.                                                                   |  
 | `onundo`                  | Triggered when an undo action is applied.                                                             |  
 | `onredo`                  | Triggered when a redo action is applied.                                                              |  
