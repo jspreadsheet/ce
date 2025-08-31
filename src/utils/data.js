@@ -276,7 +276,7 @@ export const setValue = function(cell, value, force) {
         return {
             x: record.x,
             y: record.y,
-            value: record.newValue,
+            value: record.value,
             oldValue: record.oldValue,
         };
     });
@@ -316,7 +316,7 @@ export const setValueFromCoords = function(x, y, value, force) {
         return {
             x: record.x,
             y: record.y,
-            value: record.newValue,
+            value: record.value,
             oldValue: record.oldValue,
         };
     });

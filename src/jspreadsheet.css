@@ -2,6 +2,10 @@
     --jss-border-color:#000;
 }
 
+.jss_spreadsheet {
+    outline: none;
+}
+
 .jss_container {
     display:inline-block;
     padding-right:2px;

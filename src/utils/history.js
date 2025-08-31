@@ -54,8 +54,16 @@ const historyProcessRow = function(type, historyRecord) {
         conditionalSelectionUpdate.call(obj, 1, rowIndex, (numOfRows + rowIndex) - 1);
     } else {
         // Insert data
-        obj.records = injectArray(obj.records, rowIndex, historyRecord.rowRecords);
-        obj.options.data = injectArray(obj.options.data, rowIndex, historyRecord.rowData);
+        const records = historyRecord.rowRecords.map((row) => {
+            return [...row];
+        });
+        obj.records = injectArray(obj.records, rowIndex, records);
+
+        const data = historyRecord.rowData.map((row) => {
+            return [...row];
+        });
+        obj.options.data = injectArray(obj.options.data, rowIndex, data);
+
         obj.rows = injectArray(obj.rows, rowIndex, historyRecord.rowNode);
         // Insert nodes
         let index = 0

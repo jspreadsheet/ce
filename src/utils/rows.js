@@ -204,8 +204,8 @@ export const insertRow = function(mixed, rowNumber, insertBefore) {
                 }
             }
             // Record History
-            rowRecords.push(obj.records[row]);
-            rowData.push(obj.options.data[row]);
+            rowRecords.push([...obj.records[row]]);
+            rowData.push([...obj.options.data[row]]);
             rowNode.push(newRow);
         }
 

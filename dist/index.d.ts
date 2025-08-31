@@ -171,14 +171,6 @@ declare namespace jspreadsheet {
       options: Column,
     ) => void;
 
-    /**
-     * If true, HTML inside column headings or cell values will be treated as regular text.
-     *
-     * If false, the HTML will be treated as HTML.
-     * @default true
-     */
-    stripHTML?: boolean;
-
     /** Custom column title. */
     title?: string;
 
@@ -362,7 +354,7 @@ declare namespace jspreadsheet {
   }
 
   interface CellChange {
-    newValue: CellValue;
+    value: CellValue;
     oldValue: CellValue;
     x: string;
     y: string;
@@ -766,6 +758,28 @@ declare namespace jspreadsheet {
     ) => void;
 
     /**
+     * Occurs when a worksheet is created.
+     * @param worksheet - Instance of the new worksheet.
+     * @param worksheetOptions - Options of the new worksheet.
+     * @param index - Index of the new worksheet.
+     */
+    oncreateworksheet?: (
+      worksheet: WorksheetInstance,
+      worksheetOptions: WorksheetOptions,
+      index: number,
+    ) => void;
+
+    /**
+     * Occurs when a worksheet is deleted.
+     * @param worksheet - Instance of the deleted worksheet.
+     * @param index - Index of the deleted worksheet.
+     */
+    ondeleteworksheet?: (
+      worksheet: WorksheetInstance,
+      index: number,
+    ) => void;
+
+    /**
      * Occurs when a closeEditor is called.
      * @param instance - Instance of the worksheet where the change occurred.
      * @param td - Td tag of the cell whose editor was opened.
@@ -1010,6 +1024,12 @@ declare namespace jspreadsheet {
      * @default false
      */
     parseHTML?: boolean;
+
+    /**
+     * If true, the button to create new worksheets is shown.
+     * @default false
+     */
+    tabs?: boolean;
 
     /** Add custom toolbars. */
     toolbar?: boolean | ToolbarItem[] | ((defaultToolbar: ToolbarItem[]) => ToolbarItem[]) | Record<string, any>;
@@ -1315,6 +1335,11 @@ declare namespace jspreadsheet {
      * @default false
      */
     wordWrap?: boolean;
+
+    /**
+     * Worksheet name.
+     */
+    worksheetName?: string;
   }
 
   interface JspreadsheetInstanceElement extends HTMLDivElement {
@@ -2099,7 +2124,7 @@ declare namespace jspreadsheet {
      * List of HTML elements representing table cells.
      */
     records: {
-      element: HTMLTableCellElement[][],
+      element: HTMLTableCellElement,
       x: number,
       y: number,
     }[][];

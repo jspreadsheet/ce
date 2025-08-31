@@ -1,3 +1,5 @@
+import jSuites from 'jsuites';
+
 import { parseCSV } from "./helpers.js";
 import dispatch from "./dispatch.js";
 import { setHistory } from "./history.js";
@@ -346,8 +348,20 @@ export const paste = function(x, y, data) {
             colIndex = parseInt(x);
 
             while (row[i] != null) {
+                let value = row[i];
+
+                if (
+                    obj.options.columns &&
+                    obj.options.columns[i] &&
+                    (
+                        obj.options.columns[i].type == 'calendar'
+                    )
+                ) {
+                    value = jSuites.calendar.extractDateFromString(value, (obj.options.columns[i].options && obj.options.columns[i].options.format) || 'YYYY-MM-DD');
+                }
+
                 // Update and keep history
-                const record = updateCell.call(obj, colIndex, rowIndex, row[i]);
+                const record = updateCell.call(obj, colIndex, rowIndex, value);
                 // Keep history
                 records.push(record);
                 // Update all formulas in the chain
@@ -425,7 +439,7 @@ export const paste = function(x, y, data) {
             return {
                 x: record.x,
                 y: record.y,
-                value: record.newValue,
+                value: record.value,
                 oldValue: record.oldValue,
             };
         });
