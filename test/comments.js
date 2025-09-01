@@ -13,26 +13,22 @@ describe('Comment tests', () => {
                         ['CA', 'Carrots', '2018-11-10'],
                         ['BR', 'Oranges', '2019-01-12'],
                     ],
-                    columns: [
-                        { width: '300px' },
-                        { width: '200px' },
-                        { width: '200px' },
-                    ],
+                    columns: [{ width: '300px' }, { width: '200px' }, { width: '200px' }],
                     allowComments: true,
-                }
+                },
             ],
-        })
+        });
 
-        const table = root.querySelector('tbody')
-        const rows = table.children
+        const table = root.querySelector('tbody');
+        const rows = table.children;
 
-        instance[0].setComments('C2', 'Test')
+        instance[0].setComments('C2', 'Test');
 
-        expect(rows[1].children[3].getAttribute('title')).to.equal('Test')
+        expect(rows[1].children[3].getAttribute('title')).to.equal('Test');
 
-        instance[0].setComments('C2', '')
+        instance[0].setComments('C2', '');
 
-        expect(rows[1].children[3].getAttribute('title')).to.equal('')
+        expect(rows[1].children[3].getAttribute('title')).to.equal('');
     });
 
     it('Get comment', () => {
@@ -45,19 +41,15 @@ describe('Comment tests', () => {
                         ['CA', 'Carrots', '2018-11-10'],
                         ['BR', 'Oranges', '2019-01-12'],
                     ],
-                    columns: [
-                        { width: '300px' },
-                        { width: '200px' },
-                        { width: '200px' },
-                    ],
+                    columns: [{ width: '300px' }, { width: '200px' }, { width: '200px' }],
                     allowComments: true,
-                }
+                },
             ],
-        })
+        });
 
-        instance[0].setComments('B3', 'something')
+        instance[0].setComments('B3', 'something');
 
-        expect(instance[0].getComments('B3')).to.equal('something')
+        expect(instance[0].getComments('B3')).to.equal('something');
     });
 
     it('setComments history', () => {
@@ -70,29 +62,25 @@ describe('Comment tests', () => {
                         ['CA', 'Carrots', '2018-11-10'],
                         ['BR', 'Oranges', '2019-01-12'],
                     ],
-                    columns: [
-                        { width: '300px' },
-                        { width: '200px' },
-                        { width: '200px' },
-                    ],
+                    columns: [{ width: '300px' }, { width: '200px' }, { width: '200px' }],
                     allowComments: true,
-                }
+                },
             ],
-        })
+        });
 
-        const table = root.querySelector('tbody')
-        const rows = table.children
+        const table = root.querySelector('tbody');
+        const rows = table.children;
 
-        instance[0].setComments('C2', 'Test')
+        instance[0].setComments('C2', 'Test');
 
-        expect(rows[1].children[3].getAttribute('title')).to.equal('Test')
+        expect(rows[1].children[3].getAttribute('title')).to.equal('Test');
 
-        instance[0].undo()
+        instance[0].undo();
 
-        expect(rows[1].children[3].getAttribute('title')).to.equal('')
+        expect(rows[1].children[3].getAttribute('title')).to.equal('');
 
-        instance[0].redo()
+        instance[0].redo();
 
-        expect(rows[1].children[3].getAttribute('title')).to.equal('Test')
+        expect(rows[1].children[3].getAttribute('title')).to.equal('Test');
     });
 });

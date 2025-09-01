@@ -13,11 +13,11 @@ import { moveRow, setHeight } from './rows.js';
 import version from './version.js';
 import { getCellNameFromCoords } from './helpers.js';
 
-const getElement = function(element) {
+const getElement = function (element) {
     let jssSection = 0;
     let jssElement = 0;
 
-    function path (element) {
+    function path(element) {
         if (element.className) {
             if (element.classList.contains('jss_container')) {
                 jssElement = element;
@@ -35,7 +35,7 @@ const getElement = function(element) {
         }
 
         if (element.parentNode) {
-            if (! jssElement) {
+            if (!jssElement) {
                 path(element.parentNode);
             }
         }
@@ -43,17 +43,19 @@ const getElement = function(element) {
 
     path(element);
 
-    return [ jssElement, jssSection ];
-}
+    return [jssElement, jssSection];
+};
 
-const mouseUpControls = function(e) {
+const mouseUpControls = function (e) {
     if (libraryBase.jspreadsheet.current) {
         // Update cell size
         if (libraryBase.jspreadsheet.current.resizing) {
             // Columns to be updated
             if (libraryBase.jspreadsheet.current.resizing.column) {
                 // New width
-                const newWidth = parseInt(libraryBase.jspreadsheet.current.cols[libraryBase.jspreadsheet.current.resizing.column].colElement.getAttribute('width'));
+                const newWidth = parseInt(
+                    libraryBase.jspreadsheet.current.cols[libraryBase.jspreadsheet.current.resizing.column].colElement.getAttribute('width')
+                );
                 // Columns
                 const columns = libraryBase.jspreadsheet.current.getSelectedColumns();
                 if (columns.length > 1) {
@@ -66,7 +68,12 @@ const mouseUpControls = function(e) {
                     currentWidth[index] = libraryBase.jspreadsheet.current.resizing.width;
                     setWidth.call(libraryBase.jspreadsheet.current, columns, newWidth, currentWidth);
                 } else {
-                    setWidth.call(libraryBase.jspreadsheet.current, parseInt(libraryBase.jspreadsheet.current.resizing.column), newWidth, libraryBase.jspreadsheet.current.resizing.width);
+                    setWidth.call(
+                        libraryBase.jspreadsheet.current,
+                        parseInt(libraryBase.jspreadsheet.current.resizing.column),
+                        newWidth,
+                        libraryBase.jspreadsheet.current.resizing.width
+                    );
                 }
                 // Remove border
                 libraryBase.jspreadsheet.current.headers[libraryBase.jspreadsheet.current.resizing.column].classList.remove('resizing');
@@ -79,7 +86,12 @@ const mouseUpControls = function(e) {
                 // Remove Class
                 libraryBase.jspreadsheet.current.rows[libraryBase.jspreadsheet.current.resizing.row].element.children[0].classList.remove('resizing');
                 let newHeight = libraryBase.jspreadsheet.current.rows[libraryBase.jspreadsheet.current.resizing.row].element.getAttribute('height');
-                setHeight.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.resizing.row, newHeight, libraryBase.jspreadsheet.current.resizing.height);
+                setHeight.call(
+                    libraryBase.jspreadsheet.current,
+                    libraryBase.jspreadsheet.current.resizing.row,
+                    newHeight,
+                    libraryBase.jspreadsheet.current.resizing.height
+                );
                 // Remove border
                 libraryBase.jspreadsheet.current.resizing.element.classList.remove('resizing');
             }
@@ -105,7 +117,10 @@ const mouseUpControls = function(e) {
                     // Update position
                     if (columnId) {
                         if (libraryBase.jspreadsheet.current.dragging.column != libraryBase.jspreadsheet.current.dragging.destination) {
-                            libraryBase.jspreadsheet.current.moveColumn(libraryBase.jspreadsheet.current.dragging.column, libraryBase.jspreadsheet.current.dragging.destination);
+                            libraryBase.jspreadsheet.current.moveColumn(
+                                libraryBase.jspreadsheet.current.dragging.column,
+                                libraryBase.jspreadsheet.current.dragging.destination
+                            );
                         }
                     }
                 } else {
@@ -134,7 +149,11 @@ const mouseUpControls = function(e) {
                 // Data to be copied
                 if (libraryBase.jspreadsheet.current.selection.length > 0) {
                     // Copy data
-                    copyData.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.selection[0], libraryBase.jspreadsheet.current.selection[libraryBase.jspreadsheet.current.selection.length - 1]);
+                    copyData.call(
+                        libraryBase.jspreadsheet.current,
+                        libraryBase.jspreadsheet.current.selection[0],
+                        libraryBase.jspreadsheet.current.selection[libraryBase.jspreadsheet.current.selection.length - 1]
+                    );
 
                     // Remove selection
                     removeCopySelection.call(libraryBase.jspreadsheet.current);
@@ -151,9 +170,9 @@ const mouseUpControls = function(e) {
 
     // Mouse up
     libraryBase.jspreadsheet.isMouseAction = false;
-}
+};
 
-const mouseDownControls = function(e) {
+const mouseDownControls = function (e) {
     e = e || window.event;
 
     let mouseButton;
@@ -251,8 +270,11 @@ const mouseDownControls = function(e) {
                             d = columnId;
                         } else {
                             // Press to rename
-                            if (libraryBase.jspreadsheet.current.selectedHeader == columnId && libraryBase.jspreadsheet.current.options.allowRenameColumn != false) {
-                                libraryBase.jspreadsheet.timeControl = setTimeout(function() {
+                            if (
+                                libraryBase.jspreadsheet.current.selectedHeader == columnId &&
+                                libraryBase.jspreadsheet.current.options.allowRenameColumn != false
+                            ) {
+                                libraryBase.jspreadsheet.timeControl = setTimeout(function () {
                                     libraryBase.jspreadsheet.current.setHeader(columnId);
                                 }, 800);
                             }
@@ -275,12 +297,19 @@ const mouseDownControls = function(e) {
                         if (e.target.getAttribute('data-column')) {
                             const column = e.target.getAttribute('data-column').split(',');
                             c1 = parseInt(column[0]);
-                            c2 = parseInt(column[column.length-1]);
+                            c2 = parseInt(column[column.length - 1]);
                         } else {
                             c1 = 0;
                             c2 = libraryBase.jspreadsheet.current.options.columns.length - 1;
                         }
-                        updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, c1, 0, c2, libraryBase.jspreadsheet.current.options.data.length - 1, e);
+                        updateSelectionFromCoords.call(
+                            libraryBase.jspreadsheet.current,
+                            c1,
+                            0,
+                            c2,
+                            libraryBase.jspreadsheet.current.options.data.length - 1,
+                            e
+                        );
                     }
                 }
             } else {
@@ -314,15 +343,15 @@ const mouseDownControls = function(e) {
                             // Drag helper
                             libraryBase.jspreadsheet.current.dragging = {
                                 element: e.target.parentNode,
-                                row:rowId,
-                                destination:rowId,
+                                row: rowId,
+                                destination: rowId,
                             };
                             // Border indication
                             e.target.parentNode.classList.add('dragging');
                         }
                     } else {
                         let o, d;
-                        if ((libraryBase.jspreadsheet.current.selectedRow != null) && (e.shiftKey || e.ctrlKey)) {
+                        if (libraryBase.jspreadsheet.current.selectedRow != null && (e.shiftKey || e.ctrlKey)) {
                             o = libraryBase.jspreadsheet.current.selectedRow;
                             d = rowId;
                         } else {
@@ -342,7 +371,7 @@ const mouseDownControls = function(e) {
                     if (e.target.classList.contains('jclose') && e.target.clientWidth - e.offsetX < 50 && e.offsetY < 50) {
                         closeEditor.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.edition[0], true);
                     } else {
-                        const getCellCoords = function(element) {
+                        const getCellCoords = function (element) {
                             const x = element.getAttribute('data-x');
                             const y = element.getAttribute('data-y');
                             if (x && y) {
@@ -356,7 +385,6 @@ const mouseDownControls = function(e) {
 
                         const position = getCellCoords(e.target);
                         if (position) {
-
                             const columnId = position[0];
                             const rowId = position[1];
                             // Close edition
@@ -366,10 +394,17 @@ const mouseDownControls = function(e) {
                                 }
                             }
 
-                            if (! libraryBase.jspreadsheet.current.edition) {
+                            if (!libraryBase.jspreadsheet.current.edition) {
                                 // Update cell selection
                                 if (e.shiftKey) {
-                                    updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.selectedCell[0], libraryBase.jspreadsheet.current.selectedCell[1], columnId, rowId, e);
+                                    updateSelectionFromCoords.call(
+                                        libraryBase.jspreadsheet.current,
+                                        libraryBase.jspreadsheet.current.selectedCell[0],
+                                        libraryBase.jspreadsheet.current.selectedCell[1],
+                                        columnId,
+                                        rowId,
+                                        e
+                                    );
                                 } else {
                                     updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, columnId, rowId, undefined, undefined, e);
                                 }
@@ -405,10 +440,10 @@ const mouseDownControls = function(e) {
     } else {
         libraryBase.jspreadsheet.isMouseAction = false;
     }
-}
+};
 
 // Mouse move controls
-const mouseMoveControls = function(e) {
+const mouseMoveControls = function (e) {
     e = e || window.event;
 
     let mouseButton;
@@ -421,7 +456,7 @@ const mouseMoveControls = function(e) {
         mouseButton = e.which;
     }
 
-    if (! mouseButton) {
+    if (!mouseButton) {
         libraryBase.jspreadsheet.isMouseAction = false;
     }
 
@@ -452,7 +487,6 @@ const mouseMoveControls = function(e) {
                 if (libraryBase.jspreadsheet.current.dragging.column) {
                     const columnId = e.target.getAttribute('data-x');
                     if (columnId) {
-
                         if (isColMerged.call(libraryBase.jspreadsheet.current, columnId).length) {
                             console.error('Jspreadsheet: This column is part of a merged cell.');
                         } else {
@@ -488,10 +522,13 @@ const mouseMoveControls = function(e) {
                         if (isRowMerged.call(libraryBase.jspreadsheet.current, rowId).length) {
                             console.error('Jspreadsheet: This row is part of a merged cell.');
                         } else {
-                            const target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
+                            const target = e.target.clientHeight / 2 > e.offsetY ? e.target.parentNode.nextSibling : e.target.parentNode;
                             if (libraryBase.jspreadsheet.current.dragging.element != target) {
                                 e.target.parentNode.parentNode.insertBefore(libraryBase.jspreadsheet.current.dragging.element, target);
-                                libraryBase.jspreadsheet.current.dragging.destination = Array.prototype.indexOf.call(libraryBase.jspreadsheet.current.dragging.element.parentNode.children, libraryBase.jspreadsheet.current.dragging.element);
+                                libraryBase.jspreadsheet.current.dragging.destination = Array.prototype.indexOf.call(
+                                    libraryBase.jspreadsheet.current.dragging.element.parentNode.children,
+                                    libraryBase.jspreadsheet.current.dragging.element
+                                );
                             }
                         }
                     }
@@ -509,20 +546,20 @@ const mouseMoveControls = function(e) {
 
             if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.className) {
                 if (e.target.parentNode.parentNode.classList.contains('resizable')) {
-                    if (e.target && x && ! y && (rect.width - (e.clientX - rect.left) < 6)) {
+                    if (e.target && x && !y && rect.width - (e.clientX - rect.left) < 6) {
                         libraryBase.jspreadsheet.current.cursor = e.target;
                         libraryBase.jspreadsheet.current.cursor.style.cursor = 'col-resize';
-                    } else if (e.target && ! x && y && (rect.height - (e.clientY - rect.top) < 6)) {
+                    } else if (e.target && !x && y && rect.height - (e.clientY - rect.top) < 6) {
                         libraryBase.jspreadsheet.current.cursor = e.target;
                         libraryBase.jspreadsheet.current.cursor.style.cursor = 'row-resize';
                     }
                 }
 
                 if (e.target.parentNode.parentNode.classList.contains('draggable')) {
-                    if (e.target && ! x && y && (rect.width - (e.clientX - rect.left) < 6)) {
+                    if (e.target && !x && y && rect.width - (e.clientX - rect.left) < 6) {
                         libraryBase.jspreadsheet.current.cursor = e.target;
                         libraryBase.jspreadsheet.current.cursor.style.cursor = 'move';
-                    } else if (e.target && x && ! y && (rect.height - (e.clientY - rect.top) < 6)) {
+                    } else if (e.target && x && !y && rect.height - (e.clientY - rect.top) < 6) {
                         libraryBase.jspreadsheet.current.cursor = e.target;
                         libraryBase.jspreadsheet.current.cursor.style.cursor = 'move';
                     }
@@ -530,7 +567,7 @@ const mouseMoveControls = function(e) {
             }
         }
     }
-}
+};
 
 /**
  * Update copy selection
@@ -538,7 +575,7 @@ const mouseMoveControls = function(e) {
  * @param int x, y
  * @return void
  */
-const updateCopySelection = function(x3, y3) {
+const updateCopySelection = function (x3, y3) {
     const obj = this;
 
     // Remove selection
@@ -594,9 +631,9 @@ const updateCopySelection = function(x3, y3) {
             }
         }
     }
-}
+};
 
-const mouseOverControls = function(e) {
+const mouseOverControls = function (e) {
     e = e || window.event;
 
     let mouseButton;
@@ -609,7 +646,7 @@ const mouseOverControls = function(e) {
         mouseButton = e.which;
     }
 
-    if (! mouseButton) {
+    if (!mouseButton) {
         libraryBase.jspreadsheet.isMouseAction = false;
     }
 
@@ -647,17 +684,31 @@ const mouseOverControls = function(e) {
                             const o = libraryBase.jspreadsheet.current.selectedRow;
                             const d = rowId;
                             // Update selection
-                            updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, 0, o, libraryBase.jspreadsheet.current.options.data[0].length - 1, d, e);
+                            updateSelectionFromCoords.call(
+                                libraryBase.jspreadsheet.current,
+                                0,
+                                o,
+                                libraryBase.jspreadsheet.current.options.data[0].length - 1,
+                                d,
+                                e
+                            );
                         }
                     } else {
                         // Do not select edtion is in progress
-                        if (! libraryBase.jspreadsheet.current.edition) {
+                        if (!libraryBase.jspreadsheet.current.edition) {
                             if (columnId && rowId) {
                                 if (libraryBase.jspreadsheet.current.selectedCorner) {
                                     updateCopySelection.call(libraryBase.jspreadsheet.current, columnId, rowId);
                                 } else {
                                     if (libraryBase.jspreadsheet.current.selectedCell) {
-                                        updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.selectedCell[0], libraryBase.jspreadsheet.current.selectedCell[1], columnId, rowId, e);
+                                        updateSelectionFromCoords.call(
+                                            libraryBase.jspreadsheet.current,
+                                            libraryBase.jspreadsheet.current.selectedCell[0],
+                                            libraryBase.jspreadsheet.current.selectedCell[1],
+                                            columnId,
+                                            rowId,
+                                            e
+                                        );
                                     }
                                 }
                             }
@@ -673,9 +724,9 @@ const mouseOverControls = function(e) {
         clearTimeout(libraryBase.jspreadsheet.timeControl);
         libraryBase.jspreadsheet.timeControl = null;
     }
-}
+};
 
-const doubleClickControls = function(e) {
+const doubleClickControls = function (e) {
     // Jss is selected
     if (libraryBase.jspreadsheet.current) {
         // Corner action
@@ -684,19 +735,25 @@ const doubleClickControls = function(e) {
             if (libraryBase.jspreadsheet.current.highlighted.length > 0) {
                 // Copy from this
                 const x1 = libraryBase.jspreadsheet.current.highlighted[0].element.getAttribute('data-x');
-                const y1 = parseInt(libraryBase.jspreadsheet.current.highlighted[libraryBase.jspreadsheet.current.highlighted.length - 1].element.getAttribute('data-y')) + 1;
+                const y1 =
+                    parseInt(
+                        libraryBase.jspreadsheet.current.highlighted[libraryBase.jspreadsheet.current.highlighted.length - 1].element.getAttribute('data-y')
+                    ) + 1;
                 // Until this
                 const x2 = libraryBase.jspreadsheet.current.highlighted[libraryBase.jspreadsheet.current.highlighted.length - 1].element.getAttribute('data-x');
-                const y2 = libraryBase.jspreadsheet.current.records.length - 1
+                const y2 = libraryBase.jspreadsheet.current.records.length - 1;
                 // Execute copy
-                copyData.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.records[y1][x1].element, libraryBase.jspreadsheet.current.records[y2][x2].element);
+                copyData.call(
+                    libraryBase.jspreadsheet.current,
+                    libraryBase.jspreadsheet.current.records[y1][x1].element,
+                    libraryBase.jspreadsheet.current.records[y2][x2].element
+                );
             }
         } else if (e.target.classList.contains('jss_column_filter')) {
             // Column
             const columnId = e.target.getAttribute('data-x');
             // Open filter
             openFilter.call(libraryBase.jspreadsheet.current, columnId);
-
         } else {
             // Get table
             const jssTable = getElement(e.target);
@@ -712,8 +769,8 @@ const doubleClickControls = function(e) {
 
             // Double click over body
             if (jssTable[1] == 2 && libraryBase.jspreadsheet.current.options.editable != false) {
-                if (! libraryBase.jspreadsheet.current.edition) {
-                    const getCellCoords = function(element) {
+                if (!libraryBase.jspreadsheet.current.edition) {
+                    const getCellCoords = function (element) {
                         if (element.parentNode) {
                             const x = element.getAttribute('data-x');
                             const y = element.getAttribute('data-y');
@@ -723,7 +780,7 @@ const doubleClickControls = function(e) {
                                 return getCellCoords(element.parentNode);
                             }
                         }
-                    }
+                    };
                     const cell = getCellCoords(e.target);
                     if (cell && cell.classList.contains('highlight')) {
                         openEditor.call(libraryBase.jspreadsheet.current, cell, undefined, e);
@@ -732,24 +789,34 @@ const doubleClickControls = function(e) {
             }
         }
     }
-}
+};
 
-const pasteControls = function(e) {
+const pasteControls = function (e) {
     if (libraryBase.jspreadsheet.current && libraryBase.jspreadsheet.current.selectedCell) {
-        if (! libraryBase.jspreadsheet.current.edition) {
+        if (!libraryBase.jspreadsheet.current.edition) {
             if (libraryBase.jspreadsheet.current.options.editable != false) {
                 if (e && e.clipboardData) {
-                    paste.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.selectedCell[0], libraryBase.jspreadsheet.current.selectedCell[1], e.clipboardData.getData('text'));
+                    paste.call(
+                        libraryBase.jspreadsheet.current,
+                        libraryBase.jspreadsheet.current.selectedCell[0],
+                        libraryBase.jspreadsheet.current.selectedCell[1],
+                        e.clipboardData.getData('text')
+                    );
                     e.preventDefault();
                 } else if (window.clipboardData) {
-                    paste.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.selectedCell[0], libraryBase.jspreadsheet.current.selectedCell[1], window.clipboardData.getData('text'));
+                    paste.call(
+                        libraryBase.jspreadsheet.current,
+                        libraryBase.jspreadsheet.current.selectedCell[0],
+                        libraryBase.jspreadsheet.current.selectedCell[1],
+                        window.clipboardData.getData('text')
+                    );
                 }
             }
         }
     }
-}
+};
 
-const getRole = function(element) {
+const getRole = function (element) {
     if (element.classList.contains('jss_selectall')) {
         return 'select-all';
     }
@@ -797,9 +864,9 @@ const getRole = function(element) {
     }
 
     return 'applications';
-}
+};
 
-const defaultContextMenu = function(worksheet, x, y, role) {
+const defaultContextMenu = function (worksheet, x, y, role) {
     const items = [];
 
     if (role === 'header') {
@@ -807,18 +874,18 @@ const defaultContextMenu = function(worksheet, x, y, role) {
         if (worksheet.options.allowInsertColumn != false) {
             items.push({
                 title: jSuites.translate('Insert a new column before'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.insertColumn(1, parseInt(x), 1);
-                }
+                },
             });
         }
 
         if (worksheet.options.allowInsertColumn != false) {
             items.push({
                 title: jSuites.translate('Insert a new column after'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.insertColumn(1, parseInt(x), 0);
-                }
+                },
             });
         }
 
@@ -826,9 +893,9 @@ const defaultContextMenu = function(worksheet, x, y, role) {
         if (worksheet.options.allowDeleteColumn != false) {
             items.push({
                 title: jSuites.translate('Delete selected columns'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.deleteColumn(worksheet.getSelectedColumns().length ? undefined : parseInt(x));
-                }
+                },
             });
         }
 
@@ -836,32 +903,32 @@ const defaultContextMenu = function(worksheet, x, y, role) {
         if (worksheet.options.allowRenameColumn != false) {
             items.push({
                 title: jSuites.translate('Rename this column'),
-                onclick:function() {
+                onclick: function () {
                     const oldValue = worksheet.getHeader(x);
 
                     const newValue = prompt(jSuites.translate('Column name'), oldValue);
 
                     worksheet.setHeader(x, newValue);
-                }
+                },
             });
         }
 
         // Sorting
         if (worksheet.options.columnSorting != false) {
             // Line
-            items.push({ type:'line' });
+            items.push({ type: 'line' });
 
             items.push({
                 title: jSuites.translate('Order ascending'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.orderBy(x, 0);
-                }
+                },
             });
             items.push({
                 title: jSuites.translate('Order descending'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.orderBy(x, 1);
-                }
+                },
             });
         }
     }
@@ -871,51 +938,51 @@ const defaultContextMenu = function(worksheet, x, y, role) {
         if (worksheet.options.allowInsertRow != false) {
             items.push({
                 title: jSuites.translate('Insert a new row before'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.insertRow(1, parseInt(y), 1);
-                }
+                },
             });
 
             items.push({
                 title: jSuites.translate('Insert a new row after'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.insertRow(1, parseInt(y));
-                }
+                },
             });
         }
 
         if (worksheet.options.allowDeleteRow != false) {
             items.push({
                 title: jSuites.translate('Delete selected rows'),
-                onclick:function() {
+                onclick: function () {
                     worksheet.deleteRow(worksheet.getSelectedRows().length ? undefined : parseInt(y));
-                }
+                },
             });
         }
     }
 
     if (role === 'cell') {
         if (worksheet.options.allowComments != false) {
-            items.push({ type:'line' });
+            items.push({ type: 'line' });
 
             const title = worksheet.records[y][x].element.getAttribute('title') || '';
 
             items.push({
                 title: jSuites.translate(title ? 'Edit comments' : 'Add comments'),
-                onclick:function() {
+                onclick: function () {
                     const comment = prompt(jSuites.translate('Comments'), title);
                     if (comment) {
                         worksheet.setComments(getCellNameFromCoords(x, y), comment);
                     }
-                }
+                },
             });
 
             if (title) {
                 items.push({
                     title: jSuites.translate('Clear comments'),
-                    onclick:function() {
+                    onclick: function () {
                         worksheet.setComments(getCellNameFromCoords(x, y), '');
-                    }
+                    },
                 });
             }
         }
@@ -923,33 +990,33 @@ const defaultContextMenu = function(worksheet, x, y, role) {
 
     // Line
     if (items.length !== 0) {
-        items.push({ type:'line' });
+        items.push({ type: 'line' });
     }
 
     // Copy
     if (role === 'header' || role === 'row' || role === 'cell') {
         items.push({
             title: jSuites.translate('Copy') + '...',
-            shortcut:'Ctrl + C',
-            onclick:function() {
+            shortcut: 'Ctrl + C',
+            onclick: function () {
                 copy.call(worksheet, true);
-            }
+            },
         });
 
         // Paste
         if (navigator && navigator.clipboard) {
             items.push({
                 title: jSuites.translate('Paste') + '...',
-                shortcut:'Ctrl + V',
-                onclick:function() {
+                shortcut: 'Ctrl + V',
+                onclick: function () {
                     if (worksheet.selectedCell) {
-                        navigator.clipboard.readText().then(function(text) {
+                        navigator.clipboard.readText().then(function (text) {
                             if (text) {
                                 paste.call(worksheet, worksheet.selectedCell[0], worksheet.selectedCell[1], text);
                             }
                         });
                     }
-                }
+                },
             });
         }
     }
@@ -961,7 +1028,7 @@ const defaultContextMenu = function(worksheet, x, y, role) {
             shortcut: 'Ctrl + S',
             onclick: function () {
                 worksheet.download();
-            }
+            },
         });
     }
 
@@ -969,20 +1036,20 @@ const defaultContextMenu = function(worksheet, x, y, role) {
     if (worksheet.parent.config.about != false) {
         items.push({
             title: jSuites.translate('About'),
-            onclick:function() {
+            onclick: function () {
                 if (typeof worksheet.parent.config.about === 'undefined' || worksheet.parent.config.about === true) {
                     alert(version.print());
                 } else {
                     alert(worksheet.parent.config.about);
                 }
-            }
+            },
         });
     }
 
     return items;
-}
+};
 
-const getElementIndex = function(element) {
+const getElementIndex = function (element) {
     const parentChildren = element.parentElement.children;
 
     for (let i = 0; i < parentChildren.length; i++) {
@@ -994,11 +1061,11 @@ const getElementIndex = function(element) {
     }
 
     return -1;
-}
+};
 
-const contextMenuControls = function(e) {
+const contextMenuControls = function (e) {
     e = e || window.event;
-    if ("buttons" in e) {
+    if ('buttons' in e) {
         var mouseButton = e.buttons;
     } else {
         var mouseButton = e.which || e.button;
@@ -1015,7 +1082,8 @@ const contextMenuControls = function(e) {
             if (libraryBase.jspreadsheet.current) {
                 const role = getRole(e.target);
 
-                let x = null, y = null;
+                let x = null,
+                    y = null;
 
                 if (role === 'cell') {
                     let cellElement = e.target;
@@ -1028,8 +1096,10 @@ const contextMenuControls = function(e) {
 
                     if (
                         !libraryBase.jspreadsheet.current.selectedCell ||
-                        (x < parseInt(libraryBase.jspreadsheet.current.selectedCell[0])) || (x > parseInt(libraryBase.jspreadsheet.current.selectedCell[2])) ||
-                        (y < parseInt(libraryBase.jspreadsheet.current.selectedCell[1])) || (y > parseInt(libraryBase.jspreadsheet.current.selectedCell[3]))
+                        x < parseInt(libraryBase.jspreadsheet.current.selectedCell[0]) ||
+                        x > parseInt(libraryBase.jspreadsheet.current.selectedCell[2]) ||
+                        y < parseInt(libraryBase.jspreadsheet.current.selectedCell[1]) ||
+                        y > parseInt(libraryBase.jspreadsheet.current.selectedCell[3])
                     ) {
                         updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, x, y, x, y, e);
                     }
@@ -1042,8 +1112,10 @@ const contextMenuControls = function(e) {
 
                     if (
                         !libraryBase.jspreadsheet.current.selectedCell ||
-                        (x < parseInt(libraryBase.jspreadsheet.current.selectedCell[0])) || (x > parseInt(libraryBase.jspreadsheet.current.selectedCell[2])) ||
-                        (y < parseInt(libraryBase.jspreadsheet.current.selectedCell[1])) || (y > parseInt(libraryBase.jspreadsheet.current.selectedCell[3]))
+                        x < parseInt(libraryBase.jspreadsheet.current.selectedCell[0]) ||
+                        x > parseInt(libraryBase.jspreadsheet.current.selectedCell[2]) ||
+                        y < parseInt(libraryBase.jspreadsheet.current.selectedCell[1]) ||
+                        y > parseInt(libraryBase.jspreadsheet.current.selectedCell[3])
                     ) {
                         updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, x, y, x, y, e);
                     }
@@ -1055,8 +1127,10 @@ const contextMenuControls = function(e) {
 
                     if (
                         !libraryBase.jspreadsheet.current.selectedCell ||
-                        (columns[0] != parseInt(libraryBase.jspreadsheet.current.selectedCell[0])) || (columns[columns.length - 1] != parseInt(libraryBase.jspreadsheet.current.selectedCell[2])) ||
-                        (libraryBase.jspreadsheet.current.selectedCell[1] != null || libraryBase.jspreadsheet.current.selectedCell[3] != null)
+                        columns[0] != parseInt(libraryBase.jspreadsheet.current.selectedCell[0]) ||
+                        columns[columns.length - 1] != parseInt(libraryBase.jspreadsheet.current.selectedCell[2]) ||
+                        libraryBase.jspreadsheet.current.selectedCell[1] != null ||
+                        libraryBase.jspreadsheet.current.selectedCell[3] != null
                     ) {
                         updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, columns[0], null, columns[columns.length - 1], null, e);
                     }
@@ -1070,7 +1144,7 @@ const contextMenuControls = function(e) {
                 }
 
                 // Table found
-                let items = defaultContextMenu(libraryBase.jspreadsheet.current,parseInt(x),parseInt(y), role);
+                let items = defaultContextMenu(libraryBase.jspreadsheet.current, parseInt(x), parseInt(y), role);
 
                 if (typeof spreadsheet.config.contextMenu === 'function') {
                     const result = spreadsheet.config.contextMenu(libraryBase.jspreadsheet.current, x, y, e, items, role, x, y);
@@ -1083,7 +1157,7 @@ const contextMenuControls = function(e) {
                 }
 
                 if (typeof spreadsheet.plugins === 'object') {
-                    Object.entries(spreadsheet.plugins).forEach(function([, plugin]) {
+                    Object.entries(spreadsheet.plugins).forEach(function ([, plugin]) {
                         if (typeof plugin.contextMenu === 'function') {
                             const result = plugin.contextMenu(
                                 libraryBase.jspreadsheet.current,
@@ -1110,9 +1184,9 @@ const contextMenuControls = function(e) {
             }
         }
     }
-}
+};
 
-const touchStartControls = function(e) {
+const touchStartControls = function (e) {
     const jssTable = getElement(e.target);
 
     if (jssTable[0]) {
@@ -1130,14 +1204,14 @@ const touchStartControls = function(e) {
     }
 
     if (libraryBase.jspreadsheet.current) {
-        if (! libraryBase.jspreadsheet.current.edition) {
+        if (!libraryBase.jspreadsheet.current.edition) {
             const columnId = e.target.getAttribute('data-x');
             const rowId = e.target.getAttribute('data-y');
 
             if (columnId && rowId) {
                 updateSelectionFromCoords.call(libraryBase.jspreadsheet.current, columnId, rowId, undefined, undefined, e);
 
-                libraryBase.jspreadsheet.timeControl = setTimeout(function() {
+                libraryBase.jspreadsheet.timeControl = setTimeout(function () {
                     // Keep temporary reference to the element
                     if (libraryBase.jspreadsheet.current.options.columns[columnId].type == 'color') {
                         libraryBase.jspreadsheet.tmpElement = null;
@@ -1149,9 +1223,9 @@ const touchStartControls = function(e) {
             }
         }
     }
-}
+};
 
-const touchEndControls = function(e) {
+const touchEndControls = function (e) {
     // Clear any time control
     if (libraryBase.jspreadsheet.timeControl) {
         clearTimeout(libraryBase.jspreadsheet.timeControl);
@@ -1162,15 +1236,15 @@ const touchEndControls = function(e) {
         }
         libraryBase.jspreadsheet.tmpElement = null;
     }
-}
+};
 
-export const cutControls = function(e) {
+export const cutControls = function (e) {
     if (libraryBase.jspreadsheet.current) {
-        if (! libraryBase.jspreadsheet.current.edition) {
+        if (!libraryBase.jspreadsheet.current.edition) {
             copy.call(libraryBase.jspreadsheet.current, true, undefined, undefined, undefined, undefined, true);
             if (libraryBase.jspreadsheet.current.options.editable != false) {
                 libraryBase.jspreadsheet.current.setValue(
-                    libraryBase.jspreadsheet.current.highlighted.map(function(record) {
+                    libraryBase.jspreadsheet.current.highlighted.map(function (record) {
                         return record.element;
                     }),
                     ''
@@ -1178,29 +1252,29 @@ export const cutControls = function(e) {
             }
         }
     }
-}
+};
 
-const copyControls = function(e) {
+const copyControls = function (e) {
     if (libraryBase.jspreadsheet.current && copyControls.enabled) {
-        if (! libraryBase.jspreadsheet.current.edition) {
+        if (!libraryBase.jspreadsheet.current.edition) {
             copy.call(libraryBase.jspreadsheet.current, true);
         }
     }
-}
+};
 
-const isMac = function() {
+const isMac = function () {
     return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-}
+};
 
-const isCtrl = function(e) {
+const isCtrl = function (e) {
     if (isMac()) {
         return e.metaKey;
     } else {
         return e.ctrlKey;
     }
-}
+};
 
-const keyDownControls = function(e) {
+const keyDownControls = function (e) {
     if (libraryBase.jspreadsheet.current) {
         if (libraryBase.jspreadsheet.current.edition) {
             if (e.which == 27) {
@@ -1212,7 +1286,11 @@ const keyDownControls = function(e) {
                 e.preventDefault();
             } else if (e.which == 13) {
                 // Enter
-                if (libraryBase.jspreadsheet.current.options.columns && libraryBase.jspreadsheet.current.options.columns[libraryBase.jspreadsheet.current.edition[2]] && libraryBase.jspreadsheet.current.options.columns[libraryBase.jspreadsheet.current.edition[2]].type == 'calendar') {
+                if (
+                    libraryBase.jspreadsheet.current.options.columns &&
+                    libraryBase.jspreadsheet.current.options.columns[libraryBase.jspreadsheet.current.edition[2]] &&
+                    libraryBase.jspreadsheet.current.options.columns[libraryBase.jspreadsheet.current.edition[2]].type == 'calendar'
+                ) {
                     closeEditor.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.edition[0], true);
                 } else if (
                     libraryBase.jspreadsheet.current.options.columns &&
@@ -1223,25 +1301,23 @@ const keyDownControls = function(e) {
                 } else {
                     // Alt enter -> do not close editor
                     if (
-                        (
-                            libraryBase.jspreadsheet.current.options.wordWrap == true ||
-                            (
-                                libraryBase.jspreadsheet.current.options.columns &&
+                        (libraryBase.jspreadsheet.current.options.wordWrap == true ||
+                            (libraryBase.jspreadsheet.current.options.columns &&
                                 libraryBase.jspreadsheet.current.options.columns[libraryBase.jspreadsheet.current.edition[2]] &&
-                                libraryBase.jspreadsheet.current.options.columns[libraryBase.jspreadsheet.current.edition[2]].wordWrap == true
-                            ) ||
-                            (
-                                libraryBase.jspreadsheet.current.options.data[libraryBase.jspreadsheet.current.edition[3]][libraryBase.jspreadsheet.current.edition[2]] &&
-                                libraryBase.jspreadsheet.current.options.data[libraryBase.jspreadsheet.current.edition[3]][libraryBase.jspreadsheet.current.edition[2]].length > 200
-                            )
-                        ) &&
+                                libraryBase.jspreadsheet.current.options.columns[libraryBase.jspreadsheet.current.edition[2]].wordWrap == true) ||
+                            (libraryBase.jspreadsheet.current.options.data[libraryBase.jspreadsheet.current.edition[3]][
+                                libraryBase.jspreadsheet.current.edition[2]
+                            ] &&
+                                libraryBase.jspreadsheet.current.options.data[libraryBase.jspreadsheet.current.edition[3]][
+                                    libraryBase.jspreadsheet.current.edition[2]
+                                ].length > 200)) &&
                         e.altKey
                     ) {
                         // Add new line to the editor
                         const editorTextarea = libraryBase.jspreadsheet.current.edition[0].children[0];
                         let editorValue = libraryBase.jspreadsheet.current.edition[0].children[0].value;
                         const editorIndexOf = editorTextarea.selectionStart;
-                        editorValue = editorValue.slice(0, editorIndexOf) + "\n" + editorValue.slice(editorIndexOf);
+                        editorValue = editorValue.slice(0, editorIndexOf) + '\n' + editorValue.slice(editorIndexOf);
                         editorTextarea.value = editorValue;
                         editorTextarea.focus();
                         editorTextarea.selectionStart = editorIndexOf + 1;
@@ -1264,7 +1340,7 @@ const keyDownControls = function(e) {
             }
         }
 
-        if (! libraryBase.jspreadsheet.current.edition && libraryBase.jspreadsheet.current.selectedCell) {
+        if (!libraryBase.jspreadsheet.current.edition && libraryBase.jspreadsheet.current.selectedCell) {
             // Which key
             if (e.which == 37) {
                 left.call(libraryBase.jspreadsheet.current, e.shiftKey, e.ctrlKey);
@@ -1302,7 +1378,7 @@ const keyDownControls = function(e) {
                     } else {
                         // Change value
                         libraryBase.jspreadsheet.current.setValue(
-                            libraryBase.jspreadsheet.current.highlighted.map(function(record) {
+                            libraryBase.jspreadsheet.current.highlighted.map(function (record) {
                                 return record.element;
                             }),
                             ''
@@ -1344,7 +1420,7 @@ const keyDownControls = function(e) {
                 }
                 e.preventDefault();
             } else {
-                if ((e.ctrlKey || e.metaKey) && ! e.shiftKey) {
+                if ((e.ctrlKey || e.metaKey) && !e.shiftKey) {
                     if (e.which == 65) {
                         // Ctrl + A
                         selectAll.call(libraryBase.jspreadsheet.current);
@@ -1386,7 +1462,7 @@ const keyDownControls = function(e) {
                             // Characters able to start a edition
                             if (e.keyCode == 32) {
                                 // Space
-                                e.preventDefault()
+                                e.preventDefault();
                                 if (
                                     libraryBase.jspreadsheet.current.options.columns[columnId].type == 'checkbox' ||
                                     libraryBase.jspreadsheet.current.options.columns[columnId].type == 'radio'
@@ -1394,19 +1470,25 @@ const keyDownControls = function(e) {
                                     setCheckRadioValue.call(libraryBase.jspreadsheet.current);
                                 } else {
                                     // Start edition
-                                    openEditor.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.records[rowId][columnId].element, true, e);
+                                    openEditor.call(
+                                        libraryBase.jspreadsheet.current,
+                                        libraryBase.jspreadsheet.current.records[rowId][columnId].element,
+                                        true,
+                                        e
+                                    );
                                 }
                             } else if (e.keyCode == 113) {
                                 // Start edition with current content F2
                                 openEditor.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.records[rowId][columnId].element, false, e);
-                            } else if (
-                                (e.key.length === 1 || e.key === 'Process') &&
-                                !(e.altKey || isCtrl(e))
-                            ) {
+                            } else if ((e.key.length === 1 || e.key === 'Process') && !(e.altKey || isCtrl(e))) {
                                 // Start edition
                                 openEditor.call(libraryBase.jspreadsheet.current, libraryBase.jspreadsheet.current.records[rowId][columnId].element, true, e);
                                 // Prevent entries in the calendar
-                                if (libraryBase.jspreadsheet.current.options.columns && libraryBase.jspreadsheet.current.options.columns[columnId] && libraryBase.jspreadsheet.current.options.columns[columnId].type == 'calendar') {
+                                if (
+                                    libraryBase.jspreadsheet.current.options.columns &&
+                                    libraryBase.jspreadsheet.current.options.columns[columnId] &&
+                                    libraryBase.jspreadsheet.current.options.columns[columnId].type == 'calendar'
+                                ) {
                                     e.preventDefault();
                                 }
                             }
@@ -1420,20 +1502,20 @@ const keyDownControls = function(e) {
                     clearTimeout(libraryBase.jspreadsheet.timeControl);
                 }
 
-                libraryBase.jspreadsheet.timeControl = setTimeout(function() {
+                libraryBase.jspreadsheet.timeControl = setTimeout(function () {
                     libraryBase.jspreadsheet.current.search(e.target.value);
                 }, 200);
             }
         }
     }
-}
+};
 
-export const wheelControls = function(e) {
+export const wheelControls = function (e) {
     const obj = this;
 
     if (obj.options.lazyLoading == true) {
         if (libraryBase.jspreadsheet.timeControlLoading == null) {
-            libraryBase.jspreadsheet.timeControlLoading = setTimeout(function() {
+            libraryBase.jspreadsheet.timeControlLoading = setTimeout(function () {
                 if (obj.content.scrollTop + obj.content.clientHeight >= obj.content.scrollHeight - 10) {
                     if (loadDown.call(obj)) {
                         if (obj.content.scrollTop + obj.content.clientHeight > obj.content.scrollHeight - 10) {
@@ -1454,11 +1536,11 @@ export const wheelControls = function(e) {
             }, 100);
         }
     }
-}
+};
 
 let scrollLeft = 0;
 
-const updateFreezePosition = function() {
+const updateFreezePosition = function () {
     const obj = this;
 
     scrollLeft = obj.content.scrollLeft;
@@ -1467,10 +1549,10 @@ const updateFreezePosition = function() {
         for (let i = 0; i < obj.options.freezeColumns; i++) {
             if (i > 0) {
                 // Must check if the previous column is hidden or not to determin whether the width shoule be added or not!
-                if (!obj.options.columns || !obj.options.columns[i-1] || obj.options.columns[i-1].type !== "hidden") {
+                if (!obj.options.columns || !obj.options.columns[i - 1] || obj.options.columns[i - 1].type !== 'hidden') {
                     let columnWidth;
-                    if (obj.options.columns && obj.options.columns[i-1] && obj.options.columns[i-1].width !== undefined) {
-                        columnWidth = parseInt(obj.options.columns[i-1].width);
+                    if (obj.options.columns && obj.options.columns[i - 1] && obj.options.columns[i - 1].width !== undefined) {
+                        columnWidth = parseInt(obj.options.columns[i - 1].width);
                     } else {
                         columnWidth = obj.options.defaultColWidth !== undefined ? parseInt(obj.options.defaultColWidth) : 100;
                     }
@@ -1482,7 +1564,7 @@ const updateFreezePosition = function() {
             obj.headers[i].style.left = width + 'px';
             for (let j = 0; j < obj.rows.length; j++) {
                 if (obj.rows[j] && obj.records[j][i]) {
-                    const shifted = (scrollLeft + (i > 0 ? obj.records[j][i-1].element.style.width : 0)) - 51 + 'px';
+                    const shifted = scrollLeft + (i > 0 ? obj.records[j][i - 1].element.style.width : 0) - 51 + 'px';
                     obj.records[j][i].element.classList.add('jss_freezed');
                     obj.records[j][i].element.style.left = shifted;
                 }
@@ -1503,9 +1585,9 @@ const updateFreezePosition = function() {
 
     // Place the corner in the correct place
     updateCornerPosition.call(obj);
-}
+};
 
-export const scrollControls = function(e) {
+export const scrollControls = function (e) {
     const obj = this;
 
     wheelControls.call(obj);
@@ -1516,38 +1598,38 @@ export const scrollControls = function(e) {
 
     // Close editor
     if (obj.options.lazyLoading == true || obj.options.tableOverflow == true) {
-        if (obj.edition && e.target.className.substr(0,9) != 'jdropdown') {
+        if (obj.edition && e.target.className.substr(0, 9) != 'jdropdown') {
             closeEditor.call(obj, obj.edition[0], true);
         }
     }
-}
+};
 
-export const setEvents = function(root) {
+export const setEvents = function (root) {
     destroyEvents(root);
-    root.addEventListener("mouseup", mouseUpControls);
-    root.addEventListener("mousedown", mouseDownControls);
-    root.addEventListener("mousemove", mouseMoveControls);
-    root.addEventListener("mouseover", mouseOverControls);
-    root.addEventListener("dblclick", doubleClickControls);
-    root.addEventListener("paste", pasteControls);
-    root.addEventListener("contextmenu", contextMenuControls);
-    root.addEventListener("touchstart", touchStartControls);
-    root.addEventListener("touchend", touchEndControls);
-    root.addEventListener("touchcancel", touchEndControls);
-    root.addEventListener("touchmove", touchEndControls);
-    document.addEventListener("keydown", keyDownControls);
-}
+    root.addEventListener('mouseup', mouseUpControls);
+    root.addEventListener('mousedown', mouseDownControls);
+    root.addEventListener('mousemove', mouseMoveControls);
+    root.addEventListener('mouseover', mouseOverControls);
+    root.addEventListener('dblclick', doubleClickControls);
+    root.addEventListener('paste', pasteControls);
+    root.addEventListener('contextmenu', contextMenuControls);
+    root.addEventListener('touchstart', touchStartControls);
+    root.addEventListener('touchend', touchEndControls);
+    root.addEventListener('touchcancel', touchEndControls);
+    root.addEventListener('touchmove', touchEndControls);
+    document.addEventListener('keydown', keyDownControls);
+};
 
-export const destroyEvents = function(root) {
-    root.removeEventListener("mouseup", mouseUpControls);
-    root.removeEventListener("mousedown", mouseDownControls);
-    root.removeEventListener("mousemove", mouseMoveControls);
-    root.removeEventListener("mouseover", mouseOverControls);
-    root.removeEventListener("dblclick", doubleClickControls);
-    root.removeEventListener("paste", pasteControls);
-    root.removeEventListener("contextmenu", contextMenuControls);
-    root.removeEventListener("touchstart", touchStartControls);
-    root.removeEventListener("touchend", touchEndControls);
-    root.removeEventListener("touchcancel", touchEndControls);
-    document.removeEventListener("keydown", keyDownControls);
-}
+export const destroyEvents = function (root) {
+    root.removeEventListener('mouseup', mouseUpControls);
+    root.removeEventListener('mousedown', mouseDownControls);
+    root.removeEventListener('mousemove', mouseMoveControls);
+    root.removeEventListener('mouseover', mouseOverControls);
+    root.removeEventListener('dblclick', doubleClickControls);
+    root.removeEventListener('paste', pasteControls);
+    root.removeEventListener('contextmenu', contextMenuControls);
+    root.removeEventListener('touchstart', touchStartControls);
+    root.removeEventListener('touchend', touchEndControls);
+    root.removeEventListener('touchcancel', touchEndControls);
+    document.removeEventListener('keydown', keyDownControls);
+};

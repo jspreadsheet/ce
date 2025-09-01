@@ -1,9 +1,9 @@
-import { getColumnName } from "./helpers.js";
+import { getColumnName } from './helpers.js';
 
 /**
  * Helper injectArray
  */
-export const injectArray = function(o, idx, arr) {
+export const injectArray = function (o, idx, arr) {
     if (idx <= o.length) {
         return o.slice(0, idx).concat(arr).concat(o.slice(idx));
     }
@@ -14,8 +14,8 @@ export const injectArray = function(o, idx, arr) {
         array.push(undefined);
     }
 
-    return array.concat(arr)
-}
+    return array.concat(arr);
+};
 
 /**
  * Convert excel like column to jss id
@@ -31,7 +31,7 @@ export const getIdFromColumnName = function (id, arr) {
         // Base 26 calculation
         let code = 0;
         for (let i = 0; i < t[0].length; i++) {
-            code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+            code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, t[0].length - 1 - i);
         }
         code--;
         // Make sure jss starts on zero
@@ -46,14 +46,14 @@ export const getIdFromColumnName = function (id, arr) {
         }
 
         if (arr == true) {
-            id = [ code, number ];
+            id = [code, number];
         } else {
             id = code + '-' + number;
         }
     }
 
     return id;
-}
+};
 
 /**
  * Convert jss id to excel like column name
@@ -62,9 +62,9 @@ export const getIdFromColumnName = function (id, arr) {
  * @return string id
  */
 export const getColumnNameFromId = function (cellId) {
-    if (! Array.isArray(cellId)) {
+    if (!Array.isArray(cellId)) {
         cellId = cellId.split('-');
     }
 
     return getColumnName(parseInt(cellId[0])) + (parseInt(cellId[1]) + 1);
-}
+};

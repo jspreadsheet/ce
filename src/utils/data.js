@@ -1,13 +1,13 @@
-import { createRow } from "./rows.js";
-import { updateCell, updateFormulaChain, updateTable } from "./internal.js";
-import { getIdFromColumnName } from "./internalHelpers.js";
-import dispatch from "./dispatch.js";
-import { setHistory } from "./history.js";
-import { updatePagination } from "./pagination.js";
-import { setMerge } from "./merges.js";
-import { getCoordsFromRange } from "./helpers.js";
+import { createRow } from './rows.js';
+import { updateCell, updateFormulaChain, updateTable } from './internal.js';
+import { getIdFromColumnName } from './internalHelpers.js';
+import dispatch from './dispatch.js';
+import { setHistory } from './history.js';
+import { updatePagination } from './pagination.js';
+import { setMerge } from './merges.js';
+import { getCoordsFromRange } from './helpers.js';
 
-export const setData = function(data) {
+export const setData = function (data) {
     const obj = this;
 
     // Update data
@@ -16,13 +16,13 @@ export const setData = function(data) {
     }
 
     // Data
-    if (! obj.options.data) {
+    if (!obj.options.data) {
         obj.options.data = [];
     }
 
     // Prepare data
     if (obj.options.data && obj.options.data[0]) {
-        if (! Array.isArray(obj.options.data[0])) {
+        if (!Array.isArray(obj.options.data[0])) {
             data = [];
             for (let j = 0; j < obj.options.data.length; j++) {
                 const row = [];
@@ -39,7 +39,7 @@ export const setData = function(data) {
     // Adjust minimal dimensions
     let j = 0;
     let i = 0;
-    const size_i = obj.options.columns && obj.options.columns.length || 0;
+    const size_i = (obj.options.columns && obj.options.columns.length) || 0;
     const size_j = obj.options.data.length;
     const min_i = obj.options.minDimensions[0];
     const min_j = obj.options.minDimensions[1];
@@ -76,7 +76,7 @@ export const setData = function(data) {
     // Lazy loading
     if (obj.options.lazyLoading == true) {
         // Load only 100 records
-        startNumber = 0
+        startNumber = 0;
         finalNumber = obj.options.data.length < 100 ? obj.options.data.length : 100;
 
         if (obj.options.pagination) {
@@ -85,12 +85,12 @@ export const setData = function(data) {
         }
     } else if (obj.options.pagination) {
         // Pagination
-        if (! obj.pageNumber) {
+        if (!obj.pageNumber) {
             obj.pageNumber = 0;
         }
         var quantityPerPage = obj.options.pagination;
-        startNumber = (obj.options.pagination * obj.pageNumber);
-        finalNumber = (obj.options.pagination * obj.pageNumber) + obj.options.pagination;
+        startNumber = obj.options.pagination * obj.pageNumber;
+        finalNumber = obj.options.pagination * obj.pageNumber + obj.options.pagination;
 
         if (obj.options.data.length < finalNumber) {
             finalNumber = obj.options.data.length;
@@ -127,7 +127,7 @@ export const setData = function(data) {
 
     // Updata table with custom configurations if applicable
     updateTable.call(obj);
-}
+};
 
 /**
  * Get the value from a cell
@@ -135,7 +135,7 @@ export const setData = function(data) {
  * @param object cell
  * @return string value
  */
-export const getValue = function(cell, processedValue) {
+export const getValue = function (cell, processedValue) {
     const obj = this;
 
     let x;
@@ -162,7 +162,7 @@ export const getValue = function(cell, processedValue) {
     }
 
     return value;
-}
+};
 
 /**
  * Get the value from a coords
@@ -171,13 +171,13 @@ export const getValue = function(cell, processedValue) {
  * @param int y
  * @return string value
  */
-export const getValueFromCoords = function(x, y, processedValue) {
+export const getValueFromCoords = function (x, y, processedValue) {
     const obj = this;
 
     let value = null;
 
     if (x != null && y != null) {
-        if ((obj.records[y] && obj.records[y][x]) && processedValue) {
+        if (obj.records[y] && obj.records[y][x] && processedValue) {
             value = obj.records[y][x].element.innerHTML;
         } else {
             if (obj.options.data[y] && obj.options.data[y][x] != 'undefined') {
@@ -187,7 +187,7 @@ export const getValueFromCoords = function(x, y, processedValue) {
     }
 
     return value;
-}
+};
 
 /**
  * Set a cell value
@@ -196,12 +196,12 @@ export const getValueFromCoords = function(x, y, processedValue) {
  * @param string value value
  * @return void
  */
-export const setValue = function(cell, value, force) {
+export const setValue = function (cell, value, force) {
     const obj = this;
 
     const records = [];
 
-    if (typeof(cell) == 'string') {
+    if (typeof cell == 'string') {
         const columnId = getIdFromColumnName(cell, true);
         const x = columnId[0];
         const y = columnId[1];
@@ -231,7 +231,7 @@ export const setValue = function(cell, value, force) {
                 for (let i = 0; i < keys.length; i++) {
                     let x, y;
 
-                    if (typeof(cell[i]) == 'string') {
+                    if (typeof cell[i] == 'string') {
                         const columnId = getIdFromColumnName(cell[i], true);
                         x = columnId[0];
                         y = columnId[1];
@@ -249,7 +249,7 @@ export const setValue = function(cell, value, force) {
                         }
                     }
 
-                     // Update cell
+                    // Update cell
                     if (x != null && y != null) {
                         records.push(updateCell.call(obj, x, y, value, force));
 
@@ -263,16 +263,16 @@ export const setValue = function(cell, value, force) {
 
     // Update history
     setHistory.call(obj, {
-        action:'setValue',
-        records:records,
-        selection:obj.selectedCell,
+        action: 'setValue',
+        records: records,
+        selection: obj.selectedCell,
     });
 
     // Update table with custom configurations if applicable
     updateTable.call(obj);
 
     // On after changes
-    const onafterchangesRecords = records.map(function(record) {
+    const onafterchangesRecords = records.map(function (record) {
         return {
             x: record.x,
             y: record.y,
@@ -282,7 +282,7 @@ export const setValue = function(cell, value, force) {
     });
 
     dispatch.call(obj, 'onafterchanges', obj, onafterchangesRecords);
-}
+};
 
 /**
  * Set a cell value based on coordinates
@@ -292,7 +292,7 @@ export const setValue = function(cell, value, force) {
  * @param string value
  * @return void
  */
-export const setValueFromCoords = function(x, y, value, force) {
+export const setValueFromCoords = function (x, y, value, force) {
     const obj = this;
 
     const records = [];
@@ -303,16 +303,16 @@ export const setValueFromCoords = function(x, y, value, force) {
 
     // Update history
     setHistory.call(obj, {
-        action:'setValue',
-        records:records,
-        selection:obj.selectedCell,
+        action: 'setValue',
+        records: records,
+        selection: obj.selectedCell,
     });
 
     // Update table with custom configurations if applicable
     updateTable.call(obj);
 
     // On after changes
-    const onafterchangesRecords = records.map(function(record) {
+    const onafterchangesRecords = records.map(function (record) {
         return {
             x: record.x,
             y: record.y,
@@ -322,7 +322,7 @@ export const setValueFromCoords = function(x, y, value, force) {
     });
 
     dispatch.call(obj, 'onafterchanges', obj, onafterchangesRecords);
-}
+};
 
 /**
  * Get the whole table data
@@ -330,7 +330,7 @@ export const setValueFromCoords = function(x, y, value, force) {
  * @param bool get highlighted cells only
  * @return array data
  */
-export const getData = function(highlighted, processed, delimiter, asJson) {
+export const getData = function (highlighted, processed, delimiter, asJson) {
     const obj = this;
 
     // Control vars
@@ -339,19 +339,21 @@ export const getData = function(highlighted, processed, delimiter, asJson) {
     let py = 0;
 
     // Column and row length
-    const x = Math.max(...obj.options.data.map(function(row) {
-        return row.length;
-    }));
-    const y = obj.options.data.length
+    const x = Math.max(
+        ...obj.options.data.map(function (row) {
+            return row.length;
+        })
+    );
+    const y = obj.options.data.length;
 
     // Go through the columns to get the data
     for (let j = 0; j < y; j++) {
         px = 0;
         for (let i = 0; i < x; i++) {
             // Cell selected or fullset
-            if (! highlighted || obj.records[j][i].element.classList.contains('highlight')) {
+            if (!highlighted || obj.records[j][i].element.classList.contains('highlight')) {
                 // Get value
-                if (! dataset[py]) {
+                if (!dataset[py]) {
                     dataset[py] = [];
                 }
                 if (processed) {
@@ -365,30 +367,34 @@ export const getData = function(highlighted, processed, delimiter, asJson) {
         if (px > 0) {
             py++;
         }
-   }
+    }
 
-   if (delimiter) {
-    return dataset.map(function(row) {
-        return row.join(delimiter);
-    }).join("\r\n") + "\r\n";
-   }
+    if (delimiter) {
+        return (
+            dataset
+                .map(function (row) {
+                    return row.join(delimiter);
+                })
+                .join('\r\n') + '\r\n'
+        );
+    }
 
-   if (asJson) {
-    return dataset.map(function(row) {
-        const resultRow = {};
+    if (asJson) {
+        return dataset.map(function (row) {
+            const resultRow = {};
 
-        row.forEach(function(item, index) {
-            resultRow[index] = item;
+            row.forEach(function (item, index) {
+                resultRow[index] = item;
+            });
+
+            return resultRow;
         });
+    }
 
-        return resultRow;
-    })
-   }
+    return dataset;
+};
 
-   return dataset;
-}
-
-export const getDataFromRange = function(range, processed) {
+export const getDataFromRange = function (range, processed) {
     const obj = this;
 
     const coords = getCoordsFromRange(range);
@@ -408,4 +414,4 @@ export const getDataFromRange = function(range, processed) {
     }
 
     return dataset;
-}
+};

@@ -1,5 +1,5 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 class MyPlugin {
     apply(compiler) {
@@ -50,49 +50,48 @@ const webpack = {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'jspreadsheet',
-        libraryExport: 'default'
+        libraryExport: 'default',
     },
     optimization: {
-        minimize: true
+        minimize: true,
     },
     devServer: {
-        static : {
-            directory : path.join(__dirname, "/public")
+        static: {
+            directory: path.join(__dirname, '/public'),
         },
         headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-            "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
         },
         port: 8000,
         devMiddleware: {
-            publicPath: "https://localhost:3000/",
+            publicPath: 'https://localhost:3000/',
         },
-        hot: "only",
+        hot: 'only',
     },
     plugins: [],
     module: {
         rules: [
-            isProduction ? {
-                test: /\.js$/,
-                use: [
-                    {
-                        loader: path.resolve('build.cjs'),
-                        options: {}
-                    }
-                ]
-            } : null,
+            isProduction
+                ? {
+                      test: /\.js$/,
+                      use: [
+                          {
+                              loader: path.resolve('build.cjs'),
+                              options: {},
+                          },
+                      ],
+                  }
+                : null,
             {
                 test: /\.css$/,
-                use: [
-                    isProduction ? MiniCssExtractPlugin.loader : "style-loader",
-                    "css-loader"
-                ],
-            }
+                use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader'],
+            },
         ],
     },
     stats: {
-        warnings: false
+        warnings: false,
     },
 };
 
@@ -100,7 +99,7 @@ if (isProduction) {
     webpack.plugins.push(new MyPlugin());
     webpack.plugins.push(
         new MiniCssExtractPlugin({
-            filename: 'jspreadsheet.css'
+            filename: 'jspreadsheet.css',
         })
     );
 }

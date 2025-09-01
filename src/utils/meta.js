@@ -1,14 +1,14 @@
-import dispatch from "./dispatch.js";
+import dispatch from './dispatch.js';
 
 /**
  * Get meta information from cell(s)
  *
  * @return integer
  */
-export const getMeta = function(cell, key) {
+export const getMeta = function (cell, key) {
     const obj = this;
 
-    if (! cell) {
+    if (!cell) {
         return obj.options.meta;
     } else {
         if (key) {
@@ -17,14 +17,14 @@ export const getMeta = function(cell, key) {
             return obj.options.meta && obj.options.meta[cell] ? obj.options.meta[cell] : null;
         }
     }
-}
+};
 
 /**
  * Update meta information
  *
  * @return integer
  */
-export const updateMeta = function(affectedCells) {
+export const updateMeta = function (affectedCells) {
     const obj = this;
 
     if (obj.options.meta) {
@@ -40,23 +40,23 @@ export const updateMeta = function(affectedCells) {
         // Update meta information
         obj.options.meta = newMeta;
     }
-}
+};
 
 /**
  * Set meta information to cell(s)
  *
  * @return integer
  */
-export const setMeta = function(o, k, v) {
+export const setMeta = function (o, k, v) {
     const obj = this;
 
-    if (! obj.options.meta) {
-        obj.options.meta = {}
+    if (!obj.options.meta) {
+        obj.options.meta = {};
     }
 
     if (k && v) {
         // Set data value
-        if (! obj.options.meta[o]) {
+        if (!obj.options.meta[o]) {
             obj.options.meta[o] = {};
         }
         obj.options.meta[o][k] = v;
@@ -66,7 +66,7 @@ export const setMeta = function(o, k, v) {
         // Apply that for all cells
         const keys = Object.keys(o);
         for (let i = 0; i < keys.length; i++) {
-            if (! obj.options.meta[keys[i]]) {
+            if (!obj.options.meta[keys[i]]) {
                 obj.options.meta[keys[i]] = {};
             }
 
@@ -78,4 +78,4 @@ export const setMeta = function(o, k, v) {
 
         dispatch.call(obj, 'onchangemeta', obj, o);
     }
-}
+};

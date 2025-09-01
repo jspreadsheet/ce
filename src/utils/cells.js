@@ -1,6 +1,6 @@
-import { getCoordsFromCellName } from "./helpers.js";
+import { getCoordsFromCellName } from './helpers.js';
 
-export const setReadOnly = function(cell, state) {
+export const setReadOnly = function (cell, state) {
     const obj = this;
 
     let record;
@@ -21,9 +21,9 @@ export const setReadOnly = function(cell, state) {
     } else {
         record.element.classList.remove('readonly');
     }
-}
+};
 
-export const isReadOnly = function(x, y) {
+export const isReadOnly = function (x, y) {
     const obj = this;
 
     if (typeof x === 'string' && typeof y === 'undefined') {
@@ -33,4 +33,4 @@ export const isReadOnly = function(x, y) {
     }
 
     return obj.records[y][x].element.classList.contains('readonly');
-}
+};

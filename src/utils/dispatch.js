@@ -1,9 +1,9 @@
-import jSuites from "jsuites";
+import jSuites from 'jsuites';
 
 /**
  * Prepare JSON in the correct format
  */
-const prepareJson = function(data) {
+const prepareJson = function (data) {
     const obj = this;
 
     const rows = [];
@@ -13,7 +13,7 @@ const prepareJson = function(data) {
         const k = obj.options.columns[x].name ? obj.options.columns[x].name : x;
 
         // Create row
-        if (! rows[y]) {
+        if (!rows[y]) {
             rows[y] = {
                 row: y,
                 data: {},
@@ -26,12 +26,12 @@ const prepareJson = function(data) {
     return rows.filter(function (el) {
         return el != null;
     });
-}
+};
 
 /**
  * Post json to a remote server
  */
-const save = function(url, data) {
+const save = function (url, data) {
     const obj = this;
 
     // Parse anything in the data before sending to the server
@@ -50,30 +50,30 @@ const save = function(url, data) {
         method: 'POST',
         dataType: 'json',
         data: { data: JSON.stringify(data) },
-        success: function(result) {
+        success: function (result) {
             // Event
             dispatch.call(obj, 'onsave', obj.parent, obj, data);
-        }
+        },
     });
-}
+};
 
 /**
  * Trigger events
  */
-const dispatch = function(event) {
+const dispatch = function (event) {
     const obj = this;
     let ret = null;
 
     let spreadsheet = obj.parent ? obj.parent : obj;
 
     // Dispatch events
-    if (! spreadsheet.ignoreEvents) {
+    if (!spreadsheet.ignoreEvents) {
         // Call global event
-        if (typeof(spreadsheet.config.onevent) == 'function') {
+        if (typeof spreadsheet.config.onevent == 'function') {
             ret = spreadsheet.config.onevent.apply(this, arguments);
         }
         // Call specific events
-        if (typeof(spreadsheet.config[event]) == 'function') {
+        if (typeof spreadsheet.config[event] == 'function') {
             ret = spreadsheet.config[event].apply(this, Array.prototype.slice.call(arguments, 1));
         }
 
@@ -95,7 +95,7 @@ const dispatch = function(event) {
         const scope = arguments;
 
         if (typeof spreadsheet.plugins === 'object') {
-            Object.entries(spreadsheet.plugins).forEach(function([, plugin]) {
+            Object.entries(spreadsheet.plugins).forEach(function ([, plugin]) {
                 if (typeof plugin.persistence === 'function') {
                     plugin.persistence(obj, 'setValue', { data: scope[2] });
                 }
@@ -110,6 +110,6 @@ const dispatch = function(event) {
     }
 
     return ret;
-}
+};
 
 export default dispatch;

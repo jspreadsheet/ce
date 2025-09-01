@@ -1,5 +1,5 @@
 // Get width of all freezed cells together
-export const getFreezeWidth = function() {
+export const getFreezeWidth = function () {
     const obj = this;
 
     let width = 0;
@@ -16,4 +16,4 @@ export const getFreezeWidth = function() {
         }
     }
     return width;
-}
+};

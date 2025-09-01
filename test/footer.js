@@ -4,23 +4,23 @@ const jspreadsheet = require('../dist/index.js');
 
 describe('Use footers', () => {
     it('Start the worksheet with a footer', () => {
-        const instance = jspreadsheet(root, {
+        jspreadsheet(root, {
             tabs: true,
             worksheets: [
                 {
-                    minDimensions: [7,7],
+                    minDimensions: [7, 7],
                     freezeColumns: 2,
                     data: [
                         ['Hello', 'World'],
-                        ['Testing', 'CE']
+                        ['Testing', 'CE'],
                     ],
                     footers: [
                         ['a', 'b', 'c'],
                         [1, 2, 3],
-                    ]
+                    ],
                 },
-            ]
-        })
+            ],
+        });
 
         const footerTag = root.querySelector('tfoot');
 

@@ -8,7 +8,7 @@ import { closeFilter } from './filter.js';
 /**
  * Update order arrow
  */
-export const updateOrderArrow = function(column, order) {
+export const updateOrderArrow = function (column, order) {
     const obj = this;
 
     // Remove order
@@ -23,22 +23,22 @@ export const updateOrderArrow = function(column, order) {
     } else {
         obj.headers[column].classList.add('arrow-down');
     }
-}
+};
 
 /**
  * Update rows position
  */
-export const updateOrder = function(rows) {
+export const updateOrder = function (rows) {
     const obj = this;
 
     // History
-    let data = []
+    let data = [];
     for (let j = 0; j < rows.length; j++) {
         data[j] = obj.options.data[rows[j]];
     }
     obj.options.data = data;
 
-    data = []
+    data = [];
     for (let j = 0; j < rows.length; j++) {
         data[j] = obj.records[rows[j]];
 
@@ -48,7 +48,7 @@ export const updateOrder = function(rows) {
     }
     obj.records = data;
 
-    data = []
+    data = [];
     for (let j = 0; j < rows.length; j++) {
         data[j] = obj.rows[rows[j]];
         data[j].y = j;
@@ -80,18 +80,18 @@ export const updateOrder = function(rows) {
             }
         }
     }
-}
+};
 
 /**
  * Sort data and reload table
  */
-export const orderBy = function(column, order) {
+export const orderBy = function (column, order) {
     const obj = this;
 
     if (column >= 0) {
         // Merged cells
         if (obj.options.mergeCells && Object.keys(obj.options.mergeCells).length > 0) {
-            if (! confirm(jSuites.translate('This action will destroy any existing merged cells. Are you sure?'))) {
+            if (!confirm(jSuites.translate('This action will destroy any existing merged cells. Are you sure?'))) {
                 return false;
             } else {
                 // Remove merged cells
@@ -111,49 +111,43 @@ export const orderBy = function(column, order) {
         if (
             obj.options.columns &&
             obj.options.columns[column] &&
-            (
-                obj.options.columns[column].type == 'number' ||
+            (obj.options.columns[column].type == 'number' ||
                 obj.options.columns[column].type == 'numeric' ||
                 obj.options.columns[column].type == 'percentage' ||
                 obj.options.columns[column].type == 'autonumber' ||
-                obj.options.columns[column].type == 'color'
-            )
+                obj.options.columns[column].type == 'color')
         ) {
             for (let j = 0; j < obj.options.data.length; j++) {
-                temp[j] = [ j, Number(obj.options.data[j][column]) ];
+                temp[j] = [j, Number(obj.options.data[j][column])];
             }
         } else if (
             obj.options.columns &&
             obj.options.columns[column] &&
-            (
-                obj.options.columns[column].type == 'calendar' ||
-                obj.options.columns[column].type == 'checkbox' ||
-                obj.options.columns[column].type == 'radio'
-            )
+            (obj.options.columns[column].type == 'calendar' || obj.options.columns[column].type == 'checkbox' || obj.options.columns[column].type == 'radio')
         ) {
             for (let j = 0; j < obj.options.data.length; j++) {
-                temp[j] = [ j, obj.options.data[j][column] ];
+                temp[j] = [j, obj.options.data[j][column]];
             }
         } else {
             for (let j = 0; j < obj.options.data.length; j++) {
-                temp[j] = [ j, obj.records[j][column].element.textContent.toLowerCase() ];
+                temp[j] = [j, obj.records[j][column].element.textContent.toLowerCase()];
             }
         }
 
         // Default sorting method
-        if (typeof(obj.parent.config.sorting) !== 'function') {
-            obj.parent.config.sorting = function(direction) {
-                return function(a, b) {
+        if (typeof obj.parent.config.sorting !== 'function') {
+            obj.parent.config.sorting = function (direction) {
+                return function (a, b) {
                     const valueA = a[1];
                     const valueB = b[1];
 
-                    if (! direction) {
-                        return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
+                    if (!direction) {
+                        return valueA === '' && valueB !== '' ? 1 : valueA !== '' && valueB === '' ? -1 : valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
                     } else {
-                        return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
+                        return valueA === '' && valueB !== '' ? 1 : valueA !== '' && valueB === '' ? -1 : valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
                     }
-                }
-            }
+                };
+            };
         }
 
         temp = temp.sort(obj.parent.config.sorting(order));
@@ -177,8 +171,15 @@ export const orderBy = function(column, order) {
         updateOrder.call(obj, newValue);
 
         // On sort event
-        dispatch.call(obj, 'onsort', obj, column, order, newValue.map((row) => row));
+        dispatch.call(
+            obj,
+            'onsort',
+            obj,
+            column,
+            order,
+            newValue.map((row) => row)
+        );
 
         return true;
     }
-}
+};

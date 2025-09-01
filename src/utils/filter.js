@@ -1,14 +1,14 @@
-import jSuites from "jsuites";
-import { updateResult } from "./internal.js";
-import { refreshSelection } from "./selection.js";
+import jSuites from 'jsuites';
+import { updateResult } from './internal.js';
+import { refreshSelection } from './selection.js';
 
 /**
  * Open the column filter
  */
-export const openFilter = function(columnId) {
+export const openFilter = function (columnId) {
     const obj = this;
 
-    if (! obj.options.filters) {
+    if (!obj.options.filters) {
         console.log('Jspreadsheet: filters not enabled.');
     } else {
         // Make sure is integer
@@ -57,9 +57,9 @@ export const openFilter = function(columnId) {
             autocomplete: true,
             opened: true,
             value: obj.filters[columnId] !== undefined ? obj.filters[columnId] : null,
-            width:'100%',
-            position: (obj.options.tableOverflow == true || obj.parent.config.fullscreen == true) ? true : false,
-            onclose: function(o) {
+            width: '100%',
+            position: obj.options.tableOverflow == true || obj.parent.config.fullscreen == true ? true : false,
+            onclose: function (o) {
                 resetFilters.call(obj);
                 obj.filters[columnId] = o.dropdown.getValue(true);
                 obj.filter.children[columnId + 1].innerHTML = o.dropdown.getText();
@@ -68,18 +68,18 @@ export const openFilter = function(columnId) {
                 obj.filter.children[columnId + 1].style.overflow = '';
                 closeFilter.call(obj, columnId);
                 refreshSelection.call(obj);
-            }
+            },
         };
 
         // Dynamic dropdown
         jSuites.dropdown(div, opt);
     }
-}
+};
 
-export const closeFilter = function(columnId) {
+export const closeFilter = function (columnId) {
     const obj = this;
 
-    if (! columnId) {
+    if (!columnId) {
         for (let i = 0; i < obj.filter.children.length; i++) {
             if (obj.filters[i]) {
                 columnId = i;
@@ -88,16 +88,16 @@ export const closeFilter = function(columnId) {
     }
 
     // Search filter
-    const search = function(query, x, y) {
+    const search = function (query, x, y) {
         for (let i = 0; i < query.length; i++) {
-            const value = ''+obj.options.data[y][x];
-            const label = ''+obj.records[y][x].element.innerHTML;
+            const value = '' + obj.options.data[y][x];
+            const label = '' + obj.records[y][x].element.innerHTML;
             if (query[i] == value || query[i] == label) {
                 return true;
             }
         }
         return false;
-    }
+    };
 
     const query = obj.filters[columnId];
     obj.results = [];
@@ -106,14 +106,14 @@ export const closeFilter = function(columnId) {
             obj.results.push(j);
         }
     }
-    if (! obj.results.length) {
+    if (!obj.results.length) {
         obj.results = null;
     }
 
     updateResult.call(obj);
-}
+};
 
-export const resetFilters = function() {
+export const resetFilters = function () {
     const obj = this;
 
     if (obj.options.filters) {
@@ -125,4 +125,4 @@ export const resetFilters = function() {
 
     obj.results = null;
     updateResult.call(obj);
-}
+};

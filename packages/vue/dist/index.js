@@ -1,9 +1,9 @@
 import { h, getCurrentInstance, camelize } from 'vue';
-import jss from "jspreadsheet-ce";
+import jss from 'jspreadsheet-ce';
 
 export const Worksheet = {
     name: 'Worksheet',
-}
+};
 
 export const Spreadsheet = {
     inheritAttrs: false,
@@ -15,9 +15,9 @@ export const Spreadsheet = {
             options[camelize(key)] = attrs[key];
         }
 
-        if (slots && typeof(slots.default) === 'function') {
+        if (slots && typeof slots.default === 'function') {
             options.worksheets = slots.default().reduce((acc, vnode) => {
-                if (vnode.type.name === "Worksheet") {
+                if (vnode.type.name === 'Worksheet') {
                     let worksheetProps = {};
 
                     for (const key in vnode.props) {
@@ -26,7 +26,7 @@ export const Spreadsheet = {
 
                     acc.push({
                         minDimensions: [4, 4],
-                        ...worksheetProps
+                        ...worksheetProps,
                     });
                 }
                 return acc;
@@ -46,12 +46,12 @@ export const Spreadsheet = {
         this.current = jss(this.$refs.container, options);
     },
     setup() {
-      let containerProps = {
-        ref: 'container'
-      };
-      return () => h('div', containerProps);
-    }
-}
+        let containerProps = {
+            ref: 'container',
+        };
+        return () => h('div', containerProps);
+    },
+};
 
 export let jspreadsheet = jss;
 

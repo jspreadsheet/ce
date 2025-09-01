@@ -1,11 +1,11 @@
-import { copy } from "./copyPaste.js";
+import { copy } from './copyPaste.js';
 
 /**
  * Download CSV table
  *
  * @return null
  */
-export const download = function(includeHeaders, processed) {
+export const download = function (includeHeaders, processed) {
     const obj = this;
 
     if (obj.parent.config.allowExport == false) {
@@ -18,7 +18,7 @@ export const download = function(includeHeaders, processed) {
         data += copy.call(obj, false, obj.options.csvDelimiter, true, includeHeaders, true, undefined, processed);
 
         // Download element
-        const blob = new Blob(["\uFEFF"+data], {type: 'text/csv;charset=utf-8;'});
+        const blob = new Blob(['\uFEFF' + data], { type: 'text/csv;charset=utf-8;' });
 
         // IE Compatibility
         if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -35,4 +35,4 @@ export const download = function(includeHeaders, processed) {
             pom.parentNode.removeChild(pom);
         }
     }
-}
+};

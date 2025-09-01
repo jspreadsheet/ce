@@ -1,12 +1,12 @@
-import { updateScroll } from "./internal.js";
-import { loadDown, loadPage, loadUp, loadValidation } from "./lazyLoading.js";
+import { updateScroll } from './internal.js';
+import { loadDown, loadPage, loadUp, loadValidation } from './lazyLoading.js';
 
-const upGet = function(x, y) {
+const upGet = function (x, y) {
     const obj = this;
 
     x = parseInt(x);
     y = parseInt(y);
-    for (let j = (y - 1); j >= 0; j--) {
+    for (let j = y - 1; j >= 0; j--) {
         if (obj.records[j][x].element.style.display != 'none' && obj.rows[j].element.style.display != 'none') {
             if (obj.records[j][x].element.getAttribute('data-merged')) {
                 if (obj.records[j][x].element == obj.records[y][x].element) {
@@ -19,9 +19,9 @@ const upGet = function(x, y) {
     }
 
     return y;
-}
+};
 
-const upVisible = function(group, direction) {
+const upVisible = function (group, direction) {
     const obj = this;
 
     let x, y;
@@ -52,18 +52,18 @@ const upVisible = function(group, direction) {
         obj.selectedCell[2] = x;
         obj.selectedCell[3] = y;
     }
-}
+};
 
-export const up = function(shiftKey, ctrlKey) {
+export const up = function (shiftKey, ctrlKey) {
     const obj = this;
 
     if (shiftKey) {
         if (obj.selectedCell[3] > 0) {
-            upVisible.call(obj, 1, ctrlKey ? 0 : 1)
+            upVisible.call(obj, 1, ctrlKey ? 0 : 1);
         }
     } else {
         if (obj.selectedCell[1] > 0) {
-            upVisible.call(obj, 0, ctrlKey ? 0 : 1)
+            upVisible.call(obj, 0, ctrlKey ? 0 : 1);
         }
         obj.selectedCell[2] = obj.selectedCell[0];
         obj.selectedCell[3] = obj.selectedCell[1];
@@ -96,15 +96,15 @@ export const up = function(shiftKey, ctrlKey) {
     }
 
     updateScroll.call(obj, 1);
-}
+};
 
-export const rightGet = function(x, y) {
+export const rightGet = function (x, y) {
     const obj = this;
 
     x = parseInt(x);
     y = parseInt(y);
 
-    for (let i = (x + 1); i < obj.headers.length; i++) {
+    for (let i = x + 1; i < obj.headers.length; i++) {
         if (obj.records[y][i].element.style.display != 'none') {
             if (obj.records[y][i].element.getAttribute('data-merged')) {
                 if (obj.records[y][i].element == obj.records[y][x].element) {
@@ -117,9 +117,9 @@ export const rightGet = function(x, y) {
     }
 
     return x;
-}
+};
 
-const rightVisible = function(group, direction) {
+const rightVisible = function (group, direction) {
     const obj = this;
 
     let x, y;
@@ -150,18 +150,18 @@ const rightVisible = function(group, direction) {
         obj.selectedCell[2] = x;
         obj.selectedCell[3] = y;
     }
-}
+};
 
-export const right = function(shiftKey, ctrlKey) {
+export const right = function (shiftKey, ctrlKey) {
     const obj = this;
 
     if (shiftKey) {
         if (obj.selectedCell[2] < obj.headers.length - 1) {
-            rightVisible.call(obj, 1, ctrlKey ? 0 : 1)
+            rightVisible.call(obj, 1, ctrlKey ? 0 : 1);
         }
     } else {
         if (obj.selectedCell[0] < obj.headers.length - 1) {
-            rightVisible.call(obj, 0, ctrlKey ? 0 : 1)
+            rightVisible.call(obj, 0, ctrlKey ? 0 : 1);
         }
         obj.selectedCell[2] = obj.selectedCell[0];
         obj.selectedCell[3] = obj.selectedCell[1];
@@ -169,14 +169,14 @@ export const right = function(shiftKey, ctrlKey) {
 
     obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
     updateScroll.call(obj, 2);
-}
+};
 
-export const downGet = function(x, y) {
+export const downGet = function (x, y) {
     const obj = this;
 
     x = parseInt(x);
     y = parseInt(y);
-    for (let j = (y + 1); j < obj.rows.length; j++) {
+    for (let j = y + 1; j < obj.rows.length; j++) {
         if (obj.records[j][x].element.style.display != 'none' && obj.rows[j].element.style.display != 'none') {
             if (obj.records[j][x].element.getAttribute('data-merged')) {
                 if (obj.records[j][x].element == obj.records[y][x].element) {
@@ -189,9 +189,9 @@ export const downGet = function(x, y) {
     }
 
     return y;
-}
+};
 
-const downVisible = function(group, direction) {
+const downVisible = function (group, direction) {
     const obj = this;
 
     let x, y;
@@ -222,18 +222,18 @@ const downVisible = function(group, direction) {
         obj.selectedCell[2] = x;
         obj.selectedCell[3] = y;
     }
-}
+};
 
-export const down = function(shiftKey, ctrlKey) {
+export const down = function (shiftKey, ctrlKey) {
     const obj = this;
 
     if (shiftKey) {
         if (obj.selectedCell[3] < obj.records.length - 1) {
-            downVisible.call(obj, 1, ctrlKey ? 0 : 1)
+            downVisible.call(obj, 1, ctrlKey ? 0 : 1);
         }
     } else {
         if (obj.selectedCell[1] < obj.records.length - 1) {
-            downVisible.call(obj, 0, ctrlKey ? 0 : 1)
+            downVisible.call(obj, 0, ctrlKey ? 0 : 1);
         }
         obj.selectedCell[2] = obj.selectedCell[0];
         obj.selectedCell[3] = obj.selectedCell[1];
@@ -243,7 +243,7 @@ export const down = function(shiftKey, ctrlKey) {
 
     // Change page
     if (obj.options.lazyLoading == true) {
-        if ((obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1)) {
+        if (obj.selectedCell[1] == obj.records.length - 1 || obj.selectedCell[3] == obj.records.length - 1) {
             loadPage.call(obj, -1);
             obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
         } else {
@@ -265,14 +265,14 @@ export const down = function(shiftKey, ctrlKey) {
     }
 
     updateScroll.call(obj, 3);
-}
+};
 
-const leftGet = function(x, y) {
+const leftGet = function (x, y) {
     const obj = this;
 
     x = parseInt(x);
     y = parseInt(y);
-    for (let i = (x - 1); i >= 0; i--) {
+    for (let i = x - 1; i >= 0; i--) {
         if (obj.records[y][i].element.style.display != 'none') {
             if (obj.records[y][i].element.getAttribute('data-merged')) {
                 if (obj.records[y][i].element == obj.records[y][x].element) {
@@ -285,9 +285,9 @@ const leftGet = function(x, y) {
     }
 
     return x;
-}
+};
 
-const leftVisible = function(group, direction) {
+const leftVisible = function (group, direction) {
     const obj = this;
 
     let x, y;
@@ -318,18 +318,18 @@ const leftVisible = function(group, direction) {
         obj.selectedCell[2] = x;
         obj.selectedCell[3] = y;
     }
-}
+};
 
-export const left = function(shiftKey, ctrlKey) {
+export const left = function (shiftKey, ctrlKey) {
     const obj = this;
 
     if (shiftKey) {
         if (obj.selectedCell[2] > 0) {
-            leftVisible.call(obj, 1, ctrlKey ? 0 : 1)
+            leftVisible.call(obj, 1, ctrlKey ? 0 : 1);
         }
     } else {
         if (obj.selectedCell[0] > 0) {
-            leftVisible.call(obj, 0, ctrlKey ? 0 : 1)
+            leftVisible.call(obj, 0, ctrlKey ? 0 : 1);
         }
         obj.selectedCell[2] = obj.selectedCell[0];
         obj.selectedCell[3] = obj.selectedCell[1];
@@ -337,9 +337,9 @@ export const left = function(shiftKey, ctrlKey) {
 
     obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
     updateScroll.call(obj, 0);
-}
+};
 
-export const first = function(shiftKey, ctrlKey) {
+export const first = function (shiftKey, ctrlKey) {
     const obj = this;
 
     if (shiftKey) {
@@ -370,9 +370,9 @@ export const first = function(shiftKey, ctrlKey) {
 
     obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
     updateScroll.call(obj, 1);
-}
+};
 
-export const last = function(shiftKey, ctrlKey) {
+export const last = function (shiftKey, ctrlKey) {
     const obj = this;
 
     if (shiftKey) {
@@ -403,4 +403,4 @@ export const last = function(shiftKey, ctrlKey) {
 
     obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
     updateScroll.call(obj, 3);
-}
+};

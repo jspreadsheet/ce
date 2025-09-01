@@ -1,17 +1,17 @@
-import dispatch from "./dispatch.js";
-import { getColumnNameFromId, getIdFromColumnName } from "./internalHelpers.js";
-import { setHistory } from "./history.js";
+import dispatch from './dispatch.js';
+import { getColumnNameFromId, getIdFromColumnName } from './internalHelpers.js';
+import { setHistory } from './history.js';
 
 /**
  * Get style information from cell(s)
  *
  * @return integer
  */
-export const getStyle = function(cell, key) {
+export const getStyle = function (cell, key) {
     const obj = this;
 
     // Cell
-    if (! cell) {
+    if (!cell) {
         // Control vars
         const data = {};
 
@@ -35,36 +35,36 @@ export const getStyle = function(cell, key) {
             }
         }
 
-       return data;
+        return data;
     } else {
         cell = getIdFromColumnName(cell, true);
 
         return key ? obj.records[cell[1]][cell[0]].element.style[key] : obj.records[cell[1]][cell[0]].element.getAttribute('style');
     }
-}
+};
 
 /**
  * Set meta information to cell(s)
  *
  * @return integer
  */
-export const setStyle = function(o, k, v, force, ignoreHistoryAndEvents) {
+export const setStyle = function (o, k, v, force, ignoreHistoryAndEvents) {
     const obj = this;
 
     const newValue = {};
     const oldValue = {};
 
     // Apply style
-    const applyStyle = function(cellId, key, value) {
+    const applyStyle = function (cellId, key, value) {
         // Position
         const cell = getIdFromColumnName(cellId, true);
 
-        if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]] && (obj.records[cell[1]][cell[0]].element.classList.contains('readonly')==false || force)) {
+        if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]] && (obj.records[cell[1]][cell[0]].element.classList.contains('readonly') == false || force)) {
             // Current value
             const currentValue = obj.records[cell[1]][cell[0]].element.style[key];
 
             // Change layout
-            if (currentValue == value && ! force) {
+            if (currentValue == value && !force) {
                 value = '';
                 obj.records[cell[1]][cell[0]].element.style[key] = '';
             } else {
@@ -72,32 +72,32 @@ export const setStyle = function(o, k, v, force, ignoreHistoryAndEvents) {
             }
 
             // History
-            if (! oldValue[cellId]) {
+            if (!oldValue[cellId]) {
                 oldValue[cellId] = [];
             }
-            if (! newValue[cellId]) {
+            if (!newValue[cellId]) {
                 newValue[cellId] = [];
             }
 
             oldValue[cellId].push([key + ':' + currentValue]);
             newValue[cellId].push([key + ':' + value]);
         }
-    }
+    };
 
     if (k && v) {
         // Get object from string
-        if (typeof(o) == 'string') {
+        if (typeof o == 'string') {
             applyStyle(o, k, v);
         }
     } else {
         const keys = Object.keys(o);
         for (let i = 0; i < keys.length; i++) {
             let style = o[keys[i]];
-            if (typeof(style) == 'string') {
+            if (typeof style == 'string') {
                 style = style.split(';');
             }
             for (let j = 0; j < style.length; j++) {
-                if (typeof(style[j]) == 'string') {
+                if (typeof style[j] == 'string') {
                     style[j] = style[j].split(':');
                 }
                 // Apply value
@@ -117,7 +117,7 @@ export const setStyle = function(o, k, v, force, ignoreHistoryAndEvents) {
         newValue[keys[i]] = newValue[keys[i]].join(';');
     }
 
-    if (! ignoreHistoryAndEvents) {
+    if (!ignoreHistoryAndEvents) {
         // Keeping history of changes
         setHistory.call(obj, {
             action: 'setStyle',
@@ -127,9 +127,9 @@ export const setStyle = function(o, k, v, force, ignoreHistoryAndEvents) {
     }
 
     dispatch.call(obj, 'onchangestyle', obj, newValue);
-}
+};
 
-export const resetStyle = function(o, ignoreHistoryAndEvents) {
+export const resetStyle = function (o, ignoreHistoryAndEvents) {
     const obj = this;
 
     const keys = Object.keys(o);
@@ -141,4 +141,4 @@ export const resetStyle = function(o, ignoreHistoryAndEvents) {
         }
     }
     obj.setStyle(o, null, null, null, ignoreHistoryAndEvents);
-}
+};

@@ -1,16 +1,16 @@
-import dispatch from "./dispatch.js";
-import { injectArray } from "./internalHelpers.js";
-import { updateTableReferences } from "./internal.js";
-import { setMerge } from "./merges.js";
-import { updateOrder, updateOrderArrow } from "./orderBy.js";
-import { conditionalSelectionUpdate } from "./selection.js";
+import dispatch from './dispatch.js';
+import { injectArray } from './internalHelpers.js';
+import { updateTableReferences } from './internal.js';
+import { setMerge } from './merges.js';
+import { updateOrder, updateOrderArrow } from './orderBy.js';
+import { conditionalSelectionUpdate } from './selection.js';
 
 /**
  * Initializes a new history record for undo/redo
  *
  * @return null
  */
-export const setHistory = function(changes) {
+export const setHistory = function (changes) {
     const obj = this;
 
     if (obj.ignoreHistory != true) {
@@ -18,20 +18,20 @@ export const setHistory = function(changes) {
         const index = ++obj.historyIndex;
 
         // Slice the array to discard undone changes
-        obj.history = (obj.history = obj.history.slice(0, index + 1));
+        obj.history = obj.history = obj.history.slice(0, index + 1);
 
         // Keep history
         obj.history[index] = changes;
     }
-}
+};
 
 /**
  * Process row
  */
-const historyProcessRow = function(type, historyRecord) {
+const historyProcessRow = function (type, historyRecord) {
     const obj = this;
 
-    const rowIndex = (! historyRecord.insertBefore) ? historyRecord.rowNumber + 1 : +historyRecord.rowNumber;
+    const rowIndex = !historyRecord.insertBefore ? historyRecord.rowNumber + 1 : +historyRecord.rowNumber;
 
     if (obj.options.search == true) {
         if (obj.results && obj.results.length != obj.rows.length) {
@@ -43,7 +43,7 @@ const historyProcessRow = function(type, historyRecord) {
     if (type == 1) {
         const numOfRows = historyRecord.numOfRows;
         // Remove nodes
-        for (let j = rowIndex; j < (numOfRows + rowIndex); j++) {
+        for (let j = rowIndex; j < numOfRows + rowIndex; j++) {
             obj.rows[j].element.parentNode.removeChild(obj.rows[j].element);
         }
         // Remove references
@@ -51,7 +51,7 @@ const historyProcessRow = function(type, historyRecord) {
         obj.options.data.splice(rowIndex, numOfRows);
         obj.rows.splice(rowIndex, numOfRows);
 
-        conditionalSelectionUpdate.call(obj, 1, rowIndex, (numOfRows + rowIndex) - 1);
+        conditionalSelectionUpdate.call(obj, 1, rowIndex, numOfRows + rowIndex - 1);
     } else {
         // Insert data
         const records = historyRecord.rowRecords.map((row) => {
@@ -66,8 +66,8 @@ const historyProcessRow = function(type, historyRecord) {
 
         obj.rows = injectArray(obj.rows, rowIndex, historyRecord.rowNode);
         // Insert nodes
-        let index = 0
-        for (let j = rowIndex; j < (historyRecord.numOfRows + rowIndex); j++) {
+        let index = 0;
+        for (let j = rowIndex; j < historyRecord.numOfRows + rowIndex; j++) {
             obj.tbody.insertBefore(historyRecord.rowNode[index].element, obj.tbody.children[j]);
             index++;
         }
@@ -89,29 +89,29 @@ const historyProcessRow = function(type, historyRecord) {
     }
 
     updateTableReferences.call(obj);
-}
+};
 
 /**
  * Process column
  */
-const historyProcessColumn = function(type, historyRecord) {
+const historyProcessColumn = function (type, historyRecord) {
     const obj = this;
 
-    const columnIndex = (! historyRecord.insertBefore) ? historyRecord.columnNumber + 1 : historyRecord.columnNumber;
+    const columnIndex = !historyRecord.insertBefore ? historyRecord.columnNumber + 1 : historyRecord.columnNumber;
 
     // Remove column
     if (type == 1) {
         const numOfColumns = historyRecord.numOfColumns;
 
         obj.options.columns.splice(columnIndex, numOfColumns);
-        for (let i = columnIndex; i < (numOfColumns + columnIndex); i++) {
+        for (let i = columnIndex; i < numOfColumns + columnIndex; i++) {
             obj.headers[i].parentNode.removeChild(obj.headers[i]);
             obj.cols[i].colElement.parentNode.removeChild(obj.cols[i].colElement);
         }
         obj.headers.splice(columnIndex, numOfColumns);
         obj.cols.splice(columnIndex, numOfColumns);
         for (let j = 0; j < historyRecord.data.length; j++) {
-            for (let i = columnIndex; i < (numOfColumns + columnIndex); i++) {
+            for (let i = columnIndex; i < numOfColumns + columnIndex; i++) {
                 obj.records[j][i].element.parentNode.removeChild(obj.records[j][i].element);
             }
             obj.records[j].splice(columnIndex, numOfColumns);
@@ -129,19 +129,19 @@ const historyProcessColumn = function(type, historyRecord) {
         obj.headers = injectArray(obj.headers, columnIndex, historyRecord.headers);
         obj.cols = injectArray(obj.cols, columnIndex, historyRecord.cols);
 
-        let index = 0
-        for (let i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
-            obj.headerContainer.insertBefore(historyRecord.headers[index], obj.headerContainer.children[i+1]);
-            obj.colgroupContainer.insertBefore(historyRecord.cols[index].colElement, obj.colgroupContainer.children[i+1]);
+        let index = 0;
+        for (let i = columnIndex; i < historyRecord.numOfColumns + columnIndex; i++) {
+            obj.headerContainer.insertBefore(historyRecord.headers[index], obj.headerContainer.children[i + 1]);
+            obj.colgroupContainer.insertBefore(historyRecord.cols[index].colElement, obj.colgroupContainer.children[i + 1]);
             index++;
         }
 
         for (let j = 0; j < historyRecord.data.length; j++) {
             obj.options.data[j] = injectArray(obj.options.data[j], columnIndex, historyRecord.data[j]);
             obj.records[j] = injectArray(obj.records[j], columnIndex, historyRecord.records[j]);
-            let index = 0
-            for (let i = columnIndex; i < (historyRecord.numOfColumns + columnIndex); i++) {
-                obj.rows[j].element.insertBefore(historyRecord.records[j][index].element, obj.rows[j].element.children[i+1]);
+            let index = 0;
+            for (let i = columnIndex; i < historyRecord.numOfColumns + columnIndex; i++) {
+                obj.rows[j].element.insertBefore(historyRecord.records[j][index].element, obj.rows[j].element.children[i + 1]);
                 index++;
             }
         }
@@ -164,32 +164,27 @@ const historyProcessColumn = function(type, historyRecord) {
     }
 
     // Adjust nested headers
-    if (
-        obj.options.nestedHeaders &&
-        obj.options.nestedHeaders.length > 0 &&
-        obj.options.nestedHeaders[0] &&
-        obj.options.nestedHeaders[0][0]
-    ) {
+    if (obj.options.nestedHeaders && obj.options.nestedHeaders.length > 0 && obj.options.nestedHeaders[0] && obj.options.nestedHeaders[0][0]) {
         for (let j = 0; j < obj.options.nestedHeaders.length; j++) {
             let colspan;
 
             if (type == 1) {
-                colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) - historyRecord.numOfColumns;
+                colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) - historyRecord.numOfColumns;
             } else {
-                colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) + historyRecord.numOfColumns;
+                colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan) + historyRecord.numOfColumns;
             }
-            obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
-            obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+            obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length - 1].colspan = colspan;
+            obj.thead.children[j].children[obj.thead.children[j].children.length - 1].setAttribute('colspan', colspan);
         }
     }
 
     updateTableReferences.call(obj);
-}
+};
 
 /**
  * Undo last action
  */
-export const undo = function() {
+export const undo = function () {
     const obj = this;
 
     // Ignore events and history
@@ -267,12 +262,12 @@ export const undo = function() {
 
     // Events
     dispatch.call(obj, 'onundo', obj, historyRecord);
-}
+};
 
 /**
  * Redo previously undone action
  */
-export const redo = function() {
+export const redo = function () {
     const obj = this;
 
     // Ignore events and history
@@ -338,4 +333,4 @@ export const redo = function() {
 
     // Events
     dispatch.call(obj, 'onredo', obj, historyRecord);
-}
+};

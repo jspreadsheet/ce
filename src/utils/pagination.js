@@ -1,12 +1,12 @@
 import jSuites from 'jsuites';
 
-import dispatch from "./dispatch.js";
-import { updateCornerPosition } from "./selection.js";
+import dispatch from './dispatch.js';
+import { updateCornerPosition } from './selection.js';
 
 /**
  * Which page the row is
  */
-export const whichPage = function(row) {
+export const whichPage = function (row) {
     const obj = this;
 
     // Search
@@ -14,13 +14,13 @@ export const whichPage = function(row) {
         row = obj.results.indexOf(row);
     }
 
-    return (Math.ceil((parseInt(row) + 1) / parseInt(obj.options.pagination))) - 1;
-}
+    return Math.ceil((parseInt(row) + 1) / parseInt(obj.options.pagination)) - 1;
+};
 
 /**
  * Update the pagination
  */
-export const updatePagination = function() {
+export const updatePagination = function () {
     const obj = this;
 
     // Reset container
@@ -38,7 +38,7 @@ export const updatePagination = function() {
             results = obj.rows.length;
         }
 
-        if (! results) {
+        if (!results) {
             // No records found
             obj.pagination.children[0].innerHTML = jSuites.translate('No records found');
         } else {
@@ -77,7 +77,7 @@ export const updatePagination = function() {
                 paginationItem.innerHTML = i;
                 obj.pagination.children[1].appendChild(paginationItem);
 
-                if (obj.pageNumber == (i-1)) {
+                if (obj.pageNumber == i - 1) {
                     paginationItem.classList.add('jss_page_selected');
                 }
             }
@@ -92,25 +92,22 @@ export const updatePagination = function() {
             }
 
             // Text
-            const format = function(format) {
+            const format = function (format) {
                 const args = Array.prototype.slice.call(arguments, 1);
-                return format.replace(/{(\d+)}/g, function(match, number) {
-                  return typeof args[number] != 'undefined'
-                    ? args[number]
-                    : match
-                  ;
+                return format.replace(/{(\d+)}/g, function (match, number) {
+                    return typeof args[number] != 'undefined' ? args[number] : match;
                 });
             };
 
-            obj.pagination.children[0].innerHTML = format(jSuites.translate('Showing page {0} of {1} entries'), obj.pageNumber + 1, quantyOfPages)
+            obj.pagination.children[0].innerHTML = format(jSuites.translate('Showing page {0} of {1} entries'), obj.pageNumber + 1, quantyOfPages);
         }
     }
-}
+};
 
 /**
  * Go to page
  */
-export const page = function(pageNumber) {
+export const page = function (pageNumber) {
     const obj = this;
 
     const oldPage = obj.pageNumber;
@@ -136,8 +133,8 @@ export const page = function(pageNumber) {
     // Page number
     obj.pageNumber = pageNumber;
 
-    let startRow = (pageNumber * quantityPerPage);
-    let finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
+    let startRow = pageNumber * quantityPerPage;
+    let finalRow = pageNumber * quantityPerPage + quantityPerPage;
     if (finalRow > results.length) {
         finalRow = results.length;
     }
@@ -168,9 +165,9 @@ export const page = function(pageNumber) {
 
     // Events
     dispatch.call(obj, 'onchangepage', obj, pageNumber, oldPage, obj.options.pagination);
-}
+};
 
-export const quantiyOfPages = function() {
+export const quantiyOfPages = function () {
     const obj = this;
 
     let results;
@@ -181,4 +178,4 @@ export const quantiyOfPages = function() {
     }
 
     return Math.ceil(results / obj.options.pagination);
-}
+};

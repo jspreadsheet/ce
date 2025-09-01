@@ -1,12 +1,12 @@
-import dispatch from "./dispatch.js";
-import { getFreezeWidth } from "./freeze.js";
-import { getCellNameFromCoords } from "./helpers.js";
-import { setHistory } from "./history.js";
-import { updateCell, updateFormula, updateFormulaChain, updateTable } from "./internal.js";
-import { getColumnNameFromId, getIdFromColumnName } from "./internalHelpers.js";
-import { updateToolbar } from "./toolbar.js";
+import dispatch from './dispatch.js';
+import { getFreezeWidth } from './freeze.js';
+import { getCellNameFromCoords } from './helpers.js';
+import { setHistory } from './history.js';
+import { updateCell, updateFormula, updateFormulaChain, updateTable } from './internal.js';
+import { getColumnNameFromId, getIdFromColumnName } from './internalHelpers.js';
+import { updateToolbar } from './toolbar.js';
 
-export const updateCornerPosition = function() {
+export const updateCornerPosition = function () {
     const obj = this;
 
     // If any selected cells
@@ -15,7 +15,7 @@ export const updateCornerPosition = function() {
         obj.corner.style.left = '-2000px';
     } else {
         // Get last cell
-        const last = obj.highlighted[obj.highlighted.length-1].element;
+        const last = obj.highlighted[obj.highlighted.length - 1].element;
         const lastX = last.getAttribute('data-x');
 
         const contentRect = obj.content.getBoundingClientRect();
@@ -28,8 +28,8 @@ export const updateCornerPosition = function() {
         const w2 = lastRect.width;
         const h2 = lastRect.height;
 
-        const x = (x2 - x1) + obj.content.scrollLeft + w2 - 4;
-        const y = (y2 - y1) + obj.content.scrollTop + h2 - 4;
+        const x = x2 - x1 + obj.content.scrollLeft + w2 - 4;
+        const y = y2 - y1 + obj.content.scrollTop + h2 - 4;
 
         // Place the corner in the correct place
         obj.corner.style.top = y + 'px';
@@ -38,7 +38,7 @@ export const updateCornerPosition = function() {
         if (obj.options.freezeColumns) {
             const width = getFreezeWidth.call(obj);
             // Only check if the last column is not part of the merged cells
-            if (lastX > obj.options.freezeColumns-1 && x2 - x1 + w2 < width) {
+            if (lastX > obj.options.freezeColumns - 1 && x2 - x1 + w2 < width) {
                 obj.corner.style.display = 'none';
             } else {
                 if (obj.options.selectionCopy != false) {
@@ -53,9 +53,9 @@ export const updateCornerPosition = function() {
     }
 
     updateToolbar(obj);
-}
+};
 
-export const resetSelection = function(blur) {
+export const resetSelection = function (blur) {
     const obj = this;
 
     let previousStatus;
@@ -84,7 +84,7 @@ export const resetSelection = function(blur) {
                 const colspan = parseInt(obj.highlighted[i].element.getAttribute('colspan'));
                 const rowspan = parseInt(obj.highlighted[i].element.getAttribute('rowspan'));
                 ux = colspan > 0 ? px + (colspan - 1) : px;
-                uy = rowspan > 0 ? py + (rowspan - 1): py;
+                uy = rowspan > 0 ? py + (rowspan - 1) : py;
             } else {
                 ux = px;
                 uy = py;
@@ -121,12 +121,12 @@ export const resetSelection = function(blur) {
     }
 
     return previousStatus;
-}
+};
 
 /**
  * Update selection based on two cells
  */
-export const updateSelection = function(el1, el2, origin) {
+export const updateSelection = function (el1, el2, origin) {
     const obj = this;
 
     const x1 = el1.getAttribute('data-x');
@@ -142,9 +142,9 @@ export const updateSelection = function(el1, el2, origin) {
     }
 
     updateSelectionFromCoords.call(obj, x1, y1, x2, y2, origin);
-}
+};
 
-export const removeCopyingSelection = function() {
+export const removeCopyingSelection = function () {
     const copying = document.querySelectorAll('.jss_worksheet .copying');
     for (let i = 0; i < copying.length; i++) {
         copying[i].classList.remove('copying');
@@ -153,9 +153,9 @@ export const removeCopyingSelection = function() {
         copying[i].classList.remove('copying-top');
         copying[i].classList.remove('copying-bottom');
     }
-}
+};
 
-export const updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
+export const updateSelectionFromCoords = function (x1, y1, x2, y2, origin) {
     const obj = this;
 
     // select column
@@ -242,7 +242,6 @@ export const updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
                 if (rowspan) {
                     if (y < py) {
                         py = y;
-
                     }
                     if (y + rowspan > uy) {
                         uy = y + rowspan - 1;
@@ -275,10 +274,10 @@ export const updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
     }
 
     // Create borders
-    if (! borderLeft) {
+    if (!borderLeft) {
         borderLeft = 0;
     }
-    if (! borderRight) {
+    if (!borderRight) {
         borderRight = 0;
     }
 
@@ -309,7 +308,11 @@ export const updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
     }
 
     for (let i = borderLeft; i <= borderRight; i++) {
-        if ((!obj.options.columns || !obj.options.columns[i] || obj.options.columns[i].type != 'hidden') && obj.cols[i].colElement.style && obj.cols[i].colElement.style.display != 'none') {
+        if (
+            (!obj.options.columns || !obj.options.columns[i] || obj.options.columns[i].type != 'hidden') &&
+            obj.cols[i].colElement.style &&
+            obj.cols[i].colElement.style.display != 'none'
+        ) {
             // Top border
             if (obj.records[borderTop] && obj.records[borderTop][i]) {
                 obj.records[borderTop][i].element.classList.add('highlight-top');
@@ -334,7 +337,7 @@ export const updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
         }
     }
 
-    obj.selectedContainer = [ borderLeft, borderTop, borderRight, borderBottom ];
+    obj.selectedContainer = [borderLeft, borderTop, borderRight, borderBottom];
 
     // Handle events
     if (previousState == 0) {
@@ -347,14 +350,14 @@ export const updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
 
     // Find corner cell
     updateCornerPosition.call(obj);
-}
+};
 
 /**
  * Get selected column numbers
  *
  * @return array
  */
-export const getSelectedColumns = function(visibleOnly) {
+export const getSelectedColumns = function (visibleOnly) {
     const obj = this;
 
     if (!obj.selectedCell) {
@@ -370,25 +373,25 @@ export const getSelectedColumns = function(visibleOnly) {
     }
 
     return result;
-}
+};
 
 /**
  * Refresh current selection
  */
-export const refreshSelection = function() {
+export const refreshSelection = function () {
     const obj = this;
 
     if (obj.selectedCell) {
         obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
     }
-}
+};
 
 /**
  * Remove copy selection
  *
  * @return void
  */
-export const removeCopySelection = function() {
+export const removeCopySelection = function () {
     const obj = this;
 
     // Remove current selection
@@ -401,20 +404,20 @@ export const removeCopySelection = function() {
     }
 
     obj.selection = [];
-}
+};
 
-const doubleDigitFormat = function(v) {
-    v = ''+v;
+const doubleDigitFormat = function (v) {
+    v = '' + v;
     if (v.length == 1) {
-        v = '0'+v;
+        v = '0' + v;
     }
     return v;
-}
+};
 
 /**
  * Helper function to copy data using the corner icon
  */
-export const copyData = function(o, d) {
+export const copyData = function (o, d) {
     const obj = this;
 
     // Get data from all selected cells
@@ -479,9 +482,14 @@ export const copyData = function(o, d) {
         // Data columns
         for (let i = x1; i <= x2; i++) {
             // Update non-readonly
-            if (obj.records[j][i] && ! obj.records[j][i].element.classList.contains('readonly') && obj.records[j][i].element.style.display != 'none' && breakControl == false) {
+            if (
+                obj.records[j][i] &&
+                !obj.records[j][i].element.classList.contains('readonly') &&
+                obj.records[j][i].element.style.display != 'none' &&
+                breakControl == false
+            ) {
                 // Stop if contains value
-                if (! obj.selection.length) {
+                if (!obj.selection.length) {
                     if (obj.options.data[j][i] != '') {
                         breakControl = true;
                         continue;
@@ -498,9 +506,13 @@ export const copyData = function(o, d) {
                 // Value
                 let value = data[posy][posx];
 
-                if (value && ! data[1] && obj.parent.config.autoIncrement != false) {
-                    if (obj.options.columns && obj.options.columns[i] && (!obj.options.columns[i].type || obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number')) {
-                        if ((''+value).substr(0,1) == '=') {
+                if (value && !data[1] && obj.parent.config.autoIncrement != false) {
+                    if (
+                        obj.options.columns &&
+                        obj.options.columns[i] &&
+                        (!obj.options.columns[i].type || obj.options.columns[i].type == 'text' || obj.options.columns[i].type == 'number')
+                    ) {
+                        if (('' + value).substr(0, 1) == '=') {
                             const tokens = value.match(/([A-Z]+[0-9]+)/g);
 
                             if (tokens) {
@@ -520,7 +532,7 @@ export const copyData = function(o, d) {
                                 }
                                 // Update formula
                                 if (affectedTokens) {
-                                    value = updateFormula(value, affectedTokens)
+                                    value = updateFormula(value, affectedTokens);
                                 }
                             }
                         } else {
@@ -531,7 +543,14 @@ export const copyData = function(o, d) {
                     } else if (obj.options.columns && obj.options.columns[i] && obj.options.columns[i].type == 'calendar') {
                         const date = new Date(value);
                         date.setDate(date.getDate() + rowNumber);
-                        value = date.getFullYear() + '-' + doubleDigitFormat(parseInt(date.getMonth() + 1)) + '-' + doubleDigitFormat(date.getDate()) + ' ' + '00:00:00';
+                        value =
+                            date.getFullYear() +
+                            '-' +
+                            doubleDigitFormat(parseInt(date.getMonth() + 1)) +
+                            '-' +
+                            doubleDigitFormat(date.getDate()) +
+                            ' ' +
+                            '00:00:00';
                     }
                 }
 
@@ -551,16 +570,16 @@ export const copyData = function(o, d) {
 
     // Update history
     setHistory.call(obj, {
-        action:'setValue',
-        records:records,
-        selection:obj.selectedCell,
+        action: 'setValue',
+        records: records,
+        selection: obj.selectedCell,
     });
 
     // Update table with custom configuration if applicable
     updateTable.call(obj);
 
     // On after changes
-    const onafterchangesRecords = records.map(function(record) {
+    const onafterchangesRecords = records.map(function (record) {
         return {
             x: record.x,
             y: record.y,
@@ -570,27 +589,29 @@ export const copyData = function(o, d) {
     });
 
     dispatch.call(obj, 'onafterchanges', obj, onafterchangesRecords);
-}
+};
 
-export const hash = function(str) {
-    let hash = 0, i, chr;
+export const hash = function (str) {
+    let hash = 0,
+        i,
+        chr;
 
     if (!str || str.length === 0) {
         return hash;
     } else {
         for (i = 0; i < str.length; i++) {
-          chr = str.charCodeAt(i);
-          hash = ((hash << 5) - hash) + chr;
-          hash |= 0;
+            chr = str.charCodeAt(i);
+            hash = (hash << 5) - hash + chr;
+            hash |= 0;
         }
     }
     return hash;
-}
+};
 
 /**
  * Move coords to A1 in case overlaps with an excluded cell
  */
-export const conditionalSelectionUpdate = function(type, o, d) {
+export const conditionalSelectionUpdate = function (type, o, d) {
     const obj = this;
 
     if (type == 1) {
@@ -604,14 +625,14 @@ export const conditionalSelectionUpdate = function(type, o, d) {
             return;
         }
     }
-}
+};
 
 /**
  * Get selected rows numbers
  *
  * @return array
  */
-export const getSelectedRows = function(visibleOnly) {
+export const getSelectedRows = function (visibleOnly) {
     const obj = this;
 
     if (!obj.selectedCell) {
@@ -627,12 +648,12 @@ export const getSelectedRows = function(visibleOnly) {
     }
 
     return result;
-}
+};
 
-export const selectAll = function() {
+export const selectAll = function () {
     const obj = this;
 
-    if (! obj.selectedCell) {
+    if (!obj.selectedCell) {
         obj.selectedCell = [];
     }
 
@@ -642,9 +663,9 @@ export const selectAll = function() {
     obj.selectedCell[3] = obj.records.length - 1;
 
     obj.updateSelectionFromCoords(obj.selectedCell[0], obj.selectedCell[1], obj.selectedCell[2], obj.selectedCell[3]);
-}
+};
 
-export const getSelection = function() {
+export const getSelection = function () {
     const obj = this;
 
     if (!obj.selectedCell) {
@@ -657,9 +678,9 @@ export const getSelection = function() {
         Math.max(obj.selectedCell[0], obj.selectedCell[2]),
         Math.max(obj.selectedCell[1], obj.selectedCell[3]),
     ];
-}
+};
 
-export const getSelected = function(columnNameOnly) {
+export const getSelected = function (columnNameOnly) {
     const obj = this;
 
     const selectedRange = getSelection.call(obj);
@@ -681,9 +702,9 @@ export const getSelected = function(columnNameOnly) {
     }
 
     return cells;
-}
+};
 
-export const getRange = function() {
+export const getRange = function () {
     const obj = this;
 
     const selectedRange = getSelection.call(obj);
@@ -700,17 +721,17 @@ export const getRange = function() {
     }
 
     return obj.options.worksheetName + '!' + start + ':' + end;
-}
+};
 
-export const isSelected = function(x, y) {
+export const isSelected = function (x, y) {
     const obj = this;
 
     const selection = getSelection.call(obj);
 
     return x >= selection[0] && x <= selection[2] && y >= selection[1] && y <= selection[3];
-}
+};
 
-export const getHighlighted = function() {
+export const getHighlighted = function () {
     const obj = this;
 
     const selection = getSelection.call(obj);
@@ -720,4 +741,4 @@ export const getHighlighted = function() {
     }
 
     return [];
-}
+};

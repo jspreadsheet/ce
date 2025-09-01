@@ -1,4 +1,4 @@
-import { getColumnNameFromId } from "./internalHelpers.js";
+import { getColumnNameFromId } from './internalHelpers.js';
 
 /**
  * Get carret position for one element
@@ -23,7 +23,7 @@ export const getCaretIndex = function (e) {
         }
     }
     return pos;
-}
+};
 
 /**
  * Invert keys and values
@@ -35,7 +35,7 @@ export const invert = function (o) {
         d[o[k[i]]] = k[i];
     }
     return d;
-}
+};
 
 /**
  * Get letter based on a number
@@ -43,9 +43,9 @@ export const invert = function (o) {
  * @param {number} columnNumber
  * @return string letter
  */
-export const getColumnName = function (columnNumber){
-    let dividend = columnNumber+1;
-    let columnName = "";
+export const getColumnName = function (columnNumber) {
+    let dividend = columnNumber + 1;
+    let columnName = '';
     let modulo;
 
     while (dividend > 0) {
@@ -54,15 +54,15 @@ export const getColumnName = function (columnNumber){
         dividend = parseInt((dividend - modulo) / 26);
     }
 
-    return  columnName;
-}
+    return columnName;
+};
 
 /**
  * Get column name from coords
  */
 export const getCellNameFromCoords = function (x, y) {
     return getColumnName(parseInt(x)) + (parseInt(y) + 1);
-}
+};
 
 export const getCoordsFromCellName = function (columnName) {
     // Get the letters
@@ -72,7 +72,7 @@ export const getCoordsFromCellName = function (columnName) {
         // Base 26 calculation
         let code = 0;
         for (let i = 0; i < t[0].length; i++) {
-            code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, (t[0].length - 1 - i));
+            code += parseInt(t[0].charCodeAt(i) - 64) * Math.pow(26, t[0].length - 1 - i);
         }
         code--;
         // Make sure jspreadsheet starts on zero
@@ -88,48 +88,76 @@ export const getCoordsFromCellName = function (columnName) {
 
         return [code, number];
     }
-}
+};
 
 export const getCoordsFromRange = function (range) {
     const [start, end] = range.split(':');
 
     return [...getCoordsFromCellName(start), ...getCoordsFromCellName(end)];
-}
+};
 
 /**
  * From stack overflow contributions
  */
 export const parseCSV = function (str, delimiter) {
     // user-supplied delimeter or default comma
-    delimiter = (delimiter || ",");
+    delimiter = delimiter || ',';
     // Remove last line break
-    str = str.replace(/\r?\n$|\r$|\n$/g, "");
+    str = str.replace(/\r?\n$|\r$|\n$/g, '');
 
     const arr = [];
-    let quote = false;  // true means we're inside a quoted field
+    let quote = false; // true means we're inside a quoted field
     // iterate over each character, keep track of current row and column (of the returned array)
     let maxCol = 0;
-    let row = 0, col = 0;
+    let row = 0,
+        col = 0;
     for (let c = 0; c < str.length; c++) {
-        const cc = str[c], nc = str[c + 1];
+        const cc = str[c],
+            nc = str[c + 1];
         arr[row] = arr[row] || [];
         arr[row][col] = arr[row][col] || '';
 
         // If the current character is a quotation mark, and we're inside a quoted field, and the next character is also a quotation mark, add a quotation mark to the current column and skip the next character
-        if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+        if (cc == '"' && quote && nc == '"') {
+            arr[row][col] += cc;
+            ++c;
+            continue;
+        }
 
         // If it's just one quotation mark, begin/end quoted field
-        if (cc == '"') { quote = !quote; continue; }
+        if (cc == '"') {
+            quote = !quote;
+            continue;
+        }
 
         // If it's a comma and we're not in a quoted field, move on to the next column
-        if (cc == delimiter && !quote) { ++col; continue; }
+        if (cc == delimiter && !quote) {
+            ++col;
+            continue;
+        }
 
         // If it's a newline (CRLF) and we're not in a quoted field, skip the next character and move on to the next row and move to column 0 of that new row
-        if (cc == '\r' && nc == '\n' && !quote) { ++row; maxCol = Math.max(maxCol, col); col = 0; ++c; continue; }
+        if (cc == '\r' && nc == '\n' && !quote) {
+            ++row;
+            maxCol = Math.max(maxCol, col);
+            col = 0;
+            ++c;
+            continue;
+        }
 
         // If it's a newline (LF or CR) and we're not in a quoted field, move on to the next row and move to column 0 of that new row
-        if (cc == '\n' && !quote) { ++row; maxCol = Math.max(maxCol, col); col = 0; continue; }
-        if (cc == '\r' && !quote) { ++row; maxCol = Math.max(maxCol, col); col = 0; continue; }
+        if (cc == '\n' && !quote) {
+            ++row;
+            maxCol = Math.max(maxCol, col);
+            col = 0;
+            continue;
+        }
+        if (cc == '\r' && !quote) {
+            ++row;
+            maxCol = Math.max(maxCol, col);
+            col = 0;
+            continue;
+        }
 
         // Otherwise, append the current character to the current column
         arr[row][col] += cc;
@@ -142,7 +170,7 @@ export const parseCSV = function (str, delimiter) {
         }
     });
     return arr;
-}
+};
 
 export const createFromTable = function (el, options) {
     if (el.tagName != 'TABLE') {
@@ -168,7 +196,7 @@ export const createFromTable = function (el, options) {
                 // Set column width
                 if (width) {
                     if (!options.columns[i]) {
-                        options.columns[i] = {}
+                        options.columns[i] = {};
                     }
                     options.columns[i].width = width;
                 }
@@ -196,16 +224,16 @@ export const createFromTable = function (el, options) {
                 options.columns[i].align = header.style.textAlign;
             }
 
-            if (info = header.getAttribute('name')) {
+            if ((info = header.getAttribute('name'))) {
                 options.columns[i].name = info;
             }
-            if (info = header.getAttribute('id')) {
+            if ((info = header.getAttribute('id'))) {
                 options.columns[i].id = info;
             }
-            if (info = header.getAttribute('data-mask')) {
+            if ((info = header.getAttribute('data-mask'))) {
                 options.columns[i].mask = info;
             }
-        }
+        };
 
         // Headers
         const nested = [];
@@ -376,4 +404,4 @@ export const createFromTable = function (el, options) {
 
         return options;
     }
-}
+};

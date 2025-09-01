@@ -1,16 +1,16 @@
-import dispatch from "./dispatch.js";
-import { getCoordsFromCellName } from "./helpers.js";
-import { setHistory } from "./history.js";
-import { getColumnNameFromId, getIdFromColumnName } from "./internalHelpers.js";
+import dispatch from './dispatch.js';
+import { getCoordsFromCellName } from './helpers.js';
+import { setHistory } from './history.js';
+import { getColumnNameFromId, getIdFromColumnName } from './internalHelpers.js';
 
 /**
  * Get cell comments, null cell for all
  */
-export const getComments = function(cell) {
+export const getComments = function (cell) {
     const obj = this;
 
     if (cell) {
-        if (typeof(cell) !== 'string') {
+        if (typeof cell !== 'string') {
             return getComments.call(obj);
         }
 
@@ -30,12 +30,12 @@ export const getComments = function(cell) {
         }
         return data;
     }
-}
+};
 
 /**
  * Set cell comments
  */
-export const setComments = function(cellId, comments) {
+export const setComments = function (cellId, comments) {
     const obj = this;
 
     let commentsObj;
@@ -48,7 +48,7 @@ export const setComments = function(cellId, comments) {
 
     const oldValue = {};
 
-    Object.entries(commentsObj).forEach(function([cellName, comment]) {
+    Object.entries(commentsObj).forEach(function ([cellName, comment]) {
         const cellCoords = getCoordsFromCellName(cellName);
 
         // Keep old value
@@ -77,11 +77,11 @@ export const setComments = function(cellId, comments) {
 
     // Save history
     setHistory.call(obj, {
-        action:'setComments',
+        action: 'setComments',
         newValue: commentsObj,
         oldValue: oldValue,
     });
 
     // Set comments
     dispatch.call(obj, 'oncomments', obj, commentsObj, oldValue);
-}
+};

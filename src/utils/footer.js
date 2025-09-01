@@ -1,6 +1,6 @@
-import { parseValue } from "./internal.js";
+import { parseValue } from './internal.js';
 
-export const setFooter = function(data) {
+export const setFooter = function (data) {
     const obj = this;
 
     if (data) {
@@ -8,7 +8,7 @@ export const setFooter = function(data) {
     }
 
     if (obj.options.footers) {
-        if (! obj.tfoot) {
+        if (!obj.tfoot) {
             obj.tfoot = document.createElement('tfoot');
             obj.table.appendChild(obj.tfoot);
         }
@@ -25,14 +25,14 @@ export const setFooter = function(data) {
                 obj.tfoot.appendChild(tr);
             }
             for (let i = 0; i < obj.headers.length; i++) {
-                if (! obj.options.footers[j][i]) {
+                if (!obj.options.footers[j][i]) {
                     obj.options.footers[j][i] = '';
                 }
 
                 let td;
 
-                if (obj.tfoot.children[j].children[i+1]) {
-                    td = obj.tfoot.children[j].children[i+1];
+                if (obj.tfoot.children[j].children[i + 1]) {
+                    td = obj.tfoot.children[j].children[i + 1];
                 } else {
                     td = document.createElement('td');
                     tr.appendChild(td);
@@ -48,4 +48,4 @@ export const setFooter = function(data) {
             }
         }
     }
-}
+};

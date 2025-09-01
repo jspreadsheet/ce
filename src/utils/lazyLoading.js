@@ -1,7 +1,7 @@
 /**
  * Go to a page in a lazyLoading
  */
-export const loadPage = function(pageNumber) {
+export const loadPage = function (pageNumber) {
     const obj = this;
 
     // Search
@@ -22,8 +22,8 @@ export const loadPage = function(pageNumber) {
         pageNumber = Math.ceil(results.length / quantityPerPage) - 1;
     }
 
-    let startRow = (pageNumber * quantityPerPage);
-    let finalRow = (pageNumber * quantityPerPage) + quantityPerPage;
+    let startRow = pageNumber * quantityPerPage;
+    let finalRow = pageNumber * quantityPerPage + quantityPerPage;
     if (finalRow > results.length) {
         finalRow = results.length;
     }
@@ -44,9 +44,9 @@ export const loadPage = function(pageNumber) {
             obj.tbody.removeChild(obj.tbody.firstChild);
         }
     }
-}
+};
 
-export const loadValidation = function() {
+export const loadValidation = function () {
     const obj = this;
 
     if (obj.selectedCell) {
@@ -55,7 +55,7 @@ export const loadValidation = function() {
         const totalPages = parseInt(obj.rows.length / 100);
 
         if (currentPage != selectedPage && selectedPage <= totalPages) {
-            if (! Array.prototype.indexOf.call(obj.tbody.children, obj.rows[obj.selectedCell[3]].element)) {
+            if (!Array.prototype.indexOf.call(obj.tbody.children, obj.rows[obj.selectedCell[3]].element)) {
                 obj.loadPage(selectedPage);
                 return true;
             }
@@ -63,9 +63,9 @@ export const loadValidation = function() {
     }
 
     return false;
-}
+};
 
-export const loadUp = function() {
+export const loadUp = function () {
     const obj = this;
 
     // Search
@@ -101,9 +101,9 @@ export const loadUp = function() {
         }
     }
     return test;
-}
+};
 
-export const loadDown = function() {
+export const loadDown = function () {
     const obj = this;
 
     // Search
@@ -140,4 +140,4 @@ export const loadDown = function() {
     }
 
     return test;
-}
+};

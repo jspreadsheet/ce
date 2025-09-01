@@ -7,7 +7,7 @@ describe('Use pagination', () => {
         const instance = jspreadsheet(root, {
             worksheets: [
                 {
-                    minDimensions: [7,7],
+                    minDimensions: [7, 7],
                     data: [
                         [1, 2, 3, 4, 5],
                         [6, 7, 8, 9, 10],
@@ -20,27 +20,27 @@ describe('Use pagination', () => {
                         [41, 42, 43, 44, 45],
                         [46, 47, 48, 49, 50],
                     ],
-                    pagination: 3
+                    pagination: 3,
                 },
-            ]
-        })
+            ],
+        });
 
-        expect(instance[0].quantiyOfPages()).to.equal(4)
+        expect(instance[0].quantiyOfPages()).to.equal(4);
 
-        const bodyTag = root.querySelector('tbody')
+        const bodyTag = root.querySelector('tbody');
 
-        expect(bodyTag.children.length).to.equal(3)
+        expect(bodyTag.children.length).to.equal(3);
 
-        expect(bodyTag.children[0].getAttribute('data-y')).to.equal('0')
-        expect(bodyTag.children[1].getAttribute('data-y')).to.equal('1')
-        expect(bodyTag.children[2].getAttribute('data-y')).to.equal('2')
+        expect(bodyTag.children[0].getAttribute('data-y')).to.equal('0');
+        expect(bodyTag.children[1].getAttribute('data-y')).to.equal('1');
+        expect(bodyTag.children[2].getAttribute('data-y')).to.equal('2');
     });
 
     it('page method', () => {
         const instance = jspreadsheet(root, {
             worksheets: [
                 {
-                    minDimensions: [7,7],
+                    minDimensions: [7, 7],
                     data: [
                         [1, 2, 3, 4, 5],
                         [6, 7, 8, 9, 10],
@@ -53,21 +53,21 @@ describe('Use pagination', () => {
                         [41, 42, 43, 44, 45],
                         [46, 47, 48, 49, 50],
                     ],
-                    pagination: 3
+                    pagination: 3,
                 },
-            ]
-        })
+            ],
+        });
 
-        instance[0].page(2)
+        instance[0].page(2);
 
-        expect(instance[0].quantiyOfPages()).to.equal(4)
+        expect(instance[0].quantiyOfPages()).to.equal(4);
 
-        const bodyTag = root.querySelector('tbody')
+        const bodyTag = root.querySelector('tbody');
 
-        expect(bodyTag.children.length).to.equal(3)
+        expect(bodyTag.children.length).to.equal(3);
 
-        expect(bodyTag.children[0].getAttribute('data-y')).to.equal('6')
-        expect(bodyTag.children[1].getAttribute('data-y')).to.equal('7')
-        expect(bodyTag.children[2].getAttribute('data-y')).to.equal('8')
+        expect(bodyTag.children[0].getAttribute('data-y')).to.equal('6');
+        expect(bodyTag.children[1].getAttribute('data-y')).to.equal('7');
+        expect(bodyTag.children[2].getAttribute('data-y')).to.equal('8');
     });
 });

@@ -1,7 +1,7 @@
 import jSuites from 'jsuites';
 
-import dispatch from "./dispatch.js";
-import { getMask, isFormula, updateCell } from "./internal.js";
+import dispatch from './dispatch.js';
+import { getMask, isFormula, updateCell } from './internal.js';
 import { setHistory } from './history.js';
 
 /**
@@ -10,7 +10,7 @@ import { setHistory } from './history.js';
  * @param object cell
  * @return void
  */
-export const openEditor = function(cell, empty, e) {
+export const openEditor = function (cell, empty, e) {
     const obj = this;
 
     // Get cell position
@@ -22,19 +22,19 @@ export const openEditor = function(cell, empty, e) {
 
     // Overflow
     if (x > 0) {
-        obj.records[y][x-1].element.style.overflow = 'hidden';
+        obj.records[y][x - 1].element.style.overflow = 'hidden';
     }
 
     // Create editor
-    const createEditor = function(type) {
+    const createEditor = function (type) {
         // Cell information
         const info = cell.getBoundingClientRect();
 
         // Create dropdown
         const editor = document.createElement(type);
-        editor.style.width = (info.width) + 'px';
-        editor.style.height = (info.height - 2) + 'px';
-        editor.style.minHeight = (info.height - 2) + 'px';
+        editor.style.width = info.width + 'px';
+        editor.style.height = info.height - 2 + 'px';
+        editor.style.minHeight = info.height - 2 + 'px';
 
         // Edit cell
         cell.classList.add('editor');
@@ -42,14 +42,14 @@ export const openEditor = function(cell, empty, e) {
         cell.appendChild(editor);
 
         return editor;
-    }
+    };
 
     // Readonly
     if (cell.classList.contains('readonly') == true) {
         // Do nothing
     } else {
         // Holder
-        obj.edition = [ obj.records[y][x].element, obj.records[y][x].element.innerHTML, x, y ];
+        obj.edition = [obj.records[y][x].element, obj.records[y][x].element.innerHTML, x, y];
 
         // If there is a custom editor for it
         if (obj.options.columns && obj.options.columns[x] && typeof obj.options.columns[x].type === 'object') {
@@ -79,7 +79,7 @@ export const openEditor = function(cell, empty, e) {
                 // Create dropdown
                 let source;
 
-                if (typeof(obj.options.columns[x].filter) == 'function') {
+                if (typeof obj.options.columns[x].filter == 'function') {
                     source = obj.options.columns[x].filter(obj.element, cell, x, y, obj.options.columns[x].source);
                 } else {
                     source = obj.options.columns[x].source;
@@ -103,14 +103,14 @@ export const openEditor = function(cell, empty, e) {
                     data: data,
                     multiple: obj.options.columns[x].multiple ? true : false,
                     autocomplete: obj.options.columns[x].autocomplete ? true : false,
-                    opened:true,
+                    opened: true,
                     value: value,
-                    width:'100%',
-                    height:editor.style.minHeight,
-                    position: (obj.options.tableOverflow == true || obj.parent.config.fullscreen == true) ? true : false,
-                    onclose:function() {
+                    width: '100%',
+                    height: editor.style.minHeight,
+                    position: obj.options.tableOverflow == true || obj.parent.config.fullscreen == true ? true : false,
+                    onclose: function () {
                         closeEditor.call(obj, cell, true);
-                    }
+                    },
                 };
                 if (obj.options.columns[x].options && obj.options.columns[x].options.type) {
                     options.type = obj.options.columns[x].options.type;
@@ -133,9 +133,9 @@ export const openEditor = function(cell, empty, e) {
                 }
                 options.value = obj.options.data[y][x];
                 options.opened = true;
-                options.onclose = function(el, value) {
+                options.onclose = function (el, value) {
                     closeEditor.call(obj, cell, true);
-                }
+                };
                 // Current value
                 if (obj.options.columns[x].type == 'color') {
                     jSuites.color(editor, options);
@@ -143,7 +143,7 @@ export const openEditor = function(cell, empty, e) {
                     const rect = cell.getBoundingClientRect();
 
                     if (options.position) {
-                        editor.nextSibling.children[1].style.top = (rect.top + rect.height) + 'px';
+                        editor.nextSibling.children[1].style.top = rect.top + rect.height + 'px';
                         editor.nextSibling.children[1].style.left = rect.left + 'px';
                     }
                 } else {
@@ -173,13 +173,13 @@ export const openEditor = function(cell, empty, e) {
                 const rect = cell.getBoundingClientRect();
                 const rectContent = div.getBoundingClientRect();
                 if (window.innerHeight < rect.bottom + rectContent.height) {
-                    div.style.top = (rect.bottom - (rectContent.height + 2)) + 'px';
+                    div.style.top = rect.bottom - (rectContent.height + 2) + 'px';
                 } else {
-                    div.style.top = (rect.top) + 'px';
+                    div.style.top = rect.top + 'px';
                 }
 
                 if (window.innerWidth < rect.left + rectContent.width) {
-                    div.style.left = (rect.right - (rectContent.width + 2)) + 'px';
+                    div.style.left = rect.right - (rectContent.width + 2) + 'px';
                 } else {
                     div.style.left = rect.left + 'px';
                 }
@@ -202,9 +202,9 @@ export const openEditor = function(cell, empty, e) {
                 const rect = cell.getBoundingClientRect();
                 const rectContent = div.getBoundingClientRect();
                 if (window.innerHeight < rect.bottom + rectContent.height) {
-                    div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
+                    div.style.top = rect.top - (rectContent.height + 2) + 'px';
                 } else {
-                    div.style.top = (rect.top) + 'px';
+                    div.style.top = rect.top + 'px';
                 }
 
                 div.style.left = rect.left + 'px';
@@ -215,7 +215,10 @@ export const openEditor = function(cell, empty, e) {
                 // Basic editor
                 let editor;
 
-                if ((!obj.options.columns || !obj.options.columns[x] || obj.options.columns[x].wordWrap != false) && (obj.options.wordWrap == true || (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].wordWrap == true))) {
+                if (
+                    (!obj.options.columns || !obj.options.columns[x] || obj.options.columns[x].wordWrap != false) &&
+                    (obj.options.wordWrap == true || (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].wordWrap == true))
+                ) {
                     editor = createEditor('textarea');
                 } else {
                     editor = createEditor('input');
@@ -230,16 +233,16 @@ export const openEditor = function(cell, empty, e) {
                 const options = obj.options.columns && obj.options.columns[x];
 
                 // Apply format when is not a formula
-                if (! isFormula(value)) {
+                if (!isFormula(value)) {
                     if (options) {
                         // Format
                         const opt = getMask(options);
 
                         if (opt) {
                             // Masking
-                            if (! options.disabledMaskOnEdition) {
+                            if (!options.disabledMaskOnEdition) {
                                 if (options.mask) {
-                                    const m = options.mask.split(';')
+                                    const m = options.mask.split(';');
                                     editor.setAttribute('data-mask', m[0]);
                                 } else if (options.locale) {
                                     editor.setAttribute('data-locale', options.locale);
@@ -255,14 +258,14 @@ export const openEditor = function(cell, empty, e) {
                     }
                 }
 
-                editor.onblur = function() {
+                editor.onblur = function () {
                     closeEditor.call(obj, cell, true);
                 };
                 editor.scrollLeft = editor.scrollWidth;
             }
         }
     }
-}
+};
 
 /**
  * Close the editor and save the information
@@ -271,7 +274,7 @@ export const openEditor = function(cell, empty, e) {
  * @param boolean save
  * @return void
  */
-export const closeEditor = function(cell, save) {
+export const closeEditor = function (cell, save) {
     const obj = this;
 
     const x = parseInt(cell.getAttribute('data-x'));
@@ -287,7 +290,11 @@ export const closeEditor = function(cell, save) {
             value = obj.options.columns[x].type.closeEditor(cell, save, parseInt(x), parseInt(y), obj, obj.options.columns[x]);
         } else {
             // Native functions
-            if (obj.options.columns && obj.options.columns[x] && (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio' || obj.options.columns[x].type == 'hidden')) {
+            if (
+                obj.options.columns &&
+                obj.options.columns[x] &&
+                (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio' || obj.options.columns[x].type == 'hidden')
+            ) {
                 // Do nothing
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'dropdown') {
                 value = cell.children[0].dropdown.close(true);
@@ -302,7 +309,7 @@ export const closeEditor = function(cell, save) {
                 value = img && img.tagName == 'IMG' ? img.src : '';
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'numeric') {
                 value = cell.children[0].value;
-                if ((''+value).substr(0,1) != '=') {
+                if (('' + value).substr(0, 1) != '=') {
                     if (value == '') {
                         value = obj.options.columns[x].allowEmpty ? '' : 0;
                     }
@@ -320,7 +327,7 @@ export const closeEditor = function(cell, save) {
                     const opt = getMask(options);
                     if (opt) {
                         // Keep numeric in the raw data
-                        if (value !== '' && ! isFormula(value) && typeof(value) !== 'number') {
+                        if (value !== '' && !isFormula(value) && typeof value !== 'number') {
                             const t = jSuites.mask.extract(value, opt, true);
                             if (t && t.value !== '') {
                                 value = t.value;
@@ -365,12 +372,12 @@ export const closeEditor = function(cell, save) {
 
     // Finish edition
     obj.edition = null;
-}
+};
 
 /**
  * Toogle
  */
-export const setCheckRadioValue = function() {
+export const setCheckRadioValue = function () {
     const obj = this;
 
     const records = [];
@@ -381,20 +388,20 @@ export const setCheckRadioValue = function() {
 
         if (obj.options.columns[x].type == 'checkbox' || obj.options.columns[x].type == 'radio') {
             // Update cell
-            records.push(updateCell.call(obj, x, y, ! obj.options.data[y][x]));
+            records.push(updateCell.call(obj, x, y, !obj.options.data[y][x]));
         }
     }
 
     if (records.length) {
         // Update history
         setHistory.call(obj, {
-            action:'setValue',
-            records:records,
-            selection:obj.selectedCell,
+            action: 'setValue',
+            records: records,
+            selection: obj.selectedCell,
         });
 
         // On after changes
-        const onafterchangesRecords = records.map(function(record) {
+        const onafterchangesRecords = records.map(function (record) {
             return {
                 x: record.x,
                 y: record.y,
@@ -405,4 +412,4 @@ export const setCheckRadioValue = function() {
 
         dispatch.call(obj, 'onafterchanges', obj, onafterchangesRecords);
     }
-}
+};
