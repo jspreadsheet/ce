@@ -168,7 +168,7 @@ export const executeFormula = function (expression, x, y) {
         // Range with $ remove $
         expression = expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g, '$1$2');
 
-        let tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
+        let tokens = expression.match(/([A-Z]+[0-9]+):([A-Z]+[0-9]+)/g);
         if (tokens && tokens.length) {
             tokensUpdate(tokens);
         }

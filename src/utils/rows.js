@@ -494,7 +494,7 @@ export const getHeight = function (row) {
     } else {
         // In case the row is an object
         if (typeof row == 'object') {
-            row = $(row).getAttribute('data-y');
+            row = row.getAttribute('data-y');
         }
 
         data = obj.rows[row].element.style.height;

@@ -98,7 +98,7 @@ export const copy = function (highlighted, delimiter, returnData, includeHeaders
                 }
                 // Values
                 let value = obj.options.data[j][i];
-                if (value.match && (value.match(div) || value.match(/,/g) || value.match(/\n/) || value.match(/\"/))) {
+                if (value.match && (value.match(div) || value.match(/,/g) || value.match(/\n/) || value.match(/"/))) {
                     value = value.replace(new RegExp('"', 'g'), '""');
                     value = '"' + value + '"';
                 }
@@ -111,7 +111,7 @@ export const copy = function (highlighted, delimiter, returnData, includeHeaders
                     label = value;
                 } else {
                     label = obj.records[j][i].element.innerHTML;
-                    if (label.match && (label.match(div) || label.match(/,/g) || label.match(/\n/) || label.match(/\"/))) {
+                    if (label.match && (label.match(div) || label.match(/,/g) || label.match(/\n/) || label.match(/"/))) {
                         // Scape double quotes
                         label = label.replace(new RegExp('"', 'g'), '""');
                         label = '"' + label + '"';

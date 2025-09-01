@@ -665,6 +665,7 @@ const mouseOverControls = function (e) {
             let columnId = e.target.getAttribute('data-x');
             const rowId = e.target.getAttribute('data-y');
             if (libraryBase.jspreadsheet.current.resizing || libraryBase.jspreadsheet.current.dragging) {
+                // ignore
             } else {
                 // Header found
                 if (jssTable[1] == 1) {
@@ -1065,10 +1066,13 @@ const getElementIndex = function (element) {
 
 const contextMenuControls = function (e) {
     e = e || window.event;
+
+    let mouseButton;
+
     if ('buttons' in e) {
-        var mouseButton = e.buttons;
+        mouseButton = e.buttons;
     } else {
-        var mouseButton = e.which || e.button;
+        mouseButton = e.which || e.button;
     }
 
     if (libraryBase.jspreadsheet.current) {
