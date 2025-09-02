@@ -6,7 +6,6 @@ description: This section provides helper methods for everyday spreadsheet scrip
 
 This section provides essential methods for common spreadsheet operations, such as handling cell names, ranges, formulas, and data parsing. Each method is documented for easy integration into your applications.
 
-
 ## Documentation
 
 ### getColumnName
@@ -18,14 +17,14 @@ Returns the column letter corresponding to the given column index.
 Useful for converting numeric indices (e.g., 0, 1, 2) into Excel-style letters (e.g., A, B, C).
 
 **Parameters:**
+
 - `columnNumber` (number): Zero-based column index.
 
 **Returns:**
+
 - `string`: Column letter (e.g., "A", "B", ...).
 
-
-{.break}
----
+## {.break}
 
 ### getCellNameFromCoords
 
@@ -35,16 +34,15 @@ Useful for converting numeric indices (e.g., 0, 1, 2) into Excel-style letters (
 Generates a cell name (e.g., A1) from specified zero-based x (column) and y (row) coordinates.
 
 **Parameters:**
+
 - `x` (Number): Column index (0-based).
 - `y` (Number): Row index (0-based).
 
 **Returns:**
+
 - `String`: Cell name (e.g., "A1", "B2").
 
-
-{.break}
----
-
+## {.break}
 
 ### getCoordsFromCellName
 
@@ -54,15 +52,14 @@ Generates a cell name (e.g., A1) from specified zero-based x (column) and y (row
 Converts a cell name (e.g., A1) into zero-based coordinates.
 
 **Parameters:**
+
 - `cellName` (String): Cell name in Excel-style notation.
 
 **Returns:**
+
 - `[Number, Number]`: Array containing x (column) and y (row) indices.
 
-
-{.break}
----
-
+## {.break}
 
 ### getCoordsFromRange
 
@@ -72,16 +69,15 @@ Converts a cell name (e.g., A1) into zero-based coordinates.
 Converts a range string into its corresponding zero-based coordinates.
 
 **Parameters:**
+
 - `range` (String): Range string (e.g., "A1:B2").
 - `adjust` (boolean, optional): Whether to normalize coordinates (default: false).
 
 **Returns:**
+
 - `[Number, Number, Number, Number]`: Array containing x1, y1, x2, y2.
 
-
-{.break}
----
-
+## {.break}
 
 ### createFromTable
 
@@ -91,16 +87,15 @@ Converts a range string into its corresponding zero-based coordinates.
 Creates a new spreadsheet configuration based on an HTML table element.
 
 **Parameters:**
+
 - `element` (HTMLElement): Source HTML table.
 - `options` (Object): Configuration options.
 
 **Returns:**
+
 - `Object`: Spreadsheet configuration.
 
-
-{.break}
----
-
+## {.break}
 
 ### parseCSV
 
@@ -110,16 +105,15 @@ Creates a new spreadsheet configuration based on an HTML table element.
 Converts a CSV string into a JavaScript array.
 
 **Parameters:**
+
 - `data` (string): CSV-formatted string.
 - `delimiter` (string): Delimiter character (e.g., ",").
 
 **Returns:**
+
 - `string[][]`: Parsed array of rows.
 
-
-{.break}
----
-
+## {.break}
 
 ### getTokensFromCoords
 
@@ -129,29 +123,29 @@ Converts a CSV string into a JavaScript array.
 Generates cell tokens from a range of coordinates.
 
 **Parameters:**
+
 - `x1, y1, x2, y2` (Number): Range coordinates.
 - `wsName` (String, optional): Worksheet name.
 
 **Returns:**
+
 - `Array`: List of tokens (e.g., ["A1", "A2"]).
 
-
-{.break}
----
-
+## {.break}
 
 ## Examples
 
 ### Data Grid Helpers Example
 
 {.ignore}
+
 ```javascript
 // Returns A1
-jspreadsheet.helpers.getCellNameFromCoords(0,0);
+jspreadsheet.helpers.getCellNameFromCoords(0, 0);
 // Returns (4) [1, 0, 2, 3]
-jspreadsheet.helpers.getCoordsFromRange('B1:C4');
+jspreadsheet.helpers.getCoordsFromRange("B1:C4");
 // Also works with the worksheet instance. Returns 1,1
-jspreadsheet.helpers.getCoordsFromCellName('B2');
+jspreadsheet.helpers.getCoordsFromCellName("B2");
 ```
 
 ```html

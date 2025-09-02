@@ -11,7 +11,7 @@ description: Learn to configure read-only columns or cells in Jspreadsheet, prot
 The following methods allow programmatic updates to read-only states in your spreadsheets.
 
 | Method                                 | Description                                                                                             |
-|----------------------------------------|---------------------------------------------------------------------------------------------------------|
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `setReadOnly(object\|string, boolean)` | Sets the read-only state of a cell.<br/>`setReadOnly(ident: HTMLElement\|string, state: boolean): void` |
 | `isReadOnly(number, number)`           | Checks if a cell is read-only.<br/>`isReadOnly(x: number, y: number): boolean`                          |
 
@@ -23,133 +23,140 @@ A basic spreadsheet example with a read-only column and an additional read-only 
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        data: [
-            ['Mazda', 2001, 2000, 1],
-            ['GM', 2010, 5000, 1],
-            ['Honda Fit', 2009, 3000, 1],
-            ['Honda CRV', 2010, 6000, 0],
-        ],
-        columns: [
+  <script>
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          data: [
+            ["Mazda", 2001, 2000, 1],
+            ["GM", 2010, 5000, 1],
+            ["Honda Fit", 2009, 3000, 1],
+            ["Honda CRV", 2010, 6000, 0],
+          ],
+          columns: [
             {
-                type: 'text',
-                title:'Description',
-                width:'200px',
-                readOnly: true,
+              type: "text",
+              title: "Description",
+              width: "200px",
+              readOnly: true,
             },
             {
-                type: 'text',
-                title: 'Year',
-                width: '200px'
+              type: "text",
+              title: "Year",
+              width: "200px",
             },
             {
-                type: 'text',
-                title: 'Price',
-                width: '100px',
-                mask: '#.##',
-                render: function(td, value, x, y) {
-                    if (y === 2) {
-                        td.classList.add('readonly');
-                    }
+              type: "text",
+              title: "Price",
+              width: "100px",
+              mask: "#.##",
+              render: function (td, value, x, y) {
+                if (y === 2) {
+                  td.classList.add("readonly");
                 }
+              },
             },
             {
-                type: 'checkbox',
-                title:'Automatic',
-                width:'100px'
+              type: "checkbox",
+              title: "Automatic",
+              width: "100px",
             },
-        ],
-        updateTable: function(el, cell, x, y, source, value, id) {
+          ],
+          updateTable: function (el, cell, x, y, source, value, id) {
             if (x == 2 && y == 2) {
-                cell.classList.add('readonly');
+              cell.classList.add("readonly");
             }
-        } 
-    }]
-});
-</script>
+          },
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
-
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        ['Mazda', 2001, 2000, 1],
-        ['Peugeot', 2010, 5000, 1],
-        ['Honda Fit', 2009, 3000, 1],
-        ['Honda CRV', 2010, 6000, 0],
-    ];
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [
+    ["Mazda", 2001, 2000, 1],
+    ["Peugeot", 2010, 5000, 1],
+    ["Honda Fit", 2009, 3000, 1],
+    ["Honda CRV", 2010, 6000, 0],
+  ];
 
-    const columns = [
-        {
-            type: 'text',
-            title:'Description',
-            width:'200px',
-            readOnly:true,
-        },
-        {
-            type: 'text',
-            title:'Year',
-            width:'200px'
-        },
-        {
-            type: 'text',
-            title:'Price',
-            width:'100px',
-            mask:'#.##',
-        },
-        {
-            type: 'checkbox',
-            title:'Automatic',
-            width:'100px'
-        },
-    ];
+  const columns = [
+    {
+      type: "text",
+      title: "Description",
+      width: "200px",
+      readOnly: true,
+    },
+    {
+      type: "text",
+      title: "Year",
+      width: "200px",
+    },
+    {
+      type: "text",
+      title: "Price",
+      width: "100px",
+      mask: "#.##",
+    },
+    {
+      type: "checkbox",
+      title: "Automatic",
+      width: "100px",
+    },
+  ];
 
-    const updateTable = function(el, cell, x, y, source, value, id) {
-        if (x == 2 && y == 2) {
-            cell.classList.add('readonly');
-        }
+  const updateTable = function (el, cell, x, y, source, value, id) {
+    if (x == 2 && y == 2) {
+      cell.classList.add("readonly");
     }
+  };
 
-    // Render component
-    return (
-        <>
-            <Spreadsheet ref={spreadsheet}>
-                <Worksheet data={data} columns={columns} updateTable={updateTable} />
-            </Spreadsheet>
-        </>
-    );
+  // Render component
+  return (
+    <>
+      <Spreadsheet ref={spreadsheet}>
+        <Worksheet data={data} columns={columns} updateTable={updateTable} />
+      </Spreadsheet>
+    </>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
-      <Worksheet 
-          :data="data" 
-          :columns="columns" 
-          :updateTable="updateTable" 
-      />
+    <Worksheet :data="data" :columns="columns" :updateTable="updateTable" />
   </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
@@ -159,46 +166,47 @@ const spreadsheet = ref(null);
 
 // Data
 const data = ref([
-  ['Mazda', 2001, 2000, 1],
-  ['Peugeot', 2010, 5000, 1],
-  ['Honda Fit', 2009, 3000, 1],
-  ['Honda CRV', 2010, 6000, 0],
+  ["Mazda", 2001, 2000, 1],
+  ["Peugeot", 2010, 5000, 1],
+  ["Honda Fit", 2009, 3000, 1],
+  ["Honda CRV", 2010, 6000, 0],
 ]);
 
 // Columns configuration
 const columns = ref([
   {
-      type: 'text',
-      title:'Description',
-      width:'200px',
-      readOnly:true,
+    type: "text",
+    title: "Description",
+    width: "200px",
+    readOnly: true,
   },
   {
-      type: 'text',
-      title:'Year',
-      width:'200px'
+    type: "text",
+    title: "Year",
+    width: "200px",
   },
   {
-      type: 'text',
-      title:'Price',
-      width:'100px',
-      mask:'#.##',
+    type: "text",
+    title: "Price",
+    width: "100px",
+    mask: "#.##",
   },
   {
-      type: 'checkbox',
-      title:'Automatic',
-      width:'100px'
+    type: "checkbox",
+    title: "Automatic",
+    width: "100px",
   },
 ]);
 
 // Update table method
 const updateTable = (el, cell, x, y, source, value, id) => {
   if (x === 2 && y === 2) {
-      cell.classList.add('readonly');
+    cell.classList.add("readonly");
   }
 };
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -284,4 +292,3 @@ export class AppComponent {
     }
 }
 ```
-

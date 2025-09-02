@@ -15,11 +15,10 @@ This section provides an overview of the parameters that define the behaviour an
 
 The following methods allow programmatic manipulation of configuration settings:
 
-| Method      | Description                                                                                        |
-|-------------|----------------------------------------------------------------------------------------------------|
-| `getConfig` | Retrieves the configuration of a worksheet.<br/>`getConfig() => Object`                                |
-| `setConfig` | Updates the configuration for a worksheet.<br/>`setConfig(options: Object, level?: Boolean) => void`  |
-
+| Method      | Description                                                                                          |
+| ----------- | ---------------------------------------------------------------------------------------------------- |
+| `getConfig` | Retrieves the configuration of a worksheet.<br/>`getConfig() => Object`                              |
+| `setConfig` | Updates the configuration for a worksheet.<br/>`setConfig(options: Object, level?: Boolean) => void` |
 
 ## Examples
 
@@ -31,48 +30,69 @@ This example demonstrates how to copy a data grid configuration and use it to in
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
-<div id="spreadsheet-clone"></div><br>
+  <div id="spreadsheet"></div>
+  <div id="spreadsheet-clone"></div>
+  <br />
 
-<textarea id="console" style="width: 600px; height: 100px;"></textarea><br>
+  <textarea id="console" style="width: 600px; height: 100px;"></textarea
+  ><br />
 
-<input type="button" value="Clone the data grid above" class="button main" id="btn1" />
+  <input
+    type="button"
+    value="Clone the data grid above"
+    class="button main"
+    id="btn1"
+  />
 
-<script>
-const clone = function() {
-    // Get the data grid configuration
-    let config = JSON.stringify(grid[0].parent.getConfig());
-    // Show on the textarea
-    document.getElementById('console').value = config;
-    // Destroy any existing spreadsheet
-    jspreadsheet.destroy(document.getElementById('spreadsheet-clone'));
-    // Parse
-    config = JSON.parse(config);
-    // Create a new spreadsheet
-    jspreadsheet(document.getElementById('spreadsheet-clone'), config);
-}
+  <script>
+    const clone = function () {
+      // Get the data grid configuration
+      let config = JSON.stringify(grid[0].parent.getConfig());
+      // Show on the textarea
+      document.getElementById("console").value = config;
+      // Destroy any existing spreadsheet
+      jspreadsheet.destroy(document.getElementById("spreadsheet-clone"));
+      // Parse
+      config = JSON.parse(config);
+      // Create a new spreadsheet
+      jspreadsheet(document.getElementById("spreadsheet-clone"), config);
+    };
 
-// Create the JavaScript sample data grid
-let grid = jspreadsheet(document.getElementById('spreadsheet'), {
-    tabs: true,
-    toolbar: true,
-    worksheets: [{
-        data: [[1,2,3]],
-        minDimensions: [6, 6],
-    }],
-});
+    // Create the JavaScript sample data grid
+    let grid = jspreadsheet(document.getElementById("spreadsheet"), {
+      tabs: true,
+      toolbar: true,
+      worksheets: [
+        {
+          data: [[1, 2, 3]],
+          minDimensions: [6, 6],
+        },
+      ],
+    });
 
-document.getElementById('btn1').onclick = clone
-</script>
+    document.getElementById("btn1").onclick = clone;
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet-ce/react";
@@ -112,18 +132,20 @@ export default function App() {
     );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheetRef" tabs toolbar>
-      <Worksheet :data="[[1,2,3]]" :minDimensions="[6,6]" />
+    <Worksheet :data="[[1, 2, 3]]" :minDimensions="[6, 6]" />
   </Spreadsheet>
-  <div ref="copyRef"></div><br />
+  <div ref="copyRef"></div>
+  <br />
   <textarea ref="consoleRef"></textarea><br />
   <button @click="clone">Clone the data grid above</button>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet-ce/vue";
 
 import "jsuites/dist/jsuites.css";
@@ -131,40 +153,41 @@ import "jspreadsheet-ce/dist/spreadsheet.css";
 
 export default {
   components: {
-      Spreadsheet,
-      Worksheet,
+    Spreadsheet,
+    Worksheet,
   },
   setup() {
     const spreadsheetRef = ref(null);
     const copyRef = ref(null);
     const consoleRef = ref(null);
 
+    // Method to clone the data grid
+    const clone = function () {
+      // Get the data grid configuration
+      let config = JSON.stringify(
+        spreadsheetRef.value.current[0].parent.getConfig()
+      );
+      // Show on the textarea
+      consoleRef.value.value = config;
+      // Destroy any existing spreadsheet
+      jspreadsheet.destroy(spreadsheetRef.value);
+      // Parse
+      config = JSON.parse(config);
+      // Create a new spreadsheet
+      jspreadsheet(copyRef.value, config);
+    };
 
-
-      // Method to clone the data grid
-      const clone = function () {
-          // Get the data grid configuration
-          let config = JSON.stringify(spreadsheetRef.value.current[0].parent.getConfig());
-          // Show on the textarea
-          consoleRef.value.value = config;
-          // Destroy any existing spreadsheet
-          jspreadsheet.destroy(spreadsheetRef.value);
-          // Parse
-          config = JSON.parse(config);
-          // Create a new spreadsheet
-          jspreadsheet(copyRef.value, config);
-      };
-
-      return {
-        spreadsheetRef,
-        copyRef,
-        consoleRef,
-        clone
-      };
-  }
-}
+    return {
+      spreadsheetRef,
+      copyRef,
+      consoleRef,
+      clone,
+    };
+  },
+};
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -217,4 +240,3 @@ export class AppComponent {
     }
 }
 ```
- 

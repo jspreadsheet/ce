@@ -14,40 +14,40 @@ Original file: [/jspreadsheet/demo.csv](/jspreadsheet/demo.csv).
 
 ```html
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css"
+    type="text/css"
+  />
 
-<div id="my"></div>
+  <div id="my"></div>
 
-<p><button id='download'>Export my spreadsheet as CSV</button></p>
+  <p><button id="download">Export my spreadsheet as CSV</button></p>
 
-<script>
-$('#my').jexcel({
-    // Full CSV URL
-    csv:'/jspreadsheet/demo1.csv',
-    // Use the first row of your CSV as the headers
-    csvHeaders:true,
-    tableOverflow:true,
-    tableHeight:'300px',
-    // Headers
-    colWidths: [70, 200, 300],
-});
+  <script>
+    $("#my").jexcel({
+      // Full CSV URL
+      csv: "/jspreadsheet/demo1.csv",
+      // Use the first row of your CSV as the headers
+      csvHeaders: true,
+      tableOverflow: true,
+      tableHeight: "300px",
+      // Headers
+      colWidths: [70, 200, 300],
+    });
 
-$('#download').on('click', function () {
-    $('#my').jexcel('download');
-});
-</script>
+    $("#download").on("click", function () {
+      $("#my").jexcel("download");
+    });
+  </script>
 </html>
-```  
+```
 
 ## Online demo on jsFiddle
-
-  
-  
-  
 
 # Creating a javascript spreadsheet based on an external JSON file
 
@@ -57,20 +57,23 @@ In a similar way, you can create a jquery table based on an external JSON file f
 
 ```html
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css"
+    type="text/css"
+  />
 
-<div id="my1"></div>
+  <div id="my1"></div>
 
-<script>
-$('#my1').jexcel({
-    // The URL from your data table file in JSON format.
-    url:'/jspreadsheet/json'
-});
-</script>
+  <script>
+    $("#my1").jexcel({
+      // The URL from your data table file in JSON format.
+      url: "/jspreadsheet/json",
+    });
+  </script>
 </html>
 ```
-

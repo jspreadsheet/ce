@@ -42,7 +42,7 @@ import jspreadsheet from "jspreadsheet-ce";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
   @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -53,29 +53,29 @@ export class AppComponent {
       worksheets: [
         {
           data: [
-            ['Yes', '#ff0000'],
-            ['No', '#00ff00']
+            ["Yes", "#ff0000"],
+            ["No", "#00ff00"],
           ],
           minDimensions: [6, 4],
           columns: [
             {
               type: "dropdown",
               width: 100,
-              source: ["Yes", "No"]
+              source: ["Yes", "No"],
             },
             {
               type: "colour",
               width: 100,
-              render: "square"
-            }
+              render: "square",
+            },
           ],
           allowComments: true,
           comments: {
             A1: "Select Yes or No",
-            B1: "Choose a colour."
-          }
-        }
-      ]
+            B1: "Choose a colour.",
+          },
+        },
+      ],
     });
   }
 }
@@ -86,6 +86,7 @@ export class AppComponent {
 Use Angular's HttpClient to load or save data dynamically from an API and pass it to Jspreadsheet.
 
 {.ignore}
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { HttpClient } from '@angular/common/http';

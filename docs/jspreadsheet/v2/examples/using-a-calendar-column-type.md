@@ -14,38 +14,46 @@ See a live example of calendar usage on [jsfiddle](https://jsfiddle.net/spreadsh
 
 ```html
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jcalendar.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jcalendar.js"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jcalendar.min.css" type="text/css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jcalendar.min.css"
+    type="text/css"
+  />
 
-<div id="my"></div>
+  <div id="my"></div>
 
-<script>
-data = [
-    ['Mazda', 2001, 2000, '2006-01-01'],
-    ['Peugeot', 2010, 5000, '2005-01-01'],
-    ['Honda Fit', 2009, 3000, '2004-01-01'],
-    ['Honda CRV', 2010, 6000, '2003-01-01'],
-];
+  <script>
+    data = [
+      ["Mazda", 2001, 2000, "2006-01-01"],
+      ["Peugeot", 2010, 5000, "2005-01-01"],
+      ["Honda Fit", 2009, 3000, "2004-01-01"],
+      ["Honda CRV", 2010, 6000, "2003-01-01"],
+    ];
 
-$('#my').jexcel({
-    data:data,
-    colHeaders: ['Model', 'Date', 'Price', 'Date'],
-    colWidths: [ 300, 80, 100, 100 ],
-    columns: [
-        { type: 'text' },
-        { type: 'numeric' },
-        { type: 'numeric' },
-        { type: 'calendar', options: { format:'DD/MM/YYYY' } },
-    ]
-});
-</script>
+    $("#my").jexcel({
+      data: data,
+      colHeaders: ["Model", "Date", "Price", "Date"],
+      colWidths: [300, 80, 100, 100],
+      columns: [
+        { type: "text" },
+        { type: "numeric" },
+        { type: "numeric" },
+        { type: "calendar", options: { format: "DD/MM/YYYY" } },
+      ],
+    });
+  </script>
 </html>
-```  
+```
 
 ## Date column customization
 
@@ -54,6 +62,7 @@ Customize the format and the behavior of your column through the initialization 
 ### Calendar initialization options
 
 {.ignore}
+
 ```javascript
 {
     options: {
@@ -73,21 +82,21 @@ Customize the format and the behavior of your column through the initialization 
 Considering the example above, you can create a calendar including a time picker by simple send the option **time:1** as the following example.
 
 {.ignore}
+
 ```html
 <div id="my2"></div>
 
 <script>
-$('#my2').jexcel({
-    data:data,
-    colHeaders: ['Model', 'Year', 'Price', 'Date'],
-    colWidths: [ 300, 80, 100, 120 ],
+  $("#my2").jexcel({
+    data: data,
+    colHeaders: ["Model", "Year", "Price", "Date"],
+    colWidths: [300, 80, 100, 120],
     columns: [
-        { type: 'text' },
-        { type: 'text' },
-        { type: 'text' },
-        { type: 'calendar', options: { format:'DD/MM/YYYY HH24:MI', time:1 } },
-    ]
-});
+      { type: "text" },
+      { type: "text" },
+      { type: "text" },
+      { type: "calendar", options: { format: "DD/MM/YYYY HH24:MI", time: 1 } },
+    ],
+  });
 </script>
 ```
-

@@ -4,7 +4,7 @@ description: Learn how to format and customize cell data in Jspreadsheet. Explor
 
 # Cell Formatting
 
-Jspreadsheet offers flexible cell formatting features similar to Excel and Google Sheets, with customizable options for better data presentation. You can format numbers, currencies, dates, and more to suit specific application requirements, enabling enhanced control over how data is displayed and integrated. 
+Jspreadsheet offers flexible cell formatting features similar to Excel and Google Sheets, with customizable options for better data presentation. You can format numbers, currencies, dates, and more to suit specific application requirements, enabling enhanced control over how data is displayed and integrated.
 
 ## Overview
 
@@ -12,30 +12,29 @@ Jspreadsheet offers flexible cell formatting features similar to Excel and Googl
 
 The following properties are applied uniformly to all cells in a column.
 
-| Attribute         | Description                                                                                                           |
-|-------------------|-----------------------------------------------------------------------------------------------------------------------|
-| mask?: object     | This property force the mask during the edition.                                                                      |
-| format?: object   | This property will mask the content of a cell after the edition.                                                      |
-| locale? object    | This property apply the JavaScript Intl.FormatNumber to the cells.                                                    | 
-| render?: function | Intercepts and modifies the text of all cells in a column.<br>`render(td, value, x, y, worksheet, options) => void`   |
-
+| Attribute         | Description                                                                                                         |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- |
+| mask?: object     | This property force the mask during the edition.                                                                    |
+| format?: object   | This property will mask the content of a cell after the edition.                                                    |
+| locale? object    | This property apply the JavaScript Intl.FormatNumber to the cells.                                                  |
+| render?: function | Intercepts and modifies the text of all cells in a column.<br>`render(td, value, x, y, worksheet, options) => void` |
 
 {.pro}
+
 > #### Differences in the Pro Version
 >
 > Jspreadsheet Pro allows cell-level format and other advanced format customizations.\
 > \
 > [Learn more](https://jspreadsheet.com/docs/format){.button}
 
-
 ## Documentation
 
 ### Mask and Format Settings
 
-In Jspreadsheet CE, the `mask` property enforces a specific input pattern during cell editing using spreadsheet-like tokens. The `format` property applies formatting rules to cell content after editing.   Below are examples of tokens that can be used:
+In Jspreadsheet CE, the `mask` property enforces a specific input pattern during cell editing using spreadsheet-like tokens. The `format` property applies formatting rules to cell content after editing. Below are examples of tokens that can be used:
 
 | Valid examples |
-|----------------|
+| -------------- |
 | 0              |
 | 0.00           |
 | 0%             |
@@ -59,29 +58,45 @@ In Jspreadsheet CE, the `mask` property enforces a specific input pattern during
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        minDimensions: [6,6],
-        columns: [{
-            type: 'number',
-            // Excel like token to format the currency input
-            mask: 'U$ #.##0,00'
-        }]
-    }]
-});
-</script>
+  <script>
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          minDimensions: [6, 6],
+          columns: [
+            {
+              type: "number",
+              // Excel like token to format the currency input
+              mask: "U$ #.##0,00",
+            },
+          ],
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -89,23 +104,26 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const columns = [{
-        type: 'number',
-        // Excel like token to format the currency input
-        mask: 'U$ #.##0,00'
-    }];
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const columns = [
+    {
+      type: "number",
+      // Excel like token to format the currency input
+      mask: "U$ #.##0,00",
+    },
+  ];
 
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet}>
-            <Worksheet columns={columns} minDimensions={[6,6]} />
-        </Spreadsheet>
-    );
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet}>
+      <Worksheet columns={columns} minDimensions={[6, 6]} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
@@ -140,6 +158,7 @@ export default {
 };
 </script>
 ```
+
 ```angularjs
 @Component({
     standalone: true,
@@ -173,43 +192,51 @@ To use the `currency` style in Jspreadsheet, specify the `currency` property. Op
 ```html
 <div id="spreadsheet1"></div>
 <script>
-// India currency
-jspreadsheet(document.getElementById('spreadsheet1'), {
-    worksheets: [{
-        minDimensions: [6,6],
-        columns: [{
-            type: 'number',
+  // India currency
+  jspreadsheet(document.getElementById("spreadsheet1"), {
+    worksheets: [
+      {
+        minDimensions: [6, 6],
+        columns: [
+          {
+            type: "number",
             // Locale will enable number formatting
-            locale: 'en-IN',
+            locale: "en-IN",
             // Options for the number format class. You can find more about he options on the link above
-            options: { style:'currency', currency: 'INR' }
-        }]
-    }]
-});
+            options: { style: "currency", currency: "INR" },
+          },
+        ],
+      },
+    ],
+  });
 </script>
 ```
+
 ```jsx
 // India currency
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Columns
-    const columns = [{
-        type: 'number',
-        // Locale will enable number formatting
-        locale: 'en-IN',
-        // Options for the number format class. You can find more about he options on the link above
-        options: { style:'currency', currency: 'INR' }
-    }];
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Columns
+  const columns = [
+    {
+      type: "number",
+      // Locale will enable number formatting
+      locale: "en-IN",
+      // Options for the number format class. You can find more about he options on the link above
+      options: { style: "currency", currency: "INR" },
+    },
+  ];
 
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet}>
-            <Worksheet columns={columns} minDimensions={[6,6]} />
-        </Spreadsheet>
-    );
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet}>
+      <Worksheet columns={columns} minDimensions={[6, 6]} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
@@ -229,13 +256,15 @@ export default {
     Worksheet,
   },
   setup() {
-    const columns = ref([{
-        type: 'number',
+    const columns = ref([
+      {
+        type: "number",
         // Locale will enable number formatting
-        locale: 'en-IN',
+        locale: "en-IN",
         // Options for the number format class. You can find more about he options on the link above
-        options: { style:'currency', currency: 'INR' }
-    }]);
+        options: { style: "currency", currency: "INR" },
+      },
+    ]);
 
     return {
       columns,
@@ -244,6 +273,7 @@ export default {
 };
 </script>
 ```
+
 ```angularjs
 export class AppComponent {
     // Create a new data grid
@@ -270,27 +300,31 @@ export class AppComponent {
 Jspreadsheet supports custom masking through the `render` method, allowing you to customize cell content display.
 
 {.ignore}
+
 ```javascript
 jspreadsheet(DOMElement, {
-        tabs: true,
-        toolbar: true,
-        worksheets: [{
-            data: [['2022-01-01 12:14:12'],['=TODAY()']],
-            columns: [{
-                width: 300,
-                customFormat: 'MMMM Do YYYY, h:mm:ss a',
-                render: function(td, value, x, y, worksheet, options) {
-                    if (td && td.innerText && options.customFormat) {
-                        td.innerText = moment(td.innerText).format(options.customFormat);
-                    }
-                },
-                align: 'right',
-            }],
-            minDimensions: [4,8],
-        }]
-    });
+  tabs: true,
+  toolbar: true,
+  worksheets: [
+    {
+      data: [["2022-01-01 12:14:12"], ["=TODAY()"]],
+      columns: [
+        {
+          width: 300,
+          customFormat: "MMMM Do YYYY, h:mm:ss a",
+          render: function (td, value, x, y, worksheet, options) {
+            if (td && td.innerText && options.customFormat) {
+              td.innerText = moment(td.innerText).format(options.customFormat);
+            }
+          },
+          align: "right",
+        },
+      ],
+      minDimensions: [4, 8],
+    },
+  ],
+});
 ```
-
 
 ## Examples
 
@@ -302,176 +336,207 @@ See more examples of the [spreadsheet format](https://jsfiddle.net/spreadsheet/L
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-// Create a new spreadsheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    toolbar: true,
-    worksheets: [
+  <script>
+    // Create a new spreadsheet
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      toolbar: true,
+      worksheets: [
         {
-            minDimensions:[6, 10],
-            data: [
-                [1024,1024,0.24,1024,1024,1024],
-                [1000.456,1000.456,0.4155,1000.456,1000.456,1000.456],
-                ['547','547,98','7,98','547.98','547,98','547.98'],
-            ],
-            columns: [
-                {
-                    title:"Currency INR",
-                    type: "number",
-                    locale: 'en-IN',
-                    options: { style:'currency', currency: 'INR' } },
-                {
-                    title: "Currency BRL",
-                    type: "number",
-                    locale: 'pt-BR',
-                    options: { style: 'currency', currency: 'BRL' } },
-                {
-                    title: "Percent US",
-                    type: "number",
-                    mask: "0.00%" },
-                {
-                    title: "Units Liter US",
-                    type: "number",
-                    locale: 'en-US',
-                    options: { style: 'unit', unit: 'liter', unitDisplay: 'long' } },
-                {
-                    type: "number",
-                    format: '#.##0,00'
-                },
-                {
-                    type: "number",
-                    mask: '#,##0'
-                },
-            ],
-            defaultColWidth: '110px',
-        }
-    ]
-});
-</script>
+          minDimensions: [6, 10],
+          data: [
+            [1024, 1024, 0.24, 1024, 1024, 1024],
+            [1000.456, 1000.456, 0.4155, 1000.456, 1000.456, 1000.456],
+            ["547", "547,98", "7,98", "547.98", "547,98", "547.98"],
+          ],
+          columns: [
+            {
+              title: "Currency INR",
+              type: "number",
+              locale: "en-IN",
+              options: { style: "currency", currency: "INR" },
+            },
+            {
+              title: "Currency BRL",
+              type: "number",
+              locale: "pt-BR",
+              options: { style: "currency", currency: "BRL" },
+            },
+            {
+              title: "Percent US",
+              type: "number",
+              mask: "0.00%",
+            },
+            {
+              title: "Units Liter US",
+              type: "number",
+              locale: "en-US",
+              options: { style: "unit", unit: "liter", unitDisplay: "long" },
+            },
+            {
+              type: "number",
+              format: "#.##0,00",
+            },
+            {
+              type: "number",
+              mask: "#,##0",
+            },
+          ],
+          defaultColWidth: "110px",
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet-ce/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
-
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        [1024,1024,0.24,1024,1024,1024],
-        [1000.456,1000.456,0.4155,1000.456,1000.456,1000.456],
-        ['547','547,98','7,98','547.98','547,98','547.98'],
-    ];
-    // Columns
-    const columns = [
-        {
-            title:"Currency INR",
-            type: "number",
-            locale: 'en-IN',
-            options: { style:'currency', currency: 'INR' } },
-        {
-            title: "Currency BRL",
-            type: "number",
-            locale: 'pt-BR',
-            options: { style: 'currency', currency: 'BRL' } },
-        {
-            title: "Percent US",
-            type: "number",
-            mask: "0.00%" },
-        {
-            title: "Units Liter US",
-            type: "number",
-            locale: 'en-US',
-            options: { style: 'unit', unit: 'liter', unitDisplay: 'long' } },
-        {
-            type: "number",
-            format: '#.##0,00'
-        },
-        {
-            type: "number",
-            mask: '#,##0'
-        }
-    ];
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [
+    [1024, 1024, 0.24, 1024, 1024, 1024],
+    [1000.456, 1000.456, 0.4155, 1000.456, 1000.456, 1000.456],
+    ["547", "547,98", "7,98", "547.98", "547,98", "547.98"],
+  ];
+  // Columns
+  const columns = [
+    {
+      title: "Currency INR",
+      type: "number",
+      locale: "en-IN",
+      options: { style: "currency", currency: "INR" },
+    },
+    {
+      title: "Currency BRL",
+      type: "number",
+      locale: "pt-BR",
+      options: { style: "currency", currency: "BRL" },
+    },
+    {
+      title: "Percent US",
+      type: "number",
+      mask: "0.00%",
+    },
+    {
+      title: "Units Liter US",
+      type: "number",
+      locale: "en-US",
+      options: { style: "unit", unit: "liter", unitDisplay: "long" },
+    },
+    {
+      type: "number",
+      format: "#.##0,00",
+    },
+    {
+      type: "number",
+      mask: "#,##0",
+    },
+  ];
 
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet} toolbar>
-            <Worksheet data={data} columns={columns} minDimensions={[6,10]} defaultColWidth="110px" />
-        </Spreadsheet>
-    );
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet} toolbar>
+      <Worksheet
+        data={data}
+        columns={columns}
+        minDimensions={[6, 10]}
+        defaultColWidth="110px"
+      />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
-      <Worksheet :data="data" :columns="columns" :minDimensions="[6,10]" defaultColWidth="110px" />
+    <Worksheet
+      :data="data"
+      :columns="columns"
+      :minDimensions="[6, 10]"
+      defaultColWidth="110px"
+    />
   </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
 
 // Data
 const data = ref([
-  [1024,1024,0.24,1024,1024,1024],
-  [1000.456,1000.456,0.4155,1000.456,1000.456,1000.456],
-  ['547','547,98','7,98','547.98','547,98','547.98'],
+  [1024, 1024, 0.24, 1024, 1024, 1024],
+  [1000.456, 1000.456, 0.4155, 1000.456, 1000.456, 1000.456],
+  ["547", "547,98", "7,98", "547.98", "547,98", "547.98"],
 ]);
 
 // Columns
 const columns = ref([
   {
-      title:"Currency INR",
-      type: "number",
-      locale: 'en-IN',
-      options: { style:'currency', currency: 'INR' } 
+    title: "Currency INR",
+    type: "number",
+    locale: "en-IN",
+    options: { style: "currency", currency: "INR" },
   },
   {
-      title: "Currency BRL",
-      type: "number",
-      locale: 'pt-BR',
-      options: { style: 'currency', currency: 'BRL' } 
+    title: "Currency BRL",
+    type: "number",
+    locale: "pt-BR",
+    options: { style: "currency", currency: "BRL" },
   },
   {
-      title: "Percent US",
-      type: "number",
-      mask: "0.00%" 
+    title: "Percent US",
+    type: "number",
+    mask: "0.00%",
   },
   {
-      title: "Units Liter US",
-      type: "number",
-      locale: 'en-US',
-      options: { style: 'unit', unit: 'liter', unitDisplay: 'long' } 
+    title: "Units Liter US",
+    type: "number",
+    locale: "en-US",
+    options: { style: "unit", unit: "liter", unitDisplay: "long" },
   },
   {
-      type: "number",
-      format: '#.##0,00'
+    type: "number",
+    format: "#.##0,00",
   },
   {
-      type: "number",
-      mask: '#,##0'
-  }
+    type: "number",
+    mask: "#,##0",
+  },
 ]);
 
 const spreadsheet = ref(null);
 </script>
 ```
+
 ```angularjs
 @Component({
     selector: "app-root",
@@ -534,43 +599,59 @@ The example below demonstrates how to apply a mask to a cell using MomentJS.
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-// Create a new spreadsheet
-const customRender = function(td, value, x, y, instance, options) {
-    if (td && td.innerText && options.customFormat) {
+  <script>
+    // Create a new spreadsheet
+    const customRender = function (td, value, x, y, instance, options) {
+      if (td && td.innerText && options.customFormat) {
         td.innerText = moment(td.innerText).format(options.customFormat);
-    }
-}
+      }
+    };
 
-// Create the spreadsheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    tabs: true,
-    toolbar: true,
-    worksheets: [{
-        data: [['2022-01-01 12:14:12'],['=TODAY()']],
-        columns: [{
-            width: 300,
-            customFormat: 'MMMM Do YYYY, h:mm:ss a',
-            render: customRender,
-            align: 'right',
-        }],
-        minDimensions: [4,8],
-    }],
-});
-</script>
+    // Create the spreadsheet
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      tabs: true,
+      toolbar: true,
+      worksheets: [
+        {
+          data: [["2022-01-01 12:14:12"], ["=TODAY()"]],
+          columns: [
+            {
+              width: 300,
+              customFormat: "MMMM Do YYYY, h:mm:ss a",
+              render: customRender,
+              align: "right",
+            },
+          ],
+          minDimensions: [4, 8],
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet-ce/react";
@@ -579,38 +660,41 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 // Create a new spreadsheet
-const customRender = function(td, value, x, y, instance, options) {
-    if (td && td.innerText && options.customFormat) {
-        td.innerText = moment(td.innerText).format(options.customFormat);
-    }
-}
+const customRender = function (td, value, x, y, instance, options) {
+  if (td && td.innerText && options.customFormat) {
+    td.innerText = moment(td.innerText).format(options.customFormat);
+  }
+};
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [['2022-01-01 12:14:12'],['=TODAY()']];
-    // Columns
-    const columns = [{
-        width: 300,
-        customFormat: 'MMMM Do YYYY, h:mm:ss a',
-        render: customRender,
-        align: 'right',
-    }]
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [["2022-01-01 12:14:12"], ["=TODAY()"]];
+  // Columns
+  const columns = [
+    {
+      width: 300,
+      customFormat: "MMMM Do YYYY, h:mm:ss a",
+      render: customRender,
+      align: "right",
+    },
+  ];
 
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet}>
-            <Worksheet data={data} columns={columns} minDimensions={[4,8]} />
-        </Spreadsheet>
-    );
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet}>
+      <Worksheet data={data} columns={columns} minDimensions={[4, 8]} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet">
-        <Worksheet :data="data" :columns="columns" />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheet">
+    <Worksheet :data="data" :columns="columns" />
+  </Spreadsheet>
 </template>
 
 <script>
@@ -621,39 +705,37 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    setup() {
-        // Data
-        const data = ref([
-            ['2022-01-01 12:14:12'],
-            ['=TODAY()']
-        ]);
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  setup() {
+    // Data
+    const data = ref([["2022-01-01 12:14:12"], ["=TODAY()"]]);
 
-        // Columns
-        const columns = ref([
-            {
-                width: 300,
-                customFormat: 'MMMM Do YYYY, h:mm:ss a',
-                render: (td, value, x, y, instance, options) => {
-                    if (td && td.innerText && options.customFormat) {
-                        td.innerText = moment(td.innerText).format(options.customFormat);
-                    }
-                },
-                align: 'right',
-            }
-        ]);
+    // Columns
+    const columns = ref([
+      {
+        width: 300,
+        customFormat: "MMMM Do YYYY, h:mm:ss a",
+        render: (td, value, x, y, instance, options) => {
+          if (td && td.innerText && options.customFormat) {
+            td.innerText = moment(td.innerText).format(options.customFormat);
+          }
+        },
+        align: "right",
+      },
+    ]);
 
-        return {
-            data,
-            columns,
-        };
-    }
+    return {
+      data,
+      columns,
+    };
+  },
 };
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -698,4 +780,3 @@ export class AppComponent {
     }
 }
 ```
- 

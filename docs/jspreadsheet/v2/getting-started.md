@@ -15,77 +15,78 @@ There are three ways to load data into your spreadsheet. Using the parameter _da
 ### Loading from a javascript array
 
 ```html
-<div id='my-spreadsheet'></div>
-    
-<script>
-let data = [
-    ['Mazda', 2001, 2000],
-    ['Peugeot', 2010, 5000],
-    ['Honda Fit', 2009, 3000],
-    ['Honda CRV', 2010, 6000],
-];
+<div id="my-spreadsheet"></div>
 
-$('#my-spreadsheet').jexcel({
-    data:data,
-    colHeaders: ['Model', 'Price', 'Price' ],
-    colWidths: [ 300, 80, 100 ]
-});
+<script>
+  let data = [
+    ["Mazda", 2001, 2000],
+    ["Peugeot", 2010, 5000],
+    ["Honda Fit", 2009, 3000],
+    ["Honda CRV", 2010, 6000],
+  ];
+
+  $("#my-spreadsheet").jexcel({
+    data: data,
+    colHeaders: ["Model", "Price", "Price"],
+    colWidths: [300, 80, 100],
+  });
 </script>
 ```
 
 ### Loading from a JSON file
 
 {.ignore}
+
 ```html
-<div id='my-spreadsheet'></div>
+<div id="my-spreadsheet"></div>
 
 <script>
-$('#my-spreadsheet').jexcel({
-    url:'/jspreadsheet/json',
-    colHeaders: ['Model', 'Price', 'Price' ],
-    colWidths: [ 300, 80, 100 ]
-});
+  $("#my-spreadsheet").jexcel({
+    url: "/jspreadsheet/json",
+    colHeaders: ["Model", "Price", "Price"],
+    colWidths: [300, 80, 100],
+  });
 </script>
 ```
 
 ### Loading from a CSV file
 
 {.ignore}
+
 ```html
-<div id='my-spreadsheet'></div>
+<div id="my-spreadsheet"></div>
 
 <script>
-$('#my-spreadsheet').jexcel({
+  $("#my-spreadsheet").jexcel({
     // URL from the CSV file
-    csv:'/jspreadsheet/csv',
+    csv: "/jspreadsheet/csv",
     // Get the first of the CSV file and consider the headers
     csvHeaders: true,
     // Default column widths
-    colWidths: [ 300, 80, 100 ]
-});
+    colWidths: [300, 80, 100],
+  });
 </script>
 ```
 
 [See a working example](/jspreadsheet/v2/examples/creating-a-table-from-an-external-csv-file)
-
-  
 
 ## Destroying a table
 
 You can destroy the table, all data and events related to an existing table by using the method _destroy_ as shown below.
 
 {.ignore}
+
 ```html
 <script>
-// Create the table
-$('#my').jexcel({
-    csv:'/jspreadsheet/csv',
-    csvHeaders:true,
-    colWidths: [70, 200, 300],
-});
+  // Create the table
+  $("#my").jexcel({
+    csv: "/jspreadsheet/csv",
+    csvHeaders: true,
+    colWidths: [70, 200, 300],
+  });
 
-// Destroy the table
-$('#my').jexcel('destroy');
+  // Destroy the table
+  $("#my").jexcel("destroy");
 </script>
 ```
 
@@ -94,11 +95,12 @@ $('#my').jexcel('destroy');
 If you do not define the column title, the default will be the use of a letter, just as any other spreadsheet software. But, if you would like to have custom column names you can use the directive colHeaders:
 
 {.ignore}
+
 ```javascript
-$('#my').jexcel({
-    data:data,
-    colHeaders: ['Model', 'Price', 'Price', 'Date'],
-    colWidths: [ 300, 80, 100, 100 ],
+$("#my").jexcel({
+  data: data,
+  colHeaders: ["Model", "Price", "Price", "Date"],
+  colWidths: [300, 80, 100, 100],
 });
 ```
 
@@ -115,17 +117,18 @@ The javascript spreadsheet has available some extra native column types in addit
 In the example below, you will have text, numeric inputs and a calendar picker. But, other native options will be available such as: _**text, numeric, hidden, dropdown, autocomplete, checkbox, calendar.**_
 
 {.ignore}
+
 ```javascript
-$('#my').jexcel({
-    data:data,
-    colHeaders: ['Model', 'Date', 'Price', 'Date'],
-    colWidths: [ 300, 80, 100, 100 ],
-    columns: [
-        { type: 'text' },
-        { type: 'numeric' },
-        { type: 'numeric' },
-        { type: 'calendar', options: { format:'DD/MM/YYYY' } },
-    ]
+$("#my").jexcel({
+  data: data,
+  colHeaders: ["Model", "Date", "Price", "Date"],
+  colWidths: [300, 80, 100, 100],
+  columns: [
+    { type: "text" },
+    { type: "numeric" },
+    { type: "numeric" },
+    { type: "calendar", options: { format: "DD/MM/YYYY" } },
+  ],
 });
 ```
 
@@ -134,18 +137,19 @@ $('#my').jexcel({
 When using the calendar column, you can change the behavior behavior of your calendar by sending some extra options as example above. The possible values are:
 
 {.ignore}
+
 ```javascript
 let defaults = {
-    format:'DD/MM/YYYY', // Date format
-    readonly:0,          // Readonly input
-    today:0,             // Default as today
-    time:0,              // Show time picker
-    clear:1,             // Clear buttom
-    mask:1,              // Mask calendar
+  format: "DD/MM/YYYY", // Date format
+  readonly: 0, // Readonly input
+  today: 0, // Default as today
+  time: 0, // Show time picker
+  clear: 1, // Clear buttom
+  mask: 1, // Mask calendar
 };
 ```
 
-[See a working example](/jspreadsheet/v2/examples/using-a-calendar-column-type)  
+[See a working example](/jspreadsheet/v2/examples/using-a-calendar-column-type)
 
 ### Dropdown and autocomplete type
 
@@ -154,6 +158,7 @@ There are different ways to work with dropdowns in Jspreadsheet. It is possible 
 The autocomplete drowndown has the same configuration inputs, and both can be used as follow:
 
 {.ignore}
+
 ```javascript
 let data = [
     ['Honda', 1, 'Civic', '4'],
@@ -182,84 +187,83 @@ Jspreadsheet makes possible to extend third party jquery plugins to create your 
 following.
 
 {.ignore}
+
 ```javascript
 let customEditor = {
-    // Methods
-    closeEditor : function(cell, save) {
-        // Get value
-        var value = $(cell).find('.editor').spectrum('get').toHexString();
+  // Methods
+  closeEditor: function (cell, save) {
+    // Get value
+    var value = $(cell).find(".editor").spectrum("get").toHexString();
 
-        // Set visual value
-        $(cell).html(value);
-        $(cell).css('color', value);
+    // Set visual value
+    $(cell).html(value);
+    $(cell).css("color", value);
 
-        // Close edition
-        $(cell).removeClass('edition');
-    },
-    openEditor : function(cell) {
-        var main = this;
-        // Get current content
-        var html = $(cell).html();
+    // Close edition
+    $(cell).removeClass("edition");
+  },
+  openEditor: function (cell) {
+    var main = this;
+    // Get current content
+    var html = $(cell).html();
 
-        // Basic editor
-        var editor = document.createElement('div');
-        $(cell).html(editor);
-        $(editor).prop('class', 'editor');
-        $(editor).spectrum({ color:html, preferredFormat:'hex', hide: function(color) {
-            main.closeEditor($(cell), true);
-        }});
-        $(editor).spectrum('show');
-    },
-    getValue : function(cell) {
-        return $(cell).html();
-    },
-    setValue : function(cell, value) {
-        $(cell).html(value);
-        $(cell).css('color', value);
-        return true;
-    }
-}
+    // Basic editor
+    var editor = document.createElement("div");
+    $(cell).html(editor);
+    $(editor).prop("class", "editor");
+    $(editor).spectrum({
+      color: html,
+      preferredFormat: "hex",
+      hide: function (color) {
+        main.closeEditor($(cell), true);
+      },
+    });
+    $(editor).spectrum("show");
+  },
+  getValue: function (cell) {
+    return $(cell).html();
+  },
+  setValue: function (cell, value) {
+    $(cell).html(value);
+    $(cell).css("color", value);
+    return true;
+  },
+};
 
 let data = [
-    ['Google', '#542727'],
-    ['Yahoo', '#724f4f'],
-    ['Bing', '#b43131'],
+  ["Google", "#542727"],
+  ["Yahoo", "#724f4f"],
+  ["Bing", "#b43131"],
 ];
 
-$('#my').jexcel({
-    data:data,
-    colHeaders: [ 'Name', 'Custom color' ],
-    colWidths: [ 300, 200 ],
-    columns: [
-        { type: 'text' },
-        { type: 'text', editor:customEditor },
-    ]
+$("#my").jexcel({
+  data: data,
+  colHeaders: ["Name", "Custom color"],
+  colWidths: [300, 200],
+  columns: [{ type: "text" }, { type: "text", editor: customEditor }],
 });
 ```
 
 [See a working example](/jspreadsheet/v2/examples/integrating-a-third-party-plugin-into-your-spreadsheet)
-
-  
-  
 
 ## Define a minimum table dimension size.
 
 The follow example will create a data table with a minimum number of ten columns and five rows:
 
 {.ignore}
+
 ```javascript
 data3 = [
-    ['Mazda', 2001, 2000],
-    ['Peugeot', 2010, 5000],
-    ['Honda Fit', 2009, 3000],
-    ['Honda CRV', 2010, 6000],
+  ["Mazda", 2001, 2000],
+  ["Peugeot", 2010, 5000],
+  ["Honda Fit", 2009, 3000],
+  ["Honda CRV", 2010, 6000],
 ];
 
-$('#minExample').jexcel({
-    data:data3,
-    minDimensions:[10,5],
-    colHeaders: ['Model', 'Year', 'Price' ],
-    colWidths: [ 300, 80, 100 ]
+$("#minExample").jexcel({
+  data: data3,
+  minDimensions: [10, 5],
+  colHeaders: ["Model", "Year", "Price"],
+  colWidths: [300, 80, 100],
 });
 ```
-

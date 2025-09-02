@@ -15,6 +15,7 @@ This example demonstrates how to use the Jspreadsheet library into an Angular ap
 Add the following template to your app.component.html:
 
 {.ignore}
+
 ```html
 <div #spreadsheet></div>
 ```
@@ -24,6 +25,7 @@ Add the following template to your app.component.html:
 Here is the complete implementation for integrating Jspreadsheet with Angular:
 
 {.ignore}
+
 ```javascript
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -31,7 +33,7 @@ import jspreadsheet from "jspreadsheet-ce";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
   @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -42,13 +44,13 @@ export class AppComponent {
       data: [[]],
       columns: [
         { type: "dropdown", width: "100px", source: ["Y", "N"] },
-        { type: "color", width: "100px", render: "square" }
+        { type: "color", width: "100px", render: "square" },
       ],
-      minDimensions: [10, 10]
+      minDimensions: [10, 10],
     });
   }
 }
-```  
+```
 
 ### Angular Styles Configuration
 
@@ -57,4 +59,3 @@ To ensure the styles for Jspreadsheet are applied correctly, update the angular.
 ```json
 "styles": ["styles.css","./node_modules/jspreadsheet-ce/dist/jspreadsheet.css"],
 ```
-

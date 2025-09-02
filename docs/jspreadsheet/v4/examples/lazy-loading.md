@@ -10,47 +10,56 @@ The following table is dealing with 60.000 columns. The lazyloading method allow
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.css" type="text/css" />
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.css"
+    type="text/css"
+  />
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-jspreadsheet(document.getElementById('spreadsheet'), {
-    csv:'/jspreadsheet/demo1.csv',
-    csvHeaders:false,
-    tableOverflow:true,
-    lazyLoading:true,
-    loadingSpin:true,
-    columns: [
+  <script>
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      csv: "/jspreadsheet/demo1.csv",
+      csvHeaders: false,
+      tableOverflow: true,
+      lazyLoading: true,
+      loadingSpin: true,
+      columns: [
         {
-            type:'text',
-            width:200,
-            title:'Name'
+          type: "text",
+          width: 200,
+          title: "Name",
         },
         {
-            type:'dropdown',
-            width:100,
-            title:'Age',
-            source:[
+          type: "dropdown",
+          width: 100,
+          title: "Age",
+          source: [
             {
-                id:1,name:'Male'
+              id: 1,
+              name: "Male",
             },
             {
-                id:2,
-                name:'Female'
-            }]
+              id: 2,
+              name: "Female",
+            },
+          ],
         },
         {
-            type:'text',
-            width:200,
-            title:'City'
+          type: "text",
+          width: 200,
+          title: "City",
         },
-     ]
-});    
-</script>
+      ],
+    });
+  </script>
 </html>
 ```
-

@@ -14,47 +14,58 @@ To apply comments via javascript, you can use the methods setComments or getComm
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v3/jexcel.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v3/jexcel.css" type="text/css" />
-<script src="https://jsuites.net/v3/jsuites.js"></script>
-<link rel="stylesheet" href="https://jsuites.net/v3/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v3/jexcel.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v3/jexcel.css"
+    type="text/css"
+  />
+  <script src="https://jsuites.net/v3/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v3/jsuites.css"
+    type="text/css"
+  />
 
-<div id="spreadsheet"></div><br/>
+  <div id="spreadsheet"></div>
+  <br />
 
-<input type="button" id="setComments" value="Set A1 comments" />
-<input type="button" id="getComments" value="Get A1 comments" />
-<input type="button" id="resetComments" value="Reset A1 comments" />
+  <input type="button" id="setComments" value="Set A1 comments" />
+  <input type="button" id="getComments" value="Get A1 comments" />
+  <input type="button" id="resetComments" value="Reset A1 comments" />
 
-<script>
-let table = jexcel(document.getElementById('spreadsheet'), {
-    data: [
-        ['US', 'Cheese', '2019-02-12'],
-        ['CA', 'Apples', '2019-03-01'],
-        ['CA', 'Carrots', '2018-11-10'],
-        ['BR', 'Oranges', '2019-01-12'],
-    ],
-    columns: [
+  <script>
+    let table = jexcel(document.getElementById("spreadsheet"), {
+      data: [
+        ["US", "Cheese", "2019-02-12"],
+        ["CA", "Apples", "2019-03-01"],
+        ["CA", "Carrots", "2018-11-10"],
+        ["BR", "Oranges", "2019-01-12"],
+      ],
+      columns: [
         {
-            type: 'dropdown',
-            source: ['BR', 'US', 'CA'],
-            width:200,
+          type: "dropdown",
+          source: ["BR", "US", "CA"],
+          width: 200,
         },
         {
-            type: 'text',
-            width:200,
+          type: "text",
+          width: 200,
         },
         {
-            type: 'calendar',
-            width:200,
-        }
-     ],
-     allowComments:true,
-});
+          type: "calendar",
+          width: 200,
+        },
+      ],
+      allowComments: true,
+    });
 
-document.getElementById("setComments").onclick = () => table.setComments('A1', 'This is the comments from A1');
-document.getElementById("getComments").onclick = () => alert(table.getComments('A1'));
-document.getElementById("resetComments").onclick = () => table.setComments('A1', '');
-</script>
+    document.getElementById("setComments").onclick = () =>
+      table.setComments("A1", "This is the comments from A1");
+    document.getElementById("getComments").onclick = () =>
+      alert(table.getComments("A1"));
+    document.getElementById("resetComments").onclick = () =>
+      table.setComments("A1", "");
+  </script>
 </html>
 ```
-

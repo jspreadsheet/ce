@@ -7,7 +7,7 @@ canonical: https://bossanova.uk/jspreadsheet/sponsors
 
 The most recent sponsors:
 
-![](https://www.fdl-lef.org/FDL-Logo.Colorised.Forest?format=png)  
+![](https://www.fdl-lef.org/FDL-Logo.Colorised.Forest?format=png)
 
 **FDL - Fonds de Dotation du Libre - Libre Endowment Fund**
 
@@ -19,4 +19,4 @@ FDL works in synergy with its sister non-profit organization, "AWL" (Action pour
 
 **Initiative Tree**
 
-**Market Control**  
+**Market Control**
