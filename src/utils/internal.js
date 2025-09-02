@@ -10,8 +10,7 @@ import { updatePagination } from './pagination.js';
 import { setFooter } from './footer.js';
 import { getColumnNameFromId, getIdFromColumnName } from './internalHelpers.js';
 import formulasTranslater from './formulasTranslater.json';
-const locale =
-  (navigator.language || navigator.userLanguage).replace("-", "_") || "en_US";
+const locale = (navigator.language || navigator.userLanguage).replace('-', '_') || 'en_US';
 export const updateTable = function () {
     const obj = this;
 
@@ -73,7 +72,6 @@ export const updateTable = function () {
     }, 0);
 };
 
-
 /**
  * Trying to extract a number from a string
  */
@@ -114,11 +112,11 @@ const parseNumber = function (value, columnNumber) {
  * @returns
  */
 function translateFormula(formula) {
-  const dict = formulasTranslater[locale] || {};
-  return formula.replace(/^=([A-ZÉÈÀÙÂÊÎÔÛÇ]+)\s*\(/i, function (match, p1) {
-    const fn = dict[p1.toUpperCase()];
-    return fn ? "=" + fn + "(" : match;
-  });
+    const dict = formulasTranslater[locale] || {};
+    return formula.replace(/^=([A-ZÉÈÀÙÂÊÎÔÛÇ]+)\s*\(/i, function (match, p1) {
+        const fn = dict[p1.toUpperCase()];
+        return fn ? '=' + fn + '(' : match;
+    });
 }
 
 /**
