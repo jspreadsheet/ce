@@ -339,30 +339,82 @@ export const openEditor = function (cell, empty, e) {
         }
         // Add handler for clicking another cell while editing --- Jean-Claude Lhote ---
 setTimeout(() => {
-    const editorEl = cell.querySelector('input, textarea');
-    if (editorEl) {
-        const table = obj.element;
-        // delete old handler if any
-        if (table._cellRefHandler) {
-            table.removeEventListener('mousedown', table._cellRefHandler, true);
-            table._cellRefHandler = null;
-        }
-        // add new handler
-        table._cellRefHandler = function(ev) {
+  const editorEl = cell.querySelector('input, textarea');
+  if (editorEl) {
+    const table = obj.element;
+    // delete old handler if any
+    if (table._cellRefHandler) {
+      table.removeEventListener('mousedown', table._cellRefHandler, true);
+      table.removeEventListener('mousemove', table._cellRefHandlerMouseMove, true);
+      table.removeEventListener('mouseup', table._cellRefHandlerMouseUp, true);
+      table._cellRefHandler = null;
+      table._cellRefHandlerMouseMove = null;
+      table._cellRefHandlerMouseUp = null;
+    }
+    let dragStartRef = null;
+    let dragStartPos = null;
+    let initialValue = null;
+    let initialSelectionStart = null;
+    let initialSelectionEnd = null;
+    // Handler mousedown : début du drag
+    table._cellRefHandler = function(ev) {
       const targetCell = ev.target.closest('[data-x][data-y]');
-      if (targetCell && targetCell !== cell && cell.classList.contains('editor')) {
+      if (targetCell && cell.classList.contains('editor')) {
         ev.stopImmediatePropagation();
         ev.preventDefault();
-        const ref = getCellNameFromCoords(targetCell.getAttribute('data-x'), targetCell.getAttribute('data-y'));
-        const start = editorEl.selectionStart;
-        const end = editorEl.selectionEnd;
-        const val = editorEl.value;
-        editorEl.value = val.slice(0, start) + ref + val.slice(end);
-        editorEl.selectionStart = editorEl.selectionEnd = start + ref.length;
+        dragStartRef = getCellNameFromCoords(targetCell.getAttribute('data-x'), targetCell.getAttribute('data-y'));
+        dragStartPos = { x: targetCell.getAttribute('data-x'), y: targetCell.getAttribute('data-y') };
+        initialValue = editorEl.value;
+        initialSelectionStart = editorEl.selectionStart;
+        initialSelectionEnd = editorEl.selectionEnd;
+        // On insère la ref de départ à la position du curseur
+        editorEl.value = initialValue.slice(0, initialSelectionStart) + dragStartRef + initialValue.slice(initialSelectionEnd);
+        editorEl.selectionStart = editorEl.selectionEnd = initialSelectionStart + dragStartRef.length;
         editorEl.focus();
       }
-        };
-        table.addEventListener('mousedown', table._cellRefHandler, true);
+    };
+    // Handler mousemove : ajoute ':' + ref de la cellule survolée
+    table._cellRefHandlerMouseMove = function(ev) {
+      if (dragStartRef && cell.classList.contains('editor') && ev.buttons === 1) {
+        const targetCell = ev.target.closest('[data-x][data-y]');
+        if (targetCell) {
+          const refMove = getCellNameFromCoords(targetCell.getAttribute('data-x'), targetCell.getAttribute('data-y'));
+          // On insère la plage à la position du curseur initial
+          let refPlage = dragStartRef;
+          if (refMove !== dragStartRef) {
+            refPlage = dragStartRef + ':' + refMove;
+          }
+          editorEl.value = initialValue.slice(0, initialSelectionStart) + refPlage + initialValue.slice(initialSelectionEnd);
+          editorEl.selectionStart = editorEl.selectionEnd = initialSelectionStart + refPlage.length;
+          editorEl.focus();
+        }
+      }
+    };
+    // Handler mouseup : finalise la saisie
+    table._cellRefHandlerMouseUp = function(ev) {
+      if (dragStartRef && cell.classList.contains('editor')) {
+        const targetCell = ev.target.closest('[data-x][data-y]');
+        let refEnd = dragStartRef;
+        if (targetCell) {
+          refEnd = getCellNameFromCoords(targetCell.getAttribute('data-x'), targetCell.getAttribute('data-y'));
+        }
+        let refPlage = dragStartRef;
+        if (refEnd !== dragStartRef) {
+          refPlage = dragStartRef + ':' + refEnd;
+        }
+        editorEl.value = initialValue.slice(0, initialSelectionStart) + refPlage + initialValue.slice(initialSelectionEnd);
+        editorEl.selectionStart = editorEl.selectionEnd = initialSelectionStart + refPlage.length;
+        editorEl.focus();
+        dragStartRef = null;
+        dragStartPos = null;
+        initialValue = null;
+        initialSelectionStart = null;
+        initialSelectionEnd = null;
+      }
+    };
+    table.addEventListener('mousedown', table._cellRefHandler, true);
+    table.addEventListener('mousemove', table._cellRefHandlerMouseMove, true);
+    table.addEventListener('mouseup', table._cellRefHandlerMouseUp, true);
     }
 }, 0);
         dispatch.call(
