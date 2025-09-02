@@ -14,68 +14,91 @@ But, after the initialization is still possible to manage the cell style program
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v4/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-let table = jspreadsheet(document.getElementById('spreadsheet'), {
-    data: [
-        ['US', 'Cheese', 'Yes', '2019-02-12'],
-        ['CA;US;UK', 'Apples', 'Yes', '2019-03-01'],
-        ['CA;BR', 'Carrots', 'No', '2018-11-10'],
-        ['BR', 'Oranges', 'Yes', '2019-01-12'],
-    ],
-    columns: [
+  <script>
+    let table = jspreadsheet(document.getElementById("spreadsheet"), {
+      data: [
+        ["US", "Cheese", "Yes", "2019-02-12"],
+        ["CA;US;UK", "Apples", "Yes", "2019-03-01"],
+        ["CA;BR", "Carrots", "No", "2018-11-10"],
+        ["BR", "Oranges", "Yes", "2019-01-12"],
+      ],
+      columns: [
         {
-            type: 'dropdown',
-            title: 'Product Origin',
-            width: 300,
-            url: '/jspreadsheet/countries', // Remote source for your dropdown
-            autocomplete: true,
-            multiple: true
+          type: "dropdown",
+          title: "Product Origin",
+          width: 300,
+          url: "/jspreadsheet/countries", // Remote source for your dropdown
+          autocomplete: true,
+          multiple: true,
         },
         {
-            type: 'text',
-            title: 'Description',
-            width: 200
+          type: "text",
+          title: "Description",
+          width: 200,
         },
         {
-            type: 'dropdown',
-            title: 'Stock',
-            width: 100 ,
-            source: ['No','Yes']
+          type: "dropdown",
+          title: "Stock",
+          width: 100,
+          source: ["No", "Yes"],
         },
         {
-            type: 'calendar',
-            title: 'Best before',
-            width: 100
+          type: "calendar",
+          title: "Best before",
+          width: 100,
         },
-    ],
-    style: {
-        A1:'background-color: orange;',
-        B1:'background-color: orange;',
-    },
-});
+      ],
+      style: {
+        A1: "background-color: orange;",
+        B1: "background-color: orange;",
+      },
+    });
 
-document.getElementById("setYellow").onclick = () => table.setStyle('A2', 'background-color', 'yellow');
-document.getElementById("setStyle").onclick = () => table.setStyle({ A3:'font-weight: bold; color:red;', B3:'background-color: yellow;', C3:'text-decoration: underline;', A4:'text-align:left;' });
-document.getElementById("getA1Style").onclick = () => document.getElementById('console').innerHTML = table.getStyle('A1');
-document.getElementById("getTableStyle").onclick = () => document.getElementById('console').innerHTML = JSON.stringify(table.getStyle());
-</script>
+    document.getElementById("setYellow").onclick = () =>
+      table.setStyle("A2", "background-color", "yellow");
+    document.getElementById("setStyle").onclick = () =>
+      table.setStyle({
+        A3: "font-weight: bold; color:red;",
+        B3: "background-color: yellow;",
+        C3: "text-decoration: underline;",
+        A4: "text-align:left;",
+      });
+    document.getElementById("getA1Style").onclick = () =>
+      (document.getElementById("console").innerHTML = table.getStyle("A1"));
+    document.getElementById("getTableStyle").onclick = () =>
+      (document.getElementById("console").innerHTML = JSON.stringify(
+        table.getStyle()
+      ));
+  </script>
 
-<br/>
+  <br />
 
-<p><textarea id='console' style='width:100%;max-width:600px;height:100px;'></textarea></p>
+  <p>
+    <textarea
+      id="console"
+      style="width:100%;max-width:600px;height:100px;"
+    ></textarea>
+  </p>
 
-<br/>
-<button type="button" id="setYellow">Set A2 background</button>
-<button type="button" id="setStyle">Change A3, B3, C3, A4 style</button>
-<button type="button" id="getA1Style">Get A1 style</button>
-<button type="button" id="getTableStyle">Get the table style</button>
+  <br />
+  <button type="button" id="setYellow">Set A2 background</button>
+  <button type="button" id="setStyle">Change A3, B3, C3, A4 style</button>
+  <button type="button" id="getA1Style">Get A1 style</button>
+  <button type="button" id="getTableStyle">Get the table style</button>
 </html>
 ```
-

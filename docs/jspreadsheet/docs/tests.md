@@ -34,24 +34,25 @@ npm install jspreadsheet-ce@5.0.0-beta.3
 Create or edit the `mocha.config.js` file in the project root to configure Mocha and emulate the browser environment using JSDOM.
 
 {.ignore}
+
 ```javascript
 #! /usr/bin/env node
 
-require('jsdom-global')(undefined, { url: 'https://localhost' });
-const jspreadsheet = require('jspreadsheet');
+require("jsdom-global")(undefined, { url: "https://localhost" });
+const jspreadsheet = require("jspreadsheet");
 
 global.jspreadsheet = jspreadsheet;
 
-global.root = document.createElement('div');
-global.root.style.width = '100%';
-global.root.style.height = '100%';
+global.root = document.createElement("div");
+global.root.style.width = "100%";
+global.root.style.height = "100%";
 document.body.appendChild(global.root);
 
 exports.mochaHooks = {
-    afterEach(done) {
-        jspreadsheet.destroyAll();
-        done();
-    },
+  afterEach(done) {
+    jspreadsheet.destroyAll();
+    done();
+  },
 };
 ```
 
@@ -60,8 +61,9 @@ exports.mochaHooks = {
 Inside the `test` folder, create a file named `data.js`:
 
 {.ignore}
+
 ```javascript
-const { expect } = require('chai');
+const { expect } = require("chai");
 
 describe("Data", () => {
   it("Testing data", () => {
@@ -74,7 +76,7 @@ describe("Data", () => {
             ["Honda Fit", 2009, 3000],
             ["Honda CRV", 2010, 6000],
           ],
-          minDimensions: [4, 4]
+          minDimensions: [4, 4],
         },
       ],
     });
@@ -93,4 +95,3 @@ After writing your tests, you can run them with the following command:
 ```bash
 npm run test
 ```
-

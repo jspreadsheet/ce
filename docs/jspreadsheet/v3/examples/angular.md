@@ -11,6 +11,7 @@ description: A full example on how to integrate Jspreadsheet with Angular
 ### Source code
 
 {.ignore}
+
 ```javascript
 import { Component } from "@angular/core";
 import * as jexcel from "jexcel";
@@ -20,7 +21,7 @@ require("jexcel/dist/jexcel.css");
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
   title = "CodeSandbox";
@@ -30,11 +31,10 @@ export class AppComponent {
       data: [[]],
       columns: [
         { type: "dropdown", width: "100px", source: ["Y", "N"] },
-        { type: "color", width: "100px", render: "square" }
+        { type: "color", width: "100px", render: "square" },
       ],
-      minDimensions: [10, 10]
+      minDimensions: [10, 10],
     });
   }
 }
 ```
-

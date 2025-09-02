@@ -6,7 +6,6 @@ description: Learn to enhance Jspreadsheet data grids with hierarchical column h
 
 This section covers creating spreadsheets with nested headers.
 
-
 ## Documentation
 
 ### Initial Settings
@@ -14,9 +13,8 @@ This section covers creating spreadsheets with nested headers.
 Learn how to generate a new spreadsheet containing nested headers.
 
 | Property                                                                               | Description                          |
-|----------------------------------------------------------------------------------------|--------------------------------------|
+| -------------------------------------------------------------------------------------- | ------------------------------------ |
 | `nestedHeaders: { id?: string, colspan?: number; title?: string; align?: string;}[][]` | Worksheet nested header definitions. |
-
 
 ## Examples
 
@@ -26,77 +24,90 @@ The example below demonstrates a basic configuration for nested headers in a JSS
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
+  <div id="spreadsheet"></div>
 
-<div id="spreadsheet"></div>
-
-<script>
-// Create the spreadsheet
-let table = jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        data: [
-            ['BR', 'Cheese', 1],
-            ['CA', 'Apples', 0],
-            ['US', 'Carrots', 1],
-            ['GB', 'Oranges', 0],
-        ],
-        columns: [
+  <script>
+    // Create the spreadsheet
+    let table = jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          data: [
+            ["BR", "Cheese", 1],
+            ["CA", "Apples", 0],
+            ["US", "Carrots", 1],
+            ["GB", "Oranges", 0],
+          ],
+          columns: [
             {
-                type: 'autocomplete',
-                title: 'Country',
-                width: '200px'
+              type: "autocomplete",
+              title: "Country",
+              width: "200px",
             },
             {
-                type: 'dropdown',
-                title: 'Food',
-                width: '100px',
-                source: ['Apples','Bananas','Carrots','Oranges','Cheese']
+              type: "dropdown",
+              title: "Food",
+              width: "100px",
+              source: ["Apples", "Bananas", "Carrots", "Oranges", "Cheese"],
             },
             {
-                type: 'checkbox',
-                title: 'Stock',
-                width: '100px'
+              type: "checkbox",
+              title: "Stock",
+              width: "100px",
             },
             {
-                type: 'number',
-                title: 'Price',
-                width: '100px'
+              type: "number",
+              title: "Price",
+              width: "100px",
             },
-        ],
-        minDimensions: [6,4],
-        nestedHeaders:[
+          ],
+          minDimensions: [6, 4],
+          nestedHeaders: [
             [
-                {
-                    title: 'Supermarket information',
-                    colspan: '6',
-                },
+              {
+                title: "Supermarket information",
+                colspan: "6",
+              },
             ],
             [
-                {
-                    title: 'Location',
-                    colspan: '1',
-                },
-                {
-                    title: ' Other Information',
-                    colspan: '2'
-                },
-                {
-                    title: ' Costs',
-                    colspan: '3'
-                }
+              {
+                title: "Location",
+                colspan: "1",
+              },
+              {
+                title: " Other Information",
+                colspan: "2",
+              },
+              {
+                title: " Costs",
+                colspan: "3",
+              },
             ],
-        ]
-    }]
-});
-</script>
+          ],
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -104,150 +115,157 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        ['BR', 'Cheese', 1],
-        ['CA', 'Apples', 0],
-        ['US', 'Carrots', 1],
-        ['GB', 'Oranges', 0],
-    ];
-    // Columns
-    const columns = [
-        {
-            type: 'autocomplete',
-            title: 'Country',
-            width: '200px'
-        },
-        {
-            type: 'dropdown',
-            title: 'Food',
-            width: '100px',
-            source: ['Apples','Bananas','Carrots','Oranges','Cheese']
-        },
-        {
-            type: 'checkbox',
-            title: 'Stock',
-            width: '100px'
-        },
-        {
-            type: 'number',
-            title: 'Price',
-            width: '100px'
-        },
-    ];
-    // Nested headers
-    const nestedHeaders = [
-        [
-            {
-                title: 'Supermarket information',
-                colspan: '8',
-            },
-        ],
-        [
-            {
-                title: 'Location',
-                colspan: '1',
-            },
-            {
-                title: ' Other Information',
-                colspan: '2'
-            },
-            {
-                title: ' Costs',
-                colspan: '5'
-            }
-        ],
-    ];
-    // Render component
-    return (
-        <>
-            <Spreadsheet ref={spreadsheet}>
-                <Worksheet data={data} columns={columns} nestedHeaders={nestedHeaders} minDimensions={[8,4]} />
-            </Spreadsheet>
-        </>
-    );
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [
+    ["BR", "Cheese", 1],
+    ["CA", "Apples", 0],
+    ["US", "Carrots", 1],
+    ["GB", "Oranges", 0],
+  ];
+  // Columns
+  const columns = [
+    {
+      type: "autocomplete",
+      title: "Country",
+      width: "200px",
+    },
+    {
+      type: "dropdown",
+      title: "Food",
+      width: "100px",
+      source: ["Apples", "Bananas", "Carrots", "Oranges", "Cheese"],
+    },
+    {
+      type: "checkbox",
+      title: "Stock",
+      width: "100px",
+    },
+    {
+      type: "number",
+      title: "Price",
+      width: "100px",
+    },
+  ];
+  // Nested headers
+  const nestedHeaders = [
+    [
+      {
+        title: "Supermarket information",
+        colspan: "8",
+      },
+    ],
+    [
+      {
+        title: "Location",
+        colspan: "1",
+      },
+      {
+        title: " Other Information",
+        colspan: "2",
+      },
+      {
+        title: " Costs",
+        colspan: "5",
+      },
+    ],
+  ];
+  // Render component
+  return (
+    <>
+      <Spreadsheet ref={spreadsheet}>
+        <Worksheet
+          data={data}
+          columns={columns}
+          nestedHeaders={nestedHeaders}
+          minDimensions={[8, 4]}
+        />
+      </Spreadsheet>
+    </>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
-      <Worksheet 
-          :data="data" 
-          :columns="columns" 
-          :nestedHeaders="nestedHeaders" 
-          :minDimensions="[8,4]" 
-      />
+    <Worksheet
+      :data="data"
+      :columns="columns"
+      :nestedHeaders="nestedHeaders"
+      :minDimensions="[8, 4]"
+    />
   </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
 
 // Data
 const data = ref([
-  ['BR', 'Cheese', 1],
-  ['CA', 'Apples', 0],
-  ['US', 'Carrots', 1],
-  ['GB', 'Oranges', 0],
+  ["BR", "Cheese", 1],
+  ["CA", "Apples", 0],
+  ["US", "Carrots", 1],
+  ["GB", "Oranges", 0],
 ]);
 
 // Columns
 const columns = ref([
   {
-      type: 'autocomplete',
-      title: 'Country',
-      width: '200px'
+    type: "autocomplete",
+    title: "Country",
+    width: "200px",
   },
   {
-      type: 'dropdown',
-      title: 'Food',
-      width: '100px',
-      source: ['Apples','Bananas','Carrots','Oranges','Cheese']
+    type: "dropdown",
+    title: "Food",
+    width: "100px",
+    source: ["Apples", "Bananas", "Carrots", "Oranges", "Cheese"],
   },
   {
-      type: 'checkbox',
-      title: 'Stock',
-      width: '100px'
+    type: "checkbox",
+    title: "Stock",
+    width: "100px",
   },
   {
-      type: 'number',
-      title: 'Price',
-      width: '100px'
+    type: "number",
+    title: "Price",
+    width: "100px",
   },
 ]);
 
 // Nested headers
 const nestedHeaders = ref([
   [
-      {
-          title: 'Supermarket information',
-          colspan: '8',
-      },
+    {
+      title: "Supermarket information",
+      colspan: "8",
+    },
   ],
   [
-      {
-          title: 'Location',
-          colspan: '1',
-      },
-      {
-          title: ' Other Information',
-          colspan: '2'
-      },
-      {
-          title: ' Costs',
-          colspan: '5'
-      }
+    {
+      title: "Location",
+      colspan: "1",
+    },
+    {
+      title: " Other Information",
+      colspan: "2",
+    },
+    {
+      title: " Costs",
+      colspan: "5",
+    },
   ],
 ]);
 
 const spreadsheet = ref(null);
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";

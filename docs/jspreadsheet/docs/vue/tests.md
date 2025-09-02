@@ -41,23 +41,23 @@ To integrate Jspreadsheet properly in a Jest testing environment, you'll need to
 ```javascript
 // jest.setup.js
 
-const jspreadsheet = require('jspreadsheet-ce');
+const jspreadsheet = require("jspreadsheet-ce");
 
-  // Code that runs before each test
+// Code that runs before each test
 beforeEach(() => {
-    if (typeof document !== 'undefined') {
-        jspreadsheet.destroyAll();
+  if (typeof document !== "undefined") {
+    jspreadsheet.destroyAll();
 
-        if (!global.jspreadsheet && !global.root) {
-            global.jspreadsheet = jspreadsheet;
+    if (!global.jspreadsheet && !global.root) {
+      global.jspreadsheet = jspreadsheet;
 
-            global.root = document.createElement('div');
-            global.root.style.width = '100%';
-            global.root.style.height = '100%';
+      global.root = document.createElement("div");
+      global.root.style.width = "100%";
+      global.root.style.height = "100%";
 
-            document.body.appendChild(global.root);
-        }
+      document.body.appendChild(global.root);
     }
+  }
 });
 ```
 
@@ -66,7 +66,7 @@ Next, configure Jest to use this setup by adding the following entry to your `pa
 ```json
 {
   "jest": {
-    "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"],
+    "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"]
   }
 }
 ```
@@ -85,23 +85,23 @@ Create a folder inside your project if it doesn't exist, then inside this folder
  */
 
 test("Testing data", () => {
-    let instance = jspreadsheet(root, {
-        worksheets: [
-            {
-                data: [
-                    ["Mazda", 2001, 2000],
-                    ["Peugeot", 2010, 5000],
-                    ["Honda Fit", 2009, 3000],
-                    ["Honda CRV", 2010, 6000],
-                ],
-                minDimensions: [4, 4],
-            },
+  let instance = jspreadsheet(root, {
+    worksheets: [
+      {
+        data: [
+          ["Mazda", 2001, 2000],
+          ["Peugeot", 2010, 5000],
+          ["Honda Fit", 2009, 3000],
+          ["Honda CRV", 2010, 6000],
         ],
-    });
+        minDimensions: [4, 4],
+      },
+    ],
+  });
 
-    expect(instance[0].getValue("A1", true)).toEqual("Mazda");
-    expect(instance[0].getValue("A2", true)).toEqual("Peugeot");
-    expect(instance[0].getValue("B1", true)).toEqual("2001");
+  expect(instance[0].getValue("A1", true)).toEqual("Mazda");
+  expect(instance[0].getValue("A2", true)).toEqual("Peugeot");
+  expect(instance[0].getValue("B1", true)).toEqual("2001");
 });
 ```
 

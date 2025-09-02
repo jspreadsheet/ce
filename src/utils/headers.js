@@ -8,11 +8,11 @@ import { getColumnName } from "./helpers.js";
  * @param column - column number (first column is: 0)
  * @param title - new column title
  */
-export const getHeader = function(column) {
-    const obj = this;
+export const getHeader = function (column) {
+  const obj = this;
 
-    return obj.headers[column].textContent;
-}
+  return obj.headers[column].textContent;
+};
 
 /**
  * Get the headers
@@ -21,16 +21,16 @@ export const getHeader = function(column) {
  * @return mixed
  */
 export const getHeaders = function (asArray) {
-    const obj = this;
+  const obj = this;
 
-    const title = [];
+  const title = [];
 
-    for (let i = 0; i < obj.headers.length; i++) {
-        title.push(obj.getHeader(i));
-    }
+  for (let i = 0; i < obj.headers.length; i++) {
+    title.push(obj.getHeader(i));
+  }
 
-    return asArray ? title : title.join(obj.options.csvDelimiter);
-}
+  return asArray ? title : title.join(obj.options.csvDelimiter);
+};
 
 /**
  * Set the column title
@@ -38,37 +38,48 @@ export const getHeaders = function (asArray) {
  * @param column - column number (first column is: 0)
  * @param title - new column title
  */
-export const setHeader = function(column, newValue) {
-    const obj = this;
+export const setHeader = function (column, newValue) {
+  const obj = this;
 
-    if (obj.headers[column]) {
-        const oldValue = obj.headers[column].textContent;
-        const onchangeheaderOldValue = (obj.options.columns && obj.options.columns[column] && obj.options.columns[column].title) || '';
+  if (obj.headers[column]) {
+    const oldValue = obj.headers[column].textContent;
+    const onchangeheaderOldValue =
+      (obj.options.columns &&
+        obj.options.columns[column] &&
+        obj.options.columns[column].title) ||
+      "";
 
-        if (! newValue) {
-            newValue = getColumnName(column);
-        }
-
-        obj.headers[column].textContent = newValue;
-        // Keep the title property
-        obj.headers[column].setAttribute('title', newValue);
-        // Update title
-        if (!obj.options.columns) {
-            obj.options.columns = [];
-        }
-        if (!obj.options.columns[column]) {
-            obj.options.columns[column] = {};
-        }
-        obj.options.columns[column].title = newValue;
-
-        setHistory.call(obj, {
-            action: 'setHeader',
-            column: column,
-            oldValue: oldValue,
-            newValue: newValue
-        });
-
-        // On onchange header
-        dispatch.call(obj, 'onchangeheader', obj, parseInt(column), newValue, onchangeheaderOldValue);
+    if (!newValue) {
+      newValue = getColumnName(column);
     }
-}
+
+    obj.headers[column].textContent = newValue;
+    // Keep the title property
+    obj.headers[column].setAttribute("title", newValue);
+    // Update title
+    if (!obj.options.columns) {
+      obj.options.columns = [];
+    }
+    if (!obj.options.columns[column]) {
+      obj.options.columns[column] = {};
+    }
+    obj.options.columns[column].title = newValue;
+
+    setHistory.call(obj, {
+      action: "setHeader",
+      column: column,
+      oldValue: oldValue,
+      newValue: newValue,
+    });
+
+    // On onchange header
+    dispatch.call(
+      obj,
+      "onchangeheader",
+      obj,
+      parseInt(column),
+      newValue,
+      onchangeheaderOldValue
+    );
+  }
+};

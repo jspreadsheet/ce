@@ -11,27 +11,40 @@ How to embed multiple spreadsheets in the same page.
 ## Source code
 
 {.ignore}
+
 ```html
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css"
+    type="text/css"
+  />
 
-<div id="my1"></div><br>
-<div id="my2"></div>
+  <div id="my1"></div>
+  <br />
+  <div id="my2"></div>
 
-<script>
-var data1 = $.fn.jexcel('helper', { action:'createEmptyData', cols:6, rows:10 });
-var data2 = $.fn.jexcel('helper', { action:'createEmptyData', cols:6, rows:10 });
+  <script>
+    var data1 = $.fn.jexcel("helper", {
+      action: "createEmptyData",
+      cols: 6,
+      rows: 10,
+    });
+    var data2 = $.fn.jexcel("helper", {
+      action: "createEmptyData",
+      cols: 6,
+      rows: 10,
+    });
 
-$('#my1').jexcel({
-    data:data1
-});
-$('#my2').jexcel({
-    data:data2
-});
-</script>
+    $("#my1").jexcel({
+      data: data1,
+    });
+    $("#my2").jexcel({
+      data: data2,
+    });
+  </script>
 </html>
 ```
-

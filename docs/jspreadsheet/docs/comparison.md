@@ -6,28 +6,28 @@ description: Explore a detailed comparison highlighting the key differences betw
 
 The main differences between the JSS distributions:
 
-| Package                                         |    CE distribution    |  Pro distribution   |  Pro distribution   |
-|-------------------------------------------------|:---------------------:|:-------------------:|:-------------------:|
-| Distribution                                    |        **CE**         |      **Base**       |     **Premium**     |
-| License                                         |      Free (MIT)       |      Required       |      Required       |
-| Spreadsheet-like formulas                       |          Yes          |      Advanced       |      Advanced       |
-| Copy and paste features                         |          Yes          |      Advanced       |      Advanced       |
-| Viewport                                        |     Lazy loading      |   Smart loading*    |   Smart loading*    |
-| Plugins support                                 |          Yes          |         Yes         |         Yes         |
-| Advance filtering and multiple column filtering |          No           |         Yes         |         Yes         |
-| Worksheets management                           |        Limited        |         Yes         |         Yes         |
-| Native persistence features                     |        Limited        |         Yes         |         Yes         |
-| Automatic formula update on copy and paste      |          No           |         Yes         |         Yes         |
-| Automatic formula update on corner copy         |          No           |         Yes         |         Yes         |
-| Formula returning DOM objects to cells.         |          No           |         Yes         |         Yes         |
-| Cell renderer                                   |          No           |         Yes         |         Yes         |
-| Editor definitions at a cell level              |          No           |         Yes         |         Yes         |
-| Cross worksheet calculations                    |          No           |         No          |         Yes         |
-| Native validations                              |          No           |         No          |         Yes         |
-| Column and row grouping                         |          No           |         No          |         Yes         |
-| Defined names (Range and variables)             |          No           |         No          |         Yes         |
-| Extensions                                      |          No           |         No          |         Yes         |
-| Formula Picker                                  |          No           |         No          |         Yes         |
+| Package                                         | CE distribution | Pro distribution | Pro distribution |
+| ----------------------------------------------- | :-------------: | :--------------: | :--------------: |
+| Distribution                                    |     **CE**      |     **Base**     |   **Premium**    |
+| License                                         |   Free (MIT)    |     Required     |     Required     |
+| Spreadsheet-like formulas                       |       Yes       |     Advanced     |     Advanced     |
+| Copy and paste features                         |       Yes       |     Advanced     |     Advanced     |
+| Viewport                                        |  Lazy loading   | Smart loading\*  | Smart loading\*  |
+| Plugins support                                 |       Yes       |       Yes        |       Yes        |
+| Advance filtering and multiple column filtering |       No        |       Yes        |       Yes        |
+| Worksheets management                           |     Limited     |       Yes        |       Yes        |
+| Native persistence features                     |     Limited     |       Yes        |       Yes        |
+| Automatic formula update on copy and paste      |       No        |       Yes        |       Yes        |
+| Automatic formula update on corner copy         |       No        |       Yes        |       Yes        |
+| Formula returning DOM objects to cells.         |       No        |       Yes        |       Yes        |
+| Cell renderer                                   |       No        |       Yes        |       Yes        |
+| Editor definitions at a cell level              |       No        |       Yes        |       Yes        |
+| Cross worksheet calculations                    |       No        |        No        |       Yes        |
+| Native validations                              |       No        |        No        |       Yes        |
+| Column and row grouping                         |       No        |        No        |       Yes        |
+| Defined names (Range and variables)             |       No        |        No        |       Yes        |
+| Extensions                                      |       No        |        No        |       Yes        |
+| Formula Picker                                  |       No        |        No        |       Yes        |
 
 ## More Details
 

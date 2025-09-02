@@ -13,36 +13,45 @@ Integrating Jspreadsheet with React
 ### Source code
 
 {.ignore}
+
 ```javascript
 class Jspreadsheet extends React.Component {
-        constructor(props) {
-            super(props);
-            this.options = props.options;
-        }
-    
-        componentDidMount = function() {
-            this.el = jexcel(ReactDOM.findDOMNode(this).children[0], this.options);
-        }
-    
-        addRow = function() {
-            this.el.insertRow();
-        }
-    
-        render() {
-            return (
-                <div>
-                    <div></div><br/><br/>
-                    <input type='button' value='Add new row' onClick={() => this.addRow()}></input>
-                </div>
-            );
-        }
-    }
-    
-    var options = {
-        data:[[]],
-        minDimensions:[10,10],
-    };
-    
-    ReactDOM.render(<Jspreadsheet options={options} />, document.getElementById('spreadsheet'))
-```
+  constructor(props) {
+    super(props);
+    this.options = props.options;
+  }
 
+  componentDidMount = function () {
+    this.el = jexcel(ReactDOM.findDOMNode(this).children[0], this.options);
+  };
+
+  addRow = function () {
+    this.el.insertRow();
+  };
+
+  render() {
+    return (
+      <div>
+        <div></div>
+        <br />
+        <br />
+        <input
+          type="button"
+          value="Add new row"
+          onClick={() => this.addRow()}
+        ></input>
+      </div>
+    );
+  }
+}
+
+var options = {
+  data: [[]],
+  minDimensions: [10, 10],
+};
+
+ReactDOM.render(
+  <Jspreadsheet options={options} />,
+  document.getElementById("spreadsheet")
+);
+```

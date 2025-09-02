@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 
-const jspreadsheet = require('../dist/index.js');
+const jspreadsheet = require("../dist/index.js");
 
-global.document.execCommand = function execCommandMock() { };
+global.document.execCommand = function execCommandMock() {};
 
 const fixtureData = () => [
   ["Mazda", 2001, 2000, 1],
@@ -14,9 +14,11 @@ const fixtureData = () => [
 describe("Paste", () => {
   it("no expand", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText =
@@ -34,9 +36,11 @@ describe("Paste", () => {
 
   it("expand", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText =
@@ -57,9 +61,11 @@ describe("Paste", () => {
 
   it("repeat horizontal", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText = "0-0\t0-1";
@@ -76,9 +82,11 @@ describe("Paste", () => {
 
   it("repeat vertical", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText = "0-0\n1-0";
@@ -95,9 +103,11 @@ describe("Paste", () => {
 
   it("repeat rectangle", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText = "0-0\t0-1\n1-0\t1-1";
@@ -114,15 +124,17 @@ describe("Paste", () => {
 
   it("skip hidden column", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        columns: [
-          { type: "text" },
-          { type: "text" },
-          { type: "hidden" }, // paste is skipped.
-          { type: "text" },
-        ],
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          columns: [
+            { type: "text" },
+            { type: "text" },
+            { type: "hidden" }, // paste is skipped.
+            { type: "text" },
+          ],
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText = "0-0\t0-1\n1-0\t1-1";
@@ -139,9 +151,11 @@ describe("Paste", () => {
 
   it("skip hidden row", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText = "0-0\t0-1\n1-0\t1-1";
@@ -159,13 +173,15 @@ describe("Paste", () => {
 
   it("see https://github.com/jspreadsheet/ce/pull/1717#issuecomment-2576060698", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        minDimensions: [4, 4],
-        data: [
-          [1, 2],
-          [3, 4],
-        ]
-      }],
+      worksheets: [
+        {
+          minDimensions: [4, 4],
+          data: [
+            [1, 2],
+            [3, 4],
+          ],
+        },
+      ],
     })[0];
 
     sheet.updateSelectionFromCoords(0, 0, 1, 1);
@@ -185,13 +201,15 @@ describe("Paste", () => {
 
   it("see https://github.com/jspreadsheet/ce/pull/1717#issuecomment-2580087207", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        minDimensions: [10, 4],
-        data: [
-          [1, 2, 3],
-          [4, 5, 6],
-        ]
-      }],
+      worksheets: [
+        {
+          minDimensions: [10, 4],
+          data: [
+            [1, 2, 3],
+            [4, 5, 6],
+          ],
+        },
+      ],
     })[0];
 
     sheet.updateSelectionFromCoords(0, 0, 2, 1);
@@ -210,8 +228,8 @@ describe("Paste", () => {
     sheet.paste(7, 2, sheet.data);
 
     expect(sheet.getData()).to.eql([
-      [1,  2,  3,  "", "", "", "", "", "", "", "", ""],
-      [4,  5,  6,  "", "", "", "", "", "", "", "", ""],
+      [1, 2, 3, "", "", "", "", "", "", "", "", ""],
+      [4, 5, 6, "", "", "", "", "", "", "", "", ""],
       ["", "", "", "", "", "", "", "1", "", "", "2", "3"],
       ["", "", "", "", "", "", "", "", "", "", "", ""],
       ["", "", "", "", "", "", "", "4", "", "", "5", "6"],
@@ -221,9 +239,11 @@ describe("Paste", () => {
   it("large data paste", () => {
     let count = {};
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
       onevent: (event) => {
         count[event] = (count[event] ?? 0) + 1;
       },
@@ -252,21 +272,24 @@ describe("Paste", () => {
   it("expand with hidden cells", () => {
     let count = {};
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        columns: [
-          { type: "text" },
-          { type: "text" },
-          { type: "hidden" }, // paste is skipped.
-          { type: "text" },
-        ],
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          columns: [
+            { type: "text" },
+            { type: "text" },
+            { type: "hidden" }, // paste is skipped.
+            { type: "text" },
+          ],
+          data: fixtureData(),
+        },
+      ],
       onevent: (event) => {
         count[event] = (count[event] ?? 0) + 1;
       },
     })[0];
 
-    const pasteText = "0-0\t0-1\t0-2\t0-3\n1-0\t1-1\t1-2\t1-3\n2-0\t2-1\t2-2\t2-3\n3-0\t3-1\t3-2\t3-3";;
+    const pasteText =
+      "0-0\t0-1\t0-2\t0-3\n1-0\t1-1\t1-2\t1-3\n2-0\t2-1\t2-2\t2-3\n3-0\t3-1\t3-2\t3-3";
     sheet.hideRow(2);
     sheet.updateSelectionFromCoords(1, 1, 1, 1);
     sheet.paste(sheet.selectedCell[0], sheet.selectedCell[1], pasteText);
@@ -285,9 +308,11 @@ describe("Paste", () => {
   it("copy and paste with style", () => {
     let count = {};
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     sheet.setStyle("A1", "color", "red");
@@ -305,13 +330,15 @@ describe("Paste", () => {
   });
 
   it("copy and repeat paste with style", () => {
-    global.document.execCommand = function execCommandMock() { };
+    global.document.execCommand = function execCommandMock() {};
 
     let count = {};
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     sheet.setStyle("A1", "color", "red");
@@ -340,7 +367,7 @@ describe("Paste", () => {
   });
 
   it("copy and paste to another sheet", async () => {
-    global.document.execCommand = function execCommandMock() { };
+    global.document.execCommand = function execCommandMock() {};
 
     let isLoaded = false;
     let sheets = jspreadsheet(root, {
@@ -353,11 +380,11 @@ describe("Paste", () => {
         {
           data: fixtureData(),
           worksheetName: "Sheet2",
-        }
+        },
       ],
       onload: (instance) => {
         isLoaded = true;
-      }
+      },
     });
 
     const awaitLoop = (resolve) => {
@@ -368,7 +395,7 @@ describe("Paste", () => {
           resolve(awaitLoop);
         }
       }, 100);
-    }
+    };
     // NOTE: jpreadsheet constructor is acutally async. So it waits for load events in await.
     await new Promise(awaitLoop);
 
@@ -385,13 +412,15 @@ describe("Paste", () => {
       ["Mazda", "2001", "Mazda", "2001"],
       ["Mazda", "2001", "Mazda", "2001"],
     ]);
-  })
+  });
 
   it("fix - u0000 is pasted, when the last cell ends in a tab", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText =
@@ -409,16 +438,15 @@ describe("Paste", () => {
 
   it("paste lacked columns data", () => {
     let sheet = jspreadsheet(root, {
-      worksheets: [{
-        data: fixtureData()
-      }],
+      worksheets: [
+        {
+          data: fixtureData(),
+        },
+      ],
     })[0];
 
     const pasteText =
-      "0-0\t\n" +
-      "1-0\t1-1\t1-2\t1-3\n" +
-      "2-0\n" +
-      "3-0\t3-1\t3-2\t";
+      "0-0\t\n" + "1-0\t1-1\t1-2\t1-3\n" + "2-0\n" + "3-0\t3-1\t3-2\t";
     sheet.updateSelectionFromCoords(0, 0, 0, 0);
     sheet.paste(sheet.selectedCell[0], sheet.selectedCell[1], pasteText);
 

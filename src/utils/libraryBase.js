@@ -1,5 +1,5 @@
 const lib = {
-    jspreadsheet: {}
+  jspreadsheet: {},
 };
 
 export default lib;

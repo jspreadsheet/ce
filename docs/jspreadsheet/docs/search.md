@@ -6,9 +6,10 @@ description: Explore search functionality in Jspreadsheet, including methods and
 
 The Jspreadsheet's search functionality filters rows using keyword matching, offering flexibility to modify or terminate operations based on application needs. This section details the technical methods and events for customizing search behaviour.
 
-
 {.pro}
+
 > #### Differences in the Pro Version
+>
 > Jspreadsheet Pro allows complete customization of search operations, including events to highlight results, customize search criteria, or integrate with the backend.\
 > \
 > [Learn more](https://jspreadsheet.com/docs/search){.button}
@@ -19,19 +20,18 @@ The Jspreadsheet's search functionality filters rows using keyword matching, off
 
 The following methods are used to implement and manage search functionality in the spreadsheet:
 
-| Method        | Description                                                                                                                                       |
-|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `search`      | Searches for rows containing the specified terms.<br/>@param `query` - Text to be searched.<br/>`worksheetInstance.search(query: string): void;`  |
-| `resetSearch` | Resets search terms and displays all rows.<br/>`worksheetInstance.resetSearch(): void;`                                                           |  
+| Method        | Description                                                                                                                                      |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `search`      | Searches for rows containing the specified terms.<br/>@param `query` - Text to be searched.<br/>`worksheetInstance.search(query: string): void;` |
+| `resetSearch` | Resets search terms and displays all rows.<br/>`worksheetInstance.resetSearch(): void;`                                                          |
 
 ### Initial Settings
 
 The following property is available to configure the search functionality during spreadsheet initialization:
 
 | Property          | Description                             |
-|-------------------|-----------------------------------------|
+| ----------------- | --------------------------------------- |
 | `search: boolean` | Enables or disables the search feature. |
-
 
 ## Examples
 
@@ -41,126 +41,144 @@ The example below demonstrates a data grid configured with search functionality 
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<p><input type='button' value='Search for APP' id="btn1" /></p>
+  <p><input type="button" value="Search for APP" id="btn1" /></p>
 
-<script>
-// Create the spreadsheet
-let worksheets = jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        csv: '/tests/demo.csv',
-        csvHeaders: true,
-        search: true,
-        pagination: 10,
-        paginationOptions: [10,25,50,100],
-        columns: [
-            { type:'text', width:80 },
-            { type:'text', width:100 },
-            { type:'text', width:100 },
-            { type:'text', width:200 },
-            { type:'text', width:100 },
-        ],
-    }]
-});
+  <script>
+    // Create the spreadsheet
+    let worksheets = jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          csv: "/tests/demo.csv",
+          csvHeaders: true,
+          search: true,
+          pagination: 10,
+          paginationOptions: [10, 25, 50, 100],
+          columns: [
+            { type: "text", width: 80 },
+            { type: "text", width: 100 },
+            { type: "text", width: 100 },
+            { type: "text", width: 200 },
+            { type: "text", width: 100 },
+          ],
+        },
+      ],
+    });
 
-document.getElementById("btn1").onclick = () => worksheets[0].search('app');
-</script>
+    document.getElementById("btn1").onclick = () => worksheets[0].search("app");
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
-
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Columns
-    const columns = [
-        { type:'text', width:80 },
-        { type:'text', width:100 },
-        { type:'text', width:100 },
-        { type:'text', width:200 },
-        { type:'text', width:100 },
-    ]
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Columns
+  const columns = [
+    { type: "text", width: 80 },
+    { type: "text", width: 100 },
+    { type: "text", width: 100 },
+    { type: "text", width: 200 },
+    { type: "text", width: 100 },
+  ];
 
-    // Render component
-    return (
-        <>
-            <Spreadsheet ref={spreadsheet}>
-                <Worksheet
-                    columns={columns}
-                    csv="/tests/demo.csv"
-                    csvHeaders
-                    search
-                    pagination="10"
-                    paginationOptions={[10,25,50,100]} />
-            </Spreadsheet>
-            <button onClick={() => spreadsheet.current[0].search('app')}>Search for APP</button>
-        </>
-    );
+  // Render component
+  return (
+    <>
+      <Spreadsheet ref={spreadsheet}>
+        <Worksheet
+          columns={columns}
+          csv="/tests/demo.csv"
+          csvHeaders
+          search
+          pagination="10"
+          paginationOptions={[10, 25, 50, 100]}
+        />
+      </Spreadsheet>
+      <button onClick={() => spreadsheet.current[0].search("app")}>
+        Search for APP
+      </button>
+    </>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
-      <Worksheet
-          :columns="columns"
-          :csv="/tests/demo.csv"
-          csvHeaders
-          search
-          :pagination="10"
-          :paginationOptions="[10,25,50,100]"
-      />
+    <Worksheet
+      :columns="columns"
+      :csv="/tests/demo.csv"
+      csvHeaders
+      search
+      :pagination="10"
+      :paginationOptions="[10, 25, 50, 100]"
+    />
   </Spreadsheet>
-  <input type='button' value='Search for APP' @click="search" />
+  <input type="button" value="Search for APP" @click="search" />
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
 
 export default {
   components: {
-      Spreadsheet,
-      Worksheet,
+    Spreadsheet,
+    Worksheet,
   },
   setup() {
-      const spreadsheet = ref(null);
+    const spreadsheet = ref(null);
 
-      const columns = [
-          { type:'text', width:80 },
-          { type:'text', width:100 },
-          { type:'text', width:100 },
-          { type:'text', width:200 },
-          { type:'text', width:100 },
-      ];
+    const columns = [
+      { type: "text", width: 80 },
+      { type: "text", width: 100 },
+      { type: "text", width: 100 },
+      { type: "text", width: 200 },
+      { type: "text", width: 100 },
+    ];
 
-      const search = () => {
-          spreadsheet.value.current[0].search('app');
-      };
+    const search = () => {
+      spreadsheet.value.current[0].search("app");
+    };
 
-      return {
-          spreadsheet,
-          columns,
-          search
-      };
-  }
-}
+    return {
+      spreadsheet,
+      columns,
+      search,
+    };
+  },
+};
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -199,8 +217,7 @@ export class AppComponent {
     }
 }
 ```
- 
+
 ## Related Content
 
 - [Data Grid Pagination](/jspreadsheet/docs/pagination)
-

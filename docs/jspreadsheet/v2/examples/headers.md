@@ -10,42 +10,50 @@ The most recent version of the jquery plugin Jspreadsheet implements nested head
 
 ```html
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jdropdown.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jdropdown.min.css" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jdropdown.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jdropdown.min.css"
+    type="text/css"
+  />
 
-<div id="my"></div>
+  <div id="my"></div>
 
-<script>
-data = [
-    ['BR', 'Cheese', 1],
-    ['CA', 'Apples', 0],
-    ['US', 'Carrots', 1],
-    ['GB', 'Oranges', 0],
-];
+  <script>
+    data = [
+      ["BR", "Cheese", 1],
+      ["CA", "Apples", 0],
+      ["US", "Carrots", 1],
+      ["GB", "Oranges", 0],
+    ];
 
-$('#my').jexcel({
-    data:data,
-    colHeaders: ['Country', 'Food', 'Stock'],
-    colWidths: [ 300, 100, 100 ],
-    columns: [
-        { type: 'autocomplete', url:'/jspreadsheet/countries' },
-        { type: 'dropdown', source:['Apples','Bananas','Carrots','Oranges','Cheese'] },
-        { type: 'checkbox' },
-    ],
-    nestedHeaders:[
+    $("#my").jexcel({
+      data: data,
+      colHeaders: ["Country", "Food", "Stock"],
+      colWidths: [300, 100, 100],
+      columns: [
+        { type: "autocomplete", url: "/jspreadsheet/countries" },
+        {
+          type: "dropdown",
+          source: ["Apples", "Bananas", "Carrots", "Oranges", "Cheese"],
+        },
+        { type: "checkbox" },
+      ],
+      nestedHeaders: [
+        [{ title: "Supermarket information", colspan: "3" }],
         [
-            { title:'Supermarket information', colspan:'3' },
+          { title: "Location", colspan: "1" },
+          { title: " Other Information", colspan: "2" },
         ],
-        [
-            { title:'Location', colspan:'1' },
-            { title:' Other Information', colspan:'2' }
-        ],
-    ],
-});
-</script>
+      ],
+    });
+  </script>
 </html>
 ```
-

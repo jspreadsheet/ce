@@ -11,7 +11,7 @@ This section explains how to handle dates in Jspreadsheet, focusing on the calen
 - **Text type with date mask**: This option supports date-related calculations, copy-paste functionality, and fill-handle operations similar to Excel. It allows dates to be treated as numerical values, making it ideal for performing operations.
 - **Calendar Type**: This option provides a calendar picker for selecting dates but stores the value as a string. It’s more focused on user-friendly input rather than complex date calculations.
 
-This section covers the following topics: 
+This section covers the following topics:
 
 - **Configuring the calendar picker**: How to customize the calendar editor for user-friendly date selection.
 - **Validating date values**: Set rules to ensure date inputs are valid based on the values in other columns.
@@ -25,20 +25,18 @@ This section covers the following topics:
 
 The [JavaScript calendar](https://jsuites.net/docs/javascript-calendar) from [jsuites.net](https://jsuites.net/docs) is a highly flexible and responsive plugin that offers numerous configurations to adapt to various application needs. For more information, refer to its [documentation](https://jsuites.net/docs/javascript-calendar).
 
-| Parameter                             | Description                                                                                       |
-|---------------------------------------|---------------------------------------------------------------------------------------------------|
-| type: `default \| year-month-picker`  | Render type. `Default: default`                                                                   |
-| validRange: `[String, String]`        | Disables the dates out of the defined range. `[Initial date, Final date]`                         |
-| startingDay: `Number`                 | The day of the week the calendar starts on (0 for Sunday - 6 for Saturday). `Default: 0 (Sunday)` |
-| format: `String`                      | Date format. `Default: YYYY-MM-DD`                                                                |
-| readonly: `Boolean`                   | Calendar input is readonly. `Default: false`                                                      |
-| today: `Boolean`                      | Select today's date automatically when no date value is defined. `Default: true`                  |
-| time: `Boolean`                       | Show hour and minute dropdown. `Default: false`                                                   |
-| resetButton: `Boolean`                | Enabled reset button. `Default: true`                                                             |
-| placeholder: `String`                 | Default place holder for the calendar input.                                                      |
-| fullscreen: `Boolean`                 | Open in fullscreen mode.                                                                          |
-
-
+| Parameter                            | Description                                                                                       |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| type: `default \| year-month-picker` | Render type. `Default: default`                                                                   |
+| validRange: `[String, String]`       | Disables the dates out of the defined range. `[Initial date, Final date]`                         |
+| startingDay: `Number`                | The day of the week the calendar starts on (0 for Sunday - 6 for Saturday). `Default: 0 (Sunday)` |
+| format: `String`                     | Date format. `Default: YYYY-MM-DD`                                                                |
+| readonly: `Boolean`                  | Calendar input is readonly. `Default: false`                                                      |
+| today: `Boolean`                     | Select today's date automatically when no date value is defined. `Default: true`                  |
+| time: `Boolean`                      | Show hour and minute dropdown. `Default: false`                                                   |
+| resetButton: `Boolean`               | Enabled reset button. `Default: true`                                                             |
+| placeholder: `String`                | Default place holder for the calendar input.                                                      |
+| fullscreen: `Boolean`                | Open in fullscreen mode.                                                                          |
 
 ## Examples
 
@@ -48,31 +46,43 @@ The example below demonstrates applying a date format to the results of a formul
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-// Create worksheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        minDimensions: [4,4],
-        data: [
-            [ '=NOW()' ]
-        ],
-        cells: {
-            A1: { format: 'dd/mm/yyyy' },
-        }
-    }]
-});
-</script>
+  <script>
+    // Create worksheet
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          minDimensions: [4, 4],
+          data: [["=NOW()"]],
+          cells: {
+            A1: { format: "dd/mm/yyyy" },
+          },
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
@@ -80,29 +90,28 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        [ '=NOW()', ]
-    ]
-    // Data grid cell definitions
-    const cells = {
-        A1: { format: 'dd/mm/yyyy' },
-    }
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet}>
-            <Worksheet data={data} cells={cells} minDimensions={[4,4]} />
-        </Spreadsheet>
-    );
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [["=NOW()"]];
+  // Data grid cell definitions
+  const cells = {
+    A1: { format: "dd/mm/yyyy" },
+  };
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet}>
+      <Worksheet data={data} cells={cells} minDimensions={[4, 4]} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet">
-        <Worksheet :data="data" :cells="cells" :minDimensions="[4,4]" />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheet">
+    <Worksheet :data="data" :cells="cells" :minDimensions="[4, 4]" />
+  </Spreadsheet>
 </template>
 
 <script>
@@ -111,28 +120,27 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    data() {
-        // Data
-        const data = [
-            [ '=NOW()' ]
-        ]
-        // Data grid cell definitions
-        const cells = {
-            A1: { format: 'dd/mm/yyyy' },
-        }
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    // Data
+    const data = [["=NOW()"]];
+    // Data grid cell definitions
+    const cells = {
+      A1: { format: "dd/mm/yyyy" },
+    };
 
-        return {
-            data,
-            cells
-        };
-    }
-}
+    return {
+      data,
+      cells,
+    };
+  },
+};
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -167,47 +175,53 @@ export class AppComponent {
     }
 }
 ```
- 
-
- 
 
 ### Column Calendar Customization
 
-In the example below, we configure the calendar column type as a year-month picker only. 
-
- 
-
-
-
-
+In the example below, we configure the calendar column type as a year-month picker only.
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-// Create a new spreadsheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        minDimensions: [4,4],
-        data: [
-            [ '2021-01-01', '', '', '' ]
-        ],
-        columns: [  
-            { type: 'calendar', options: { type: 'year-month-picker', format: 'Mon/YYYY' } },
-        ]
-    }]
-});
-</script>
+  <script>
+    // Create a new spreadsheet
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          minDimensions: [4, 4],
+          data: [["2021-01-01", "", "", ""]],
+          columns: [
+            {
+              type: "calendar",
+              options: { type: "year-month-picker", format: "Mon/YYYY" },
+            },
+          ],
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
@@ -215,52 +229,55 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        [ '2021-01-01', '', '', '' ]
-    ];
-    // Data grid cell definitions
-    const columns = [
-        { type: 'calendar', options: { type: 'year-month-picker', format: 'Mon/YYYY' } },
-    ];
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet}>
-            <Worksheet data={data} columns={columns} minDimensions={[4,4]} />
-        </Spreadsheet>
-    );
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [["2021-01-01", "", "", ""]];
+  // Data grid cell definitions
+  const columns = [
+    {
+      type: "calendar",
+      options: { type: "year-month-picker", format: "Mon/YYYY" },
+    },
+  ];
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet}>
+      <Worksheet data={data} columns={columns} minDimensions={[4, 4]} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
-      <Worksheet :data="data" :columns="columns" :minDimensions="[4,4]" />
+    <Worksheet :data="data" :columns="columns" :minDimensions="[4, 4]" />
   </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
 
-
 // Data
-const data = ref([
-  [ '2021-01-01', '', '', '' ]
-]);
+const data = ref([["2021-01-01", "", "", ""]]);
 
 // Data grid cell definitions
 const columns = ref([
-  { type: 'calendar', options: { type: 'year-month-picker', format: 'Mon/YYYY' } },
+  {
+    type: "calendar",
+    options: { type: "year-month-picker", format: "Mon/YYYY" },
+  },
 ]);
 
 // Optional: spreadsheet ref to match template
 const spreadsheet = ref(null);
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -296,82 +313,95 @@ export class AppComponent {
 }
 ```
 
-
 ### Calendar Date Validations
 
-In the example below, `filterOptions` is used to overwrite the column configuration `validRange` just before the edit. The rule is that the last column cannot have a date after the previous column date. Additionally, the onbeforechange event behavior blocks the user from pasting or programmatically breaking this rule. 
+In the example below, `filterOptions` is used to overwrite the column configuration `validRange` just before the edit. The rule is that the last column cannot have a date after the previous column date. Additionally, the onbeforechange event behavior blocks the user from pasting or programmatically breaking this rule.
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-let filterOptions = function(worksheet, cell, x, y, value, config) {
-    // Get the value of the previous column
-    let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
-    // Set a valid range to avoid past dates to be selected
-    config.options.validRange = [ previousColumnValue, null ];
-    // Customized options
-    return config;
-}
+  <script>
+    let filterOptions = function (worksheet, cell, x, y, value, config) {
+      // Get the value of the previous column
+      let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
+      // Set a valid range to avoid past dates to be selected
+      config.options.validRange = [previousColumnValue, null];
+      // Customized options
+      return config;
+    };
 
-// Create a new spreadsheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        data: [
-            ['Roger Taylor', '2019-01-01', '2019-03-01' ],
-            ['Bob Shiran', '2019-04-03', '2019-05-03'],
-            ['Daniel P.', '2018-12-03', '2018-12-03'],
-            ['Karen Roberts', '2018-12-03', '2019-01-03'],
-        ],
-        columns: [
+    // Create a new spreadsheet
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          data: [
+            ["Roger Taylor", "2019-01-01", "2019-03-01"],
+            ["Bob Shiran", "2019-04-03", "2019-05-03"],
+            ["Daniel P.", "2018-12-03", "2018-12-03"],
+            ["Karen Roberts", "2018-12-03", "2019-01-03"],
+          ],
+          columns: [
             {
-                type:'text',
-                title:'Name',
-                width:'300px',
+              type: "text",
+              title: "Name",
+              width: "300px",
             },
             {
-                type:'calendar',
-                title:'From',
-                options: { format:'DD/MM/YYYY' },
-                width:'150px',
+              type: "calendar",
+              title: "From",
+              options: { format: "DD/MM/YYYY" },
+              width: "150px",
             },
             {
-                type:'calendar',
-                title:'To',
-                options: { format:'DD/MM/YYYY' },
-                filterOptions: filterOptions,
-                width:'150px',
+              type: "calendar",
+              title: "To",
+              options: { format: "DD/MM/YYYY" },
+              filterOptions: filterOptions,
+              width: "150px",
             },
-        ],
-        worksheetName: 'Rules',
-    }],
-    onbeforechange: function(worksheet, cell, x, y, value) {
+          ],
+          worksheetName: "Rules",
+        },
+      ],
+      onbeforechange: function (worksheet, cell, x, y, value) {
         // Valid only for second column
         if (x == 2 && value) {
-            // Get the value of the previous column
-            let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
-            if (previousColumnValue > value) {
-                cell.style.border = '1px solid red';
-                // Return nothing
-                return '';
-            } else {
-                cell.style.border = '';
-            }
+          // Get the value of the previous column
+          let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
+          if (previousColumnValue > value) {
+            cell.style.border = "1px solid red";
+            // Return nothing
+            return "";
+          } else {
+            cell.style.border = "";
+          }
         }
         return value;
-    }
-});
-</script>
+      },
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -380,82 +410,81 @@ import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 // Filter option will change the column settings just before the edition
 const filterOptions = (worksheet, cell, x, y, value, config) => {
-    // Get the value of the previous column
-    let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
-    // Set a valid range to avoid past dates to be selected
-    config.options.validRange = [ previousColumnValue, null ];
-    // Customized options
-    return config;
-}
+  // Get the value of the previous column
+  let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
+  // Set a valid range to avoid past dates to be selected
+  config.options.validRange = [previousColumnValue, null];
+  // Customized options
+  return config;
+};
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        ['Roger Taylor', '2019-01-01', '2019-03-01' ],
-        ['Bob Shiran', '2019-04-03', '2019-05-03'],
-        ['Daniel P.', '2018-12-03', '2018-12-03'],
-        ['Karen Roberts', '2018-12-03', '2019-01-03'],
-    ];
-    // Data grid cell definitions
-    const columns = [
-        {
-            type:'text',
-            title:'Name',
-            width:'300px',
-        },
-        {
-            type:'calendar',
-            title:'From',
-            options: { format:'DD/MM/YYYY' },
-            width:'150px',
-        },
-        {
-            type:'calendar',
-            title:'To',
-            options: { format:'DD/MM/YYYY' },
-            filterOptions: filterOptions,
-            width:'150px',
-        },
-    ];
-    // Event
-    const onbeforechange = (worksheet, cell, x, y, value) => {
-        // Valid only for second column
-        if (x == 2 && value) {
-            // Get the value of the previous column
-            let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
-            if (previousColumnValue > value) {
-                cell.style.border = '1px solid red';
-                // Return nothing
-                return '';
-            } else {
-                cell.style.border = '';
-            }
-        }
-        return value;
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [
+    ["Roger Taylor", "2019-01-01", "2019-03-01"],
+    ["Bob Shiran", "2019-04-03", "2019-05-03"],
+    ["Daniel P.", "2018-12-03", "2018-12-03"],
+    ["Karen Roberts", "2018-12-03", "2019-01-03"],
+  ];
+  // Data grid cell definitions
+  const columns = [
+    {
+      type: "text",
+      title: "Name",
+      width: "300px",
+    },
+    {
+      type: "calendar",
+      title: "From",
+      options: { format: "DD/MM/YYYY" },
+      width: "150px",
+    },
+    {
+      type: "calendar",
+      title: "To",
+      options: { format: "DD/MM/YYYY" },
+      filterOptions: filterOptions,
+      width: "150px",
+    },
+  ];
+  // Event
+  const onbeforechange = (worksheet, cell, x, y, value) => {
+    // Valid only for second column
+    if (x == 2 && value) {
+      // Get the value of the previous column
+      let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
+      if (previousColumnValue > value) {
+        cell.style.border = "1px solid red";
+        // Return nothing
+        return "";
+      } else {
+        cell.style.border = "";
+      }
     }
+    return value;
+  };
 
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet} onbeforechange={onbeforechange}>
-            <Worksheet worksheetName={"Rules"} data={data} columns={columns} minDimensions={[4,4]} />
-        </Spreadsheet>
-    );
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet} onbeforechange={onbeforechange}>
+      <Worksheet
+        worksheetName={"Rules"}
+        data={data}
+        columns={columns}
+        minDimensions={[4, 4]}
+      />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
   <div>
-    <Spreadsheet
-      ref="spreadsheet"
-      :onbeforechange="onBeforeChange"
-    >
-      <Worksheet
-        :data="data"
-        :columns="columns"
-        :min-dimensions="[4, 4]"
-      />
+    <Spreadsheet ref="spreadsheet" :onbeforechange="onBeforeChange">
+      <Worksheet :data="data" :columns="columns" :min-dimensions="[4, 4]" />
     </Spreadsheet>
     <div ref="log"></div>
     <button @click="setMerge('A3', 2, 3)">setMerge('A3', 2, 3)</button>
@@ -466,13 +495,13 @@ export default function App() {
 </template>
 
 <script>
-import { ref } from 'vue';
-import { Spreadsheet, Worksheet } from '@jspreadsheet-ce/vue';
-import 'jsuites/dist/jsuites.css';
-import 'jspreadsheet-ce/dist/jspreadsheet-ce.css';
+import { ref } from "vue";
+import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet-ce/dist/jspreadsheet-ce.css";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Spreadsheet,
     Worksheet,
@@ -482,34 +511,34 @@ export default {
     const log = ref(null);
 
     const data = ref([
-      ['Roger Taylor', '2019-01-01', '2019-03-01'],
-      ['Bob Shiran', '2019-04-03', '2019-05-03'],
-      ['Daniel P.', '2018-12-03', '2018-12-03'],
-      ['Karen Roberts', '2018-12-03', '2019-01-03'],
+      ["Roger Taylor", "2019-01-01", "2019-03-01"],
+      ["Bob Shiran", "2019-04-03", "2019-05-03"],
+      ["Daniel P.", "2018-12-03", "2018-12-03"],
+      ["Karen Roberts", "2018-12-03", "2019-01-03"],
     ]);
 
     const columns = ref([
       {
-        type: 'text',
-        title: 'Name',
-        width: '300px',
+        type: "text",
+        title: "Name",
+        width: "300px",
       },
       {
-        type: 'calendar',
-        title: 'From',
-        options: { format: 'DD/MM/YYYY' },
-        width: '150px',
+        type: "calendar",
+        title: "From",
+        options: { format: "DD/MM/YYYY" },
+        width: "150px",
       },
       {
-        type: 'calendar',
-        title: 'To',
-        options: { format: 'DD/MM/YYYY' },
+        type: "calendar",
+        title: "To",
+        options: { format: "DD/MM/YYYY" },
         filterOptions: (worksheet, cell, x, y, value, config) => {
           let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
           config.options.validRange = [previousColumnValue, null];
           return config;
         },
-        width: '150px',
+        width: "150px",
       },
     ]);
 
@@ -533,10 +562,10 @@ export default {
       if (x === 2 && value) {
         let previousColumnValue = worksheet.getValueFromCoords(x - 1, y);
         if (previousColumnValue > value) {
-          cell.style.border = '1px solid red';
-          return '';
+          cell.style.border = "1px solid red";
+          return "";
         } else {
-          cell.style.border = '';
+          cell.style.border = "";
         }
       }
       return value;
@@ -557,6 +586,7 @@ export default {
 };
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -635,75 +665,75 @@ export class AppComponent {
     }
 }
 ```
- 
-
- 
 
 ### International Calendar Configurations
 
-To translate the text in the calendar plugin, you can include the `setDictionary` method as below. 
+To translate the text in the calendar plugin, you can include the `setDictionary` method as below.
 
 ```html
 <div id="spreadsheet"></div>
 
 <script>
-//The dictionary can be defined as below
-let dictionary = {
+  //The dictionary can be defined as below
+  let dictionary = {
     // Other entries (...)
     // Calendar specific entries
-    'Jan': 'Jan',
-    'Feb': 'Fev',
-    'Mar': 'Mar',
-    'Apr': 'Abr',
-    'May': 'Mai',
-    'Jun': 'Jun',
-    'Jul': 'Jul',
-    'Aug': 'Ago',
-    'Sep': 'Set',
-    'Oct': 'Out',
-    'Nov': 'Nov',
-    'Dec': 'Dez',
-    'January': 'Janeiro',
-    'February': 'Fevereiro',
-    'March': 'Março',
-    'April': 'Abril',
-    'May': 'Maio',
-    'June': 'Junho',
-    'July': 'Julho',
-    'August': 'Agosto',
-    'September': 'Setembro',
-    'October': 'Outubro',
-    'November': 'Novembro',
-    'December': 'Dezembro',
-    'Sunday': 'Domingo',
-    'Monday': 'Segunda',
-    'Tuesday': 'Terca',
-    'Wednesday': 'Quarta',
-    'Thursday': 'Quinta',
-    'Friday': 'Sexta',
-    'Saturday': 'Sabado',
-    'Done': 'Feito',
-    'Reset': 'Apagar',
-    'Update': 'Atualizar',
-}
+    Jan: "Jan",
+    Feb: "Fev",
+    Mar: "Mar",
+    Apr: "Abr",
+    May: "Mai",
+    Jun: "Jun",
+    Jul: "Jul",
+    Aug: "Ago",
+    Sep: "Set",
+    Oct: "Out",
+    Nov: "Nov",
+    Dec: "Dez",
+    January: "Janeiro",
+    February: "Fevereiro",
+    March: "Março",
+    April: "Abril",
+    May: "Maio",
+    June: "Junho",
+    July: "Julho",
+    August: "Agosto",
+    September: "Setembro",
+    October: "Outubro",
+    November: "Novembro",
+    December: "Dezembro",
+    Sunday: "Domingo",
+    Monday: "Segunda",
+    Tuesday: "Terca",
+    Wednesday: "Quarta",
+    Thursday: "Quinta",
+    Friday: "Sexta",
+    Saturday: "Sabado",
+    Done: "Feito",
+    Reset: "Apagar",
+    Update: "Atualizar",
+  };
 
-// Send dictionary to the JSS scope
-jspreadsheet.setDictionary(dictionary);
+  // Send dictionary to the JSS scope
+  jspreadsheet.setDictionary(dictionary);
 
-// Create worksheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        minDimensions: [4,4],
-        columns: [  
-            { type: 'calendar', options: { startingDay: 1 } },
-            { type: 'calendar', options: { startingDay: 1 } },
-            { type: 'calendar', options: { startingDay: 1 } },
-            { type: 'calendar', options: { startingDay: 1 } },
-        ]
-    }]
-});
+  // Create worksheet
+  jspreadsheet(document.getElementById("spreadsheet"), {
+    worksheets: [
+      {
+        minDimensions: [4, 4],
+        columns: [
+          { type: "calendar", options: { startingDay: 1 } },
+          { type: "calendar", options: { startingDay: 1 } },
+          { type: "calendar", options: { startingDay: 1 } },
+          { type: "calendar", options: { startingDay: 1 } },
+        ],
+      },
+    ],
+  });
 </script>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
@@ -712,68 +742,69 @@ import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 // Send dictionary to the JSS scope
 jspreadsheet.setDictionary({
-    // Other entries (...)
-    // Calendar specific entries
-    'Jan': 'Jan',
-    'Feb': 'Fev',
-    'Mar': 'Mar',
-    'Apr': 'Abr',
-    'May': 'Mai',
-    'Jun': 'Jun',
-    'Jul': 'Jul',
-    'Aug': 'Ago',
-    'Sep': 'Set',
-    'Oct': 'Out',
-    'Nov': 'Nov',
-    'Dec': 'Dez',
-    'January': 'Janeiro',
-    'February': 'Fevereiro',
-    'March': 'Março',
-    'April': 'Abril',
-    'May': 'Maio',
-    'June': 'Junho',
-    'July': 'Julho',
-    'August': 'Agosto',
-    'September': 'Setembro',
-    'October': 'Outubro',
-    'November': 'Novembro',
-    'December': 'Dezembro',
-    'Sunday': 'Domingo',
-    'Monday': 'Segunda',
-    'Tuesday': 'Terca',
-    'Wednesday': 'Quarta',
-    'Thursday': 'Quinta',
-    'Friday': 'Sexta',
-    'Saturday': 'Sabado',
-    'Done': 'Feito',
-    'Reset': 'Apagar',
-    'Update': 'Atualizar',
+  // Other entries (...)
+  // Calendar specific entries
+  Jan: "Jan",
+  Feb: "Fev",
+  Mar: "Mar",
+  Apr: "Abr",
+  May: "Mai",
+  Jun: "Jun",
+  Jul: "Jul",
+  Aug: "Ago",
+  Sep: "Set",
+  Oct: "Out",
+  Nov: "Nov",
+  Dec: "Dez",
+  January: "Janeiro",
+  February: "Fevereiro",
+  March: "Março",
+  April: "Abril",
+  May: "Maio",
+  June: "Junho",
+  July: "Julho",
+  August: "Agosto",
+  September: "Setembro",
+  October: "Outubro",
+  November: "Novembro",
+  December: "Dezembro",
+  Sunday: "Domingo",
+  Monday: "Segunda",
+  Tuesday: "Terca",
+  Wednesday: "Quarta",
+  Thursday: "Quinta",
+  Friday: "Sexta",
+  Saturday: "Sabado",
+  Done: "Feito",
+  Reset: "Apagar",
+  Update: "Atualizar",
 });
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        { type: 'calendar', options: { startingDay: 1 } },
-        { type: 'calendar', options: { startingDay: 1 } },
-        { type: 'calendar', options: { startingDay: 1 } },
-        { type: 'calendar', options: { startingDay: 1 } },
-    ]
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [
+    { type: "calendar", options: { startingDay: 1 } },
+    { type: "calendar", options: { startingDay: 1 } },
+    { type: "calendar", options: { startingDay: 1 } },
+    { type: "calendar", options: { startingDay: 1 } },
+  ];
 
-    // Render data grid component
-    return (
-        <Spreadsheet ref={spreadsheet}>
-            <Worksheet data={data} minDimensions={[4,4]} />
-        </Spreadsheet>
-    );
+  // Render data grid component
+  return (
+    <Spreadsheet ref={spreadsheet}>
+      <Worksheet data={data} minDimensions={[4, 4]} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet">
-        <Worksheet :data="data" />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheet">
+    <Worksheet :data="data" />
+  </Spreadsheet>
 </template>
 
 <script>
@@ -783,65 +814,66 @@ import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 // Send dictionary to the JSS scope
 jspreadsheet.setDictionary({
-    // Other entries (...)
-    // Calendar specific entries
-    'Jan': 'Jan',
-    'Feb': 'Fev',
-    'Mar': 'Mar',
-    'Apr': 'Abr',
-    'May': 'Mai',
-    'Jun': 'Jun',
-    'Jul': 'Jul',
-    'Aug': 'Ago',
-    'Sep': 'Set',
-    'Oct': 'Out',
-    'Nov': 'Nov',
-    'Dec': 'Dez',
-    'January': 'Janeiro',
-    'February': 'Fevereiro',
-    'March': 'Março',
-    'April': 'Abril',
-    'May': 'Maio',
-    'June': 'Junho',
-    'July': 'Julho',
-    'August': 'Agosto',
-    'September': 'Setembro',
-    'October': 'Outubro',
-    'November': 'Novembro',
-    'December': 'Dezembro',
-    'Sunday': 'Domingo',
-    'Monday': 'Segunda',
-    'Tuesday': 'Terca',
-    'Wednesday': 'Quarta',
-    'Thursday': 'Quinta',
-    'Friday': 'Sexta',
-    'Saturday': 'Sabado',
-    'Done': 'Feito',
-    'Reset': 'Apagar',
-    'Update': 'Atualizar',
+  // Other entries (...)
+  // Calendar specific entries
+  Jan: "Jan",
+  Feb: "Fev",
+  Mar: "Mar",
+  Apr: "Abr",
+  May: "Mai",
+  Jun: "Jun",
+  Jul: "Jul",
+  Aug: "Ago",
+  Sep: "Set",
+  Oct: "Out",
+  Nov: "Nov",
+  Dec: "Dez",
+  January: "Janeiro",
+  February: "Fevereiro",
+  March: "Março",
+  April: "Abril",
+  May: "Maio",
+  June: "Junho",
+  July: "Julho",
+  August: "Agosto",
+  September: "Setembro",
+  October: "Outubro",
+  November: "Novembro",
+  December: "Dezembro",
+  Sunday: "Domingo",
+  Monday: "Segunda",
+  Tuesday: "Terca",
+  Wednesday: "Quarta",
+  Thursday: "Quinta",
+  Friday: "Sexta",
+  Saturday: "Sabado",
+  Done: "Feito",
+  Reset: "Apagar",
+  Update: "Atualizar",
 });
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    data() {
-        // Data
-        const data = [
-            { type: 'calendar', options: { startingDay: 1 } },
-            { type: 'calendar', options: { startingDay: 1 } },
-            { type: 'calendar', options: { startingDay: 1 } },
-            { type: 'calendar', options: { startingDay: 1 } },
-        ];
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    // Data
+    const data = [
+      { type: "calendar", options: { startingDay: 1 } },
+      { type: "calendar", options: { startingDay: 1 } },
+      { type: "calendar", options: { startingDay: 1 } },
+      { type: "calendar", options: { startingDay: 1 } },
+    ];
 
-        return {
-            data,
-        };
-    }
-}
+    return {
+      data,
+    };
+  },
+};
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -918,10 +950,7 @@ export class AppComponent {
     }
 }
 ```
- 
 
 ## Related content
 
-  * The Jspreadsheet calendar types uses the jSuites [JavaScript Calendar](https://jsuites.net/docs/javascript-calendar) component.
-
-
+- The Jspreadsheet calendar types uses the jSuites [JavaScript Calendar](https://jsuites.net/docs/javascript-calendar) component.

@@ -92,77 +92,90 @@ canonical: https://bossanova.uk/jspreadsheet
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
 
+  <div id="spreadsheet"></div>
 
-<div id="spreadsheet"></div>
-
-<script>
-let table = jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        data: [
-            ['Hello', 13123, '', 'Yes', true, '#AA4411'],
-            ['World!', 8, '', 'No', false, '#99BE23']
-        ],
-        columns: [
-            { type: 'text', title: 'Text' },
-            { type: 'numeric', title: 'Numeric', mask:'$ #.##,00', decimal: ',' },
-            { type: 'calendar', title: 'Calendar' },
-            { type: 'dropdown', source: ['Yes', 'No', 'Maybe'] },
-            { type: 'checkbox', title: 'Checkbox' },
-            { type: 'color', title: 'Color', width: 50, render: 'square' }
-        ]
-    }]
-});
-</script>
+  <script>
+    let table = jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          data: [
+            ["Hello", 13123, "", "Yes", true, "#AA4411"],
+            ["World!", 8, "", "No", false, "#99BE23"],
+          ],
+          columns: [
+            { type: "text", title: "Text" },
+            {
+              type: "numeric",
+              title: "Numeric",
+              mask: "$ #.##,00",
+              decimal: ",",
+            },
+            { type: "calendar", title: "Calendar" },
+            { type: "dropdown", source: ["Yes", "No", "Maybe"] },
+            { type: "checkbox", title: "Checkbox" },
+            { type: "color", title: "Color", width: 50, render: "square" },
+          ],
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        ['Hello', 13123, '', 'Yes', true, '#AA4411'],
-        ['World!', 8, '', 'No', false, '#99BE23']
-    ];
-    // Columns
-    const columns = [
-        { type: 'text', title: 'Text' },
-        { type: 'numeric', title: 'Numeric', mask:'$ #.##,00', decimal: ',' },
-        { type: 'calendar', title: 'Calendar' },
-        { type: 'dropdown', source: ['Yes', 'No', 'Maybe'] },
-        { type: 'checkbox', title: 'Checkbox' },
-        { type: 'color', title: 'Color', width: 50, render: 'square' }
-    ];
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [
+    ["Hello", 13123, "", "Yes", true, "#AA4411"],
+    ["World!", 8, "", "No", false, "#99BE23"],
+  ];
+  // Columns
+  const columns = [
+    { type: "text", title: "Text" },
+    { type: "numeric", title: "Numeric", mask: "$ #.##,00", decimal: "," },
+    { type: "calendar", title: "Calendar" },
+    { type: "dropdown", source: ["Yes", "No", "Maybe"] },
+    { type: "checkbox", title: "Checkbox" },
+    { type: "color", title: "Color", width: 50, render: "square" },
+  ];
 
-    // Render component
-    return (
-        <Spreadsheet ref={spreadsheet}>
-            <Worksheet data={data} columns={columns} />
-        </Spreadsheet>
-    );
+  // Render component
+  return (
+    <Spreadsheet ref={spreadsheet}>
+      <Worksheet data={data} columns={columns} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheetRef">
-        <Worksheet 
-            :data="data" 
-            :columns="columns" 
-        />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheetRef">
+    <Worksheet :data="data" :columns="columns" />
+  </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
@@ -171,21 +184,22 @@ const spreadsheetRef = ref(null);
 
 // Data
 const data = ref([
-    ['Hello', 13123, '', 'Yes', true, '#AA4411'],
-    ['World!', 8, '', 'No', false, '#99BE23']
+  ["Hello", 13123, "", "Yes", true, "#AA4411"],
+  ["World!", 8, "", "No", false, "#99BE23"],
 ]);
 
 // Columns
 const columns = ref([
-    { type: 'text', title: 'Text' },
-    { type: 'numeric', title: 'Numeric', mask:'$ #.##,00', decimal: ',' },
-    { type: 'calendar', title: 'Calendar' },
-    { type: 'dropdown', source: ['Yes', 'No', 'Maybe'] },
-    { type: 'checkbox', title: 'Checkbox' },
-    { type: 'color', title: 'Color', width: 50, render: 'square' }
+  { type: "text", title: "Text" },
+  { type: "numeric", title: "Numeric", mask: "$ #.##,00", decimal: "," },
+  { type: "calendar", title: "Calendar" },
+  { type: "dropdown", source: ["Yes", "No", "Maybe"] },
+  { type: "checkbox", title: "Checkbox" },
+  { type: "color", title: "Color", width: 50, render: "square" },
 ]);
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -229,46 +243,56 @@ export class AppComponent {
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
+  <div id="spreadsheet"></div>
 
-<div id="spreadsheet"></div>
-
-<script>
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        data: [[]],
-        minDimensions: [5, 2],
-        nestedHeaders:[
+  <script>
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          data: [[]],
+          minDimensions: [5, 2],
+          nestedHeaders: [
             [
-                {
-                    title: 'Supermarket information',
-                    colspan: '6',
-                },
+              {
+                title: "Supermarket information",
+                colspan: "6",
+              },
             ],
             [
-                {
-                    title: 'Location',
-                    colspan: '1',
-                },
-                {
-                    title: ' Other Information',
-                    colspan: '2'
-                },
-                {
-                    title: ' Costs',
-                    colspan: '3'
-                }
+              {
+                title: "Location",
+                colspan: "1",
+              },
+              {
+                title: " Other Information",
+                colspan: "2",
+              },
+              {
+                title: " Costs",
+                colspan: "3",
+              },
             ],
-        ]
-    }]
-});
-</script>
+          ],
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -276,53 +300,51 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Nested headers
-    const nestedHeaders = [
-        [
-            {
-                title: 'Supermarket information',
-                colspan: '6',
-            },
-        ],
-        [
-            {
-                title: 'Location',
-                colspan: '1',
-            },
-            {
-                title: ' Other Information',
-                colspan: '2'
-            },
-            {
-                title: ' Costs',
-                colspan: '3'
-            }
-        ],
-    ];
-    // Render component
-    return (
-        <>
-            <Spreadsheet ref={spreadsheet}>
-                <Worksheet nestedHeaders={nestedHeaders} minDimensions={[5,2]} />
-            </Spreadsheet>
-        </>
-    );
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Nested headers
+  const nestedHeaders = [
+    [
+      {
+        title: "Supermarket information",
+        colspan: "6",
+      },
+    ],
+    [
+      {
+        title: "Location",
+        colspan: "1",
+      },
+      {
+        title: " Other Information",
+        colspan: "2",
+      },
+      {
+        title: " Costs",
+        colspan: "3",
+      },
+    ],
+  ];
+  // Render component
+  return (
+    <>
+      <Spreadsheet ref={spreadsheet}>
+        <Worksheet nestedHeaders={nestedHeaders} minDimensions={[5, 2]} />
+      </Spreadsheet>
+    </>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheet">
-      <Worksheet 
-          :nestedHeaders="nestedHeaders" 
-          :minDimensions="[5,2]" 
-      />
+    <Worksheet :nestedHeaders="nestedHeaders" :minDimensions="[5, 2]" />
   </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
@@ -330,30 +352,31 @@ import "jspreadsheet-ce/dist/spreadsheet.css";
 // Nested headers
 const nestedHeaders = ref([
   [
-      {
-          title: 'Supermarket information',
-          colspan: '6',
-      },
+    {
+      title: "Supermarket information",
+      colspan: "6",
+    },
   ],
   [
-      {
-          title: 'Location',
-          colspan: '1',
-      },
-      {
-          title: ' Other Information',
-          colspan: '2'
-      },
-      {
-          title: ' Costs',
-          colspan: '3'
-      }
+    {
+      title: "Location",
+      colspan: "1",
+    },
+    {
+      title: " Other Information",
+      colspan: "2",
+    },
+    {
+      title: " Costs",
+      colspan: "3",
+    },
   ],
 ]);
 
 const spreadsheet = ref(null);
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -410,36 +433,42 @@ export class AppComponent {
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
+  <div id="spreadsheet"></div>
 
-<div id="spreadsheet"></div>
-
-<script>
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        data: [
-            ['US', 'Cheese', '2019-02-12'],
-            ['CA', 'Apples', '2019-03-01'],
-        ],
-        columns: [
-            {width: '170px'},
-            {width: '170px'},
-            {width: '170px'},
-        ],
-        allowComments: true,
-        comments: {
-            B1: 'Initial comments on B1',
-            C1: 'Initial comments on C1'
+  <script>
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          data: [
+            ["US", "Cheese", "2019-02-12"],
+            ["CA", "Apples", "2019-03-01"],
+          ],
+          columns: [{ width: "170px" }, { width: "170px" }, { width: "170px" }],
+          allowComments: true,
+          comments: {
+            B1: "Initial comments on B1",
+            C1: "Initial comments on C1",
+          },
         },
-    }]
-});
-</script>
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -447,46 +476,44 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-const spreadsheet = useRef();
+  const spreadsheet = useRef();
 
-    const data = [
-        ['US', 'Cheese', '2019-02-12'],
-        ['CA', 'Apples', '2019-03-01'],
-    ];
+  const data = [
+    ["US", "Cheese", "2019-02-12"],
+    ["CA", "Apples", "2019-03-01"],
+  ];
 
-    const columns = [
-        { width: '170px' },
-        { width: '170px' },
-        { width: '170px' },
-    ];
+  const columns = [{ width: "170px" }, { width: "170px" }, { width: "170px" }];
 
-    const comments = {
-        B1: 'Initial comments on B1',
-        C1: 'Initial comments on C1'
-    };
+  const comments = {
+    B1: "Initial comments on B1",
+    C1: "Initial comments on C1",
+  };
 
-    return (
-        <>
-            <Spreadsheet ref={spreadsheet}>
-                <Worksheet data={data} columns={columns} comments={comments} allowComments />
-            </Spreadsheet>
-        </>
-    );
+  return (
+    <>
+      <Spreadsheet ref={spreadsheet}>
+        <Worksheet
+          data={data}
+          columns={columns}
+          comments={comments}
+          allowComments
+        />
+      </Spreadsheet>
+    </>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheetRef">
-      <Worksheet 
-          :data="data" 
-          :columns="columns" 
-          :comments="comments" 
-      />
+    <Worksheet :data="data" :columns="columns" :comments="comments" />
   </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
@@ -504,7 +531,7 @@ const data = ref([
 const columns = ref([
   { width: "170px" },
   { width: "170px" },
-  { width: "170px" }
+  { width: "170px" },
 ]);
 
 // Initial comments
@@ -514,6 +541,7 @@ const comments = ref({
 });
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -562,35 +590,45 @@ export class AppComponent {
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
+  <div id="spreadsheet"></div>
 
-<div id="spreadsheet"></div>
-
-<script>
-jspreadsheet(document.getElementById('spreadsheet'), {
-    toolbar: function(toolbar) {
+  <script>
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      toolbar: function (toolbar) {
         // Add a new custom item in the end of my toolbar
         toolbar.items.push({
-            tooltip: 'My custom item',
-            content: 'share',
-            onclick: function() {
-                alert('Custom click');
-            }
+          tooltip: "My custom item",
+          content: "share",
+          onclick: function () {
+            alert("Custom click");
+          },
         });
 
         return toolbar;
-    },
-    worksheets: [{
-        minDimensions: [6, 2]
-    }]
-});
-</script>
+      },
+      worksheets: [
+        {
+          minDimensions: [6, 2],
+        },
+      ],
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -598,41 +636,40 @@ import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 export default function App() {
-    const spreadsheet = useRef();
+  const spreadsheet = useRef();
 
-    const toolbar = function(toolbar) {
-        // Add a new custom item in the end of my toolbar
-        toolbar.items.push({
-            tooltip: 'My custom item',
-            content: 'share',
-            onclick: function() {
-                alert('Custom click');
-            }
-        });
+  const toolbar = function (toolbar) {
+    // Add a new custom item in the end of my toolbar
+    toolbar.items.push({
+      tooltip: "My custom item",
+      content: "share",
+      onclick: function () {
+        alert("Custom click");
+      },
+    });
 
-        return toolbar;
-    }
+    return toolbar;
+  };
 
-    return (
-        <>
-            <Spreadsheet ref={spreadsheet} toolbar={toolbar}>
-                <Worksheet minDimensions={[6, 2]} />
-            </Spreadsheet>
-        </>
-    );
+  return (
+    <>
+      <Spreadsheet ref={spreadsheet} toolbar={toolbar}>
+        <Worksheet minDimensions={[6, 2]} />
+      </Spreadsheet>
+    </>
+  );
 }
 ```
+
 ```vue
 <template>
   <Spreadsheet ref="spreadsheetRef" :toolbar="toolbar">
-      <Worksheet 
-          :minDimensions="[5, 2]"
-      />
+    <Worksheet :minDimensions="[5, 2]" />
   </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/spreadsheet.css";
@@ -641,18 +678,19 @@ import "jspreadsheet-ce/dist/spreadsheet.css";
 const spreadsheetRef = ref(null);
 
 const toolbar = (toolbar) => {
-    // Add a new custom item in the end of my toolbar
-    toolbar.items.push({
-        tooltip: 'My custom item',
-        content: 'share',
-        onclick: function() {
-            alert('Custom click');
-        }
-    });
-    return toolbar;
-}
+  // Add a new custom item in the end of my toolbar
+  toolbar.items.push({
+    tooltip: "My custom item",
+    content: "share",
+    onclick: function () {
+      alert("Custom click");
+    },
+  });
+  return toolbar;
+};
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -683,7 +721,7 @@ export class AppComponent {
                         alert('Custom click');
                     }
                 });
-        
+
                 return toolbar;
             },
             worksheets: [{

@@ -11,6 +11,6 @@ Jspreadsheet CE is one of the best tools for data management on the Internet. Ex
 - [Programmatically Changes](/jspreadsheet/v4/docs/programmatically-changes)
 - [Special Formulas](/jspreadsheet/v4/docs/special-formulas)
 - [Events](/jspreadsheet/v4/docs/events)
-- [Most Common Questions and Answers](/jspreadsheet/v4/docs/most-common-questions-and-answers)  
+- [Most Common Questions and Answers](/jspreadsheet/v4/docs/most-common-questions-and-answers)
 - [Use Cases](/jspreadsheet/v4/cases)
 - [Examples](/jspreadsheet/v4/examples)

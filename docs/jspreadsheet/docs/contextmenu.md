@@ -4,7 +4,7 @@ description: Define and customize the context menu in Jspreadsheet. Manage defau
 
 # Context Menu Customization
 
-Jspreadsheet lets you customize the context menu through a context menu method, which provides default items, section info, coordinates, and context, which allows you to add or modify menu options based on dynamic application rules.  
+Jspreadsheet lets you customize the context menu through a context menu method, which provides default items, section info, coordinates, and context, which allows you to add or modify menu options based on dynamic application rules.
 
 ## Documentation
 
@@ -13,7 +13,7 @@ Jspreadsheet lets you customize the context menu through a context menu method, 
 The `contextmenu` handler method might return an array of menu items, each represented as an object with the following properties:
 
 | Property   | Description                                                        |
-|------------|--------------------------------------------------------------------|
+| ---------- | ------------------------------------------------------------------ |
 | `type`     | Type of menu item: `"line"`, `"divisor"`, or `"default"`.          |
 | `title`    | The title of the menu item.                                        |
 | `icon`     | Icon key for the item (uses Material icon key for identification). |
@@ -24,41 +24,40 @@ The `contextmenu` handler method might return an array of menu items, each repre
 | `tooltip`  | Tooltip text displayed on hover.                                   |
 | `submenu`  | Array of submenu items.                                            |
 
-
 ### Translation
 
-You can define translations for default menu items in Jspreadsheet by using `jspreadsheet.setDictionary` as shown below: 
+You can define translations for default menu items in Jspreadsheet by using `jspreadsheet.setDictionary` as shown below:
 
 {.ignore}
+
 ```javascript
 jspreadsheet.setDictionary({
-    'Rename this worksheet': 'Renomear worksheet',
-    'Delete this worksheet': 'Apagar worksheet',
-    'Are you sure?': 'Tem certeza?',
-    'Rename this cell': 'Renomear essa celula',
-    'Cut': 'Cortar',
-    'Copy': 'Copy',
-    'Paste': 'Colar',
-    'Insert a new column before': 'Inserir uma coluna antes',
-    'Insert a new column after': 'Inserior uma coluna depois',
-    'Insert a new column after': 'Inserior uma coluna depois',
-    'Delete selected columns': 'Apagar colunas selecionadas',
-    'Rename this column': 'Renomar essa coluna',
-    'Create a new row': 'Criar uma nova linha',
-    'Order ascending': 'Ordenar asc',
-    'Order descending': 'Ordenar desc',
-    'Insert a new row before': 'Inserir uma linha antes',
-    'Insert a new row after': 'Inserir uma nova linha depois',
-    'Delete selected rows': 'Apagar linhas selecionadas',
-    'Edit notes': 'Editar notas',
-    'Add notes': 'Adicionar notas',
-    'Notes': 'Notas',
-    'Clear notes': 'Apagar notas',
-    'Save as': 'Salvar como',
-    'About': 'Sobre',
+  "Rename this worksheet": "Renomear worksheet",
+  "Delete this worksheet": "Apagar worksheet",
+  "Are you sure?": "Tem certeza?",
+  "Rename this cell": "Renomear essa celula",
+  Cut: "Cortar",
+  Copy: "Copy",
+  Paste: "Colar",
+  "Insert a new column before": "Inserir uma coluna antes",
+  "Insert a new column after": "Inserior uma coluna depois",
+  "Insert a new column after": "Inserior uma coluna depois",
+  "Delete selected columns": "Apagar colunas selecionadas",
+  "Rename this column": "Renomar essa coluna",
+  "Create a new row": "Criar uma nova linha",
+  "Order ascending": "Ordenar asc",
+  "Order descending": "Ordenar desc",
+  "Insert a new row before": "Inserir uma linha antes",
+  "Insert a new row after": "Inserir uma nova linha depois",
+  "Delete selected rows": "Apagar linhas selecionadas",
+  "Edit notes": "Editar notas",
+  "Add notes": "Adicionar notas",
+  Notes: "Notas",
+  "Clear notes": "Apagar notas",
+  "Save as": "Salvar como",
+  About: "Sobre",
 });
 ```
-
 
 Jspreadsheet uses the jSuites [contextmenu plugin](https://jsuites.net/docs/contextmenu). For further details and examples, refer to the documentation.
 
@@ -66,80 +65,94 @@ Jspreadsheet uses the jSuites [contextmenu plugin](https://jsuites.net/docs/cont
 
 ### Customize the contextmenu
 
-Customize the contextmenu with a few basic options depending on the section clicked. 
+Customize the contextmenu with a few basic options depending on the section clicked.
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-// Create a new spreadsheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        data: [
+  <script>
+    // Create a new spreadsheet
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          data: [
             ["Apples", "Produce", 1.5, 10, "=C1*(1-(D1/100))"],
             ["Bread", "Bakery", 3.0, 20, "=C2*(1-(D2/100))"],
             ["Cheese", "Dairy", 5.0, 15, "=C3*(1-(D3/100))"],
             ["Eggs", "Dairy", 2.5, 0, "=C4*(1-(D4/100))"],
-        ],
-        columns: [
-            { title: 'Food', width: '140px' },
-            { title: 'Category' },
-            { title: 'Unit Price' },
-            { title: 'Discount' },
-            { title: 'Total ' },
-         ],
-         allowComments: true,
-    }],
-    contextMenu: function(o, x, y, e, items, section) {
-         // Reset all items
-         let itemsArr = [];
+          ],
+          columns: [
+            { title: "Food", width: "140px" },
+            { title: "Category" },
+            { title: "Unit Price" },
+            { title: "Discount" },
+            { title: "Total " },
+          ],
+          allowComments: true,
+        },
+      ],
+      contextMenu: function (o, x, y, e, items, section) {
+        // Reset all items
+        let itemsArr = [];
 
-         // If the click was in the headers
-         if (section == 'header') {
-            // Items to the header only
-            itemsArr.push({
-                title: jSuites.translate('Execute one action'),
-                onclick: function() {
-                    alert('test')
-                }
-            });
+        // If the click was in the headers
+        if (section == "header") {
+          // Items to the header only
+          itemsArr.push({
+            title: jSuites.translate("Execute one action"),
+            onclick: function () {
+              alert("test");
+            },
+          });
 
-            // Add a line
-            itemsArr.push({ type: 'line' });
-         }
+          // Add a line
+          itemsArr.push({ type: "line" });
+        }
 
-         // Save
-         itemsArr.push({
-             title: jSuites.translate('Save as'),
-             shortcut: 'Ctrl + S',
-             icon: 'save',
-             onclick: function () {
-                 o.download();
-             }
-         });
+        // Save
+        itemsArr.push({
+          title: jSuites.translate("Save as"),
+          shortcut: "Ctrl + S",
+          icon: "save",
+          onclick: function () {
+            o.download();
+          },
+        });
 
-         // About
-         itemsArr.push({
-             title: jSuites.translate('About'),
-             onclick: function() {
-                 alert('https://jspreadsheet.com');
-             }
-         });
+        // About
+        itemsArr.push({
+          title: jSuites.translate("About"),
+          onclick: function () {
+            alert("https://jspreadsheet.com");
+          },
+        });
 
-         return itemsArr;
-     }
-});
-</script>
+        return itemsArr;
+      },
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -149,79 +162,80 @@ import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 // Intercept the context menu
 const contextMenu = (o, x, y, e, items, section) => {
-     // Reset all items
-     items = [];
+  // Reset all items
+  items = [];
 
-     // If the click was in the headers
-     if (section == 'header') {
-        // Items to the header only
-        items.push({
-            title: jSuites.translate('Execute one action'),
-            onclick: function() {
-                alert('test')
-            }
-        });
+  // If the click was in the headers
+  if (section == "header") {
+    // Items to the header only
+    items.push({
+      title: jSuites.translate("Execute one action"),
+      onclick: function () {
+        alert("test");
+      },
+    });
 
-        // Add a line
-        items.push({ type: 'line' });
-     }
+    // Add a line
+    items.push({ type: "line" });
+  }
 
-     // Save
-     items.push({
-         title: jSuites.translate('Save as'),
-         shortcut: 'Ctrl + S',
-         icon: 'save',
-         onclick: function () {
-             o.download();
-         }
-     });
+  // Save
+  items.push({
+    title: jSuites.translate("Save as"),
+    shortcut: "Ctrl + S",
+    icon: "save",
+    onclick: function () {
+      o.download();
+    },
+  });
 
-     // About
-     items.push({
-         title: jSuites.translate('About'),
-         onclick: function() {
-             alert('https://jspreadsheet.com');
-         }
-     });
+  // About
+  items.push({
+    title: jSuites.translate("About"),
+    onclick: function () {
+      alert("https://jspreadsheet.com");
+    },
+  });
 
-     return items;
-}
+  return items;
+};
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Data
-    const data = [
-        ["Apples", "Produce", 1.5, 10, "=C1*(1-(D1/100))"],
-        ["Bread", "Bakery", 3.0, 20, "=C2*(1-(D2/100))"],
-        ["Cheese", "Dairy", 5.0, 15, "=C3*(1-(D3/100))"],
-        ["Eggs", "Dairy", 2.5, 0, "=C4*(1-(D4/100))"],
-    ];
-    // Columns
-    const columns = [
-        { title: 'Food', width: '140px' },
-        { title: 'Category' },
-        { title: 'Unit Price' },
-        { title: 'Discount' },
-        { title: 'Total ' },
-    ];
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Data
+  const data = [
+    ["Apples", "Produce", 1.5, 10, "=C1*(1-(D1/100))"],
+    ["Bread", "Bakery", 3.0, 20, "=C2*(1-(D2/100))"],
+    ["Cheese", "Dairy", 5.0, 15, "=C3*(1-(D3/100))"],
+    ["Eggs", "Dairy", 2.5, 0, "=C4*(1-(D4/100))"],
+  ];
+  // Columns
+  const columns = [
+    { title: "Food", width: "140px" },
+    { title: "Category" },
+    { title: "Unit Price" },
+    { title: "Discount" },
+    { title: "Total " },
+  ];
 
-    return (
-        <Spreadsheet ref={spreadsheet} contextMenu={contextMenu}>
-            <Worksheet data={data} columns={columns} />
-        </Spreadsheet>
-    );
+  return (
+    <Spreadsheet ref={spreadsheet} contextMenu={contextMenu}>
+      <Worksheet data={data} columns={columns} />
+    </Spreadsheet>
+  );
 }
 ```
+
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheetRef" :context-menu="contextMenu">
-        <Worksheet :data="data" :columns="columns" />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheetRef" :context-menu="contextMenu">
+    <Worksheet :data="data" :columns="columns" />
+  </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import jSuites from "jsuites";
 import "jsuites/dist/jsuites.css";
@@ -232,62 +246,63 @@ const spreadsheetRef = ref(null);
 
 // Data
 const data = ref([
-    ["Apples", "Produce", 1.5, 10, "=C1*(1-(D1/100))"],
-    ["Bread", "Bakery", 3.0, 20, "=C2*(1-(D2/100))"],
-    ["Cheese", "Dairy", 5.0, 15, "=C3*(1-(D3/100))"],
-    ["Eggs", "Dairy", 2.5, 0, "=C4*(1-(D4/100))"],
+  ["Apples", "Produce", 1.5, 10, "=C1*(1-(D1/100))"],
+  ["Bread", "Bakery", 3.0, 20, "=C2*(1-(D2/100))"],
+  ["Cheese", "Dairy", 5.0, 15, "=C3*(1-(D3/100))"],
+  ["Eggs", "Dairy", 2.5, 0, "=C4*(1-(D4/100))"],
 ]);
 
 // Columns
 const columns = ref([
-    { title: 'Food', width: '140px' },
-    { title: 'Category' },
-    { title: 'Unit Price' },
-    { title: 'Discount' },
-    { title: 'Total ' },
+  { title: "Food", width: "140px" },
+  { title: "Category" },
+  { title: "Unit Price" },
+  { title: "Discount" },
+  { title: "Total " },
 ]);
 
 // Intercept the context menu
 const contextMenu = (o, x, y, e, items, section) => {
-     // Reset all items
-     items = [];
+  // Reset all items
+  items = [];
 
-     // If the click was in the headers
-     if (section == 'header') {
-        // Items to the header only
-        items.push({
-            title: jSuites.translate('Execute one action'),
-            onclick: function() {
-                alert('test')
-            }
-        });
+  // If the click was in the headers
+  if (section == "header") {
+    // Items to the header only
+    items.push({
+      title: jSuites.translate("Execute one action"),
+      onclick: function () {
+        alert("test");
+      },
+    });
 
-        // Add a line
-        items.push({ type: 'line' });
-     }
+    // Add a line
+    items.push({ type: "line" });
+  }
 
-     // Save
-     items.push({
-         title: jSuites.translate('Save as'),
-         shortcut: 'Ctrl + S',
-         icon: 'save',
-         onclick: function () {
-             o.download();
-         }
-     });
+  // Save
+  items.push({
+    title: jSuites.translate("Save as"),
+    shortcut: "Ctrl + S",
+    icon: "save",
+    onclick: function () {
+      o.download();
+    },
+  });
 
-     // About
-     items.push({
-         title: jSuites.translate('About'),
-         onclick: function() {
-             alert('https://jspreadsheet.com');
-         }
-     });
+  // About
+  items.push({
+    title: jSuites.translate("About"),
+    onclick: function () {
+      alert("https://jspreadsheet.com");
+    },
+  });
 
-     return items;
+  return items;
 };
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -369,35 +384,48 @@ export class AppComponent {
 }
 ```
 
-
 ### Disable the Context Menu
 
 To disable the context menu in Jspreadsheet, define a contextMenu method that returns false.
 
 ```html
 <html>
-<script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+  <script src="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.js"></script>
+  <script src="https://jsuites.net/v5/jsuites.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://bossanova.uk/jspreadsheet/v5/jspreadsheet.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://jsuites.net/v5/jsuites.css"
+    type="text/css"
+  />
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Material+Icons"
+  />
 
-<div id="spreadsheet"></div>
+  <div id="spreadsheet"></div>
 
-<script>
-// Create the spreadsheet
-jspreadsheet(document.getElementById('spreadsheet'), {
-    worksheets: [{
-        minDimensions: [4,4],
-    }],
-    contextMenu: function() {
+  <script>
+    // Create the spreadsheet
+    jspreadsheet(document.getElementById("spreadsheet"), {
+      worksheets: [
+        {
+          minDimensions: [4, 4],
+        },
+      ],
+      contextMenu: function () {
         return false;
-    }
-});
-</script>
+      },
+    });
+  </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/react";
@@ -414,21 +442,22 @@ export default function App() {
   };
 
   return (
-      <Spreadsheet ref={spreadsheet} contextMenu={contextMenu}>
-        <Worksheet minDimensions={[10,10]} />
-      </Spreadsheet>
+    <Spreadsheet ref={spreadsheet} contextMenu={contextMenu}>
+      <Worksheet minDimensions={[10, 10]} />
+    </Spreadsheet>
   );
 }
 ```
+
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheetRef" :context-menu="contextMenu">
-        <Worksheet :min-dimensions="[4,4]" />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheetRef" :context-menu="contextMenu">
+    <Worksheet :min-dimensions="[4, 4]" />
+  </Spreadsheet>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Spreadsheet, Worksheet } from "@jspreadsheet-ce/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet-ce/dist/jspreadsheet.css";
@@ -438,10 +467,11 @@ const spreadsheetRef = ref(null);
 
 // Disable the context menu
 const contextMenu = () => {
-    return false;
+  return false;
 };
 </script>
 ```
+
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet-ce";
@@ -474,4 +504,3 @@ export class AppComponent {
     }
 }
 ```
- 

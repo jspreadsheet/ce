@@ -5,8 +5,8 @@ canonical: https://bossanova.uk/jspreadsheet/contact
 
 <div class="home">
 
-
 {data-text="Jspreadsheet" .center}
+
 # Contact Us
 
 <br><br>
@@ -16,11 +16,11 @@ canonical: https://bossanova.uk/jspreadsheet/contact
 
 #### Upgrades
 
-Looking for more information? 
+Looking for more information?
 
 Email: [contact@jspreadsheet.com](mailto:contact@jspreadsheet.com)
 
-[Contact Us](mailto:contact@jspreadsheet.com){.button .dark target="_blank"}
+[Contact Us](mailto:contact@jspreadsheet.com){.button .dark target="\_blank"}
 
 </div><div>
 
@@ -30,17 +30,17 @@ Professional Technical Support
 
 Email: [support@jspreadsheet.com](mailto:support@jspreadsheet.com)
 
-[Talk to us](mailto:support@jspreadsheet.com){.button .dark target="_blank"}
+[Talk to us](mailto:support@jspreadsheet.com){.button .dark target="\_blank"}
 
 </div><div>
 
 #### Github
 
-GitHub repository: 
+GitHub repository:
 
 [https://github.com/jspreadsheet/ce](https://github.com/jspreadsheet/ce)
 
-[![GitHub](img/github-logo.svg)](https://github.com/jspreadsheet/ce){target="_blank"}
+[![GitHub](img/github-logo.svg)](https://github.com/jspreadsheet/ce){target="\_blank"}
 
 </div>
 </div>
