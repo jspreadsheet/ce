@@ -188,12 +188,10 @@ export const executeFormula = function (expression, x, y) {
                 for (let i = 0; i < tokens.length; i++) {
                     // Keep chain
                     if (!obj.formula[tokens[i]]) {
-                        obj.formula[tokens[i]] = [];
+                        obj.formula[tokens[i]] = new Set();
                     }
                     // Is already in the register
-                    if (obj.formula[tokens[i]].indexOf(parentId) < 0) {
-                        obj.formula[tokens[i]].push(parentId);
-                    }
+                    obj.formula[tokens[i]].add(parentId);
 
                     // Do not calculate again
                     if (typeof globalThis[tokens[i]] == 'undefined') {
@@ -773,7 +771,7 @@ export const updateFormulaChain = function (x, y, records) {
     const obj = this;
 
     const cellId = getColumnNameFromId([x, y]);
-    if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
+    if (obj.formula[cellId] && obj.formula[cellId].size > 0) {
         if (chainLoopProtection[cellId]) {
             obj.records[y][x].element.innerHTML = '#ERROR';
             obj.formula[cellId] = '';
@@ -781,15 +779,15 @@ export const updateFormulaChain = function (x, y, records) {
             // Protection
             chainLoopProtection[cellId] = true;
 
-            for (let i = 0; i < obj.formula[cellId].length; i++) {
-                const cell = getIdFromColumnName(obj.formula[cellId][i], true);
+            for (const n of obj.formula[cellId]) {
+                const cell = getIdFromColumnName(n, true);
                 // Update cell
                 const value = '' + obj.options.data[cell[1]][cell[0]];
                 if (value.substr(0, 1) == '=') {
                     records.push(updateCell.call(obj, cell[0], cell[1], value, true));
                 } else {
                     // No longer a formula, remove from the chain
-                    Object.keys(obj.formula)[i] = null;
+                    obj.formula[cellId].delete(n);
                 }
                 updateFormulaChain.call(obj, cell[0], cell[1], records);
             }
@@ -874,13 +872,12 @@ const updateFormulas = function (referencesToUpdate) {
             key = referencesToUpdate[key];
         }
         // Update values
-        formula[key] = [];
-        for (let i = 0; i < value.length; i++) {
-            let letter = value[i];
+        formula[key] = new Set();
+        for (let letter of value) {
             if (referencesToUpdate[letter]) {
                 letter = referencesToUpdate[letter];
             }
-            formula[key].push(letter);
+            formula[key].add(letter);
         }
     }
     obj.formula = formula;
