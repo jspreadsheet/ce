@@ -175,9 +175,10 @@ export const executeFormula = function (expression, x, y) {
 
         // Get tokens
         tokens = expression.match(/([A-Z]+[0-9]+)/g);
+        tokens = new Set(tokens);
 
         // Direct self-reference protection
-        if (tokens && tokens.indexOf(parentId) > -1) {
+        if (tokens && tokens.has(parentId)) {
             console.error('Self Reference detected');
             return '#ERROR';
         } else {
@@ -185,50 +186,49 @@ export const executeFormula = function (expression, x, y) {
             const formulaExpressions = {};
 
             if (tokens) {
-                for (let i = 0; i < tokens.length; i++) {
+                for (const t of tokens) {
                     // Keep chain
-                    if (!obj.formula[tokens[i]]) {
-                        obj.formula[tokens[i]] = new Set();
+                    if (!obj.formula[t]) {
+                        obj.formula[t] = new Set();
                     }
                     // Is already in the register
-                    obj.formula[tokens[i]].add(parentId);
+                    obj.formula[t].add(parentId);
 
                     // Do not calculate again
-                    if (typeof globalThis[tokens[i]] == 'undefined') {
+                    if (!(t in globalThis)) {
                         // Coords
-                        const position = getIdFromColumnName(tokens[i], 1);
+                        const position = getIdFromColumnName(t, 1);
                         // Get value
                         let value;
 
-                        if (typeof obj.options.data[position[1]] != 'undefined' && typeof obj.options.data[position[1]][position[0]] != 'undefined') {
+                        if (position[1] in obj.options.data && position[0] in obj.options.data[position[1]]) {
                             value = obj.options.data[position[1]][position[0]];
                         } else {
                             value = '';
                         }
                         // Get column data
                         if (('' + value).substr(0, 1) == '=') {
-                            if (typeof formulaResults[tokens[i]] !== 'undefined') {
-                                value = formulaResults[tokens[i]];
+                            if (t in formulaResults) {
+                                value = formulaResults[t];
                             } else {
                                 value = execute(value, position[0], position[1]);
-                                formulaResults[tokens[i]] = value;
+                                formulaResults[t] = value;
                             }
                         }
                         // Type!
                         if (('' + value).trim() == '') {
-                            // Null
-                            formulaExpressions[tokens[i]] = null;
+                            delete formulaExpressions[t];
                         } else {
                             if (value == Number(value) && obj.parent.config.autoCasting != false) {
                                 // Number
-                                formulaExpressions[tokens[i]] = Number(value);
+                                formulaExpressions[t] = Number(value);
                             } else {
                                 // Trying any formatted number
                                 const number = parseNumber.call(obj, value, position[0]);
                                 if (obj.parent.config.autoCasting != false && number) {
-                                    formulaExpressions[tokens[i]] = number;
+                                    formulaExpressions[t] = number;
                                 } else {
-                                    formulaExpressions[tokens[i]] = '"' + value + '"';
+                                    formulaExpressions[t] = value;
                                 }
                             }
                         }
