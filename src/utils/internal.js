@@ -228,7 +228,7 @@ export const executeFormula = function (expression, x, y) {
                                 if (obj.parent.config.autoCasting != false && number) {
                                     formulaExpressions[t] = number;
                                 } else {
-                                    formulaExpressions[t] = value;
+                                    formulaExpressions[t] = '"' + value + '"';
                                 }
                             }
                         }
