@@ -289,3 +289,4 @@ Jspreadsheet CE is released under the [MIT license]. Contact contact@jspreadshee
 
 -   [LemonadeJS Reactive Library](https://lemonadejs.com)
 -   [jSuites Components](https://jsuites.net)
+-   [CalendarJS](https://calendarjs.com)
