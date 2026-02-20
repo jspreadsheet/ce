@@ -920,8 +920,75 @@ export class AppComponent {
 ```
  
 
+## Calendar Component Library
+
+### CalendarJS - Full Calendar & Scheduling Solution
+[CalendarJS](https://calendarjs.com/docs/calendar) is a complete calendar and scheduling platform (like Google Calendar) for building calendar applications outside the spreadsheet. Perfect for:
+- **Event scheduling systems** with drag & drop
+- **Appointment calendars** and booking systems
+- **Timeline displays** for project management
+- **Date pickers and filters** for your spreadsheet data
+- **Resource scheduling** and availability tracking
+
+**CalendarJS Includes:**
+- **Calendar** - Date picker component with range selection (3.18KB)
+- **Schedule** - Event scheduler with day/week views & drag-drop (4.2KB)
+- **Timeline** - Chronological event display
+- Advanced keyboard navigation with ARIA support
+- Excel-compatible date formats
+
+**[Explore CalendarJS →](https://calendarjs.com/docs/calendar)** | **[View Schedule Component →](https://calendarjs.com/docs/schedule)**
+
+---
+
+### LemonadeJS Calendar - Reactive Date Picker
+For reactive applications, [LemonadeJS Calendar](https://lemonadejs.net/docs/plugins/calendar) provides two-way data binding with your spreadsheet state.
+
+**Use Cases:**
+- Reactive filters that automatically update the spreadsheet
+- Real-time date synchronization across components
+- Vue/React-like reactive patterns
+
+**[View LemonadeJS Calendar Documentation →](https://lemonadejs.net/docs/plugins/calendar)**
+
+---
+
+### Jspreadsheet Pro - Enhanced Calendar Features
+Upgrade to [Jspreadsheet Pro](https://jspreadsheet.com/docs/date) for enhanced calendar functionality including:
+- LemonadeJS Calendar integration
+- Improved accessibility and ARIA support
+- Additional date operations and formulas
+- Advanced customization options
+
+**[View Jspreadsheet Pro Date Documentation →](https://jspreadsheet.com/docs/date)**
+
+---
+
+### Comparison: Calendar Options for Jspreadsheet CE
+
+| Feature                    | Jspreadsheet CE Date | CalendarJS | LemonadeJS Calendar | Jspreadsheet Pro |
+|----------------------------|---------------------|------------|---------------------|------------------|
+| **In-cell date editing**   | ✓                   | -          | -                   | ✓                |
+| **External date picker**   | -                   | ✓          | ✓                   | ✓                |
+| **Reactive binding**       | -                   | -          | ✓                   | -                |
+| **Excel date format**      | ✓                   | ✓          | ✓                   | ✓                |
+| **ARIA support**           | Basic               | ✓✓         | ✓✓                  | ✓✓               |
+| **Range selection**        | ✓                   | ✓          | ✓                   | ✓                |
+| **Best for**               | CE grid cells       | Standalone | Reactive apps       | Pro grid cells   |
+
+---
+
 ## Related content
 
-  * The Jspreadsheet calendar types uses the jSuites [JavaScript Calendar](https://jsuites.net/docs/javascript-calendar) component.
+**Calendar Components:**
+- [CalendarJS](https://calendarjs.com/docs/calendar) - Standalone calendar and date picker
+- [LemonadeJS Calendar](https://lemonadejs.net/docs/plugins/calendar) - Reactive calendar component
+- [jSuites Calendar](https://jsuites.net/docs/javascript-calendar) - Calendar used by Jspreadsheet CE
+- [Jspreadsheet Pro Date](https://jspreadsheet.com/docs/date) - Enhanced calendar features
+
+**Related Jspreadsheet CE Features:**
+- [Cell Formatting](./format) - Format dates in cells
+- [Custom Formulas](./custom-formulas) - Create date calculations
+- [Headers](./headers) - Column headers and titles
 
 
