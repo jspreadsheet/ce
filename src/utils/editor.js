@@ -73,7 +73,7 @@ export const openEditor = function (cell, empty, e) {
                 // Get current value
                 let value = obj.options.data[y][x];
                 if (obj.options.columns[x].multiple && !Array.isArray(value)) {
-                    value = value.split(';');
+                    value = value.split(obj.options.columns[x].delimiter || ';');
                 }
 
                 // Create dropdown
@@ -297,7 +297,10 @@ export const closeEditor = function (cell, save) {
             ) {
                 // Do nothing
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'dropdown') {
-                value = cell.children[0].dropdown.close(true);
+                const dropdown = cell.children[0].dropdown;
+                const delimiter = obj.options.columns[x].delimiter;
+                dropdown.close(true);
+                value = delimiter && obj.options.columns[x].multiple ? dropdown.getValue(true).join(delimiter) : dropdown.getValue();
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'calendar') {
                 value = cell.children[0].calendar.close(true);
             } else if (obj.options.columns && obj.options.columns[x] && obj.options.columns[x].type == 'color') {
