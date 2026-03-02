@@ -57,7 +57,7 @@ export const createRow = function (j, data) {
     td.className = 'jss_row';
     row.element.appendChild(td);
 
-    const numberOfColumns = getNumberOfColumns.call(obj);
+    const numberOfColumns = obj.headers.length || getNumberOfColumns.call(obj);
 
     // Data columns
     for (let i = 0; i < numberOfColumns; i++) {
