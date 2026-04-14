@@ -175,9 +175,10 @@ export const executeFormula = function (expression, x, y) {
 
         // Get tokens
         tokens = expression.match(/([A-Z]+[0-9]+)/g);
+        tokens = new Set(tokens);
 
         // Direct self-reference protection
-        if (tokens && tokens.indexOf(parentId) > -1) {
+        if (tokens && tokens.has(parentId)) {
             console.error('Self Reference detected');
             return '#ERROR';
         } else {
@@ -185,52 +186,49 @@ export const executeFormula = function (expression, x, y) {
             const formulaExpressions = {};
 
             if (tokens) {
-                for (let i = 0; i < tokens.length; i++) {
+                for (const t of tokens) {
                     // Keep chain
-                    if (!obj.formula[tokens[i]]) {
-                        obj.formula[tokens[i]] = [];
+                    if (!obj.formula[t]) {
+                        obj.formula[t] = new Set();
                     }
                     // Is already in the register
-                    if (obj.formula[tokens[i]].indexOf(parentId) < 0) {
-                        obj.formula[tokens[i]].push(parentId);
-                    }
+                    obj.formula[t].add(parentId);
 
                     // Do not calculate again
-                    if (eval('typeof(' + tokens[i] + ') == "undefined"')) {
+                    if (!(t in globalThis)) {
                         // Coords
-                        const position = getIdFromColumnName(tokens[i], 1);
+                        const position = getIdFromColumnName(t, 1);
                         // Get value
                         let value;
 
-                        if (typeof obj.options.data[position[1]] != 'undefined' && typeof obj.options.data[position[1]][position[0]] != 'undefined') {
+                        if (position[1] in obj.options.data && position[0] in obj.options.data[position[1]]) {
                             value = obj.options.data[position[1]][position[0]];
                         } else {
                             value = '';
                         }
                         // Get column data
                         if (('' + value).substr(0, 1) == '=') {
-                            if (typeof formulaResults[tokens[i]] !== 'undefined') {
-                                value = formulaResults[tokens[i]];
+                            if (t in formulaResults) {
+                                value = formulaResults[t];
                             } else {
                                 value = execute(value, position[0], position[1]);
-                                formulaResults[tokens[i]] = value;
+                                formulaResults[t] = value;
                             }
                         }
                         // Type!
                         if (('' + value).trim() == '') {
-                            // Null
-                            formulaExpressions[tokens[i]] = null;
+                            delete formulaExpressions[t];
                         } else {
                             if (value == Number(value) && obj.parent.config.autoCasting != false) {
                                 // Number
-                                formulaExpressions[tokens[i]] = Number(value);
+                                formulaExpressions[t] = Number(value);
                             } else {
                                 // Trying any formatted number
                                 const number = parseNumber.call(obj, value, position[0]);
                                 if (obj.parent.config.autoCasting != false && number) {
-                                    formulaExpressions[tokens[i]] = number;
+                                    formulaExpressions[t] = number;
                                 } else {
-                                    formulaExpressions[tokens[i]] = '"' + value + '"';
+                                    formulaExpressions[t] = '"' + value + '"';
                                 }
                             }
                         }
@@ -773,7 +771,7 @@ export const updateFormulaChain = function (x, y, records) {
     const obj = this;
 
     const cellId = getColumnNameFromId([x, y]);
-    if (obj.formula[cellId] && obj.formula[cellId].length > 0) {
+    if (obj.formula[cellId] && obj.formula[cellId].size > 0) {
         if (chainLoopProtection[cellId]) {
             obj.records[y][x].element.innerHTML = '#ERROR';
             obj.formula[cellId] = '';
@@ -781,15 +779,15 @@ export const updateFormulaChain = function (x, y, records) {
             // Protection
             chainLoopProtection[cellId] = true;
 
-            for (let i = 0; i < obj.formula[cellId].length; i++) {
-                const cell = getIdFromColumnName(obj.formula[cellId][i], true);
+            for (const n of obj.formula[cellId]) {
+                const cell = getIdFromColumnName(n, true);
                 // Update cell
                 const value = '' + obj.options.data[cell[1]][cell[0]];
                 if (value.substr(0, 1) == '=') {
                     records.push(updateCell.call(obj, cell[0], cell[1], value, true));
                 } else {
                     // No longer a formula, remove from the chain
-                    Object.keys(obj.formula)[i] = null;
+                    obj.formula[cellId].delete(n);
                 }
                 updateFormulaChain.call(obj, cell[0], cell[1], records);
             }
@@ -874,13 +872,12 @@ const updateFormulas = function (referencesToUpdate) {
             key = referencesToUpdate[key];
         }
         // Update values
-        formula[key] = [];
-        for (let i = 0; i < value.length; i++) {
-            let letter = value[i];
+        formula[key] = new Set();
+        for (let letter of value) {
             if (referencesToUpdate[letter]) {
                 letter = referencesToUpdate[letter];
             }
-            formula[key].push(letter);
+            formula[key].add(letter);
         }
     }
     obj.formula = formula;
