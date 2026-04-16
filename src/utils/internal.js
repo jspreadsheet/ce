@@ -341,7 +341,8 @@ const getDropDownValue = function (column, key) {
         }
 
         // Guarantee single multiple compatibility
-        const keys = Array.isArray(key) ? key : ('' + key).split(';');
+        const delimiter = obj.options.columns[column].delimiter || ';';
+        const keys = Array.isArray(key) ? key : ('' + key).split(delimiter);
 
         for (let i = 0; i < keys.length; i++) {
             if (typeof keys[i] === 'object') {
@@ -356,7 +357,8 @@ const getDropDownValue = function (column, key) {
         console.error('Invalid column');
     }
 
-    return value.length > 0 ? value.join('; ') : '';
+    const displayDelimiter = obj.options.columns[column].delimiter || '; ';
+    return value.length > 0 ? value.join(displayDelimiter) : '';
 };
 
 const validDate = function (date) {
