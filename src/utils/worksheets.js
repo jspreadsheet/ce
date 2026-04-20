@@ -30,7 +30,7 @@ import {
     selectAll,
     updateSelectionFromCoords,
 } from './selection.js';
-import { deleteRow, getHeight, getRowData, hideRow, insertRow, moveRow, setHeight, setRowData, showRow } from './rows.js';
+import { deleteRow, getHeight, getRowData, hideRow, insertRow, moveRow, scrollToRow, setHeight, setRowData, showRow } from './rows.js';
 import { destroyMerge, getMerge, removeMerge, setMerge } from './merges.js';
 import { resetSearch, search } from './search.js';
 import { getHeader, getHeaders, setHeader } from './headers.js';
@@ -270,6 +270,8 @@ const createTable = function () {
             obj.content.style.width = typeof obj.options.tableWidth === 'string' ? obj.options.tableWidth : obj.options.tableWidth + 'px';
         }
     }
+
+    obj.content.style.scrollPaddingTop = `${obj.thead.offsetHeight}px`;
 
     // With toolbars
     if (obj.options.tableOverflow != true && obj.parent.config.toolbar) {
@@ -611,6 +613,7 @@ const worksheetPublicMethods = [
         },
     ],
     ['insertRow', insertRow],
+    ['scrollToRow', scrollToRow],
     [
         'moveRow',
         function (rowNumber, newPositionNumber) {
