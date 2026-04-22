@@ -9,7 +9,8 @@ import { getFreezeWidth } from './freeze.js';
 import { updatePagination } from './pagination.js';
 import { setFooter } from './footer.js';
 import { getColumnNameFromId, getIdFromColumnName } from './internalHelpers.js';
-
+import formulasTranslater from './formulasTranslater.json';
+const locale = (navigator.language || navigator.userLanguage).replace('-', '_') || 'en_US';
 export const updateTable = function () {
     const obj = this;
 
@@ -104,6 +105,19 @@ const parseNumber = function (value, columnNumber) {
 
     return value;
 };
+
+/**
+ * Use a dictionary to translate formula names
+ * @param {} formula
+ * @returns
+ */
+function translateFormula(formula) {
+    const dict = formulasTranslater[locale] || {};
+    return formula.replace(/^=([A-ZÉÈÀÙÂÊÎÔÛÇ]+)\s*\(/i, function (match, p1) {
+        const fn = dict[p1.toUpperCase()];
+        return fn ? '=' + fn + '(' : match;
+    });
+}
 
 /**
  * Parse formulas
@@ -212,7 +226,7 @@ export const executeFormula = function (expression, x, y) {
                             if (typeof formulaResults[tokens[i]] !== 'undefined') {
                                 value = formulaResults[tokens[i]];
                             } else {
-                                value = execute(value, position[0], position[1]);
+                                value = execute(translateFormula(value), position[0], position[1]);
                                 formulaResults[tokens[i]] = value;
                             }
                         }
@@ -266,7 +280,7 @@ export const executeFormula = function (expression, x, y) {
         }
     };
 
-    return execute(expression, x, y);
+    return execute(translateFormula(expression), x, y);
 };
 
 export const parseValue = function (i, j, value, cell) {
