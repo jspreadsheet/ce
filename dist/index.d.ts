@@ -880,6 +880,11 @@ declare namespace jspreadsheet {
         parseFormulas?: boolean;
 
         /**
+         * Spreadsheet plugins.
+         */
+        plugins?: Record<string, () => Plugin>;
+
+        /**
          * Function used in sorting columns. If not specified, the default function will be used.
          * @param order - Sorting direction. 0 for ascending and 1 for descending.
          */
@@ -1122,11 +1127,6 @@ declare namespace jspreadsheet {
         persistence?: boolean | string;
 
         /**
-         * Spreadsheet plugins.
-         */
-        plugins?: Record<string, () => Plugin>;
-
-        /**
          * DOM element for binding the javascript events. This property is normally used when JSS is running as a web component.
          */
         root?: HTMLElement;
@@ -1297,11 +1297,6 @@ declare namespace jspreadsheet {
         beforeinit?: (instance: WorksheetInstance) => void;
 
         /**
-         * Get spreadsheet config information.
-         */
-        getConfig: () => SpreadsheetOptions;
-
-        /**
          * This method is called when a worksheet is created.
          * @param instance - New worksheet instance.
          */
@@ -1378,6 +1373,11 @@ declare namespace jspreadsheet {
          * @param activate - Desired mode. Default: The opposite of the current mode.
          */
         fullscreen: (activate?: boolean) => void;
+
+        /**
+         * Get spreadsheet config information.
+         */
+        getConfig: () => SpreadsheetOptions;
 
         /**
          * Get the index of the currently active worksheet
