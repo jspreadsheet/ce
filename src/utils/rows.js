@@ -6,6 +6,7 @@ import { isRowMerged } from './merges.js';
 import { conditionalSelectionUpdate, getSelectedRows, updateCornerPosition } from './selection.js';
 import { setHistory } from './history.js';
 import { getColumnNameFromId } from './internalHelpers.js';
+import { loadPage } from './lazyLoading.js';
 
 /**
  * Create row
@@ -615,4 +616,30 @@ export const setRowData = function (rowNumber, data, force) {
             obj.setValue(columnName, data[i], force);
         }
     }
+};
+
+/**
+ * Scrolls to a specific row
+ *
+ * @param {number} rowNumber - The row number to scroll to (0-based)
+ * @param {{block?: 'start' | 'center' | 'end' | 'nearest'; inline?: 'start' | 'center' | 'end' | 'nearest'}} options - Options
+ *     - block: 'start' | 'center' | 'end' | 'nearest' (vertical alignment)
+ *     - inline: 'start' | 'center' | 'end' | 'nearest' (horizontal alignment)
+ * @returns {void}
+ */
+export const scrollToRow = function (rowNumber, options = {}) {
+    const item = this.rows[rowNumber];
+    if (!item) {
+        console.error(`Jspreadsheet: Row ${rowNumber} was not found`);
+        return;
+    }
+
+    if (!item.element.parentElement) {
+        const quantityPerPage = 100;
+        const firstRowToRender = rowNumber - quantityPerPage / 2;
+        const page = Number((firstRowToRender / quantityPerPage).toFixed(1));
+        loadPage.call(this, Math.max(page, 0));
+    }
+
+    item.element.scrollIntoView({ ...options, behavior: 'instant' });
 };
