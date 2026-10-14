@@ -165,8 +165,10 @@ export const executeFormula = function (expression, x, y) {
             }
         };
 
-        // Range with $ remove $
-        expression = expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g, '$1$2');
+        // Range with $ remove $ (string literals are kept untouched)
+        expression = expression.replace(/("(?:[^"]|"")*")|\$?([A-Z]+)\$?([0-9]+)/g, function (match, literal, column, row) {
+            return literal ? literal : column + row;
+        });
 
         let tokens = expression.match(/([A-Z]+[0-9]+):([A-Z]+[0-9]+)/g);
         if (tokens && tokens.length) {

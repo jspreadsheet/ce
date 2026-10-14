@@ -25,6 +25,27 @@ describe('Calculations', () => {
         expect(test[0].getValue('B5', true)).to.equal('5');
     });
 
+    it('Keeps special characters inside string literals', () => {
+        let test = jspreadsheet(root, {
+            worksheets: [
+                {
+                    data: [
+                        ['="Total: $"&"100"', '="Smith & Co"', '="A1 <> $B$2 ^ 2!"', '="Say ""hi"" & bye"'],
+                        ['10', '="Value: $"&A2', '=B1&" "&A2', '="a=b"&"!"'],
+                    ],
+                },
+            ],
+        });
+
+        expect(test[0].getValue('A1', true)).to.equal('Total: $100');
+        expect(test[0].getValue('B1', true)).to.equal('Smith &amp; Co');
+        expect(test[0].getValue('C1', true)).to.equal('A1 &lt;&gt; $B$2 ^ 2!');
+        expect(test[0].getValue('D1', true)).to.equal('Say "hi" &amp; bye');
+        expect(test[0].getValue('B2', true)).to.equal('Value: $10');
+        expect(test[0].getValue('C2', true)).to.equal('Smith &amp; Co 10');
+        expect(test[0].getValue('D2', true)).to.equal('a=b!');
+    });
+
     describe('Test updating formulas when adding new rows', () => {
         it('1', () => {
             let test = jspreadsheet(root, {
