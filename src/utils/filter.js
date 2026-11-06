@@ -18,8 +18,8 @@ export const openFilter = function (columnId) {
         // Load options
         let optionsFiltered = [];
         if (obj.options.columns[columnId].type == 'checkbox') {
-            optionsFiltered.push({ id: 'true', name: 'True' });
-            optionsFiltered.push({ id: 'false', name: 'False' });
+            optionsFiltered.push({ id: 'true', name: jSuites.translate('True') });
+            optionsFiltered.push({ id: 'false', name: jSuites.translate('False') });
         } else {
             const options = [];
             let hasBlanks = false;
@@ -39,7 +39,7 @@ export const openFilter = function (columnId) {
             }
             // Has blank options
             if (hasBlanks) {
-                optionsFiltered.push({ value: '', id: '', name: '(Blanks)' });
+                optionsFiltered.push({ value: '', id: '', name: jSuites.translate('(Blanks)') });
             }
         }
 
